@@ -1,0 +1,19 @@
+**Date Inference System**
+
+Start dates cascade from the earliest active child. For a goal, look at all direct children — projects, intervals, and standalone actions. The child with the closest start date (or earliest done date if work has already started) sets the goal's start date. For projects, the earliest action within that project sets the project's start date. For intervals, the interval's own start date counts.
+
+End dates cascade from the furthest active child. The child with the latest end date or to-do date sets the parent's end date. Milestones are excluded from this calculation since they represent predictions, not commitments. Ignored actions (those with to-do dates before today) are also excluded — they're historical and can't affect forward-looking dates.
+
+**Status Inference System**
+
+Status bubbles up based on the states of children. A parent is in progress if any child has in-progress actions or is itself in progress. A parent is TBD if all children are TBD. A parent is marked as having ignored actions if some children contain ignored actions — this still counts as in progress since there's mixed state. A parent is only fully done if all children are done.
+
+For projects specifically, the inferred status reflects whether the project has in-progress actions, done actions, TBD actions, or ignored actions, and combines these into a single status for the project itself.
+
+For goals, apply the same logic but across all children — projects, intervals, and standalone actions.
+
+**Data Flow and Connections**
+
+When a child entity changes state or date, its parent automatically recalculates. An action changes to done, the project recalculates its status and end date. A project's last action shifts to a later date, the goal recalculates its end date. This is reactive — no manual updates needed.
+
+Display the inferred dates and status on both projects and goals in the UI so users see the cascading picture without doing mental math.

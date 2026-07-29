@@ -1,0 +1,31 @@
+Five main pillars
+Learn
+Reflect
+Organize
+Maintain
+Envision
+
+Learn
+This module includes multiple sets of courses with each set attempting to achieve a higher capaility - This blends in the idea that for a "capability" to be earned involves certain mindsets, concepts, and skills, to be earned. Sets of courses can either be followed together or independantly. One set example below:
+
+Empathy capability
+Need module
+Emotion module
+Reality recognition (vs. reality) module
+Request making module
+empathy module
+(includes mindsets on emotions, human values, goodness of humankind)
+
+This learn module eventually needs a blank clean learning module as well where user can enter what they wish to learn and what's the context - how much they know and how much they need to actually learn, and system would create a learnig schedule and provide the content for them.
+
+Reflect
+This module is an easy interactive tool which aims to map user's daily routine in a specific way: It aims to know how much time user spends answering what need and how effective that strategy is, without knowing exactly what the user does throughout the day and what their strategies are.
+
+Organize
+This is the tracker app that we have rn. It aims to help user create realistic goals and accompany them in achieving it. Here users can also organize and track their tasks and routines but that's a secondary and not the focus.
+
+Maintain
+This aims to recognize certain batteries (physical, mental, spiritual) which need to be maintained in order to keep healthy function through the system, and then try to keep the user wary of them, making suggestions and warnings where and if needed.
+
+Envision
+This finally helps in bringing a vision of the future into real words - this finally aims to bring the impossible into reality and it binds into every other module to bring that vision into reality.

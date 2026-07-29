@@ -1,0 +1,9 @@
+﻿# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor/agent local state
+.claude/settings.local.json
+*.tmp
+~$*

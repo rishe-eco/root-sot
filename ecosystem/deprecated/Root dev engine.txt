@@ -1,0 +1,279 @@
+Here's the development engine for one pillar:
+
+---
+
+## **Phase 1: Establish the Outcome & Opportunity Space (3–5 days, async-capable)**
+
+**What you're doing:** Defining what success looks like for this pillar and mapping the landscape of unmet needs.
+
+**Step 1.1: Lock the Product Outcome**
+
+Before you interview anyone, you write a single sentence that answers: *What change in user behavior or understanding does this pillar create?*
+
+For Reflect, it might be: "Users articulate their experiences, recognize patterns in their needs, and act on unmet needs in real time."
+
+For Maintain, it might be: "Users recognize their battery states, understand their personal signals, and respond to depletion or overcharge immediately."
+
+This isn't a feature list. It's the impact statement. It becomes the root of your Opportunity Solution Tree. It's locked — you don't negotiate it mid-discovery. It's your north star.
+
+**Deliverable:** One sentence. Written. Locked. On the tree as the outcome node.
+
+---
+
+**Step 1.2: Recruit & Conduct Discovery Interviews**
+
+You find 7–10 people who would plausibly use this pillar. Not "random people who have feelings" — specific people whose life context makes this pillar relevant. For Reflect, maybe people in therapy, people keeping journals, people in recovery. For Maintain, maybe people managing chronic illness, people in high-stress careers, people building routines.
+
+You interview them with a story-based approach (Torres's method): "Tell me about a time when you felt stuck emotionally," or "Tell me about a time you noticed you were running on empty." You're listening for: when did they try to understand themselves, what blocked them, what helped, what's still missing?
+
+Crucially, as you interview, you're **asking three types of questions:**
+- *Discovery questions:* What happened? How did you respond?
+- *Assumption questions:* What would need to be true for [this solution idea] to work? (You're testing your hunches as you go.)
+- *Analysis questions:* After all interviews, what patterns are we looking for? What would count as "we understand the opportunity space"?
+
+You keep interviewing until you have 3–5 people who agree to test a prototype later.
+
+**Deliverable:** Interview scripts (what you asked), recordings or transcripts, and names of committed testers. Raw material, not yet analyzed.
+
+---
+
+**Step 1.3: Map the Opportunity Space**
+
+Now you analyze. You and your team (or AI-assisted) pull out the unmet needs, pain points, and desires from the interviews. But you don't collapse them into one problem. You find the *clusters*.
+
+For Reflect, you might discover:
+- People struggle to distinguish what they actually felt from what they think they should feel.
+- People can name a feeling but don't know what need it points to.
+- People notice patterns but don't know how to act on them.
+
+Those are three distinct opportunities. They're related (all about self-understanding), but they're not the same. You map them visually on your tree as the opportunity branch. You write a short note on each: why does this matter, what makes it hard, how many people face it?
+
+This is where the tree gets *visual*. The outcome sits at the top. Below it, you've got three to five opportunity nodes, each with reasoning attached. Stakeholders can look at this and push back: "Wait, I thought the problem was X, but you've identified Y." The tree makes the disagreement visible and discussable.
+
+**Deliverable:** Opportunity tree branch populated with 3–5 opportunity nodes, each with analysis notes. This is a living document — it will evolve as you learn, but it's your agreed-upon map of the problem space.
+
+---
+
+**Phase 1 Async Pattern:** Person A leads recruiting and interviews (5–7 days). While they're interviewing, Person B on a *different pillar* starts Phase 1 on that pillar. Person A finishes interviews, hands the scripts to Person B or C, who does the analysis and maps opportunities. The tree grows. No meetings needed yet.
+
+---
+
+## **Phase 2: Choose an Opportunity & Generate Solutions (2–3 days)**
+
+**Step 2.1: Select Your Target Opportunity**
+
+You look at your opportunity cluster. You pick one to tackle first. Which one? Usually the one that's most common, most impactful, and most solvable with a focused solution.
+
+For Reflect, maybe you choose: "People can name a feeling but don't know what need it points to." That's concrete, high-impact, and solvable with good language and structure.
+
+**Why one, not all?** Because you want to solve something deeply, not surface-coat everything. Torres calls this "limiting work in progress." You'll loop back to the other opportunities later, but right now you go *deep* on one.
+
+**Deliverable:** Updated tree node showing which opportunity you're targeting and *why*. The reasoning is on the tree.
+
+---
+
+**Step 2.2: Generate Solution Approaches**
+
+Now you ideate. But not "brainstorm and pick the first idea." You generate 3–5 fundamentally different approaches to solve this one opportunity.
+
+For "people don't know what need a feeling points to," the approaches might be:
+- **Approach A:** Teach the feelings/needs vocabulary explicitly. Users learn the dictionary, then map their feelings to needs.
+- **Approach B:** Use an agent to empathetically interview the user about their feeling, extracting the need through dialogue.
+- **Approach C:** Provide examples and patterns from others (anonymized) so users see themselves reflected and infer their own need.
+
+Each approach is different. Each has different assumptions baked in. Approach A assumes people can learn a taxonomy. Approach B assumes an agent can understand context. Approach C assumes observational learning works.
+
+You write one paragraph on each, with the key assumptions explicit. You're not selling them; you're saying "here's what we think, here's what we're betting on."
+
+**Deliverable:** Three to five solution approaches, each with reasoning and assumptions listed. These become branches on your tree's solution space.
+
+---
+
+**Step 2.3: Choose Your First Solution & Break Assumptions**
+
+You pick the approach with the highest confidence and lowest risk. Maybe Approach B — the empathetic agent — feels most aligned with Reflect's mirror philosophy, but it's high-risk (does an agent really understand context well?). Maybe Approach A is lower-risk but feels a bit mechanistic.
+
+You probably pick something in the middle: Approach A (teach the vocabulary) with a twist (use the agent to guide you through it, not impose it).
+
+Now you do the hard work: **What assumptions need to be true for this to work?**
+
+Not "will this succeed." Specific assumptions:
+- Users can learn the feelings/needs distinction in one session.
+- Users will *use* the vocabulary in their own reflection.
+- The agent's guidance feels helpful, not patronizing.
+- Users actually discover unmet needs they didn't see before.
+
+These are testable. You don't need a full product to test them.
+
+**Deliverable:** Chosen solution + list of 4–6 core assumptions, ranked by risk. ("This one, if false, kills the whole idea." vs. "This one, if false, means we iterate.")
+
+---
+
+**Phase 2 Async Pattern:** While Person A was analyzing opportunities, Person B was probably doing Phase 1 on a different pillar, and Person C was doing Phase 2 on yet another. Now Person C does Phase 2 on Pillar 1 while Person A moves to Phase 3. The tree grows; people move through the funnel at their own pace.
+
+---
+
+## **Phase 3: Design & Run the Test (4–5 days)**
+
+**Step 3.1: Plan the Test**
+
+You've got assumptions. Now you design a test that can falsify the riskiest one.
+
+Riskiest assumption: "Users will actually *use* the vocabulary in their own reflection." That's the bet. Everything else is secondary.
+
+So your test is: Give users the vocabulary. Have them reflect on a real experience. See if they spontaneously use the words you taught them, or if they need constant prompting.
+
+You write:
+- **Test method:** Moderated session? Self-directed? Over how long?
+- **What we're building for the test:** A prototype that's *just enough* to test this. Not a full app. Maybe a Figma prototype, maybe a simple web form with the vocabulary listed, maybe a conversation script with an AI.
+- **Who we're testing with:** The 3–5 people who committed during interviews.
+- **What success looks like:** Not "they love it." Specific: "At least 2 out of 3 users use the vocabulary unprompted in their own articulation."
+- **Analysis questions:** After the test, what are we asking? "Did they use the vocabulary?" "Did they discover unmet needs?" "What confused them?" "What felt good?"
+
+**Deliverable:** Test plan document. Detail enough that someone who wasn't in the room can run it.
+
+---
+
+**Step 3.2: Build the Prototype**
+
+This is the only step where you actually *build* something, and you do it lean.
+
+If your solution is "teach the vocabulary with agent guidance," your prototype might be:
+- A simple UI showing one feeling the user articulated.
+- The vocabulary listed nearby.
+- An agent (could be Claude, could be a script) that asks: "Which of these needs resonates with you?"
+- A field where the user writes their own articulation using the vocabulary.
+
+That's it. Not a full Reflect pillar. Just enough to test the assumption.
+
+**Who builds it?** Whoever on the team has the skill. Could be Person C. Could be shared. The test plan tells you what you need; the builder delivers to spec.
+
+**Deliverable:** Functioning prototype (however minimal) that can run the test.
+
+---
+
+**Step 3.3: Conduct the Test**
+
+You run it with your committed testers. You're watching for:
+- Do they use the vocabulary?
+- Do they discover something about themselves?
+- What confuses them?
+- What feels good?
+
+You take notes. You're not selling; you're observing. If they hate it, that's data. If they modify it to work better, that's data. If they get bored, that's data.
+
+**Deliverable:** Test recordings/notes, observation logs, quotes from users.
+
+---
+
+**Step 3.4: Analyze the Test**
+
+You pull the analysis questions you wrote in step 3.1. You answer them.
+
+**Assumption: "Users will use the vocabulary unprompted."**
+- Result: 2 out of 3 used it in their second articulation, but needed prompting the first time. So partially true. The vocabulary *is* learnable, but you need scaffolding.
+
+**Assumption: "Users will discover unmet needs."**
+- Result: All 3 discovered something, but it took dialogue. They couldn't do it alone with just a list.
+
+**Assumption: "The agent's guidance feels helpful, not patronizing."**
+- Result: Mixed. One user loved the dialogue. Two found it a bit intrusive; they wanted to think first, then get feedback.
+
+You update the tree: which assumptions held, which failed, what you learned. The tree now shows the test results on those assumption nodes.
+
+**Deliverable:** Analysis document. Not "here's what we should do next" — just "here are the facts." The team decides what to do with them.
+
+---
+
+**Phase 3 Async Pattern:** Person C runs the test while Person A is starting Phase 1 on a new opportunity (pillar B), and Person B is on Phase 2 of another pillar. No waiting. Tests run in parallel as much as possible.
+
+---
+
+## **Phase 4: Decide & Iterate (1–2 days)**
+
+**Step 4.1: Review Meeting**
+
+You gather the team (synchronous, required). You look at the tree. You look at the test results. You answer one question: **What's next?**
+
+Three options:
+
+**Option A: Iterate the solution.** The assumptions held, but execution was rough. You iterate the prototype and test again on the same assumption. ("Users will use vocabulary with better scaffolding.")
+
+**Option B: Pivot the solution.** The opportunity is real, but this solution doesn't work. You pick a different solution approach from your Phase 2 list and test that instead.
+
+**Option C: Solve & move forward.** The opportunity is solved well enough. You move to the next sibling opportunity in your space and start Phase 2 on that one.
+
+You're not voting on gut feel. You're reading the tree. The tree makes the decision defendable.
+
+**Deliverable:** Decision recorded on the tree. "We're iterating solution A because assumption X held but execution Y needs work." Clear, visible, traceable.
+
+---
+
+**Step 4.2: Plan the Next Loop**
+
+If you're iterating (Option A), you go back to Step 3.1 (new test plan).
+
+If you're pivoting (Option B), you go back to Step 2.3 (pick a different solution, break its assumptions).
+
+If you're moving forward (Option C), you go back to Step 2.1 (pick the next opportunity).
+
+You don't start from Phase 1 again. You move down the tree.
+
+**Deliverable:** Updated tree, next phase assignment. People know what to do.
+
+---
+
+**Phase 4 Async Pattern:** The review meeting is synchronous (30–60 min). Everyone sees the tree. Everyone understands the decision. Then people scatter back to their phases, working async.
+
+---
+
+## **Phase 5: Consolidation & Integration (1–2 weeks, when you have ~3 opportunities solved)**
+
+Once you've solved 3–5 opportunities for a pillar, you move from discovery to **defining the actual feature set**.
+
+**Step 5.1: Feature Definition**
+
+You look at the three opportunities you've solved:
+- How users distinguish their feelings from shoulds.
+- How users map feelings to needs.
+- How users discover patterns across articulations.
+
+You now design the *actual* Reflect pillar integrating all three. Not a prototype — the real interaction design.
+
+You're not inventing here; you're crystallizing what you learned from testing. The patterns are known. You're just orchestrating them into a coherent experience.
+
+**Deliverable:** Feature spec, wireframes, interaction model. This goes to the actual dev team for Reflect's MVP.
+
+---
+
+**Step 5.2: UX Polish & Design Handoff**
+
+You now do what you deferred: the visual design, the language, the flow. You're not testing assumptions anymore; you're making it beautiful and coherent.
+
+**Deliverable:** Design system, component spec, ready for development.
+
+---
+
+## **The Whole Shape**
+
+The engine has **two rhythms:**
+
+**Discovery rhythm (Phases 1–4, repeating):**
+- Phase 1: Map opportunities (3–5 days)
+- Phase 2: Generate & choose solutions (2–3 days)
+- Phase 3: Test (4–5 days)
+- Phase 4: Decide (1–2 days sync + async planning)
+- Loop back: usually to Phase 2 (pivot/iterate) or Phase 1 (new opportunity)
+
+**Total time per loop: 10–15 days.**
+
+You do 2–3 loops, solving 3–5 opportunities, then move to Phase 5 (consolidation) and hand off to development.
+
+**Three-person parallelism:**
+- Person A: Leading Pillar 1's Phase 1–2, will move to Phase 3.
+- Person B: Leading Pillar 2's Phase 2, while Pillar 1's Phase 3 is running.
+- Person C: Leading Pillar 3's Phase 1, or wrapping up Pillar 0 (if you're on pillar 2+).
+
+Each person owns a pillar's discovery journey. They work async, handing off the tree as the shared artifact. Sync happens only for decision meetings.
+
+**The tree is always the source of truth.** It grows as you learn. It shows reasoning, not just conclusions. Stakeholders can see your thinking. New people can onboard by reading the tree.

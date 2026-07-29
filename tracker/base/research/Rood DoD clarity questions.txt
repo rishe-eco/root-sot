@@ -1,0 +1,29 @@
+**Observability**
+
+Question: "What will be different or exist when this is done — whether that's something you can point to, a skill you've gained, or a change in how things work?"
+
+Description: "When you finish, you should be able to describe what's changed or what exists — whether it's a deliverable, a learned skill, or a concrete outcome. This helps you know when you're actually done."
+
+**Control**
+
+Question: "Does this depend on anyone else saying yes or making a decision?"
+
+Description: "If your goal depends on someone else's decision or approval, you're not fully in control of completion. Either reframe it to focus on what you can do, or be explicit that it depends on them and plan for that uncertainty."
+
+**Binary clarity**
+
+Question: "Is done a clear yes-or-no, or does it exist on a scale?"
+
+Description: "Goals on a scale like 'get better' or 'improve' are hard to finish because you never quite reach the end. A clear yes-or-no makes it obvious when you're done and lets you move forward with confidence."
+
+**Ownership**
+
+Question: "Is this something you genuinely want, or are you doing it because someone else expects it?"
+
+Description: "If you're doing this because someone else wants it, you'll struggle to prioritize it or push through when it gets hard. Make sure this is something you actually care about finishing."
+
+**Decomposability**
+
+Question: "What's your actual first step — the one you could start today?"
+
+Description: "If you can't name your first step right now, try breaking the goal down further — a concrete next action will tell you whether you actually know what you're doing."
