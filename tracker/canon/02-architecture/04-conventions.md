@@ -2,7 +2,7 @@
 
 *Source of truth. The patterns you must follow to change this app without breaking it. If you read one architecture file before writing code, read this one. Update the changelog; don't fork.*
 
-**Version 0.1 · Status: as-built · 2026-07-22 · Owner: _root**
+**Version 0.2 · Status: as-built · 2026-08-01 · Owner: _root**
 
 ---
 
@@ -33,6 +33,28 @@ No component calls Apollo directly or fetches on its own. Add the document to `a
 ### 7. Every user-facing string is a key in **both** `en` and `fa`
 Add to `app/locales/en/common.json` and `app/locales/fa/common.json`. **Why:** Persian is a brand non-negotiable (Root); an English-only literal is a regression, not a TODO.
 
+Three rules govern what you write in the `fa` value. All three exist because they were violated, and the violations shipped.
+
+**7a. Convey the concept, not the words.** The standard (D-20) is *"the Persian conveys the concept and meaning of the original English, not its exact translation."* A calque passes review because each word is correct — "what success looks like" became موفقیت چگونه به نظر می‌رسد, and Persian does not ask what an abstraction looks like. Write the sentence a Persian speaker would write to mean the same thing, then check it against the English for drift. Where the English uses an acronym in a form label (DoD, DoA), drop it; introduce it in the guide, not on a field.
+
+**7b. Informal register (تو/کن), everywhere.** No شما/کنید. The app was formal and the Skills labs informal until 2026-08-01; mixing is worse in Persian than in English. If you are converting, note that Persian imperatives drop ید (`کنید → کن`) but subjunctives after می‌خواهی / بتوانی / تا / که / اگر take ی (`کنید → کنی`) — the surface forms are identical and **no regex distinguishes them**. Script the unambiguous classes (`می‌X‌ید`, perfects, possessives, شما) and hand-check the rest. A word-boundary class built from the Arabic block must exclude ، ؛ ؟ (U+060C/061B/061F — all *below* U+0621), or they read as letters and silently block matches.
+
+**7c. One Persian word per concept.** Don't re-coin; the app had three words for "action" across three files.
+
+| Concept | Persian | Not |
+|---|---|---|
+| Action / task | کار | اقدام, وظیفه |
+| Backlog | فهرست انتظار | صف, بک‌لاگ, لیست انتظار |
+| Bucket list | لیست آرزوها | لیست صف |
+| Pass (action fate) | منتفی | عبور, پاس |
+| Ignore (action fate) | صرف‌نظر | نادیده |
+| Interval (entity) | بازه | — |
+| Date range | محدودهٔ تاریخ | بازه زمانی *(collides with Interval)* |
+| Ritual / ceremony | آیین | مراسم *(that is for weddings and funerals)* |
+| "This cannot be undone" | دیگر نمی‌شود برش گرداند | این عملیات قابل بازگشت نیست |
+
+**Not covered by any of this:** the Evidence and Clarity item packs (`api/src/content/skills/*/surface.fa.ts`). Those are content, not UI copy — several items' faults exist only in English, so making them read naturally would change what they measure. They are re-authored by a native reviewer, not translated (`team/open-work.md` item 2).
+
 ### 8. Wizard steps commit immediately; edit-context wizards save on completion
 Don't buffer a multi-step flow to one final submit — each step fires its mutation (partial state must be valid). In edit contexts, completion saves with no extra step; only create-flows accumulate locally. (See `03-frontend.md` §5.)
 
@@ -51,4 +73,5 @@ If you touch `schema.prisma`, update `02-architecture/01-data-model.md` and add 
 
 ## Changelog
 
+- **0.2 · 2026-08-01** — §7 extended with the three `fa` authoring rules (7a concept-not-calque, 7b informal register, 7c the glossary), after the locale-wide Persian revision. See D-20.
 - **0.1 · 2026-07-22** — Initial. Distilled from the patterns memory, the base docs, and the resolver/service structure.

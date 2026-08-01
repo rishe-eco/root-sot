@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.1 · Status: living · 2026-07-22 · Owner: _root**
+**Version 0.2 · Status: living · 2026-08-01 · Owner: _root**
 
 ---
 
@@ -21,6 +21,9 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-06-13 | **add_notes · add_onboarding · add_journals** | Notes, the onboarding system, and **journals** (a *Journey/ماجرا* seed) — the graft toward the brand. |
 
 ## 2. Key decisions
+
+### D-20 · Persian is informal (تو/کن) app-wide, and conveys the concept rather than the words — 2026-08-01
+The `fa` locale was formal (شما/کنید) everywhere except the Skills labs, which were authored informal. Founder's call: take the whole app informal to match the labs, not the labs formal to match the app. *Rationale:* a register split is more jarring in Persian than in English, and `concepts.priority` was already switching between the two inside one screen. The translation standard is stated as **"the Persian conveys the concept and meaning of the original English, not its exact translation"** — calques are the failure mode, not wrong words. Also fixed one word per concept where three were in use (Action was کار/اقدام/وظیفه → **کار**; backlog → **فهرست انتظار**; bucket list → **لیست آرزوها**; the Pass fate → **منتفی**). See `../canon/02-architecture/04-conventions.md` §7 for the glossary and the grammar trap. *Not covered:* the Evidence/Clarity item packs (`api/src/content/skills/*/surface.fa.ts`) — several items' faults exist only in English, so a fluency pass would change what they measure. Still `team/open-work.md` item 2.
 
 ### D-19 · Clarity's forcing functions are check events; a revision is a row — 2026-08-01
 Phase 2 built: `claritySession.ts`, GraphQL surface, 17 integration tests. Two structural choices, both of which avoided a migration and are better than the thing they replaced:
@@ -129,7 +132,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## 3. Standing constraints (not dated — always true)
 
-- **Persian-first.** Every user string exists in `en` and `fa`; Persian is a brand non-negotiable.
+- **Persian-first.** Every user string exists in `en` and `fa`; Persian is a brand non-negotiable. Informal register (تو/کن), and the Persian conveys the concept rather than the literal English — see `../canon/02-architecture/04-conventions.md` §7.
 - **Web-first PWA; no native apps** (post-MVP distribution decision).
 - **`requireAuth` + `ensureOwned` on every resolver** — the whole authorization model.
 - **Backend integration tests preferred; frontend `useApi` mocks are temporary.**
@@ -138,4 +141,5 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.2 · 2026-08-01** — D-17 → D-20 added: Evidence `evidence/v2`, Clarity's offline-first phasing and forcing functions, and the Persian register/glossary standard.
 - **0.1 · 2026-07-22** — Initial log. Timeline from the migration history; decisions reconstructed from the base docs, session history (2026-06-12 build, 2026-07-16 fixes), and memories.
