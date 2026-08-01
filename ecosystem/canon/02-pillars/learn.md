@@ -47,6 +47,27 @@ Three screens convey the whole thing: the Day-1 frame moment, one bare loop, one
 
 **Reality-check-and-biases** is the literal next module: it operates on the exact object this module teaches people to notice — "interpretations about what others did" (the faux-feelings). Once you can see an interpretation *as* an interpretation, examining it is the next discipline. It also feeds back into Reflect's reality-check move.
 
+## 7a. Second module built — the Skills Engine (working with AI)
+
+*Added 2026-08-01. Concept and evidence base: `../04-research/02-durable-ai-skills.md`. Specs and as-built state: `tracker/canon/06-specs/`.*
+
+The second Learn module to reach code, and it arrived out of the planned order — it is not the Reality-check sequel (§7) but a separate skill family that became urgent. **It is hosted in Tracker as a prototype while remaining conceptually Learn's**, the same arrangement as the Organize prototype (`tracker/canon/04-roadmap/00-state-of-the-build.md`).
+
+**What it teaches.** The skills that decide whether working with an AI helps a person or harms them. The founding distinction is not soft-versus-hard but **compounds-versus-perishes**: prompt tricks give a short-term bump and expire as models change, while clarity, judgement and verification transfer across every model. Most "technical tricks" turn out to be a durable skill wearing a temporary costume. Two tools exist, one per foundational skill — **Clarity Lab** (saying precisely what you want) and **Evidence Lab** (checking a confident answer against something independent).
+
+**Why it belongs to Learn rather than to documentation.** A perishable trick cannot be taught as capacity. This module builds something a person carries into their own life and keeps when the tools change — the pillar's decision test (§8) rather than an incidental fit.
+
+**The design fact worth carrying to every future module.** The two skills need **opposite pedagogies**, and discovering that shaped the build:
+
+- **Clarity is trained slowly, by revision** — a weekly sitting of 8–15 minutes producing one artifact and a rewrite of it. Explicit strategy instruction is the strong intervention; studying models alone is weak.
+- **Evidence-seeking is trained fast, as a drilled reflex** — about a minute per item, many repetitions. Here a deep audit is actively the wrong shape: slow, and it keeps the learner inside the source's own framing.
+
+A single "lesson" container would therefore have been wrong for one of them whichever shape it took. **Pedagogy is a property of the skill, not of the platform** — the strongest argument yet against a generic module runner, and the first thing to check for any module after this one.
+
+**Two inherited constraints bite hard here.** *Persian-first* is not translation: Clarity's referent and economy drills turn on English-specific faults (bare demonstratives, Latinate nominalisation) that are simply not the Persian failure modes, so the Persian drills are **authored, not translated** — pro-drop, *ezāfe* chains and اسم‌مصدر are different problems (§4 applies to more than affect vocabulary). And *no streaks*: an expanding review queue is the only recurring pressure, and Clarity deliberately refuses a daily rhythm because that shape would train the wrong thing.
+
+**One refusal specific to this module.** A tool where the AI is always wrong would teach uniform suspicion and call it vigilance. Flagging a correct answer must cost exactly what missing a false one costs, so roughly a third of all items are deliberately accurate and the headline measure is **discrimination** — faults caught minus true claims wrongly flagged — never catch-rate alone.
+
 ## 8. Decision test
 
 Does the module build *real capacity the person can carry into their own life*, in their own emotional language, by doing — or does it teach a taxonomy to recite? The second is off-pillar.
@@ -56,10 +77,13 @@ Does the module build *real capacity the person can carry into their own life*, 
 - Pathway recommendation logic (how a learning path is proposed) — undetermined.
 - Integration vs. separation of module delivery (learned-through-Reflect-interaction vs. structured module) — a discovery question.
 - Module set beyond the first two; per-module evaluation design.
+- **Does a generic module runner survive contact with a third module?** The first two need opposite shapes (§7a). Two data points, but they point the same way: build per-module until a shared shape is forced, not before.
 
 ---
 
 ## Changelog
+
+- **0.3 · 2026-08-01** — Added §7a: the Skills Engine, Learn's second built module, hosted in Tracker. Records the compounds-vs-perishes framing, the opposite-pedagogies finding and what it implies for a module runner, the authored-not-translated consequence of Persian-first, and the discrimination-not-catch-rate refusal.
 
 - **0.1 · 2026-07-14** — Initial draft, from the emotion/need module design. Spiral (not ladder) model, three tiers, Persian-first affect-labeling constraint, guardrails, prototype scope, reality-check sequel.
 - **0.2 · 2026-07-22** — Added the build-order nuance (§4: discovery/prototype English-only for now; Persian-first stays the product constraint). Added the refined Learn→Reflect bridge rationale: reconstrual/self-distancing (Kross & Ayduk) is the load-bearing lever, tracked as H6b vs. H6a — from the 22 Jul feelings-&-needs session. Concept, tiers, and scope otherwise unchanged.

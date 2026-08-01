@@ -18,7 +18,7 @@ This directory is the **canonical layer**: the stable, cited source of truth for
 4. `02-pillars/00-the-loop.md` — how the five pillars form one system
 5. `02-pillars/{reflect,maintain,organize,learn,others}.md` — the pillars themselves
 6. `03-engine/00-five-phase-engine.md` → `../ost.md` (the Opportunity Solution Tree) → `03-engine/02-async-coordination.md` → `03-onboarding.md`
-7. `04-research/00-evidence-summary.md` + `01-known-risks-and-mitigations.md`
+7. `04-research/00-evidence-summary.md` + `01-known-risks-and-mitigations.md` (+ `02-durable-ai-skills.md` if you are working on the Skills Engine)
 8. `../decisions/decision-log.md` — how we got here, and what we've set aside
 
 ## Map
@@ -52,6 +52,7 @@ ecosystem/                              ← the Root area of root-sot
     04-research/
       00-evidence-summary.md
       01-known-risks-and-mitigations.md
+      02-durable-ai-skills.md         the evidence base under the Skills Engine
 ```
 
 **Two files were promoted out of this canon** on 2026-07-29, into the repo's navigational spine: the Opportunity Solution Tree (was `03-engine/01-opportunity-solution-tree.md`, now `../ost.md`) and the decision log (was `05-log/decision-log.md`, now `../decisions/decision-log.md`). This is why `03-engine/` skips from `00` to `02`.

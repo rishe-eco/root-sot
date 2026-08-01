@@ -22,6 +22,44 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 
 ## 2. Key decisions
 
+### D-19 · Clarity's forcing functions are check events; a revision is a row — 2026-08-01
+Phase 2 built: `claritySession.ts`, GraphQL surface, 17 integration tests. Two structural choices, both of which avoided a migration and are better than the thing they replaced:
+
+1. **The prediction and diagnosis locks are `SkillCheckEvent` rows.** That model was built for Evidence Lab because "the ordering of check versus verdict *is* the measurement"; Clarity's locks are the same claim about a different sequence, so they use the same mechanism — payload carries the prediction text or the tag list, offset is stamped server-side. Submitting a revision or elicitation item without a committed diagnosis is rejected, because a diagnosis entered after the levels is a recollection.
+2. **A revision is a new attempt row linked by `revisionOfAttemptId`, never an edit.** The delta then compares two scored artifacts rather than diffing one mutable field — and the mastery rule falls out of the data instead of needing a flag: `unscaffolded` is `revisionOfAttemptId == null`. A revision follows feedback that named exactly what failed, so counting it would measure the feedback.
+
+*Two smaller calls:* **Clarity got its own GraphQL types** rather than widening Evidence's — the tools measure different things and a shared type would make every field on both sides nullable. And **elicitation items are withheld when no reader is configured**: serving one that dead-ends at the reveal is worse than serving fewer, so the candidate filter drops them and progress reports `readerAvailable: false`.
+
+*Also generalised:* `ensureProfile` now takes a `skillKey`, and the **content-version upgrade rule is Evidence-only** — it exists because v1 was superseded for audience reasons (**D-17**), and Clarity has one version with nothing to move off.
+
+### D-18 · Clarity Lab ships offline-first; item type decides the dependency — 2026-08-01
+Wireframes reviewed and three questions settled: **offline path first**, **ship visible-but-uncalibrated**, **three practice items per module**. Build plan in `canon/06-specs/01a-clarity-lab-build-plan.md`. Phase 1 (content) done: 17 new pool items, `en` + `fa`, plus a Clarity content validator.
+
+The phasing is possible because **Clarity's dependency on a model is a property of the item type, not of the tool**. Revision items ship the reader's misread in the pack, so the gap reveal is a playback rather than a generation; repair drills are detector-scored. Only elicitation needs a live model — twice over, since the reader must respond to *the learner's own text* and R3 has no detector. So the offline build is not a degraded preview: it is revision and repair complete, including the diagnose step, diagnosis accuracy, the gap reveal, the revision chain and the delta. What it cannot do is elicitation, which is the scored core of the probe — the offline tool **trains but does not measure**.
+
+Three rules the content phase added, each of which would otherwise fail silently:
+
+1. **The pool floor counts *offline-capable* items, not items.** A module whose pool is all elicitation looks fully stocked on the modules page and is empty on an install with no credential. `pool-not-offline` is now a validator error alongside `pool-too-small` — the generalisation of **D-17**'s lesson, one level up.
+2. **A repair drill must be provably satisfiable.** Each ships an `exemplarFix` that never reaches the client; the validator asserts the weak text fails its own criterion under the detector and the fix clears it. Without that a drill can teach something the rubric then marks wrong, and nothing anywhere notices. English only — `fa` routes R4/R6 to the judge, so there is no detector to check against and no honest check to make.
+3. **An item must seed its own module's criterion.** Diagnosis accuracy is scored against `seededFaults`, so an item filed under `c4` that fails only R1 mis-scores the module it sits in.
+
+*Distribution:* `c1`/`c2`/`c3`/`c5` get revision items and `c4`/`c6` get repair drills, per spec §5 — repair only fits the two criteria a detector can see. Four modules of revision items is on-message rather than a compromise; revision is the tool's declared centre of gravity. Items were authored general-audience (venues, tenancy agreements, a gas oven, a garage) following **D-17** — the earlier Clarity items skew software, and R5 in particular is not a workplace skill.
+
+*Credential:* one variable, `ANTHROPIC_API_KEY`, read only by the API, and **the issuing account is irrelevant** — nothing is tied to an identity or workspace. Needed for Phase 4 only. The build plan §4.2 records the part most likely to be under-scoped: the **reader is a second call and is not the judge**, must carry no system prompt telling it to be charitable, and its model tier is a pedagogical parameter rather than a cost one — too capable a reader recovers from vagueness and there is no gap left to show.
+
+### D-17 · Evidence content is general-audience; `evidence/v2` supersedes v1 — 2026-08-01
+v1's items were all software claims (RFC numbers, SQLite features, npm defaults) — deliberate, because triage judgement (`e1-stop`) only trains where the learner can feel the stakes, and the first learner was a developer. It does not survive a wider audience: a reader who does not know what an RFC *is* cannot practise deciding whether this one is load-bearing, so the item stops measuring evidence skill and starts measuring domain familiarity. v2 re-authors all of it around claims that need no background to feel and no specialist access to check — history, language, everyday science, health guidance, records and counts — while keeping the hard constraint that every claim resolves by ordinary search in under a minute. 42 items (form A of 6 plus 36 pool), `en` + `fa`.
+
+Three things this forced, all of which outlive the content:
+
+1. **A module with fewer practice items than the mastery window can never be mastered.** v1 shipped **two** pool items in total: four of six modules opened onto an empty page, and no module could reach the bar however well anyone performed. Mastery needs 5 at-criterion attempts inside a 6-attempt window, so the floor is six items per module — now a validator error (`pool-too-small`), not something a learner discovers. The pool also carries the same ≥⅓ control ratio as a scored form, because mastery requires *zero* false alarms and a pool with no true claims makes that clause untestable as well as the training misleading.
+2. **The version pin is about the baseline, not about content age.** A learner with no baseline has no pre/post comparison for a content change to invalidate, so `ensureProfile` moves them to the current version; anyone with a baseline stays put. Past attempts are unaffected either way — `SkillAttempt.contentVersion` is per row, so an old attempt still resolves its item after the profile moves. v1 stays registered and buildable, and a test asserts every retired version still builds in both locales.
+3. **The profile→verdict and profile→fault tables belong to the taxonomy, not to a version.** Scoring imported them from `evidence/v1/spec`, so a second version would have been keyed against its own table and scored against v1's — wrong scores, no error. They now live in `content/skills/types.ts`, with a test asserting each version's local copy still agrees.
+
+*Also settled here (interface, not content):* the drill separates **the question asked** from **the AI's answer** structurally — two boxes, two labels, two icons — because a learner who cannot tell which half is the claim cannot evaluate the claim; and authored markdown is rendered rather than printed, since literal asterisks are a tell that has nothing to do with the claim. The intro grew from 3 slides to 6 and starts from *what this tool is* rather than from a rule about it, and the mechanics moved to a re-openable panel on the page — a one-shot overlay is the wrong home for something wanted on the third item, not the first. Metrics are hidden until the first attempt: eight zeroed statistics are not a dashboard.
+
+*Unchanged:* every key still ships `keyVerifiedAt: null` and every snapshot `pending`, so the scored baseline stays blocked — 12 blockers, being the 6 form-A items × 2 gates. Practice works today. 253 API tests / 147 frontend tests green.
+
 ### D-16 · Clarity Lab core built; detector caps, judge deducts — 2026-07-27
 Content pack (`clarity/v1`: rubric v1, six modules, nine items, `en` + `fa`), deterministic detectors for R1/R4/R6, rubric assembly, and the judge with its calibration gate. No schema change — the engine from **D-14** carried it. Adds `@anthropic-ai/sdk` as the project's first external-service dependency.
 

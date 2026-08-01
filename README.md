@@ -2,16 +2,17 @@
 
 *The index. One repository holding the non-code source of truth for the Root ecosystem and for Tracker, its first product. Start here; this file only tells you where to go.*
 
-**Version 0.1 · Status: canonical · 2026-07-29 · Owner: _root**
+**Version 0.2 · Status: canonical · 2026-08-01 · Owner: _root**
 
 ---
 
-## The two areas
+## The three areas
 
 | Area | What it owns | Grading |
 |---|---|---|
 | **`ecosystem/`** | Root itself — brand, philosophy, the five pillars, the engine, the Opportunity Solution Tree. The *why*. Changes slowly, graded by evidence. | evidence |
-| **`tracker/`** | Tracker — the as-built product that implements Root's **Organize** pillar. The *what* and *how*. Graded by the code. | the code |
+| **`tracker/`** | Tracker — the as-built personal app and staging ground where pillar prototypes are built and felt. The *what* and *how*. Graded by the code. | the code |
+| **`team/`** | Work blocked on a person rather than on code — content verification, native-speaker review, scoring calibration, decisions awaiting a call. The *who and when*. Graded by whether it moves. | whether it moves |
 
 **Brand is the apex.** Everything in `ecosystem/canon/01-philosophy/01-brand-definition.md` outranks everything else in this repo. When `tracker/` and `ecosystem/` disagree, distinguish the question: on **what Tracker should become**, ecosystem wins; on **what Tracker currently is**, tracker wins, because it is checked against running code.
 
@@ -22,6 +23,8 @@
 **Picking up Tracker work:** `tracker/canon/00-orientation/01-glossary.md` → the relevant `01-product/` file → `tracker/canon/02-architecture/04-conventions.md`. The conventions file is the one that most prevents mistakes.
 
 **Catching up on recent history:** `ecosystem/root-canon-log_2026-07-14_to_2026-07-22.md`, then the two decision logs.
+
+**Looking for something to pick up:** `team/open-work.md`. Everything there is blocked on a person, not on code.
 
 ## Map
 
@@ -47,7 +50,11 @@ root-sot/
     decisions/                 Tracker-only ADRs
       decision-log.md          the append-only ledger (pre-ADR)
     canon/                     orientation, product, architecture, engineering,
-                               04-roadmap (as-built inventory), 06-specs (unbuilt)
+                               04-roadmap (as-built inventory), 06-specs (the
+                               Skills Engine — partly built, a Learn prototype)
+  team/
+    README.md                  why this area exists, and its house rules
+    open-work.md               the queue: what is waiting, on whom, and why
     docs/                      older backend docs (superseded by canon, kept)
     base/                      archived planning artifacts + research notes
     DEPLOY-VPS.md              deployment runbook
@@ -93,4 +100,5 @@ One inaccuracy inherited from the sources was corrected rather than carried: `tr
 
 ## Changelog
 
+- **0.2 · 2026-08-01** — Added the **`team/`** area for work blocked on a person, prompted by the Skills Engine shipping into a state where every remaining gate is human. Restated `tracker/` as a staging ground rather than "the Organize pillar" (ecosystem decision log, 2026-08-01).
 - **0.1 · 2026-07-29** — Initial. Two repos consolidated into one; `ecosystem/` + `tracker/` spine established.

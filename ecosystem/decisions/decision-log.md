@@ -94,6 +94,20 @@
 
 ---
 
+## Pedagogy belongs to the skill, not the platform — 2026-08-01
+
+**What building the Skills Engine's two tools actually taught**, recorded because it bears on every Learn module after this one. Follows the ownership decision below. Evidence base now canon at `../canon/04-research/02-durable-ai-skills.md`; pillar consequences at `../canon/02-pillars/learn.md` §7a.
+
+- **The durable/perishable frame is canon, not a working note.** The distinction that matters is not soft-versus-hard skills but **what compounds across every model versus what expires as models change**. Prompt tricks give a short-term bump and perish; clarity, judgement and verification transfer. The operative rule: most "technical tricks" are **a durable skill wearing a temporary costume** — teach the skill, name the costume as perishable, don't teach the costume as capacity.
+- **The two foundational skills need opposite pedagogies, and that is a property of the skills.** Clarity trains **slowly, by revision** (a weekly 8–15 minute sitting producing an artifact and a rewrite). Evidence-seeking trains **fast, as a drilled reflex** (a minute an item, many repetitions) — and for evidence-seeking a deep audit is *actively wrong*, being slow and keeping the learner inside the source's framing. **A single lesson container would have been wrong for one of them whichever shape it took.** This is the strongest argument so far against building a generic module runner; build per-module until a shared shape is forced. Logged as an open question on the Learn pillar.
+- **Measurement logic is also skill-specific.** Evidence-seeking is measured by **behaviour, because self-report is nearly useless** there (a documented dissociation: what people say about their fact-checking tracks self-efficacy, not conduct). Clarity has no behaviour to catch, only an artifact, so its whole problem is **rater reliability** — hence an analytic rubric of observable features, and a calibration pass before any scoring counts.
+- **One refusal, specific and worth generalising.** A tool where the AI is always wrong teaches uniform suspicion and calls it vigilance. Flagging a correct answer costs what missing a false one costs; ~⅓ of items are deliberately accurate and the headline measure is **discrimination**, never catch-rate. The general form: *when training a critical faculty, the false positive must be as expensive as the false negative, or the measure rewards the wrong disposition.*
+- **A contribution back, almost for free.** The before/after machinery is well validated for both skills and **almost nobody has data on whether either skill sticks** — lateral-reading studies overwhelmingly stop at post-test. Running the delayed probe generates evidence the literature is missing. Reason enough to build the measurement properly rather than approximately.
+
+*Not settled:* skills #3–#6 are unscoped; whether the engine graduates to its own app is still open below.
+
+---
+
 ## Tracker is a staging ground; the Skills Engine belongs to Learn — 2026-08-01
 
 **Resolves the "where does the Skills Engine live" tension**, flagged in three places (`../roadmap.md` §6.4, `../../tracker/notes.md` open-Q #1, and the "Tracker is the Organize pillar" identity in the tracker canon).

@@ -65,15 +65,25 @@ tracker/                          ← the Tracker area of root-sot
       00-state-of-the-build.md      what's built vs. not (verified)
       01-known-issues-and-debt.md   bugs, hygiene, tech debt
       02-refactor-toward-root.md    the gap between tracker-as-is and the Organize pillar
-    06-specs/
+    06-specs/                       the Skills Engine — a Grow (Learn) prototype
       00-skills-engine.md           shared machinery for the skill tools (spec)
-      01-clarity-lab.md             skill tool #1 — clarity of expression (spec)
-      02-evidence-lab.md            skill tool #2 — evidence-seeking (spec)
+      01-clarity-lab.md             skill tool #1 — clarity of expression
+                                    (spec, except §4–§7 as-built)
+      01a-clarity-lab-build-plan.md phase order, and the one credential the
+                                    AI-dependent phase needs
+      02-evidence-lab.md            skill tool #2 — evidence-seeking
+                                    (spec, §7–§9 as-built)
+      02a-evidence-verification-brief.md
+                                    open work order — the 12 tasks that unblock
+                                    the scored baseline. Self-contained, written
+                                    to be handed to someone outside the project.
 ```
 
 **Where the code is.** This canon describes the `rishe-eco/tracker` repo, whose two workspaces are `api/` (backend) and `client/` (frontend). Code paths throughout this canon are relative to that repo, not to this one.
 
 **A note on `06-specs/`.** Everything above it is graded against the code; `06-specs/` holds designed-but-unbuilt work, graded **spec** throughout. When a spec ships, its as-built reality moves into `01-product/` and `02-architecture/`, and the spec file is marked superseded rather than deleted.
+
+*Partly overtaken as of 2026-08-01.* The Skills Engine has shipped in large part, so its files are now **mixed**: the section headers say which parts are as-built. They stay here rather than moving into `01-product/` for two reasons — the engine is conceptually **Learn's**, not Organize's, and only hosted in Tracker (`ecosystem/canon/02-pillars/learn.md` §7a); and both tools still have gated parts (content verification for Evidence, the reader and calibration for Clarity) that are genuinely unbuilt. When those close, this material moves.
 
 ## Status of this pass
 

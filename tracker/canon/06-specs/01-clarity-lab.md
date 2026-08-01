@@ -1,8 +1,8 @@
 # Tracker — Clarity Lab (skill tool #1)
 
-*Spec, not as-built. The tool that trains clarity of expression — saying precisely what you want, with enough context — and measures it with an observable-feature rubric. Runs on `00-skills-engine.md`. Update the changelog; don't fork.*
+*The tool that trains clarity of expression — saying precisely what you want, with enough context — and measures it with an observable-feature rubric. Runs on `00-skills-engine.md`. Content, scoring and the session service are **as-built**; the interface (§8) is still spec. Phasing and the credential Phase 4 needs are in `01a-clarity-lab-build-plan.md`. Update the changelog; don't fork.*
 
-**Version 0.1 · Status: spec · 2026-07-26 · Owner: _root**
+**Version 0.3 · Status: spec, except §4–§7 as-built · 2026-08-01 · Owner: _root**
 
 ---
 
@@ -143,5 +143,6 @@ Total ~12 minutes. Composite = summed rubric totals (0–24 across the two elici
 
 ## Changelog
 
+- **0.3 · 2026-08-01** — Phases 1–2 built (**D-18**, **D-19**). Content: 17 practice items added, three offline-capable per module, general-audience. Session service and GraphQL: the two locks are `SkillCheckEvent` rows, a revision is a linked attempt row, elicitation is withheld without a reader. §8 (interface) remains spec; wireframe set drawn 2026-08-01.
 - **0.2 · 2026-07-26** — Persian content required at launch: linguistic scope narrowed to rubric criteria R4 and R6, with `fa` R4/R6 routed to the judge rather than building Persian detectors. Judge prompt-caching structure added to acceptance.
 - **0.1 · 2026-07-26** — Initial spec. Rubric v1 drafted as the "observable-feature clarity rubric" named as a next step in the source brief. Lineage: Grice 1975; Pinker 2007; Williams *Style*; Graham & Perin 2007 meta-analysis; analytic-vs-holistic rubric reliability literature.

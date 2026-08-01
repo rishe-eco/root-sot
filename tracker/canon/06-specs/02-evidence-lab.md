@@ -2,7 +2,7 @@
 
 *Spec, not as-built. The tool that trains evidence-seeking — the reflex of leaving a confident answer to check it against something independent — and measures the behavior, not the belief. Runs on `00-skills-engine.md`. Update the changelog; don't fork.*
 
-**Version 0.1 · Status: spec · 2026-07-26 · Owner: _root**
+**Version 0.3 · Status: spec (§7–§9 as-built) · 2026-08-01 · Owner: _root**
 
 ---
 
@@ -118,6 +118,8 @@ A module is **mastered** when, across two distinct calendar days, the learner re
 
 **Tested out:** baseline strict composite ≥ 80% on that module's item type with no control false alarm.
 
+**Pool floor (added 0.3, learned by shipping):** a module needs **at least 6 practice items** or the criterion above is unreachable — 5 at-criterion attempts inside a 6-attempt window cannot happen in a pool of two. The v1 pack shipped two pool items *in total*, so four of six modules opened onto an empty page and no module could be mastered however well the learner performed. This is now a content-pack validation error (`pool-too-small`), alongside a ≥⅓ control ratio **per module pool** — mastery requires zero control false alarms, so a pool with no true claims leaves that clause untestable as well as the training misleading.
+
 ## 8. Practice modes
 
 - **Daily drill** — 3 items, ~90 seconds, interleaved across modules and failure profiles (interleaving, not blocking, is what builds the discriminating reflex). Counts for review credit.
@@ -125,9 +127,21 @@ A module is **mastered** when, across two distinct calendar days, the learner re
 
 The verdict card is the feature most likely to make this tool durable: it turns a training exercise into a working artifact the rest of Tracker can hold.
 
+## 8b. Subject matter (added 0.3)
+
+Item claims are **general-audience**: history, language, everyday science, health guidance, records, counts, consumer facts. Two constraints, and the tension between them is the whole authoring problem:
+
+- **No background needed to feel the claim.** Triage (`e1-stop`) is a judgement about whether *this* claim is load-bearing, surprising, specific or costly. A reader who doesn't know what the named thing is can't make that judgement, so the item silently stops measuring evidence skill and starts measuring domain familiarity. This is why the v1 software items were replaced rather than supplemented.
+- **No specialist access needed to settle it.** Every claim must resolve by an ordinary search in well under a minute, or the drill trains patience instead of checking.
+
+Where a claim is culturally anchored, the `fa` surface keeps it rather than substituting a local equivalent, provided the source is available in Persian — the skill being trained is tracing a quotation to a text, and swapping the text changes the item's difficulty without changing its spec.
+
 ## 9. Interface requirements
 
-- The AI answer renders **exactly as a real one would** — confident, well-formatted, no visual tell for faulty items. Any styling difference between control and faulty items destroys the instrument.
+- **The question asked and the AI's answer are separated structurally** — two boxes, two labels, two icons — not by weight or spacing. A learner who cannot tell at a glance which half is the claim cannot evaluate the claim, and this was the first thing real use exposed.
+- The AI answer renders **exactly as a real one would** — confident, well-formatted, no visual tell for faulty items. Any styling difference between control and faulty items destroys the instrument. Authored markdown is **rendered**, not printed: literal asterisks and backticks are a tell that has nothing to do with the claim, and they make the stimulus read unlike the thing it imitates.
+- **Orientation is recoverable.** The one-shot intro overlay carries *what this tool is and why*; the mechanics of a session live in a panel on the page that reopens on demand. A dismissed overlay is the wrong home for something a learner wants on their third item rather than their first.
+- **Progress statistics appear only once there is progress.** A first visit that opens on eight zeroed metrics presents the reader with eight unanswered questions in place of an explanation.
 - Verdict, confidence, and the "which part failed" tag are committed together, before reveal, and are not editable after.
 - Reveal shows: the key, which profile the item was, what a fast correct check looked like (~2 sentences, with the search that would have found it), and — on a miss — the diagnosis step first (engine §3 step 5): *what was the cue you had and didn't use?*
 - **Timer visible but not punitive** — it informs the speed metric and the learner sees it; running over doesn't void the item.
@@ -155,12 +169,13 @@ Item security: probe-pool items never appear in modules or drills; once an item 
 - Scoring, mastery, and interval-scheduling services unit-tested against fixtures; thin I/O glue untested by design.
 - Full tool functions with **no LLM configured** — verified by a test run with the AI service disabled.
 - **A full probe completes with no network access beyond Tracker itself** — frozen snapshots only; asserted by a test with outbound requests blocked.
-- Content-pack validator passes: locale parity (`en`/`fa` same `itemId` set, same specs), ≥1/3 control items per form, and **every probe item's answer key verified against its own frozen snapshot**.
+- Content-pack validator passes: locale parity (`en`/`fa` same `itemId` set, same specs), ≥1/3 control items per form, and **every probe item's answer key verified against its own frozen snapshot**. *Outstanding as of 2026-08-01 — 12 tasks (6 form-A items × key confirmation + snapshot capture), written up for handoff in `02a-evidence-verification-brief.md`.*
 - All interface strings **and both content surfaces** present in `en` and `fa`.
 
 ---
 
 ## Changelog
 
+- **0.3 · 2026-08-01** — Content re-authored general-audience as `evidence/v2` (§8b); pool floor of 6 items per module added to §7 after v1's two-item pool made four modules unpracticable and none masterable; §9 interface requirements rewritten from first real use (question/answer separated structurally, markdown rendered, orientation recoverable, metrics gated on having any). See decision log **D-17**.
 - **0.2 · 2026-07-26** — Sideways panel split by mode: frozen pre-fetched snapshots in-app for assessment/probes (zero search calls, reproducible evidence surface), live search in a new tab for practice. Persian content required at launch, with English corroborating sources permitted for Persian stimuli.
 - **0.1 · 2026-07-26** — Initial spec. Probe v1 drafted as the "scored lateral-reading probe" named as a next step in the source brief. Lineage: Wineburg & McGrew 2017/2019; Caulfield's SIFT; Brodsky et al. 2021/2023 (pre/post lateral-reading instruction, self-report vs. behavior dissociation); Buçinca et al. 2021 (cognitive forcing, and the finding that friction can shift reliance without improving discrimination); 2026 epistemic-vigilance work; calibration-training literature.
