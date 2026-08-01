@@ -25,6 +25,30 @@
 
 ---
 
+## Research Lab — a public research corpus under Content, not a worklog — 2026-08-01
+
+**Context.** A new public page for the Root website, scoped 2026-08-01. Full spec: `../working/root-website-research-lab.md`. A bilingual library of the research Root **references** (papers, books, articles) and the research Root **does itself** — readable, searchable, citable, translated with stated provenance, later queryable by an agent.
+
+**Boundary — the corpus, not the application.** The Lab holds the *sources themselves*, **not a record of what Root does with them**. Synthesis / "how this shapes the product" is a separate project, later. Keeping the Lab clean of Root's conclusions is what makes it a library rather than a position paper.
+
+**IA — it opens the content lock, but is only one strand.** The public nav's content arm (the locked **Root Cast** slot) opens when the Lab ships. **Content is broader than the Research Lab:** Content is the umbrella; the Lab is one strand, beside **Root Cast** (the crew's own voice — podcast/essays) and future strands. **"Root Cast" reads as the crew, not content, so it is not the umbrella** — it stays a sibling strand. The umbrella's public *label* is not yet locked (lean: a warmer word than "Content" — Library / Field Notes / Reading Room).
+
+**Translation provenance is required, never implied.** Each entry states its translation's origin: **published** (cite translator + edition, link source), **Root** (labelled "Root translation"), or **none yet** (reader can request one → admin translation queue).
+
+**Visibility — public by default; private register excluded.** Entries carry a public/private flag; the private register (e.g. the Bahá'í-anthropology notes kept out of public materials, Core Philosophy §7) is **never surfaced**. A field on the entry, not a folder to remember.
+
+**V1 decisions (founder direction, 2026-08-01):**
+- **Scope = the floor** — read, search, cite, download. No annotation / saved lists in V1.
+- **Hosting** — host the full text with citation where copyright allows; otherwise link + describe. Checked per source.
+- **Roles** — admin **plus a lighter contributor** role (contributor adds entries / drafts translations; admin publishes and edits the concept tree).
+- **Agent last** — "Ask the Lab" / "Ask this paper", grounded with citations, rides on everything above.
+
+**Still open:** the umbrella's public label; the exact contributor-vs-admin permission line; the per-source rights workflow.
+
+*Origin: founder direction, 2026-08-01. Curation surface shares the admin dashboard scoped in `../working/root-website-versioning-and-admin.md`.*
+
+---
+
 ## Contract & design version independently; a signed contract is frozen — 2026-08-01
 
 **Context.** On 2026-08-01 `root-app` ran against a real Postgres for the first time (Phase 1 as-built). Two features were then scoped for the customer portal — **independent version control** for the contract and the design, and the **admin dashboard** that authors them. Full spec: `../working/root-website-versioning-and-admin.md`. This entry records the two decisions taken; the rest of the spec is design detail.
@@ -150,4 +174,5 @@ Tech: Vite + React Router (frontend), Express + GraphQL + Prisma/SQLite (backend
 - **2026-07-23** — Confirmed **Hesab is adjacent, not a Root sub-brand** (firmed `../canon/01-philosophy/01-brand-definition.md` §7 from open-question to decided). Recorded the **standalone-app development model** (five pillars built independently, integrated into Journey ~9 months out; integration vision from day one) and **re-scoped H6**: it informs the deferred integration/ordering decision, it does **not** gate the standalone Learn build. Nuanced `../canon/02-pillars/learn.md` §3 accordingly. Origin: founder direction during Learn-discovery planning.
 - **2026-08-01** — Recorded **Tracker as a staging ground, not itself a pillar**, and assigned the **Skills Engine (Clarity/Evidence Labs + planned skills) to Grow (Learn)** conceptually — hosted in Tracker for now, purpose = team training. Resolved the standing "where does the Skills Engine live" question (`../roadmap.md` §6.4; `../../tracker/notes.md` open-Q #1). Reconciled `../roadmap.md`, `../../tracker/canon/00-orientation/00-what-tracker-is.md`, `../../tracker/canon/04-roadmap/00-state-of-the-build.md`, and `../../tracker/notes.md`. Origin: founder direction.
 - **2026-08-01** — Added **"Self-initiation is detected as a capability, never counted"** — extending the 2026-07-29 progress-indication decision to graduation/self-initiation detection (detect-don't-count; infer from prompt-withdrawal + content; check-ins feed the settings layer, not the user; accept partial unobservability). Binds Reflect too. Promotes the resolution from `../working/learn-mechanisms/00-module1-process-anatomy.md` §P7 to a recorded decision. Origin: founder direction.
+- **2026-08-01** — Added **"Research Lab — a public research corpus under Content, not a worklog"** — a bilingual, citable library of referenced + own research under the Content section (opens the Root Cast content lock, but is only one strand of Content; Root Cast stays the crew's voice). Translation provenance required; public/private visibility excludes the private register. V1 decisions: floor scope, host-else-link, admin + lighter contributor, agent last. Spec new at `../working/root-website-research-lab.md`; indexed in `../working/README.md`. Origin: founder direction.
 - **2026-08-01** — Added **"Contract & design version independently; a signed contract is frozen"** — recording the two decisions behind the root-website versioning work: independent contract/design revision lineages, a **signed contract frozen with amendments** (not re-signed replacements), and **design carry-forward** of unchanged page approvals. Full spec new at `../working/root-website-versioning-and-admin.md`; indexed in `../working/README.md`. Origin: founder direction, the day root-app first ran on Postgres.
