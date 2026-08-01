@@ -25,6 +25,28 @@
 
 ---
 
+## Contract & design version independently; a signed contract is frozen — 2026-08-01
+
+**Context.** On 2026-08-01 `root-app` ran against a real Postgres for the first time (Phase 1 as-built). Two features were then scoped for the customer portal — **independent version control** for the contract and the design, and the **admin dashboard** that authors them. Full spec: `../working/root-website-versioning-and-admin.md`. This entry records the two decisions taken; the rest of the spec is design detail.
+
+**The model — two independent lineages.** Every contract grows two chains of **immutable-once-published** revisions: a **contract lineage** (titles, fee, the 14 articles + Appendix 1 — stored as a snapshot + `contentHash`) and a **design lineage** (concepts and their pages — stored relationally). Each has its own approval; a `Signature` binds to a specific contract revision. Publishing on one lineage never disturbs the other — that independence is the whole point (design can iterate while the fee holds, and vice versa). The gate rule (`gate.ts`) is unchanged in spirit; it re-derives from the *current* revision of each lineage.
+
+**Decision 1 — a signed contract is frozen; changes are amendments.**
+- **Before signature**, a new contract revision simply *replaces* the current unsigned one (customer re-approves).
+- **At signature**, that revision becomes **frozen and terminal** — never superseded, never re-signed. The signature stands against exactly the bytes signed.
+- **After signature**, changes are **amendments** (A1, A2, …) layered on the signed base — each with its own approval and signature. The **effective contract = signed base + accepted amendments, in order**; the base signature is never invalidated.
+- *Why:* re-signing a replacement "v2" would quietly retire the original signed instrument and muddy which text is legally in force and from when. An amendment chain keeps every signed instrument intact and the terms reconstructable at any date — how paper contracts actually work.
+
+**Decision 2 — design revisions carry forward unchanged approvals.** When a new design revision is published, a page **keeps its approval** if its content is unchanged from the approved prior revision (matched by page `key`; unchanged = same `imageUrl`); only changed or new pages reset to unapproved. If the chosen concept is unchanged, the choice carries too. Friction stays proportional to the change — a one-page tweak asks for one re-approval, not four. This does **not** loosen the gate (`designComplete` still needs every current page approved); it only pre-fills the ones that already were. The existing in-revision rule stands: choosing a **different concept** still resets that revision's page approvals.
+
+**Where authored.** Both live in the **admin dashboard** (Feature 2) — the contract workspace is where revisions and amendments are drafted, images uploaded, and versions published. Documentation kept in `root-sot` per the code/docs split (`root-app` is code-only).
+
+**Still open** (in the spec, not blocking): storage hybrid vs all-relational; who may author a revision; free-text vs structured amendments.
+
+*Origin: founder direction, 2026-08-01, resolving decisions 1–2 of the versioning/admin design note.*
+
+---
+
 ## Self-initiation is detected as a capability, never counted — 2026-08-01
 
 **Extends the 2026-07-29 "progress indication is not an extrinsic incentive" decision to its hardest case:** detecting that a practice now *runs on its own* — Learn Module 1's meta outcome, the loop self-initiating (`../canon/02-pillars/learn.md` §3; mechanism `../working/learn-mechanisms/00-module1-process-anatomy.md` §P7).
@@ -128,3 +150,4 @@ Tech: Vite + React Router (frontend), Express + GraphQL + Prisma/SQLite (backend
 - **2026-07-23** — Confirmed **Hesab is adjacent, not a Root sub-brand** (firmed `../canon/01-philosophy/01-brand-definition.md` §7 from open-question to decided). Recorded the **standalone-app development model** (five pillars built independently, integrated into Journey ~9 months out; integration vision from day one) and **re-scoped H6**: it informs the deferred integration/ordering decision, it does **not** gate the standalone Learn build. Nuanced `../canon/02-pillars/learn.md` §3 accordingly. Origin: founder direction during Learn-discovery planning.
 - **2026-08-01** — Recorded **Tracker as a staging ground, not itself a pillar**, and assigned the **Skills Engine (Clarity/Evidence Labs + planned skills) to Grow (Learn)** conceptually — hosted in Tracker for now, purpose = team training. Resolved the standing "where does the Skills Engine live" question (`../roadmap.md` §6.4; `../../tracker/notes.md` open-Q #1). Reconciled `../roadmap.md`, `../../tracker/canon/00-orientation/00-what-tracker-is.md`, `../../tracker/canon/04-roadmap/00-state-of-the-build.md`, and `../../tracker/notes.md`. Origin: founder direction.
 - **2026-08-01** — Added **"Self-initiation is detected as a capability, never counted"** — extending the 2026-07-29 progress-indication decision to graduation/self-initiation detection (detect-don't-count; infer from prompt-withdrawal + content; check-ins feed the settings layer, not the user; accept partial unobservability). Binds Reflect too. Promotes the resolution from `../working/learn-mechanisms/00-module1-process-anatomy.md` §P7 to a recorded decision. Origin: founder direction.
+- **2026-08-01** — Added **"Contract & design version independently; a signed contract is frozen"** — recording the two decisions behind the root-website versioning work: independent contract/design revision lineages, a **signed contract frozen with amendments** (not re-signed replacements), and **design carry-forward** of unchanged page approvals. Full spec new at `../working/root-website-versioning-and-admin.md`; indexed in `../working/README.md`. Origin: founder direction, the day root-app first ran on Postgres.
