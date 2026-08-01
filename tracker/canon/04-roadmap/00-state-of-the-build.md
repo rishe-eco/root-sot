@@ -2,7 +2,7 @@
 
 *Source of truth. What exists and what doesn't, verified. The most time-sensitive file in the canon — trust the date. Update the changelog; don't fork.*
 
-**Version 0.1 · Status: as-built · 2026-07-22 · Owner: _root**
+**Version 0.2 · Status: as-built · 2026-08-01 · Owner: _root**
 
 ---
 
@@ -49,10 +49,11 @@
 
 ## Other pillars (Root context)
 
-Tracker is the **Organize** pillar. The **Maintain**, **Grow (Learn)**, and **Others** pillars are not started here — they are separate Root work, tracked in Root canon `02-pillars/`. See `02-refactor-toward-root.md` for how even the Organize pillar is only partly realized.
+Tracker is a **personal app and staging ground**, not itself a pillar. Its most-developed resident is the **Organize** prototype (this document); residents may later migrate to their own standalone app or be retired (decision log, 2026-08-01). A **Grow (Learn)** prototype now also lives here — the **Skills Engine** (Clarity Lab, Evidence Lab; `../06-specs/`), conceptually owned by the Learn pillar and hosted here for now. **Maintain** and **Others** are not present. All pillar concept work is tracked in Root canon `02-pillars/`. See `02-refactor-toward-root.md` for how even the Organize prototype is only partly realized.
 
 ---
 
 ## Changelog
 
+- **0.2 · 2026-08-01** — Reframed the "Other pillars" section: Tracker is a staging ground, not the Organize pillar; recorded the **Grow (Learn) Skills Engine** now hosted here (decision log, 2026-08-01). Build inventory itself unchanged and still verified as of 2026-07-22.
 - **0.1 · 2026-07-22** — Initial. Inventory verified against the repo; feature codes mapped to the June-10 roadmap.

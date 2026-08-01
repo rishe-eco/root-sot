@@ -2,7 +2,7 @@
 
 *Ecosystem-level sequencing: which pillar and which business stream get worked next, and where each sits in the five-phase engine. **Skeleton** — see the note below before relying on it. Update the changelog; don't fork.*
 
-**Version 0.2 · Status: skeleton (assembled, not authored; §3 is as-built) · 2026-07-29 · Owner: _root**
+**Version 0.3 · Status: skeleton (assembled, not authored; §3 is as-built) · 2026-08-01 · Owner: _root**
 
 ---
 
@@ -32,13 +32,15 @@ Source: `canon/02-pillars/`, `working/`, and the canon log.
 
 | Pillar | Phase | Notes |
 |---|---|---|
-| **Organize** | past the engine — as-built | Implemented as Tracker, mid-transformation toward the pillar. Its own sequence is `../tracker/roadmap.md`. Did not come through the engine; it predates it. |
+| **Organize** | past the engine — as-built | Prototyped in **Tracker** — a personal staging app, not itself the pillar (decision log, 2026-08-01) — mid-transformation toward the pillar. Its own sequence is `../tracker/roadmap.md`. Did not come through the engine; it predates it. |
 | **Grow (Learn)** | **Phase 1, active** | Module 1 (Feelings & Needs) discovery is the live workstream — `working/learn-discovery/`. `01-research-criteria-and-method.md` done; method artifacts then participant criteria next, produced one at a time. Six hypotheses H1–H6, with H6 split into H6a/H6b on 2026-07-22. English-only for the first build. |
 | **Reflect** | not started | Carries the reconstrual / self-distancing finding folded in on 2026-07-22. |
 | **Maintain** | not started | — |
 | **Others** | not started | Working name, pending resolution (`canon/02-pillars/others.md`). |
 
 **Sequencing implication:** Learn holds the single Phase-3 slot as soon as its discovery reaches test. No other pillar can enter test until Learn's loop closes. Reflect, Maintain and Others may enter Phases 1–2 in parallel at any time — none has.
+
+**Learn now spans two content families (2026-08-01).** Beyond Module 1 (Feelings & Needs — the emotion/need pillar work above), Learn also owns a **durable-skills stack** — Clarity Lab, Evidence Lab, and ~4 further skills — currently **built and tested inside Tracker** and specified in the Tracker canon (`../tracker/canon/06-specs/`). Conceptual ownership is Learn; Tracker is only the staging ground (decision log, 2026-08-01). This stack is **off-engine and unplanned** — adopted because it is needed now to **train the team** — so it does *not* move through the five-phase discovery that governs Module 1, and it is not part of Module 1. Its own maturity is tracked in `../tracker/notes.md`, not here.
 
 ## 3. Root Studio — the business stream
 
@@ -79,11 +81,12 @@ Named so the gap is explicit rather than silently empty:
 1. **A decision on what follows Learn Module 1** — whether Learn runs further loops or another pillar takes the Phase-3 slot.
 2. **The outcome of the rework session** — until it happens, §3 and §4 cannot be sequenced against each other, and this file cannot become a real roadmap.
 3. **Relative priority of Root Studio vs. Journey V1.** The founder's personal priority order is recorded as *P → Root → Monster Podcast* (`working/root-goals-update.md`), but that is a personal time-allocation, not a product sequence. The two are not the same thing and shouldn't be conflated.
-4. **Whether the Skills Engine R&D belongs to Learn or to Tracker** — currently specified inside the Tracker canon (`../tracker/notes.md`) while reading closer to the Grow (Learn) pillar. Unresolved, and it affects both roadmaps.
+4. ~~**Whether the Skills Engine R&D belongs to Learn or to Tracker.**~~ **Resolved 2026-08-01** (decision log): it belongs to **Grow (Learn)**; Tracker is a staging ground that hosts it for now, and code location does not determine pillar ownership. See §2's "two content families" note.
 
 ---
 
 ## Changelog
 
+- **0.3 · 2026-08-01** — Resolved §6.4: the **Skills Engine belongs to Grow (Learn)**, with **Tracker reframed as a staging ground** rather than the Organize pillar (decision log, 2026-08-01). Adjusted the §2 Organize row and added the "Learn spans two content families" note (Module 1 + the durable-skills stack; the latter off-engine, team-training purpose).
 - **0.2 · 2026-07-29** — §3 updated after the `root-app` repo (then `root-website`) was folded into the local structure: Root Studio is Phase-0-complete and most of the way through Phase 1, with email and the first real Postgres migration named as the two remaining blockers. Sourced from that repo's README, which is verified against its code.
 - **0.1 · 2026-07-29** — Initial skeleton, created at repo consolidation to fill the planned slot. Assembled from `canon/03-engine/00-five-phase-engine.md`, `canon/02-pillars/`, `working/README.md`, `working/root-website-v3-overview.md`, and `working/root-goals-update.md`. No new decisions; gaps named in §6.

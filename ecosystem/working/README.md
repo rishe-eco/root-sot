@@ -5,6 +5,7 @@ These are current working documents, not canon. They change as the work proceeds
 ## Journey (the self-authorship app)
 - **`Learn feels and needs discovery.md`** — Learn Pillar, Module 1 (Feelings & Needs). Intended outcomes + discovery foundation: observable learning outcomes, the "graduation not completion" model, and six discovery hypotheses (H1–H6) to convert into Mom-Test / JTBD interview threads. Precursor to interview criteria. *Draft v0.1 (2026-07-21).* The 22 Jul session split H6 → H6a/H6b (see canon `../canon/02-pillars/learn.md` / evidence summary and the canon-log).
 - **`learn-discovery/`** — the active Learn Module 1 **discovery workstream** (engine Phase 1). Sequential docs, produced one at a time: `01-research-criteria-and-method.md` (done), then method artifacts, then participant criteria. See `learn-discovery/README.md`.
+- **`learn-mechanisms/`** — the **mechanism / process-anatomy** track for Learn, parallel to discovery: *how* each of the module's processes actually works (mechanism, system, preconditions, failure modes, observable signals, dials). *Full first pass (2026-08-01) — template + all eight processes worked.* See `learn-mechanisms/README.md`.
 
 ## Root Studio (business/services arm — formerly "Root Dev")
 - **`root-website-v3-overview.md`** — the Root website becomes an *application*: public front + authenticated client portal (Contracts, Services, Billing, Support), role-aware backend (Express + GraphQL + Prisma, **Postgres**), minimal operational admin now / full admin later. Contracts is the urgent piece. *(2026-07-21.)*

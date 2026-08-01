@@ -25,6 +25,42 @@
 
 ---
 
+## Self-initiation is detected as a capability, never counted — 2026-08-01
+
+**Extends the 2026-07-29 "progress indication is not an extrinsic incentive" decision to its hardest case:** detecting that a practice now *runs on its own* — Learn Module 1's meta outcome, the loop self-initiating (`../canon/02-pillars/learn.md` §3; mechanism `../working/learn-mechanisms/00-module1-process-anatomy.md` §P7).
+
+**The trap is mechanistic, not just a brand rule — two independent teeth:**
+- **Overjustification bites hardest exactly here.** Extrinsic markers corrode intrinsic motivation *worst for the already-motivated* (`../canon/04-research/00-evidence-summary.md` §2). Self-initiation *is* the intrinsically-motivated state, so a counter on it is maximally corrosive — it can destroy the very outcome it measures.
+- **Counting re-makes the app the cue.** An unprompted micro-habit you tally in the app is no longer unprompted; the tally becomes the prompt, negating self-initiation. Measuring it can *un-graduate* the person.
+
+**Decision — how self-initiation / graduation is handled:**
+- **Detect, don't count.** Graduation is a **one-time, capability-framed state change** ("this runs on its own now"), never a running total or streak. A door walked through can't be lost — this also sidesteps the streak-cliff.
+- **Infer from prompt-withdrawal + qualitative content**, not a self-init tally: the app fades its own prompts; continued engagement with fewer prompts, plus mentions in the person's own storytelling, are the evidence.
+- **Optional opt-in self-report** may accrue toward the single graduation moment — never a maintained streak.
+- **Check-ins feed the settings layer, not the user's feedback.** "Has the loop shown up on its own lately?" tunes prompt-fade pacing; it is never a performance number shown back.
+- **Accept partial unobservability.** "Unprompted, in life" is definitionally partly invisible to the app; forcing full observability is exactly what manufactures the streak. Graduation is a door, not a score.
+
+**Scope — binds Reflect too.** Reflect faces the same measurement trap (cost of quantification, `../canon/04-research/00-evidence-summary.md` §4) and the same self-initiation goal, so this stance governs **wherever the product would measure an intrinsically-motivated behaviour**, not just Learn. Consistent with the by-name streak refusal (brand) and the `remove_habits` removal from Tracker.
+
+**Why each part is safe:** the 2026-07-29 **function test** — *remove the marker; does the reason to act survive?* Removing any of these leaves the person still running the loop, because they were already running it unprompted, which is what triggered the detection.
+
+*Origin: founder direction, 2026-08-01 — promoting the resolution worked out in `../working/learn-mechanisms/00-module1-process-anatomy.md` §P7 from living-layer to a recorded decision.*
+
+---
+
+## Tracker is a staging ground; the Skills Engine belongs to Learn — 2026-08-01
+
+**Resolves the "where does the Skills Engine live" tension**, flagged in three places (`../roadmap.md` §6.4, `../../tracker/notes.md` open-Q #1, and the "Tracker is the Organize pillar" identity in the tracker canon).
+
+- **Tracker is a personal app and a staging ground — not itself any one pillar.** It is where pieces of the eventual **Journey** app, across all five pillars, get built and *felt* before each earns its own standalone app (the development model, 2026-07-23). Its most-developed resident is the **Organize** prototype (goals/actions/daily cycle) — which is why the canon called Tracker "the Organize pillar" — but the identity is looser than that: residents live here for a while, may **migrate out** to their own app, or be **retired**. Location in the `tracker` repo therefore does **not** determine pillar ownership.
+- **The Skills Engine (Clarity Lab #1, Evidence Lab #2, plus ~4 further skills planned) belongs conceptually to Grow (Learn).** Skill-training builds durable capacity on purpose — Learn's own definition (`../canon/02-pillars/learn.md` §1). It is *hosted* in Tracker for now (built and tested there); conceptual ownership is Learn, and it may later move to its own app. This does **not** fold the skills into Learn **Module 1 (Feelings & Needs)** — they are a **second content family** within Learn, distinct from the emotion/need module and its discovery.
+- **Immediate purpose: internal team training.** These skills (clarity of expression especially) are needed now to train the team; product-pillar use comes later. They were **unplanned and are off every roadmap** — adopted because the need is real and they fit Learn.
+- **Not settled here:** whether/when the skills graduate into a standalone Learn app vs. stay in Tracker; and the judge/item-reliability gates (`../../tracker/notes.md` open-Qs 2–3), which are untouched by this and still stand.
+
+*Origin: founder direction, 2026-08-01. Canon reconciled — `../roadmap.md` §2/§6, `../../tracker/canon/00-orientation/00-what-tracker-is.md` §3, `../../tracker/canon/04-roadmap/00-state-of-the-build.md`, `../../tracker/notes.md` open-Q #1 — each carrying its own changelog line.*
+
+---
+
 ## Progress indication is not an extrinsic incentive — 2026-07-29
 
 **Clarified, not reversed.** The standing refusal (`../canon/01-philosophy/02-anti-patterns-and-constraints.md` §2) targets **the marker becoming the motive**, not the display of progress. A bar reporting where a goal or project stands is information; Tracker ships it for goals and projects on purpose and is compliant. What stays refused is any marker that supplies the *primary long-term reason to act* — a run you protect, a bar filled for the filling, a badge as the payoff.
@@ -90,3 +126,5 @@ Tech: Vite + React Router (frontend), Express + GraphQL + Prisma/SQLite (backend
 - **2026-07-14** — Log started. Captured the evolution to date, corrections, deferrals, and locked constraints from the design conversations. *(Reconstructed from memory of prior sessions; treat pre-dated entries as best-effort, not verbatim record.)*
 - **2026-07-22** — Added the **"Since the first canon — 14 → 22 July 2026"** section: Root Dev → Root Studio and the website-as-portal build, the ecosystem/Hesab open question, Learn Module 1 refinements (H6a/H6b, the reconstrual lever, the English-only build nuance), AFFiNE deployed, and the private philosophy track. Applied the matching edits across the canon — `../canon/01-philosophy/01-brand-definition.md`, `../canon/01-philosophy/02-anti-patterns-and-constraints.md`, `../canon/02-pillars/learn.md`, `../canon/02-pillars/reflect.md`, `../canon/04-research/00-evidence-summary.md`, `../canon/03-engine/02-async-coordination.md`, `README.md` — each carrying its own 0.2 changelog line. **Fidelity note:** this pass is grounded in an exported session record (`../root-canon-log_2026-07-14_to_2026-07-22.md`), so it is firmer than the 2026-07-14 reconstruction.
 - **2026-07-23** — Confirmed **Hesab is adjacent, not a Root sub-brand** (firmed `../canon/01-philosophy/01-brand-definition.md` §7 from open-question to decided). Recorded the **standalone-app development model** (five pillars built independently, integrated into Journey ~9 months out; integration vision from day one) and **re-scoped H6**: it informs the deferred integration/ordering decision, it does **not** gate the standalone Learn build. Nuanced `../canon/02-pillars/learn.md` §3 accordingly. Origin: founder direction during Learn-discovery planning.
+- **2026-08-01** — Recorded **Tracker as a staging ground, not itself a pillar**, and assigned the **Skills Engine (Clarity/Evidence Labs + planned skills) to Grow (Learn)** conceptually — hosted in Tracker for now, purpose = team training. Resolved the standing "where does the Skills Engine live" question (`../roadmap.md` §6.4; `../../tracker/notes.md` open-Q #1). Reconciled `../roadmap.md`, `../../tracker/canon/00-orientation/00-what-tracker-is.md`, `../../tracker/canon/04-roadmap/00-state-of-the-build.md`, and `../../tracker/notes.md`. Origin: founder direction.
+- **2026-08-01** — Added **"Self-initiation is detected as a capability, never counted"** — extending the 2026-07-29 progress-indication decision to graduation/self-initiation detection (detect-don't-count; infer from prompt-withdrawal + content; check-ins feed the settings layer, not the user; accept partial unobservability). Binds Reflect too. Promotes the resolution from `../working/learn-mechanisms/00-module1-process-anatomy.md` §P7 to a recorded decision. Origin: founder direction.
