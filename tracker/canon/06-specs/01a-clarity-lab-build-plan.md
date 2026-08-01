@@ -65,7 +65,7 @@ Clarity got its **own GraphQL types** (`ClarityModule`, `ClarityServedItem`, `Cl
 
 ### Phase 3 — Frontend, plates 1–8 · *no credential required* · **built 2026-08-01**
 
-Wireframes: `` artifact, draft 1. Plate 4 (the three-pane gap reveal) is the only genuinely novel component; the rest is a rearrangement of things Evidence Lab already has. Elicitation screens are built in this phase but gated behind the credential check, showing the "needs a reader" state rather than being hidden — an absent feature that explains its own absence is better than one that silently isn't there.
+Wireframes: `06-specs/` artifact, draft 1. Plate 4 (the three-pane gap reveal) is the only genuinely novel component; the rest is a rearrangement of things Evidence Lab already has. Elicitation screens are built in this phase but gated behind the credential check, showing the "needs a reader" state rather than being hidden — an absent feature that explains its own absence is better than one that silently isn't there.
 
 `en` + `fa`, with RTL passes on the artifact editor, the three panes and the rubric rail.
 
