@@ -2,7 +2,7 @@
 
 *Ecosystem-level sequencing: which pillar and which business stream get worked next, and where each sits in the five-phase engine. **Skeleton** — see the note below before relying on it. Update the changelog; don't fork.*
 
-**Version 0.3 · Status: skeleton (assembled, not authored; §3 is as-built) · 2026-08-01 · Owner: _root**
+**Version 0.5 · Status: skeleton (assembled, not authored; §3 is as-built) · 2026-08-01 · Owner: _root**
 
 ---
 
@@ -54,9 +54,9 @@ Solo for now, with help possible on parts later. Formerly "Root Dev"; renamed to
 
 **This stream is the furthest along, and it is ahead of this document.** As of 2026-07-29 `root-app` has **Phase 0 built and most of Phase 1** — Landing and About in both languages, the full auth set (sign-in, invite acceptance, password reset) on httpOnly sessions, the portal shell, the contracts list, the contract detail with the design→approve→e-sign gate enforced server-side, the change log, a role-aware API with the whole Phase-1 mutation set, and the operational admin for invites, publishing and status. Services, Billing and Support are modelled and reserved but are honest stubs. Read that repo's README for the current state — it is verified against the code and this file is not.
 
-**Contracts is the urgent piece** — the only item in this stream flagged urgent anywhere in the sources, and the one now substantially delivered.
+**Contracts was the urgent piece** — the only item in this stream ever flagged urgent, and the one now substantially delivered. **That urgency was stood down on 2026-08-01** (decision log): a live first client is no longer the driving milestone, so email leaves the critical path and stays unbuilt. The stream now runs on depth instead — contract/design versioning to completion, then the Research Lab. Order and reasoning: `working/root-website-build-plan.md`.
 
-**The two things standing between Phase 1 and a live client:** nothing sends email (invite and reset links are emitted to the operator by hand, marked `TODO(email)`), and the API has **never been run against a real Postgres** — `prisma migrate dev` has not been generated, so that is both the first step and the likeliest thing to break. Design-image upload is also absent; the schema carries `imageUrl` but no admin form fills it.
+**The Postgres blocker is cleared (2026-08-01).** The stack ran against a real database: `prisma migrate dev` was generated and the initial migration is committed, so the schema is now reproducible via `prisma migrate deploy`. What broke was the boot, not the schema — the API validated its env without loading `.env`, fixed in the same commit. **What still stands between Phase 1 and a live client:** nothing sends email (invite and reset links are emitted to the operator by hand, marked `TODO(email)`), and design-image upload is absent — the schema carries `imageUrl` but no admin form fills it. The upload is now specced as part of the admin contract workspace (`working/root-website-versioning-and-admin.md` §3).
 
 The v2 build brief (`working/root-website-requirements_2.md`, 2026-07-08 — design tokens, bilingual/RTL, process) **still holds**; v3 extends rather than replaces it. Keep both.
 
@@ -87,6 +87,8 @@ Named so the gap is explicit rather than silently empty:
 
 ## Changelog
 
+- **0.5 · 2026-08-01** — §3: **Contracts' urgency stood down** — a live first client is no longer the driving milestone, so email leaves the critical path (decision log, 2026-08-01). The stream now runs on depth: versioning to completion, then the Research Lab, per `working/root-website-build-plan.md`.
+- **0.4 · 2026-08-01** — §3: the Postgres blocker named in 0.2 is **cleared** — the stack ran against a real database and the initial migration is committed. Email and design-image upload remain; the upload now has a spec. Corrected because 0.2's wording had gone stale the same day it was contradicted by the code.
 - **0.3 · 2026-08-01** — Resolved §6.4: the **Skills Engine belongs to Grow (Learn)**, with **Tracker reframed as a staging ground** rather than the Organize pillar (decision log, 2026-08-01). Adjusted the §2 Organize row and added the "Learn spans two content families" note (Module 1 + the durable-skills stack; the latter off-engine, team-training purpose).
 - **0.2 · 2026-07-29** — §3 updated after the `root-app` repo (then `root-website`) was folded into the local structure: Root Studio is Phase-0-complete and most of the way through Phase 1, with email and the first real Postgres migration named as the two remaining blockers. Sourced from that repo's README, which is verified against its code.
 - **0.1 · 2026-07-29** — Initial skeleton, created at repo consolidation to fill the planned slot. Assembled from `canon/03-engine/00-five-phase-engine.md`, `canon/02-pillars/`, `working/README.md`, `working/root-website-v3-overview.md`, and `working/root-goals-update.md`. No new decisions; gaps named in §6.
