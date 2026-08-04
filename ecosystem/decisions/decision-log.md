@@ -25,7 +25,73 @@
 
 ---
 
+## The contract PDF is a rendering of a published revision, never the record — 2026-08-04
+
+**Decided by building it.** A customer can now open a printable copy of their contract and save it as a PDF from the browser. Two decisions sit under that.
+
+**Where it renders: the customer's browser, not the server.** Persian forced the choice. The pure-JS PDF libraries (`pdfkit`, `pdf-lib`, `pdfmake`) have no HarfBuzz-class contextual shaping and would set a Persian contract as disconnected, reversed letters — an unreadable legal document, not a formatting flaw. That leaves a real browser: the customer's, or a headless one in the API image. The second costs roughly +350 MB of image and ~250 MB of RAM per render on a VPS whose own runbook says `vite build` is likely to exhaust its memory. **Deferred, not dismissed** — the print route is exactly the input a headless renderer would take, so it gets reused rather than replaced the day Root needs a PDF it did not ask a customer to produce (to email, or to archive). What is missing until then: no server-side artefact, and the filename and any browser-added page header belong to the customer's print dialog.
+
+**What the PDF is: a view, not the document.** `ContractRevision.snapshot` and its sha256 `contentHash` remain the record. The printed page renders *from* that frozen snapshot and carries the reference, the revision number and the full hash on **every sheet**, so a page in someone's hand can be checked against the record. Storing a PDF as the authority was rejected: it would create a second candidate for "the document", which is the exact thing `lib/revision.ts`'s single canonical serialization exists to prevent.
+
+**One latent bug this surfaced.** The GraphQL surface had no way to name a published revision at all — no version, no hash, no amendments, and no frozen title or fee. The portal was showing the *draft* title above *published* articles; they had simply not diverged yet. Publish, then rename, and they disagree. The printable view now reads only from the revision.
+
+This closes **F1**, so **F2 (the admin shell) is unblocked** and is the last unbuilt foundation. Build plan → 0.6. Origin: founder direction on the renderer; the record-vs-rendering answer follows from the versioning spec.
+
+---
+
+## Direction captured: a Review Room for outside specialists — 2026-08-03
+
+**Not a decision — an intent, recorded so it isn't re-derived.** A **special kind of user** — an invited specialist (psychologist, sociologist, manager) — gets a private panel *like the Research Lab*, except the corpus is **Root's own documents** and the reviewer can **leave comments**. The purpose is outside expert review of our work in their own discipline. Captured at `../working/root-website-review-room.md` (0.1).
+
+**Why it is logged rather than left in a spec.** It changes two things already written down. The role model gains a **fourth** role — reviewer, alongside customer, admin and the Lab's planned contributor — which raises the value of the build plan's standing instruction to build the admin section nav **role-filtered from the start** (§F2). And it is the first feature that makes the **stood-down email decision** (2026-08-01) expensive: a comment nobody is notified about is a comment nobody answers, and an outside specialist is a worse person to hand an invite link to than a customer we speak to daily.
+
+**Nothing is designed, and it is deliberately unsequenced.** Three questions decide the build and none is answered: where the documents come from (the repo, the database, or a frozen snapshot — the app has no bridge to `root-sot` today), **who sees which document** (a per-reviewer grant, not a public/private flag — the private register must be unreachable here by default), and what a comment anchors to. The build plan orders built specs; this stays out of it until those are answered.
+
+*Origin: founder direction, 2026-08-03 — "doc it for a very soon later."*
+
+---
+
+## The content umbrella is the Library / کتابخانه — 2026-08-03
+
+**Context.** The Research Lab spec (2026-08-01) settled the shape of the content arm but deliberately left its public *label* open, and the route and slug follow from the label. That single unmade decision was the only thing in the build plan capable of stopping a stage from starting: R2 — the public reader — could not be built without knowing what URL it lives at. Specs: `../working/root-website-research-lab.md` §1, `../working/root-website-build-plan.md` §5.
+
+**Decision — the umbrella is labelled Library (کتابخانه), at `/:lang/library`.** Chosen over Field Notes, Reading Room and the placeholder "Content". The Research Lab sits at `/library/research`; **Root Cast stays a sibling strand** at `/library/cast`, unchanged in status — the umbrella names the shelf, not the crew.
+
+**What it costs.** *Library* leans textual and archival, and Root Cast is a podcast. The word was chosen for the corpus, because the corpus is what ships first and carries the weight; audio under a textual name is the accepted compromise. If Root Cast ever outgrows a strand, **the umbrella gives way, not the Lab**.
+
+**The Persian label is the primary one, not a translation of the English.** کتابخانه is the ordinary Persian word for a library and carries none of the English word's institutional stiffness — which matters more than the English reading, since the product is Persian-first.
+
+**Retired routes redirect, they do not disappear.** `cast` and `blog` have been reserved top-level routes since launch. They become children of `library`, with `blog` folding into Root Cast rather than surviving as its own strand, and both old paths redirect. A public URL that has ever existed is not free to delete.
+
+**What this does *not* change.** The build order stands: versioning to depth first (2026-08-01), then the Lab. R2 is no longer *decision*-blocked, but it still follows R1, which still follows the F1 upload/storage and F2 admin-shell foundations. **Nothing changes in `root-app` today** — the nav slot stays locked and still reads "Root Cast · Coming later", because relabelling it now would advertise a section that does not exist and would remove the only signal that Root Cast is coming.
+
+*Origin: founder direction, 2026-08-03. Two of the Research Lab's three open items remain: the contributor/admin permission line (blocks R1's role work) and the per-source rights workflow (blocks R4).*
+
+---
+
+## Website build order: versioning to depth first; a live client stood down — 2026-08-01
+
+**Context.** Both website features scoped on 2026-08-01 — versioning/admin and the Research Lab — were specced but unsequenced, and each assumed it alone paid for two things that exist in neither. Build plan: `../working/root-website-build-plan.md`.
+
+**Decision 1 — a live first client is no longer the driving milestone.** This **reverses** the standing "Contracts is the urgent piece" framing (`../working/root-website-v3-overview.md`; `../roadmap.md` §3). The urgency is *stood down, not met*. **Email stays unbuilt** — it was one of the two named blockers to a live client, and with no live client it leaves the critical path; invite and reset links keep being passed by hand.
+
+**Decision 2 — versioning runs to depth, the Research Lab follows.** All four phases of the versioning spec, then the Lab, which inherits foundations versioning will have paid for and proven.
+
+**What is *not* deferred by this.** Versioning P1 (the invisible schema stage) still goes early, for a reason the priority shift does not touch: its backfill migrates the existing contract into v1 of each lineage, which is trivial against one seeded contract and worse with every real one. It is cheap *because* nothing real is in the database yet — the one item here that gets more expensive by waiting.
+
+**Decision 3 — demo mode is retired.** `apps/web/src/lib/demoLink.ts` is 313 lines mirroring the API in memory, the gate rule included. Its stated purpose — "so the portal can be reviewed before Postgres is running" — ended on 2026-08-01 when the stack first ran on Postgres. Carrying it through versioning means implementing revisions twice; carrying it unchanged means shipping a demo that contradicts the product.
+
+**Decision 4 — uploads go to local disk behind an interface.** Files on the VPS served by host Nginx, behind a small storage interface so object storage is a later swap rather than a rewrite. **With a public/private split from day one:** design images are customer-private, hosted research is public. That split comes from the Lab's visibility flag, not from versioning — which is exactly why building the two features in isolation would have got it wrong, since versioning alone would never have needed it, and retrofitting means re-keying every stored file.
+
+**The foundations neither spec owned:** file upload/storage (there is no multipart, static serving or storage abstraction anywhere in the API) and a real admin shell (today one 233-line unstyled page). A contributor role is a third, but only the Lab needs it, so it lands with the Lab.
+
+*Origin: founder direction, 2026-08-01, sequencing the two specs of the same date. Grounded in `root-app` @ `0866393`.*
+
+---
+
 ## Research Lab — a public research corpus under Content, not a worklog — 2026-08-01
+
+*Appended 2026-08-03: the one item this entry left open — the umbrella's public label — is now **Library / کتابخانه**. See the 2026-08-03 entry above. Everything else here stands.*
 
 **Context.** A new public page for the Root website, scoped 2026-08-01. Full spec: `../working/root-website-research-lab.md`. A bilingual library of the research Root **references** (papers, books, articles) and the research Root **does itself** — readable, searchable, citable, translated with stated provenance, later queryable by an agent.
 
@@ -156,6 +222,7 @@
 
 - **Persian master name revised بن → ریشه.** بن read as a coupon/discount word; ریشه ("root") carries the intended meaning cleanly. English stays "Root."
 - **Others** kept as a *working* name; candidates Contribute / Serve / Relate / خدمت recorded (`../canon/02-pillars/others.md` §2). Not resolved.
+- **The website's content umbrella named Library / کتابخانه** (2026-08-03), over Field Notes / Reading Room / "Content". Root Cast stays a sibling strand under it, not the umbrella. Slug `/:lang/library`.
 
 ## What we broke / corrected
 
@@ -189,4 +256,7 @@ Tech: Vite + React Router (frontend), Express + GraphQL + Prisma/SQLite (backend
 - **2026-08-01** — Recorded **Tracker as a staging ground, not itself a pillar**, and assigned the **Skills Engine (Clarity/Evidence Labs + planned skills) to Grow (Learn)** conceptually — hosted in Tracker for now, purpose = team training. Resolved the standing "where does the Skills Engine live" question (`../roadmap.md` §6.4; `../../tracker/notes.md` open-Q #1). Reconciled `../roadmap.md`, `../../tracker/canon/00-orientation/00-what-tracker-is.md`, `../../tracker/canon/04-roadmap/00-state-of-the-build.md`, and `../../tracker/notes.md`. Origin: founder direction.
 - **2026-08-01** — Added **"Self-initiation is detected as a capability, never counted"** — extending the 2026-07-29 progress-indication decision to graduation/self-initiation detection (detect-don't-count; infer from prompt-withdrawal + content; check-ins feed the settings layer, not the user; accept partial unobservability). Binds Reflect too. Promotes the resolution from `../working/learn-mechanisms/00-module1-process-anatomy.md` §P7 to a recorded decision. Origin: founder direction.
 - **2026-08-01** — Added **"Research Lab — a public research corpus under Content, not a worklog"** — a bilingual, citable library of referenced + own research under the Content section (opens the Root Cast content lock, but is only one strand of Content; Root Cast stays the crew's voice). Translation provenance required; public/private visibility excludes the private register. V1 decisions: floor scope, host-else-link, admin + lighter contributor, agent last. Spec new at `../working/root-website-research-lab.md`; indexed in `../working/README.md`. Origin: founder direction.
+- **2026-08-03** — Added **"The content umbrella is the Library / کتابخانه"** — locking the label the Research Lab spec left open, plus the slugs that follow (`/:lang/library`, `/library/research`, `/library/cast`). Resolves the one open decision that could block a build stage: R2 of `../working/root-website-build-plan.md` was unstartable without a route. Records the cost (a podcast under a textual name) and that the retired `cast`/`blog` routes redirect rather than 404. Spec → 0.2, build plan → 0.4; also noted under **Naming**. **No code change in `root-app`** — the nav slot stays locked until R2 ships. Origin: founder direction.
+- **2026-08-04** — Added **"The contract PDF is a rendering of a published revision, never the record"** — the customer's browser renders it (Persian shaping rules out the pure-JS PDF libraries; a headless renderer in the API image is deferred, not dismissed, and would reuse the same route), and the hash-sealed snapshot stays the document while the printed page carries the reference, revision and full sha256 on every sheet. Records the latent bug it surfaced: the GraphQL surface could not name a published revision, so the portal showed a draft title above published articles. **Closes F1**, leaving F2 the last unbuilt foundation; build plan → 0.6. Origin: founder direction on the renderer.
+- **2026-08-03** — Added **"Direction captured: a Review Room for outside specialists"** — an *intent*, not a decision: a private Lab-like panel over Root's own documents where an invited specialist comments on our work. New idea doc at `../working/root-website-review-room.md` (0.1); indexed in `../working/README.md`. Notes the two things it disturbs — a fourth role, and the cost of the stood-down email decision — and that it is deliberately unsequenced until three open questions are answered. Origin: founder direction.
 - **2026-08-01** — Added **"Contract & design version independently; a signed contract is frozen"** — recording the two decisions behind the root-website versioning work: independent contract/design revision lineages, a **signed contract frozen with amendments** (not re-signed replacements), and **design carry-forward** of unchanged page approvals. Full spec new at `../working/root-website-versioning-and-admin.md`; indexed in `../working/README.md`. Origin: founder direction, the day root-app first ran on Postgres.
