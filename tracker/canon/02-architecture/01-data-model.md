@@ -2,7 +2,7 @@
 
 *Source of truth. The Prisma schema, as-built. If the schema changes, update this file in the same change. Update the changelog; don't fork.*
 
-**Version 0.1 · Status: as-built · 2026-07-22 · Owner: _root**
+**Version 0.6 · Status: as-built · 2026-08-03 · Owner: _root**
 
 ---
 
@@ -88,6 +88,14 @@ First-run guidance state.
 ### User
 `id` · `email: String @unique` · `password: String` (bcrypt) · `name: String?` · `createdAt` · relations: `actions` `projects` `goals` `intervals` `routines` `dayStates` `notes` `onboardingProgress` `moduleIntrosViewed` · **`discoverableByEmail: Boolean=false`** (opt-in for journal sharing lookup) · `defaultJournal` (`UserDefaultJournal`)
 
+### Feelings & Needs (Learn Module 1)
+The as-built tables for the Feelings & Needs tool (`06-specs/` companion; plan in the ecosystem repo `learn-build/00-module1-demo-plan.md` §8). Per-user state only — the palettes, frame script, catch copy and faux-feelings lexicon live in `api/src/content/feelings-needs/`, authored and versioned like code (the module is LLM-free). Migration `20260802120142_add_feelings_needs`.
+
+- **FrameCompletion** — `id` · `userId: String @unique` → User (Cascade) · `completedAt`. The Day-1 "felt, not told" frame, done once (P1).
+- **LoopSitting** — `id` · `userId` → User (Cascade) · `breathTaken: Boolean=false` · `wasPrompted: Boolean=false` (drives prompt-fade inference, P7) · `completedAt: DateTime?` (null = still open, which is what makes a sitting resumable; **not** a completion metric) · `createdAt` · **`@@index([userId, createdAt])`**. One per sitting; groups its passes. Only *completed* sittings are counted anywhere — an abandoned one is not a rep.
+- **LoopEntry** — `id` · `sittingId` → LoopSitting (Cascade) · `passIndex: Int` (0-based) · `bodyLocation?` (where in the body; `hard_to_place` is a real answer, not a missing one — P2 failure mode c) · `bodyTexture?` · `feelingWord?` · `feelingSource?` (`palette`|`own`|`catch`) · `need?` · `needSource?` · `smallAction?` · `distinctionCaught: Boolean=false` · `createdAt` · **`@@index([sittingId])`**. One per loop pass; ownership inherited from the sitting. **Passes are never cross-referenced to each other** — parallel, not related (relating them is storytelling, tier 4, deferred).
+- **LoopState** — `id` · `userId: String @unique` → User (Cascade) · `contentVersion` (pins the version the user started on) · `graduationSurfaced: Boolean=false` (the one-time capability moment; a door, not a score) · `createdAt` · `updatedAt`. Deliberately thin: `frameDone` and `promptFadeLevel` were both dropped once they had authoritative records elsewhere (a FrameCompletion row; the count of completed sittings). **Prefer deriving from the event over storing a summary of it** — a cached value beside the record is a value that can disagree with it. What remains is the one fact with no other record.
+
 ## Relations at a glance
 
 - **User** owns everything (all `onDelete: Cascade` from User).
@@ -106,4 +114,9 @@ SQLite has no array type. These fields are **JSON strings** in the DB and are pa
 
 ## Changelog
 
+- **0.6 · 2026-08-03** — Added `LoopEntry.bodyLocation` (`add_loop_entry_body_location`): the body step split into *where* then *what texture*, because the UI asked the first question and offered answers to the second.
+- **0.5 · 2026-08-02** — Dropped `LoopState.promptFadeLevel` (`drop_loopstate_prompt_fade_level`); the fade level is derived from completed sittings. Added `catch` as a third feeling/need source.
+- **0.4 · 2026-08-02** — Dropped `LoopState.frameDone` (`drop_loopstate_frame_done`); the Day-1 frame's completion is derived from `FrameCompletion`.
+- **0.3 · 2026-08-02** — Added `LoopSitting.completedAt` (migration `add_loop_sitting_completed_at`) for loop resumability.
+- **0.2 · 2026-08-02** — Added the **Feelings & Needs** tables (FrameCompletion, LoopSitting, LoopEntry, LoopState; migration `add_feelings_needs`) for Learn Module 1, Phase 1 scaffold. (The Skill-tool tables remain documented in their spec, `06-specs/00-skills-engine.md` §9, not yet transcribed here.)
 - **0.1 · 2026-07-22** — Initial, transcribed from the live schema. Reflects migrations through `20260613174330_add_journals`.
