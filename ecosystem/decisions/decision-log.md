@@ -25,6 +25,56 @@
 
 ---
 
+## Staff roles are a set, and the guard is a capability — 2026-08-04
+
+**The dashboard was planned to its end, and the shape of it turned on one question: what is a role?**
+
+The founder's model has four kinds of user — customer, contributor, professional reviewer, admin — and the deciding detail is that **a person may hold contributor and reviewer together**. Some contributors review; some reviewers (an invited outside specialist) never touch the Library. So it is not a ladder and it is not a rank: `User.role` becomes `User.roles`, and permission is a **capability** unioned across them.
+
+**Why a rank would not have held.** The Research Lab's own sentence — *"the contributor sees the same editor minus publish and tree-editing"* — is a **per-action** distinction. No ordering of role names can express it; a capability table can, and then the section nav and the resolver guard are literally the same function. This closes the "contributor/admin permission line" that had been carried as an open item blocking R1, and closes it by finding that it was never a line.
+
+**Two mechanisms, never merged.** A capability decides whether you may use a surface at all. An **ownership edge** decides which rows you see through it — which the app already has, as "a customer sees their own contract, if published". `CUSTOMER` therefore maps to the empty capability set, and that is not a demotion; it is a different axis. Collapsing the two is the failure the Review Room spec had already named in advance.
+
+**Consequences recorded:** `REVIEWER` now means the Review Room and nothing else, so an outside specialist gets least privilege by default and `CONTRIBUTOR` is granted deliberately. The admin surface is renamed **the staff shell** and moves from `/admin` to **`/desk`**, because `/admin` is the wrong word in the URL bar for most of the people who will live in it — free now, costly once three roles have bookmarked it. And the foundation formerly called "the contributor role" is rewritten and moved *before* the shell, since it is what stops the shell's nav being written for one role and then rewritten.
+
+**What it breaks:** `requireRole` is an equality check (`user.role !== role`), harmless while ADMIN is the top of a single-role column and wrong the moment anything below it is guarded — at which point the admin is refused by its own contributor guard. Sixteen call sites. Build plan → 0.7 (§2 F2, F3, §6.8). Origin: founder direction.
+
+---
+
+## The Review Room is buildable: a snapshot, one allowlisted corpus, passage comments — 2026-08-04
+
+The idea captured on 2026-08-03 was deliberately unsequenced behind three questions. All three are now answered, so it becomes **track C** of the build plan.
+
+**Where the documents come from: a snapshot at review time** — the most expensive of the three options and the only one where a comment still means something six weeks later. One part came in cheaper than the estimate: the corpus is a git repo, so **the freeze is a commit**. A review round is a sha, and an explicit publish step renders the named paths into Postgres, hashed with the same canonical serialization the contracts use. The API never reads a git tree; `root-sot` is not on the VPS and is not going there.
+
+**Who sees which document: everyone sees one corpus, defined by an allowlist.** This **reverses** the per-reviewer-grant model the spec itself argued for, and deletes the sharpest permission surface in the plan. The risk does not vanish — it *moves*, from who-sees-which-document to what-is-in-the-corpus-at-all — so the decision that remains is which way the default points, and it points **allow**. `root-sot` is 83 tracked markdown files and Root keeps writing into it; under a denylist a private file committed six months from now is visible to every reviewer the moment it lands, and nobody is asked anything. `../personal-canon.md` is the concrete case: it holds the private register and says of itself that it must not surface into client materials, and an invited outside specialist is the most client-facing reader this feature will ever have.
+
+**What a comment attaches to: a passage** — upgraded from the section-level lean, because the snapshot removed the thing that broke passage anchors. Reviewers do not see each other's comments (parallel independent review, so one expert's read does not anchor another's).
+
+**And email returns.** The spec predicted this would be the feature that made a stood-down decision hard to keep, and it was right. Built as a **seam** immediately before the Review Room — interface, bilingual templates, call sites, and a dev transport that degrades to logging the link if no provider is configured — with the provider wired by the founder. Review Room spec → 0.2; build plan → 0.7 (§5b). Origin: founder direction.
+
+---
+
+## Contract revisions stay admin-authored; amendments stay free-text — 2026-08-04
+
+Two of the three decisions the versioning spec had been carrying since 2026-08-01, both closed on their recorded leans.
+
+**Authorship: admin only.** A customer's request for a change stays a comment, which already flips the contract to *waiting on Root*. The tracked "revision requested" object is **wanted and deferred**, not rejected — and the reason is worth keeping: a request is routinely *partly* satisfied. "You asked for three things, v3 does two" is the normal case, and an open/closed flag on a request lies about it; the honest version is per-item tracking, which is a small issue tracker living inside a contract workspace.
+
+**Amendment scope: free-text**, plus an optional **non-authoritative** "relates to Article N" display hint. Structured *supersede-Article-N* amendments are **rejected rather than deferred**: recomputing the effective article set makes the readable contract a **computed** document — a second candidate for "the document" beside the sealed snapshot — and weakens what a signature attests to, since the signature binds the base revision's hash. That is the same reasoning that settled the PDF question two days earlier, arriving from the other direction. Versioning spec → 0.2 (§5); build plan → 0.7 (§7). Origin: founder direction.
+
+---
+
+## Per-source rights are a field on the entry, not a workflow — 2026-08-04
+
+The Research Lab had carried "how is *may we host this in full?* checked and recorded per source" as an open item blocking the agent. It was misfiled: there is no workflow, only a **required rights basis on the entry with no default** — public domain, open licence, permission granted, or link-only. Same argument that made translation provenance required: "checked at entry time" only holds if omission is impossible, and a defaulted field is omission with a friendly face.
+
+**This field is the agent's scope**, which is what unblocks R4. An agent holding the full text of a paper Root may only *link* to will quote it to readers — republishing it a paragraph at a time, at scale, under Root's name. **Link-only means cite, never quote.**
+
+**And it has to be enforced when the file is offered, not when it is read.** Hosted full text lives in the public storage class, which Nginx serves straight from disk; the request never reaches the API, so there is no read path left to consult a flag on. A link-only entry must be refused a file at upload and held there by a database constraint. Enforced anywhere else, the rule is a wish. Research Lab spec → 0.3 (§3, §9); build plan → 0.7 (§5 R1, §6.9). Origin: founder direction.
+
+---
+
 ## The contract PDF is a rendering of a published revision, never the record — 2026-08-04
 
 **Decided by building it.** A customer can now open a printable copy of their contract and save it as a PDF from the browser. Two decisions sit under that.
@@ -234,6 +284,8 @@ This closes **F1**, so **F2 (the admin shell) is unblocked** and is the last unb
 
 ## Set aside (deferred, on purpose)
 
+- **Contract "revision requested" as a tracked object** — wanted, deferred 2026-08-04 as a named later refactor. Ships as a plain comment first. Decide *before* building it whether it is a counter on `Comment` or per-item tracking, because a request is routinely partly satisfied and a boolean lies about that.
+- **The Review Room's name** — "Review Room" is a working handle. Private, so it needs no public label, no Persian nav string and no route in the public IA; name it when it is built.
 - **Others: relationship management subcomponent** — TBD, later; the "close relationships handled via Reflect/Maintain" claim is contested and left open.
 - **Reflect: cross-entry pattern recognition** — pending professional sign-off.
 - **Learn: pathway recommendation logic; integration-vs-separation of module delivery** — discovery questions.
@@ -258,5 +310,6 @@ Tech: Vite + React Router (frontend), Express + GraphQL + Prisma/SQLite (backend
 - **2026-08-01** — Added **"Research Lab — a public research corpus under Content, not a worklog"** — a bilingual, citable library of referenced + own research under the Content section (opens the Root Cast content lock, but is only one strand of Content; Root Cast stays the crew's voice). Translation provenance required; public/private visibility excludes the private register. V1 decisions: floor scope, host-else-link, admin + lighter contributor, agent last. Spec new at `../working/root-website-research-lab.md`; indexed in `../working/README.md`. Origin: founder direction.
 - **2026-08-03** — Added **"The content umbrella is the Library / کتابخانه"** — locking the label the Research Lab spec left open, plus the slugs that follow (`/:lang/library`, `/library/research`, `/library/cast`). Resolves the one open decision that could block a build stage: R2 of `../working/root-website-build-plan.md` was unstartable without a route. Records the cost (a podcast under a textual name) and that the retired `cast`/`blog` routes redirect rather than 404. Spec → 0.2, build plan → 0.4; also noted under **Naming**. **No code change in `root-app`** — the nav slot stays locked until R2 ships. Origin: founder direction.
 - **2026-08-04** — Added **"The contract PDF is a rendering of a published revision, never the record"** — the customer's browser renders it (Persian shaping rules out the pure-JS PDF libraries; a headless renderer in the API image is deferred, not dismissed, and would reuse the same route), and the hash-sealed snapshot stays the document while the printed page carries the reference, revision and full sha256 on every sheet. Records the latent bug it surfaced: the GraphQL surface could not name a published revision, so the portal showed a draft title above published articles. **Closes F1**, leaving F2 the last unbuilt foundation; build plan → 0.6. Origin: founder direction on the renderer.
+- **2026-08-04** — Added four entries closing out the dashboard plan. **"Staff roles are a set, and the guard is a capability"** — `User.role` becomes `User.roles`, permission becomes a capability unioned across them, `REVIEWER` narrows to the Review Room alone, and the admin surface becomes the **staff shell at `/desk`**; resolves the contributor/admin "permission line" by finding it was never a line. **"The Review Room is buildable"** — snapshot at review time (the freeze is a git commit), **one corpus defined by an allowlist** rather than per-reviewer grants, passage-level comments, and email returning as a seam; the idea becomes track C. **"Contract revisions stay admin-authored; amendments stay free-text"** — with structured supersede-Article-N *rejected* rather than deferred, and the tracked revision-request deferred with its reason. **"Per-source rights are a field, not a workflow"** — a required rights basis with no default, which turns out to be the agent's quote-versus-cite scope and unblocks R4. Specs → versioning 0.2, Research Lab 0.3, Review Room 0.2, build plan 0.7; all indexed in `../working/README.md`. Two items added to **Set aside**. **No code change in `root-app`.** Origin: founder direction.
 - **2026-08-03** — Added **"Direction captured: a Review Room for outside specialists"** — an *intent*, not a decision: a private Lab-like panel over Root's own documents where an invited specialist comments on our work. New idea doc at `../working/root-website-review-room.md` (0.1); indexed in `../working/README.md`. Notes the two things it disturbs — a fourth role, and the cost of the stood-down email decision — and that it is deliberately unsequenced until three open questions are answered. Origin: founder direction.
 - **2026-08-01** — Added **"Contract & design version independently; a signed contract is frozen"** — recording the two decisions behind the root-website versioning work: independent contract/design revision lineages, a **signed contract frozen with amendments** (not re-signed replacements), and **design carry-forward** of unchanged page approvals. Full spec new at `../working/root-website-versioning-and-admin.md`; indexed in `../working/README.md`. Origin: founder direction, the day root-app first ran on Postgres.

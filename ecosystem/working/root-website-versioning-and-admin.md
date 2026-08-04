@@ -1,11 +1,11 @@
 # Root Website — Contract & Design Versioning + Admin Dashboard
 
 **From:** _root
-**Status:** Spec — designed, not built. Extends `root-website-v3-overview.md` (adds the versioning layer and the full admin surface it deferred).
-**Version:** 0.1 · 2026-08-01 · Owner: _root
+**Status:** Spec, **partly built**. Feature 1 (the versioning model) is built and verified — V1, 2026-08-02. Feature 2 (the admin dashboard) is not, and amendments are read-only on the current surface: the model and the type exist, no mutation writes one. Extends `root-website-v3-overview.md` (adds the versioning layer and the full admin surface it deferred).
+**Version:** 0.2 · 2026-08-04 · Owner: _root
 **What this is:** how the contract and the design each gain an independent version history, how a signed contract is amended rather than changed, and the admin dashboard that authors all of it.
 
-**Grading.** The *current state* below is **as-built** — verified against `rishe-eco/root-app` on 2026-08-01, the day the stack first ran against a real Postgres. Everything under *Feature 1* and *Feature 2* is **spec**. Wireframes referenced here live in a separate design note (a Claude artifact); the wording in this file is authoritative where the two differ.
+**Grading.** The *current state* below is **as-built** — verified against `rishe-eco/root-app` on 2026-08-01, the day the stack first ran against a real Postgres. *Feature 1* is **as-built** as of 2026-08-02 — where the code and this text disagree, see the build plan §4, which records the one spec rule that had to change on contact with Postgres. *Feature 2* is still **spec**. Wireframes referenced here live in a separate design note (a Claude artifact); the wording in this file is authoritative where the two differ.
 
 ---
 
@@ -134,18 +134,25 @@ Sequenced so the risky part lands first and invisibly, and nothing ships half-wi
 
 ---
 
-## 5. Open decisions (still outstanding)
+## 5. Open decisions — all three now closed
 
-Resolved on 2026-08-01: **signed = frozen + amendments** (§2.2) and **design carry-forward** (§2.3).
+Resolved on 2026-08-01: **signed = frozen + amendments** (§2.2) and **design carry-forward** (§2.3). The three left outstanding closed over the following days, each on its recorded lean.
 
-Still to confirm:
+1. ~~**Storage**~~ — **resolved 2026-08-02 by building it**: the hybrid, as specced. Contract = an immutable JSON snapshot plus a sha256 over one canonical serialization (`lib/revision.ts`); design = relational rows sharing a `designRevisionId`.
 
-1. **Storage** — the hybrid (contract = snapshot + hash, design = relational) as specced, or all-relational for uniformity at the cost of signing cleanliness. *Lean: hybrid.*
-2. **Who authors a revision/amendment** — admin only *(lean)*, or can a customer comment open a "revision requested" state Root then fills?
-3. **Amendment scope** — free-text amendments only, or also structured "supersede Article N" amendments that recompute the effective article set for display? *Lean: start free-text; structured later.*
+2. ~~**Who authors a revision/amendment**~~ — **admin only** *(founder direction, 2026-08-04)*. A customer's request for a change stays a comment: `addComment` already flips the contract to `WAITING_ON_ROOT`, Root edits the draft, and the change log records customer-commented → v3-published. Nothing new is built.
+
+   The tracked "revision requested" object is **wanted, and deferred as a later refactor** — logged rather than dropped. What decides its cost is that a request is routinely *partly* satisfied: "you asked for three things, v3 does two" is the normal case, and an open/closed flag on a request lies about it. A counter on `Comment` is the cheap version; anything more honest is per-item tracking, which is a small issue tracker living inside a contract workspace. Decide which of the two is wanted before building either.
+
+3. ~~**Amendment scope**~~ — **free-text** *(founder direction, 2026-08-04)*, as leaned, and the argument is stronger than when the lean was written.
+
+   What is actually at stake is what the **printed** contract shows. Structured "supersedes Article 7" amendments would recompute the effective article set for display, which makes the readable document a *computed* one — a second candidate for "the document" beside the sealed snapshot. That is precisely what `lib/revision.ts`'s single canonical serialization exists to prevent, and it is the same question F1b settled in the other direction on 2026-08-04: the PDF is a rendering, never the record. It also erodes what a signature means. The signature attests to the base revision's `contentHash`, so a screen showing a recomputed article set is no longer showing what was signed. Amendments stack, and every layer is one more way for the display and the record to disagree.
+
+   One addition carries most of structured's readability at none of its risk: an **optional, non-authoritative `relatesToArticle` hint**. The print still shows the sealed article untouched, and renders the amendment beside it, marked. A display affordance, not a recomputation.
 
 ---
 
 ## Changelog
 
+- **0.2 · 2026-08-04** — **All three open decisions closed** (§5). Storage was resolved on 2026-08-02 by building the specced hybrid. **Revision authorship: admin only** — a customer's request stays a comment, and the tracked "revision requested" state is deferred as a *named* later refactor, because a request is routinely partly satisfied and a boolean lies about that. **Amendment scope: free-text**, plus an optional non-authoritative `relatesToArticle` display hint; structured supersede-Article-N is **rejected rather than deferred**, because it would make the readable contract a computed document and weaken what a signature attests to — the same reasoning that settled the PDF question two days earlier. Founder direction, 2026-08-04.
 - **0.1 · 2026-08-01** — Initial. Two-lineage versioning model; the signed-is-frozen/amendments decision and the design carry-forward decision (both founder direction, 2026-08-01); gate re-derivation; admin dashboard shape; four-phase build order. Grounded in the `root-app` model as-built the day the stack first ran on Postgres. Logged in `../decisions/decision-log.md`; indexed in `./README.md`.
