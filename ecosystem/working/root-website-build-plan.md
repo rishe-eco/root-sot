@@ -2,10 +2,10 @@
 
 **From:** _root
 **Status:** Build plan — sequences three specs, one of them partly built.
-**Version:** 0.7 · 2026-08-04 · Owner: _root
+**Version:** 0.8 · 2026-08-05 · Owner: _root
 **What this is:** the order in which `root-website-versioning-and-admin.md`, `root-website-research-lab.md` and `root-website-review-room.md` get built, plus the foundations no spec owns but all three need.
 
-**Grading.** Every claim about the current code is **as-built**, verified against `rishe-eco/root-app` @ `0866393` on 2026-08-01, and re-verified for §2 F1 and §4 V1 on 2026-08-03, and for §2 F1b on 2026-08-04, against the working tree (**uncommitted** — the code is real and tested, but there is no sha to cite yet). Everything about future work is **plan** — a sequence with reasons, not a commitment to dates. Where this file and a spec disagree on *what to build*, the spec wins; on *what order*, this file wins.
+**Grading.** Every claim about the current code is **as-built**, verified against `rishe-eco/root-app` @ `0866393` on 2026-08-01, re-verified for §2 F1 and §4 V1 on 2026-08-03 and for §2 F1b on 2026-08-04, and for §2 F3 on 2026-08-05. **The shas 0.5–0.7 could not cite now exist:** F1, F1b and V1 are `99797d1`, F3 is `b376a94` on branch `foundations-f3-roles`. Neither is pushed, so they are citable locally and nowhere else yet. Everything about future work is **plan** — a sequence with reasons, not a commitment to dates. Where this file and a spec disagree on *what to build*, the spec wins; on *what order*, this file wins.
 
 ---
 
@@ -85,9 +85,20 @@ The route is already a splat, so nested routing costs nothing. The work is turni
 - **Build the section nav capability-filtered from the start.** This read "role-filtered" through 0.6, and the wording mattered more than it looked: with roles now a *set* (F3), a role test in the nav is wrong twice over — it misses a user holding contributor and reviewer together, and it needs rewriting per role added. The nav reads `me.can`, which is the same table the API guards on.
 - **Sign-in routing is a capability question too.** Any staff capability opens `/desk`, a customer opens `/app`, and someone holding both sees both.
 
-### F3 — Roles as a set, capabilities as the guard
+### F3 — Roles as a set, capabilities as the guard — **built and verified, 2026-08-05**
 
 **Rewritten 2026-08-04.** This was "the contributor role" and a single enum value, deferred into R1. It is now the permission model for the whole app, and it moves to the front, because three things arrived in the same week and every one of them breaks a single-role column.
+
+**Status: met.** `User.roles` is a `Role[]` backfilled one-for-one, `lib/capabilities.ts` holds the seven-verb table and `can()`, and `requireCapability` replaced `requireRole` at every site. 88 unit tests (8 new, covering the union and the two-role case the old equality check inverted), 52 integration, and the 17-test Playwright suite green against a reset and re-seeded database. Four things the build settled that the plan had not:
+
+- **The non-empty constraint is `cardinality`, not `array_length`.** The plan asked for one without naming how, and the obvious spelling is wrong: `array_length(x, 1)` returns NULL for an empty array, a CHECK evaluating to NULL **passes**, and the constraint would have admitted precisely the row it exists to reject.
+- **The index question resolved to GIN, and `state` dropped out entirely.** The plan left it open — "GIN, or a filtered index, chosen against what `allCustomers` actually queries". The answer: `allCustomers` is array containment, which no b-tree serves, and `state` is written in four places and filtered in **none**, so `(role, state)` was already a dead second column before the array made it impossible.
+- **The `role` session claim was deleted, not pluralised.** §6.8 flagged it as worth doing in the same pass and the build's answer was to remove it: `buildContext` has always re-loaded the user from the database, so the claim was decorative — and under a *set* a decorative copy stops being harmless, because it is a snapshot of someone's permissions sitting in a cookie that outlives any change to them.
+- **One guard was an ownership question wearing a role check, and the plan did not know it existed.** `customer.ts`'s comment nudge read `user.role === 'CUSTOMER'` to decide whose court the ball moves to; it is now `user.id === contract.customerId`. The question was never "may this person comment" — they already had — and a capability answers it wrongly for anyone holding a staff role for unrelated reasons. This is the one place the plan's "two mechanisms, never merged" actually bit rather than merely warned.
+
+**One as-built count in §6.8 was off:** fifteen `requireRole` call sites, not sixteen — thirteen in `admin.ts`, two in `query.ts`, the sixteenth grep hit being the definition itself.
+
+**The client gained a derived `User.capabilities`** so the UI branches on verbs rather than roles, which is what F2's capability-filtered nav will read. `author.role` and `actor.role` went the other way: fetched on every comment and change-log line, read nowhere, so they are gone rather than converted.
 
 `Role` is `CUSTOMER | ADMIN` as built, and `User.role` is one column. The Library needs a contributor; the Review Room needs a reviewer; and **a person may hold both** *(founder direction, 2026-08-04)* — an outside specialist who is only a reviewer, a crew member who is only a contributor, and some who are both.
 
@@ -102,7 +113,7 @@ The route is already a splat, so nested routing costs nothing. The work is turni
 
 ```
 F1  upload + storage         ✔ built 2026-08-03 / 2026-08-04
-F3  roles + capabilities ──┐
+F3  roles + capabilities ──┐ ✔ built 2026-08-05
                            ↓
 F2  the staff shell ───────┼──────────────┬───────────────┐
                            ↓              ↓               ↓
@@ -114,17 +125,19 @@ F2  the staff shell ───────┼────────────
 
 Linear, as it will actually be built:
 
-> **V1b · F3 · F2 · V2 · V3 · V4 · R1 · R2 · R3 · C0 · C1 · C2 · R4 · the Persian pass**
+> **V1b · ~~F3~~ · F2 · V2 · V3 · V4 · R1 · R2 · R3 · C0 · C1 · C2 · R4 · the Persian pass**
+
+**F3 was built first of these, out of that order and deliberately** *(2026-08-05)*. It needed nothing, V1b was held, and the argument for F3 preceding F2 applies just as well to F3 preceding everything: it is a migration and one small file, and every day it waits is a day more code is written against a role that has to be unwritten. V1b keeps its place ahead of F2 in what remains.
 
 Three things about that order are worth stating, because none is arbitrary:
 
-- **F3 lands before F2.** This is the one ordering here that is load-bearing rather than preferential. F3 is a migration and one small file; it is what stops F2's section nav being written for a single role and then rewritten.
+- **F3 lands before F2.** This is the one ordering here that is load-bearing rather than preferential. F3 is a migration and one small file; it is what stops F2's section nav being written for a single role and then rewritten. **Honoured, 2026-08-05** — and the nav has a `User.capabilities` field waiting for it rather than a role to compare.
 - **V1b comes first of all**, and it is in no spec. The draft is currently invisible to GraphQL: `Contract.articles` resolves from the published snapshot while `setArticle` writes `Article` rows, and `Contract.concepts` reads the current design revision while `addConcept` writes into a draft. An editor built on today's surface would be a form whose response never reflects what was typed. API only, no UI — an admin-only `Contract.draft` and `Contract.designDraft`, plus both revision lineages for the history panel. **Acceptance: a `setArticle` write round-trips in a query, and customer-facing output is byte-identical.**
 - **Track C is independent of track R.** Review Room §3.1 resolved to a snapshot, which is its own document model, so nothing in track C waits on the Library. It is placed after it by preference — a reviewer whose panel is half-built is a poor first impression to give a specialist you had to invite — and that placement can move without anything breaking.
 
 V1 needed neither F1 nor F2, having no UI at all, and ran alongside them. Everything after it needs both.
 
-**F2 is the only unbuilt foundation, and it remains the single screen standing between here and every remaining stage.** All three tracks wait on it.
+**F2 is the only unbuilt foundation, and it remains the single screen standing between here and every remaining stage.** All three tracks wait on it. *(This sentence was written on 2026-08-04, when it was half a claim — F3 was unbuilt too. It became literally true on 2026-08-05.)*
 
 ## 4. Track V — versioning and admin
 
@@ -233,7 +246,7 @@ Built as a **seam, not a provider integration** *(founder direction, 2026-08-04)
 5. ~~**The public/private split in F1 is not deferrable**~~ (§2) — **built into the first migration, 2026-08-03**: the split is in the storage key, the row, a CHECK constraint, and which of Nginx/Node serves the bytes. The reason it looked deferrable is that versioning alone would never have needed it.
 6. **A database backup is no longer a backup.** `StoredFile` rows point at bytes in `STORAGE_DIR`, which is outside the Postgres volume; restoring one without the other gives a portal full of broken images and no list of what is missing. The runbook now carries a `tar` beside the `pg_dump`, and the API logs a distinctive line when it meets a row whose bytes are gone. **This is new as of F1 and is the kind of thing that is only ever discovered during a restore.**
 7. **Persian search quality** (§5) is a product risk, not a technical one: an English-good, Persian-poor search in a Persian-first product is the two-tier failure the team queue already names for the content packs.
-8. **`requireRole` is an equality check, and a role set inverts it.** `context.ts:37` is `user.role !== role` — harmless while ADMIN is the top of a single-role column and nothing beneath it is guarded, and wrong the moment one mutation guards on `CONTRIBUTOR`, at which point **the admin is refused by it**. Sixteen call sites, twelve further reads of `.role` besides. Related, and worth doing in the same pass: `SessionClaims` signs a `role` that carries no authority, because `buildContext` reads only `claims.sub` and re-loads the user from the database. A stale cookie therefore cannot grant stale privileges *today* — but a role inside a signed token is an invitation to trust it later, when it would be wrong by exactly the length of a role change.
+8. ~~**`requireRole` is an equality check, and a role set inverts it.**~~ — **closed by F3, 2026-08-05.** `requireRole` is gone; `requireCapability` reads a table that unions across the set, and a sweep for surviving role comparisons turns up only prose describing the old code. The related half is closed harder than proposed: the decorative `role` claim was **deleted** from `SessionClaims` rather than pluralised, so there is no longer a role inside a signed token to be tempted into trusting. *(Original: `context.ts:37` was `user.role !== role` — harmless while ADMIN is the top of a single-role column and nothing beneath it is guarded, and wrong the moment one mutation guards on `CONTRIBUTOR`, at which point the admin is refused by it.)*
 9. **A rights flag cannot be enforced on a read path that does not exist.** Hosted full text lives in F1's public class, which **Nginx serves straight from disk**; the API never sees the request. A link-only entry with an uploaded file is therefore world-readable no matter what the database says. Refuse the file when it is offered, and hold it with a CHECK constraint. This is the same shape as §6.5 — a split that looks deferrable only because one of the two consumers would never have needed it.
 
 ## 7. Open decisions — all the blocking ones now closed
@@ -257,6 +270,7 @@ Still genuinely open, and blocking nothing:
 
 ## Changelog
 
+- **0.8 · 2026-08-05** — **F3 built and verified** (§2), out of the 0.7 sequence and deliberately: it needed nothing, V1b was held, and the case for F3 preceding F2 applies to F3 preceding everything. `User.roles` is a `Role[]`, `requireCapability` replaced `requireRole` at all fifteen sites, and the client branches on a derived `User.capabilities`. Records four things the build settled that the plan had not — the non-empty constraint needing `cardinality` because `array_length` returns NULL on an empty array and a NULL CHECK *passes*; the open index question resolving to GIN with `state` dropped entirely, having been filtered nowhere; the session's `role` claim **deleted** rather than pluralised; and one guard in `customer.ts` that was an ownership question wearing a role check, which is the single place "two mechanisms, never merged" bit rather than warned. **Closes §6.8.** Corrects one as-built count there (fifteen call sites, not sixteen). Notes that §3's "F2 is the only unbuilt foundation" became literally true on this date, having been half a claim when written. Adds the shas the grading note could not previously cite.
 - **0.7 · 2026-08-04** — **The dashboard planned to its end, and every blocking open decision closed.** Adds **track C, the Review Room** (§5b), which stops being an idea because its three deciding questions were answered — snapshot at review time (and the freeze is a git commit), one corpus defined by an **allowlist** rather than per-reviewer grants, and passage-level anchoring. Adds **V1b** (§4), which is in no spec and comes first of all: the draft is invisible to GraphQL, so an editor built on today's surface would be a form whose response never reflects what was typed. Rewrites **F3** from "the contributor role" into the permission model for the whole app — `User.role` becomes `User.roles`, and the guard becomes a **capability**, because a person may hold contributor and reviewer together and because "the contributor sees the same editor minus publish" is a per-action sentence no ranking can express; F3 consequently moves *before* F2. Renames **F2** to the staff shell and moves it to `/desk`, since `/admin` is the wrong word for most of the people who will live in it. Closes the last four open decisions (§7): revision authorship admin-only, amendments free-text, the contributor/admin "line" and the "per-source rights workflow" — the last two both turning out to be misfiled, one a capability model and the other a required field, which is what unblocks R4. Adds two new failure modes (§6.8, §6.9): `requireRole` is an equality check that a role set inverts, and a rights flag cannot be enforced on a read path that does not exist, because Nginx serves the public class without ever reaching the API. Founder direction, 2026-08-04.
 - **0.6 · 2026-08-04** — **F1 closed** (§2): the printable contract is built and verified, so both halves are done and **F2 is unblocked**. Records the founder direction of 2026-08-04 — the browser renders it, a server-side render deferred but not dismissed, reusing the same route — and answers the question 0.5 left open: **the PDF is a rendering, never the record.** Records three things the build settled: the GraphQL surface had no way to name the published revision at all (title, fee, hash and amendments were absent, and the portal was showing a draft title above published articles); amendment visibility needed its own rule so a customer's copy excludes Root's drafts; and a repeating verification strip has to be a table `tfoot`, because a fixed footer prints *over* the signature.
 - **0.5 · 2026-08-03** — **F1 built and verified** (§2), scoped to design files by founder direction; the contract PDF is a separate run and admin screens follow once both halves are done. Records the four things the build settled that the plan had not — the private class re-using the contract's own visibility rule, `imageUrl` keeping its place beside a new `imageFileId`, no new dependency for multipart, and `STORAGE_DIR` having no production default. Notes the consequence for §6: the Postgres dump is no longer a complete backup. **F2 is now the only unbuilt foundation, and both tracks wait on it.**
