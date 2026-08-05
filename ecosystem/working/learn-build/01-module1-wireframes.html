@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learn Module 1 — Feelings &amp; Needs · wireframes</title>
+<style>
+:root{
+  --surface-2:#ffffff; --surface-1:#f6f5f0; --surface-0:#efece4;
+  --text-primary:#2c2c2a; --text-secondary:#5f5e5a; --text-muted:#8a8981;
+  --border:#e3e1d9; --border-strong:#ceccc3;
+  --accent-bg:#e6f1fb; --accent-text:#185fa5; --accent-border:#85b7eb;
+  --radius:8px; --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --surface-2:#2b2b29; --surface-1:#232321; --surface-0:#1b1b19;
+    --text-primary:#e9e7e0; --text-secondary:#b5b3aa; --text-muted:#8a8981;
+    --border:#3a3a37; --border-strong:#4b4b47;
+    --accent-bg:#0c447c; --accent-text:#b5d4f4; --accent-border:#185fa5;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-0);color:var(--text-primary);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:2rem 1.25rem 4rem}
+h1{font-size:22px;font-weight:500;margin:0 0 4px}
+.sub{font-size:13px;color:var(--text-muted);margin:0 0 2rem}
+h2{font-size:16px;font-weight:500;margin:2.25rem 0 .9rem;padding-bottom:.5rem;border-bottom:.5px solid var(--border)}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.frame{margin:0;display:flex;flex-direction:column;gap:8px}
+.phone{flex:1;min-height:375px;background:var(--surface-2);border:.5px solid var(--border);border-radius:12px;padding:14px;display:flex;flex-direction:column}
+.bar{display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:.5px solid var(--border);font-size:11px;color:var(--text-muted)}
+.dots{display:flex;gap:4px}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--border)}
+.dot.on{background:var(--accent-text)}
+.prompt{font-size:13px;color:var(--text-primary);line-height:1.5;margin:12px 0}
+.sub2{font-size:11px;color:var(--text-muted);margin:12px 0 4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{padding:5px 10px;border:.5px solid var(--border);border-radius:999px;font-size:12px;color:var(--text-secondary);background:var(--surface-1)}
+.chip.sel{border:1px solid var(--accent-border);color:var(--accent-text);background:var(--accent-bg)}
+.chip.esc{border:.5px dashed var(--border-strong);color:var(--text-muted);background:transparent}
+.card{background:var(--accent-bg);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--accent-text);line-height:1.5}
+.spring{margin-top:auto}
+.nav{display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.mut{color:var(--text-muted)}
+.acc{color:var(--accent-text)}
+.link{color:var(--text-muted);text-decoration:underline}
+.note{font-size:11px;color:var(--text-muted);line-height:1.5}
+.btn{display:inline-block;padding:8px 22px;border:.5px solid var(--border-strong);border-radius:var(--radius);font-size:13px;color:var(--text-primary);background:var(--surface-1)}
+.center{text-align:center}
+.cap{font-size:12px;color:var(--text-secondary);padding:0 4px}
+.cap .p{color:var(--accent-text)}
+.bubble{align-self:flex-end;background:var(--surface-1);border:.5px solid var(--border);border-radius:12px 12px 4px 12px;padding:6px 11px;font-size:12px;color:var(--text-primary);margin:12px 0}
+.pair{display:flex;align-items:center;gap:8px;margin:6px 0}
+.ring{position:relative;width:96px;height:96px;margin:0 auto 14px}
+.ring .o{position:absolute;inset:0;border:.5px solid var(--border);border-radius:50%}
+.ring .i{position:absolute;inset:16px;border:1px solid var(--accent-border);border-radius:50%;background:var(--accent-bg);animation:breathe 6s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(.62)}50%{transform:scale(1)}}
+.legend{margin-top:2.5rem;font-size:12px;color:var(--text-secondary);background:var(--surface-1);border:.5px solid var(--border);border-radius:12px;padding:1rem 1.25rem}
+.legend b{font-weight:500}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Learn Module 1 — Feelings &amp; Needs · wireframes</h1>
+  <p class="sub">Low-fidelity. Companion to <code>00-module1-demo-plan.md</code> §4. English-only demo · tiers 1–3 live · storytelling deferred. Each frame tagged to its process (P1–P7); the guardrails are the design.</p>
+
+  <h2>Day-1 frame — once</h2>
+  <div class="board">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>day-1 frame · once</span></div>
+        <p class="prompt">Bring back a recent moment you felt a little off. Where does it sit in your body?</p>
+        <div class="sub2" style="color:var(--text-secondary)">Try a word on it.</div>
+        <div class="chips" style="margin-bottom:14px"><span class="chip">heavy</span><span class="chip">tight</span><span class="chip">flat</span></div>
+        <div class="spring card">Nothing changed — but you've got a handle on it now.</div>
+      </div>
+      <figcaption class="cap"><span class="p">P1</span> · felt, not told</figcaption>
+    </figure>
+  </div>
+
+  <h2>The daily loop — breathe → notice → name → need → small step</h2>
+  <div class="board">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>breathe · settle in</span><span class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+        <div class="spring center" style="margin-top:auto;margin-bottom:auto">
+          <div class="ring"><div class="o"></div><div class="i"></div></div>
+          <div style="font-size:13px">one slow breath</div>
+          <div class="note" style="margin-top:4px">in… and out</div>
+        </div>
+        <div class="nav spring"><span class="link">skip</span><span class="note">moves on its own</span></div>
+      </div>
+      <figcaption class="cap">settle · <span class="p">P2</span> precondition, made explicit</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>notice · body</span><span class="dots"><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+        <p class="prompt">Where is it — and what's the texture?</p>
+        <div class="chips"><span class="chip sel">tight</span><span class="chip">heavy</span><span class="chip">jittery</span><span class="chip">warm</span><span class="chip">buzzy</span><span class="chip">hollow</span></div>
+        <div class="nav spring"><span class="mut">&larr; back</span><span class="acc">next &rarr;</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">P2</span> · body before words</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>name · the feeling</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i><i class="dot"></i></span></div>
+        <div class="sub2">on that <span style="color:var(--text-secondary)">tight</span> feeling —</div>
+        <p class="prompt" style="margin-top:0">reach for a word, try it on.</p>
+        <div class="chips"><span class="chip">at ease</span><span class="chip">glad</span><span class="chip sel">uneasy</span><span class="chip">restless</span><span class="chip">disappointed</span><span class="chip esc">other &rarr; type it</span></div>
+        <div class="nav spring"><span class="mut">&larr; back</span><span class="acc">next &rarr;</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">P3</span> · small palette · try it on</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>need · underneath</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot"></i></span></div>
+        <div class="sub2">this <span style="color:var(--text-secondary)">uneasy</span> —</div>
+        <p class="prompt" style="margin-top:0">if it points at something you care about, what?</p>
+        <div class="chips"><span class="chip">rest</span><span class="chip">connection</span><span class="chip">to matter</span><span class="chip">safety</span></div>
+        <div style="margin-top:14px"><span class="link">not sure — skip</span></div>
+        <div class="nav spring"><span class="mut">&larr; back</span><span class="acc">next &rarr;</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">P4</span> · offered, never forced</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>small step</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i></span></div>
+        <p class="prompt">anything small you want to do or ask for?</p>
+        <div style="border:.5px solid var(--border);border-radius:8px;padding:9px 11px;font-size:12px;color:var(--text-muted);background:var(--surface-1)">one small thing…</div>
+        <div style="margin-top:8px"><span class="link">skip</span></div>
+        <div class="spring" style="border-top:.5px solid var(--border);padding-top:10px;font-size:12px;color:var(--text-secondary)">&#10003; done. that's the loop.</div>
+      </div>
+      <figcaption class="cap">seam to Reflect · no streak</figcaption>
+    </figure>
+  </div>
+
+  <h2>Optional loop repeat — for plural feelings</h2>
+  <div class="board">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>close · pass 1</span><span class="dots"><i class="dot on"></i></span></div>
+        <div style="margin:16px 0 6px;font-size:13px;color:var(--text-secondary)">&#10003; done. that's the loop.</div>
+        <div class="note">you named <span style="color:var(--text-secondary)">uneasy</span> · a need for <span style="color:var(--text-secondary)">space</span>.</div>
+        <div style="margin-top:18px;padding-top:14px;border-top:.5px solid var(--border)">
+          <div class="note" style="margin-bottom:8px">feeling more than one thing?</div>
+          <span class="link">+ add another</span>
+        </div>
+        <div class="spring center" style="padding-top:14px"><span class="btn">finish</span></div>
+      </div>
+      <figcaption class="cap">ending is default · repeat is quiet</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>another feeling · pass 2</span><span class="dots"><i class="dot on"></i><i class="dot on"></i></span></div>
+        <div class="note" style="font-style:italic;margin:12px 0 10px">no need to settle again — straight in.</div>
+        <p class="prompt" style="margin-top:0">and the other thing — where's that one, and what's the texture?</p>
+        <div class="chips"><span class="chip sel">warm</span><span class="chip">light</span><span class="chip">open</span><span class="chip">restless</span></div>
+        <div class="nav spring"><span class="mut">&larr; back</span><span class="acc">next &rarr;</span></div>
+      </div>
+      <figcaption class="cap">repeat skips the breath · same loop</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>this sitting</span><span class="dots"><i class="dot on"></i><i class="dot on"></i></span></div>
+        <div class="pair" style="margin-top:14px"><span class="chip">uneasy</span><span class="mut">&rarr;</span><span class="chip">space</span></div>
+        <div class="pair"><span class="chip">relieved</span><span class="mut">&rarr;</span><span class="chip">rest</span></div>
+        <div style="margin-top:14px;font-size:12px;color:var(--text-primary)">two things, side by side.</div>
+        <div class="note" style="margin-top:6px">seeing how they connect comes later.</div>
+        <div class="spring center" style="padding-top:12px"><span class="btn">finish</span></div>
+      </div>
+      <figcaption class="cap">parallel passes · no relating (that's tier 4)</figcaption>
+    </figure>
+  </div>
+
+  <h2>In-context distinction catch · and graduation</h2>
+  <div class="board">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>in context · surfaced later</span></div>
+        <div class="bubble">I felt ignored</div>
+        <div class="card">"ignored" is a read on what someone <em>did</em>. Underneath it —</div>
+        <div class="chips" style="margin-top:10px"><span class="chip">hurt?</span><span class="chip">lonely?</span><span class="chip">to matter?</span><span class="chip">to be included?</span></div>
+        <div class="note spring">on your own material · distributed touches</div>
+      </div>
+      <figcaption class="cap"><span class="p">P5</span> · gentle catch, not a quiz</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>once · a door</span></div>
+        <div class="center" style="margin:auto 0">
+          <div style="font-size:28px;color:var(--accent-text)">&#9141;</div>
+          <div style="font-size:13px;line-height:1.6;margin-top:12px">You've been running this on your own lately. That's the point — it's yours now.</div>
+        </div>
+        <div class="note spring">no count, no streak — inferred from fading prompts</div>
+      </div>
+      <figcaption class="cap"><span class="p">P7</span> · a door, not a score</figcaption>
+    </figure>
+  </div>
+
+  <div class="legend">
+    <b>Reading the guardrails in the frames:</b> body comes before words (P2 leads P3) · the palette is small with an <code>other → type it</code> escape (P3) · the need is always skippable (P4, offered not forced) · the breath is one skippable beat, never a timer · the repeat is a quiet secondary and soft-capped · the sitting recap lays feelings side by side but never relates them (relating is storytelling, tier 4, deferred) · nothing anywhere counts or streaks.
+  </div>
+</div>
+</body>
+</html>

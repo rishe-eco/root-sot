@@ -2,7 +2,7 @@
 
 *Source of truth. The patterns you must follow to change this app without breaking it. If you read one architecture file before writing code, read this one. Update the changelog; don't fork.*
 
-**Version 0.2 · Status: as-built · 2026-08-01 · Owner: _root**
+**Version 0.3 · Status: as-built · 2026-08-04 · Owner: _root**
 
 ---
 
@@ -53,7 +53,14 @@ Three rules govern what you write in the `fa` value. All three exist because the
 | Ritual / ceremony | آیین | مراسم *(that is for weddings and funerals)* |
 | "This cannot be undone" | دیگر نمی‌شود برش گرداند | این عملیات قابل بازگشت نیست |
 
-**Not covered by any of this:** the Evidence and Clarity item packs (`api/src/content/skills/*/surface.fa.ts`). Those are content, not UI copy — several items' faults exist only in English, so making them read naturally would change what they measure. They are re-authored by a native reviewer, not translated (`team/open-work.md` item 2).
+**Server-authored content is a different job from UI copy.** Two places hold it, and the rule differs:
+
+- **The Evidence and Clarity item packs** (`api/src/content/skills/*/surface.fa.ts`) are **re-authored, not translated** — several items' faults exist only in English, so making them read naturally would change what they measure (`team/open-work.md` item 2).
+- **The Feelings & Needs pack** (`api/src/content/feelings-needs/v1/surface.fa.ts`) *is* translated, against the same locale-invariant spec, but it ships **`reviewStatus: "draft"`** until a native pass — and the app shows a banner saying so rather than hiding it. Rules 7a–7c apply to it in full, and one of them is load-bearing in a way it is not elsewhere: the words are the intervention, not the wrapper. The module teaches emotional granularity by handing someone better words for their own states, so a word that is merely *correct* rather than the one they would reach for does not just read oddly — it fails to teach. What a review pass owes is listed in that file's header.
+
+**Locale reaches the server from `Accept-Language`, not a column** (D-22). The client sends it from `useApi` on every request; resolvers read `ctx.locale`. Don't add a `locale` field to a model to solve this — a second copy of the person's language setting is free to disagree with the first.
+
+**Word boundaries in Persian are not `\b`.** `\b` is defined against ASCII `\w`, so in Persian *every* character is a non-word character and a `\b…\b` pattern matches nothing — silently. This is not hypothetical: it made the Feelings & Needs faux-feeling matcher unable to fire in Persian at all. Use Unicode property escapes (`[\p{L}\p{M}\p{N}]` in lookarounds, with the `u` flag), which also fixes a latent gap in the English behaviour. And note the related trap from 7b above: a class built out of the Arabic block instead would include ، ؛ ؟, which then read as letters and block a match on a phrase ending in ordinary punctuation.
 
 ### 8. Wizard steps commit immediately; edit-context wizards save on completion
 Don't buffer a multi-step flow to one final submit — each step fires its mutation (partial state must be valid). In edit contexts, completion saves with no extra step; only create-flows accumulate locally. (See `03-frontend.md` §5.)
@@ -73,5 +80,6 @@ If you touch `schema.prisma`, update `02-architecture/01-data-model.md` and add 
 
 ## Changelog
 
+- **0.3 · 2026-08-04** — §7 extended again, from building the Persian Feelings & Needs surface: server-authored content vs UI copy (and why the F&N pack is translated-then-reviewed while the Skills packs are re-authored), locale from `Accept-Language` rather than a column (D-22), and the rule that `` matches nothing in Persian — which had silently disabled the faux-feeling matcher for the entire locale.
 - **0.2 · 2026-08-01** — §7 extended with the three `fa` authoring rules (7a concept-not-calque, 7b informal register, 7c the glossary), after the locale-wide Persian revision. See D-20.
 - **0.1 · 2026-07-22** — Initial. Distilled from the patterns memory, the base docs, and the resolver/service structure.

@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.2 · Status: living · 2026-08-01 · Owner: _root**
+**Version 0.5 · Status: living · 2026-08-05 · Owner: _root**
 
 ---
 
@@ -19,8 +19,35 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-02-19 → 20 | day_state_and_action_today_fields · pre_day_completed_at · milestone_order_and_is_last · interval_predicted_to_do_time · goal_group_and_parent | The **daily cycle** (DayState, Pre-day/After-day, gathered-action fields) and **goal groups / hierarchy**. |
 | 2026-06-12 | **add_dod_clarity_to_goal** | The **Clarity Check** — first feature that is pure Root philosophy. |
 | 2026-06-13 | **add_notes · add_onboarding · add_journals** | Notes, the onboarding system, and **journals** (a *Journey/ماجرا* seed) — the graft toward the brand. |
+| 2026-07-26 | **add_skill_tools · add_skill_calendar_planning** | The **Skills engine** (Clarity/Evidence labs) — authored, versioned content; first external-LLM feature. |
+| 2026-08-02 | **add_feelings_needs** | **Feelings & Needs** (Learn Module 1) as a Tracker tool — the first Learn-pillar surface. LLM-free, no streaks. See D-21. |
+| 2026-08-02 | **add_loop_sitting_completed_at** | Makes an open sitting distinguishable from a finished one, so the daily loop is resumable (convention #8). See D-21. |
+| 2026-08-02 | **drop_loopstate_frame_done** | Removes the `frameDone` mirror; the Day-1 frame's completion is derived from `FrameCompletion`, which is the event. See D-21. |
 
 ## 2. Key decisions
+
+### D-23 · The faux-feelings lexicon is locale-scoped; the rest of the spec stays locale-invariant — 2026-08-05
+`LexiconConceptSpec` gains an optional `locales` field. Absent means every locale (which is 39 of the 45 concepts); `locales: ["fa"]` marks a judgment only Persian makes. Six such concepts were added — `fa_no_loyalty` (بی‌معرفتی), `fa_not_received` (تحویل نگرفتن), `fa_treated_as_stranger` (غریبی کردن), `fa_not_counted` (آدم حساب نکردن), `fa_face_lost` (ضایع شدن/آبرو), `fa_favour_held_over` (منت گذاشتن). The pack builder refuses to realize a concept in a locale its spec entry does not claim, and the parity suite reads scope from one shared helper so tests and builder cannot disagree.
+
+*Rationale:* the spec is locale-invariant because that is what makes two locales comparable — but a faux-feeling is not structure, it is a claim about *words in a language*. Rosenberg's list is a claim about English adjectives; it does not transfer, and the mismatch runs both ways. Forcing every concept into every locale would mean authoring English triggers for judgments English does not make, so the detector could fire on words nobody types. What comparability actually rests on — palette ids, tier weighting, hint-slot counts — is untouched; a detector that cannot fire on «بی‌معرفتی» is not more comparable, only worse.
+
+*Grounding:* researched rather than assumed, and the research changed the approach. **There is no published Persian faux-feelings list** — the Persian NVC centre (زبان زندگی) publishes the real-feelings vocabulary and no counterpart to Rosenberg's chapter-4 table, and the Persian translation carries the distinction as prose. So the Persian lexicon is authored from usage (Moein and Dehkhoda for منت گذاشتن and غریبی کردن; an ethnographic study of آبرو for face-loss), not translated, and it is flagged as the part of the surface most in need of a native challenge.
+
+*Found on the way:* «سرکوفت» had been a `put_down` trigger and is really the منت move — a past kindness or fault thrown back at you — so it moved to `fa_favour_held_over`, where the need underneath is freely-given generosity rather than dignity. «نامردی کرد» moved from `let_down` (a broken promise) to `fa_no_loyalty` (a verdict on character).
+
+*Not a schema change* — the lexicon is authored content in the repo, not a table.
+
+### D-22 · Content locale comes from `Accept-Language`, per request — never stored — 2026-08-04
+Server-authored content (the Feelings & Needs palettes, prompts and catch copy; the Skills item packs follow) is served in the language the request arrived in, read off `Accept-Language` onto the GraphQL context (`api/src/graphql/requestLocale.ts`). No `locale` column, and the client sends the header from `useApi` on every call.
+
+*Rationale:* the authority on what language someone wants is the app in front of them — i18next owns that setting. A column beside it is a second copy of a preference, free to disagree with the first, and the disagreement is not abstract: it shows up as a person who switched the app to Persian and kept being handed English feeling words. Same rule that emptied out `LoopState` (D-21): **prefer deriving from the authoritative record over storing a summary of it.** `Accept-Language` rather than a bespoke header because it is the standard for exactly this, it is CORS-safelisted so it needs no preflight or config, and an API-token caller sending a real browser header still gets a sensible answer.
+
+*What is pinned and what is not:* the content **version** stays pinned per user (`LoopState.contentVersion`) — the words you have been building familiarity with should not change under you mid-practice (P3). The **locale** is not pinned, because switching language is a choice the person just made, not drift to protect them from.
+
+*Consequence:* `surface.fa.ts` ships as `reviewStatus: "draft"` and the UI says so, rather than passing as reviewed. Three bugs that only Persian could surface were fixed in the same change — an ASCII-only `\b` that made the faux-feeling matcher unable to match Persian *at all*, a carried prompt that read "in your hard to place —", and a hint strip that left «؟» on the recorded word. See the demo plan §7.
+
+### D-21 · Feelings & Needs (Learn Module 1) is built as a Tracker tool — Phase 1 scaffold — 2026-08-02
+Migration `20260802120142_add_feelings_needs` adds four per-user tables (**FrameCompletion, LoopSitting, LoopEntry, LoopState**; `01-data-model.md` §Feelings & Needs). This is the first Learn-pillar surface in Tracker, placed here per the settled decision to build inside Tracker now and migrate to Learn's standalone app later (ecosystem `learn-build/00-module1-demo-plan.md` §1). It **reuses the skills-engine content discipline** — authored, versioned content in the repo with a locale-invariant **spec** + per-locale **surface** split (`api/src/content/feelings-needs/`) — so Persian is cheap to add later even though the demo is English-only. It is **LLM-free**: the distinction catch (P5) runs on an authored faux-feelings lexicon, not a model. Guardrails are structural, not cosmetic: nothing counts or streaks (consistent with **remove_habits** and the skills no-streaks stance), loop passes within a sitting are parallel and never cross-referenced (relating them is tier-4 storytelling, deferred), and graduation is a one-time door with no counter behind it. Phase 1 delivered: the four tables, the content module (spec/surface + a hardcoded `dials` object), the `feelingsNeedsState` query, and a navigable tool home; the daily loop, Day-1 frame, distinction catch and graduation are later phases. Tool name confirmed **"Feelings & Needs"** (plan §11.5 — not a "Lab").
 
 ### D-20 · Persian is informal (تو/کن) app-wide, and conveys the concept rather than the words — 2026-08-01
 The `fa` locale was formal (شما/کنید) everywhere except the Skills labs, which were authored informal. Founder's call: take the whole app informal to match the labs, not the labs formal to match the app. *Rationale:* a register split is more jarring in Persian than in English, and `concepts.priority` was already switching between the two inside one screen. The translation standard is stated as **"the Persian conveys the concept and meaning of the original English, not its exact translation"** — calques are the failure mode, not wrong words. Also fixed one word per concept where three were in use (Action was کار/اقدام/وظیفه → **کار**; backlog → **فهرست انتظار**; bucket list → **لیست آرزوها**; the Pass fate → **منتفی**). See `../canon/02-architecture/04-conventions.md` §7 for the glossary and the grammar trap. *Not covered:* the Evidence/Clarity item packs (`api/src/content/skills/*/surface.fa.ts`) — several items' faults exist only in English, so a fluency pass would change what they measure. Still `team/open-work.md` item 2.
@@ -141,5 +168,8 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.5 · 2026-08-05** — D-23 added: the **faux-feelings lexicon is locale-scoped** (`LexiconConceptSpec.locales`), with six Persian-only concepts authored from usage after establishing that no published Persian faux-feelings list exists. No migration.
+- **0.4 · 2026-08-04** — D-22 added: content **locale from `Accept-Language`, per request, never stored**, with the Persian surface shipping as `draft`. No migration — the decision is that there is no column.
+- **0.3 · 2026-08-02** — D-21 added: **Feelings & Needs** (Learn Module 1) built as a Tracker tool, Phase 1 scaffold (`add_feelings_needs`). Migration timeline extended with the skills and feelings-needs rows.
 - **0.2 · 2026-08-01** — D-17 → D-20 added: Evidence `evidence/v2`, Clarity's offline-first phasing and forcing functions, and the Persian register/glossary standard.
 - **0.1 · 2026-07-22** — Initial log. Timeline from the migration history; decisions reconstructed from the base docs, session history (2026-06-12 build, 2026-07-16 fixes), and memories.
