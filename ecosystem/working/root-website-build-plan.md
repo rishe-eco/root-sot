@@ -1,8 +1,8 @@
 # Root Website — Build Plan: Versioning/Admin + Library + Review Room
 
 **From:** _root
-**Status:** Build plan — sequences three specs. **Track V is complete; track R is next.**
-**Version:** 0.9 (rev) · 2026-08-10 · Owner: _root
+**Status:** Build plan — sequences three specs. **Track V complete; R1 built; R2 next.**
+**Version:** 0.10 · 2026-08-10 · Owner: _root
 **What this is:** the order in which `root-website-versioning-and-admin.md`, `root-website-research-lab.md` and `root-website-review-room.md` get built, plus the foundations no spec owns but all three need.
 
 **Grading.** Every claim about the current code is **as-built**, verified against `rishe-eco/root-app` @ **`2cfa3f6` (`main`)** on 2026-08-10 — typecheck, 120 unit, 84 integration and 24 e2e specs green. Earlier verifications stand where nothing has moved: `0866393` on 2026-08-01, §2 F1 and §4 V1 on 2026-08-03, §2 F1b on 2026-08-04, §2 F3 on 2026-08-05. Everything about future work is **plan** — a sequence with reasons, not a commitment to dates. Where this file and a spec disagree on *what to build*, the spec wins; on *what order*, this file wins.
@@ -128,7 +128,7 @@ F3  roles + capabilities ──┐ ✔ built 2026-08-05
 F2  the staff shell ───────┼──────────────┬───────────────┐ ✔ built 2026-08-05
                            ↓              ↓               ↓
   V1 → V1b → V2 → V3 → V4          R1 → R2 → R3    C0 → C1 → C2
-   ✔    ✔     ✔    ✔    ✔          ↑ next          ✔    (the Review Room)
+   ✔    ✔     ✔    ✔    ✔          ✔    ↑ next     ✔    (the Review Room)
                                                    ↓
    track V complete, 2026-08-08     R4 ← unblocked: its scope is
                                        the rights field R1 carries
@@ -136,9 +136,11 @@ F2  the staff shell ───────┼────────────
 
 Linear, as it will actually be built:
 
-> **~~V1b~~ · ~~F3~~ · ~~F2~~ · ~~V2~~ · ~~V3~~ · ~~V4~~ · ~~C0~~ · R1 · R2 · R3 · C1 · C2 · R4 · the Persian pass**
+> **~~V1b~~ · ~~F3~~ · ~~F2~~ · ~~V2~~ · ~~V3~~ · ~~V4~~ · ~~C0~~ · ~~R1~~ · R2 · R3 · C1 · C2 · R4 · the Persian pass**
 
-**Struck through as of 2026-08-08.** Seven of fourteen are built. **C0 moved forward** out of its planned slot after R3 — see §5b for why that was opportunity rather than need — so what remains is R1 · R2 · R3 · C1 · C2 · R4 · the Persian pass, and **R1 is next.**
+**Struck through as of 2026-08-10.** Eight of fourteen are built. **C0 moved forward** out of its planned slot after R3 — see §5b for why that was opportunity rather than need — so what remains is **R2 · R3 · C1 · C2 · R4 · the Persian pass**, and **R2 is next.**
+
+**R3 carries a condition the others do not.** It is placed *"deliberately after there are entries worth an ontology"* (§5). If the corpus is still a handful of entries when its turn comes, skip it and take C1 — a tree over twelve entries is a worse product than a flat tag list, and building it early means fixing the hierarchy before anyone knows what it should be.
 
 **F3 was built first of these, out of that order and deliberately** *(2026-08-05)*. It needed nothing, V1b was held, and the argument for F3 preceding F2 applies just as well to F3 preceding everything: it is a migration and one small file, and every day it waits is a day more code is written against a role that has to be unwritten. V1b keeps its place ahead of F2 in what remains.
 
@@ -225,9 +227,20 @@ Three more things the build settled:
 
 ## 5. Track R — the Research Lab
 
-### R1 · Model and admin entry editor *(needs F1, F2, F3)*
+### R1 · Model and admin entry editor — **built and verified, 2026-08-10** *(`bc1f6aa`)*
 
 Entry, concept, translation and request models, and the entry editor. The role work has moved out to F3, so R1 now *consumes* it rather than adding it.
+
+**What the build settled that the plan had not:**
+
+- **The spec has two rules that never meet, and together they leave a hole.** §3 forbids a hosted file on a `LINK_ONLY` entry; §4 hides a `PRIVATE` entry from every surface. Neither says what a **`PRIVATE` entry with a hosted PDF** is — and it is a world-readable full text, because hiding the entry hides the *link*, not the *file*. They are one rule — *a hosted file may exist only when the entry is `PUBLIC` and its rights are not `LINK_ONLY`* — held by one hand-written CHECK.
+- **Which side the foreign key sits on decides whether that rule is expressible at all.** A CHECK sees one row of one table. Modelled the obvious way (`StoredFile.entryId`, matching `StoredFile.contractId`) it would need a trigger; put on the entry, it is three columns of one row. It also refuses the bad **update**, which is what forces the mutation to delete the bytes instead of orphaning them.
+- **Persian search is not a stemming problem.** The same word is routinely stored as several byte sequences — Arabic vs Persian yeh and kaf, hamza-bearing alefs, ZWNJ, tatweel, harakat, two digit scripts — so text does not compare equal to itself, and someone on an Arabic keyboard finds nothing. Folding fixes it; no stemmer would. **A `tsvector` index was deliberately deferred** and the correctness work is not thrown away by it, since an index over unfolded Persian has the same bug faster.
+- **`requiresContract: boolean` was a contract-shaped flag pretending to be general.** It became `owner: 'contract' | 'entry'`, because an upload that names no owning row has nothing to check its rules against — and for `RESEARCH_TEXT` the upload is the *only* moment anything can be checked, Nginx serving it thereafter with no code in the request.
+
+**A review pass on 2026-08-10 found five things and fixed four of them** — the deferred-index decision that had been made and never written into the code; an unbounded `limit`, which was a staff foot-gun and would have become an anonymous one the moment R2 serves a list publicly (now `lib/pagination.ts`, used by the Library and by V4's two queries); a Persian-digit inconsistency in the entry list; and a gap in the fold's drift-guard, which checked the characters the fold *replaces* but not the ones it *removes*.
+
+**The fifth carries into R2**, and it is not R1's fault: `:lang(fa)` in `tokens.css` sets custom properties, custom properties inherit, and nothing resets them — so a Latin block inside a Persian page is set in the Persian font at Persian leading. Invisible until a page shows two languages at once, which is precisely what R2's reader does.
 
 **Two fields are required enums with no default**, on one argument used twice: a spec sentence of the form "always shown, never implied" only holds if omission is impossible, and a defaulted field is omission with a friendly face.
 
@@ -277,7 +290,7 @@ Built as a **seam, not a provider integration** *(founder direction, 2026-08-04)
 
 **Snapshot at review time** — and because the corpus is a git repo, the freeze is a commit: a review round is a sha. An explicit publish step takes that sha plus the allowlist, renders the named paths, and writes snapshots into Postgres hashed with the same canonical serialization `lib/revision.ts` already uses. **The API never reads a git tree**; `root-sot` is not on the VPS and is not going there to make this work.
 
-**One corpus for everyone, defined by an allowlist.** No per-reviewer document grants — which deletes the sharpest permission model in the plan. The security surface moves to *what is in the corpus at all*, and the default points **allow**: `root-sot` is 83 tracked markdown files and Root keeps writing into it, so under a denylist a private file committed six months from now is visible to every reviewer the moment it lands, and nobody is asked. `../personal-canon.md` is the concrete case, and the reason this is a decision rather than a convention.
+**One corpus for everyone, defined by an allowlist.** No per-reviewer document grants — which deletes the sharpest permission model in the plan. The security surface moves to *what is in the corpus at all*, and the default points at an **allowlist** — meaning **a file is outside the corpus until someone names it**: `root-sot` is 83 tracked markdown files and Root keeps writing into it, so under a denylist a private file committed six months from now is visible to every reviewer the moment it lands, and nobody is asked. `../personal-canon.md` is the concrete case, and the reason this is a decision rather than a convention.
 
 ### C2 · Comments, threads and the corpus admin *(needs C0, C1)*
 
@@ -316,6 +329,7 @@ Still genuinely open, and blocking nothing:
 
 ## Changelog
 
+- **0.10 · 2026-08-10** — **R1 is built** (§5), and the Library exists: a bilingual-as-data corpus, two required-with-no-default enums, and one hand-written CHECK carrying a rule the spec states in two halves that never meet — a `PRIVATE` entry with a hosted PDF being world-readable, which §4's hiding does not prevent because it hides the link and not the file. Records what the build settled, including that the file reference had to sit on the entry for the rule to be a CHECK rather than a trigger, and that Persian search is a text-equality problem rather than a stemming one. **Fixes an ambiguity in §5b C1** that would have produced the wrong feature: *"the default points allow"* parses as "access is permitted by default" and meant *"points at an allowlist"* — the opposite. Now says so. **R2 is next**; R3 gains an explicit skip-if-the-corpus-is-small condition (§3). Stage files for **R2, R3 and C1** are written at build depth in `root-app/docs/development/`.
 - **0.9 (rev) · 2026-08-10** — **Everything is merged.** `main` @ `2cfa3f6` now carries V1b, F2, V2, V3, V4, C0 and the brand copy pass; the grading note and the "where the code is" paragraph are rewritten, the latter having been a standing warning that is now simply false. Records the **brand copy pass** as explicitly *not* a build stage — it answers what Root says, not what gets built next (Brand 1.2, decision log 2026-08-10) — while flagging the one constraint it leaves a builder: the tagline renders only from `Tagline.tsx`, off the single `tagline.face` key. **F2's `TODO(label)` is closed**: the desk's Persian label is **«اتاقِ کار»** (§2 F2). Verified green at the merge commit. **R1 is next and branches from `main`.**
 - **0.9 · 2026-08-08** — **Track V is complete, and C0 came with it.** V1b (§4), F2 (§2), V2, V3 and V4 built in the planned order 2026-08-05 → 2026-08-08; **C0 built out of order** (§5b), ahead of track R, on opportunity rather than need — its two call sites were already written and V2 had just made the invite reachable from a screen. Records per stage what each build settled that the plan had not, and **leaves one plan sentence visibly wrong** in §4 V4 rather than quietly correcting it: `contractStatusCounts` does *not* cover the admin status tiles, being scoped to the caller's own contracts, and reusing it would have shown Root a dashboard of zeroes that reads as an empty database. Notes that the **pre-build defect pass closed nine of ten** found defects inside their assigned stages at no schedule cost, the tenth (`allContracts` unbounded) standing as recorded debt. Adds two pointers the grading note did not carry: the companion `root-app/docs/development/` layer, and the fact that **none of this is merged** — `main` is at `478fb52` while the work is chained on `stage-v4-overview` @ `0dfd297`. **R1 is next.** Origin: 2026-08-01 founder direction, executed.
 - **0.8 · 2026-08-05** — **F3 built and verified** (§2), out of the 0.7 sequence and deliberately: it needed nothing, V1b was held, and the case for F3 preceding F2 applies to F3 preceding everything. `User.roles` is a `Role[]`, `requireCapability` replaced `requireRole` at all fifteen sites, and the client branches on a derived `User.capabilities`. Records four things the build settled that the plan had not — the non-empty constraint needing `cardinality` because `array_length` returns NULL on an empty array and a NULL CHECK *passes*; the open index question resolving to GIN with `state` dropped entirely, having been filtered nowhere; the session's `role` claim **deleted** rather than pluralised; and one guard in `customer.ts` that was an ownership question wearing a role check, which is the single place "two mechanisms, never merged" bit rather than warned. **Closes §6.8.** Corrects one as-built count there (fifteen call sites, not sixteen). Notes that §3's "F2 is the only unbuilt foundation" became literally true on this date, having been half a claim when written. Adds the shas the grading note could not previously cite.
