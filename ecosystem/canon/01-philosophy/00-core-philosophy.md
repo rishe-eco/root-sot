@@ -1,13 +1,13 @@
 # Root · ریشه — Core Philosophy
 *Source of truth. Short on purpose. Derives from the Brand thesis — if that sentence changes, this file changes. Update the changelog; don't fork.*
 
-**Version 0.1 (draft — pending founder review) · 2026-07-14 · Owner: _root**
+**Version 0.2 (draft — pending founder review) · 2026-08-10 · Owner: _root**
 
 ---
 
 ## 1. Where this sits
 
-The apex is the Brand thesis: **the person authors their own life, in search of beauty; Root never authors it for them.** This file is the layer beneath it — the account of *how* self-authorship actually works and *why* the product is shaped the way it is. Everything downstream (the five pillars, the loop, the engine) is derived from here. When brand and philosophy appear to disagree, brand wins and this file is wrong.
+The apex is the Brand thesis: **the person authors their own life; Root never authors it for them.** *(The object was removed 2026-08-10 — "in search of beauty", then "of a life worth living", were both the sentence's first half breaking its second, since saying what the person seeks is authoring it. Brand §1. Nothing in this file's account of how self-authorship works turned on the object being said out loud; §7 below is where the direction actually lives.)* This file is the layer beneath it — the account of *how* self-authorship actually works and *why* the product is shaped the way it is. Everything downstream (the five pillars, the loop, the engine) is derived from here. When brand and philosophy appear to disagree, brand wins and this file is wrong.
 
 ## 2. How we see the person
 
@@ -47,6 +47,8 @@ We are not against the research; we read a different tail of it on purpose. The 
 
 Beauty is the *direction* of authorship, not a promised result: a repaired relationship, a hard-won peace, a well-taught mind, a tended life — one search wearing many faces. It is what keeps self-authorship from collapsing into mere self-optimization. Beauty carries a deeper register that is intentional and kept out of public materials. *(Internal: _root to expand privately if and where desired; this file does not spell it out.)*
 
+***One search wearing many faces* became literal on 2026-08-10.** This sentence predates the brand work that now rests on it, and it is what the tagline was rebuilt around: the faces are sayable in public — *new · true · lasting · clear · pure*, each derived from a conviction, the axiom or the refusals (Brand §7) — while **the search itself stays unnamed**, because naming it is the authoring the thesis refuses. Two consequences follow directly from this section and are worth reading here rather than only there. *Beautiful* is **not** one of the faces: naming beauty as a face of itself collapses the structure. And "not a promised result" is precisely what retired *"a life worth living"* — a promised result is exactly what that phrase was, and this file said so before anyone noticed.
+
 ## 8. On our own role
 
 We intend to be needed less over time, and we say so out loud — a tool that fosters dependence has failed by its own thesis. The agent helps the person author; it never authors for them. This is not modesty; it is the direct consequence of §1 and §3, and it is a design constraint with teeth: any feature that quietly increases reliance, however engaging, is off-philosophy.
@@ -66,3 +68,4 @@ Before building, refusing, pricing, or saying anything, ask: **does this strengt
 ## Changelog
 
 - **0.1 · 2026-07-14** — Initial draft, derived from Brand v1.0. Sample for founder review of house style and depth before the full canon pass. Persian master name set to ریشه throughout. Beauty telos incorporated from Brand §1; deeper register left intentionally unspelled.
+- **0.2 · 2026-08-10** — **§1's apex sentence loses its object** and §7 gains the paragraph the brand rebuild now rests on. Brand → 1.2: the thesis is "the person authors their own life; Root never authors it for them", because saying what the person seeks is authoring it — so the direction moved into an adjectival tagline drawn from a licensed set of faces, and beauty stays here as the unnamed search. Two things this file already said turned out to be load-bearing and are now marked as such: ***one search wearing many faces*** is the structure the tagline was rebuilt on, and ***"not a promised result"*** is what disqualified "a life worth living" — a verdict about a life is exactly a promised result, and §7 said so a month before anyone noticed. §9's internal decision test is **unchanged** and deliberately keeps the word "beauty"; it is asked, never printed. Founder direction, 2026-08-10.

@@ -25,6 +25,86 @@
 
 ---
 
+## The thesis names no object; the tagline becomes a family of faces — 2026-08-10
+
+**This reverses part of the entry below, two days later, and the reversal is the interesting part.** "A life worth living" was adopted on 2026-08-08 as the public phrasing of the telos. It is retired here **as a phrasing, not as a value.**
+
+**The founder's reasoning, which is better than the objection I raised against it.** "A life worth living" places a value on a life. It implies some lives are not, and it hands whoever arrives a standard they did not choose. Root *does* hold a view of what is worthwhile — that is the entire reason it exists — but it holds that as **its own values**, coherent with its reading of the world and of beauty, never as a measure applied to the person. The tools, the knowledge and the services are for everyone.
+
+Which makes the sentence self-defeating: **the first half was breaking the second.** "The person authors their own life — in search of [X]. Root never authors it for them." To supply X *is* to author it for them.
+
+> **The thesis is now: "The person authors their own life. Root never authors it for them."**
+
+**§3 is what forced it, and the 2026-08-08 record of that test was wrong.** Brand §3 claims the frame is "the only one that holds all five without instrumentalizing any of them" — coaching, therapy, communication, peacebuilding, education. That entry records the claim as surviving the beauty → life-worth-living change. On a closer read it does not: *therapy toward a worthwhile life* makes therapy a means to a verdict Root set, which is precisely what §3 forbids. **The fault was never the wording; it was naming an object at all.** Any object converts the five into instruments. §3 now says so, and is marked as the sentence that decides the thesis: if a future phrasing cannot pass it, the phrasing goes.
+
+**The direction did not disappear — it moved to where it cannot prescribe.** The tagline becomes adjectival and plural: **"In search of something *[face]*" · «در جست‌وجوی چیزی *[چهره]*»**, over a licensed set of five, each derived from something Root already holds:
+
+| **new · نو** | emergence — the era face (below) |
+| **true · راستین** | Conviction 3, reality over fiction |
+| **lasting · ماندگار** | Conviction 5, systemic over quick wins |
+| **clear · روشن** | the load-bearing axiom — the self-view clarifies from outside |
+| **pure · ناب** | §4's refusals — nothing added to hijack you |
+
+**Core Philosophy §7 already had the structure and nobody had noticed.** *"Beauty is the direction of authorship, **not a promised result** … one search wearing many faces."* The faces are now literal. And that section had disqualified "a life worth living" a month in advance — a verdict about a life is exactly a promised result.
+
+**Four things settled that will otherwise be re-litigated:**
+
+- **One face is live at a time, across every surface.** The set is licensed vocabulary; the tagline stays singular. In the website this is structural rather than remembered — one locale key read by one `Tagline` component that both the hero and the footer render, so they cannot disagree. Changing the live face is a two-line diff plus a changelog line.
+- ***beautiful* is deliberately not a face.** If beauty is the one search and these are its faces, naming beauty as a face of itself collapses the structure. The public never meets the word.
+- **A face must be one word in both languages, and the Persian decides.** *Wise* and *creative* were proposed and dropped: «خردمند» describes a person, «خلاق»/«آفریننده» sit wrong after «چیزی». Good English and poor Persian, which in a Persian-first brand settles it.
+- ***new* is the odd one, on purpose.** The other four are values; *new* describes Root's own situation — a young company whose site is mostly locked, ellipsis included. It is the **era face** and the first to retire, with the Library opening as the trigger to watch.
+
+**One asymmetry to keep rather than tidy.** Brand §8's internal decision test still asks *"does it add beauty, or engagement?"* and is now the only place in that file saying the word. That is correct: **a public tagline must not name the object; an internal test must**, or there is nothing to hold a feature against.
+
+**Applied:** Brand → **1.2** (§1, §3, §6, §7, §8, §9), Core Philosophy → **0.2** (§1, §7), onboarding §2, `../personal-canon.md` §2, and in `root-app` the hero, the About thesis, the footer and the descriptor (*platform* → *ecosystem* / «زیست‌بوم»). Origin: founder direction.
+
+---
+
+## The tagline absorbs the landing headline — 2026-08-08
+
+**The website was carrying two sentences that were trying to be one.** The tagline said *in search of beauty · در جست‌وجوی زیبایی*, in the hero's eyebrow with "beauty" set in gold. Directly beneath it the headline said *Make a life worth living · زندگی‌ای بساز که ارزشِ زیستن دارد*. Two claims about the same thing, in the same eyeful, free to drift — and drifting, since the About-page thesis and the footer descriptor tracked one of them and the hero tracked the other.
+
+**They merge: "in search of a life worth living" · «در جست‌وجوی زندگی‌ای که ارزشِ زیستن دارد».**
+
+**Beauty is not retired — it is moved.** It remains the telos, in the private register it has always had (Brand §1, `../personal-canon.md` §2). This is a change to the *saying*, not to the aim, and the reason it is the saying that changed is the register itself: a word whose freight cannot be explained in public is doing less work in public than it does here. Expect *beauty* in internal reasoning and never in customer-facing copy.
+
+**The phrase's own risk is what decided it.** Brand §9 carried a **salon test** on the tagline whose failure metric was exactly one thing: mis-categorization as beauty/cosmetics. The new wording is not open to that reading, so the test is **overtaken rather than passed**, and the provisional flag the tagline has carried since 1.0 comes off with it — because the risk it was watching for is gone, not because it was measured.
+
+**Three consequences, checked rather than assumed:**
+
+- **§3's claim survived, and it was the real test.** The canon asserts the frame is *"the only one that holds all five without instrumentalizing any of them"* — coaching, therapy, communication, peacebuilding, education. That sentence was written of *beauty*. It was re-read against the replacement and it holds. Had it not, the tagline would have been the thing to give, not the sentence.
+- **§6's register test moved its failure mode.** "If it reads shampoo, redo it" was calibrated to the cosmetics risk. The new phrasing cannot be mistaken for a beauty product; what it *can* be mistaken for is a motivational brand, so the test now reads "if it reads self-help".
+- **§8's internal decision test keeps the word deliberately.** *"Does it add beauty, or engagement?"* is asked, never printed, so the private register is precisely what is available to it — and "does it add a life worth living, or engagement?" is not a question anyone can hold a feature against.
+
+**What it opens.** The headline slot is now empty. The h1 *was* the line that merged, so leaving it in place is the same sentence twice. New copy is needed **in both languages**; the two-tier rule is already satisfied by the descriptor beneath, so that line is free to do something other than orient. Carried as an open question in Brand §9.
+
+**What it left half-done in code.** `root-app` @ `0dfd297` changed the About thesis and the footer descriptor and **did not change the hero**, so the landing page briefly contradicted its own footer: the eyebrow still read «زیبایی» / "beauty". The `.beauty` CSS class and the `--color-beauty` token keep their names — gold-is-beauty is a claim about the visual language, not about the tagline, and it is still true. Brand → 1.1. Origin: founder direction.
+
+**Follow-through, 2026-08-09 — the headline question was closed by removing the slot.** Asked what should replace the absorbed headline, the answer was *less hero*: the section had been carrying a tagline, a headline, a lead **and** a blurred Root Cast panel — four things competing in one eyeful. It is now **one centred line and its descriptor**: "In search of something *new*..." · «در جست‌وجوی چیزی *نو*...», the highlighted word in gold, above "An ecosystem for knowing and growing yourself" · «زیست‌بومی برای شناختن و ساختنِ خود».
+
+Two things this settled that are easy to lose: **the hero line is not the tagline** — the tagline lives in the footer and on About — so a visitor meets two "In search of…" sentences on one page, which is the shape of the very drift the merge fixed and should be confirmed as intended rather than inherited; and **the surviving line is the `<h1>`**, because collapsing two elements into one could otherwise have left the landing page with no heading at all.
+
+**And it opened a sharper descriptor question:** the hero now says *ecosystem* / «زیست‌بوم» while Brand §7's working draft, the site footer and the About gist all still say *platform* / «پلتفرم» — so the landing page uses both words. Carried in Brand §9. Brand → 1.1 (rev). Origin: founder direction.
+
+---
+
+## Track V is built end to end, and C0 came early — 2026-08-08
+
+**The dashboard the versioning spec asked for exists.** V1b, F2, V2, V3 and V4 were built in the planned order between 2026-08-05 and 2026-08-08, and **C0 was built immediately after V4 rather than after R3**, ahead of both remaining tracks.
+
+**What C0's move cost and bought.** The plan placed email late on a specific argument: with a live first client stood down (2026-08-01), the only thing that genuinely fails on a hand-passed link is inviting an outside specialist, which is the Review Room. That argument is untouched and still correct. What moved is opportunity, not need — the two call sites email has to serve, `inviteCustomer` and `requestPasswordReset`, were already written and already logging their links, and V2 had just made the invite reachable from a real screen. It is now wired to Resend behind a transport seam that degrades to logging when no provider is configured, so the Review Room inherits a built seam rather than a planned one.
+
+**The planning pass paid for itself, and this is the part worth repeating.** Ten defects were found by reading the code before any of these stages started (`root-app`'s `docs/development/defects-found.md`), each assigned to the stage that should fix it rather than to a cleanup pass. **Nine are fixed**, inside their assigned stage, at no schedule cost. One — `allContracts` fetching the full detail shape unbounded — was deliberately recorded as debt and left. The one that mattered was a client-side guard the server had deliberately removed eight months of reasoning earlier: it would have deadlocked a customer the first time V2 published a design revision on an approved contract, which is a bug that only becomes reachable *because* a later stage works.
+
+**Two things the build settled that the plan had not:**
+
+- **The change-log sentence builder had to leave the portal.** V4's desk needed the same action→sentence rendering the customer's history panel had, and the cross-file drift test (`changeAction.test.ts`) reads exactly one map. A second copy would have been invisible to the test that exists to catch exactly that. It moved to `lib/changelog.ts` and the test's parser moved with it.
+- **`prisma migrate reset` is unsafe for a long-lived test server.** It drops and recreates every Postgres type; the API server Playwright starts once for the whole suite holds connections across that, and a stale type OID makes the next query touching an array-of-enum column fail nondeterministically. The e2e harness now truncates and reseeds, as the integration suite already did.
+
+**Where the code is.** All six stages sit unmerged on `stage-v4-overview`; `main` is still at `478fb52`. Typecheck, 120 unit tests, 84 integration tests and 24 e2e specs are green. Build plan → 0.9. Origin: 2026-08-01 founder direction, executed.
+
+---
+
 ## Staff roles are a set, and the guard is a capability — 2026-08-04 · **built 2026-08-05**
 
 **The dashboard was planned to its end, and the shape of it turned on one question: what is a role?**
@@ -316,3 +396,6 @@ Tech: Vite + React Router (frontend), Express + GraphQL + Prisma/SQLite (backend
 - **2026-08-05** — **F3 built.** "Staff roles are a set, and the guard is a capability" (2026-08-04) is now code: `User.roles` is a `Role[]`, `requireCapability` replaced `requireRole` at all fifteen sites, and the client branches on a derived `User.capabilities` rather than a role. The decision held unchanged on contact with the code, with one thing it had not anticipated — a guard in `customer.ts` that was an **ownership** question wearing a role check, which is the single place "two mechanisms, never merged" was load-bearing rather than cautionary. **Closes build-plan §6.8**; build plan → 0.8. Built out of the 0.7 sequence deliberately (it needed nothing, and V1b was held), leaving **F2 the only unbuilt foundation** — which is the first time that sentence has been literally true. `root-app` @ `b376a94`, branch `foundations-f3-roles`, unpushed. Origin: 2026-08-04 founder direction, executed.
 - **2026-08-03** — Added **"Direction captured: a Review Room for outside specialists"** — an *intent*, not a decision: a private Lab-like panel over Root's own documents where an invited specialist comments on our work. New idea doc at `../working/root-website-review-room.md` (0.1); indexed in `../working/README.md`. Notes the two things it disturbs — a fourth role, and the cost of the stood-down email decision — and that it is deliberately unsequenced until three open questions are answered. Origin: founder direction.
 - **2026-08-01** — Added **"Contract & design version independently; a signed contract is frozen"** — recording the two decisions behind the root-website versioning work: independent contract/design revision lineages, a **signed contract frozen with amendments** (not re-signed replacements), and **design carry-forward** of unchanged page approvals. Full spec new at `../working/root-website-versioning-and-admin.md`; indexed in `../working/README.md`. Origin: founder direction, the day root-app first ran on Postgres.
+- **2026-08-08** — Added **"The tagline absorbs the landing headline"** — the website's two competing sentences merge into **"in search of a life worth living · در جست‌وجوی زندگی‌ای که ارزشِ زیستن دارد"**, with **beauty retained as the private telos** rather than retired. Applied across `../canon/01-philosophy/01-brand-definition.md` (§1, §3, §6, §7, §8, §9 → **1.1**), `../canon/01-philosophy/00-core-philosophy.md` §1, `../canon/03-engine/03-onboarding.md` §2, and `../personal-canon.md` §2. Records what was checked rather than assumed: §3's "only frame that holds all five" survived the rephrasing (and was the real test), §6's failure mode moved from *shampoo* to *self-help*, and §8's internal test keeps the word on purpose. **Two things left open:** the landing headline slot is empty in both languages, and the merge is half-applied in `root-app` — the hero eyebrow still says "beauty" while the same page's footer does not. Origin: founder direction.
+- **2026-08-10** — Added **"The thesis names no object; the tagline becomes a family of faces"** — **partly reversing the 2026-08-08 entry two days later.** *"A life worth living"* is retired as a **phrasing, not a value**: it passes a verdict on lives and hands the person a standard they did not choose, so the thesis's first half was breaking its second. **§1 becomes "The person authors their own life. Root never authors it for them."** Records that **§3's test was mis-recorded on 2026-08-08** — the phrase does *not* hold all five without instrumentalizing them — and that the fault was naming an object at all, so §3 is now marked as the sentence that decides the thesis. **§7 replaces the tagline with "In search of something *[face]*"** over five licensed faces (*new·نو, true·راستین, lasting·ماندگار, clear·روشن, pure·ناب*), one live at a time, one word in both languages, with the Persian as the disqualifier and ***beautiful* excluded on structural grounds**. Notes that **Core Philosophy §7 already contained the structure** — *one search wearing many faces* — and had disqualified "a life worth living" a month early with *"not a promised result"*. Brand → **1.2**, Core Philosophy → **0.2**; onboarding §2 and `../personal-canon.md` §2 aligned; descriptor settled as *ecosystem* / «زیست‌بوم». Origin: founder direction.
+- **2026-08-08** — Added **"Track V is built end to end, and C0 came early"** — V1b, F2, V2, V3, V4 built in order 2026-08-05 → 2026-08-08, with **C0 pulled ahead of track R** on opportunity rather than need (the argument for placing it late is unchanged; the two call sites were simply already written). Records that the pre-build defect pass closed **nine of ten** found defects inside their assigned stages at no schedule cost, and the two things the build settled that the plan had not — the change-log sentence builder leaving the portal so the drift test still sees exactly one map, and `prisma migrate reset` being unsafe for a long-lived Playwright API server. Build plan → **0.9**. **All six stages are unmerged** on `stage-v4-overview`; `main` is at `478fb52`. Origin: 2026-08-01 founder direction, executed.

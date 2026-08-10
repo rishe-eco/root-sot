@@ -1,11 +1,17 @@
 # Root Website — Build Plan: Versioning/Admin + Library + Review Room
 
 **From:** _root
-**Status:** Build plan — sequences three specs, one of them partly built.
-**Version:** 0.8 · 2026-08-05 · Owner: _root
+**Status:** Build plan — sequences three specs. **Track V is complete; track R is next.**
+**Version:** 0.9 (rev) · 2026-08-10 · Owner: _root
 **What this is:** the order in which `root-website-versioning-and-admin.md`, `root-website-research-lab.md` and `root-website-review-room.md` get built, plus the foundations no spec owns but all three need.
 
-**Grading.** Every claim about the current code is **as-built**, verified against `rishe-eco/root-app` @ `0866393` on 2026-08-01, re-verified for §2 F1 and §4 V1 on 2026-08-03 and for §2 F1b on 2026-08-04, and for §2 F3 on 2026-08-05. **The shas 0.5–0.7 could not cite now exist:** F1, F1b and V1 are `99797d1`, F3 is `b376a94` on branch `foundations-f3-roles`. Neither is pushed, so they are citable locally and nowhere else yet. Everything about future work is **plan** — a sequence with reasons, not a commitment to dates. Where this file and a spec disagree on *what to build*, the spec wins; on *what order*, this file wins.
+**Grading.** Every claim about the current code is **as-built**, verified against `rishe-eco/root-app` @ **`2cfa3f6` (`main`)** on 2026-08-10 — typecheck, 120 unit, 84 integration and 24 e2e specs green. Earlier verifications stand where nothing has moved: `0866393` on 2026-08-01, §2 F1 and §4 V1 on 2026-08-03, §2 F1b on 2026-08-04, §2 F3 on 2026-08-05. Everything about future work is **plan** — a sequence with reasons, not a commitment to dates. Where this file and a spec disagree on *what to build*, the spec wins; on *what order*, this file wins.
+
+**Where the code is.** **`main` @ `2cfa3f6` is the truth again**, as of 2026-08-10. V1b, F2, V2, V3, V4 and C0 spent five days chained on `stage-*` branches while `main` sat at F3; they are now merged, along with the brand copy pass below. R1 branches from `main`, and nothing has to be reasoned about first. *(0.9 carried a warning here that reading `main` would leave you three weeks behind. It is no longer true, and is worth remembering only as the thing to avoid repeating: the chain was correct at every step and still invisible to anyone who did not already know which branch to read.)*
+
+**One thing here is not a build stage.** The **brand copy pass** (2026-08-08 → 2026-08-10) changed the thesis, the tagline and the hero, and touched the same files a stage would. It is recorded in `../decisions/decision-log.md` and Brand 1.2 rather than sequenced here, because it answers *what Root says*, not *what gets built next*. The one thing it leaves for a builder: `apps/web/src/components/Tagline.tsx` is the only place the tagline may be rendered from, and `tagline.face` the only key deciding which face is live.
+
+**A companion layer exists in the code repo.** `root-app/docs/development/` holds a per-stage implementation file — the *how*, grounded in file:line — written before track V was built and updated as it was. It is deliberately not here: it cites line numbers and goes stale with the code, and this file is the *order*, which does not. Read it alongside, not instead.
 
 ---
 
@@ -74,7 +80,11 @@ Four things the build settled that the plan had not:
 - **Per-class limits and allowlists.** Design images (png/jpg/webp, ~2 MB) and research full text (pdf, ~25 MB) are different enough that one limit serves neither. The existing 1 MB JSON limit is untouched — the upload route does not go through it.
 - **Deployment:** an Nginx location for the public class, and `STORAGE_DIR` on a path that survives redeploy. `root-app` has no runbook of its own yet; it needs one, or a section in the existing VPS runbook.
 
-### F2 — The staff shell
+### F2 — The staff shell — **built and verified, 2026-08-05** *(`337f952`)*
+
+**Built, and the foundations are now closed.** The 243-line unstyled `Admin.tsx` became a sectioned shell at `/desk` — Overview, Contracts, Customers — whose nav, index redirect and per-route guards all read **one** `DESK_SECTIONS` table, so a section cannot appear in the nav and be unreachable, or be reachable and invisible. `/admin` is gone with no redirect; it was never public. Closed **D4** (the "Published" column was showing `updatedAt`) and **D8** (the portal's staff link was gated on `contracts.manage`, so a reviewer never saw a way to the area they were invited for). A reviewer account is seeded, which gave F3's `REVIEWER` role its first real test: one section in the nav, and a locked URL bounces rather than renders.
+
+**The Persian label is settled: «اتاقِ کار»** — the workroom *(founder direction, 2026-08-09)*. It shipped as **«کارگاه»** under a `TODO(label)` because `portal.workspace` already owns «میز کار» and the desk could not take it. The answer is better than the placeholder for a reason worth keeping: «کارگاه» *competes* with «میز کار» — both name the place work happens — whereas «اتاقِ کار» **nests**, the portal being the desk and this the room it stands in. The relationship between the two surfaces is now carried by the words rather than in spite of them.
 
 **Renamed and moved to `/desk`, 2026-08-04.** It was "the admin shell" while ADMIN was the only staff role. With contributors and reviewers it belongs to everyone who is not a customer, and `/admin` is the wrong word in the URL bar for most of them. That route has never been public and has never been handed to anyone, so the rename is free today and costly once three roles have bookmarked it. The customer portal stays at `/app`.
 
@@ -115,17 +125,20 @@ The route is already a splat, so nested routing costs nothing. The work is turni
 F1  upload + storage         ✔ built 2026-08-03 / 2026-08-04
 F3  roles + capabilities ──┐ ✔ built 2026-08-05
                            ↓
-F2  the staff shell ───────┼──────────────┬───────────────┐
+F2  the staff shell ───────┼──────────────┬───────────────┐ ✔ built 2026-08-05
                            ↓              ↓               ↓
   V1 → V1b → V2 → V3 → V4          R1 → R2 → R3    C0 → C1 → C2
-   ✔    (the draft,          (the Library)   ↓      (the Review Room)
-         made readable)                     R4  ← unblocked: its scope is
-                                                the rights field R1 carries
+   ✔    ✔     ✔    ✔    ✔          ↑ next          ✔    (the Review Room)
+                                                   ↓
+   track V complete, 2026-08-08     R4 ← unblocked: its scope is
+                                       the rights field R1 carries
 ```
 
 Linear, as it will actually be built:
 
-> **V1b · ~~F3~~ · F2 · V2 · V3 · V4 · R1 · R2 · R3 · C0 · C1 · C2 · R4 · the Persian pass**
+> **~~V1b~~ · ~~F3~~ · ~~F2~~ · ~~V2~~ · ~~V3~~ · ~~V4~~ · ~~C0~~ · R1 · R2 · R3 · C1 · C2 · R4 · the Persian pass**
+
+**Struck through as of 2026-08-08.** Seven of fourteen are built. **C0 moved forward** out of its planned slot after R3 — see §5b for why that was opportunity rather than need — so what remains is R1 · R2 · R3 · C1 · C2 · R4 · the Persian pass, and **R1 is next.**
 
 **F3 was built first of these, out of that order and deliberately** *(2026-08-05)*. It needed nothing, V1b was held, and the argument for F3 preceding F2 applies just as well to F3 preceding everything: it is a migration and one small file, and every day it waits is a day more code is written against a role that has to be unwritten. V1b keeps its place ahead of F2 in what remains.
 
@@ -161,9 +174,11 @@ The risky stage, and deliberately invisible. **Acceptance: the portal behaves ex
 - **New `ChangeAction` values** per spec §2.5: `CONTRACT_REVISED`, `DESIGN_REVISED`, `CONTRACT_AMENDED`, `RE_APPROVED`, `RE_SIGNED`, `AMENDMENT_SIGNED`.
 - **Retire demo mode** *(founder direction, 2026-08-01)*. Delete `demoLink.ts`, `demoLink.noop.ts`, the `dev:demo` script, and the `VITE_DEMO` branches in `lib/apollo.ts` and `vite.config.ts`; update the README quick start. It is 313 lines mirroring the API in memory — the gate rule included — and its stated purpose ("so the portal can be reviewed before Postgres is running") ended on 2026-08-01. Carrying it through V1 means implementing revisions twice; carrying it unchanged means shipping a demo that contradicts the product.
 
-### V1b · The draft, made readable *(needs nothing; blocks V2)*
+### V1b · The draft, made readable — **built and verified, 2026-08-05** *(`44b2a52`)*
 
 **Added 2026-08-04.** In no spec, and the thing that makes the rest of track V buildable.
+
+**Built as specified**, additive only, customer-facing output untouched. One thing it settled: `draftState()` in `lib/revision.ts` became the single place "would publishing change anything" is computed, and `publishContractRevision` now calls it instead of carrying its own copy — the `dirty` flag and the `NO_CHANGES` guard are the same question, and two answers to it would have drifted. Also closed **D1** (a client-side guard re-deadlocking a re-opened design step — the live one) and **D3** (a stale `ChangeAction` union on the client).
 
 The draft is invisible to GraphQL — not merely to the customer, but to Root. `Contract.articles` resolves from the published snapshot while `setArticle` writes mutable `Article` rows; `Contract.concepts` reads the current design revision while `addConcept` writes into an unpublished one. Both are correct for the customer-facing surface and both mean the same thing for an editor: **a form whose response never reflects what was just typed.** V2 would have discovered this on its first screen.
 
@@ -171,17 +186,42 @@ An admin-only `Contract.draft` (draft articles, title and fee, and a `dirty` fla
 
 **Acceptance: a `setArticle` write round-trips in a query, and customer-facing output is byte-identical.**
 
-### V2 · Admin contract workspace *(spec P2 — needs F1, F2)*
+### V2 · Admin contract workspace — **built and verified, 2026-08-06** *(`ed3aac9`)*
 
-One contract, tabs **Contract / Design / Scope / Activity**. Draft-revision editing of articles and fee; concept and page management with **image upload** — the first consumer of F1; publish-revision; issue-amendment on a signed contract. The mutations largely exist (`setArticle`, `addConcept`, `addPageDesign`, `addScopeItem`) but write straight to the contract today, so each gains a revision wrapper. **This stage retires the last three "not built" items in the app README.**
+**Acceptance met:** Root can take a contract from nothing to signed without touching the database or the GraphQL sandbox, then issue an amendment and carry it to signature. The last two "not built" items in the app README are retired.
 
-### V3 · Customer revised-banner and re-approval *(spec P3)*
+Three things the build settled that the plan had not:
+
+- **A NOT NULL `contentHash` makes an amendment sealed at creation.** Keeping it editable while unpublished therefore means recomputing the hash on *every* write, not on publish — otherwise a signature attests to text nobody wrote. Held as an invariant with its own test.
+- **"At most one draft design revision per contract" was assumed by the code and enforced by nothing** (**D5**). It is now a partial unique index, which is the only construct that expresses it.
+- **`prisma migrate reset` is unsafe for a long-lived test server** — it drops and recreates every Postgres type, and the Playwright API server holds connections across that, leaving a stale type OID that makes the next array-of-enum query fail nondeterministically. The e2e harness truncates and reseeds instead.
+
+**D2** (publish paths now one transaction each, with a translated `CONCURRENT_PUBLISH` on the version race) and **D6** (`publishDesignRevision` gains the `NO_CHANGES` guard its sibling had) closed here.
+
+*As planned, and it held:* one contract, tabs **Contract / Design / Scope / Activity**. Draft-revision editing of articles and fee; concept and page management with **image upload** — the first consumer of F1; publish-revision; issue-amendment on a signed contract. The mutations largely exist (`setArticle`, `addConcept`, `addPageDesign`, `addScopeItem`) but write straight to the contract today, so each gains a revision wrapper. **This stage retires the last three "not built" items in the app README.**
+
+### V3 · Customer revised-banner and re-approval — **built and verified, 2026-08-07** *(`5b6182f`)*
+
+**It added no re-approval logic, and that was the finding.** `approveContract` and `signContract` already reopen on a fresh revision, and V1b already keeps the prior approval visible on the superseded one. The whole stage is the customer *noticing* — a `pending` field derived fresh on every read exactly like the gate, null unless there is something to show.
+
+Two things worth carrying forward:
+
+- **"Which previous revision?" had a cheaper answer than the one the plan implied.** Design carry-forward is *chained*, so approval state already encodes "unchanged since you approved it" — the set of pages wanting attention is simply the unapproved pages of the current revision. No lineage-walking. The page diff answers a different question (what Root changed) and is used only for labelling.
+- **A banner must never offer an action the gate will refuse.** When both lineages have moved the design must be re-approved first, so that is always the primary action and the contract change is named but not actionable. Held by a test.
 
 Banner, diff, and one action — approve / re-sign / accept-amendment. **Build the diff once, server-side, and share it:** comparing two design revisions page-by-page (`key` + `imageUrl`) is the identical comparison the carry-forward rule of spec §2.3 already performs. Two implementations of that would drift, and the visible one would be the one that looks right while the gate does something else.
 
-### V4 · Admin overview and review queue *(spec P4)*
+### V4 · Admin overview and review queue — **built and verified, 2026-08-08** *(`337ce1c`)* — **track V complete**
 
-Reads only what V1–V3 produce, which is why it is last. Needs-Root queue, ChangeLog-driven review queue, activity feed. `contractStatusCounts` already exists and covers the status tiles.
+Reads only what V1–V3 produce, which is why it is last. Needs-Root queue, ChangeLog-driven review queue, activity feed.
+
+**One sentence above was wrong, and it is the kind of wrong worth leaving visible:** *"`contractStatusCounts` already exists and covers the status tiles"* — it does not. It is scoped to `customerId: user.id`, so an admin calling it sees the count of their **own** contracts, which is zero. Reusing it would have produced a dashboard of zeroes that reads as an empty database rather than as a bug. A separate `allContractStatusCounts` was added and the customer-scoped one left alone.
+
+Three more things the build settled:
+
+- **Nothing recorded when a contract entered its current status** (**D7**), and `updatedAt` is not a substitute — any write bumps it, including a customer ticking a scope item. `Contract.statusChangedAt` is written by both status writers and **only on a real transition**; `setContractStatus` now no-ops rather than resetting the queue's clock by reapplying a status a contract already has. Backfilled from `updatedAt`, not from the migration's run time, which would have told the queue every contract just arrived.
+- **The activity feed cannot use the one-include-shape convention.** Forty rows resolved through `contractInclude` would drag every concept, page, article, comment and change log along per row — the feed reading itself. A thin `ContractRef` `select` instead, and the comment saying why, because the convention is otherwise right and someone will try to restore it.
+- **The change-log sentence builder had to leave the portal.** The desk needs the same rendering, and the cross-file drift test reads exactly *one* map — a second copy would be invisible to the test whose whole job is catching that. Moved to `lib/changelog.ts`; the test's parser moved with it.
 
 ## 5. Track R — the Research Lab
 
@@ -221,7 +261,13 @@ Last, per its spec, and **no longer blocked** *(2026-08-04)*. Rights on hosted t
 
 Sequenced here for the first time. Through 0.6 this was an idea the plan deliberately did not order; its three deciding questions closed on 2026-08-04 (its spec §3), and the answers make it **independent of track R**.
 
-### C0 · The email seam *(needs nothing)*
+### C0 · The email seam — **built and verified, 2026-08-08** *(`4eb4106`)* — **out of order, see below**
+
+**It was planned to sit after R3 and it was built after V4**, ahead of both remaining tracks. The argument for placing it late is untouched and still correct: with a live first client stood down, the only thing that genuinely fails on a hand-passed link is inviting an outside specialist, which is the Review Room. **What changed was opportunity, not need.** The two call sites email has to serve — `inviteCustomer` and `requestPasswordReset` — were already written and already logging their links, and V2 had just made the invite reachable from a real screen. Track C now inherits a built seam rather than a planned one.
+
+Built as specified: a pluggable transport (dev logs, Resend over plain fetch) that **degrades to logging when no provider is configured** rather than refusing to boot, plus bilingual templates in the recipient's locale. **D9** closed here — invites now default to the inviting admin's own locale rather than taking the schema's `fa` default, so every invite link was Persian regardless of who it was for.
+
+**The first user-facing text on the server.** Every string the product shows had lived in the web app's locale JSON; nothing on the API side had ever needed a Persian sentence. The templates carry their own bilingual source and their own key-parity test, copied in shape from the change-log drift test — the one that stops a sentence existing in one language only.
 
 **Email stops being deferrable here, and the Review Room spec called this in advance** (its §4): a comment nobody is notified about is a comment nobody answers, and inviting an outside specialist by hand-passed link is a worse look than doing it to a customer Root is already talking to daily.
 
@@ -270,6 +316,8 @@ Still genuinely open, and blocking nothing:
 
 ## Changelog
 
+- **0.9 (rev) · 2026-08-10** — **Everything is merged.** `main` @ `2cfa3f6` now carries V1b, F2, V2, V3, V4, C0 and the brand copy pass; the grading note and the "where the code is" paragraph are rewritten, the latter having been a standing warning that is now simply false. Records the **brand copy pass** as explicitly *not* a build stage — it answers what Root says, not what gets built next (Brand 1.2, decision log 2026-08-10) — while flagging the one constraint it leaves a builder: the tagline renders only from `Tagline.tsx`, off the single `tagline.face` key. **F2's `TODO(label)` is closed**: the desk's Persian label is **«اتاقِ کار»** (§2 F2). Verified green at the merge commit. **R1 is next and branches from `main`.**
+- **0.9 · 2026-08-08** — **Track V is complete, and C0 came with it.** V1b (§4), F2 (§2), V2, V3 and V4 built in the planned order 2026-08-05 → 2026-08-08; **C0 built out of order** (§5b), ahead of track R, on opportunity rather than need — its two call sites were already written and V2 had just made the invite reachable from a screen. Records per stage what each build settled that the plan had not, and **leaves one plan sentence visibly wrong** in §4 V4 rather than quietly correcting it: `contractStatusCounts` does *not* cover the admin status tiles, being scoped to the caller's own contracts, and reusing it would have shown Root a dashboard of zeroes that reads as an empty database. Notes that the **pre-build defect pass closed nine of ten** found defects inside their assigned stages at no schedule cost, the tenth (`allContracts` unbounded) standing as recorded debt. Adds two pointers the grading note did not carry: the companion `root-app/docs/development/` layer, and the fact that **none of this is merged** — `main` is at `478fb52` while the work is chained on `stage-v4-overview` @ `0dfd297`. **R1 is next.** Origin: 2026-08-01 founder direction, executed.
 - **0.8 · 2026-08-05** — **F3 built and verified** (§2), out of the 0.7 sequence and deliberately: it needed nothing, V1b was held, and the case for F3 preceding F2 applies to F3 preceding everything. `User.roles` is a `Role[]`, `requireCapability` replaced `requireRole` at all fifteen sites, and the client branches on a derived `User.capabilities`. Records four things the build settled that the plan had not — the non-empty constraint needing `cardinality` because `array_length` returns NULL on an empty array and a NULL CHECK *passes*; the open index question resolving to GIN with `state` dropped entirely, having been filtered nowhere; the session's `role` claim **deleted** rather than pluralised; and one guard in `customer.ts` that was an ownership question wearing a role check, which is the single place "two mechanisms, never merged" bit rather than warned. **Closes §6.8.** Corrects one as-built count there (fifteen call sites, not sixteen). Notes that §3's "F2 is the only unbuilt foundation" became literally true on this date, having been half a claim when written. Adds the shas the grading note could not previously cite.
 - **0.7 · 2026-08-04** — **The dashboard planned to its end, and every blocking open decision closed.** Adds **track C, the Review Room** (§5b), which stops being an idea because its three deciding questions were answered — snapshot at review time (and the freeze is a git commit), one corpus defined by an **allowlist** rather than per-reviewer grants, and passage-level anchoring. Adds **V1b** (§4), which is in no spec and comes first of all: the draft is invisible to GraphQL, so an editor built on today's surface would be a form whose response never reflects what was typed. Rewrites **F3** from "the contributor role" into the permission model for the whole app — `User.role` becomes `User.roles`, and the guard becomes a **capability**, because a person may hold contributor and reviewer together and because "the contributor sees the same editor minus publish" is a per-action sentence no ranking can express; F3 consequently moves *before* F2. Renames **F2** to the staff shell and moves it to `/desk`, since `/admin` is the wrong word for most of the people who will live in it. Closes the last four open decisions (§7): revision authorship admin-only, amendments free-text, the contributor/admin "line" and the "per-source rights workflow" — the last two both turning out to be misfiled, one a capability model and the other a required field, which is what unblocks R4. Adds two new failure modes (§6.8, §6.9): `requireRole` is an equality check that a role set inverts, and a rights flag cannot be enforced on a read path that does not exist, because Nginx serves the public class without ever reaching the API. Founder direction, 2026-08-04.
 - **0.6 · 2026-08-04** — **F1 closed** (§2): the printable contract is built and verified, so both halves are done and **F2 is unblocked**. Records the founder direction of 2026-08-04 — the browser renders it, a server-side render deferred but not dismissed, reusing the same route — and answers the question 0.5 left open: **the PDF is a rendering, never the record.** Records three things the build settled: the GraphQL surface had no way to name the published revision at all (title, fee, hash and amendments were absent, and the portal was showing a draft title above published articles); amendment visibility needed its own rule so a customer's copy excludes Root's drafts; and a repeating verification strip has to be a table `tfoot`, because a fixed footer prints *over* the signature.
