@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.6 · Status: living · 2026-08-11 · Owner: _root**
+**Version 0.7 · Status: living · 2026-08-15 · Owner: _root**
 
 ---
 
@@ -25,6 +25,19 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-02 | **drop_loopstate_frame_done** | Removes the `frameDone` mirror; the Day-1 frame's completion is derived from `FrameCompletion`, which is the event. See D-21. |
 
 ## 2. Key decisions
+
+### D-25 · Calendar system is a setting of its own, not a consequence of language — 2026-08-15
+
+Miladi (Gregorian) and Jalali are selectable in Settings, independently of `en`/`fa`. Before anyone chooses, the calendar is *inherited* from the language (`fa` → Jalali); the first explicit choice ends the inheritance permanently, in both directions. Stored in `localStorage` under `tracker.calendar` — **no column, no GraphQL field** — on the same reasoning as D-22 and with less to argue about: no server code formats a date, so the calendar is purely a rendering choice and the server has no use for it.
+
+*Rationale:* both off-diagonal combinations are real. Persian speakers outside Iran keep Gregorian deadlines; an English-reading user working to an Iranian academic or fiscal calendar needs Jalali dates in English words. Conventions §7d had explicitly left this open — "whether Persian users see Jalali dates is a product decision and is not settled here" — and this settles it.
+
+*Implementation:* `date-fns-jalali`, a fork of `date-fns` with identical function names and the same `Date`-in / `Date`-out contract, so a calendar-aware `startOfMonth` still returns an ordinary Gregorian instant and nothing downstream has to know which set produced it. Two consequences are worth stating outright:
+
+- **Wire formats stay Gregorian, always.** `format(d, "yyyy-MM-dd")` under the Jalali set returns a perfectly well-formed `"1405-05-24"`, which the API accepts without complaint and stores as a date in the fifteenth millennium. `client/app/utils/dateUtils.ts` is pinned to plain `date-fns` and is the home for anything that becomes a GraphQL argument, a map key, or an `<input min>`. The type system cannot tell the two apart — both are `(Date, string) => string` — so this is a convention held up by review, not by the compiler.
+- **Format strings do not port between calendars.** Callers ask for a named kind (`dayMonthYear`) and a per-calendar table decides the spelling. `"MMM d, yyyy"` under Jalali gives "مرد 24, 1405": an abbreviation nobody writes, plus an Anglophone comma-before-year.
+
+*Trade-off:* two libraries left, one arrived. **`react-big-calendar` and `react-day-picker` are gone** — neither could be made to produce a Jalali month, because both compute their grids with their own internal Gregorian arithmetic and expose only formatting to the caller. Their grids were replaced by `MonthGridView` and `DatePickerGrid`, both built from the injected function set and therefore correct in either calendar with one code path rather than two. `@types/react` became a direct dependency along the way; it had only ever been present transitively, at v19 in a React 18 project.
 
 ### D-24 · The advisor sequence is three rounds; whether recovery is worth five is a deferred research question — 2026-08-11
 
@@ -178,6 +191,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.7 · 2026-08-15** — D-25 added: **calendar system is its own setting**, inherited from language only until first chosen, stored client-side with no column (D-22's reasoning). Records the two things the implementation makes permanent — wire formats stay Gregorian, and format strings do not port between calendars — and the removal of `react-big-calendar` and `react-day-picker`, neither of which could express a Jalali month. No migration.
 - **0.6 · 2026-08-11** — D-24 added: Delegation Lab's advisor sequence ships at **three rounds** behind a `G6_ROUNDS` constant, measuring the documented algorithm-aversion *drop* and deferring the undocumented *recovery* pattern to a research question answerable from the three-round data. No migration; the tool itself is unbuilt.
 - **0.5 · 2026-08-05** — D-23 added: the **faux-feelings lexicon is locale-scoped** (`LexiconConceptSpec.locales`), with six Persian-only concepts authored from usage after establishing that no published Persian faux-feelings list exists. No migration.
 - **0.4 · 2026-08-04** — D-22 added: content **locale from `Accept-Language`, per request, never stored**, with the Persian surface shipping as `draft`. No migration — the decision is that there is no column.

@@ -2,7 +2,7 @@
 
 *Source of truth. The patterns you must follow to change this app without breaking it. If you read one architecture file before writing code, read this one. Update the changelog; don't fork.*
 
-**Version 0.4 · Status: as-built · 2026-08-12 · Owner: _root**
+**Version 0.5 · Status: as-built · 2026-08-15 · Owner: _root**
 
 ---
 
@@ -55,13 +55,24 @@ Three rules govern what you write in the `fa` value. All three exist because the
 
 **7d. Western digits in both locales.** Numerals render as `0–9` everywhere, including inside Persian prose and RTL layout. No Persian or Arabic-Indic digit rendering, no numeral transliteration, no locale-aware numbering system.
 
-This **records what the app already does** — as of 2026-08-12 there is not a single Persian digit in `client/app/` or in either locale file, and no numeral-locale formatting anywhere. It is written down precisely *because* it currently holds by accident: an invariant nobody has stated is one a future locale pass will helpfully "fix". **Why:** three distinct failures, and the first is the expensive one.
+It is written down precisely because it holds by accident where it holds at all: an invariant nobody has stated is one a future locale pass will helpfully "fix". **Why:** three distinct failures, and the first is the expensive one.
 
 - **A digit-shape mismatch is a *tell*.** In the Skills content packs an item's stimulus and its key, bench outcome or advice value must be visually indistinguishable in kind — a learner who can spot the authored half by its numerals is answering a different question than the one being asked. This is the same class of defect Evidence Lab had to eliminate from real use (literal asterisks marking authored markdown), and it is why the packs enforce it with a validator rule (`no-persian-digits`) rather than trusting the authoring.
 - **Arithmetic stays byte-identical across locales**, so a numeric key cannot drift between `en` and `fa` — the whole point of the locale-invariant spec/surface split (`../06-specs/00-skills-engine.md` §5.1).
 - **Numeric detectors run one digit set instead of two.** Given the `\b` trap below, a matcher that must handle two digit sets is a matcher with twice the surface for the same silent-failure mode.
 
-**One known violation, not yet fixed.** `client/app/components/journals/JournalDetailPage.tsx` formats entry dates with `d.toLocaleString(undefined, …)`. Passing `undefined` uses the **runtime's default locale — the browser or OS setting — not the app's i18next language**, so it is reading from a different source than every other localised string in the app (and than the server, per D-22). On a Persian-configured system it will render Persian digits, and possibly a Jalali calendar, for a user whose app is in English. Fix by passing an explicit locale derived from i18next; if a Persian locale tag is used, it must carry `-u-nu-latn` to force Latin numerals (add `-ca-gregory` if the Gregorian calendar is also wanted). **Whether Persian users see Jalali dates is a product decision and is not settled here** — this rule constrains only the numerals.
+**Where it stands, as of 2026-08-15.** The 2026-08-12 version of this section claimed there was "not a single Persian digit in `client/app/` or in either locale file". The first half was true and the second was not, and the difference was a `grep` whose `[۰-۹]` range matched bytes rather than codepoints and therefore matched everything. Checked properly:
+
+- **Rendering is clean and now stays clean by construction.** Two `Intl` violations were fixed, not one. `JournalDetailPage`'s `toLocaleString(undefined, …)` was the known one. The unknown one was `FeelingsNeedsHistoryPage`, calling `toLocaleDateString(i18n.language, …)` — which looks correct, and for `"fa"` makes `Intl` select **both** Persian digits **and** the Jalali calendar. Every date in the app now goes through `useAppDate`, and `date-fns`/`date-fns-jalali` emit Latin numerals in all four calendar × language combinations, which a test asserts directly.
+- **`fa/common.json` has 23 lines carrying Persian digits** and always did — `۲۴ ساعت (۱۴۴۰ دقیقه)`, `۰۹:۰۰`, `۱. انتخاب بازه`. These are hand-authored numerals inside translated prose, so no formatter will ever fix them; each needs editing. **Open.** Note that these are the least harmful case — none is a Skills stimulus or key, so the *tell* failure above does not apply — but they are still the rule's plainest reading.
+
+**The calendar question this section deferred is now settled**, as its own setting rather than a consequence of language: see **D-25**. That decision does not relax this rule. Jalali dates render `1405/05/24`, never `۱۴۰۵/۰۵/۲۴`.
+
+**7e. Dates a person reads and dates a machine reads are different jobs.** Rendering goes through `useAppDate` (`~/i18n/useAppDate`), which follows the calendar setting. Wire values — GraphQL arguments, map keys, `<input min>` attributes, `dateKey`s — go through `~/utils/dateUtils`, which is pinned to Gregorian `date-fns` and must stay that way.
+
+The failure mode is quiet and expensive: `format(d, "yyyy-MM-dd")` from `date-fns-jalali` returns `"1405-05-24"`, a well-formed string the API accepts and stores as a date roughly fourteen centuries out. Nothing throws. **TypeScript cannot help here** — both functions are `(Date, string) => string` — so the only defence is knowing which module you imported from. If a new helper produces a string that crosses the wire, it belongs in `dateUtils.ts` next to the others, under the comment explaining why that file's import is not to be "modernised".
+
+Two corollaries. **Week start follows the calendar, not the language** (`getWeekStart` in `~/lib/dateSystem`): شنبه is structurally day one of the Jalali week, whereas Persian-language UI over a Gregorian calendar keeps the Gregorian week. And **format strings are not portable between calendars**, so components name a *kind* of date (`dayMonthYear`) and a per-calendar table spells it — `"MMM d, yyyy"` under Jalali produces "مرد 24, 1405", which is wrong twice.
 
 **Server-authored content is a different job from UI copy.** Two places hold it, and the rule differs:
 
@@ -81,6 +92,8 @@ Every delete/irreversible control routes through the shared confirm dialog — c
 ### 10. date-fns v3 named imports only
 `import { format } from "date-fns"`, `import { enUS } from "date-fns/locale/en-US"`. No default imports — they don't exist in v3 and will fail the build.
 
+`date-fns-jalali` is pinned to the matching `3.6.0-1` and has the same rule. Its locale objects are **not** interchangeable with `date-fns`'s — each package carries its own month tables — so a locale must come from whichever library will consume it. `getCalendarLocale` in `~/lib/dateSystem` is the only place that should be deciding this.
+
 ## Keeping the canon true
 
 ### 11. Schema change → data-model doc change, same commit
@@ -90,6 +103,7 @@ If you touch `schema.prisma`, update `02-architecture/01-data-model.md` and add 
 
 ## Changelog
 
+- **0.5 · 2026-08-15** — §7d corrected and §7e added, from building the calendar-system setting (D-25). §7d's claim that no Persian digit existed in either locale file was **wrong** — a byte-range `grep` had matched everything; `fa/common.json` has 23 such lines and always did, and they are now recorded as open. Both `Intl` violations are fixed, including one the section did not know about (`FeelingsNeedsHistoryPage`, where `toLocaleDateString("fa", …)` silently selected Jalali *and* Persian digits). The deferred calendar question is settled in D-25. §7e states the wire-vs-display split that the two date libraries make load-bearing, and §10 gains the rule that locale objects don't cross between them.
 - **0.4 · 2026-08-12** — §7d added: **Western digits in both locales**, promoted from `06-specs/04-verification-lab.md` §10 where it was settled during the skill-tool spec pass. Records an invariant that held only by accident, states the three failures it prevents (the digit-shape *tell* in authored content being the expensive one), and names the one known violation — `JournalDetailPage`'s `toLocaleString(undefined, …)`, which reads the browser locale rather than the app's, unfixed and with the fix direction given.
 - **0.3 · 2026-08-04** — §7 extended again, from building the Persian Feelings & Needs surface: server-authored content vs UI copy (and why the F&N pack is translated-then-reviewed while the Skills packs are re-authored), locale from `Accept-Language` rather than a column (D-22), and the rule that `` matches nothing in Persian — which had silently disabled the faux-feeling matcher for the entire locale.
 - **0.2 · 2026-08-01** — §7 extended with the three `fa` authoring rules (7a concept-not-calque, 7b informal register, 7c the glossary), after the locale-wide Persian revision. See D-20.
