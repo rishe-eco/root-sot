@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verification Lab — wireframes · draft 1</title>
+<style>
+:root{
+  --surface-2:#ffffff; --surface-1:#f6f5f0; --surface-0:#efece4;
+  --text-primary:#2c2c2a; --text-secondary:#5f5e5a; --text-muted:#8a8981;
+  --border:#e3e1d9; --border-strong:#ceccc3;
+  --accent-bg:#e6f1fb; --accent-text:#185fa5; --accent-border:#85b7eb;
+  --warn-bg:#fbf0e6; --warn-text:#9a5a12; --warn-border:#e6b887;
+  --good-bg:#e9f2e8; --good-text:#3d6b39; --good-border:#a8c8a4;
+  --radius:8px; --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --surface-2:#2b2b29; --surface-1:#232321; --surface-0:#1b1b19;
+    --text-primary:#e9e7e0; --text-secondary:#b5b3aa; --text-muted:#8a8981;
+    --border:#3a3a37; --border-strong:#4b4b47;
+    --accent-bg:#0c447c; --accent-text:#b5d4f4; --accent-border:#185fa5;
+    --warn-bg:#4a2f10; --warn-text:#e8c39a; --warn-border:#9a5a12;
+    --good-bg:#25381f; --good-text:#b8d4b0; --good-border:#3d6b39;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-0);color:var(--text-primary);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1140px;margin:0 auto;padding:2rem 1.25rem 4rem}
+h1{font-size:22px;font-weight:500;margin:0 0 4px}
+.sub{font-size:13px;color:var(--text-muted);margin:0 0 2rem;max-width:72ch}
+h2{font-size:16px;font-weight:500;margin:2.5rem 0 .3rem;padding-bottom:.5rem;border-bottom:.5px solid var(--border)}
+h2 .n{color:var(--text-muted);font-variant-numeric:tabular-nums;margin-right:.5rem}
+.lead{font-size:12px;color:var(--text-secondary);margin:0 0 .9rem;max-width:80ch}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px;align-items:start}
+.board.wide{grid-template-columns:repeat(auto-fit,minmax(450px,1fr))}
+.board.half{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.frame{margin:0;display:flex;flex-direction:column;gap:8px}
+.phone,.panel{background:var(--surface-2);border:.5px solid var(--border);border-radius:12px;padding:14px;display:flex;flex-direction:column;overflow:hidden}
+.phone{flex:1;min-height:390px}
+.panel{flex:1}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-bottom:8px;border-bottom:.5px solid var(--border);font-size:11px;color:var(--text-muted)}
+.rung{font-family:var(--mono);font-size:10px;padding:1px 6px;border-radius:999px;border:.5px solid var(--border-strong);color:var(--text-secondary);flex:none}
+.rung.un{border-color:var(--accent-border);color:var(--accent-text);background:var(--accent-bg)}
+.prompt{font-size:13px;color:var(--text-primary);line-height:1.5;margin:12px 0}
+.sub2{font-size:11px;color:var(--text-muted);margin:12px 0 4px}
+.card{background:var(--accent-bg);border-radius:8px;padding:9px 11px;font-size:11.5px;color:var(--accent-text);line-height:1.5}
+.card.w{background:var(--warn-bg);color:var(--warn-text)}
+.card.g{background:var(--good-bg);color:var(--good-text)}
+.spring{margin-top:auto}
+.nav{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding-top:10px;gap:8px}
+.mut{color:var(--text-muted)}
+.acc{color:var(--accent-text)}
+.link{color:var(--text-muted);text-decoration:underline}
+.note{font-size:11px;color:var(--text-muted);line-height:1.5}
+.btn{display:inline-block;padding:7px 14px;border:.5px solid var(--border-strong);border-radius:var(--radius);font-size:12px;color:var(--text-primary);background:var(--surface-1);text-align:center}
+.btn.pri{border-color:var(--accent-border);color:var(--accent-text);background:var(--accent-bg)}
+.btn.dis{color:var(--text-muted);border-style:dashed;background:transparent}
+.cap{font-size:12px;color:var(--text-secondary);padding:0 4px}
+.cap .p{color:var(--accent-text);font-family:var(--mono);font-size:11px}
+.cap .x{color:var(--warn-text)}
+.field{border:.5px solid var(--border-strong);border-radius:var(--radius);padding:8px 10px;font-size:12px;color:var(--text-primary);background:var(--surface-1);min-height:32px}
+.field.ph{color:var(--text-muted)}
+.field.locked{border-style:solid;background:transparent;color:var(--text-secondary)}
+.lockflag{font-size:10px;color:var(--text-muted);font-family:var(--mono);margin-top:4px;display:block}
+
+/* ── the artifact: ask and answer, structurally separated ─────── */
+.artifact{border:.5px solid var(--border);border-radius:8px;overflow:hidden;margin:10px 0}
+.artifact .ask,.artifact .ans{padding:8px 10px;font-size:11.5px;line-height:1.5}
+.artifact .ask{background:var(--surface-1);border-bottom:.5px solid var(--border)}
+.artifact .ans{background:transparent}
+.artifact .lb{display:block;font-size:9.5px;font-family:var(--mono);color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+
+/* ── the oracle bench ─────────────────────────────────────────── */
+.bench{display:flex;flex-direction:column;gap:5px;margin:8px 0}
+.chk{border:.5px solid var(--border-strong);border-radius:6px;padding:6px 9px;font-size:11.5px;background:var(--surface-1);display:flex;align-items:center;gap:8px}
+.chk .t{flex:1}
+.chk .c{flex:none;font-family:var(--mono);font-size:10px;color:var(--text-secondary);border:.5px solid var(--border);border-radius:999px;padding:1px 6px;background:var(--surface-2)}
+.chk.spent{background:transparent;border-color:var(--border)}
+.chk.spent .c{opacity:.5}
+.chk.out{border-color:var(--good-border);background:var(--good-bg)}
+.chk.out .t{color:var(--good-text)}
+.chk.dud{border-color:var(--warn-border);background:var(--warn-bg)}
+.chk.dud .t{color:var(--warn-text)}
+.chk.off{opacity:.4;border-style:dashed;background:transparent}
+.outcome{font-size:11px;margin:-2px 0 4px 12px;padding-left:9px;border-left:2px solid var(--border);color:var(--text-secondary);line-height:1.45}
+.outcome b{font-weight:500;color:var(--text-primary)}
+.tally{display:flex;align-items:center;gap:8px;font-size:11px;font-family:var(--mono);color:var(--text-secondary);padding:6px 0 2px}
+.meter{flex:1;height:5px;border-radius:3px;background:var(--border);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--accent-text)}
+.meter.hot i{background:var(--warn-text)}
+
+/* ── reveal ───────────────────────────────────────────────────── */
+.panes{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:10px 0}
+.pane{border:.5px solid var(--border);border-radius:8px;padding:9px;background:var(--surface-1)}
+.pane h4{font-size:10px;font-weight:500;color:var(--text-muted);margin:0 0 6px;text-transform:uppercase;letter-spacing:.04em;font-family:var(--mono)}
+.pane p{font-size:11.5px;margin:0 0 5px;line-height:1.5}
+
+/* ── rubric / metrics ─────────────────────────────────────────── */
+.rail{display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.crit{display:flex;align-items:flex-start;gap:8px;font-size:11.5px;padding-bottom:6px;border-bottom:.5px solid var(--border)}
+.crit:last-child{border:0}
+.crit .k{font-family:var(--mono);font-size:10.5px;color:var(--text-muted);flex:none;width:20px;padding-top:2px}
+.crit .b{flex:1}
+.crit .b i{display:block;color:var(--text-muted);font-style:normal;font-size:10.5px;margin-top:2px;border-left:2px solid var(--border);padding-left:6px}
+.pips{flex:none;display:flex;gap:3px;padding-top:3px}
+.pip{width:7px;height:7px;border-radius:2px;border:.5px solid var(--border-strong)}
+.pip.f{background:var(--accent-text);border-color:var(--accent-text)}
+.pip.z{background:var(--warn-text);border-color:var(--warn-text)}
+.ns{flex:none;font-size:10px;color:var(--text-muted);font-family:var(--mono);padding-top:2px}
+.total{display:flex;align-items:baseline;gap:8px;margin-top:9px;padding-top:9px;border-top:.5px solid var(--border-strong)}
+.total .n{font-size:20px;font-weight:500}
+.total .d{font-size:11px;color:var(--text-muted)}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:9px 0}
+.metric{border:.5px solid var(--border);border-radius:8px;padding:8px 9px;background:var(--surface-1)}
+.metric.hero{border-color:var(--accent-border)}
+.metric .l{font-size:9.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;font-family:var(--mono)}
+.metric .v{font-size:16px;font-weight:500;margin-top:2px}
+.metric .t{font-size:10px;color:var(--text-secondary)}
+.mods{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.mod{display:flex;align-items:center;gap:8px;font-size:11.5px;padding:5px 7px;border:.5px solid var(--border);border-radius:6px}
+.mod .kk{font-family:var(--mono);font-size:10px;color:var(--text-muted);flex:none;width:22px}
+.mod .st{margin-left:auto;font-size:10px;font-family:var(--mono);color:var(--text-muted);flex:none}
+.mod .st.m{color:var(--good-text)}
+.opts{display:flex;flex-direction:column;gap:5px;margin:8px 0}
+.opt{border:.5px solid var(--border-strong);border-radius:6px;padding:6px 9px;font-size:11.5px;background:var(--surface-1);color:var(--text-secondary)}
+.opt.sel{border-color:var(--accent-border);color:var(--accent-text);background:var(--accent-bg)}
+.opt.dec{color:var(--text-muted)}
+.rtl{direction:rtl;text-align:right}
+.rtl .outcome{margin:-2px 12px 4px 0;padding-left:0;padding-right:9px;border-left:0;border-right:2px solid var(--border)}
+.legend{margin-top:3rem;font-size:12px;color:var(--text-secondary);background:var(--surface-1);border:.5px solid var(--border);border-radius:12px;padding:1rem 1.25rem}
+.legend b{font-weight:500;color:var(--text-primary)}
+.legend ul{margin:.6rem 0 0;padding-left:1.1rem}
+.legend li{margin-bottom:.45rem}
+.legend code{font-family:var(--mono);font-size:11px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Verification Lab — wireframes · draft 1</h1>
+  <p class="sub">Low-fidelity. Companion to <code>04-verification-lab.md</code> §10, with the two rungs from §4a. Ten plates plus an RTL pass. Two components are new — the <b>oracle bench</b> (3, 4) and the <b>ritual-first reveal</b> (7); the rest rearranges what the three existing labs already have. Worked item throughout: an AI answer about winter heating costs that is confidently, arithmetically wrong.</p>
+
+  <h2><span class="n">1</span>Tool home — rungs are per module</h2>
+  <p class="lead">The first-visit rule is unchanged from the other labs and not redrawn here: no statistics until there is progress. What is new is the rung marker on each module, and <b>ritual rate</b> sitting beside the composite rather than buried.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>verification lab</span><span>1 review due</span></div>
+        <div class="metrics">
+          <div class="metric hero"><div class="l">strict composite</div><div class="v">4 / 6</div><div class="t">oracle · could-fail · correct</div></div>
+          <div class="metric hero"><div class="l">ritual rate</div><div class="v">0.17</div><div class="t">was 0.62 at baseline</div></div>
+          <div class="metric"><div class="l">discrimination</div><div class="v">+0.55</div><div class="t">hits − false alarms</div></div>
+          <div class="metric"><div class="l">cost ratio</div><div class="v">2.4×</div><div class="t">falling toward 1.0</div></div>
+        </div>
+        <div class="mods">
+          <div class="mod"><span class="kk">v1</span><span>What would tell you?</span><span class="rung un">unassisted</span><span class="st m">mastered</span></div>
+          <div class="mod"><span class="kk">v2</span><span>Not the same source twice</span><span class="rung un">unassisted</span><span class="st">4 of 6</span></div>
+          <div class="mod"><span class="kk">v3</span><span>The check that would fail</span><span class="rung">assisted</span><span class="st">ready to step up</span></div>
+        </div>
+        <div class="card" style="margin-top:6px">You've been clearing <b>v3</b> under the time ceiling. Want to try it without one?</div>
+        <div class="spring nav"><span class="btn pri">Step up to unassisted</span><span class="link">stay here</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§4a</span> · promotion is offered, never forced; demotion never automatic</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>why v3 shows no mastery yet</span><span>assisted rung</span></div>
+        <div class="rail">
+          <div class="crit"><span class="k">V1</span><span class="b">Oracle named</span><span class="pips"><i class="pip f"></i><i class="pip f"></i></span></div>
+          <div class="crit"><span class="k">V2</span><span class="b">Independence</span><span class="pips"><i class="pip f"></i><i class="pip f"></i></span></div>
+          <div class="crit"><span class="k">V3</span><span class="b">Falsifiability</span><span class="pips"><i class="pip f"></i><i class="pip"></i></span></div>
+          <div class="crit"><span class="k">V4</span><span class="b">Proportionate cost<span class="ns" style="display:block;margin-top:2px">not scored on this rung — you're on a ceiling</span></span><span class="ns">—</span></div>
+          <div class="crit"><span class="k">V5</span><span class="b">Localisation</span><span class="pips"><i class="pip f"></i><i class="pip f"></i></span></div>
+          <div class="crit"><span class="k">V6</span><span class="b">Honest closure</span><span class="pips"><i class="pip f"></i><i class="pip f"></i></span></div>
+        </div>
+        <div class="total"><span class="n">9 / 10</span><span class="d">5 of 6 criteria scored</span></div>
+        <div class="card w" style="margin-top:8px">A ceiling makes overspending impossible, so V4 can't be the same criterion here. Mastery needs all six — that's why it waits for the other rung, and this is the screen that says so.</div>
+      </div>
+      <figcaption class="cap"><span class="p">§4a</span> · unscored renders as words · <code>9 / 10</code>, never <code>9 / 12</code></figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">2</span>Name the oracle before the bench opens</h2>
+  <p class="lead">V1 is unscoreable if the checks can precede it, and the ordering is the measurement — so <code>oracle_named</code> is server-stamped and the bench is disabled until it exists. Fourth tool, fourth forcing function, same table.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>v1 · state your oracle</span><span class="rung un">unassisted</span></div>
+        <div class="artifact">
+          <div class="ask"><span class="lb">what was asked</span>Roughly what will it cost to heat my 90 m² flat with electric radiators this winter?</div>
+          <div class="ans"><span class="lb">what the AI answered</span>About <b>€340</b> for the season — around 4,500 kWh at €0.28/kWh.</div>
+        </div>
+        <div class="sub2">Before you check anything: what would tell you whether this is right?</div>
+        <div class="field ph">the thing that would settle it…</div>
+        <div class="sub2">optional · what should a sufficient check cost?</div>
+        <div class="field ph">seconds</div>
+        <div class="spring nav"><span class="btn dis">open the bench</span><span class="btn pri">lock &amp; continue</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">V1</span> · <span class="x">gate</span> · bench disabled until named</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>v1 · locked</span><span class="rung un">unassisted</span></div>
+        <div class="sub2">your oracle</div>
+        <div class="field locked">The two numbers have to multiply out to the total. If they don't, the total is wrong whatever else is true.</div>
+        <div class="sub2">predicted sufficient cost</div>
+        <div class="field locked">15 seconds</div>
+        <span class="lockflag">oracle_named · t+41s · server-stamped · not editable</span>
+        <div class="spring card g">That's a partial oracle — you don't need to know the right answer to use it. The cheapest kind, and the most underused.</div>
+        <div class="nav"><span class="mut">&larr;</span><span class="acc">open the bench &rarr;</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">V1</span> · the three kinds named at feedback, not before</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">3</span>The oracle bench — new component, two rungs</h2>
+  <p class="lead">Every check shows <b>what it costs before you run it and nothing about what it returns</b>. Spending is irreversible. That is the entire decision the learner has to make, and a bench that previewed outcomes would measure nothing. The two rungs differ only in whether the spend runs against a ceiling.</p>
+  <div class="board wide">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>oracle bench</span><span class="rung">assisted · 60s ceiling</span></div>
+        <div class="bench">
+          <div class="chk out"><span class="t">Multiply 4,500 × 0.28 yourself</span><span class="c">10s</span></div>
+          <div class="outcome"><b>= 1,260.</b> Not 340.</div>
+          <div class="chk spent"><span class="t">Ask the model for a confidence score</span><span class="c">10s</span></div>
+          <div class="outcome">“High confidence — around 90%.”</div>
+          <div class="chk"><span class="t">Look up your tariff on the supplier's site</span><span class="c">40s</span></div>
+          <div class="chk off"><span class="t">Compare with last winter's bill</span><span class="c">180s</span></div>
+          <div class="chk off"><span class="t">Check 4,500 kWh against a heating rule of thumb</span><span class="c">90s</span></div>
+        </div>
+        <div class="tally"><span>spent 20s</span><span class="meter"><i style="width:33%"></i></span><span>of 60s</span></div>
+        <div class="card w">Two checks are greyed because you can't afford them. That is the lesson of this rung: checking costs something, and you were always choosing.</div>
+        <div class="nav"><span class="note">ceiling reached ⇒ commit</span><span class="btn pri">commit verdict</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§4a</span> · the ceiling makes cost unmissable · V4 feedback-only here</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>oracle bench</span><span class="rung un">unassisted · no ceiling</span></div>
+        <div class="bench">
+          <div class="chk out"><span class="t">Multiply 4,500 × 0.28 yourself</span><span class="c">10s</span></div>
+          <div class="outcome"><b>= 1,260.</b> Not 340.</div>
+          <div class="chk"><span class="t">Ask the model: are you sure?</span><span class="c">15s</span></div>
+          <div class="chk"><span class="t">Ask the model for a confidence score</span><span class="c">10s</span></div>
+          <div class="chk"><span class="t">Look up your tariff on the supplier's site</span><span class="c">40s</span></div>
+          <div class="chk"><span class="t">Check 4,500 kWh against a heating rule of thumb</span><span class="c">90s</span></div>
+          <div class="chk"><span class="t">Compare with last winter's bill</span><span class="c">180s</span></div>
+        </div>
+        <div class="tally"><span>spent 10s</span><span class="meter"><i style="width:8%"></i></span><span>no limit</span></div>
+        <div class="card">Everything is affordable. Nothing tells you when to stop — you decide, and that decision is what V4 scores. What a sufficient check <i>would</i> have cost is shown after you commit, never before.</div>
+        <div class="nav"><span class="note">you may keep spending</span><span class="btn pri">commit verdict</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">V4</span> · running total, no ceiling · ideal disclosed at reveal only</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">4</span>The costumes are on the bench on purpose</h2>
+  <p class="lead">“Ask it if it's sure” and “ask for a confidence score” are the two things most widely taught as verification. Both are cheap, both are satisfying, and both return the same thing whether or not the answer is wrong. <b>A costume you are prevented from wearing is a costume you never learn to recognise</b> — so they are selectable, priced low, and they pay out exactly nothing.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>v2 · what those two returned</span><span>module screen</span></div>
+        <div class="bench">
+          <div class="chk dud"><span class="t">Ask the model: are you sure?</span><span class="c">15s</span></div>
+          <div class="outcome">“Yes — €340 is a reasonable seasonal estimate for a flat that size.”</div>
+          <div class="chk dud"><span class="t">Ask the model for a confidence score</span><span class="c">10s</span></div>
+          <div class="outcome">“High confidence — around 90%.”</div>
+        </div>
+        <div class="card w">Both would have said the same thing if the figure had been right. You spent 25 seconds and know exactly what you knew before.</div>
+        <div class="sub2">why, in one line each</div>
+        <p class="note" style="margin:0">A model checking itself shares the mistake it just made. And stated confidence is worst precisely when the answer is wrong — the two are not weak oracles, they are <b>not oracles</b>.</p>
+      </div>
+      <figcaption class="cap"><span class="p">V2</span> · independence, discovered rather than asserted</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>v2 · the near-miss</span><span>true, and useless</span></div>
+        <div class="bench">
+          <div class="chk spent"><span class="t">Look up your tariff on the supplier's site</span><span class="c">40s</span></div>
+          <div class="outcome">€0.28/kWh — <b>correct</b>.</div>
+          <div class="chk spent"><span class="t">Check 4,500 kWh against a heating rule of thumb</span><span class="c">90s</span></div>
+          <div class="outcome">Plausible for 90 m² — <b>correct</b>.</div>
+        </div>
+        <div class="card w">Both independent. Both true. Neither touches the claim that's wrong. 130 seconds spent confirming the parts of an answer that were never in doubt.</div>
+        <p class="note" style="margin:8px 0 0">This is the harder lesson of the two, and the one the confirmation-bias literature is about: a check you expect to pass, which then passes, has told you nothing.</p>
+      </div>
+      <figcaption class="cap"><span class="p">V3</span> · the pass-either-way check, in its respectable form</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">5</span>Commit — everything together, before anything is revealed</h2>
+  <p class="lead">Verdict, failing element, confidence and residual risk are committed as one act and are not editable afterwards. The enumerated element list is <b>never on screen while checks are being chosen</b> — earlier, it becomes a shopping guide for which check to buy, contaminating V1 and V3.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>commit</span><span class="rung">assisted</span></div>
+        <div class="sub2">your verdict</div>
+        <div class="opts">
+          <span class="opt">supported</span><span class="opt sel">unsupported</span><span class="opt">outdated</span><span class="opt">cannot verify with what's here</span>
+        </div>
+        <div class="sub2">which part fails? — pick one</div>
+        <div class="opts">
+          <span class="opt dec">the 4,500 kWh figure</span><span class="opt sel">the multiplication</span><span class="opt dec">the €0.28 tariff</span><span class="opt dec">the “for the season” framing</span>
+        </div>
+        <div class="sub2">what's still unchecked?</div>
+        <div class="field ph">residual risk…</div>
+        <div class="spring nav"><span class="note">confidence 0–100</span><span class="btn pri">commit · no edits after</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">V5</span> · assisted: pick from elements, two of them decoys</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>commit · step 1 of 2</span><span class="rung un">unassisted</span></div>
+        <div class="sub2">which part fails? — in your own words</div>
+        <div class="field ph">no list yet…</div>
+        <div class="card" style="margin-top:8px">Write it before you see the options. Then you'll pick from a list too — and whether the two agree is itself worth knowing.</div>
+        <div class="sub2" style="margin-top:14px">step 2, after you commit</div>
+        <div class="opts">
+          <span class="opt dec">the 4,500 kWh figure</span><span class="opt dec">the multiplication</span><span class="opt dec">the €0.28 tariff</span>
+        </div>
+        <span class="lockflag">list withheld until localization_set is stamped</span>
+        <div class="spring nav"><span class="mut">&larr;</span><span class="btn pri">commit my words</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">V5</span> · free text → commit → list · the pick is what's scored</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">6</span>The ritual-first reveal — new component</h2>
+  <p class="lead">The most important plate in the set. If every check the learner ran was pass-either-way, <b>the reveal says so before it says whether they were right</b> — because a correct verdict reached by ritual is the single thing most likely to be mistaken for competence, and a scoreboard alone would congratulate it.</p>
+  <div class="board wide">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>reveal · ritual detected</span><span>verdict was correct</span></div>
+        <div class="card w" style="margin-bottom:10px"><b>Both checks you ran would have returned the same thing whether or not the figure was wrong.</b> You reached the right verdict without evidence for it.</div>
+        <div class="panes">
+          <div class="pane"><h4>what you ran</h4><p>Are you sure? · 15s<br>Confidence score · 10s</p><p class="note">Neither is independent of the answer's source.</p></div>
+          <div class="pane"><h4>what would have settled it</h4><p>Multiplying the two figures. <b>10 seconds.</b></p><p class="note">4,500 × 0.28 = 1,260.</p></div>
+        </div>
+        <div class="rail">
+          <div class="crit"><span class="k">V1</span><span class="b">Oracle named<i>"it sounded off" — doesn't bear on a specific claim</i></span><span class="pips"><i class="pip f"></i><i class="pip"></i></span></div>
+          <div class="crit"><span class="k">V3</span><span class="b">Falsifiability<i>no check you ran could have failed</i></span><span class="pips"><i class="pip z"></i><i class="pip"></i></span></div>
+        </div>
+        <div class="total"><span class="n">strict composite 0</span><span class="d">right answer, no check behind it</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§11</span> · <span class="x">the failure this tool exists for</span> · named before the outcome</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>reveal · clean</span><span>verdict was correct</span></div>
+        <div class="card g" style="margin-bottom:10px"><b>Your check could have failed, and it did.</b> That's the difference between a verdict and a guess.</div>
+        <div class="panes">
+          <div class="pane"><h4>what you spent</h4><p><b>10s</b> — the multiplication.</p><p class="note">Cost ratio 1.0. You predicted 15s.</p></div>
+          <div class="pane"><h4>the cheapest sufficient check</h4><p><b>10s</b> — the multiplication.</p><p class="note">The 180s bill comparison finds it too, at eighteen times the price.</p></div>
+        </div>
+        <div class="sub2">the profile this item was</div>
+        <p class="note" style="margin:0 0 8px"><code>SUM_MISMATCH</code> — the parts don't produce the stated total. Revealed by a partial oracle; no external source needed.</p>
+        <div class="card">You noted the kWh estimate as still unchecked. That's right, and it's why the verdict is “this number is wrong”, not “heating will cost €1,260”.</div>
+      </div>
+      <figcaption class="cap"><span class="p">V4 V6</span> · the ideal budget, disclosed only now</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">7</span>The falsification drill — <code>v3</code>, thirty seconds</h2>
+  <p class="lead">The one fast module. Three candidate checks, one claim, pick the one that would fail if the claim were wrong. This is the “think in opposites” training the literature actually measured, in item form.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>v3 · drill · item 2 of 3</span><span>~30s</span></div>
+        <p class="prompt" style="margin-bottom:4px">Claim: <b>aluminium was once more valuable than gold.</b></p>
+        <div class="sub2">which check could come back “no”?</div>
+        <div class="opts">
+          <span class="opt">Ask the model whether it's confident</span>
+          <span class="opt">Confirm that aluminium is a metal</span>
+          <span class="opt">Look up 19th-century aluminium prices against gold</span>
+        </div>
+        <div class="spring card">You are not being asked whether the claim is true. You're being asked which check would tell you.</div>
+        <div class="nav"><span class="note">no reveal until you pick</span><span class="btn pri">commit</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">V3</span> · one costume, one true-but-irrelevant, one discriminating</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>v6 · no-oracle control</span><span>scored like any other</span></div>
+        <div class="artifact">
+          <div class="ask"><span class="lb">what was asked</span>Will my landlord accept a 5% counter-offer?</div>
+          <div class="ans"><span class="lb">what the AI answered</span>Most likely yes — a 5% reduction is within the range landlords typically accept.</div>
+        </div>
+        <div class="bench">
+          <div class="chk"><span class="t">Look up average rent reductions in this city</span><span class="c">60s</span></div>
+          <div class="chk"><span class="t">Ask the model how it knows</span><span class="c">15s</span></div>
+        </div>
+        <div class="card w">Nothing here can settle a claim about one specific person's future decision. The correct answer is that you can't check it — <b>said out loud, with what you'd need in order to</b>.</div>
+        <div class="spring nav"><span class="btn">cannot verify</span><span class="btn pri">commit</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">V6</span> · inventing an oracle is worse than admitting there isn't one</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">8</span>Real work — the verification record</h2>
+  <p class="lead">The retention feature, and the reason the tool survives past the modules. <b>Tracker never runs the check.</b> No sandbox, no calculator, no search proxy — the learner checks outside and pastes back what they found. Building an execution environment would move the act of checking inside the app, where it stops being a habit they carry out of it.</p>
+  <div class="board wide">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>bring an answer · open practice</span><span>never scored into mastery</span></div>
+        <div class="sub2">the claim you want to check</div>
+        <div class="field locked">“The library's <code>parse()</code> has accepted ISO week dates since v3.2.”</div>
+        <div class="sub2">your oracle — in your own words, no bench here</div>
+        <div class="field locked">The changelog for v3.2, or the function's own behaviour on an ISO week string.</div>
+        <div class="sub2">what you found · paste it back</div>
+        <div class="field locked">v3.2 changelog lists no date parsing changes. Ran it: throws on “2026-W07”.</div>
+        <div class="nav"><span class="note">the check happened outside the app, as it should</span><span class="btn pri">save record</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§8</span> · free-text oracle, real sources, uncalibrated by design</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>verification record</span><span>saveable</span></div>
+        <div class="panes" style="grid-template-columns:1fr">
+          <div class="pane">
+            <h4>claim</h4><p>parse() accepts ISO week dates since v3.2</p>
+            <h4 style="margin-top:8px">oracle used</h4><p>Changelog + direct execution — independent of the model</p>
+            <h4 style="margin-top:8px">result</h4><p>No such change listed; throws on “2026-W07”</p>
+            <h4 style="margin-top:8px">verdict</h4><p><b>Unsupported.</b> Confidence 90</p>
+            <h4 style="margin-top:8px">still unchecked</h4><p>Whether a later version added it</p>
+          </div>
+        </div>
+        <div class="nav"><span class="btn">save as journal entry</span><span class="btn">attach to a project</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§8</span> · a working artifact, not an exercise — cf. Evidence's verdict card</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">9</span>Progress — and the display that does the teaching</h2>
+  <p class="lead">Composite, discrimination and ritual rate are shown together or not at all. The self-report overlay is the most directly persuasive thing the tool can put in front of a learner, because it is about them rather than about the model.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>progress · verification</span><span>baseline · post · delayed</span></div>
+        <div class="metrics">
+          <div class="metric hero"><div class="l">ritual rate</div><div class="v">0.62 → 0.17</div><div class="t">checks that couldn't fail</div></div>
+          <div class="metric"><div class="l">strict composite</div><div class="v">1/6 → 4/6</div><div class="t">+50 points</div></div>
+          <div class="metric"><div class="l">cost ratio</div><div class="v">6.1× → 2.4×</div><div class="t">accuracy held</div></div>
+          <div class="metric"><div class="l">can't-verify</div><div class="v">3/3 · 1 false</div><div class="t">correct vs. gave up</div></div>
+        </div>
+        <div class="card w">Series marker at your <b>v3 promotion</b> — attempts before and after it are different instruments and are not joined into one line.</div>
+        <p class="note" style="margin-top:8px">Recall–recognition agreement 0.75 — three times in four, your own words matched the element you then picked.</p>
+      </div>
+      <figcaption class="cap"><span class="p">§6</span> · no metric pooled across rungs, ever</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>what you say vs. what you do</span><span>self-report never scored</span></div>
+        <div class="panes" style="grid-template-columns:1fr">
+          <div class="pane">
+            <h4>you said, at baseline</h4><p>“I'd catch a wrong figure in an AI answer.” — <b>agree</b></p>
+            <h4 style="margin-top:8px">you did, at baseline</h4><p>Ran a discriminating check on <b>1 of 6</b> items.</p>
+          </div>
+        </div>
+        <div class="card">You are in good company, and that is the problem: <b>96% of developers say they don't fully trust AI-generated code; 48% say they always check it.</b> The gap between those two numbers is this tool's entire subject.</div>
+        <p class="note" style="margin-top:8px">Collected at every timepoint. Never scored, never gates anything.</p>
+      </div>
+      <figcaption class="cap"><span class="p">§6</span> · the dissociation, shown rather than described</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">10</span>RTL pass — <code>fa</code></h2>
+  <p class="lead">Mid-cost locale, and the reason is structural: fault classes are units, magnitudes, boundaries and inverted logic, so specs and keys are locale-invariant and only artifact prose is realised twice. No Persian-specific linguistic work, unlike Clarity's R4/R6. One inherited constraint: where a bench entry is an external source, the artifact may be Persian while the source is English.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel rtl">
+        <div class="bar"><span>میز محک</span><span class="rung un">بدون سقف</span></div>
+        <div class="artifact">
+          <div class="ans"><span class="lb">پاسخ هوش مصنوعی</span>حدود <b>340 یورو</b> برای کل فصل — تقریباً 4500 کیلووات‌ساعت با نرخ 0.28 یورو.</div>
+        </div>
+        <div class="bench">
+          <div class="chk out"><span class="t">خودت 4500 × 0.28 را حساب کن</span><span class="c">10s</span></div>
+          <div class="outcome"><b>= 1260</b>، نه 340.</div>
+          <div class="chk"><span class="t">از مدل بپرس مطمئنی؟</span><span class="c">15s</span></div>
+        </div>
+        <div class="tally" style="direction:rtl"><span>10s خرج شد</span><span class="meter"><i style="width:8%"></i></span><span>بدون سقف</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§4</span> · bench, outcomes and reveal panes get the RTL pass</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>content pack status</span><span>surfaced honestly</span></div>
+        <div class="card w">Persian pack machine-drafted, awaiting native review — shown in-UI, as all three existing packs do.</div>
+        <div class="sub2">what the reviewer checks here</div>
+        <p class="note" style="margin:0">That the fault survives in Persian — a wrong unit or an inverted condition usually does, which is why this tool is cheap. And that no bench entry reads as two checks in Persian: an entry that splits is a broken key, not a translation nit.</p>
+        <div class="sub2">numerals — settled 2026-08-11</div>
+        <p class="note" style="margin:0"><b>Western digits in both locales</b>, including inside Persian prose and RTL layout. This is what the app already does — there is not a single Persian digit in the client or the locale files today — so the decision records existing behaviour rather than changing it. Three things it buys: no digit-shape tell between an artifact and a bench outcome, arithmetic that is literally identical across locales, and numeric detectors that run one digit set instead of two. Worth promoting into <code>04-conventions.md</code> §7, because a convention that holds only by accident is one a future contributor will helpfully "fix".</p>
+      </div>
+      <figcaption class="cap"><span class="p">§4</span> · no Persian-specific linguistic work required</figcaption>
+    </figure>
+  </div>
+
+  <div class="legend">
+    <b>What these plates are protecting</b>
+    <ul>
+      <li><b>Cost before, outcome never</b> (plate 3). The bench shows what a check costs and hides what it returns. A bench that previews outcomes measures nothing, because the decision has already been made for the learner.</li>
+      <li><b>The costumes are selectable</b> (plate 4). Self-critique and stated confidence sit on the bench, cheap, and pay out nothing. A costume you're prevented from wearing is one you never learn to recognise.</li>
+      <li><b>Ritual before verdict</b> (plate 6). When every check run was pass-either-way, the reveal says that first — a correct answer reached by ritual is the thing most likely to be mistaken for skill.</li>
+      <li><b>The element list is never on screen while checks are chosen</b> (plate 5). Earlier, it's a shopping guide for which check to buy, and it contaminates V1 and V3, not just V5.</li>
+      <li><b>Free text, then the list</b> (plate 5). The pick is the scored, offline, comparable component; the words are captured and judged only if a credential exists. This is what keeps V5 out of the credential's reach.</li>
+      <li><b>Probes are unassisted at every timepoint</b> (§4a). Tiering the instrument between baseline and post would make a promoted learner look worse at the moment they advanced.</li>
+      <li><b>V4 unscored under a ceiling</b> (plate 1), rendered as words, with the total reading <code>9 / 10 · 5 of 6 criteria</code>.</li>
+      <li><b>“Cannot verify” is a first-class answer</b> (plate 7), and inventing an oracle is scored worse than admitting there isn't one.</li>
+      <li><b>Tracker never runs the check</b> (plate 8). No sandbox, no calculator, no search proxy.</li>
+    </ul>
+    <p style="margin:.8rem 0 0" class="note"><b>Settled 2026-08-11, after review.</b> <b>(a)</b> The discrimination line appears on <b>every</b> reveal, in all four states — none of your checks could have failed · some could · all could · you ran none. It is not suppressed after N sightings: <i>the negative form should disappear because the learner stopped triggering it, never because the UI stopped saying it.</i> A designed fade would hide a regression, and the fade this design wants is behavioural. <b>(b)</b> Six bench entries. A later variant may author more and display six — if it ever does, the six must be a <b>fixed deterministic subset per item</b>, never a per-learner sample, or the item stops being the same instrument for two people. <b>(c)</b> The cost-prediction field stays. <b>(d)</b> Western digits in both locales (see plate 10).</p>
+  </div>
+</div>
+</body>
+</html>

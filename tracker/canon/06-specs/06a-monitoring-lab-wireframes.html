@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monitoring Lab — wireframes · draft 1</title>
+<style>
+:root{
+  --surface-2:#ffffff; --surface-1:#f6f5f0; --surface-0:#efece4;
+  --text-primary:#2c2c2a; --text-secondary:#5f5e5a; --text-muted:#8a8981;
+  --border:#e3e1d9; --border-strong:#ceccc3;
+  --accent-bg:#e6f1fb; --accent-text:#185fa5; --accent-border:#85b7eb;
+  --warn-bg:#fbf0e6; --warn-text:#9a5a12; --warn-border:#e6b887;
+  --good-bg:#e9f2e8; --good-text:#3d6b39; --good-border:#a8c8a4;
+  --radius:8px; --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --surface-2:#2b2b29; --surface-1:#232321; --surface-0:#1b1b19;
+    --text-primary:#e9e7e0; --text-secondary:#b5b3aa; --text-muted:#8a8981;
+    --border:#3a3a37; --border-strong:#4b4b47;
+    --accent-bg:#0c447c; --accent-text:#b5d4f4; --accent-border:#185fa5;
+    --warn-bg:#4a2f10; --warn-text:#e8c39a; --warn-border:#9a5a12;
+    --good-bg:#25381f; --good-text:#b8d4b0; --good-border:#3d6b39;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-0);color:var(--text-primary);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1140px;margin:0 auto;padding:2rem 1.25rem 4rem}
+h1{font-size:22px;font-weight:500;margin:0 0 4px}
+.sub{font-size:13px;color:var(--text-muted);margin:0 0 2rem;max-width:74ch}
+h2{font-size:16px;font-weight:500;margin:2.5rem 0 .3rem;padding-bottom:.5rem;border-bottom:.5px solid var(--border)}
+h2 .n{color:var(--text-muted);font-variant-numeric:tabular-nums;margin-right:.5rem}
+.lead{font-size:12px;color:var(--text-secondary);margin:0 0 .9rem;max-width:82ch}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px;align-items:start}
+.board.wide{grid-template-columns:repeat(auto-fit,minmax(450px,1fr))}
+.board.half{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.frame{margin:0;display:flex;flex-direction:column;gap:8px}
+.phone,.panel{background:var(--surface-2);border:.5px solid var(--border);border-radius:12px;padding:14px;display:flex;flex-direction:column;overflow:hidden}
+.phone{flex:1;min-height:390px}
+.panel{flex:1}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-bottom:8px;border-bottom:.5px solid var(--border);font-size:11px;color:var(--text-muted)}
+.prompt{font-size:13px;color:var(--text-primary);line-height:1.5;margin:12px 0}
+.sub2{font-size:11px;color:var(--text-muted);margin:12px 0 4px}
+.card{background:var(--accent-bg);border-radius:8px;padding:9px 11px;font-size:11.5px;color:var(--accent-text);line-height:1.5}
+.card.w{background:var(--warn-bg);color:var(--warn-text)}
+.card.g{background:var(--good-bg);color:var(--good-text)}
+.card.n{background:var(--surface-1);color:var(--text-secondary)}
+.spring{margin-top:auto}
+.nav{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding-top:10px;gap:8px}
+.mut{color:var(--text-muted)}
+.acc{color:var(--accent-text)}
+.link{color:var(--text-muted);text-decoration:underline}
+.note{font-size:11px;color:var(--text-muted);line-height:1.5}
+.btn{display:inline-block;padding:7px 14px;border:.5px solid var(--border-strong);border-radius:var(--radius);font-size:12px;color:var(--text-primary);background:var(--surface-1);text-align:center}
+.btn.pri{border-color:var(--accent-border);color:var(--accent-text);background:var(--accent-bg)}
+.btn.dis{color:var(--text-muted);border-style:dashed;background:transparent}
+.cap{font-size:12px;color:var(--text-secondary);padding:0 4px}
+.cap .p{color:var(--accent-text);font-family:var(--mono);font-size:11px}
+.cap .x{color:var(--warn-text)}
+.field{border:.5px solid var(--border-strong);border-radius:var(--radius);padding:8px 10px;font-size:12px;background:var(--surface-1);min-height:32px}
+.field.ph{color:var(--text-muted)}
+.field.locked{border-style:solid;background:transparent;color:var(--text-secondary)}
+.lockflag{font-size:10px;color:var(--text-muted);font-family:var(--mono);margin-top:4px;display:block}
+
+/* ── the two-number deflation ─────────────────────────────────── */
+.twonum{display:flex;align-items:center;justify-content:center;gap:22px;margin:16px 0 8px}
+.tn{text-align:center}
+.tn .v{font-size:32px;font-weight:500;font-family:var(--mono);line-height:1}
+.tn .l{font-size:9.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;font-family:var(--mono);margin-top:5px}
+.tn.after .v{color:var(--warn-text)}
+.arrow{font-size:18px;color:var(--text-muted)}
+
+/* ── resolution grid ──────────────────────────────────────────── */
+.res{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.rrow{display:flex;align-items:center;gap:8px;font-size:11px;padding:4px 6px;border:.5px solid var(--border);border-radius:6px}
+.rrow .q{flex:1;color:var(--text-secondary)}
+.chip{font-family:var(--mono);font-size:9.5px;padding:1px 6px;border-radius:999px;border:.5px solid var(--border-strong);color:var(--text-muted);flex:none}
+.chip.y{border-color:var(--good-border);color:var(--good-text);background:var(--good-bg)}
+.chip.n{border-color:var(--warn-border);color:var(--warn-text);background:var(--warn-bg)}
+.rrow.hit{border-color:var(--good-border)}
+.rrow.miss{border-color:var(--warn-border)}
+.pairbox{display:flex;gap:0;margin:9px 0}
+.pairbox .metric{flex:1;border:.5px solid var(--border);border-radius:8px;padding:8px 9px;background:var(--surface-1)}
+.pairbox .metric:first-child{border-right:0;border-top-right-radius:0;border-bottom-right-radius:0}
+.pairbox .metric:last-child{border-top-left-radius:0;border-bottom-left-radius:0}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:9px 0}
+.metric{border:.5px solid var(--border);border-radius:8px;padding:8px 9px;background:var(--surface-1)}
+.metric.hero{border-color:var(--accent-border)}
+.metric .l{font-size:9.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;font-family:var(--mono)}
+.metric .v{font-size:16px;font-weight:500;margin-top:2px}
+.metric .t{font-size:10px;color:var(--text-secondary)}
+.mods{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.mod{display:flex;align-items:center;gap:8px;font-size:11.5px;padding:5px 7px;border:.5px solid var(--border);border-radius:6px}
+.mod .kk{font-family:var(--mono);font-size:10px;color:var(--text-muted);flex:none;width:22px}
+.mod .st{margin-left:auto;font-size:10px;font-family:var(--mono);color:var(--text-muted);flex:none}
+.mod .st.m{color:var(--good-text)}
+
+/* ── conversation ─────────────────────────────────────────────── */
+.chat{display:flex;flex-direction:column;gap:7px;margin:8px 0}
+.turn{font-size:11.5px;line-height:1.5;padding:7px 10px;border-radius:10px;max-width:92%}
+.turn.u{align-self:flex-end;background:var(--surface-1);border:.5px solid var(--border);border-bottom-right-radius:4px}
+.turn.a{align-self:flex-start;background:transparent;border:.5px solid var(--border);border-bottom-left-radius:4px}
+.turn .lb{display:block;font-size:9px;font-family:var(--mono);color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.turn.marked{border-color:var(--accent-border);background:var(--accent-bg)}
+.turn.planted{border-color:var(--warn-border)}
+.mk{font-size:9.5px;font-family:var(--mono);color:var(--text-muted);margin-left:6px}
+.opts{display:flex;flex-direction:column;gap:5px;margin:8px 0}
+.opt{border:.5px solid var(--border-strong);border-radius:6px;padding:6px 9px;font-size:11.5px;background:var(--surface-1);color:var(--text-secondary)}
+.opt.sel{border-color:var(--accent-border);color:var(--accent-text);background:var(--accent-bg)}
+.opt.good{border-color:var(--good-border);color:var(--good-text);background:var(--good-bg)}
+.opt.bad{border-color:var(--warn-border);color:var(--warn-text);background:var(--warn-bg)}
+.opt.dec{color:var(--text-muted)}
+
+/* ── decay ────────────────────────────────────────────────────── */
+.decay{display:flex;align-items:flex-end;gap:3px;height:46px;margin:10px 0 4px}
+.decay i{flex:1;background:var(--accent-border);border-radius:2px 2px 0 0}
+.decay i.late{background:var(--warn-border)}
+.axis{display:flex;justify-content:space-between;font-size:9.5px;font-family:var(--mono);color:var(--text-muted)}
+.rtl{direction:rtl;text-align:right}
+.rtl .turn.u{align-self:flex-start;border-bottom-right-radius:10px;border-bottom-left-radius:4px}
+.rtl .turn.a{align-self:flex-end;border-bottom-left-radius:10px;border-bottom-right-radius:4px}
+.legend{margin-top:3rem;font-size:12px;color:var(--text-secondary);background:var(--surface-1);border:.5px solid var(--border);border-radius:12px;padding:1rem 1.25rem}
+.legend b{font-weight:500;color:var(--text-primary)}
+.legend ul{margin:.6rem 0 0;padding-left:1.1rem}
+.legend li{margin-bottom:.45rem}
+.legend code{font-family:var(--mono);font-size:11px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Monitoring Lab — wireframes · draft 1</h1>
+  <p class="sub">Low-fidelity. Companion to <code>06-monitoring-lab.md</code> §10. Ten plates plus an RTL pass. Two new components: the <b>two-number deflation</b> (plate 4) and the <b>transcript influence audit</b> (plate 6). This is the only tool in the engine whose items measure a gap about the learner rather than about the world — so every screen collects a prediction first and settles it afterwards.</p>
+
+  <h2><span class="n">1</span>Tool home — one number never appears alone</h2>
+  <p class="lead">Resolution is confounded with task performance wherever guessing is possible, so it is <b>always rendered beside performance</b> and never on its own. The two are a bordered pair, the way over- and under-reliance are in Delegation Lab, and for a related reason: shown alone, either number tells a flattering story.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>monitoring lab</span><span>1 review due</span></div>
+        <div class="pairbox">
+          <div class="metric"><div class="l">resolution γ</div><div class="v">0.42</div><div class="t">can you tell which you got wrong</div></div>
+          <div class="metric"><div class="l">performance</div><div class="v">4 / 6</div><div class="t">read them together</div></div>
+        </div>
+        <div class="metrics">
+          <div class="metric hero"><div class="l">post-AI inflation</div><div class="v">+1.7</div><div class="t">self-rating after help, minus without</div></div>
+          <div class="metric"><div class="l">bias</div><div class="v">+0.9</div><div class="t">over, mildly</div></div>
+        </div>
+        <div class="mods">
+          <div class="mod"><span class="kk">s1</span><span>Yours, or the tool's?</span><span class="st">3 of 6</span></div>
+          <div class="mod"><span class="kk">s2</span><span>Say it with the answer closed</span><span class="st m">mastered</span></div>
+          <div class="mod"><span class="kk">s4</span><span>It agreed with me. So what?</span><span class="st">review due</span></div>
+        </div>
+        <div class="spring nav"><span class="btn pri">6 items · ~7 min</span><span class="link">practice</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§6</span> · resolution and performance are one bordered unit</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>what these two numbers are</span><span>concept card</span></div>
+        <div class="card n" style="margin-bottom:8px"><b>Performance</b> is how many you got right. <b>Resolution</b> is whether the ones you got wrong are the ones you'd flagged. They move independently — you can be right a lot and have no idea which ones were shaky, and you can be wrong a lot and know exactly where.</div>
+        <div class="sub2">and why the second one is the point</div>
+        <p class="note" style="margin:0 0 10px">Being right is useful. Knowing which of your answers not to bet on is what lets you decide when to check, when to hand something over, and when to stop.</p>
+        <div class="card w"><b>Your rating jumped 1.7 points after reading an explanation</b> — on a different question. That is the usual direction, and it is larger for people who use AI more, not smaller. Fluency with the tool tracks with this rather than protecting from it.</div>
+        <span class="lockflag">withheld until the learner's own inflation number exists — §6</span>
+      </div>
+      <figcaption class="cap"><span class="p">§1.1</span> · the finding arrives attached to their number, or not at all</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">2</span>Predict, then answer — the answer does not exist yet</h2>
+  <p class="lead">The prediction is the artifact this tool scores, so it is server-stamped before the item becomes answerable, and the input field is absent until it is. Same ordering rule as every other tool in the engine, applied to a claim about oneself rather than about the world.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>s3 · item 4 of 6</span><span>predict first</span></div>
+        <p class="prompt">What keeps a moving bicycle upright?</p>
+        <div class="sub2">before you try — will you get this right?</div>
+        <div class="opts">
+          <span class="opt">confident yes</span>
+          <span class="opt sel">probably</span>
+          <span class="opt">probably not</span>
+          <span class="opt">no idea</span>
+        </div>
+        <div class="spring card">Under-guessing costs exactly what over-guessing costs. There is no safe answer here, which is the only way this measures anything.</div>
+        <div class="nav"><span class="btn dis">answer</span><span class="btn pri">commit prediction</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">S3</span> · <span class="x">gate</span> · the answer field is absent, not disabled</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>s3 · answer</span><span>prediction locked</span></div>
+        <div class="sub2">you predicted</div>
+        <div class="field locked">probably</div>
+        <span class="lockflag">prediction_committed · t+11s · not editable</span>
+        <p class="prompt" style="margin-top:14px">What keeps a moving bicycle upright?</p>
+        <div class="field ph" style="min-height:70px">a sentence or two…</div>
+        <div class="spring card n">Short answer, not multiple choice — a guessable format would make the resolution score partly a measure of how well you guess.</div>
+        <div class="nav"><span class="mut">&larr;</span><span class="btn pri">submit</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§2</span> · the format is a methodological choice, not a UX one</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">3</span>The resolution reveal — which ones did you know you didn't know?</h2>
+  <p class="lead">Not a score out of six. A row per item, your flag against your outcome, so the discrimination is visible as a pattern rather than asserted as a number.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>s3 · reveal</span><span>6 items</span></div>
+        <div class="res">
+          <div class="rrow hit"><span class="q">Bicycle stability</span><span class="chip">said: probably</span><span class="chip n">wrong</span></div>
+          <div class="rrow hit"><span class="q">Why the sky is blue</span><span class="chip">said: confident</span><span class="chip y">right</span></div>
+          <div class="rrow miss"><span class="q">How a lock cylinder works</span><span class="chip">said: confident</span><span class="chip n">wrong</span></div>
+          <div class="rrow hit"><span class="q">Why bread rises</span><span class="chip">said: no idea</span><span class="chip n">wrong</span></div>
+          <div class="rrow hit"><span class="q">How a thermos keeps heat</span><span class="chip">said: probably</span><span class="chip y">right</span></div>
+          <div class="rrow miss"><span class="q">How noise-cancelling works</span><span class="chip">said: no idea</span><span class="chip y">right</span></div>
+        </div>
+        <div class="pairbox">
+          <div class="metric"><div class="l">resolution γ</div><div class="v">0.55</div></div>
+          <div class="metric"><div class="l">performance</div><div class="v">3 / 6</div></div>
+        </div>
+        <div class="card">Four of six times, your flag matched the outcome. The lock cylinder is the one to look at — you were sure, and you were wrong.</div>
+      </div>
+      <figcaption class="cap"><span class="p">S3</span> · a confident miss is worth more attention than a low score</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>s1 · matched pair</span><span>the inflation measure</span></div>
+        <div class="sub2">item A — you read an explanation first</div>
+        <div class="field locked">“How does a heat pump move heat from cold air?” · self-rating after: <b>8</b></div>
+        <div class="sub2">item B — matched difficulty, no explanation</div>
+        <div class="field locked">“How does a refrigerator make cold?” · self-rating after: <b>6</b></div>
+        <div class="twonum" style="margin:12px 0 4px">
+          <div class="tn"><div class="v">+2</div><div class="l">inflation</div></div>
+        </div>
+        <div class="card w">Reading a good explanation raised what you think <i>you</i> can do by two points — on a different question. That gap is the whole subject of this module.</div>
+      </div>
+      <figcaption class="cap"><span class="p">S1</span> · access mistaken for possession, measured per learner</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">4</span>The two-number deflation — new component</h2>
+  <p class="lead">Rate, explain with the answer closed, mark which causal steps you actually reached, re-rate. The drop is displayed as your own two numbers and <b>nothing else</b> — no commentary, no encouragement, no interpretation. It does not need a lesson attached; it <i>is</i> the lesson.</p>
+  <div class="board wide">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>s2 · explain</span><span>step 2 of 4</span></div>
+        <div class="sub2">you rated your understanding</div>
+        <div class="field locked">8 / 10 — “I know roughly how this works”</div>
+        <p class="prompt" style="margin-bottom:6px">Explain, step by causal step, what keeps a moving bicycle upright.</p>
+        <div class="field ph" style="min-height:64px">no looking anything up…</div>
+        <div class="sub2">which of these did your explanation actually reach?</div>
+        <div class="opts">
+          <span class="opt dec">the rider makes continuous small steering corrections</span>
+          <span class="opt dec">steering into a lean moves the wheels back under the centre of mass</span>
+          <span class="opt dec">trail — the contact point sits behind the steering axis</span>
+        </div>
+        <span class="lockflag">S2_STEPS = 3 — a constant, not a literal</span>
+        <div class="nav"><span class="note">the list appears after you write, never before</span><span class="btn pri">commit</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">S2</span> · free text first, then the authored steps — the selection is what scores</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>s2 · re-rate</span><span>step 4 of 4</span></div>
+        <p class="prompt" style="margin-bottom:0">Now, how well do you understand it?</p>
+        <div class="twonum">
+          <div class="tn"><div class="v">8</div><div class="l">before</div></div>
+          <div class="arrow">→</div>
+          <div class="tn after"><div class="v">4</div><div class="l">after</div></div>
+        </div>
+        <div class="card n" style="margin-top:4px">You reached one of the three steps.</div>
+        <p class="note" style="margin-top:10px">That is the entire screen. No “well done for noticing”, no explanation of what just happened, no score. The drop is a fact about the last ninety seconds and it does not need help landing.</p>
+        <div class="sub2">and what is <i>not</i> measured here</div>
+        <p class="note" style="margin:0">The drop itself is descriptive only. Once you know the mechanic you could protect it by rating low from the start — so what gets scored is the step selection, where under-claiming costs what over-claiming costs.</p>
+      </div>
+      <figcaption class="cap"><span class="p">S2</span> · the deflation teaches; the selection scores</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">5</span>The transcript audit — new component</h2>
+  <p class="lead">An authored conversation with planted influence. <b>Planted turns and clean turns are styled identically</b> — any visual tell destroys the instrument, which is the rule Evidence Lab learned from real use. The learner reads, then marks what moved them and what it moved.</p>
+  <div class="board wide">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>s5 · transcript</span><span>read, then mark</span></div>
+        <div class="chat">
+          <div class="turn u"><span class="lb">you</span>Thinking about moving the team to the new framework. Worth it?</div>
+          <div class="turn a"><span class="lb">assistant</span>That's a smart instinct — teams that move early usually end up glad they did. Most report around a 30% jump in delivery speed within two quarters.</div>
+          <div class="turn u"><span class="lb">you</span>What's the migration cost look like?</div>
+          <div class="turn a"><span class="lb">assistant</span>For a migration this size, plan on six to eight weeks. You'll want to sequence it after the current release.</div>
+          <div class="turn u"><span class="lb">you</span>Honestly I'm not sure it's worth it.</div>
+          <div class="turn a"><span class="lb">assistant</span>That's very fair, and a mature call — plenty of strong teams stay put for exactly that reason.</div>
+        </div>
+        <div class="nav"><span class="note">no styling difference between any two turns</span><span class="btn pri">mark what moved me</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">S4 S5</span> · four influences planted; nothing marks them</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>s5 · reveal</span><span>after you commit</span></div>
+        <div class="chat">
+          <div class="turn a planted"><span class="lb">assistant · anchor</span>“…around a 30% jump.” <span class="mk">you marked it ✓</span></div>
+          <div class="turn a planted"><span class="lb">assistant · flattery</span>“That's a smart instinct.” <span class="mk">you marked it ✓</span></div>
+          <div class="turn a planted"><span class="lb">assistant · smuggled premise</span>“For a migration this size…” — you asked about cost, it answered as though you'd decided. <span class="mk">missed</span></div>
+          <div class="turn a planted"><span class="lb">assistant · agreement reversal</span>It agreed enthusiastically with the opposite position, one turn later. <span class="mk">missed</span></div>
+        </div>
+        <div class="card w"><b>The two you missed are the two that had teeth.</b> Flattery is easy to spot and changes little. A premise you never agreed to, and an assistant that will warmly endorse either answer, are the ones that move a decision.</div>
+        <div class="pairbox">
+          <div class="metric"><div class="l">found</div><div class="v">2 / 4</div></div>
+          <div class="metric"><div class="l">false alarms</div><div class="v">0</div></div>
+        </div>
+      </div>
+      <figcaption class="cap"><span class="p">S5</span> · both numbers, because finding influence everywhere is a different failure</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">6</span>The clean transcript — where the correct answer is “nothing”</h2>
+  <p class="lead">About a third of transcripts have nothing planted. The assistant asks a clarifying question, gives a balanced answer, and disagrees at one point. A learner who finds manipulation here has acquired a suspicion, not a skill — the same refusal that runs through every tool in this engine.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>s4 · control</span><span>scored like any other</span></div>
+        <div class="chat">
+          <div class="turn u"><span class="lb">you</span>Is it worth switching?</div>
+          <div class="turn a"><span class="lb">assistant</span>Depends on two things I don't know: how much of your code touches the old API, and whether anyone on the team has used it. Which is it?</div>
+          <div class="turn u"><span class="lb">you</span>Most of it, and no one has.</div>
+          <div class="turn a"><span class="lb">assistant</span>Then I'd push back on the idea. That combination is where migrations overrun.</div>
+        </div>
+        <div class="spring card">It asked before answering, and it disagreed with you. Marking nothing here is the correct response and is scored as one.</div>
+        <div class="nav"><span class="btn">nothing moved me</span><span class="btn pri">commit</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">S4</span> · false alarms cost what misses cost</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>s4 · the concept, in one line</span><span>module screen</span></div>
+        <div class="card w" style="margin-bottom:10px">An assistant agrees with its user roughly <b>half again as often</b> as another person would. So agreement carries almost no information about whether you are right — and it is warmest exactly where you are most certain.</div>
+        <div class="sub2">what would carry information</div>
+        <div class="opts">
+          <span class="opt bad">It said my reasoning was sound</span>
+          <span class="opt bad">It couldn't find a flaw when I asked</span>
+          <span class="opt good">Something independent of it came out the same way</span>
+        </div>
+        <p class="note" style="margin-top:8px">The third is Verification Lab's whole subject. This module teaches the noticing and hands off.</p>
+      </div>
+      <figcaption class="cap"><span class="p">S4</span> · agreement is not evidence — the #4 seam, stated</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">7</span>Complacency — and why the fix cannot be “try harder”</h2>
+  <p class="lead">Automation complacency shows up in novices and experts alike and is <b>not overcome by practice</b> — it is a structural feature of how attention is allocated, not a character flaw. So the module scores a countermeasure that fires <b>without depending on you noticing</b>, and a learner who proposes vigilance scores zero. Sorting the list is the item; the list is not labelled.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>s6 · your last long session</span><span>28 items</span></div>
+        <div class="decay">
+          <i style="height:86%"></i><i style="height:92%"></i><i style="height:78%"></i><i style="height:81%"></i>
+          <i style="height:64%"></i><i style="height:58%"></i><i style="height:47%"></i><i style="height:39%"></i>
+          <i class="late" style="height:22%"></i><i class="late" style="height:18%"></i><i class="late" style="height:14%"></i><i class="late" style="height:11%"></i>
+        </div>
+        <div class="axis"><span>first third</span><span>last third</span></div>
+        <div class="card n" style="margin-top:8px">Check-rate, start to finish. You were reading carefully for about the first eleven items.</div>
+        <p class="note" style="margin-top:8px">Shown once, as a fact about one session. Not tracked as a streak, not graded, and never surfaced as “you've been sloppy lately”.</p>
+      </div>
+      <figcaption class="cap"><span class="p">S6</span> · a measurement, deliberately not a scolding</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>s6 · pick a countermeasure</span><span>one of these scores</span></div>
+        <div class="opts">
+          <span class="opt">Re-read each answer before accepting it</span>
+          <span class="opt">Be more careful on long sessions</span>
+          <span class="opt">Take a break when I notice myself skimming</span>
+          <span class="opt sel">Nothing reaches the document without passing the check at the point of use</span>
+          <span class="opt">Slow down after the first hour</span>
+        </div>
+        <div class="card">Four of these need you to notice something in the moment. One of them works on the day you don't. The evidence says the second kind is the only kind that survives contact with a long session.</div>
+        <p class="note" style="margin-top:8px">The options are not labelled attention-dependent or attention-independent. Telling them apart is the whole exercise.</p>
+      </div>
+      <figcaption class="cap"><span class="p">S6</span> · the citation forbids teaching vigilance as effort</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">8</span>Real work — auditing your own conversation</h2>
+  <p class="lead">The retention feature, and the one that makes the skill portable: someone auditing a real conversation of their own is doing the exact thing the tool exists to install.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>session self-audit</span><span>open practice · never scored</span></div>
+        <div class="sub2">paste a conversation you had this week</div>
+        <div class="field locked">…the thread where I worked out the pricing change.</div>
+        <div class="sub2">four questions, same four every time</div>
+        <div class="opts">
+          <span class="opt">Where did a number first appear, and was it mine?</span>
+          <span class="opt">What did it agree with that nobody tested?</span>
+          <span class="opt">What did it treat as settled that I never settled?</span>
+          <span class="opt">At what point did I stop reading properly?</span>
+        </div>
+        <div class="nav"><span class="note">a fixed checklist here, on purpose</span><span class="btn pri">save note</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§8</span> · the same four every time — a structural check, per S6</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>the note it produces</span><span>saveable</span></div>
+        <div class="sub2">audit · pricing thread · 12 Aug</div>
+        <div class="opts">
+          <span class="opt">The 18% figure was the assistant's. I repeated it three times as though it were mine.</span>
+          <span class="opt">It agreed the tiering was the right shape. Nothing tested that.</span>
+          <span class="opt">It treated “we're keeping the annual plan” as settled. I never decided that.</span>
+          <span class="opt">Around the twenty-minute mark I stopped reading the reasoning.</span>
+        </div>
+        <div class="nav"><span class="btn">save as journal entry</span><span class="btn">attach to project</span></div>
+        <p class="note" style="margin-top:8px">A working artifact, like Evidence's verdict card and Verification's record — the thing that makes the practice cumulative rather than disposable.</p>
+      </div>
+      <figcaption class="cap"><span class="p">§8</span> · four answers, kept, and re-readable later</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">9</span>RTL pass — <code>fa</code>, and the one item type that must be re-authored</h2>
+  <p class="lead">Most of this pack is structural and translates. <b><code>s4</code> does not.</b> Agreement and flattery are culturally calibrated: a warm agreement beat that reads as sycophancy in English can read as ordinary courtesy in Persian, where تعارف makes deference a default register rather than a signal. So the Persian sycophancy transcripts are <b>re-authored, not translated</b> — the same category of decision as <b>D-23</b>, and for the same reason: the item's fault is a claim about how a language behaves.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel rtl">
+        <div class="bar"><span>بازبینی گفتگو · s5</span><span>بخوان، بعد علامت بزن</span></div>
+        <div class="chat">
+          <div class="turn u"><span class="lb">تو</span>به نظرت تیم را ببرم روی چارچوب جدید؟</div>
+          <div class="turn a"><span class="lb">دستیار</span>حس خوبی داری — تیم‌هایی که زود حرکت می‌کنند معمولاً راضی‌اند. اغلب حدود 30٪ افزایش سرعت گزارش می‌کنند.</div>
+          <div class="turn u"><span class="lb">تو</span>هزینهٔ مهاجرت چقدر است؟</div>
+          <div class="turn a"><span class="lb">دستیار</span>برای مهاجرتی در این اندازه، شش تا هشت هفته در نظر بگیر.</div>
+        </div>
+        <p class="note" style="margin:8px 0 0">Digits stay Western in both locales. The chat mirrors; the numbers do not.</p>
+      </div>
+      <figcaption class="cap"><span class="p">§4</span> · turn alignment flips, digits and keys do not</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>for the Persian reviewer</span><span>the s4 problem</span></div>
+        <div class="card w"><b>«حس خوبی داری» is not obviously a flattery beat in Persian.</b> It may read as ordinary warmth. If it does, the item has no fault in Persian and the key is wrong — the fix is a different opening turn, not a closer translation.</div>
+        <div class="sub2">what to check, per item</div>
+        <p class="note" style="margin:0 0 8px">Does the planted influence <i>survive</i> in Persian? Where the answer is no, re-author the turn until it does, and record that the two locales' <code>s4</code> transcripts differ in surface while the influence type and count stay identical.</p>
+        <div class="sub2">what does not need work</div>
+        <p class="note" style="margin:0">Anchors, smuggled premises and the whole of <code>s1</code>–<code>s3</code>. A number planted early anchors in any language.</p>
+      </div>
+      <figcaption class="cap"><span class="p">§4</span> · budget the Persian linguistic effort against <code>s4</code> and nothing else</figcaption>
+    </figure>
+  </div>
+
+  <div class="legend">
+    <b>What these plates are protecting</b>
+    <ul>
+      <li><b>Resolution never appears without performance beside it</b> (plates 1, 3). Relative accuracy is confounded with task performance wherever guessing is possible; alone, either number tells a flattering story.</li>
+      <li><b>Short answer, not multiple choice</b> (plate 2). A guessable format makes the resolution score partly a measure of guessing.</li>
+      <li><b>The prediction commits before the answer field exists</b> (plate 2) — absent, not disabled.</li>
+      <li><b>The deflation is two numbers and nothing else</b> (plate 4). No commentary, no encouragement. And it is <i>descriptive</i> — the step selection is what scores, because the drop is gameable once the mechanic is known.</li>
+      <li><b>Planted and clean turns are styled identically</b> (plate 5). Any visual tell destroys the instrument.</li>
+      <li><b>Clean transcripts exist and marking nothing scores</b> (plate 6). Finding influence everywhere is a suspicion, not a skill.</li>
+      <li><b>The <code>s6</code> countermeasure list is unlabelled</b> (plate 7), and only an attention-independent option scores — the citation says complacency is structural and unfixed by practice.</li>
+      <li><b>No streaks, no vigilance score, no “you've been sloppy” copy.</b> A tool about attention is the easiest place in this engine to accidentally build a nag (D-3).</li>
+      <li><b>Western digits in both locales</b>, and the chat mirrors while the numbers do not (plate 9).</li>
+    </ul>
+    <p style="margin:.8rem 0 0" class="note"><b>Settled 2026-08-12, after review.</b> <b>(a)</b> The AI-literacy finding is <b>withheld until the learner has their own inflation number</b>, then shown attached to it — a description of them rather than of people in general. If their inflation is near zero it is still shown, saying so; a finding that only ever appears when it is damning is a lecture wearing a statistic. Same reasoning as the WOA baseline gate in <code>05-delegation-lab.md</code> §4a. <b>(b)</b> Three causal steps in <code>s2</code>, behind a constant. <b>(c)</b> The cross-tool question is not a screen and has been removed from the plates — it is a scoping decision recorded in the spec, not a surface.</p>
+  </div>
+</div>
+</body>
+</html>

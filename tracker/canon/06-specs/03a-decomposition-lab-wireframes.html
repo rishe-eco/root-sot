@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decomposition Lab — wireframes · draft 1</title>
+<style>
+:root{
+  --surface-2:#ffffff; --surface-1:#f6f5f0; --surface-0:#efece4;
+  --text-primary:#2c2c2a; --text-secondary:#5f5e5a; --text-muted:#8a8981;
+  --border:#e3e1d9; --border-strong:#ceccc3;
+  --accent-bg:#e6f1fb; --accent-text:#185fa5; --accent-border:#85b7eb;
+  --warn-bg:#fbf0e6; --warn-text:#9a5a12; --warn-border:#e6b887;
+  --good-bg:#e9f2e8; --good-text:#3d6b39; --good-border:#a8c8a4;
+  --radius:8px; --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --surface-2:#2b2b29; --surface-1:#232321; --surface-0:#1b1b19;
+    --text-primary:#e9e7e0; --text-secondary:#b5b3aa; --text-muted:#8a8981;
+    --border:#3a3a37; --border-strong:#4b4b47;
+    --accent-bg:#0c447c; --accent-text:#b5d4f4; --accent-border:#185fa5;
+    --warn-bg:#4a2f10; --warn-text:#e8c39a; --warn-border:#9a5a12;
+    --good-bg:#25381f; --good-text:#b8d4b0; --good-border:#3d6b39;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-0);color:var(--text-primary);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1140px;margin:0 auto;padding:2rem 1.25rem 4rem}
+h1{font-size:22px;font-weight:500;margin:0 0 4px}
+.sub{font-size:13px;color:var(--text-muted);margin:0 0 2rem;max-width:70ch}
+h2{font-size:16px;font-weight:500;margin:2.5rem 0 .3rem;padding-bottom:.5rem;border-bottom:.5px solid var(--border)}
+h2 .n{color:var(--text-muted);font-variant-numeric:tabular-nums;margin-right:.5rem}
+.lead{font-size:12px;color:var(--text-secondary);margin:0 0 .9rem;max-width:78ch}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px;align-items:start}
+.board.wide{grid-template-columns:repeat(auto-fit,minmax(440px,1fr))}
+.board.half{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.frame{margin:0;display:flex;flex-direction:column;gap:8px}
+.phone,.panel{background:var(--surface-2);border:.5px solid var(--border);border-radius:12px;padding:14px;display:flex;flex-direction:column;overflow:hidden}
+.phone{flex:1;min-height:380px}
+.panel{flex:1}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-bottom:8px;border-bottom:.5px solid var(--border);font-size:11px;color:var(--text-muted)}
+.dots{display:flex;gap:4px;flex:none}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--border)}
+.dot.on{background:var(--accent-text)}
+.prompt{font-size:13px;color:var(--text-primary);line-height:1.5;margin:12px 0}
+.sub2{font-size:11px;color:var(--text-muted);margin:12px 0 4px}
+.sub2:first-child{margin-top:8px}
+.card{background:var(--accent-bg);border-radius:8px;padding:9px 11px;font-size:11.5px;color:var(--accent-text);line-height:1.5}
+.card.w{background:var(--warn-bg);color:var(--warn-text)}
+.card.g{background:var(--good-bg);color:var(--good-text)}
+.spring{margin-top:auto}
+.nav{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding-top:10px}
+.mut{color:var(--text-muted)}
+.acc{color:var(--accent-text)}
+.link{color:var(--text-muted);text-decoration:underline}
+.note{font-size:11px;color:var(--text-muted);line-height:1.5}
+.btn{display:inline-block;padding:7px 16px;border:.5px solid var(--border-strong);border-radius:var(--radius);font-size:12px;color:var(--text-primary);background:var(--surface-1)}
+.btn.pri{border-color:var(--accent-border);color:var(--accent-text);background:var(--accent-bg)}
+.btn.dis{color:var(--text-muted);border-style:dashed;background:transparent}
+.cap{font-size:12px;color:var(--text-secondary);padding:0 4px}
+.cap .p{color:var(--accent-text);font-family:var(--mono);font-size:11px}
+.cap .x{color:var(--warn-text)}
+.field{border:.5px solid var(--border-strong);border-radius:var(--radius);padding:8px 10px;font-size:12px;color:var(--text-primary);background:var(--surface-1);min-height:34px}
+.field.ph{color:var(--text-muted)}
+.locked{border-style:solid;background:transparent;color:var(--text-secondary);position:relative}
+.lockflag{font-size:10px;color:var(--text-muted);font-family:var(--mono);margin-top:4px;display:block}
+
+/* ── tree: three distinct notations ───────────────────────────── */
+.tree{display:flex;flex-direction:column;gap:5px;margin:10px 0}
+.node{border:.5px solid var(--border-strong);border-radius:6px;padding:6px 9px;font-size:12px;background:var(--surface-1);display:flex;align-items:center;gap:7px}
+.node .seq{flex:none;width:16px;height:16px;border-radius:50%;border:.5px solid var(--accent-border);color:var(--accent-text);font-size:9.5px;display:flex;align-items:center;justify-content:center;font-family:var(--mono)}
+.node .t{flex:1}
+.node .dc{font-size:10px;color:var(--good-text);font-family:var(--mono);flex:none}
+.node .dc.no{color:var(--warn-text)}
+.kids{margin-left:14px;padding-left:11px;border-left:2px solid var(--border);display:flex;flex-direction:column;gap:5px}
+.node.leaf{background:transparent}
+.node.bad{border-color:var(--warn-border);background:var(--warn-bg)}
+.node.bad .t{color:var(--warn-text)}
+.node.ghost{border-style:dashed;color:var(--text-muted);background:transparent}
+.node.new{border-color:var(--good-border);background:var(--good-bg)}
+.node.new .t{color:var(--good-text)}
+.dep{font-size:10px;font-family:var(--mono);color:var(--text-muted);border:.5px dashed var(--border-strong);border-radius:999px;padding:1px 6px;flex:none}
+.dep.on{color:var(--accent-text);border-color:var(--accent-border);border-style:dashed}
+.legendrow{display:flex;gap:14px;flex-wrap:wrap;font-size:10.5px;color:var(--text-muted);font-family:var(--mono);margin-top:8px;padding-top:8px;border-top:.5px solid var(--border)}
+
+/* ── panes ─────────────────────────────────────────────────────── */
+.panes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin:10px 0}
+.pane{border:.5px solid var(--border);border-radius:8px;padding:9px;background:var(--surface-1);min-height:150px}
+.pane h4{font-size:10px;font-weight:500;color:var(--text-muted);margin:0 0 7px;text-transform:uppercase;letter-spacing:.04em;font-family:var(--mono)}
+.pane p{font-size:11.5px;margin:0 0 6px;line-height:1.5}
+.pane.hit{border-color:var(--warn-border)}
+.miss{font-size:11px;color:var(--warn-text);display:flex;gap:6px;margin:5px 0;line-height:1.45}
+.miss b{font-weight:500;flex:none;font-family:var(--mono);font-size:10px;padding-top:1px}
+
+/* ── rubric rail ───────────────────────────────────────────────── */
+.rail{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+.crit{display:flex;align-items:flex-start;gap:8px;font-size:11.5px;padding-bottom:6px;border-bottom:.5px solid var(--border)}
+.crit:last-child{border:0}
+.crit .k{font-family:var(--mono);font-size:10.5px;color:var(--text-muted);flex:none;width:20px;padding-top:2px}
+.crit .b{flex:1}
+.crit .b i{display:block;color:var(--text-muted);font-style:normal;font-size:10.5px;margin-top:2px;border-left:2px solid var(--border);padding-left:6px}
+.pips{flex:none;display:flex;gap:3px;padding-top:3px}
+.pip{width:7px;height:7px;border-radius:2px;border:.5px solid var(--border-strong)}
+.pip.f{background:var(--accent-text);border-color:var(--accent-text)}
+.ns{flex:none;font-size:10px;color:var(--text-muted);font-family:var(--mono);padding-top:2px}
+.total{display:flex;align-items:baseline;gap:8px;margin-top:10px;padding-top:9px;border-top:.5px solid var(--border-strong)}
+.total .n{font-size:20px;font-weight:500}
+.total .d{font-size:11px;color:var(--text-muted)}
+
+/* ── metrics ───────────────────────────────────────────────────── */
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.metric{border:.5px solid var(--border);border-radius:8px;padding:8px 9px;background:var(--surface-1)}
+.metric .l{font-size:9.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;font-family:var(--mono)}
+.metric .v{font-size:16px;font-weight:500;margin-top:2px}
+.metric .t{font-size:10px;color:var(--text-secondary)}
+.mods{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.mod{display:flex;align-items:center;gap:8px;font-size:11.5px;padding:5px 7px;border:.5px solid var(--border);border-radius:6px}
+.mod .kk{font-family:var(--mono);font-size:10px;color:var(--text-muted);flex:none;width:26px}
+.mod .st{margin-left:auto;font-size:10px;font-family:var(--mono);color:var(--text-muted);flex:none}
+.mod .st.m{color:var(--good-text)}
+.mod .st.d{color:var(--accent-text)}
+.palette{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}
+.piece{border:.5px solid var(--border-strong);border-radius:6px;padding:4px 8px;font-size:11px;background:var(--surface-1);color:var(--text-secondary)}
+.piece.used{opacity:.35;border-style:dashed;background:transparent}
+.slot{border:.5px dashed var(--border-strong);border-radius:6px;padding:7px 9px;font-size:11px;color:var(--text-muted);text-align:center}
+.rtl{direction:rtl;text-align:right}
+.rtl .kids{margin-left:0;margin-right:14px;padding-left:0;padding-right:11px;border-left:0;border-right:2px solid var(--border)}
+.legend{margin-top:3rem;font-size:12px;color:var(--text-secondary);background:var(--surface-1);border:.5px solid var(--border);border-radius:12px;padding:1rem 1.25rem}
+.legend b{font-weight:500;color:var(--text-primary)}
+.legend ul{margin:.6rem 0 0;padding-left:1.1rem}
+.legend li{margin-bottom:.45rem}
+.legend code{font-family:var(--mono);font-size:11px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Decomposition Lab — wireframes · draft 1</h1>
+  <p class="sub">Low-fidelity. Companion to <code>03-decomposition-lab.md</code> §10. Ten plates plus an RTL pass. Two components are genuinely new (<b>5</b> the breakdown canvas, <b>6</b> the recomposition reveal); the rest rearranges what Clarity and Evidence Lab already have. Each frame is tagged to the rubric criterion or the design rule it protects — the guardrails are the design. Worked scenario throughout: <i>move a two-person household to another city in five weeks</i>.</p>
+
+  <h2><span class="n">1</span>Tool home — and what a first visit must not show</h2>
+  <p class="lead">Evidence Lab learned this from real use: a first visit that opens on zeroed metrics presents eight unanswered questions in place of an explanation. Statistics appear only once there is progress.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>decomposition lab</span><span>first visit</span></div>
+        <p class="prompt" style="margin-bottom:6px">Breaking a messy problem into pieces you can actually check.</p>
+        <p class="note" style="margin:0 0 12px">Six short modules. You'll write breakdowns, and you'll find out what your breakdown missed — which is the part that teaches.</p>
+        <div class="mods">
+          <div class="mod"><span class="kk">d1</span><span>State the whole before the parts</span><span class="st">start here</span></div>
+          <div class="mod"><span class="kk">d2</span><span>All the pieces before any one piece</span><span class="st">—</span></div>
+          <div class="mod"><span class="kk">d3</span><span>Cut where the seams are</span><span class="st">—</span></div>
+        </div>
+        <p class="note" style="margin:2px 0 0">…and three more.</p>
+        <div class="spring nav"><span class="btn pri">Take the 8-minute baseline</span><span class="link">skip it</span></div>
+        <span class="lockflag">no metrics rendered · nothing to report yet</span>
+      </div>
+      <figcaption class="cap"><span class="p">rule</span> · metrics gated on having any</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>decomposition lab</span><span>returning · 1 due</span></div>
+        <div class="metrics">
+          <div class="metric"><div class="l">coverage</div><div class="v">7 / 9</div><div class="t">required pieces found</div></div>
+          <div class="metric"><div class="l">breadth-first</div><div class="v">0.71</div><div class="t">was 0.25 at baseline</div></div>
+          <div class="metric"><div class="l">granularity discrim.</div><div class="v">+0.42</div><div class="t">right-sized − over-split</div></div>
+          <div class="metric"><div class="l">revision delta</div><div class="v">+1.5</div><div class="t">narrowing — good</div></div>
+        </div>
+        <div class="mods">
+          <div class="mod"><span class="kk">d1</span><span>State the whole</span><span class="st m">mastered</span></div>
+          <div class="mod"><span class="kk">d2</span><span>Breadth before depth</span><span class="st d">review due</span></div>
+          <div class="mod"><span class="kk">d3</span><span>Cut at the seams</span><span class="st">2 of 6 at criterion</span></div>
+        </div>
+        <div class="card" style="margin-top:8px">Baseline · post · delayed all on <code>decomposition/v1</code> — comparable.</div>
+        <div class="spring nav"><span class="btn pri">Review d2 · 2 min</span><span class="link">practice</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§6</span> · discrimination shown beside coverage, never below it</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">2</span>The costume, named once — <code>d0</code></h2>
+  <p class="lead">Unscored, one screen, re-openable. The only place the tool discusses prompting technique at all.</p>
+  <div class="board">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>d0 · aside · not scored</span></div>
+        <p class="prompt" style="margin-bottom:8px">You may have been taught to break a problem into steps <i>and hand them to the model that way</i>.</p>
+        <p class="note">That technique was real. It measurably helped — and it is expiring, because models now do that decomposition internally, and scripting it for them is drifting from useful to counterproductive.</p>
+        <div class="card" style="margin-top:12px">What doesn't expire: breaking a problem down so <b>you</b> know what you asked for, and so a wrong answer to one piece is something you'd notice.</div>
+        <p class="note" style="margin-top:12px">That's the whole tool. The technique was a costume; this is the skill underneath it.</p>
+        <div class="spring nav"><span class="link">read later</span><span class="acc">got it &rarr;</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§1</span> · costume named, not taught as capacity</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">3</span>Concept, then a labelled contrast pair</h2>
+  <p class="lead">Unlabelled examples are the weak intervention (<i>d</i> ≈ 0.25). The subgoal <b>labels</b> are what carry the effect — so the pair always ships with them, and the failure is named on the frame rather than left to be inferred.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>d2 · step 2 of 7 · model</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+        <div class="sub2">too few pieces — same problem</div>
+        <div class="tree">
+          <div class="node bad"><span class="t">Sort out the move</span><span class="dc no">no yes/no</span></div>
+          <div class="node bad"><span class="t">Deal with the paperwork</span><span class="dc no">no yes/no</span></div>
+          <div class="node"><span class="t">Hire a van</span><span class="dc">checkable</span></div>
+        </div>
+        <div class="card w">Two of these three can't be answered <i>done / not done</i>. A piece you can't check isn't a piece — it's the problem restated.</div>
+      </div>
+      <figcaption class="cap"><span class="p">D4</span> · the monolith, labelled</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>d2 · step 2 of 7 · model</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+        <div class="sub2">too many pieces — same problem</div>
+        <div class="tree">
+          <div class="node ghost"><span class="t">Measure the sofa</span></div>
+          <div class="node ghost"><span class="t">Measure the bookshelf</span></div>
+          <div class="node ghost"><span class="t">Count the boxes needed</span></div>
+          <div class="node ghost"><span class="t">Buy tape</span></div>
+          <div class="node ghost"><span class="t">…15 more</span></div>
+        </div>
+        <div class="card w">Every one of these is checkable, and the breakdown is still bad: nineteen pieces at one level tells you nothing about what the work <i>is</i>. Splitting is not the skill.</div>
+      </div>
+      <figcaption class="cap"><span class="p">D4</span> · over-decomposition, given equal billing</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">4</span>The whole, stated and locked</h2>
+  <p class="lead">D1 is unscoreable if pieces can precede it, and the ordering <i>is</i> the measurement — so the statement is stamped server-side and is not editable once the first piece exists. Same category as Clarity's prediction lock and Evidence's verdict lock.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>d1 · state the whole</span><span>1 of 2</span></div>
+        <p class="prompt" style="margin-bottom:4px">You're moving two people to another city in five weeks.</p>
+        <div class="sub2">In your own words — what is the whole problem?</div>
+        <div class="field ph">not a re-read of the brief…</div>
+        <div class="sub2">How will you know it's done?</div>
+        <div class="field ph">a yes/no condition…</div>
+        <div class="spring card">You can't start listing pieces yet. Coverage means "adds back up to <i>this</i>" — so this has to exist first.</div>
+        <div class="nav"><span class="btn dis">add a piece</span><span class="btn pri">lock &amp; continue</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">D1</span> · <span class="x">gate</span> · pieces disabled until stated</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>d1 · locked</span><span>2 of 2</span></div>
+        <div class="sub2">the whole — locked</div>
+        <div class="field locked">Both of us, our things, and our addresses land in the new city by the 12th, with nothing still tied to the old flat.</div>
+        <div class="sub2">done when</div>
+        <div class="field locked">Keys handed back, mail arriving at the new place, nothing left in storage.</div>
+        <span class="lockflag">whole_stated · t+94s · server-stamped · not editable</span>
+        <div class="spring card g">Good done condition: a third party could check every clause of it.</div>
+        <div class="nav"><span class="mut">&larr;</span><span class="acc">now the pieces &rarr;</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">D1</span> · the lock is the instrument</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">5</span>The breakdown canvas — new component</h2>
+  <p class="lead">The one place the design will fight normal editor instincts. <b>No suggestion affordance of any kind</b> — no "generate a breakdown", no autocomplete, no ghost text. Decomposition is the most offloadable skill in the stack: a model produces a plausible breakdown instantly, and an assist button here would train the offloading rather than the skill. Order of authoring is logged throughout, because that is how D2 is scored.</p>
+  <div class="board wide">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>d2 · breakdown canvas</span><span>whole: land by the 12th ▾</span></div>
+        <div class="tree">
+          <div class="node"><span class="seq">1</span><span class="t">Find and secure somewhere to live</span></div>
+          <div class="node"><span class="seq">2</span><span class="t">Move the things</span><span class="dep on">blocked by 1</span></div>
+          <div class="kids">
+            <div class="node leaf"><span class="t">Decide what goes / gets sold / gets binned</span><span class="dc no">no done condition yet</span></div>
+            <div class="node leaf"><span class="t">Book a van for the 11th</span><span class="dep">blocked by ↑</span></div>
+          </div>
+          <div class="node"><span class="seq">3</span><span class="t">Close down the old flat</span><span class="dc">checkable</span></div>
+          <div class="node ghost"><span class="t">+ add a piece at this level</span></div>
+        </div>
+        <div class="legendrow">
+          <span>nesting = contains</span><span>① = sequence</span><span>⌁ blocked by = dependency</span>
+        </div>
+        <div class="nav"><span class="note">3 top-level · 2 nested</span><span class="btn pri">commit breakdown</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">D2 D3 D5</span> · three relations, three notations — never one arrow meaning either</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>what is deliberately absent</span><span>design rules</span></div>
+        <div class="card w" style="margin-bottom:8px"><b>No</b> "suggest a breakdown" · <b>no</b> autocomplete on piece names · <b>no</b> template gallery · <b>no</b> AI review before commit. Every one of these will be proposed later; each one converts the exercise into the thing the exercise exists to prevent.</div>
+        <div class="card" style="margin-bottom:8px"><b>The live badge reports absence only</b> — "no done condition yet", never a green "checkable". A detector can prove a feature is missing; it cannot prove a piece that ticks the box is a real unit of work. Nothing here can be farmed to a level: D4's top level also requires not having split anything the key marks atomic, which the badge is silent about.</div>
+        <div class="sub2">what is logged, and why</div>
+        <div class="rail">
+          <div class="crit"><span class="k">t+0</span><span class="b">WHOLE_STATED<i>D1 — did a whole precede any piece</i></span></div>
+          <div class="crit"><span class="k">t+n</span><span class="b">NODE_ADDED × depth<i>D2 — every top-level piece before any depth-2 piece?</i></span></div>
+          <div class="crit"><span class="k">t+n</span><span class="b">DEPENDENCY_SET<i>D5 — compared against the key's blocking graph</i></span></div>
+          <div class="crit"><span class="k">t+n</span><span class="b">BREAKDOWN_LOCKED<i>nothing is revealed before this</i></span></div>
+        </div>
+        <p class="note" style="margin-top:8px">All four are <code>SkillCheckEvent</code> rows — the same table Evidence uses for check-before-verdict and Clarity for its two locks. No migration.</p>
+      </div>
+      <figcaption class="cap"><span class="p">§9 §11</span> · the offloading guard, made explicit</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">6</span>The recomposition reveal — new component</h2>
+  <p class="lead">The direct analogue of Clarity's gap reveal, and the mechanic the tool turns on: the learner commits, then the pieces are played back <i>against the whole they themselves stated</i>. In the closest published study, 51 of 55 student breakdowns were missing required functionality and two specific elements were absent from about 70% — so the missing piece is the normal case, not the punishment case.</p>
+  <div class="board wide">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>d6 · does it add back up?</span><span>committed · t+6m12s</span></div>
+        <div class="panes">
+          <div class="pane">
+            <h4>the whole, as you stated it</h4>
+            <p>Both of us, our things, and <b>our addresses</b> land in the new city by the 12th, with nothing still tied to the old flat.</p>
+          </div>
+          <div class="pane">
+            <h4>your pieces, reassembled</h4>
+            <p>Housing secured → things sorted → van booked → old flat closed.</p>
+            <p class="note">Adds up to: you and your things arrive.</p>
+          </div>
+          <div class="pane hit">
+            <h4>the gap</h4>
+            <div class="miss"><b>missing</b><span>Nothing changes your address — bank, doctor, post, registrations.</span></div>
+            <div class="miss"><b>overlap</b><span>"Sort what goes" and "close the flat" both own disposal.</span></div>
+          </div>
+        </div>
+        <div class="card">You wrote <i>addresses</i> into your own done condition and then no piece covered it. That's the ordinary failure — and it's why the whole gets stated first.</div>
+        <div class="nav"><span class="note">1 of 9 required pieces missing</span><span class="btn pri">diagnose &amp; revise &rarr;</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">D6 D3</span> · the gap is quoted from the learner's own words</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>d6 · revision</span><span>attempt 2 · linked to 1</span></div>
+        <div class="tree">
+          <div class="node"><span class="seq">1</span><span class="t">Find and secure somewhere to live</span></div>
+          <div class="node"><span class="seq">2</span><span class="t">Move the things</span><span class="dep on">blocked by 1</span></div>
+          <div class="node new"><span class="seq">3</span><span class="t">Move our <b>addresses</b> — post, bank, doctor, registrations</span><span class="dc">checkable</span></div>
+          <div class="node"><span class="seq">4</span><span class="t">Close down the old flat</span></div>
+        </div>
+        <div class="metrics" style="grid-template-columns:1fr 1fr">
+          <div class="metric"><div class="l">draft</div><div class="v">7 / 12</div><div class="t">coverage 8/9</div></div>
+          <div class="metric"><div class="l">revision</div><div class="v">10 / 12</div><div class="t">coverage 9/9 · delta +3</div></div>
+        </div>
+        <div class="card">A revision is a second attempt, linked — never an edit. The win condition is this delta <b>shrinking</b> over time, because the first draft got better.</div>
+      </div>
+      <figcaption class="cap"><span class="p">§6</span> · revision cannot earn mastery — feedback named the fault</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">7</span>Feedback — six criteria, and an unscored one that says so</h2>
+  <p class="lead">Per-criterion, each justified by the learner's own piece. Aggregate last, not first. Two display rules are pinned by test rather than left to styling.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>feedback · d6</span><span>rubric v1 · always visible</span></div>
+        <div class="rail">
+          <div class="crit"><span class="k">D1</span><span class="b">Whole stated<i>"…nothing still tied to the old flat" — checkable</i></span><span class="pips"><i class="pip f"></i><i class="pip f"></i></span></div>
+          <div class="crit"><span class="k">D2</span><span class="b">Breadth before depth<i>3 of 3 top-level pieces before your first nested one</i></span><span class="pips"><i class="pip f"></i><i class="pip f"></i></span></div>
+          <div class="crit"><span class="k">D3</span><span class="b">Seams<i>"sort what goes" and "close the flat" both own disposal</i></span><span class="pips"><i class="pip f"></i><i class="pip"></i></span></div>
+          <div class="crit"><span class="k">D4</span><span class="b">Size<i>every leaf has a yes/no condition</i></span><span class="pips"><i class="pip f"></i><i class="pip f"></i></span></div>
+          <div class="crit"><span class="k">D5</span><span class="b">Dependency<i>van-before-housing correctly ordered</i></span><span class="pips"><i class="pip f"></i><i class="pip f"></i></span></div>
+          <div class="crit"><span class="k">D6</span><span class="b">Coverage<span class="ns" style="display:block;margin-top:2px">not scored — needs a reader</span></span><span class="ns">—</span></div>
+        </div>
+        <div class="total"><span class="n">9 / 10</span><span class="d">5 of 6 criteria scored</span></div>
+        <div class="card w" style="margin-top:8px">D6 free-text matching needs a model. Mastery stays out of reach and this is why — not a weakened <code>9 / 12</code>.</div>
+      </div>
+      <figcaption class="cap"><span class="p">rule</span> · unscored renders as words, never an empty pip row</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>diagnose · before any score</span><span>d3 repair</span></div>
+        <p class="prompt" style="margin-bottom:6px">Something is wrong with this breakdown. What is it?</p>
+        <div class="tree">
+          <div class="node"><span class="t">Write the newsletter</span></div>
+          <div class="node bad"><span class="t">Build the list, design the template, and send it</span></div>
+          <div class="node"><span class="t">Check the open rate</span></div>
+        </div>
+        <div class="sub2">tag the fault — then you'll see the answer</div>
+        <div class="palette">
+          <span class="piece">missing piece</span><span class="piece" style="border-color:var(--accent-border);color:var(--accent-text);background:var(--accent-bg)">monolith</span><span class="piece">overlap</span><span class="piece">inverted dependency</span><span class="piece">premature split</span>
+        </div>
+        <div class="spring nav"><span class="note">~2 min · 3 items</span><span class="btn pri">commit tag</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">D3</span> · diagnosis accuracy is the transferable half</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">8</span>The control item — where the answer is "leave it alone"</h2>
+  <p class="lead">About a third of all items. Evidence Lab's refusal, transposed: a learner who breaks everything into twenty pieces has not learned decomposition, they have acquired a different failure. Splitting something atomic must cost exactly what missing a piece costs.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>control item</span><span>scored like any other</span></div>
+        <p class="prompt">Cancel the gym membership before the 30th.</p>
+        <div class="sub2">break it down, or don't</div>
+        <div class="tree">
+          <div class="node ghost"><span class="t">+ add a piece</span></div>
+        </div>
+        <div class="field ph" style="margin-top:6px">or state the done condition and move on…</div>
+        <div class="spring card">There is no reward here for producing structure. Sometimes the correct breakdown is one piece.</div>
+        <div class="nav"><span class="btn">leave it whole</span><span class="btn pri">submit</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">D4</span> · over-decomposition is a scored error</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>probe · arrangement item</span><span>form A · offline · keyed</span></div>
+        <div class="sub2">available pieces — not all of them belong</div>
+        <div class="palette">
+          <span class="piece used">secure housing</span><span class="piece used">move the things</span><span class="piece">sort what goes</span><span class="piece">handle everything else</span><span class="piece">buy tape</span><span class="piece">change addresses</span><span class="piece">close the flat</span><span class="piece">repaint the new place</span>
+        </div>
+        <div class="tree" style="margin-top:4px">
+          <div class="node"><span class="seq">1</span><span class="t">secure housing</span></div>
+          <div class="node"><span class="seq">2</span><span class="t">move the things</span><span class="dep on">blocked by 1</span></div>
+          <div class="slot">drop a piece here</div>
+        </div>
+        <div class="card">Fully keyed, no free text, no network, no model — so this is the baseline / post / delayed instrument. Practice is free authoring; measurement is controlled.</div>
+      </div>
+      <figcaption class="cap"><span class="p">§5.1</span> · decoys: a monolith, an atomic, an out-of-scope</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">9</span>Real work — the one screen that can damage real data</h2>
+  <p class="lead">The learner decomposes an actual Goal, and may push the result into real milestones and projects. Item by item, reviewed, reversible. <b>Never automatic</b> — an auto-write into somebody's real tree would be unforgivable, and this is the plate to get wrong quietly.</p>
+  <div class="board wide">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>real-work breakdown · not scored into mastery</span><span>goal: “Finish the thesis draft”</span></div>
+        <div class="tree">
+          <div class="node"><span class="seq">1</span><span class="t">Settle the argument in one paragraph</span></div>
+          <div class="node"><span class="seq">2</span><span class="t">Chapter 3 rewrite</span><span class="dep on">blocked by 1</span></div>
+          <div class="node"><span class="seq">3</span><span class="t">Reference audit</span></div>
+        </div>
+        <div class="sub2">write into your goal? — review each one</div>
+        <div class="mods">
+          <div class="mod"><span class="kk">☑</span><span>Milestone · “Argument settled”</span><span class="st">new</span></div>
+          <div class="mod"><span class="kk">☑</span><span>Project · “Chapter 3 rewrite”</span><span class="st">new</span></div>
+          <div class="mod"><span class="kk">☐</span><span>Project · “Reference audit”</span><span class="st">skipped</span></div>
+        </div>
+        <div class="nav"><span class="note">2 of 3 selected · undoable</span><span class="btn pri">write 2 to my goal</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§8</span> · uncalibrated → feedback only · export is opt-in, itemised</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>d5 · what the app itself doesn't model</span><span>honesty note</span></div>
+        <p class="note" style="margin:8px 0">The module teaches three relations. Tracker models two of them: <b>containment</b> (goal → milestone → project → action) and <b>sequence</b> (milestone order). It has no dependency edge at all.</p>
+        <div class="card w">Teaching a distinction the app then flattens is fine — <i>silently</i> flattening it is not. The module says so, and the export drops dependency information with a visible note rather than pretending it survived.</div>
+        <div class="sub2">on export</div>
+        <div class="tree">
+          <div class="node"><span class="t">Chapter 3 rewrite</span><span class="dep">blocked by 1</span></div>
+          <div class="node ghost"><span class="t">↳ becomes milestone order 2 · dependency not carried</span></div>
+        </div>
+      </div>
+      <figcaption class="cap"><span class="p">D5</span> · <span class="x">risk</span> · the app's limit, stated in-module</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">10</span>RTL pass — <code>fa</code></h2>
+  <p class="lead">Persian ships with the surface, not after it. This tool is the cheapest of the three to bilingualise — required-element sets, atomic markers, overlap pairs and blocking graphs are all locale-invariant, and unlike Clarity's R4/R6 there is <b>no</b> Persian-specific linguistic work. What does need a pass is direction: the tree indents from the right, sequence badges lead, dependency chips mirror.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel rtl">
+        <div class="bar"><span>بوم تجزیه · d2</span><span>کل: رسیدن تا دوازدهم ▾</span></div>
+        <div class="tree">
+          <div class="node"><span class="seq">١</span><span class="t">پیدا کردن جای زندگی</span></div>
+          <div class="node"><span class="seq">٢</span><span class="t">جابه‌جا کردن وسایل</span><span class="dep on">وابسته به ١</span></div>
+          <div class="kids">
+            <div class="node leaf"><span class="t">تصمیم برای چیزهایی که می‌مانند</span></div>
+          </div>
+          <div class="node ghost"><span class="t">+ افزودن یک تکه</span></div>
+        </div>
+        <div class="legendrow" style="direction:rtl"><span>تودرتو = شامل</span><span>① = ترتیب</span><span>وابستگی</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§4</span> · canvas + recompose panes get the RTL pass</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>content pack status</span><span>surfaced honestly</span></div>
+        <div class="card w">Persian pack is machine-drafted and awaiting native review — shown in-UI, as Evidence and Clarity already do. Practice works; the label doesn't overclaim.</div>
+        <div class="sub2">what a Persian reviewer does <i>not</i> have to do here</div>
+        <p class="note" style="margin:0">No pro-drop analysis, no <i>ezāfe</i> handling, no nominalisation rewrite. The structure carries the measurement; only the scenario prose and piece labels are realised twice.</p>
+        <div class="sub2">what they do</div>
+        <p class="note" style="margin:0">Check that each scenario is culturally legible and that no piece label reads as two pieces in Persian — an overlap introduced in translation is a broken key.</p>
+      </div>
+      <figcaption class="cap"><span class="p">§4</span> · cheapest of the three tools to bilingualise</figcaption>
+    </figure>
+  </div>
+
+  <div class="legend">
+    <b>What these plates are protecting</b>
+    <ul>
+      <li><b>No suggestion affordance anywhere in the canvas</b> (plate 5). Decomposition is the most offloadable skill in the stack; every convenience proposed here converts the exercise into the failure it exists to prevent.</li>
+      <li><b>The whole is stated and locked before any piece exists</b> (plate 4). D1 is unscoreable otherwise, and coverage has nothing to be measured against.</li>
+      <li><b>Three relations, three visually distinct notations</b> (plate 5) — nesting, sequence badge, dashed dependency chip. Published diagrams blend hierarchy and sequence and then become unscoreable; a single arrow type reproduces that and blames the learner.</li>
+      <li><b>Commit before reveal</b> (plate 6). The recomposition gap is shown only after <code>BREAKDOWN_LOCKED</code>, and the gap is quoted from the learner's own done condition.</li>
+      <li><b>Unscored is not zero</b> (plate 7). The words "not scored", and a total that reads <code>9 / 10 · 5 of 6 criteria</code> — never a silent <code>9 / 12</code>.</li>
+      <li><b>Over-decomposition is a scored error</b> (plate 8). ~⅓ control items where the correct answer is one piece; the headline is discrimination, not coverage.</li>
+      <li><b>The real-data write is itemised, opt-in and reversible</b> (plate 9), and it states what it drops.</li>
+      <li><b>Statistics only once there is progress</b> (plate 1), and <b>Persian ships with the surface</b> (plate 10).</li>
+    </ul>
+    <p style="margin:.8rem 0 0" class="note"><b>Settled 2026-08-11, after review.</b> <b>(a)</b> Enforced level structure, not a free canvas — the levels are part of the teaching, and D2 is unmeasurable without a real notion of "this level". <b>(b)</b> The <code>d4</code> badge appears <b>live but reports absence only</b>: "no done condition yet", never a green affirmation. Live feedback is worth having and the gaming risk was the green badge, not the amber one — you cannot farm a level by clearing a warning, and D4's top level additionally requires not having split anything the key marks atomic. <b>(c)</b> The <code>d5</code> honesty note appears on the export screen as well as in-module, because the export is where dependency information actually dies.</p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Delegation Lab — wireframes · draft 1</title>
+<style>
+:root{
+  --surface-2:#ffffff; --surface-1:#f6f5f0; --surface-0:#efece4;
+  --text-primary:#2c2c2a; --text-secondary:#5f5e5a; --text-muted:#8a8981;
+  --border:#e3e1d9; --border-strong:#ceccc3;
+  --accent-bg:#e6f1fb; --accent-text:#185fa5; --accent-border:#85b7eb;
+  --warn-bg:#fbf0e6; --warn-text:#9a5a12; --warn-border:#e6b887;
+  --good-bg:#e9f2e8; --good-text:#3d6b39; --good-border:#a8c8a4;
+  --radius:8px; --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --surface-2:#2b2b29; --surface-1:#232321; --surface-0:#1b1b19;
+    --text-primary:#e9e7e0; --text-secondary:#b5b3aa; --text-muted:#8a8981;
+    --border:#3a3a37; --border-strong:#4b4b47;
+    --accent-bg:#0c447c; --accent-text:#b5d4f4; --accent-border:#185fa5;
+    --warn-bg:#4a2f10; --warn-text:#e8c39a; --warn-border:#9a5a12;
+    --good-bg:#25381f; --good-text:#b8d4b0; --good-border:#3d6b39;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-0);color:var(--text-primary);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1140px;margin:0 auto;padding:2rem 1.25rem 4rem}
+h1{font-size:22px;font-weight:500;margin:0 0 4px}
+.sub{font-size:13px;color:var(--text-muted);margin:0 0 2rem;max-width:74ch}
+h2{font-size:16px;font-weight:500;margin:2.5rem 0 .3rem;padding-bottom:.5rem;border-bottom:.5px solid var(--border)}
+h2 .n{color:var(--text-muted);font-variant-numeric:tabular-nums;margin-right:.5rem}
+.lead{font-size:12px;color:var(--text-secondary);margin:0 0 .9rem;max-width:82ch}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px;align-items:start}
+.board.wide{grid-template-columns:repeat(auto-fit,minmax(450px,1fr))}
+.board.half{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.frame{margin:0;display:flex;flex-direction:column;gap:8px}
+.phone,.panel{background:var(--surface-2);border:.5px solid var(--border);border-radius:12px;padding:14px;display:flex;flex-direction:column;overflow:hidden}
+.phone{flex:1;min-height:390px}
+.panel{flex:1}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-bottom:8px;border-bottom:.5px solid var(--border);font-size:11px;color:var(--text-muted)}
+.prompt{font-size:13px;color:var(--text-primary);line-height:1.5;margin:12px 0}
+.sub2{font-size:11px;color:var(--text-muted);margin:12px 0 4px}
+.card{background:var(--accent-bg);border-radius:8px;padding:9px 11px;font-size:11.5px;color:var(--accent-text);line-height:1.5}
+.card.w{background:var(--warn-bg);color:var(--warn-text)}
+.card.g{background:var(--good-bg);color:var(--good-text)}
+.spring{margin-top:auto}
+.nav{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding-top:10px;gap:8px}
+.mut{color:var(--text-muted)}
+.acc{color:var(--accent-text)}
+.link{color:var(--text-muted);text-decoration:underline}
+.note{font-size:11px;color:var(--text-muted);line-height:1.5}
+.btn{display:inline-block;padding:7px 14px;border:.5px solid var(--border-strong);border-radius:var(--radius);font-size:12px;color:var(--text-primary);background:var(--surface-1);text-align:center}
+.btn.pri{border-color:var(--accent-border);color:var(--accent-text);background:var(--accent-bg)}
+.btn.dis{color:var(--text-muted);border-style:dashed;background:transparent}
+.cap{font-size:12px;color:var(--text-secondary);padding:0 4px}
+.cap .p{color:var(--accent-text);font-family:var(--mono);font-size:11px}
+.cap .x{color:var(--warn-text)}
+.field{border:.5px solid var(--border-strong);border-radius:var(--radius);padding:8px 10px;font-size:12px;background:var(--surface-1);min-height:32px}
+.field.ph{color:var(--text-muted)}
+.field.locked{border-style:solid;background:transparent;color:var(--text-secondary)}
+.field.big{font-size:18px;font-family:var(--mono);text-align:center;padding:10px}
+.lockflag{font-size:10px;color:var(--text-muted);font-family:var(--mono);margin-top:4px;display:block}
+
+/* ── the number line: three positions and the movement ────────── */
+.line{position:relative;height:62px;margin:16px 0 6px}
+.track{position:absolute;left:0;right:0;top:30px;height:2px;background:var(--border)}
+.move{position:absolute;top:28px;height:6px;border-radius:3px;background:var(--accent-border);opacity:.55}
+.move.bad{background:var(--warn-border)}
+.pin{position:absolute;top:16px;width:2px;height:30px;background:var(--text-muted);transform:translateX(-1px)}
+.pin.you{background:var(--text-primary)}
+.pin.adv{background:var(--accent-text)}
+.pin.tru{background:var(--good-text);width:3px}
+.pin.fin{background:var(--text-primary);border-left:1px dashed var(--surface-2)}
+.tag{position:absolute;font-size:9.5px;font-family:var(--mono);color:var(--text-secondary);white-space:nowrap;transform:translateX(-50%)}
+.tag.up{top:0}
+.tag.dn{top:48px}
+.tag.tru{color:var(--good-text)}
+.tag.adv{color:var(--accent-text)}
+.scale{display:flex;justify-content:space-between;font-size:9.5px;font-family:var(--mono);color:var(--text-muted);margin-top:2px}
+
+/* ── options, metrics, sequences ──────────────────────────────── */
+.opts{display:flex;flex-direction:column;gap:5px;margin:8px 0}
+.opt{border:.5px solid var(--border-strong);border-radius:6px;padding:6px 9px;font-size:11.5px;background:var(--surface-1);color:var(--text-secondary)}
+.opt.sel{border-color:var(--accent-border);color:var(--accent-text);background:var(--accent-bg)}
+.opt.dec{color:var(--text-muted)}
+.opt.bad{border-color:var(--warn-border);color:var(--warn-text);background:var(--warn-bg)}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:9px 0}
+.metric{border:.5px solid var(--border);border-radius:8px;padding:8px 9px;background:var(--surface-1)}
+.metric.hero{border-color:var(--accent-border)}
+.metric.pairL{border-right:0;border-top-right-radius:0;border-bottom-right-radius:0}
+.metric.pairR{border-top-left-radius:0;border-bottom-left-radius:0}
+.metric .l{font-size:9.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;font-family:var(--mono)}
+.metric .v{font-size:16px;font-weight:500;margin-top:2px}
+.metric .t{font-size:10px;color:var(--text-secondary)}
+.mods{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.mod{display:flex;align-items:center;gap:8px;font-size:11.5px;padding:5px 7px;border:.5px solid var(--border);border-radius:6px}
+.mod .kk{font-family:var(--mono);font-size:10px;color:var(--text-muted);flex:none;width:22px}
+.mod .st{margin-left:auto;font-size:10px;font-family:var(--mono);color:var(--text-muted);flex:none}
+.mod .st.m{color:var(--good-text)}
+.rounds{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.round{display:flex;align-items:center;gap:8px;font-size:11px}
+.round .rn{font-family:var(--mono);font-size:10px;color:var(--text-muted);flex:none;width:44px}
+.round .wb{flex:1;height:12px;background:var(--surface-1);border:.5px solid var(--border);border-radius:3px;overflow:hidden}
+.round .wb i{display:block;height:100%;background:var(--accent-border)}
+.round .wv{font-family:var(--mono);font-size:10px;color:var(--text-secondary);flex:none;width:34px;text-align:right}
+.round.err .rn{color:var(--warn-text)}
+.round.err .wb{border-color:var(--warn-border)}
+.split{display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.piece{border:.5px solid var(--border-strong);border-radius:6px;padding:7px 9px;font-size:11.5px;background:var(--surface-1);display:flex;gap:8px;align-items:center}
+.piece .who{margin-left:auto;font-family:var(--mono);font-size:9.5px;padding:1px 6px;border-radius:999px;border:.5px solid var(--border);color:var(--text-muted);flex:none}
+.piece.give{border-color:var(--accent-border);background:var(--accent-bg)}
+.piece.give .who{border-color:var(--accent-border);color:var(--accent-text)}
+.piece.keep{border-color:var(--good-border);background:var(--good-bg)}
+.piece.keep .who{border-color:var(--good-border);color:var(--good-text)}
+.strike{text-decoration:line-through;opacity:.55}
+.rtl{direction:rtl;text-align:right}
+.legend{margin-top:3rem;font-size:12px;color:var(--text-secondary);background:var(--surface-1);border:.5px solid var(--border);border-radius:12px;padding:1rem 1.25rem}
+.legend b{font-weight:500;color:var(--text-primary)}
+.legend ul{margin:.6rem 0 0;padding-left:1.1rem}
+.legend li{margin-bottom:.45rem}
+.legend code{font-family:var(--mono);font-size:11px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Delegation Lab — wireframes · draft 1</h1>
+  <p class="sub">Low-fidelity. Companion to <code>05-delegation-lab.md</code> §10. Ten plates plus an RTL pass. The new component is the <b>three-position reveal</b> (plate 4) — your estimate, the advice, the truth, and the distance you actually moved. Everything else rearranges the three existing labs. Two worked items run throughout: a straight-line distance where the advice deserves weight, and a historical date where it does not.</p>
+
+  <h2><span class="n">1</span>Tool home — two numbers that are never added together</h2>
+  <p class="lead">Over-reliance and under-reliance sit side by side in a single bordered pair, and there is no view anywhere that sums them. The published warning about this skill is exact: interventions reduce one failure by increasing the other, and a combined “reliance” figure would render that trade as progress.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>delegation lab</span><span>2 reviews due</span></div>
+        <div class="metrics">
+          <div class="metric hero" style="grid-column:1/-1"><div class="l">reliance discrimination</div><div class="v">+0.31</div><div class="t">how much you move toward advice when it deserves it, minus when it doesn't</div></div>
+          <div class="metric pairL"><div class="l">over-reliance</div><div class="v">0.18</div><div class="t">moved toward worse advice</div></div>
+          <div class="metric pairR"><div class="l">under-reliance</div><div class="v">0.22</div><div class="t">ignored better advice</div></div>
+          <div class="metric"><div class="l">net gain from advice</div><div class="v">+6%</div><div class="t">was −3% at baseline</div></div>
+          <div class="metric"><div class="l">your mean WOA</div><div class="v">0.44</div><div class="t">population mean 0.39</div></div>
+        </div>
+        <div class="mods">
+          <div class="mod"><span class="kk">g1</span><span>Know your own error rate</span><span class="st m">mastered</span></div>
+          <div class="mod"><span class="kk">g2</span><span>The instance, not the category</span><span class="st">4 of 6</span></div>
+          <div class="mod"><span class="kk">g6</span><span>Update without overreacting</span><span class="st">review due</span></div>
+        </div>
+        <div class="spring nav"><span class="btn pri">6 estimates · ~6 min</span><span class="link">practice</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§6</span> · the pair is one bordered unit — no sum, no average</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>what these two lines mean</span><span>read together</span></div>
+        <div class="metrics" style="grid-template-columns:1fr">
+          <div class="metric"><div class="l">self-assessment calibration</div><div class="v">0.31 → 0.14 Brier</div><div class="t">how well your confidence tracks your accuracy</div></div>
+          <div class="metric"><div class="l">reliance discrimination</div><div class="v">+0.28 → +0.31</div><div class="t">barely moved</div></div>
+        </div>
+        <div class="card w">These two are reported separately and never as cause and effect. Knowing your own error rate is the part that reliably improves. Whether it changes how you weigh advice is an open question — and on this screen, for you, so far, it hasn't much.</div>
+        <p class="note" style="margin-top:8px">A tool that folded these into one “delegation score” would have shown you steady progress. This one shows you the part that moved and the part that didn't.</p>
+      </div>
+      <figcaption class="cap"><span class="p">§1 §12</span> · the pre-registered null, visible to the learner</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">2</span>Estimate first — and the advice does not exist yet</h2>
+  <p class="lead">Weight of advice is meaningless if the initial estimate can move after the advice is seen, and it is the one number the entire tool rests on. So the estimate and the confidence are committed together, server-stamped, and the advice is <b>absent from the payload</b> until they are — not hidden, not disabled.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>g3 · estimate · item 2 of 6</span><span>~1 min</span></div>
+        <p class="prompt">Straight-line distance from Vienna to Istanbul, in kilometres.</p>
+        <div class="field big ph">— km</div>
+        <div class="sub2">how confident are you in that?</div>
+        <div class="field ph">0–100</div>
+        <div class="spring card">Both commit together. Confidence given after seeing advice would measure hindsight, not judgement.</div>
+        <div class="nav"><span class="btn dis">see advice</span><span class="btn pri">commit</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">G1</span> · <span class="x">gate</span> · advice absent from the payload</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>g3 · advice</span><span>estimate locked</span></div>
+        <div class="sub2">you said</div>
+        <div class="field locked big">900 km</div>
+        <span class="lockflag">estimate_committed · t+38s · confidence 40</span>
+        <div class="sub2">the assistant says</div>
+        <div class="field big" style="border-color:var(--accent-border);color:var(--accent-text);background:var(--accent-bg)">1,240 km</div>
+        <div class="sub2">your answer now — move as far as you think it deserves</div>
+        <div class="field big ph">— km</div>
+        <div class="spring nav"><span class="note">your 900 stays on screen</span><span class="btn pri">commit revision</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">G3</span> · movement is the measurement, so it stays visible</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">3</span>Which cue did you use?</h2>
+  <p class="lead">The costume made selectable. The list mixes category claims about AI in general with instance-level cues about <i>this</i> task — and on items where nothing legitimately discriminates, the correct answer is to say so. Enumerated so it stays keyed, offline and comparable across locales.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>g2 · cue</span><span>after the revision</span></div>
+        <div class="sub2">what told you how far to move?</div>
+        <div class="opts">
+          <span class="opt bad">Models are generally reliable on facts</span>
+          <span class="opt sel">It has the coordinates; I was eyeballing a map</span>
+          <span class="opt bad">AI is usually better than me at this sort of thing</span>
+          <span class="opt dec">It sounded confident</span>
+          <span class="opt">Nothing here tells me who's more likely to be right</span>
+        </div>
+        <div class="spring card">Two of these are claims about AI. One is a claim about this question. Only the second kind survives the next model release.</div>
+        <div class="nav"><span class="mut">&larr;</span><span class="btn pri">commit</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">G2</span> · category claims sit in the list as distractors</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>g2 · the list, as the thing being refuted</span><span>module screen</span></div>
+        <div class="sub2">“What AI is good and bad at” — written 18 months ago</div>
+        <div class="opts">
+          <span class="opt strike">Can't do arithmetic reliably</span>
+          <span class="opt strike">Can't cite a real source</span>
+          <span class="opt">Good at summarising</span>
+          <span class="opt strike">Can't use external tools</span>
+          <span class="opt">Weak on very recent events</span>
+        </div>
+        <div class="card w">Three of these five expired, and notice which three: <b>the confident “can't” entries went first.</b> A list like this is a snapshot of one model generation wearing the clothes of a general truth.</div>
+        <p class="note" style="margin-top:8px">The module shows the list rather than warning against lists. Naming the costume works better than describing it.</p>
+      </div>
+      <figcaption class="cap"><span class="p">§1</span> · the perishable costume, dated and struck through</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">4</span>The three-position reveal — new component</h2>
+  <p class="lead">Your estimate, the advice, the truth, and the distance you actually travelled between them. Two frames because <b>the two failures are different lessons and must never be collapsed into “your weighting was off”</b> — one learner ignored help, the other took harm.</p>
+  <div class="board wide">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>reveal · under-reliance</span><span>Vienna → Istanbul</span></div>
+        <div class="line">
+          <div class="track"></div>
+          <div class="move" style="left:20%;width:10%"></div>
+          <div class="pin you" style="left:20%"></div><div class="tag up" style="left:20%">you 900</div>
+          <div class="pin fin" style="left:30%"></div><div class="tag dn" style="left:30%">final 950</div>
+          <div class="pin adv" style="left:88%"></div><div class="tag up adv" style="left:88%">advice 1,240</div>
+          <div class="pin tru" style="left:94%"></div><div class="tag dn tru" style="left:94%">truth 1,270</div>
+        </div>
+        <div class="scale"><span>800</span><span>1,300 km</span></div>
+        <div class="card w"><b>You barely moved toward advice that was much better than your answer.</b> WOA 0.15. Moving even halfway would have cut your error by two thirds.</div>
+        <p class="note" style="margin-top:8px">This is the population default, not a personal failing — the average person moves about 0.39 of the way, and this item had a cue saying to move further.</p>
+      </div>
+      <figcaption class="cap"><span class="p">G3</span> · under-reliance: help ignored</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>reveal · over-reliance</span><span>first commercial jet flight</span></div>
+        <div class="line">
+          <div class="track"></div>
+          <div class="move bad" style="left:50%;width:20%"></div>
+          <div class="pin tru" style="left:20%"></div><div class="tag up tru" style="left:20%">truth 1952</div>
+          <div class="pin you" style="left:50%"></div><div class="tag up" style="left:50%">you 1955</div>
+          <div class="pin fin" style="left:70%"></div><div class="tag dn" style="left:70%">final 1957</div>
+          <div class="pin adv" style="left:80%"></div><div class="tag dn adv" style="left:80%">advice 1958</div>
+        </div>
+        <div class="scale"><span>1950</span><span>1960</span></div>
+        <div class="card w"><b>You moved a long way toward advice that was worse than your own answer.</b> WOA 0.67. You started 3 years out and finished 5 years out — consulting made you less accurate.</div>
+        <p class="note" style="margin-top:8px">1958 is when the 707 entered service, which is why it is a plausible wrong answer rather than an obviously broken one. Advice you'd dismiss on sight teaches nothing.</p>
+      </div>
+      <figcaption class="cap"><span class="p">G3</span> · <span class="x">over-reliance: harm accepted</span></figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">5</span>Stakes — the same question, scored on the difference</h2>
+  <p class="lead">A pair is one unit. Neither half is scored alone, because the measure is whether reliance <i>moved</i> with the cost of being wrong. The correct answer to the same question is not the same when the downside changes.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>g5 · pair · half A</span><span>low stakes</span></div>
+        <p class="prompt" style="margin-bottom:6px">You're settling an argument in a pub. How far is it, roughly?</p>
+        <div class="field locked">advice: 1,240 km · you: 900 → 1,150</div>
+        <div class="note" style="margin-top:6px">WOA 0.74. Cheap to be wrong; consulting freely is correct.</div>
+        <div class="sub2">half B · high stakes</div>
+        <p class="prompt" style="margin:0 0 6px">You're filing a freight declaration; an error means the load is impounded.</p>
+        <div class="field locked">advice: 1,240 km · you: 900 → 1,150, <b>then verified</b></div>
+        <div class="card g" style="margin-top:8px">Same movement, plus a check. Reliance didn't fall — it got insured. <b>Both this and cutting the movement reach level 2</b>; only treating the two framings identically fails. The check itself is recorded and never graded here — that's Verification Lab's job.</div>
+      </div>
+      <figcaption class="cap"><span class="p">G5</span> · two correct answers; the failure is no change at all</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>g4 · delegate the part</span><span>split item</span></div>
+        <p class="prompt" style="margin-bottom:6px">“Summarise our Q3 retro notes and recommend three priorities.”</p>
+        <div class="split">
+          <div class="piece give"><span>Condense 40 pages of notes into themes</span><span class="who">hand over</span></div>
+          <div class="piece keep"><span>Decide which three matter, given what happened last year</span><span class="who">keep</span></div>
+          <div class="piece"><span>Write it up</span><span class="who">either</span></div>
+        </div>
+        <div class="card">The second piece turns on things the model has never seen. Handing over the whole task loses it; keeping the whole task wastes the first piece.</div>
+        <p class="note" style="margin-top:8px">People will use an imperfect assistant if they can modify what it produces. All-or-nothing delegation is what makes one visible error fatal to its use.</p>
+      </div>
+      <figcaption class="cap"><span class="p">G4</span> · presupposes pieces — cross-links <code>d3-seams</code></figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">6</span>The advisor sequence — three rounds, one visible error</h2>
+  <p class="lead">The only multi-item unit in the engine, and the only way to see algorithm aversion happen. Round 1 establishes the learner's weighting, the advisor is visibly wrong on round 2, round 3 measures the response. One attempt containing three rounds, never three attempts. <b>Three rather than five (D-24):</b> algorithm aversion <i>is</i> the drop, and one post-error observation measures a drop — whether a learner who overshoots then recovers is a plausible pattern that is not in the literature, so it is a deferred question rather than a doubled sitting.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>g6 · collapse</span><span>the common pattern</span></div>
+        <div class="rounds">
+          <div class="round"><span class="rn">round 1</span><span class="wb"><i style="width:52%"></i></span><span class="wv">0.52</span></div>
+          <div class="round err"><span class="rn">round 2 ✕</span><span class="wb"><i style="width:48%"></i></span><span class="wv">0.48</span></div>
+          <div class="round"><span class="rn">round 3</span><span class="wb"><i style="width:8%"></i></span><span class="wv">0.08</span></div>
+        </div>
+        <div class="card w">One visible error, and you stopped listening. Drop ratio <b>0.15</b>. The advisor was right on round 3 — you were more accurate before round 2 than after it.</div>
+        <p class="note" style="margin-top:8px">People abandon an algorithm faster than a person after the same mistake, even having watched it outperform the person. Knowing that is not the same as not doing it, which is why this is a drill.</p>
+      </div>
+      <figcaption class="cap"><span class="p">G6</span> · algorithm aversion, made visible in five minutes</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>g6 · proportionate</span><span>what the key rewards</span></div>
+        <div class="rounds">
+          <div class="round"><span class="rn">round 1</span><span class="wb"><i style="width:52%"></i></span><span class="wv">0.52</span></div>
+          <div class="round err"><span class="rn">round 2 ✕</span><span class="wb"><i style="width:48%"></i></span><span class="wv">0.48</span></div>
+          <div class="round"><span class="rn">round 3</span><span class="wb"><i style="width:34%"></i></span><span class="wv">0.34</span></div>
+        </div>
+        <div class="card g">Down, and not off a cliff. Drop ratio <b>0.65</b>. One error is evidence; it is not proof, and it is one data point against several.</div>
+        <p class="note" style="margin-top:8px">Two mirror failures score the same way: a single success on round 2 that sends weighting to 0.9, and a drop ratio near 1.0 — a learner who did not update at all is not stable, they are inattentive.</p>
+      </div>
+      <figcaption class="cap"><span class="p">G6</span> · both overreactions cost the same</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">7</span>Real work — the only mode that spans two sittings</h2>
+  <p class="lead">Logged <b>before</b> the decision and revisited after, because a delegation judgement recorded afterwards is a memory of a judgement. This is the tool's durable artifact, the counterpart to Evidence's verdict card and Verification's record.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>before · logged now</span><span>open practice</span></div>
+        <div class="sub2">what you're about to hand over</div>
+        <div class="field locked">Drafting the data-migration script from the schema diff.</div>
+        <div class="sub2">what you're keeping</div>
+        <div class="field locked">Deciding whether the down-migration is safe to run on live data.</div>
+        <div class="sub2">what would tell you this was the wrong split</div>
+        <div class="field locked">If I can't read the generated script well enough to judge the rollback.</div>
+        <div class="nav"><span class="note">nothing is scored here</span><span class="btn pri">save · remind me after</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§8</span> · committed before the outcome is known</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>after · two days later</span><span>delegation record</span></div>
+        <div class="sub2">what actually happened</div>
+        <div class="field locked">Script was fine. I couldn't judge the rollback and shipped it anyway.</div>
+        <div class="card w">You named the thing that would tell you the split was wrong, and then it happened, and you proceeded. That is the most useful entry this log will ever hold.</div>
+        <div class="nav"><span class="btn">save as journal entry</span><span class="btn">attach to project</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§8</span> · the prediction is what makes the record worth keeping</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">8</span>RTL pass — <code>fa</code></h2>
+  <p class="lead">The cheapest of the five tools to bilingualise: the instrument is numeric, so estimates, advice, truth and every derived metric are locale-invariant. Only scenario prose and cue labels are realised twice, and there is no Persian-specific linguistic work at all. Western digits in both locales.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel rtl">
+        <div class="bar"><span>واگذاری · بازآورد</span><span>وین → استانبول</span></div>
+        <div class="line" style="direction:ltr">
+          <div class="track"></div>
+          <div class="move" style="left:20%;width:10%"></div>
+          <div class="pin you" style="left:20%"></div><div class="tag up" style="left:20%">900</div>
+          <div class="pin fin" style="left:30%"></div><div class="tag dn" style="left:30%">950</div>
+          <div class="pin adv" style="left:88%"></div><div class="tag up adv" style="left:88%">1,240</div>
+          <div class="pin tru" style="left:94%"></div><div class="tag dn tru" style="left:94%">1,270</div>
+        </div>
+        <p class="note" style="margin:8px 0 0">تو کم جابه‌جا شدی، در حالی که پیشنهاد خیلی به واقعیت نزدیک‌تر بود.</p>
+      </div>
+      <figcaption class="cap"><span class="p">§10</span> · the line stays LTR; labels and prose flip</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>the one RTL judgement call</span><span>worth deciding once</span></div>
+        <div class="card"><b>The number line does not mirror.</b> Smaller values stay left, larger stay right, in both locales — a quantity axis is not text, and flipping it would make “moved toward the advice” mean the opposite thing on the same screen for two learners.</div>
+        <p class="note" style="margin-top:8px">Labels, prose, the cue list and every panel around it flip normally. This is the same category of decision as keeping Western digits: the measurement surface stays invariant so two locales are comparing the same thing.</p>
+        <div class="sub2">for the reviewer</div>
+        <p class="note" style="margin:0">Check that scenario prose lands naturally, and that no cue option reads as two cues in Persian — a cue that splits is a broken key rather than a translation nit.</p>
+      </div>
+      <figcaption class="cap"><span class="p">§4</span> · the quantity axis is invariant, like the digits</figcaption>
+    </figure>
+  </div>
+
+  <div class="legend">
+    <b>What these plates are protecting</b>
+    <ul>
+      <li><b>The advice does not exist client-side until the estimate is committed</b> (plate 2). WOA is meaningless if the initial estimate can move afterwards, and it is the one number the whole tool rests on.</li>
+      <li><b>Confidence commits with the estimate</b> (plate 2), never after the advice — otherwise it measures hindsight.</li>
+      <li><b>Over- and under-reliance are drawn as one bordered pair and never summed</b> (plate 1). The literature's clearest warning is that interventions trade them; a combined figure would show that trade as progress.</li>
+      <li><b>Calibration and discrimination are shown as separate lines with no causal arrow between them</b> (plate 1). The first reliably improves; whether it moves the second is exactly the open question, and the learner sees it unresolved.</li>
+      <li><b>The two failures get different copy</b> (plate 4) — <i>you ignored help</i> and <i>you took harm</i> are not the same lesson.</li>
+      <li><b>WOA never appears during an item</b>, only at the reveal. Shown live, the item becomes an exercise in hitting a target.</li>
+      <li><b>Advice is plausible-wrong, never broken-wrong</b> (plate 4). Advice you would dismiss on sight teaches nothing.</li>
+      <li><b>The capability list is shown, dated and struck through</b> (plate 3), rather than warned against.</li>
+      <li><b>A stakes pair is one unit</b> (plate 5) and a sequence is one attempt of three rounds (plate 6).</li>
+      <li><b>The number line does not mirror in RTL</b> (plate 8).</li>
+    </ul>
+    <p style="margin:.8rem 0 0" class="note"><b>Settled 2026-08-11, after review.</b> <b>(a)</b> The stakes criterion <b>accepts either lever</b>. Expected cost of delegating is <code>P(error) × cost(error)</code>, and a cheap check collapses the second term — so under high stakes, reducing reliance and keeping reliance while making it recoverable are both correct readings, and only treating the two framings identically is wrong. The recoverability move is <i>recorded</i>; whether the check is any good is Verification Lab's measurement and is never scored here. This keeps the concept and restores the precision: a learner weak at #4 does not lose points on a delegation criterion. <b>(b)</b> The population baseline is <b>withheld until the baseline probe completes</b> (or 12 scored items if it was skipped), then shown permanently on the progress surface only — never during an item, never at a reveal, since an anchor delivered early cannot be withdrawn. <b>(c)</b> Three rounds, behind a <code>G6_ROUNDS</code> constant — <b>D-24</b>.</p>
+  </div>
+</div>
+</body>
+</html>
