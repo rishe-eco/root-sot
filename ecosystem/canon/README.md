@@ -53,6 +53,9 @@ ecosystem/                              ← the Root area of root-sot
       00-evidence-summary.md
       01-known-risks-and-mitigations.md
       02-durable-ai-skills.md         the evidence base under the Skills Engine
+      03-skills-engine-sources.md     every source the six labs were authored
+                                      from, with a hosting verdict and a gist
+                                      per item — prepared for the public library
 ```
 
 **Two files were promoted out of this canon** on 2026-07-29, into the repo's navigational spine: the Opportunity Solution Tree (was `03-engine/01-opportunity-solution-tree.md`, now `../ost.md`) and the decision log (was `05-log/decision-log.md`, now `../decisions/decision-log.md`). This is why `03-engine/` skips from `00` to `02`.
