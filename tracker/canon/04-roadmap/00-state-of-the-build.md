@@ -49,7 +49,7 @@
 
 ## Other pillars (Root context)
 
-Tracker is a **personal app and staging ground**, not itself a pillar. Its most-developed resident is the **Organize** prototype (this document); residents may later migrate to their own standalone app or be retired (decision log, 2026-08-01). A **Grow (Learn)** prototype now also lives here — the **Skills Engine** (Clarity Lab, Evidence Lab; `../06-specs/`), conceptually owned by the Learn pillar and hosted here for now. **Maintain** and **Others** are not present. All pillar concept work is tracked in Root canon `02-pillars/`. See `02-refactor-toward-root.md` for how even the Organize prototype is only partly realized.
+Tracker is a **personal app and staging ground**, not itself a pillar. Its most-developed resident is the **Organize** prototype (this document); residents may later migrate to their own standalone app or be retired (decision log, 2026-08-01). A **Grow (Learn)** prototype now also lives here — the **Skills Engine** (Clarity Lab, Evidence Lab; `../06-specs/`), conceptually owned by the Learn pillar and hosted here for now. A third tool, **Decomposition Lab**, is **specced with wireframes and a build plan and has no code at all** as of 2026-08-11 (`../06-specs/03-decomposition-lab.md`) — listed here only so the absence is on the record in the file whose job is to prevent assuming things exist. **Maintain** and **Others** are not present. All pillar concept work is tracked in Root canon `02-pillars/`. See `02-refactor-toward-root.md` for how even the Organize prototype is only partly realized.
 
 ---
 

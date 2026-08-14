@@ -77,6 +77,35 @@ tracker/                          ← the Tracker area of root-sot
                                     open work order — the 12 tasks that unblock
                                     the scored baseline. Self-contained, written
                                     to be handed to someone outside the project.
+      03-decomposition-lab.md       skill tool #3 — decomposition (spec, unbuilt)
+      03a-decomposition-lab-wireframes.html
+                                    ten plates plus an RTL pass; open in a browser
+      03b-decomposition-lab-build-plan.md
+                                    phase order, exact file paths and acceptance
+                                    gates. Written to be handed to a coding agent.
+      04-verification-lab.md        skill tool #4 — verification (spec, unbuilt)
+      04a-verification-lab-wireframes.html
+                                    ten plates plus an RTL pass; open in a browser
+      04b-verification-lab-build-plan.md
+                                    phase order, algorithms and gates. Written to
+                                    be handed to a coding agent; §1 works whether
+                                    or not Decomposition Lab has shipped first.
+      05-delegation-lab.md          skill tool #5 — calibrated delegation
+                                    (spec, unbuilt). Carries a pre-registered
+                                    null: the published interventions mostly fail.
+      05a-delegation-lab-wireframes.html
+                                    ten plates plus an RTL pass; open in a browser
+      05b-delegation-lab-build-plan.md
+                                    phase order, the weight-of-advice arithmetic
+                                    and its edge cases, and gates. For a coding agent.
+      06-monitoring-lab.md          skill tool #6 — self-monitoring (spec, unbuilt).
+                                    The corrective for the other five: AI-literate
+                                    users are the most overconfident.
+      06a-monitoring-lab-wireframes.html
+                                    ten plates plus an RTL pass; open in a browser
+      06b-monitoring-lab-build-plan.md
+                                    phase order, the gamma and answer-matching
+                                    rules, and gates. For a coding agent.
 ```
 
 **Where the code is.** This canon describes the `rishe-eco/tracker` repo, whose two workspaces are `api/` (backend) and `client/` (frontend). Code paths throughout this canon are relative to that repo, not to this one.

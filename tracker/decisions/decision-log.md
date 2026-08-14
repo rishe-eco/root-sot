@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.5 · Status: living · 2026-08-05 · Owner: _root**
+**Version 0.6 · Status: living · 2026-08-11 · Owner: _root**
 
 ---
 
@@ -25,6 +25,16 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-02 | **drop_loopstate_frame_done** | Removes the `frameDone` mirror; the Day-1 frame's completion is derived from `FrameCompletion`, which is the event. See D-21. |
 
 ## 2. Key decisions
+
+### D-24 · The advisor sequence is three rounds; whether recovery is worth five is a deferred research question — 2026-08-11
+
+Delegation Lab's `g6-drift` module (`../canon/06-specs/05-delegation-lab.md` §3) measures what a learner's weighting of advice does after the advisor is visibly wrong once. The sequence ships at **three rounds** — round 1 establishes their weighting, round 2 is the visible error, round 3 measures the response — implemented behind a content constant `G6_ROUNDS` rather than a literal.
+
+*Rationale:* three rounds measures the effect that is documented and defers the one that is not. **Algorithm aversion is the drop** — people abandon an algorithm faster than a person after the same error, even having watched it outperform that person (Dietvorst, Simmons & Massey 2015) — and one post-error observation is enough to measure a drop. Five rounds would additionally show **recovery**: whether a learner who overshoots comes back. That pattern is plausible, it is the more interesting finding if it exists, and **it is not in the literature.** Doubling every `g6` sitting to measure an untested hypothesis is the wrong order of operations, particularly in the one tool already specced with a pre-registered null.
+
+*The deferred question, and how to answer it with data rather than argument:* the three-round version yields a post-error drop ratio per learner. If drops cluster near zero — collapse, with little spread — three rounds is sufficient and five would buy sittings for nothing. If drops spread across the middle of the range, the interesting variance is in what happens *next*, and the five-round version earns its cost. Revisit once a cohort has completed `g6` at least twice; the constant is the only code change.
+
+*Scope note:* a measurement-design decision, not a product one. It changes no user-facing promise and no other tool.
 
 ### D-23 · The faux-feelings lexicon is locale-scoped; the rest of the spec stays locale-invariant — 2026-08-05
 `LexiconConceptSpec` gains an optional `locales` field. Absent means every locale (which is 39 of the 45 concepts); `locales: ["fa"]` marks a judgment only Persian makes. Six such concepts were added — `fa_no_loyalty` (بی‌معرفتی), `fa_not_received` (تحویل نگرفتن), `fa_treated_as_stranger` (غریبی کردن), `fa_not_counted` (آدم حساب نکردن), `fa_face_lost` (ضایع شدن/آبرو), `fa_favour_held_over` (منت گذاشتن). The pack builder refuses to realize a concept in a locale its spec entry does not claim, and the parity suite reads scope from one shared helper so tests and builder cannot disagree.
@@ -168,6 +178,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.6 · 2026-08-11** — D-24 added: Delegation Lab's advisor sequence ships at **three rounds** behind a `G6_ROUNDS` constant, measuring the documented algorithm-aversion *drop* and deferring the undocumented *recovery* pattern to a research question answerable from the three-round data. No migration; the tool itself is unbuilt.
 - **0.5 · 2026-08-05** — D-23 added: the **faux-feelings lexicon is locale-scoped** (`LexiconConceptSpec.locales`), with six Persian-only concepts authored from usage after establishing that no published Persian faux-feelings list exists. No migration.
 - **0.4 · 2026-08-04** — D-22 added: content **locale from `Accept-Language`, per request, never stored**, with the Persian surface shipping as `draft`. No migration — the decision is that there is no column.
 - **0.3 · 2026-08-02** — D-21 added: **Feelings & Needs** (Learn Module 1) built as a Tracker tool, Phase 1 scaffold (`add_feelings_needs`). Migration timeline extended with the skills and feelings-needs rows.

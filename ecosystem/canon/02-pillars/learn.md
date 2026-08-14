@@ -1,7 +1,7 @@
 # Root · ریشه — Pillar: Learn
 *Source of truth. Short on purpose. Concept + first module. Update the changelog; don't fork.*
 
-**Version 0.2 (draft) · 2026-07-22 · Owner: _root**
+**Version 0.4 (draft) · 2026-08-11 · Owner: _root**
 
 ---
 
@@ -55,6 +55,8 @@ The second Learn module to reach code, and it arrived out of the planned order �
 
 **What it teaches.** The skills that decide whether working with an AI helps a person or harms them. The founding distinction is not soft-versus-hard but **compounds-versus-perishes**: prompt tricks give a short-term bump and expire as models change, while clarity, judgement and verification transfer across every model. Most "technical tricks" turn out to be a durable skill wearing a temporary costume. Two tools exist, one per foundational skill — **Clarity Lab** (saying precisely what you want) and **Evidence Lab** (checking a confident answer against something independent).
 
+**A third tool is specced and unbuilt** (2026-08-11): **Decomposition Lab** (#3 — breaking a messy problem into checkable pieces), with wireframes and a build plan alongside it. Two things about it matter to the pillar beyond the skill. It answers §9's module-runner question. And it is the first module whose dominant risk is not over-trust but **offloading** — a model produces a plausible breakdown instantly, so the tool has to refuse to offer one, which makes its central guard an *absence*. Absences are harder to keep than features: nobody notices when one is removed.
+
 **Why it belongs to Learn rather than to documentation.** A perishable trick cannot be taught as capacity. This module builds something a person carries into their own life and keeps when the tools change — the pillar's decision test (§8) rather than an incidental fit.
 
 **The design fact worth carrying to every future module.** The two skills need **opposite pedagogies**, and discovering that shaped the build:
@@ -77,12 +79,13 @@ Does the module build *real capacity the person can carry into their own life*, 
 - Pathway recommendation logic (how a learning path is proposed) — undetermined.
 - Integration vs. separation of module delivery (learned-through-Reflect-interaction vs. structured module) — a discovery question.
 - Module set beyond the first two; per-module evaluation design.
-- **Does a generic module runner survive contact with a third module?** The first two need opposite shapes (§7a). Two data points, but they point the same way: build per-module until a shared shape is forced, not before.
+- ~~**Does a generic module runner survive contact with a third module?**~~ **Answered 2026-08-11 by speccing skill #3** (`tracker/canon/06-specs/03-decomposition-lab.md` §2). It does not survive as a *generic* runner — and per-tool duplication isn't the alternative either. The third module needs **both existing shapes at once**: four of its six modules are Clarity-shaped (a 10–15 minute sitting authoring and revising one artifact), two are Evidence-shaped (a ~2 minute drill on one seeded fault). So the sharper form of the §7a finding is that **pedagogy belongs to the *step*, not to the tool** — which argues for a composable step library, where the seven-step template selects a per-step implementation, and against both a single lesson container and three parallel bespoke builds. Three data points now, and the third is the one that discriminates between the two answers the first two couldn't separate.
 
 ---
 
 ## Changelog
 
+- **0.4 · 2026-08-11** — §7a notes the third Skills Engine tool, **Decomposition Lab** (#3), specced and unbuilt, and names offloading rather than over-trust as its dominant risk. §9's module-runner question is **answered**: the third module needs both existing session shapes at once, so pedagogy belongs to the *step* rather than the tool — a composable step library, not a generic runner and not per-tool duplication.
 - **0.3 · 2026-08-01** — Added §7a: the Skills Engine, Learn's second built module, hosted in Tracker. Records the compounds-vs-perishes framing, the opposite-pedagogies finding and what it implies for a module runner, the authored-not-translated consequence of Persian-first, and the discrimination-not-catch-rate refusal.
 
 - **0.1 · 2026-07-14** — Initial draft, from the emotion/need module design. Spiral (not ladder) model, three tiers, Persian-first affect-labeling constraint, guardrails, prototype scope, reality-check sequel.

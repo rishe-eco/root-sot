@@ -2,7 +2,7 @@
 
 *Source of truth. The patterns you must follow to change this app without breaking it. If you read one architecture file before writing code, read this one. Update the changelog; don't fork.*
 
-**Version 0.3 · Status: as-built · 2026-08-04 · Owner: _root**
+**Version 0.4 · Status: as-built · 2026-08-12 · Owner: _root**
 
 ---
 
@@ -53,6 +53,16 @@ Three rules govern what you write in the `fa` value. All three exist because the
 | Ritual / ceremony | آیین | مراسم *(that is for weddings and funerals)* |
 | "This cannot be undone" | دیگر نمی‌شود برش گرداند | این عملیات قابل بازگشت نیست |
 
+**7d. Western digits in both locales.** Numerals render as `0–9` everywhere, including inside Persian prose and RTL layout. No Persian or Arabic-Indic digit rendering, no numeral transliteration, no locale-aware numbering system.
+
+This **records what the app already does** — as of 2026-08-12 there is not a single Persian digit in `client/app/` or in either locale file, and no numeral-locale formatting anywhere. It is written down precisely *because* it currently holds by accident: an invariant nobody has stated is one a future locale pass will helpfully "fix". **Why:** three distinct failures, and the first is the expensive one.
+
+- **A digit-shape mismatch is a *tell*.** In the Skills content packs an item's stimulus and its key, bench outcome or advice value must be visually indistinguishable in kind — a learner who can spot the authored half by its numerals is answering a different question than the one being asked. This is the same class of defect Evidence Lab had to eliminate from real use (literal asterisks marking authored markdown), and it is why the packs enforce it with a validator rule (`no-persian-digits`) rather than trusting the authoring.
+- **Arithmetic stays byte-identical across locales**, so a numeric key cannot drift between `en` and `fa` — the whole point of the locale-invariant spec/surface split (`../06-specs/00-skills-engine.md` §5.1).
+- **Numeric detectors run one digit set instead of two.** Given the `\b` trap below, a matcher that must handle two digit sets is a matcher with twice the surface for the same silent-failure mode.
+
+**One known violation, not yet fixed.** `client/app/components/journals/JournalDetailPage.tsx` formats entry dates with `d.toLocaleString(undefined, …)`. Passing `undefined` uses the **runtime's default locale — the browser or OS setting — not the app's i18next language**, so it is reading from a different source than every other localised string in the app (and than the server, per D-22). On a Persian-configured system it will render Persian digits, and possibly a Jalali calendar, for a user whose app is in English. Fix by passing an explicit locale derived from i18next; if a Persian locale tag is used, it must carry `-u-nu-latn` to force Latin numerals (add `-ca-gregory` if the Gregorian calendar is also wanted). **Whether Persian users see Jalali dates is a product decision and is not settled here** — this rule constrains only the numerals.
+
 **Server-authored content is a different job from UI copy.** Two places hold it, and the rule differs:
 
 - **The Evidence and Clarity item packs** (`api/src/content/skills/*/surface.fa.ts`) are **re-authored, not translated** — several items' faults exist only in English, so making them read naturally would change what they measure (`team/open-work.md` item 2).
@@ -80,6 +90,7 @@ If you touch `schema.prisma`, update `02-architecture/01-data-model.md` and add 
 
 ## Changelog
 
+- **0.4 · 2026-08-12** — §7d added: **Western digits in both locales**, promoted from `06-specs/04-verification-lab.md` §10 where it was settled during the skill-tool spec pass. Records an invariant that held only by accident, states the three failures it prevents (the digit-shape *tell* in authored content being the expensive one), and names the one known violation — `JournalDetailPage`'s `toLocaleString(undefined, …)`, which reads the browser locale rather than the app's, unfixed and with the fix direction given.
 - **0.3 · 2026-08-04** — §7 extended again, from building the Persian Feelings & Needs surface: server-authored content vs UI copy (and why the F&N pack is translated-then-reviewed while the Skills packs are re-authored), locale from `Accept-Language` rather than a column (D-22), and the rule that `` matches nothing in Persian — which had silently disabled the faux-feeling matcher for the entire locale.
 - **0.2 · 2026-08-01** — §7 extended with the three `fa` authoring rules (7a concept-not-calque, 7b informal register, 7c the glossary), after the locale-wide Persian revision. See D-20.
 - **0.1 · 2026-07-22** — Initial. Distilled from the patterns memory, the base docs, and the resolver/service structure.
