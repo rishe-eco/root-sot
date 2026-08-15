@@ -2,7 +2,7 @@
 
 *Source of truth. What exists and what doesn't, verified. The most time-sensitive file in the canon — trust the date. Update the changelog; don't fork.*
 
-**Version 0.2 · Status: as-built · 2026-08-01 · Owner: _root**
+**Version 0.3 · Status: as-built · 2026-08-15 · Owner: _root**
 
 ---
 
@@ -49,11 +49,12 @@
 
 ## Other pillars (Root context)
 
-Tracker is a **personal app and staging ground**, not itself a pillar. Its most-developed resident is the **Organize** prototype (this document); residents may later migrate to their own standalone app or be retired (decision log, 2026-08-01). A **Grow (Learn)** prototype now also lives here — the **Skills Engine** (Clarity Lab, Evidence Lab; `../06-specs/`), conceptually owned by the Learn pillar and hosted here for now. A third tool, **Decomposition Lab**, is **specced with wireframes and a build plan and has no code at all** as of 2026-08-11 (`../06-specs/03-decomposition-lab.md`) — listed here only so the absence is on the record in the file whose job is to prevent assuming things exist. **Maintain** and **Others** are not present. All pillar concept work is tracked in Root canon `02-pillars/`. See `02-refactor-toward-root.md` for how even the Organize prototype is only partly realized.
+Tracker is a **personal app and staging ground**, not itself a pillar. Its most-developed resident is the **Organize** prototype (this document); residents may later migrate to their own standalone app or be retired (decision log, 2026-08-01). A **Grow (Learn)** prototype now also lives here — the **Skills Engine** (Clarity Lab, Evidence Lab; `../06-specs/`), conceptually owned by the Learn pillar and hosted here for now. A third tool, **Decomposition Lab**, is specced with wireframes and a build plan (`../06-specs/03-decomposition-lab.md`) and is **under active build as of 2026-08-15** against that plan's phases 1–5 and 7 (engine deltas landed; content pack landed — 36 pool + 18 probe items, `en`+`fa`; scoring/session/GraphQL, frontend, probes, and real-work export not yet built). Phase 6 (an optional LLM judge for two criteria) and Phase 8 (human content review) are out of scope for this pass. See decision-log D-26. **Maintain** and **Others** are not present. All pillar concept work is tracked in Root canon `02-pillars/`. See `02-refactor-toward-root.md` for how even the Organize prototype is only partly realized.
 
 ---
 
 ## Changelog
 
+- **0.3 · 2026-08-15** — Decomposition Lab moved from "specced, no code" to "under active build" (D-26): engine deltas (Phase 1) and the `decomposition/v1` content pack + validator (Phase 2) landed. Build inventory otherwise unchanged.
 - **0.2 · 2026-08-01** — Reframed the "Other pillars" section: Tracker is a staging ground, not the Organize pillar; recorded the **Grow (Learn) Skills Engine** now hosted here (decision log, 2026-08-01). Build inventory itself unchanged and still verified as of 2026-07-22.
 - **0.1 · 2026-07-22** — Initial. Inventory verified against the repo; feature codes mapped to the June-10 roadmap.
