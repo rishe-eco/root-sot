@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.8 · Status: living · 2026-08-15 · Owner: _root**
+**Version 0.9 · Status: living · 2026-08-15 · Owner: _root**
 
 ---
 
@@ -26,6 +26,17 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-15 | **add_decomposition_lab** | `SkillKey` gains `decomposition`; `SkillAttempt` gains `responseStructure`. First code for the **Decomposition Lab** (skill tool #3). See D-26. |
 
 ## 2. Key decisions
+
+### D-27 · Decomposition Lab's scoring engine, session service and GraphQL surface built — 2026-08-15
+
+Build plan Phase 3 (`06-specs/03b-decomposition-lab-build-plan.md`). `api/src/services/skills/decomposition/{detectors,metrics,keyScoring,scoring,decompositionSession}.ts`, own GraphQL types/queries/mutations (no widening of Evidence's or Clarity's). No schema change — the migration from D-26 carried it. 602 API tests green.
+
+Two things the build settled that the spec and plan left implicit:
+
+1. **D5 (dependency) joins D3/D6 as judge-assisted on free-authored (breakdown) items, not just key-scored.** The spec's scoring-source table (§4) lists D5 as "key" unconditionally, but the algorithm — "compare placed `dependsOn` edges against the key's `blockingEdges`" — needs to know *which* of the learner's own-invented node ids is *which* key piece, the identical identity-matching gap that makes D3/D6 judge-dependent. Extending the same degrade-to-self-diagnosis treatment to D5 was the honest option over silently guessing at a match. Arrangement and control items are unaffected — their pieces come from a server-known palette, so id matching is exact. Documented in `scoring.ts`'s header for whoever builds the Phase 6 judge.
+2. **Repair items were redesigned so node identity survives the fix, making them fully key-scored with no judge at all** — matching the build plan's own "Repair: No [judge needed]" row, which the first content draft (Phase 2) didn't actually satisfy: it gave the correct fix fresh, unrelated ids from the supplied faulty tree, which would have needed the same fuzzy matching as breakdown. The fix: for every fault type except `monolith`/`premature_split` (where the fault *is* the granularity and the piece is wholesale replaced), the supplied tree's node ids are the ones a correct fix keeps, drops, or reconnects — never renamed to something new. `monolith`/`premature_split` repair items score D4 by node count against the key's expected count instead, since there's no identity to preserve when the whole piece is being replaced.
+
+*Also carried over from Phase 1b's own finding:* the shared `VALID_EVENT_KINDS` whitelist (`evidenceSession.ts`) needed the four decomposition event kinds fired through the generic `logSkillCheckEvent` mutation (`node_added`, `node_moved`, `dependency_set`, `recompose_revealed`) — `whole_stated`, `diagnosis_locked` and `breakdown_locked` stay outside it, written by decomposition's own dedicated lock functions, exactly as Clarity's `prediction_locked`/`diagnosis_locked` already do.
 
 ### D-26 · Decomposition Lab build begins; Phase 1a lands — 2026-08-15
 
