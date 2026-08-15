@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.7 · Status: living · 2026-08-15 · Owner: _root**
+**Version 0.8 · Status: living · 2026-08-15 · Owner: _root**
 
 ---
 
@@ -23,8 +23,21 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-02 | **add_feelings_needs** | **Feelings & Needs** (Learn Module 1) as a Tracker tool — the first Learn-pillar surface. LLM-free, no streaks. See D-21. |
 | 2026-08-02 | **add_loop_sitting_completed_at** | Makes an open sitting distinguishable from a finished one, so the daily loop is resumable (convention #8). See D-21. |
 | 2026-08-02 | **drop_loopstate_frame_done** | Removes the `frameDone` mirror; the Day-1 frame's completion is derived from `FrameCompletion`, which is the event. See D-21. |
+| 2026-08-15 | **add_decomposition_lab** | `SkillKey` gains `decomposition`; `SkillAttempt` gains `responseStructure`. First code for the **Decomposition Lab** (skill tool #3). See D-26. |
 
 ## 2. Key decisions
+
+### D-26 · Decomposition Lab build begins; Phase 1a lands — 2026-08-15
+
+Migration `20260815001926_add_decomposition_lab`: `SkillKey` gains `decomposition`; `SkillAttempt` gains `responseStructure String?`. First code for skill tool #3 (`../canon/06-specs/03-decomposition-lab.md`, build plan `03b-...md`), which specced with wireframes on 2026-08-11 and had no code until now.
+
+*Why a separate column rather than reusing `responseText`:* one holds prose, one holds a tree; a single field holding either would make every later query ambiguous about which it got. This mirrors the `dodFlaggedDimensions`-style JSON-string convention (§7 conventions) rather than inventing a new one.
+
+*Why this needed no `SkillKey` migration of its own:* SQLite has no enum type, so Prisma represents `SkillKey` as plain text with no `CHECK` constraint — adding a value is a schema-file change with no corresponding `ALTER`. The generated migration touches only `SkillAttempt`.
+
+*Scope for this pass, decided with the user before starting:* build plan phases 1–5 and 7 (engine groundwork, content pack + validator, scoring/session/GraphQL, frontend + the new breakdown canvas, probes + real-work export) — all credential-free by design (§4 of the spec: the tool measures decomposition with no LLM at all). Phase 6 (an optional judge for two free-authoring criteria) and Phase 8 (human content review, key verification) are out of scope for now — Phase 6 has no `ANTHROPIC_API_KEY` to run against yet regardless, and Phase 8 is not code. `fa` content will be authored alongside `en` from the same locale-invariant spec and shipped `reviewStatus: "draft"`, same as Feelings & Needs (**D-21**) — there is no native Persian reviewer in this pass either.
+
+*Phase 1b, still to come in this same phase:* the shared review scheduler has a pre-existing gap — Clarity mastery sets `masteredAt` but never `nextReviewAt`, so mastered Clarity modules never enter the review queue, and `skillDueReviews` reads Evidence only. The build plan calls this out as cheapest to fix now, while it's latent, rather than once three tools depend on the scheduler.
 
 ### D-25 · Calendar system is a setting of its own, not a consequence of language — 2026-08-15
 
@@ -191,6 +204,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.8 · 2026-08-15** — D-26 added: **Decomposition Lab build begins**, Phase 1a of `03b-decomposition-lab-build-plan.md` — `SkillKey` gains `decomposition`, `SkillAttempt` gains `responseStructure` (migration `add_decomposition_lab`). Records the build's scope for this pass (phases 1–5 and 7; judge and human-review phases deferred) and that `fa` content ships alongside `en` as `reviewStatus: "draft"`, same as Feelings & Needs.
 - **0.7 · 2026-08-15** — D-25 added: **calendar system is its own setting**, inherited from language only until first chosen, stored client-side with no column (D-22's reasoning). Records the two things the implementation makes permanent — wire formats stay Gregorian, and format strings do not port between calendars — and the removal of `react-big-calendar` and `react-day-picker`, neither of which could express a Jalali month. No migration.
 - **0.6 · 2026-08-11** — D-24 added: Delegation Lab's advisor sequence ships at **three rounds** behind a `G6_ROUNDS` constant, measuring the documented algorithm-aversion *drop* and deferring the undocumented *recovery* pattern to a research question answerable from the three-round data. No migration; the tool itself is unbuilt.
 - **0.5 · 2026-08-05** — D-23 added: the **faux-feelings lexicon is locale-scoped** (`LexiconConceptSpec.locales`), with six Persian-only concepts authored from usage after establishing that no published Persian faux-feelings list exists. No migration.

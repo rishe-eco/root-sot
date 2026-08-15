@@ -2,7 +2,7 @@
 
 *Source of truth. The Prisma schema, as-built. If the schema changes, update this file in the same change. Update the changelog; don't fork.*
 
-**Version 0.6 · Status: as-built · 2026-08-03 · Owner: _root**
+**Version 0.7 · Status: as-built · 2026-08-15 · Owner: _root**
 
 ---
 
@@ -114,6 +114,7 @@ SQLite has no array type. These fields are **JSON strings** in the DB and are pa
 
 ## Changelog
 
+- **0.7 · 2026-08-15** — `SkillKey` gained `decomposition`; `SkillAttempt` gained `responseStructure String?` (migration `add_decomposition_lab`) — Decomposition Lab Phase 1a (`06-specs/03b-decomposition-lab-build-plan.md`). A separate column from `responseText` because one holds prose and one holds a tree; a single field holding either would make every later query ambiguous about which it got. SQLite has no enum type, so the new `SkillKey` value needed no migration of its own — only the column addition did. The Skill-tool tables are still not transcribed into this file (see the 0.2 note below); this entry documents only the delta.
 - **0.6 · 2026-08-03** — Added `LoopEntry.bodyLocation` (`add_loop_entry_body_location`): the body step split into *where* then *what texture*, because the UI asked the first question and offered answers to the second.
 - **0.5 · 2026-08-02** — Dropped `LoopState.promptFadeLevel` (`drop_loopstate_prompt_fade_level`); the fade level is derived from completed sittings. Added `catch` as a third feeling/need source.
 - **0.4 · 2026-08-02** — Dropped `LoopState.frameDone` (`drop_loopstate_frame_done`); the Day-1 frame's completion is derived from `FrameCompletion`.
