@@ -2,7 +2,7 @@
 
 *Source of truth. What exists and what doesn't, verified. The most time-sensitive file in the canon — trust the date. Update the changelog; don't fork.*
 
-**Version 0.4 · Status: as-built · 2026-08-15 · Owner: _root**
+**Version 0.5 · Status: as-built · 2026-08-16 · Owner: _root**
 
 ---
 
@@ -49,12 +49,13 @@
 
 ## Other pillars (Root context)
 
-Tracker is a **personal app and staging ground**, not itself a pillar. Its most-developed resident is the **Organize** prototype (this document); residents may later migrate to their own standalone app or be retired (decision log, 2026-08-01). A **Grow (Learn)** prototype now also lives here — the **Skills Engine** (Clarity Lab, Evidence Lab; `../06-specs/`), conceptually owned by the Learn pillar and hosted here for now. A third tool, **Decomposition Lab**, is specced with wireframes and a build plan (`../06-specs/03-decomposition-lab.md`) and is **under active build as of 2026-08-15** against that plan's phases 1–5 and 7. Landed so far: engine deltas, the `decomposition/v1` content pack (36 pool + 18 probe items, `en`+`fa`), the scoring engine/session service/GraphQL surface, and the frontend — including the breakdown canvas — verified end to end in-browser with no credential configured. Not yet built: probes (baseline/post/delayed) and the real-work export. Phase 6 (an optional LLM judge for two criteria) and Phase 8 (human content review) are out of scope for this pass. See decision-log D-26 through D-28. **Maintain** and **Others** are not present. All pillar concept work is tracked in Root canon `02-pillars/`. See `02-refactor-toward-root.md` for how even the Organize prototype is only partly realized.
+Tracker is a **personal app and staging ground**, not itself a pillar. Its most-developed resident is the **Organize** prototype (this document); residents may later migrate to their own standalone app or be retired (decision log, 2026-08-01). A **Grow (Learn)** prototype now also lives here — the **Skills Engine** (Clarity Lab, Evidence Lab; `../06-specs/`), conceptually owned by the Learn pillar and hosted here for now. A third tool, **Decomposition Lab**, is specced with wireframes and a build plan (`../06-specs/03-decomposition-lab.md`) and is **under active build as of 2026-08-16** against that plan's phases 1–5 and 7. Landed so far: engine deltas, the `decomposition/v1` content pack (36 pool + 18 probe items, `en`+`fa`), the scoring engine/session service/GraphQL surface, the frontend — including the breakdown canvas — and now skill probes: `probes.ts`, built skill-agnostic so Evidence and Clarity inherit the same baseline/post/7-day-delayed container. All verified end to end in-browser with no credential configured. **A real fact surfaced by that verification, not a gap in the build:** every item in every tool's content pack is still `key-unverified` (Phase 8 hasn't run), so `startSkillProbe` correctly refuses to open a probe for any of the three skills today — confirmed live, all three Lab pages show the accurate "not ready" state rather than a dead-end button. Only the real-work export (Phase 7) remains of this pass's scope. Phase 6 (an optional LLM judge for two criteria) and Phase 8 (human content review) are out of scope for this pass. See decision-log D-26 through D-29. **Maintain** and **Others** are not present. All pillar concept work is tracked in Root canon `02-pillars/`. See `02-refactor-toward-root.md` for how even the Organize prototype is only partly realized.
 
 ---
 
 ## Changelog
 
+- **0.5 · 2026-08-16** — Decomposition Lab: skill probes built (Phase 5, D-29) — baseline/post/7-day-delayed, as shared engine surface `probes.ts` that Evidence and Clarity inherit too. Verified live that every tool's content is still key-unverified (Phase 8 pending), so no probe can open yet anywhere — correct, not a bug. Only the real-work export (Phase 7) remains of this pass's scope.
 - **0.4 · 2026-08-15** — Decomposition Lab: scoring engine/session service/GraphQL (Phase 3, D-27) and the frontend including the breakdown canvas (Phase 4, D-28) landed, verified end to end in-browser with no credential configured. Only probes and the real-work export remain of this pass's scope.
 - **0.3 · 2026-08-15** — Decomposition Lab moved from "specced, no code" to "under active build" (D-26): engine deltas (Phase 1) and the `decomposition/v1` content pack + validator (Phase 2) landed. Build inventory otherwise unchanged.
 - **0.2 · 2026-08-01** — Reframed the "Other pillars" section: Tracker is a staging ground, not the Organize pillar; recorded the **Grow (Learn) Skills Engine** now hosted here (decision log, 2026-08-01). Build inventory itself unchanged and still verified as of 2026-07-22.

@@ -2,7 +2,7 @@
 
 *The queue. Work that engineering cannot finish because it needs human judgement, a native speaker, or a decision. Each item states its blocker and what it unblocks. Delete items when done — the decision logs are the permanent record.*
 
-**Version 0.3 · Status: living · 2026-08-12 · Owner: _root**
+**Version 0.4 · Status: living · 2026-08-16 · Owner: _root**
 
 ---
 
@@ -13,9 +13,14 @@
 | 1 | Verify 6 Evidence answer keys + freeze their search results | anyone careful | 2–4 h | Evidence scored baseline |
 | 2 | Persian native review of both content packs | Persian reviewer | 6–10 h | Persian being equal-quality, not just present |
 | 3 | Judge calibration pass, per criterion, per locale | 2 raters | 8–12 h | Clarity measurement-grade scores |
-| ~~4~~ | ~~Decide whether Clarity ships permanently reader-less~~ | founder | — | **Decided 2026-08-01 — see below** |
+| 4 | Verify 18 Decomposition probe items' keys | anyone careful | 2–3 h | Decomposition scored baseline |
+| 5 | Persian native review of the Decomposition pack | Persian reviewer | 3–4 h | Decomposition Persian off `draft` |
+| 6 | Decomposition rubric-agreement rater pass | 2 raters | 8–12 h | Establishes the rubric is scoreable at all |
+| ~~7~~ | ~~Decide whether Clarity ships permanently reader-less~~ | founder | — | **Decided 2026-08-01 — see below** |
 
-Items 1–3 are independent of each other. **§5 is a different category** — anticipated work for four tools that have no code yet. It is listed so the cost is visible when build order is decided, not because anything is blocked today.
+Items 1–6 are independent of each other. **§8 is a different category** — anticipated work for the three tools that still have no code. It is listed so the cost is visible when build order is decided, not because anything is blocked today.
+
+**Items 4–6 were promoted out of §8 on 2026-08-16**, when the Decomposition Lab build (phases 1–5) confirmed live that all 18 probe items are still `key-unverified` — every one of the three skill tools' Lab pages correctly refuses to open a scored probe today, which is what makes this queue no longer anticipated for Decomposition. This should have moved when Phase 2 (the content pack) landed on 2026-08-15, per the build plan's own instruction; it is done now rather than back-dated.
 
 ---
 
@@ -56,7 +61,37 @@ About 20 human-scored samples per criterion, double-scored and reconciled, per l
 
 ---
 
-## 4 · ~~Decide: does Clarity ship permanently without a reader?~~ — decided
+## 4 · Verify the Decomposition probe items' keys
+
+**Blocked on:** anyone careful with the item bank — no Persian and no rating judgement needed, just checking the key against the item.
+**Unblocks:** Decomposition Lab's scored baseline/post/delayed probes. Practice (calibrated and open) already works and is unaffected — every item type completes and scores with no credential.
+
+Eighteen probe items, each an `arrangement` or `control` type item, checked against `03-decomposition-lab.md` §4.6's arrangement-key shape: `requiredPieceIds`, `overlapPairs`, `blockingEdges`, `independentPairs`, and which pieces are `atomic`/`decoy`/`intendedDepth`. The validator (`decomposition/validate.ts`) already catches a key that is *internally incoherent* (a required piece that's also a decoy, a cycle in blocking edges, and so on) — what a human has to confirm is that the key is *correct*, which no validator can check.
+
+**Why it can't be skipped, same shape as item 1:** "a wrong key does not fail loudly — it silently produces a wrong score, which is the exact failure this tool teaches people to catch" (build plan §4.6). Stamp `keyVerifiedAt` per item once confirmed.
+
+---
+
+## 5 · Persian native review of the Decomposition pack
+
+**Blocked on:** the Persian reviewer.
+**Unblocks:** the claim that Decomposition's Persian is equal in quality rather than merely present. Persian users can practise today; the pack is marked `reviewStatus: "draft"` in the UI, honestly.
+
+**Cheapest of the three tools' Persian work, and deliberately so** (build plan §5.1's cost model, extended here): `fa` is a translation of a locale-invariant spec rather than a re-authoring, because nothing that makes a decomposition item an instrument is language-shaped — no seeded fault needs to survive translation the way Evidence's do, no rubric criterion needs linguistic rework the way Clarity's R4/R6 do. The review is a fluency and register pass (informal تو/کن, concept not calque, Western digits) over 54 items' worth of scenarios, piece labels, and the two costume-aside strings — not a re-derivation of anything that scores.
+
+---
+
+## 6 · Decomposition rubric-agreement rater pass
+
+**Blocked on:** two people willing to score independently and then reconcile — **not** on a credential, unlike item 3. This is the pass build plan §1 flags as different in kind from judge calibration.
+
+**Unblocks:** treating D3/D5/D6 as more than self-diagnosis on free-authored (`breakdown`) items once a judge exists (Phase 6, unbuilt). Arrangement, control, and repair items are already fully key-scored and need no rater pass at all — this is scoped to the minority of items a judge would ever touch.
+
+**This is not calibrating a model against humans — no judge exists yet to calibrate.** It is establishing whether *two humans* can agree on the rubric at all: "no validated decomposition rubric exists in the published literature" (`03-decomposition-lab.md` §1), so ~20 double-scored breakdown samples per criterion, reconciled, per locale, is the first evidence either way. Publish the agreement figure whatever it turns out to be — a low one is a finding about the rubric, not a failed task.
+
+---
+
+## 7 · ~~Decide: does Clarity ship permanently without a reader?~~ — decided
 
 **Decided 2026-08-01 (founder): no. The reader is coming; the reader-less state is temporary.**
 
@@ -70,20 +105,19 @@ What this leaves outstanding is a dependency, not a question: **Clarity Lab's me
 
 ---
 
-## 5 · Anticipated — the four specced-but-unbuilt packs
+## 8 · Anticipated — the three specced-but-unbuilt packs
 
-**Nothing here is blocked today, because none of these packs exist yet.** Each item becomes live when its tool reaches **Phase 2** of its build plan — the content phase — and not before. Listed now for one reason: the human cost is not uniform across the four, and it is cheaper to know that before choosing what to build than after.
+**Nothing here is blocked today, because none of these packs exist yet.** Each item becomes live when its tool reaches **Phase 2** of its build plan — the content phase — and not before. Listed now for one reason: the human cost is not uniform across the three, and it is cheaper to know that before choosing what to build than after.
+
+**Decomposition (#3) was here until 2026-08-16** — its content pack landed 2026-08-15 and its build reached Phase 5 the next day, so its key-verification, Persian review, and rater-pass items are promoted to items 4–6 above, live not anticipated.
 
 | Tool | Key verification | Persian | Rater pass |
 |---|---|---|---|
-| **#3 Decomposition** | 2–3 h · required-element sets, atomic markers, overlap pairs, blocking edges | 3–4 h · **cheapest of all** — no Persian-specific linguistic work at all | **8–12 h, 2 raters** — and unusually, not calibration but establishing the rubric is scoreable at all |
 | **#4 Verification** | **4–6 h** · every authored **bench outcome** re-derived, not just the keys — ~6 per probe item | 4–6 h · structural faults translate; check no bench entry splits into two checks in Persian | 8–12 h, 2 raters |
-| **#5 Delegation** | 3–4 h · every `truth` value independently re-derived | 2–3 h · **cheapest of the five** — the instrument is numeric | **none** — this tool has no judge |
+| **#5 Delegation** | 3–4 h · every `truth` value independently re-derived | 2–3 h · **cheapest of the three** — the instrument is numeric | **none** — this tool has no judge |
 | **#6 Monitoring** | **heaviest** · keys plus the answer-variant review (below) | **heaviest** · `s4` transcripts are **re-authored, not translated** | none |
 
-Four things worth knowing before any of it is scheduled.
-
-**#3's rater pass is not judge calibration.** Every other pass in this file exists to check a model against humans. This one exists because **no validated decomposition rubric exists in the published literature** (`tracker/canon/06-specs/03-decomposition-lab.md` §1), so the pass establishes whether two people can agree on the rubric at all. Publish the agreement figure either way — a low one is a finding about the rubric, not a failed task.
+Three things worth knowing before any of it is scheduled.
 
 **#4's verification is larger than its item count suggests.** Eighteen probe items carry roughly six bench entries each, and **every authored outcome has to be re-derived**, not just the answer key. An outcome that is wrong produces a confident wrong score with no symptom — the same silent-failure shape as item 1, multiplied.
 
@@ -97,6 +131,7 @@ Four things worth knowing before any of it is scheduled.
 
 ## Changelog
 
+- **0.4 · 2026-08-16** — Decomposition's human-work items (key verification, Persian review, rubric-agreement rater pass) promoted from the anticipated table to live items 4–6, per the build plan's own instruction to do this when Phase 2 lands — a day late (Phase 2 landed 2026-08-15), caught while Phase 5 confirmed live that all 18 probe items are still `key-unverified`. The anticipated table's own section renumbered §5 → §8 to make room, and now covers three tools, not four. Decided item renumbered 4 → 7 (nothing external referenced either number).
 - **0.3 · 2026-08-12** — §5 added: anticipated human work for the four specced-but-unbuilt packs (#3–#6), each triggered by its tool reaching Phase 2 rather than live now. Records that the cost is not uniform — #5 is the smallest job with the sharpest failure mode, #6's answer-variant review is the heaviest across all six and cannot be deferred past real use because attempts are immutable, and #3's rater pass establishes whether its rubric is scoreable at all rather than calibrating a judge.
 - **0.2 · 2026-08-01** — Item 4 decided: the reader is coming, so the reader-less state is temporary and nothing is re-scoped. Item 3 re-pointed at the credential rather than at the decision.
 - **0.1 · 2026-08-01** — Created with the four items outstanding after the Skills Engine build.
