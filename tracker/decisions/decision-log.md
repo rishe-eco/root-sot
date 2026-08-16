@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.9 · Status: living · 2026-08-15 · Owner: _root**
+**Version 0.10 · Status: living · 2026-08-15 · Owner: _root**
 
 ---
 
@@ -26,6 +26,16 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-15 | **add_decomposition_lab** | `SkillKey` gains `decomposition`; `SkillAttempt` gains `responseStructure`. First code for the **Decomposition Lab** (skill tool #3). See D-26. |
 
 ## 2. Key decisions
+
+### D-28 · Decomposition Lab frontend built, including the breakdown canvas — 2026-08-15
+
+Build plan Phase 4. `client/app/components/skills/{DecompositionLabPage,DecompositionSessionPage,BreakdownCanvas,RecomposeReveal,DecompositionRubricRail}.tsx`, routes under `/tools/skills/decomposition(/session)`, a third card on the Tools hub's Skills section, full `en`/`fa` content in the `decomposition.*` namespace. Verified end to end in-browser with no credential configured: arrangement (all six criteria scored), control (over-decomposition caught), and repair (diagnose-first, pre-seeded canvas, correct id-based fix scoring) all worked; confirmed RTL with Western digits intact when switching to `fa`.
+
+The breakdown canvas is a structured list-based tree editor rather than a drag-and-drop canvas — a deliberate scope call given the tool's actual requirement (enforced levels, not free-form nesting) doesn't need drag-and-drop to satisfy it. What the build plan does insist on, it keeps: no suggestion affordance anywhere (no autocomplete, no "generate a breakdown"), the whole locked server-side before any piece can exist, and containment/sequence/dependency rendered as three visually distinct notations (indentation, a numbered badge, a dashed chip) — asserted by test, not left to styling.
+
+**One in-browser test surfaced a real Phase 3 scoring gap, fixed on the spot:** a repair fix that only edits or removes pre-seeded pieces — never adding a fresh one, which is the ordinary case for the `overlap`/`missing_element`/`inverted_dependency` fault types — was scoring D2 (breadth-first index) at a flat 0 rather than treating it as not applicable. Since mastery requires *no* criterion at 0, that would have made every edit-in-place repair permanently ineligible for mastery credit. Fixed in `scoring.ts`: D2 is now `null` (not applicable) whenever a repair fix logs zero `node_added` events, the same "absence, not a zero" treatment the tool already gives every other unscored criterion.
+
+**Also settled: the D4 live badge shows the learner's own `doneWhen` text back to them once set, not the word "checkable."** The wireframe's own legend says the live badge must report absence only and never a green affirmation; an earlier pass had it toggling between "no done condition yet" and a neutral-styled "checkable" label, which is still an affirmation even un-styled. Showing the learner's own text is informational, not a verdict — nothing here can be farmed by clearing a warning, matching the plan's rule precisely.
 
 ### D-27 · Decomposition Lab's scoring engine, session service and GraphQL surface built — 2026-08-15
 
@@ -215,6 +225,8 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.10 · 2026-08-15** — D-28 added: **Decomposition Lab frontend built**, including the breakdown canvas (build plan Phase 4). Verified end to end in-browser with no credential configured, across all four item types, in both `en` and `fa`. Records a Phase 3 scoring gap the in-browser pass surfaced and fixed — D2 on a repair fix that only edits/removes pieces is now "not applicable" rather than a flat 0, which would have made edit-in-place repairs permanently ineligible for mastery — and a live-badge correction (the D4 badge shows the learner's own text, never the word "checkable").
+- **0.9 · 2026-08-15** — D-27 added: **Decomposition Lab's scoring engine, session service and GraphQL surface built** (build plan Phase 3). Records two decisions the build settled: D5 joins D3/D6 as judge-assisted on free-authored items (the spec's table only named D3/D6, but D5 has the identical node-identity-matching gap), and repair items were redesigned so node identity survives the fix, making repair fully key-scored with no judge at all.
 - **0.8 · 2026-08-15** — D-26 added: **Decomposition Lab build begins**, Phase 1a of `03b-decomposition-lab-build-plan.md` — `SkillKey` gains `decomposition`, `SkillAttempt` gains `responseStructure` (migration `add_decomposition_lab`). Records the build's scope for this pass (phases 1–5 and 7; judge and human-review phases deferred) and that `fa` content ships alongside `en` as `reviewStatus: "draft"`, same as Feelings & Needs.
 - **0.7 · 2026-08-15** — D-25 added: **calendar system is its own setting**, inherited from language only until first chosen, stored client-side with no column (D-22's reasoning). Records the two things the implementation makes permanent — wire formats stay Gregorian, and format strings do not port between calendars — and the removal of `react-big-calendar` and `react-day-picker`, neither of which could express a Jalali month. No migration.
 - **0.6 · 2026-08-11** — D-24 added: Delegation Lab's advisor sequence ships at **three rounds** behind a `G6_ROUNDS` constant, measuring the documented algorithm-aversion *drop* and deferring the undocumented *recovery* pattern to a research question answerable from the three-round data. No migration; the tool itself is unbuilt.
