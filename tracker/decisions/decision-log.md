@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.11 · Status: living · 2026-08-16 · Owner: _root**
+**Version 0.12 · Status: living · 2026-08-16 · Owner: _root**
 
 ---
 
@@ -26,6 +26,20 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-15 | **add_decomposition_lab** | `SkillKey` gains `decomposition`; `SkillAttempt` gains `responseStructure`. First code for the **Decomposition Lab** (skill tool #3). See D-26. |
 
 ## 2. Key decisions
+
+### D-30 · Real-work breakdown export — the one flow that writes real Tracker data — 2026-08-16
+
+Build plan Phase 7, the last decomposition-lab phase in this pass's scope besides human work. A learner picks one of their own Goals or Projects, decomposes it with the same whole-lock/canvas mechanics every authored item uses, and — only after reviewing the result item by item — may write the pieces into Tracker as real Projects/Actions.
+
+**No authored item means no key, and that changes what can be scored.** `assembleRealWorkScore` (new, in `scoring.ts`) reuses exactly the same detector/instrumentation paths a `breakdown` item's D1/D2/D4 use; D3, D5 and D6 are not "unscored until a judge exists" the way a breakdown item's are — they are **permanently** unscoreable for real material, because there is nothing authored to compare overlap, dependency or coverage against. The rubric rail shows this the same way it shows every other unscored criterion: the words "not scored," never a zero.
+
+**Containment maps onto the hierarchy Tracker already has** (`03-decomposition-lab.md` §9): decomposing a **Goal** turns its depth-1 pieces into new Projects under that goal, and each piece's depth-2 children into Actions under *that* new Project — mirroring the tree exactly. Decomposing a **Project** turns every selected piece into a flat Action under it, since Tracker's own Action model has no further nesting; that flattening is not new information loss, only **dependency edges are** — Tracker has no dependency model at all, and the export screen states this prominently and unconditionally (not only when the learner happens to have marked one), per the plan's explicit instruction that this is where dependency information actually dies. A piece's `doneWhen` survives as an attached `Note` on the created row rather than being silently dropped, since nothing in Tracker's schema holds a done condition directly.
+
+**Handled with care, per the plan's own framing:** every write is itemised (a checkbox per piece, default unchecked — true opt-in, not opt-out), reversible (an ordinary Project/Action/Note the learner can edit or delete like anything else — no special "undo" machinery needed), and never automatic (nothing is written until `exportDecompositionBreakdown` is called with the exact node ids, gated behind a `ConfirmDialog` per convention #9). A second export attempt on the same attempt is rejected outright rather than risking a duplicate write; redoing it means deleting what was created and exporting again, deliberately, not an automatic replace.
+
+**A latent aggregation bug found and fixed while wiring this in:** `getDecompositionProgress`'s attempt query had no `mode` filter at all, so real-work (`open_practice`) attempts would have silently polluted `criterionMeans`, the breadth-first-index trend, and `totalAttempts` the moment this phase shipped — exactly the "never counts toward mastery or probes" guarantee the spec promises, broken by omission. Fixed by excluding `open_practice` from that query; verified by a regression test.
+
+Verified live end to end: created a real Goal, decomposed it into two pieces with one dependency edge between them, confirmed D1/D2/D4 scored and D3/D5/D6 correctly read "not scored," exported through the `ConfirmDialog`, and confirmed in the dev database that two real Projects were created under the real Goal with the `doneWhen` text attached as a Note — in both `en` and `fa`.
 
 ### D-29 · Skill probes built as shared engine surface — baseline, post, and the 7-day delayed check — 2026-08-16
 
@@ -242,6 +256,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.12 · 2026-08-16** — D-30 added: **real-work breakdown export built** (build plan Phase 7) — the one flow in this build that writes real Tracker data. Itemised, opt-in, reversible, never automatic; dependency edges are the one thing that doesn't survive the export, stated on-screen unconditionally. Fixes a latent aggregation bug found while wiring it in: `getDecompositionProgress` had no `mode` filter, so real-work attempts would have polluted mastery-adjacent totals the moment this phase shipped. Verified live end to end, `en` and `fa`.
 - **0.11 · 2026-08-16** — D-29 added: **skill probes built as shared engine surface** (build plan Phase 5) — `probes.ts` is new and skill-agnostic, so Evidence and Clarity inherit the same baseline/post/delayed container Decomposition does. Fixes two latent gaps found while formalizing the baseline: `assessmentCompletedAt` had never been written by anything, and `skipSkillAssessment` was hardcoded to evidence regardless of the skillKey passed in (now generalized). Assessment-mode item serving now requires a `probeId`, comparability is enforced server-side (`SkillProbeEntry.comparable`), and the delayed probe schedules itself 7 days out when post completes. Verified live that all three tools correctly refuse to open a probe today (every item is still `key-unverified`, Phase 8 pending) and exercised the full lifecycle in `skillProbes.integration.test.ts` with readiness mocked open.
 - **0.10 · 2026-08-15** — D-28 added: **Decomposition Lab frontend built**, including the breakdown canvas (build plan Phase 4). Verified end to end in-browser with no credential configured, across all four item types, in both `en` and `fa`. Records a Phase 3 scoring gap the in-browser pass surfaced and fixed — D2 on a repair fix that only edits/removes pieces is now "not applicable" rather than a flat 0, which would have made edit-in-place repairs permanently ineligible for mastery — and a live-badge correction (the D4 badge shows the learner's own text, never the word "checkable").
 - **0.9 · 2026-08-15** — D-27 added: **Decomposition Lab's scoring engine, session service and GraphQL surface built** (build plan Phase 3). Records two decisions the build settled: D5 joins D3/D6 as judge-assisted on free-authored items (the spec's table only named D3/D6, but D5 has the identical node-identity-matching gap), and repair items were redesigned so node identity survives the fix, making repair fully key-scored with no judge at all.
