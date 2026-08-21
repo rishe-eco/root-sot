@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.12 · Status: living · 2026-08-16 · Owner: _root**
+**Version 0.13 · Status: living · 2026-08-22 · Owner: _root**
 
 ---
 
@@ -24,8 +24,17 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-02 | **add_loop_sitting_completed_at** | Makes an open sitting distinguishable from a finished one, so the daily loop is resumable (convention #8). See D-21. |
 | 2026-08-02 | **drop_loopstate_frame_done** | Removes the `frameDone` mirror; the Day-1 frame's completion is derived from `FrameCompletion`, which is the event. See D-21. |
 | 2026-08-15 | **add_decomposition_lab** | `SkillKey` gains `decomposition`; `SkillAttempt` gains `responseStructure`. First code for the **Decomposition Lab** (skill tool #3). See D-26. |
+| 2026-08-22 | **add_verification_lab** | `SkillKey` gains `verification`; `SkillModuleProgress` gains `rung`; `SkillAttempt` gains `rung`. First code for the **Verification Lab** (skill tool #4). See D-31. |
 
 ## 2. Key decisions
+
+### D-31 · Verification Lab build begins — 2026-08-22
+
+Build plan Phase 1 of `04b-verification-lab-build-plan.md`. `SkillKey` gains `verification`; `SkillModuleProgress` gains `rung String @default("assisted")` and `SkillAttempt` gains `rung String?` (migration `add_verification_lab`). Records the build's scope for this pass — phases 1–5 and 7, same as Decomposition Lab; the judge phase (Phase 6, recall–recognition agreement) and the human-work phase (Phase 8: key verification, Persian review, rubric-agreement rater pass) are deferred and will be added to `team/open-work.md` once Phase 2 lands.
+
+**Checked before starting, per the build plan's own §1 branch:** Decomposition Lab had already shipped, so `SkillAttempt.responseStructure`, the skill-agnostic `services/skills/probes.ts`, and the cross-skill fix to `skillDueReviews` all already existed — reused unchanged. This build's Phase 1 is therefore smaller than the build plan's worst-case: only the enum value and the two `rung` columns needed a migration.
+
+**`rung` is a stamped column on `SkillAttempt`, not derived from the module's current rung.** A module's rung changes over time as a learner is promoted; deriving an attempt's rung from that would retroactively relabel history and silently join two different instruments (assisted has a cost ceiling, unassisted does not — §4a of the spec) into one trend line. Same reasoning as `SkillCheckEvent`'s server-stamped `offsetMs`: a measurement that can change after the fact is not a measurement.
 
 ### D-30 · Real-work breakdown export — the one flow that writes real Tracker data — 2026-08-16
 
@@ -256,6 +265,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.13 · 2026-08-22** — D-31 added: **Verification Lab build begins** (build plan Phase 1) — `SkillKey` gains `verification`, `SkillModuleProgress` gains `rung`, `SkillAttempt` gains `rung` (migration `add_verification_lab`). Scope for this pass is phases 1–5 and 7, matching Decomposition Lab's pattern; the judge phase and the human-work phase are deferred. Confirmed before starting that Decomposition Lab had already paid for `responseStructure`, skill-agnostic `probes.ts`, and the cross-skill `skillDueReviews` fix, so this build's migration is only the enum value plus the two `rung` columns.
 - **0.12 · 2026-08-16** — D-30 added: **real-work breakdown export built** (build plan Phase 7) — the one flow in this build that writes real Tracker data. Itemised, opt-in, reversible, never automatic; dependency edges are the one thing that doesn't survive the export, stated on-screen unconditionally. Fixes a latent aggregation bug found while wiring it in: `getDecompositionProgress` had no `mode` filter, so real-work attempts would have polluted mastery-adjacent totals the moment this phase shipped. Verified live end to end, `en` and `fa`.
 - **0.11 · 2026-08-16** — D-29 added: **skill probes built as shared engine surface** (build plan Phase 5) — `probes.ts` is new and skill-agnostic, so Evidence and Clarity inherit the same baseline/post/delayed container Decomposition does. Fixes two latent gaps found while formalizing the baseline: `assessmentCompletedAt` had never been written by anything, and `skipSkillAssessment` was hardcoded to evidence regardless of the skillKey passed in (now generalized). Assessment-mode item serving now requires a `probeId`, comparability is enforced server-side (`SkillProbeEntry.comparable`), and the delayed probe schedules itself 7 days out when post completes. Verified live that all three tools correctly refuse to open a probe today (every item is still `key-unverified`, Phase 8 pending) and exercised the full lifecycle in `skillProbes.integration.test.ts` with readiness mocked open.
 - **0.10 · 2026-08-15** — D-28 added: **Decomposition Lab frontend built**, including the breakdown canvas (build plan Phase 4). Verified end to end in-browser with no credential configured, across all four item types, in both `en` and `fa`. Records a Phase 3 scoring gap the in-browser pass surfaced and fixed — D2 on a repair fix that only edits/removes pieces is now "not applicable" rather than a flat 0, which would have made edit-in-place repairs permanently ineligible for mastery — and a live-badge correction (the D4 badge shows the learner's own text, never the word "checkable").
