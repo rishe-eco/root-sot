@@ -2,7 +2,7 @@
 
 *The queue. Work that engineering cannot finish because it needs human judgement, a native speaker, or a decision. Each item states its blocker and what it unblocks. Delete items when done — the decision logs are the permanent record.*
 
-**Version 0.4 · Status: living · 2026-08-16 · Owner: _root**
+**Version 0.5 · Status: living · 2026-08-22 · Owner: _root**
 
 ---
 
@@ -16,11 +16,16 @@
 | 4 | Verify 18 Decomposition probe items' keys | anyone careful | 2–3 h | Decomposition scored baseline |
 | 5 | Persian native review of the Decomposition pack | Persian reviewer | 3–4 h | Decomposition Persian off `draft` |
 | 6 | Decomposition rubric-agreement rater pass | 2 raters | 8–12 h | Establishes the rubric is scoreable at all |
-| ~~7~~ | ~~Decide whether Clarity ships permanently reader-less~~ | founder | — | **Decided 2026-08-01 — see below** |
+| 7 | Verify 18 Verification probe items' bench outcomes | anyone careful | 4–6 h | Verification scored baseline |
+| 8 | Persian native review of the Verification pack | Persian reviewer | 4–6 h | Verification Persian off `draft` |
+| 9 | Verification rubric-agreement rater pass | 2 raters | 8–12 h | Establishes the rubric's key matches human judgement |
+| ~~10~~ | ~~Decide whether Clarity ships permanently reader-less~~ | founder | — | **Decided 2026-08-01 — see below** |
 
-Items 1–6 are independent of each other. **§8 is a different category** — anticipated work for the three tools that still have no code. It is listed so the cost is visible when build order is decided, not because anything is blocked today.
+Items 1–9 are independent of each other. **§11 is a different category** — anticipated work for the two tools that still have no code. It is listed so the cost is visible when build order is decided, not because anything is blocked today.
 
-**Items 4–6 were promoted out of §8 on 2026-08-16**, when the Decomposition Lab build (phases 1–5) confirmed live that all 18 probe items are still `key-unverified` — every one of the three skill tools' Lab pages correctly refuses to open a scored probe today, which is what makes this queue no longer anticipated for Decomposition. This should have moved when Phase 2 (the content pack) landed on 2026-08-15, per the build plan's own instruction; it is done now rather than back-dated.
+**Items 4–6 were promoted out of §11 on 2026-08-16**, when the Decomposition Lab build (phases 1–5) confirmed live that all 18 probe items are still `key-unverified` — every one of the four skill tools' Lab pages correctly refuses to open a scored probe today, which is what makes this queue no longer anticipated for Decomposition. This should have moved when Phase 2 (the content pack) landed on 2026-08-15, per the build plan's own instruction; it is done now rather than back-dated.
+
+**Items 7–9 were promoted out of §11 on 2026-08-22**, the same way and for the same reason: the Verification Lab build's Phase 2 landed 2026-08-22 and confirmed live that all 18 of its probe items are `key-unverified` too.
 
 ---
 
@@ -91,7 +96,37 @@ Eighteen probe items, each an `arrangement` or `control` type item, checked agai
 
 ---
 
-## 7 · ~~Decide: does Clarity ship permanently without a reader?~~ — decided
+## 7 · Verify the Verification probe items' bench outcomes
+
+**Blocked on:** anyone careful with the item bank — no Persian and no rating judgement needed.
+**Unblocks:** Verification Lab's scored baseline/post/delayed probes. Practice already works and is unaffected — every module completes and scores with no credential.
+
+Eighteen probe items, each carrying six authored bench entries. Unlike a simple answer key, **every authored outcome has to be re-derived, not just the correctness of a single answer** (`04-verification-lab.md` §9, §11) — confirm each check's `costSeconds`, whether it's genuinely `independent` of the artifact's own source, whether it would actually be `discriminating` if the artifact were wrong, and that the outcome text shown on selection is accurate. Roughly six re-derivations per item, ~108 total.
+
+**Why it can't be skipped, same shape as item 1 and item 4:** a wrong bench outcome or a wrong `discriminating`/`independent` tag does not fail loudly — it silently mis-scores V2, V3 and V4 on every future attempt of that item, which is exactly the failure this tool exists to teach people to catch. Stamp `keyVerifiedAt` per item once confirmed.
+
+---
+
+## 8 · Persian native review of the Verification pack
+
+**Blocked on:** the Persian reviewer.
+**Unblocks:** the claim that Verification's Persian is equal in quality rather than merely present. Persian users can practise today; the pack is marked `reviewStatus: "draft"` in the UI, honestly.
+
+**Cheap, for the same structural reason Decomposition's Persian work is cheap** (`04-verification-lab.md` §9): fault classes are units, magnitudes, boundaries and inverted logic — locale-invariant — so `fa` is a translation of a locale-invariant spec, not a re-authoring. No seeded fault needs to survive translation the way Evidence's do, no rubric criterion needs linguistic rework the way Clarity's R4/R6 do. The review is a fluency and register pass over 54 items' worth of artifacts, bench-check labels and outcomes, and element labels — plus one specific check: that no bench entry reads as two separate checks once translated, since a check that splits in Persian is a broken key, not a translation nit.
+
+---
+
+## 9 · Verification rubric-agreement rater pass
+
+**Blocked on:** two people willing to score independently and then reconcile — **not** on a credential. Every criterion here resolves against an authored key or an instrumented event (spec §4), so this is not calibrating a judge; it is establishing whether the *key itself* matches what two independent humans would conclude applying the same rubric.
+
+**Unblocks:** treating the strict composite, and the mastery gate built on it, as measurement rather than an assumption. Until this runs, the rubric's validity rests on the authors' own judgement alone.
+
+~20 double-scored items per criterion, reconciled, per locale — six criteria, so roughly 120 judgements a side, the same shape as item 3's and item 6's rater passes. Publish the agreement figure whatever it turns out to be; a low one is a finding about the rubric — particularly V1 (oracle named) and V2 (independence), the two criteria closest to judgement calls rather than arithmetic — not a failed task.
+
+---
+
+## 10 · ~~Decide: does Clarity ship permanently without a reader?~~ — decided
 
 **Decided 2026-08-01 (founder): no. The reader is coming; the reader-less state is temporary.**
 
@@ -105,21 +140,18 @@ What this leaves outstanding is a dependency, not a question: **Clarity Lab's me
 
 ---
 
-## 8 · Anticipated — the three specced-but-unbuilt packs
+## 11 · Anticipated — the two specced-but-unbuilt packs
 
-**Nothing here is blocked today, because none of these packs exist yet.** Each item becomes live when its tool reaches **Phase 2** of its build plan — the content phase — and not before. Listed now for one reason: the human cost is not uniform across the three, and it is cheaper to know that before choosing what to build than after.
+**Nothing here is blocked today, because neither pack exists yet.** Each item becomes live when its tool reaches **Phase 2** of its build plan — the content phase — and not before. Listed now for one reason: the human cost is not uniform across the two, and it is cheaper to know that before choosing what to build than after.
 
-**Decomposition (#3) was here until 2026-08-16** — its content pack landed 2026-08-15 and its build reached Phase 5 the next day, so its key-verification, Persian review, and rater-pass items are promoted to items 4–6 above, live not anticipated.
+**Decomposition (#3) was here until 2026-08-16, and Verification (#4) until 2026-08-22** — each tool's content pack landed and its build reached Phase 5 within a day or so, so their key-verification, Persian review, and rater-pass items are promoted to items 4–6 and 7–9 above, live not anticipated.
 
 | Tool | Key verification | Persian | Rater pass |
 |---|---|---|---|
-| **#4 Verification** | **4–6 h** · every authored **bench outcome** re-derived, not just the keys — ~6 per probe item | 4–6 h · structural faults translate; check no bench entry splits into two checks in Persian | 8–12 h, 2 raters |
-| **#5 Delegation** | 3–4 h · every `truth` value independently re-derived | 2–3 h · **cheapest of the three** — the instrument is numeric | **none** — this tool has no judge |
+| **#5 Delegation** | 3–4 h · every `truth` value independently re-derived | 2–3 h · **cheapest of the two** — the instrument is numeric | **none** — this tool has no judge |
 | **#6 Monitoring** | **heaviest** · keys plus the answer-variant review (below) | **heaviest** · `s4` transcripts are **re-authored, not translated** | none |
 
-Three things worth knowing before any of it is scheduled.
-
-**#4's verification is larger than its item count suggests.** Eighteen probe items carry roughly six bench entries each, and **every authored outcome has to be re-derived**, not just the answer key. An outcome that is wrong produces a confident wrong score with no symptom — the same silent-failure shape as item 1, multiplied.
+Two things worth knowing before any of it is scheduled.
 
 **#5's is the smallest job with the sharpest failure.** A wrong `truth` value inverts advice quality and **reverses the headline metric**, silently. Small, and not skippable.
 
@@ -131,6 +163,7 @@ Three things worth knowing before any of it is scheduled.
 
 ## Changelog
 
+- **0.5 · 2026-08-22** — Verification's human-work items (key/bench-outcome verification, Persian review, rubric-agreement rater pass) promoted from the anticipated table to live items 7–9, the same day its Phase 2 content pack landed and Phase 5 confirmed live that all 18 probe items are `key-unverified`. The anticipated table now covers only Delegation and Monitoring, renumbered §8 → §11 to make room. Decided item renumbered 7 → 10.
 - **0.4 · 2026-08-16** — Decomposition's human-work items (key verification, Persian review, rubric-agreement rater pass) promoted from the anticipated table to live items 4–6, per the build plan's own instruction to do this when Phase 2 lands — a day late (Phase 2 landed 2026-08-15), caught while Phase 5 confirmed live that all 18 probe items are still `key-unverified`. The anticipated table's own section renumbered §5 → §8 to make room, and now covers three tools, not four. Decided item renumbered 4 → 7 (nothing external referenced either number).
 - **0.3 · 2026-08-12** — §5 added: anticipated human work for the four specced-but-unbuilt packs (#3–#6), each triggered by its tool reaching Phase 2 rather than live now. Records that the cost is not uniform — #5 is the smallest job with the sharpest failure mode, #6's answer-variant review is the heaviest across all six and cannot be deferred past real use because attempts are immutable, and #3's rater pass establishes whether its rubric is scoreable at all rather than calibrating a judge.
 - **0.2 · 2026-08-01** — Item 4 decided: the reader is coming, so the reader-less state is temporary and nothing is re-scoped. Item 3 re-pointed at the credential rather than at the decision.
