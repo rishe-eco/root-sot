@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.13 · Status: living · 2026-08-22 · Owner: _root**
+**Version 0.14 · Status: living · 2026-08-22 · Owner: _root**
 
 ---
 
@@ -27,6 +27,16 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-22 | **add_verification_lab** | `SkillKey` gains `verification`; `SkillModuleProgress` gains `rung`; `SkillAttempt` gains `rung`. First code for the **Verification Lab** (skill tool #4). See D-31. |
 
 ## 2. Key decisions
+
+### D-32 · Verification Lab content pack and validator — 2026-08-22
+
+Build plan Phase 2. 36 pool items (6 per module, meeting the pool-floor rules — ≥2 controls including ≥1 `CORRECT` and ≥1 `NO_ORACLE`, ≥4 distinct oracle classes) plus 3 probe forms of 6 items each (4 faulty + 2 control, matched across forms on profile and difficulty per module slot), `en` + `fa`, 54 items total — the same scale as Decomposition's pack. Every item is a six-entry oracle bench: two entries are always the costumes (self-critique, stated confidence) — never independent, never discriminating — and four are item-specific, following a fixed shape (one cheap discriminating check, one true-but-irrelevant "near-miss," one costlier discriminating check, one irrelevant filler) so `cheapestSufficientCost` and the ritual-state algorithm have something real to compute against on every item.
+
+**Two gaps in the build plan's own validator table needed resolving, not just implementing.** First: `bench-no-discriminating` (≥1 discriminating entry) is stated unconditionally, but a `NO_ORACLE` item is defined as one where *nothing on the bench can settle the claim* — applying the rule literally would make every `NO_ORACLE` item a validator error. Resolved by exempting `NO_ORACLE` from that rule and adding `no-oracle-bears-on-claim` in its place: every bench entry on a `NO_ORACLE` item must be non-discriminating **and** not bear on the claim, so the item is unsolvable by construction rather than by omission. Second: `keyVerdict` was left free-form per item in the build plan's type; pinned instead to a single profile→verdict mapping (`CORRECT`→supported, `NO_ORACLE`→cannot_verify, `STALE_ASSUMPTION`→outdated, every other faulty profile→unsupported) so the mapping is authored once, in code, with a validator rule (`verdict-profile-mismatch`) rather than re-decided per item with room to drift — the same reasoning that already made `oracleClass` derived rather than authored.
+
+**One simplification over the wireframe, recorded rather than silently taken:** `v3-falsify`'s practice items use the same six-entry bench as every other module, not the wireframe's lighter three-check, ~30-second drill format. The build plan's `VerificationItemSpec` has no schema for a second, lighter item shape, and inventing one would mean two validators and two scoring paths for one instrument. The wireframe's speed is a presentation detail the frontend can still honour (a fast module flow) without a second content schema underneath it.
+
+**A validator gap found while building it, not by design:** the locale-parity loop originally skipped `en` entirely (it only compared *other* locales against `en` as the base), so a mismatched checkId between `en`'s surface and its own spec would never be caught — and one was, in `v6-unverifiable-pool-2`, where `en`'s bench labels didn't match the checkIds actually authored in `spec.ts`. Fixed by running the same empty-surface / bench-label checks against every locale, `en` included, not just the non-base ones.
 
 ### D-31 · Verification Lab build begins — 2026-08-22
 
@@ -265,6 +275,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.14 · 2026-08-22** — D-32 added: **Verification Lab content pack and validator built** (build plan Phase 2) — 54 items (`en`+`fa`), every one a six-entry oracle bench with the two costumes always present. Resolves two gaps in the build plan's validator table (a `NO_ORACLE` exemption from `bench-no-discriminating`, and `keyVerdict` pinned to profile by a single mapping) and one simplification over the wireframe (`v3-falsify` uses the same six-entry bench as every other module rather than a second, lighter item schema). Fixes a validator gap found while building it: the locale-parity check had never actually validated `en`'s own surface against its own spec.
 - **0.13 · 2026-08-22** — D-31 added: **Verification Lab build begins** (build plan Phase 1) — `SkillKey` gains `verification`, `SkillModuleProgress` gains `rung`, `SkillAttempt` gains `rung` (migration `add_verification_lab`). Scope for this pass is phases 1–5 and 7, matching Decomposition Lab's pattern; the judge phase and the human-work phase are deferred. Confirmed before starting that Decomposition Lab had already paid for `responseStructure`, skill-agnostic `probes.ts`, and the cross-skill `skillDueReviews` fix, so this build's migration is only the enum value plus the two `rung` columns.
 - **0.12 · 2026-08-16** — D-30 added: **real-work breakdown export built** (build plan Phase 7) — the one flow in this build that writes real Tracker data. Itemised, opt-in, reversible, never automatic; dependency edges are the one thing that doesn't survive the export, stated on-screen unconditionally. Fixes a latent aggregation bug found while wiring it in: `getDecompositionProgress` had no `mode` filter, so real-work attempts would have polluted mastery-adjacent totals the moment this phase shipped. Verified live end to end, `en` and `fa`.
 - **0.11 · 2026-08-16** — D-29 added: **skill probes built as shared engine surface** (build plan Phase 5) — `probes.ts` is new and skill-agnostic, so Evidence and Clarity inherit the same baseline/post/delayed container Decomposition does. Fixes two latent gaps found while formalizing the baseline: `assessmentCompletedAt` had never been written by anything, and `skipSkillAssessment` was hardcoded to evidence regardless of the skillKey passed in (now generalized). Assessment-mode item serving now requires a `probeId`, comparability is enforced server-side (`SkillProbeEntry.comparable`), and the delayed probe schedules itself 7 days out when post completes. Verified live that all three tools correctly refuse to open a probe today (every item is still `key-unverified`, Phase 8 pending) and exercised the full lifecycle in `skillProbes.integration.test.ts` with readiness mocked open.
