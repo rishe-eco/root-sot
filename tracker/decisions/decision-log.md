@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.14 · Status: living · 2026-08-22 · Owner: _root**
+**Version 0.15 · Status: living · 2026-08-22 · Owner: _root**
 
 ---
 
@@ -27,6 +27,25 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-22 | **add_verification_lab** | `SkillKey` gains `verification`; `SkillModuleProgress` gains `rung`; `SkillAttempt` gains `rung`. First code for the **Verification Lab** (skill tool #4). See D-31. |
 
 ## 2. Key decisions
+
+### D-33 · Verification Lab scoring engine, session service and GraphQL — 2026-08-22
+
+Build plan Phase 3. `services/skills/verification/{detectors,metrics,scoring,verificationSession}.ts`, own GraphQL types per the Clarity/Decomposition precedent, wired into `mutations.ts`/`query.ts`/`typeResolvers.ts`.
+
+**The spec gives exact algorithms for V3 (ritual state) and V4 (cost), and states what V1/V2/V5/V6 *mean* without saying how to compute them.** Same shape as the gap Decomposition's build plan left open for a few criteria — resolved here, deterministically, against the authored key and instrumented event order, documented in `detectors.ts`'s header rather than buried in a conditional:
+
+- **V1 (oracle named)** — level 2 requires the oracle named before any check *and* at least one check actually run bearing on the claim. On a `NO_ORACLE` item, where nothing on the bench can ever bear on the claim by the content validator's own rule, V1 instead scores against the eventual verdict: naming an oracle and then correctly closing on `cannot_verify` **is** the oracle move that item asks for.
+- **V2 (independence)** — scored against which checks were actually run; a `NO_ORACLE` item scored correctly (`cannot_verify`) earns V2=2 regardless of what non-independent checks were poked at alongside it, honouring the rubric's own "say so rather than substitute a dependent check" clause.
+- **V5 (localisation)** — `null` (inapplicable, not zero) on `CORRECT`/`NO_ORACLE` items, the same "unscored ≠ zero" treatment Decomposition gives a criterion with nothing to measure.
+- **V3 itself collapses to a binary** (0 or 2, never 1): the rubric's level 1 ("discriminates only for part of the claim") has no signal in the ritual-state algorithm the build plan actually specifies, so V3 tracks `ritualState` directly. This mirrors the build plan's own instruction that the strict composite treats V1/V3 as binary, applied one level down into V3's own scoring.
+
+**A structural consequence worth stating plainly: a `NO_ORACLE` item can never score "strict."** Strict composite requires V3=2, and nothing on a `NO_ORACLE` item ever discriminates by construction — V3 is 0 whether or not a check was run. This isn't a gap; the mastery rule (spec §7) requires strict on **5 of 6**, not 6 of 6, and every module's pool carries exactly one `NO_ORACLE` control — the tolerance and the pool shape fit each other.
+
+**One assisted-rung number the spec deliberately left unspecified: the hard ceiling itself.** Set to 2x the item's cheapest sufficient check (`ASSISTED_CEILING_MULTIPLE`), or a flat 15s on a `NO_ORACLE` item where there is no discriminating entry to multiply — chosen to match the same 2x figure the mastery rule already uses for cost ratio, rather than inventing an unrelated constant. Named and isolated in `metrics.ts` for the same reason `V4_NEAR_RATIO` is: expect to tune it once real use exists.
+
+**One simplification carried over from Phase 2, restated here because it shapes the session service too:** `v3-falsify` items use the same six-entry bench and full oracle/verdict/localisation flow as every other module — there is no second, lighter three-check drill code path.
+
+Verified: 11 integration tests (bench-leak payload shape, the oracle-before-check lock, the assisted-rung ceiling, a full unassisted-rung path end to end, rejecting a second commit, the `NO_ORACLE` control both with and without a check run, and the required fixture — a correct verdict reached by ritual scores strict 0, V3 0, ritual state `none-could-fail`) plus 20 scoring/mastery/promotion unit tests.
 
 ### D-32 · Verification Lab content pack and validator — 2026-08-22
 
@@ -275,6 +294,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.15 · 2026-08-22** — D-33 added: **Verification Lab scoring engine, session service and GraphQL surface built** (build plan Phase 3). Resolves the algorithm gap the build plan left for V1/V2/V5/V6 (spelled out for V3/V4 only): V1 and V2 score against the eventual verdict on `NO_ORACLE` items rather than against a claim nothing can bear on; V5 is null (inapplicable) on control items; V3 collapses to a binary tracking the ritual-state algorithm directly. Records that a `NO_ORACLE` item can never score "strict" by construction (V3 requires a discriminating check, and none exists on that profile) — not a gap, since mastery only requires 5 of 6 and every pool carries exactly one such control. Sets the assisted rung's hard ceiling at 2x the cheapest sufficient check, matching the mastery rule's own cost-ratio figure. Verified with 11 integration tests (including the required ritual fixture) and 20 scoring/mastery/promotion unit tests.
 - **0.14 · 2026-08-22** — D-32 added: **Verification Lab content pack and validator built** (build plan Phase 2) — 54 items (`en`+`fa`), every one a six-entry oracle bench with the two costumes always present. Resolves two gaps in the build plan's validator table (a `NO_ORACLE` exemption from `bench-no-discriminating`, and `keyVerdict` pinned to profile by a single mapping) and one simplification over the wireframe (`v3-falsify` uses the same six-entry bench as every other module rather than a second, lighter item schema). Fixes a validator gap found while building it: the locale-parity check had never actually validated `en`'s own surface against its own spec.
 - **0.13 · 2026-08-22** — D-31 added: **Verification Lab build begins** (build plan Phase 1) — `SkillKey` gains `verification`, `SkillModuleProgress` gains `rung`, `SkillAttempt` gains `rung` (migration `add_verification_lab`). Scope for this pass is phases 1–5 and 7, matching Decomposition Lab's pattern; the judge phase and the human-work phase are deferred. Confirmed before starting that Decomposition Lab had already paid for `responseStructure`, skill-agnostic `probes.ts`, and the cross-skill `skillDueReviews` fix, so this build's migration is only the enum value plus the two `rung` columns.
 - **0.12 · 2026-08-16** — D-30 added: **real-work breakdown export built** (build plan Phase 7) — the one flow in this build that writes real Tracker data. Itemised, opt-in, reversible, never automatic; dependency edges are the one thing that doesn't survive the export, stated on-screen unconditionally. Fixes a latent aggregation bug found while wiring it in: `getDecompositionProgress` had no `mode` filter, so real-work attempts would have polluted mastery-adjacent totals the moment this phase shipped. Verified live end to end, `en` and `fa`.
