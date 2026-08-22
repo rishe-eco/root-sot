@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.16 · Status: living · 2026-08-22 · Owner: _root**
+**Version 0.17 · Status: living · 2026-08-22 · Owner: _root**
 
 ---
 
@@ -27,6 +27,14 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-22 | **add_verification_lab** | `SkillKey` gains `verification`; `SkillModuleProgress` gains `rung`; `SkillAttempt` gains `rung`. First code for the **Verification Lab** (skill tool #4). See D-31. |
 
 ## 2. Key decisions
+
+### D-35 · Verification registered with skill probes — 2026-08-22
+
+Build plan Phase 5. `probes.ts`'s `summarizeAttempts` gains a `verification` branch — strict composite, ritual rate, and mean cost ratio, not a simple per-criterion mean, since a probe attempt is always scored on all six criteria at once (unlike Clarity/Decomposition, where a module trains one criterion). `getDueSkillProbes` now checks `verification` alongside the other three skills.
+
+**A real gap found, not by this phase's own tests, but by noticing what they couldn't have caught.** `enum SkillKey` in the GraphQL schema never gained a `verification` value across Phases 1–4 — every test in this build calls resolver functions directly (`mutationResolvers.startVerificationItem(...)`), which never validates arguments against the SDL, so the gap was invisible to the entire suite. A real `startSkillProbe(skillKey: verification, timepoint: baseline)` request would have been rejected by the GraphQL layer before ever reaching the resolver. Found while wiring this phase, fixed, and confirmed against the actual running server (`curl` against `/graphql`) rather than an in-process schema execution, after an unrelated dependency conflict (two resolved copies of the `graphql` package between `@graphql-tools/schema` and `apollo-server-express`) made the in-process route unworkable in this environment.
+
+Verified: 6 integration tests, including the full baseline→post→delayed sequence and the assertion that every probe attempt is stamped `rung: "unassisted"` regardless of the module's practice rung — the one property the whole two-rung design depends on for baseline/post/delayed to stay comparable.
 
 ### D-34 · Verification Lab frontend, including the oracle bench — 2026-08-22
 
@@ -302,6 +310,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.17 · 2026-08-22** — D-35 added: **Verification registered with skill probes** (build plan Phase 5). `probes.ts` gains a verification-specific totals branch (strict composite, ritual rate, mean cost ratio). Fixes a real gap invisible to every direct-resolver-call test in the build: `enum SkillKey` in the GraphQL schema never gained `verification`, so a real probe request would have been rejected at the schema layer — found and fixed while wiring this phase, confirmed against the live running server. Verified with 6 integration tests including the assertion that every probe attempt is stamped unassisted regardless of practice rung.
 - **0.16 · 2026-08-22** — D-34 added: **Verification Lab frontend built, including the oracle bench** (build plan Phase 4). Adds a `loadVerificationElements` mutation — an API surface the build plan didn't specify — so the assisted rung's element list is fetched fresh at the verdict step rather than shipped with the served item, keeping it out of application memory during check selection. Verified live end to end with no credential configured, `en` and `fa`, no console errors: ceiling enforcement, the unassisted two-step localisation flow, a `CORRECT` control, and a `NO_ORACLE` control's correct closure.
 - **0.15 · 2026-08-22** — D-33 added: **Verification Lab scoring engine, session service and GraphQL surface built** (build plan Phase 3). Resolves the algorithm gap the build plan left for V1/V2/V5/V6 (spelled out for V3/V4 only): V1 and V2 score against the eventual verdict on `NO_ORACLE` items rather than against a claim nothing can bear on; V5 is null (inapplicable) on control items; V3 collapses to a binary tracking the ritual-state algorithm directly. Records that a `NO_ORACLE` item can never score "strict" by construction (V3 requires a discriminating check, and none exists on that profile) — not a gap, since mastery only requires 5 of 6 and every pool carries exactly one such control. Sets the assisted rung's hard ceiling at 2x the cheapest sufficient check, matching the mastery rule's own cost-ratio figure. Verified with 11 integration tests (including the required ritual fixture) and 20 scoring/mastery/promotion unit tests.
 - **0.14 · 2026-08-22** — D-32 added: **Verification Lab content pack and validator built** (build plan Phase 2) — 54 items (`en`+`fa`), every one a six-entry oracle bench with the two costumes always present. Resolves two gaps in the build plan's validator table (a `NO_ORACLE` exemption from `bench-no-discriminating`, and `keyVerdict` pinned to profile by a single mapping) and one simplification over the wireframe (`v3-falsify` uses the same six-entry bench as every other module rather than a second, lighter item schema). Fixes a validator gap found while building it: the locale-parity check had never actually validated `en`'s own surface against its own spec.
