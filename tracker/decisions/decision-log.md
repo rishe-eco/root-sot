@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.15 · Status: living · 2026-08-22 · Owner: _root**
+**Version 0.16 · Status: living · 2026-08-22 · Owner: _root**
 
 ---
 
@@ -27,6 +27,14 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-22 | **add_verification_lab** | `SkillKey` gains `verification`; `SkillModuleProgress` gains `rung`; `SkillAttempt` gains `rung`. First code for the **Verification Lab** (skill tool #4). See D-31. |
 
 ## 2. Key decisions
+
+### D-34 · Verification Lab frontend, including the oracle bench — 2026-08-22
+
+Build plan Phase 4. `VerificationLabPage`, `VerificationSessionPage` (the rung-aware stage machine: oracle → bench → commit → localise → result), `OracleBench` and `VerificationReveal` — the two new components the wireframes called for.
+
+**One API surface the build plan didn't spell out: how the assisted rung's element list reaches the client.** The wireframe requires it on screen at the verdict step, but absent from the DOM during check selection — the served item can't carry it (that would put it in application memory for the entire bench stage, before the check-selection concern the rule exists to protect), and the commit call can't be the source either (assisted rung needs the picked `elementId` *in* that same call). Resolved with a dedicated `loadVerificationElements` mutation, called only when the learner reaches the verdict step — nothing before that holds the list at all, not merely un-rendered.
+
+Verified live end to end with no credential configured, in both `en` and `fa`, no console errors: the assisted-rung ceiling (disabled bench buttons client-side, a rejected mutation server-side if bypassed), the full unassisted two-step localisation flow (free text commits, then the list appears, then the pick scores), a `CORRECT` control's all-could-fail reveal, a `NO_ORACLE` control's correct `cannot_verify` closure with V3 correctly 0 (no check could discriminate an unverifiable claim), and the module-progress and probe-readiness banners reading correctly off the real (still `key-unverified`) content state.
 
 ### D-33 · Verification Lab scoring engine, session service and GraphQL — 2026-08-22
 
@@ -294,6 +302,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.16 · 2026-08-22** — D-34 added: **Verification Lab frontend built, including the oracle bench** (build plan Phase 4). Adds a `loadVerificationElements` mutation — an API surface the build plan didn't specify — so the assisted rung's element list is fetched fresh at the verdict step rather than shipped with the served item, keeping it out of application memory during check selection. Verified live end to end with no credential configured, `en` and `fa`, no console errors: ceiling enforcement, the unassisted two-step localisation flow, a `CORRECT` control, and a `NO_ORACLE` control's correct closure.
 - **0.15 · 2026-08-22** — D-33 added: **Verification Lab scoring engine, session service and GraphQL surface built** (build plan Phase 3). Resolves the algorithm gap the build plan left for V1/V2/V5/V6 (spelled out for V3/V4 only): V1 and V2 score against the eventual verdict on `NO_ORACLE` items rather than against a claim nothing can bear on; V5 is null (inapplicable) on control items; V3 collapses to a binary tracking the ritual-state algorithm directly. Records that a `NO_ORACLE` item can never score "strict" by construction (V3 requires a discriminating check, and none exists on that profile) — not a gap, since mastery only requires 5 of 6 and every pool carries exactly one such control. Sets the assisted rung's hard ceiling at 2x the cheapest sufficient check, matching the mastery rule's own cost-ratio figure. Verified with 11 integration tests (including the required ritual fixture) and 20 scoring/mastery/promotion unit tests.
 - **0.14 · 2026-08-22** — D-32 added: **Verification Lab content pack and validator built** (build plan Phase 2) — 54 items (`en`+`fa`), every one a six-entry oracle bench with the two costumes always present. Resolves two gaps in the build plan's validator table (a `NO_ORACLE` exemption from `bench-no-discriminating`, and `keyVerdict` pinned to profile by a single mapping) and one simplification over the wireframe (`v3-falsify` uses the same six-entry bench as every other module rather than a second, lighter item schema). Fixes a validator gap found while building it: the locale-parity check had never actually validated `en`'s own surface against its own spec.
 - **0.13 · 2026-08-22** — D-31 added: **Verification Lab build begins** (build plan Phase 1) — `SkillKey` gains `verification`, `SkillModuleProgress` gains `rung`, `SkillAttempt` gains `rung` (migration `add_verification_lab`). Scope for this pass is phases 1–5 and 7, matching Decomposition Lab's pattern; the judge phase and the human-work phase are deferred. Confirmed before starting that Decomposition Lab had already paid for `responseStructure`, skill-agnostic `probes.ts`, and the cross-skill `skillDueReviews` fix, so this build's migration is only the enum value plus the two `rung` columns.
