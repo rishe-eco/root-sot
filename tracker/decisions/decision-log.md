@@ -30,6 +30,24 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 
 ## 2. Key decisions
 
+### D-48 · Session self-audit records — the last phase in this pass's scope — 2026-08-23
+
+Build plan Phase 6: the retention feature (spec §8, item type 6) — the learner reviews one of their own real AI conversations against the four influence types this tool's transcripts are built from, and writes a short note on each.
+
+**Resolved what spec §8 leaves unlisted:** "the four influence types" are the four `PlantedInfluenceType` values already authored for s4/s5's transcripts — flattery, anchor, smuggled premise, agreement reversal — the only four-item taxonomy this tool has. **Single sitting, not two:** unlike Delegation's real-work record (D-42), there is no future outcome to wait for — the learner reviews a conversation that already happened, so `startMonitoringSelfAudit`/`submitMonitoringSelfAudit` still follow the engine's start/submit convention (one `SkillAttempt` row, created once, updated once) but both calls can happen back to back. `mode: open_practice`, excluded from every progress total; nothing scored, since there is no key for a learner's own real conversation. Writes nothing new into Tracker directly — saved through the existing `addQuickEntry`/`addNote` mutations, the same lighter pattern Verification's (D-36) and Delegation's (D-42) real-work records use.
+
+Verified: 3 integration tests (the four fixed question keys served in order, a second submission rejected, exclusion from `monitoringProgress` totals) plus a full live cycle — all four answers saved and displayed correctly, the missing-default-journal error surfacing correctly (D-36's lesson applied from the start, not found as a gap this time), and the empty-projects state rendering correctly for a fresh account.
+
+**This completes the pass's full scope: Phases 1–6.** Only Phase 7 (human content review — key verification, answer-variant review, Persian `s4` re-authoring) and Phase 8 (`skillCrossExport`, spec-marked P2) remain, both out of scope for this pass and tracked in `team/open-work.md`.
+
+### D-47 · Monitoring registered with skill probes — 2026-08-23
+
+Build plan Phase 5. `probes.ts` gains real `monitoring` branches in `probeReadinessFor`, `loadPackInfo`, `summarizeAttempts`, and the `getDueSkillProbes` skill list — before this, any call for it silently fell through to the file's final unconditional branch (Verification's content), the exact D-35-shaped gap flagged proactively in Phase 2's `MODULE_KEYS` comment. Confirmed live before the fix (`monitoringProgress.probeBlockers` reported 18 items — Verification's count) and after (27, monitoring's own: 6 s1 + 18 s3 + 2 s4 + 1 s5 probe-form items).
+
+`summarizeAttempts`'s monitoring branch computes this form's own resolution/performance pair from its 6 s3-resolution recall items — unlike Delegation's per-side WOA sparsity (D-41), 6 items comfortably clears `GAMMA_MIN_ITEMS` (4), so a single probe form's resolution is genuinely meaningful on its own, not just the whole-history version on the progress screen.
+
+Verified: 4 integration tests (baseline→post→delayed at 9 rows/form, `dueSkillProbes` inclusion, a full probe with `ANTHROPIC_API_KEY` unset) plus the live before/after confirmation above.
+
 ### D-46 · Monitoring Lab frontend, including the deflation and transcript-audit components — 2026-08-23
 
 Build plan Phase 4: `MonitoringLabPage`, the kind-dispatching `MonitoringSessionPage` (five stage machines — recall, pair, explain, transcript, longset — sharing one file the way Delegation's session page dispatches on `kind`), and the tool's two new components, `DeflationDisplay` (two numbers, one line, no encouragement — spec §10, wireframe plate 4) and `TranscriptAudit` (spec §10's "no styling difference between planted and clean" requirement, satisfied by construction here: the component has no `planted` prop at all — that data never leaves the server before the mark is committed, so there is nothing for the component to style differently even if it tried).

@@ -2,7 +2,7 @@
 
 *The queue. Work that engineering cannot finish because it needs human judgement, a native speaker, or a decision. Each item states its blocker and what it unblocks. Delete items when done — the decision logs are the permanent record.*
 
-**Version 0.6 · Status: living · 2026-08-23 · Owner: _root**
+**Version 0.7 · Status: living · 2026-08-23 · Owner: _root**
 
 ---
 
@@ -21,15 +21,19 @@
 | 9 | Verification rubric-agreement rater pass | 2 raters | 8–12 h | Establishes the rubric's key matches human judgement |
 | 10 | Verify 21 Delegation probe items' `truth` values | anyone careful | 3–4 h | Delegation scored baseline |
 | 11 | Persian native review of the Delegation pack | Persian reviewer | 2–3 h | Delegation Persian off `draft` |
-| ~~12~~ | ~~Decide whether Clarity ships permanently reader-less~~ | founder | — | **Decided 2026-08-01 — see below** |
+| 12 | Verify 27 Monitoring probe items' keys + the answer-variant review | anyone careful | 5–8 h | Monitoring scored baseline |
+| 13 | Persian native review of the Monitoring pack, `s4` re-authored | Persian reviewer | 6–9 h | Monitoring Persian off `draft` |
+| ~~14~~ | ~~Decide whether Clarity ships permanently reader-less~~ | founder | — | **Decided 2026-08-01 — see below** |
 
-Items 1–11 are independent of each other. **§13 is a different category** — anticipated work for the one tool that still has no code. It is listed so the cost is visible when build order is decided, not because anything is blocked today.
+Items 1–13 are independent of each other. **All six specced skill tools now have code** — there is no longer an anticipated section, and §15 below records that rather than continuing to project a cost for something that no longer applies.
 
 **Items 4–6 were promoted out of the anticipated section on 2026-08-16**, when the Decomposition Lab build (phases 1–5) confirmed live that all 18 probe items are still `key-unverified` — every one of the four skill tools' Lab pages correctly refuses to open a scored probe today, which is what makes this queue no longer anticipated for Decomposition. This should have moved when Phase 2 (the content pack) landed on 2026-08-15, per the build plan's own instruction; it is done now rather than back-dated.
 
 **Items 7–9 were promoted out of the anticipated section on 2026-08-22**, the same way and for the same reason: the Verification Lab build's Phase 2 landed 2026-08-22 and confirmed live that all 18 of its probe items are `key-unverified` too.
 
 **Items 10–11 were promoted on 2026-08-23**, when the Delegation Lab build reached the end of its pass's full scope (phases 1–6) and confirmed live that all 21 probe items are `key-unverified` too. No rater-pass item exists for Delegation — every criterion resolves against an authored key or computed arithmetic (spec §4), so there is no judge to calibrate and nothing for two humans to reconcile the way items 3, 6 and 9 do.
+
+**Items 12–13 were promoted on 2026-08-23**, the same day, when the Monitoring Lab build — the sixth and last specced skill tool — reached the end of its own pass's full scope (phases 1–6) and confirmed live that all 27 probe items are `key-unverified`. No rater-pass item exists here either, for the same reason as Delegation's: no model anywhere in the scored path (spec §4, §12). Item 12 folds in the answer-variant review the anticipated table already flagged as the heaviest key-verification job across all six tools, and item 13 folds in the `s4` re-authoring the anticipated table flagged as authoring rather than translation.
 
 ---
 
@@ -151,7 +155,33 @@ Twenty-one probe rows (5 single-item modules × 3 forms, plus one g5-stakes pair
 
 ---
 
-## 12 · ~~Decide: does Clarity ship permanently without a reader?~~ — decided
+## 12 · Verify the Monitoring probe items' keys, plus the answer-variant review
+
+**Blocked on:** anyone careful with the item bank — no Persian and no rating judgement needed for the key parts; the answer-variant review needs a good ear for how someone might correctly phrase a short answer, but still no rating judgement.
+
+**Unblocks:** Monitoring Lab's scored baseline/post/delayed probes. Practice already works and is unaffected — every item kind completes and scores with no credential.
+
+Twenty-seven probe items across four kinds: 6 recall (short-answer), 1 matched pair (2 rows) per form × 3 forms, and 1 transcript per form × 3 forms. Two distinct jobs, not one:
+
+- **The key check, same shape as items 1/4/7/10:** confirm each recall/pair-unassisted item's authored answer is actually right, and each transcript's planted-influence list (`type`, `weight`, which turn) matches what a careful reader would actually say moved them.
+- **The answer-variant review — the heaviest single job across all six tools** (flagged in this file since 2026-08-12, before Monitoring had any code). Short-answer items are scored against authored acceptable-answer sets; a narrow set marks a correct phrasing wrong, which **inverts the learner's resolution score with no symptom** (build plan §4.2). And because a scored attempt is immutable (`00-skills-engine.md` §7), a variant added later **does not re-score history** — it applies to future attempts under a bumped content version. So this has to happen before real use, not after complaints: review all 24 recall/pair-unassisted items' variant sets (≥3 each today) against plausible real phrasings, in both `en` and `fa`, and check the unmatched-answer review queue after each subsequent content version.
+
+Stamp `keyVerifiedAt` per item once confirmed.
+
+---
+
+## 13 · Persian native review of the Monitoring pack
+
+**Blocked on:** the Persian reviewer.
+**Unblocks:** the claim that Monitoring's Persian is equal in quality rather than merely present. Persian users can practise today; the pack is marked `reviewStatus: "draft"` in the UI, honestly.
+
+**The most expensive of the six tools' Persian work, flagged as such since before any code existed** (`06-monitoring-lab.md` §4, §10): most of the pack is structural and translates like Decomposition's or Delegation's does, but **`s4-agreement`'s transcripts do not** — تعارف makes polite agreement Persian's default register, so a flattery beat or an unearned agreement reversal that reads clearly in English can read as ordinary courtesy once translated, and the planted influence simply doesn't survive. Same category as **D-23**'s faux-feelings finding and Decomposition's/Delegation's own re-authored items, and it needs the same kind of person: a native speaker willing to challenge and rewrite a turn, not proofread it.
+
+**The specific check:** for every non-clean `s4-agreement` transcript (8 total, pool and probe), read the `fa` turns as a Persian speaker with no context and confirm the planted beat still reads as agreement-carrying-no-information rather than ordinary politeness. Where it doesn't, re-author the turn — not translate it more literally — keeping the influence's `type` and `weight` identical to the `en` version, and mark it `reauthored: true` (the `fa-s4-reauthored` validator warning is the checklist). Everything else in the pack (`s1`–`s3`, `s5`, `s6`, and `s4`'s clean controls) is an ordinary fluency and register pass: informal تو/کن, concept not calque, Western digits — 69 items' worth of questions, explanations, transcript turns, and countermeasure labels.
+
+---
+
+## 14 · ~~Decide: does Clarity ship permanently without a reader?~~ — decided
 
 **Decided 2026-08-01 (founder): no. The reader is coming; the reader-less state is temporary.**
 
@@ -165,24 +195,17 @@ What this leaves outstanding is a dependency, not a question: **Clarity Lab's me
 
 ---
 
-## 13 · Anticipated — the one specced-but-unbuilt pack
+## 15 · Anticipated — none remaining
 
-**Nothing here is blocked today, because the pack doesn't exist yet.** It becomes live when the tool reaches **Phase 2** of its build plan — the content phase — and not before.
+**Every specced skill tool now has code.** This section existed to make visible the human-work cost of a pack that didn't exist yet; Decomposition (#3) was here until 2026-08-16, Verification (#4) until 2026-08-22, Delegation (#5) until 2026-08-23, and Monitoring (#6) — the sixth and last tool in the skill stack — until later the same day, when its build reached the end of its own pass's full scope and items 12–13 above absorbed what this table used to project for it.
 
-**Decomposition (#3) was here until 2026-08-16, Verification (#4) until 2026-08-22, and Delegation (#5) until 2026-08-23** — each tool's content pack landed and its build reached the end of its pass's scope within days, so their key-verification, Persian review, and (where applicable) rater-pass items are promoted to items 4–6, 7–9 and 10–11 above, live not anticipated.
-
-| Tool | Key verification | Persian | Rater pass |
-|---|---|---|---|
-| **#6 Monitoring** | **heaviest** · keys plus the answer-variant review (below) | **heaviest** · `s4` transcripts are **re-authored, not translated** | none |
-
-**#6's answer-variant review is the heaviest human item across all six tools, and it has a deadline of a kind.** Short-answer items are scored against authored acceptable-answer sets; a narrow set marks correct phrasings wrong, which **inverts the learner's resolution score**. And because a scored attempt is immutable (`00-skills-engine.md` §7), a variant added later **does not re-score history** — it applies to future attempts under a bumped content version. So the review has to happen *before* real use, not after complaints. Plan ≥3 variants per item at authoring, plus a pass over the unmatched-answer queue for every subsequent version.
-
-**And one item that is authoring rather than review.** `#6`'s `s4` Persian transcripts cannot be translated: تعارف makes polite agreement a default register, so an agreement beat that reads as sycophancy in English may read as ordinary courtesy in Persian. Where the planted influence does not survive, the turn is **re-authored until it does**, keeping influence type and count identical across locales. Same category as **D-23**'s faux-feelings finding, and it needs the same person — a native speaker willing to challenge the item, not proofread it.
+If a seventh skill tool is ever specced, its anticipated cost belongs here again, in the same shape: a key-verification estimate, a Persian estimate, and whether a rater pass applies. That last one isn't about whether a judge exists yet — Decomposition's and Verification's rater passes (items 6, 9) run with no judge built, establishing whether two humans even agree on the rubric. It's about whether the rubric has any criterion an interpretive call rather than an authored key or arithmetic can decide — Delegation's and Monitoring's don't (spec §4, §12 for both), so neither has a rater-pass item at all.
 
 ---
 
 ## Changelog
 
+- **0.7 · 2026-08-23** — Monitoring's human-work items (key verification + the answer-variant review, Persian review) promoted from the anticipated table to live items 12–13, the same day its build reached the end of its pass's full scope (phases 1–6) — the sixth and last specced skill tool to do so — and Phase 5 confirmed live that all 27 probe items are `key-unverified`. No rater-pass item exists here either, same reason as Delegation's. **The anticipated section is now empty** — every specced skill tool has code — renumbered §13 → §15 to note that rather than leave a stale table. Decided item renumbered 12 → 14.
 - **0.6 · 2026-08-23** — Delegation's human-work items (key verification, Persian review) promoted from the anticipated table to live items 10–11, the same day its build reached the end of its pass's full scope (phases 1–6) and Phase 5 confirmed live that all 21 probe items are `key-unverified`. No rater-pass item exists for Delegation — nothing here resolves through a judge. The anticipated section now covers only Monitoring (#6), renumbered §11 → §13 to make room. Decided item renumbered 10 → 12. Caught and fixed a numbering collision before committing: the anticipated section's own header was left at §11 after items 10–11 were added, colliding with the new live item 11.
 - **0.5 · 2026-08-22** — Verification's human-work items (key/bench-outcome verification, Persian review, rubric-agreement rater pass) promoted from the anticipated table to live items 7–9, the same day its Phase 2 content pack landed and Phase 5 confirmed live that all 18 probe items are `key-unverified`. The anticipated table now covers only Delegation and Monitoring, renumbered §8 → §11 to make room. Decided item renumbered 7 → 10.
 - **0.4 · 2026-08-16** — Decomposition's human-work items (key verification, Persian review, rubric-agreement rater pass) promoted from the anticipated table to live items 4–6, per the build plan's own instruction to do this when Phase 2 lands — a day late (Phase 2 landed 2026-08-15), caught while Phase 5 confirmed live that all 18 probe items are still `key-unverified`. The anticipated table's own section renumbered §5 → §8 to make room, and now covers three tools, not four. Decided item renumbered 4 → 7 (nothing external referenced either number).
