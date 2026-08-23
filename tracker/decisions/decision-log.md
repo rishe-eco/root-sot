@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.23 · Status: living · 2026-08-23 · Owner: _root**
+**Version 0.24 · Status: living · 2026-08-23 · Owner: _root**
 
 ---
 
@@ -28,6 +28,16 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-23 | *(no migration — enum-only)* | `SkillKey` gains `delegation`. First code for the **Delegation Lab** (skill tool #5). See D-37. |
 
 ## 2. Key decisions
+
+### D-42 · Real-work delegation records — the last phase in this pass's scope — 2026-08-23
+
+Build plan Phase 6. The only mode in this engine that spans two sittings by design (spec §5 item 6, §8): the learner logs what they're handing over, what they're keeping, and what would tell them the split was wrong *before* the decision, then returns after the outcome to record what actually happened. `mode: open_practice`, already excluded from `getDelegationProgress`'s totals since Phase 3 anticipated this need — same as every other tool's real-work mode.
+
+**The lightest of the five tools' Phase 6/7s, matching Verification's precedent (D-36) rather than Decomposition's (D-30).** There is no key here at all — not "no judge yet," genuinely nothing to score against, since the whole instrument is the prediction itself made before the outcome exists. The record saves through the existing generic `addQuickEntry`/`addNote` mutations exactly like any other working note; the only new surface is `startDelegationRealWork`/`submitDelegationRealWork`, which capture the two-sitting record.
+
+Verified: 5 integration tests (`open_practice` mode with no `moduleKey`, a second submission rejected, ownership enforced, exclusion from progress totals) plus a full live before → after → save cycle, checking both save paths — the "no default journal" error surfaced correctly (not silently, learning from D-36's finding) and the attach-to-project path confirmed via a direct `notes` query returning the real, correctly formatted, translated record on the target project.
+
+**This completes the pass's full scope: Phases 1–6.** Only Phase 7 (human work — re-deriving every `truth` value, native Persian review) remains, deferred and tracked live in `team/open-work.md`.
 
 ### D-41 · Delegation registered with skill probes; population baseline gated — 2026-08-23
 

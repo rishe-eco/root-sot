@@ -2,7 +2,7 @@
 
 *The queue. Work that engineering cannot finish because it needs human judgement, a native speaker, or a decision. Each item states its blocker and what it unblocks. Delete items when done — the decision logs are the permanent record.*
 
-**Version 0.5 · Status: living · 2026-08-22 · Owner: _root**
+**Version 0.6 · Status: living · 2026-08-23 · Owner: _root**
 
 ---
 
@@ -19,13 +19,17 @@
 | 7 | Verify 18 Verification probe items' bench outcomes | anyone careful | 4–6 h | Verification scored baseline |
 | 8 | Persian native review of the Verification pack | Persian reviewer | 4–6 h | Verification Persian off `draft` |
 | 9 | Verification rubric-agreement rater pass | 2 raters | 8–12 h | Establishes the rubric's key matches human judgement |
-| ~~10~~ | ~~Decide whether Clarity ships permanently reader-less~~ | founder | — | **Decided 2026-08-01 — see below** |
+| 10 | Verify 21 Delegation probe items' `truth` values | anyone careful | 3–4 h | Delegation scored baseline |
+| 11 | Persian native review of the Delegation pack | Persian reviewer | 2–3 h | Delegation Persian off `draft` |
+| ~~12~~ | ~~Decide whether Clarity ships permanently reader-less~~ | founder | — | **Decided 2026-08-01 — see below** |
 
-Items 1–9 are independent of each other. **§11 is a different category** — anticipated work for the two tools that still have no code. It is listed so the cost is visible when build order is decided, not because anything is blocked today.
+Items 1–11 are independent of each other. **§13 is a different category** — anticipated work for the one tool that still has no code. It is listed so the cost is visible when build order is decided, not because anything is blocked today.
 
-**Items 4–6 were promoted out of §11 on 2026-08-16**, when the Decomposition Lab build (phases 1–5) confirmed live that all 18 probe items are still `key-unverified` — every one of the four skill tools' Lab pages correctly refuses to open a scored probe today, which is what makes this queue no longer anticipated for Decomposition. This should have moved when Phase 2 (the content pack) landed on 2026-08-15, per the build plan's own instruction; it is done now rather than back-dated.
+**Items 4–6 were promoted out of the anticipated section on 2026-08-16**, when the Decomposition Lab build (phases 1–5) confirmed live that all 18 probe items are still `key-unverified` — every one of the four skill tools' Lab pages correctly refuses to open a scored probe today, which is what makes this queue no longer anticipated for Decomposition. This should have moved when Phase 2 (the content pack) landed on 2026-08-15, per the build plan's own instruction; it is done now rather than back-dated.
 
-**Items 7–9 were promoted out of §11 on 2026-08-22**, the same way and for the same reason: the Verification Lab build's Phase 2 landed 2026-08-22 and confirmed live that all 18 of its probe items are `key-unverified` too.
+**Items 7–9 were promoted out of the anticipated section on 2026-08-22**, the same way and for the same reason: the Verification Lab build's Phase 2 landed 2026-08-22 and confirmed live that all 18 of its probe items are `key-unverified` too.
+
+**Items 10–11 were promoted on 2026-08-23**, when the Delegation Lab build reached the end of its pass's full scope (phases 1–6) and confirmed live that all 21 probe items are `key-unverified` too. No rater-pass item exists for Delegation — every criterion resolves against an authored key or computed arithmetic (spec §4), so there is no judge to calibrate and nothing for two humans to reconcile the way items 3, 6 and 9 do.
 
 ---
 
@@ -126,7 +130,28 @@ Eighteen probe items, each carrying six authored bench entries. Unlike a simple 
 
 ---
 
-## 10 · ~~Decide: does Clarity ship permanently without a reader?~~ — decided
+## 10 · Verify the Delegation probe items' `truth` values
+
+**Blocked on:** anyone careful with the item bank — no Persian and no rating judgement needed, just re-deriving each authored quantity.
+
+**Unblocks:** Delegation Lab's scored baseline/post/delayed probes. Practice already works and is unaffected — every item kind completes and scores with no credential.
+
+Twenty-one probe rows (5 single-item modules × 3 forms, plus one g5-stakes pair × 3 forms), each carrying an authored `truth` value that the learner's estimate, the advice, and every derived metric are measured against.
+
+**This is the smallest job of the three tools' key-verification items, and the sharpest failure.** A wrong `truth` value doesn't just mis-score one item — it inverts `adviceQuality` for every learner who ever sees it, which **silently reverses the headline reliance-discrimination metric's sign** for that item. Small, and not skippable. Stamp `keyVerifiedAt` per item once confirmed.
+
+---
+
+## 11 · Persian native review of the Delegation pack
+
+**Blocked on:** the Persian reviewer.
+**Unblocks:** the claim that Delegation's Persian is equal in quality rather than merely present. Persian users can practise today; the pack is marked `reviewStatus: "draft"` in the UI, honestly.
+
+**Cheapest of the three tools' Persian work** (`05-delegation-lab.md` §4): the instrument is numeric — estimates, advice, truth are locale-invariant — so only scenario prose, cue labels, and split-piece labels are realised twice, and there is no Persian-specific linguistic work at all (no seeded fault to survive translation the way Evidence's do, no rubric criterion needing linguistic rework the way Clarity's R4/R6 do). The review is a fluency and register pass over 63 items' worth of scenario prose and labels — plus one specific check: that no cue option reads as two separate cues once translated, since a cue that splits in Persian is a broken key, not a translation nit.
+
+---
+
+## 12 · ~~Decide: does Clarity ship permanently without a reader?~~ — decided
 
 **Decided 2026-08-01 (founder): no. The reader is coming; the reader-less state is temporary.**
 
@@ -140,20 +165,15 @@ What this leaves outstanding is a dependency, not a question: **Clarity Lab's me
 
 ---
 
-## 11 · Anticipated — the two specced-but-unbuilt packs
+## 13 · Anticipated — the one specced-but-unbuilt pack
 
-**Nothing here is blocked today, because neither pack exists yet.** Each item becomes live when its tool reaches **Phase 2** of its build plan — the content phase — and not before. Listed now for one reason: the human cost is not uniform across the two, and it is cheaper to know that before choosing what to build than after.
+**Nothing here is blocked today, because the pack doesn't exist yet.** It becomes live when the tool reaches **Phase 2** of its build plan — the content phase — and not before.
 
-**Decomposition (#3) was here until 2026-08-16, and Verification (#4) until 2026-08-22** — each tool's content pack landed and its build reached Phase 5 within a day or so, so their key-verification, Persian review, and rater-pass items are promoted to items 4–6 and 7–9 above, live not anticipated.
+**Decomposition (#3) was here until 2026-08-16, Verification (#4) until 2026-08-22, and Delegation (#5) until 2026-08-23** — each tool's content pack landed and its build reached the end of its pass's scope within days, so their key-verification, Persian review, and (where applicable) rater-pass items are promoted to items 4–6, 7–9 and 10–11 above, live not anticipated.
 
 | Tool | Key verification | Persian | Rater pass |
 |---|---|---|---|
-| **#5 Delegation** | 3–4 h · every `truth` value independently re-derived | 2–3 h · **cheapest of the two** — the instrument is numeric | **none** — this tool has no judge |
 | **#6 Monitoring** | **heaviest** · keys plus the answer-variant review (below) | **heaviest** · `s4` transcripts are **re-authored, not translated** | none |
-
-Two things worth knowing before any of it is scheduled.
-
-**#5's is the smallest job with the sharpest failure.** A wrong `truth` value inverts advice quality and **reverses the headline metric**, silently. Small, and not skippable.
 
 **#6's answer-variant review is the heaviest human item across all six tools, and it has a deadline of a kind.** Short-answer items are scored against authored acceptable-answer sets; a narrow set marks correct phrasings wrong, which **inverts the learner's resolution score**. And because a scored attempt is immutable (`00-skills-engine.md` §7), a variant added later **does not re-score history** — it applies to future attempts under a bumped content version. So the review has to happen *before* real use, not after complaints. Plan ≥3 variants per item at authoring, plus a pass over the unmatched-answer queue for every subsequent version.
 
@@ -163,6 +183,7 @@ Two things worth knowing before any of it is scheduled.
 
 ## Changelog
 
+- **0.6 · 2026-08-23** — Delegation's human-work items (key verification, Persian review) promoted from the anticipated table to live items 10–11, the same day its build reached the end of its pass's full scope (phases 1–6) and Phase 5 confirmed live that all 21 probe items are `key-unverified`. No rater-pass item exists for Delegation — nothing here resolves through a judge. The anticipated section now covers only Monitoring (#6), renumbered §11 → §13 to make room. Decided item renumbered 10 → 12. Caught and fixed a numbering collision before committing: the anticipated section's own header was left at §11 after items 10–11 were added, colliding with the new live item 11.
 - **0.5 · 2026-08-22** — Verification's human-work items (key/bench-outcome verification, Persian review, rubric-agreement rater pass) promoted from the anticipated table to live items 7–9, the same day its Phase 2 content pack landed and Phase 5 confirmed live that all 18 probe items are `key-unverified`. The anticipated table now covers only Delegation and Monitoring, renumbered §8 → §11 to make room. Decided item renumbered 7 → 10.
 - **0.4 · 2026-08-16** — Decomposition's human-work items (key verification, Persian review, rubric-agreement rater pass) promoted from the anticipated table to live items 4–6, per the build plan's own instruction to do this when Phase 2 lands — a day late (Phase 2 landed 2026-08-15), caught while Phase 5 confirmed live that all 18 probe items are still `key-unverified`. The anticipated table's own section renumbered §5 → §8 to make room, and now covers three tools, not four. Decided item renumbered 4 → 7 (nothing external referenced either number).
 - **0.3 · 2026-08-12** — §5 added: anticipated human work for the four specced-but-unbuilt packs (#3–#6), each triggered by its tool reaching Phase 2 rather than live now. Records that the cost is not uniform — #5 is the smallest job with the sharpest failure mode, #6's answer-variant review is the heaviest across all six and cannot be deferred past real use because attempts are immutable, and #3's rater pass establishes whether its rubric is scoreable at all rather than calibrating a judge.
