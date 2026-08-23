@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.21 · Status: living · 2026-08-23 · Owner: _root**
+**Version 0.22 · Status: living · 2026-08-23 · Owner: _root**
 
 ---
 
@@ -28,6 +28,18 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-23 | *(no migration — enum-only)* | `SkillKey` gains `delegation`. First code for the **Delegation Lab** (skill tool #5). See D-37. |
 
 ## 2. Key decisions
+
+### D-40 · Delegation Lab frontend, including the three-position reveal — 2026-08-23
+
+Build plan Phase 4: `DelegationLabPage`, `DelegationSessionPage` (one stage machine dispatching on the served item's `kind`, since the five kinds share almost nothing about their input flow beyond the estimate/cue/stakes trio), `ThreePositionReveal` — the tool's one genuinely new component — and `AdvisorSequence` for the g6 round bars. Verified live end to end against the running dev server, in `fa` (the app's default locale in this environment), across all five item kinds: a plain estimate, a cue selection, a split, a full three-round sequence with the round-2 error visible in the bars, and a full g5-stakes pair resolving on its second half.
+
+**Three real bugs found live, in order, none caught by `tsc` or the unit suite:**
+
+1. **`DelegationScore` had no `truth` field at all.** Writing `ThreePositionReveal` — which the spec (§10) and wireframe (plate 4) both require to show the truth pin — surfaced that Phase 3 never added a way to reveal it; nothing in the GraphQL schema, session service, or scoring output ever returned the authored truth value post-commit. Fixed by adding `truth: number | null` to `DelegationScore` (`scoring.ts`), the GraphQL type, and the client query, populated only on already-scored attempts, never before — the same one-way-reveal shape as `advice`. Caught while writing the client, before it ever ran against a server.
+2. **`MasteryGap.required: Int` doesn't fit Delegation's thresholds.** Every other tool's mastery gate is expressed in counts or small integer ratios; this tool's is fractional (discrimination ≥ 0.25, anchoring ≤ 0.15). The first live click into a scored cue item threw `Int cannot represent non-integer value: 0.25` — a real production error, not a test gap, since every test in this engine calls resolvers directly and never serialises through the actual GraphQL scalar. Widened the shared field to `Float`; existing integer values from other tools serialise identically.
+3. **The result header conflated two different "nothing scored" states.** `scoredCriterion = score.criteria.find(c => c.level !== null)` returns nothing both when a `g5-stakes` half is genuinely waiting on its pair *and* when a plain estimate item hits the advice-equals-initial WOA tie (`computeWoa`'s first edge case, D-39) — the header showed the pending-pair message on a module that has no pairs at all. Fixed by keying off `scoredBy !== "unscored"` instead, since a tie is `scoredBy: "computed"` with a genuinely null level, while a pending pair is `scoredBy: "unscored"` until its sibling resolves it. Found by deliberately walking into the tie case live (advice happened to equal the initial guess), not designed in from the start.
+
+Verified live: 740 API tests + 182 client tests green, both i18n checks clean, and the full five-kind walkthrough above — including the ritual case doubling as the tie-case discovery.
 
 ### D-39 · Delegation Lab scoring, session service and GraphQL — 2026-08-23
 
