@@ -2,7 +2,7 @@
 
 *Source of truth. What exists and what doesn't, verified. The most time-sensitive file in the canon — trust the date. Update the changelog; don't fork.*
 
-**Version 0.23 · Status: as-built · 2026-08-23 · Owner: _root**
+**Version 0.24 · Status: as-built · 2026-08-23 · Owner: _root**
 
 ---
 
@@ -61,6 +61,7 @@ A sixth tool, **Monitoring Lab**, is specced (`../06-specs/06-monitoring-lab.md`
 
 ## Changelog
 
+- **0.24 · 2026-08-23** — Fixed a navigation gap found live by the user, not by any build's own verification: `ToolsHomePage.tsx` (the `/tools` page) still only listed the original three skill tools (Evidence, Clarity, Decomposition) — Verification, Delegation and Monitoring were each reachable only by typing their route directly, since none of their three build passes wired a card into this shared page. Added all three.
 - **0.23 · 2026-08-23** — Monitoring Lab: session self-audit records built (Phase 6, D-48) — the retention feature, reviewing one of the learner's own real AI conversations against the four influence types (flattery, anchor, smuggled premise, agreement reversal) this tool's transcripts are built from. Single sitting, unlike Delegation's two-sitting real-work record, since there's no future outcome to wait for. **This completes the pass's full scope (phases 1-6);** only Phase 7 (human content review — this tool has no judge to defer) and Phase 8 (`skillCrossExport`, spec-marked P2) remain, out of scope for this pass. Verified live end to end including both save paths, applying D-36's lesson from the start rather than finding it as a gap.
 - **0.22 · 2026-08-23** — Monitoring Lab: registered with skill probes (Phase 5, D-47). Fixed a real gap found while wiring it: `probeReadinessFor`/`loadPackInfo`/`summarizeAttempts` had no monitoring branch and were silently validating against Verification's content — confirmed live before (18 blockers reported) and after (27, monitoring's own) the fix. Only the session self-audit remains of this pass's scope.
 - **0.21 · 2026-08-23** — Monitoring Lab: frontend built (Phase 4, D-46), verified live end to end in `fa` across all five item kinds. One real bug found and fixed: `submitMonitoringAnswer` matched every answer against the English content pack regardless of request locale (a hardcoded `"en"` left over from before the answer-key surface split), silently scoring every correct Persian answer wrong — confirmed live before (a correct "پاریس" scored wrong) and after (scored right) the fix, with a permanent regression test added. First phase in this six-tool arc where live verification found only one gap rather than several.
