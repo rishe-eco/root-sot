@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.20 · Status: living · 2026-08-23 · Owner: _root**
+**Version 0.21 · Status: living · 2026-08-23 · Owner: _root**
 
 ---
 
@@ -28,6 +28,22 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-23 | *(no migration — enum-only)* | `SkillKey` gains `delegation`. First code for the **Delegation Lab** (skill tool #5). See D-37. |
 
 ## 2. Key decisions
+
+### D-39 · Delegation Lab scoring, session service and GraphQL — 2026-08-23
+
+Build plan Phase 3 of `05b-delegation-lab-build-plan.md`: `woa.ts` (weight of advice and its four edge cases), `metrics.ts` (the g5-pair and g6-drop-ratio arithmetic), `mastery.ts`, `scoring.ts`, `delegationSession.ts`, and the GraphQL surface (`DelegationModule`, `DelegationServedItem`, `DelegationAdvice`, `DelegationScore`, `DelegationSubmitResult`, `DelegationProgress`, plus the cue/split/sequence-specific result shapes). Learned the D-35 lesson early: `enum SkillKey` in `typeDefs.ts` gained `delegation` in this same phase rather than being left for a Phase-5 rediscovery, since the failure mode (every test calls resolvers directly, bypassing schema validation, so the gap is invisible until something actually executes GraphQL) is now a known trap rather than a new one.
+
+**The mastery gap the build plan doesn't reconcile: spec §7's formula only fits modules that have a trust/keep spread to compute a discrimination value from.** `g4-split` and `g6-drift` items carry no `cueDirection` at all (D-38) — there is no WOA-vs-benchmark contrast within their own pools for the discrimination/anchoring/netGain/error-rate formula to run on. Resolved with two mastery functions instead of one: `evaluateWeighingMastery` runs spec §7's formula literally, per module, for `g1-own`/`g2-instance`/`g3-weigh`/`g5-stakes` (all four do have a trust/keep/none spread); `evaluateKeyedMastery` substitutes a key-match rate (≥5 of 6 at the criterion's full level, ≥2 distinct days) for the two modules that can't run the WOA formula — the same shape every other tool in this engine already uses for its own mastery gate.
+
+**A single delegation attempt scores one criterion, not six.** Unlike Verification (every attempt scores V1-V6 at once), a `g1-own` item and a `g4-split` item are structurally different instruments measuring different things — forcing all six criteria onto every attempt would mean five of them are permanently `scoredBy: "unscored"` on every single item, which is true but says nothing useful. `DelegationCriterionScore`'s five inapplicable slots use exactly that convention (not a zero, not omitted) so the shape stays uniform with every other tool's score object without pretending an item measures what it doesn't.
+
+**G1 (self-knowledge) never gets a per-attempt level at all**, even on its own module's items — the rubric describes a multi-item pattern ("confidence tracks own accuracy... across the window"), and a single item's confidence/accuracy pair is one data point in that pattern, not the pattern itself. Each `g1-own` attempt instead records its raw `(confidence, wasAccurate)` sample, aggregated into a Brier score at the progress level only. The window that Brier score runs over — the same 6-attempt window every other mastery/calibration figure in this engine uses — is itself a call the spec leaves open, made here for comparability rather than an arbitrary unrelated lookback.
+
+**A g5-stakes pair resolves through whichever half finalises second, and the first half stays `pendingPair: true` forever — deliberately, not as an unfinished loose end.** The second-to-finalise attempt can already see both WOAs and computes the real G5 level; rewriting the first attempt's already-persisted score to match would need a second write path with its own race conditions for a value every downstream consumer (mastery, progress aggregates) already filters `pendingPair` rows out of. One row carrying the pair's verdict and one row silently excluded achieves "counted in pairs, not items" (spec §7) without ever needing two rows to agree.
+
+No rung and no tested-out mechanic: build plan §5 explicitly rules out a rung for this tool, and unlike Verification's spec, `05-delegation-lab.md` §7 defines "Mastered" but never a "Tested out" state — an absence read as intentional (the baseline *is* the calibration instrument; testing someone out of it would remove the one measurement §12's pre-registered null depends on) rather than an oversight to patch.
+
+Verified: 51 unit + integration tests, including every WOA edge case (advice-equals-initial, overshoot-clamped-to-1, reactance-clamped-to-0, both retaining the raw value for export), a g5 pair scoring pending on its first half and resolved on its second, a g6 sequence rejecting an out-of-order round, and the assertion this whole tool rests on — `advice`/`truth` absent from every served-item payload before `estimate_committed`.
 
 ### D-38 · Delegation Lab content pack and validator — 2026-08-23
 
