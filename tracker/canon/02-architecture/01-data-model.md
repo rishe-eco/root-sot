@@ -2,7 +2,7 @@
 
 *Source of truth. The Prisma schema, as-built. If the schema changes, update this file in the same change. Update the changelog; don't fork.*
 
-**Version 0.9 · Status: as-built · 2026-08-23 · Owner: _root**
+**Version 0.10 · Status: as-built · 2026-08-23 · Owner: _root**
 
 ---
 
@@ -114,6 +114,7 @@ SQLite has no array type. These fields are **JSON strings** in the DB and are pa
 
 ## Changelog
 
+- **0.10 · 2026-08-23** — `SkillKey` gained `monitoring` — Monitoring Lab Phase 1 (`06-specs/06b-monitoring-lab-build-plan.md`). No other schema change: `responseStructure` holds predictions/ratings/explanations/step-selections/influence-marks, and this tool needs no `rung` column and no new tables. SQLite has no enum type, so only `prisma generate` ran, same as Delegation's 0.9 entry.
 - **0.9 · 2026-08-23** — `SkillKey` gained `delegation` — Delegation Lab Phase 1 (`06-specs/05b-delegation-lab-build-plan.md`). No other schema change: `responseStructure` (added for Decomposition) holds the estimate/advice/revision/cue/sequence JSON, and this tool needs no `rung` column — the two-rung progression is specific to Verification Lab's cost bench. SQLite has no enum type, so `npx prisma migrate dev` found no pending migration; only `prisma generate` ran.
 - **0.8 · 2026-08-22** — `SkillKey` gained `verification`; `SkillModuleProgress` gained `rung String @default("assisted")` and `SkillAttempt` gained `rung String?` (migration `add_verification_lab`) — Verification Lab Phase 1 (`06-specs/04b-verification-lab-build-plan.md`). Two rungs (assisted = hard cost ceiling, unassisted = none) are two different instruments, not two settings of one, so the rung is a stamped column on the attempt rather than derived from the module's *current* rung — a module's rung changes over time, and deriving it would retroactively relabel history and silently join two different instruments into one trend line. Both columns are unused by every other skill. No other migration was needed: `responseStructure` (added for Decomposition) is reused unchanged for the oracle/verdict response structure.
 - **0.7 · 2026-08-15** — `SkillKey` gained `decomposition`; `SkillAttempt` gained `responseStructure String?` (migration `add_decomposition_lab`) — Decomposition Lab Phase 1a (`06-specs/03b-decomposition-lab-build-plan.md`). A separate column from `responseText` because one holds prose and one holds a tree; a single field holding either would make every later query ambiguous about which it got. SQLite has no enum type, so the new `SkillKey` value needed no migration of its own — only the column addition did. The Skill-tool tables are still not transcribed into this file (see the 0.2 note below); this entry documents only the delta.

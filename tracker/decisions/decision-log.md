@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.24 · Status: living · 2026-08-23 · Owner: _root**
+**Version 0.25 · Status: living · 2026-08-23 · Owner: _root**
 
 ---
 
@@ -26,8 +26,17 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-15 | **add_decomposition_lab** | `SkillKey` gains `decomposition`; `SkillAttempt` gains `responseStructure`. First code for the **Decomposition Lab** (skill tool #3). See D-26. |
 | 2026-08-22 | **add_verification_lab** | `SkillKey` gains `verification`; `SkillModuleProgress` gains `rung`; `SkillAttempt` gains `rung`. First code for the **Verification Lab** (skill tool #4). See D-31. |
 | 2026-08-23 | *(no migration — enum-only)* | `SkillKey` gains `delegation`. First code for the **Delegation Lab** (skill tool #5). See D-37. |
+| 2026-08-23 | *(no migration — enum-only)* | `SkillKey` gains `monitoring`. First code for the **Monitoring Lab** (skill tool #6). See D-43. |
 
 ## 2. Key decisions
+
+### D-43 · Monitoring Lab under active build — 2026-08-23
+
+Build plan Phase 1 (`06-specs/06b-monitoring-lab-build-plan.md`). `SkillKey` gains `monitoring` — the whole schema change; `SkillAttempt.responseStructure` (already present since Decomposition) holds predictions, ratings, explanations, step selections and influence marks, and this tool needs no `rung` column (that scaffold is specific to Verification's cost bench) and no new tables. SQLite has no native enum type, so `npx prisma migrate dev` finds nothing pending; only `prisma generate` ran, same as Delegation's D-37.
+
+**Unlike every other tool in this pass, Monitoring Lab has no optional phase to weigh building or skipping — it has two.** Phase 7 (human work: key verification, answer-variant review, Persian `s4` re-authoring) is out of scope for this pass like every other tool's human-review phase. Phase 8 (`skillCrossExport`) is explicitly marked P2 in the spec itself (§9a) — "after there is data" — so it is deferred by the spec's own design, not a build-time judgment call. Scope for this pass is Phases 1–6, matching Decomposition's and Verification's pattern (1–5-and-7) in spirit: every phase that produces learner-facing code ships, everything that needs either a human or a dataset that doesn't exist yet waits.
+
+**The content job is expected to be the largest of the six tools** (build plan §0): short-answer acceptable-answer sets (≥3 variants each), matched assisted/unassisted pairs, three-step causal lists, weighted-influence transcripts with clean controls, and countermeasure lists — five distinct authored shapes against Delegation's or Verification's smaller alphabet.
 
 ### D-42 · Real-work delegation records — the last phase in this pass's scope — 2026-08-23
 
@@ -395,6 +404,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.25 · 2026-08-23** — D-43 added: **Monitoring Lab (skill tool #6) build begins** (build plan Phase 1) — `SkillKey` gains `monitoring`, enum-only like Delegation's D-37. Unlike every other tool in this pass, two phases are out of scope rather than one: Phase 7 (human work) as usual, plus Phase 8 (`skillCrossExport`), which the spec itself marks P2 pending real data. Scope for this pass is Phases 1–6.
 - **0.18 · 2026-08-22** — D-36 added: **Real-work verification records built** (build plan Phase 7) — the last phase in this pass's scope. Writes nothing new into Tracker (unlike Decomposition's real-work export); the record saves through the existing `addQuickEntry`/`addNote` mutations. Fixes a real gap the live pass caught: the save buttons failed silently against a fresh account with no default journal, because the page checked `if (data)` rather than the actual mutation result. **This completes the full scope of this pass (phases 1-5 and 7);** only the judge (Phase 6) and human content review (Phase 8) remain, both out of scope and tracked in `team/open-work.md`.
 - **0.17 · 2026-08-22** — D-35 added: **Verification registered with skill probes** (build plan Phase 5). `probes.ts` gains a verification-specific totals branch (strict composite, ritual rate, mean cost ratio). Fixes a real gap invisible to every direct-resolver-call test in the build: `enum SkillKey` in the GraphQL schema never gained `verification`, so a real probe request would have been rejected at the schema layer — found and fixed while wiring this phase, confirmed against the live running server. Verified with 6 integration tests including the assertion that every probe attempt is stamped unassisted regardless of practice rung.
 - **0.16 · 2026-08-22** — D-34 added: **Verification Lab frontend built, including the oracle bench** (build plan Phase 4). Adds a `loadVerificationElements` mutation — an API surface the build plan didn't specify — so the assisted rung's element list is fetched fresh at the verdict step rather than shipped with the served item, keeping it out of application memory during check selection. Verified live end to end with no credential configured, `en` and `fa`, no console errors: ceiling enforcement, the unassisted two-step localisation flow, a `CORRECT` control, and a `NO_ORACLE` control's correct closure.
