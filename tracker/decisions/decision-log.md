@@ -30,6 +30,20 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 
 ## 2. Key decisions
 
+### D-44 · Monitoring Lab content pack and validator — 2026-08-23
+
+Build plan Phase 2 — the phase the build plan itself warned would be underestimated (§0: "the content job is the largest of the six"). 69 items across five item kinds (`recall`, `pair`, `explain`, `transcript`, `longset`) and six modules, `en`/`fa`.
+
+**One locale-invariance error caught before it shipped, not after:** the build plan's illustrative `MonitoringItemSpec` placed `answerVariants` and `authoredExplanation` at the spec level, alongside genuinely locale-invariant fields like `causalSteps` and `planted`. Both are literal prose a learner would type or read in their own language — a Persian learner answering "پاریس" is not a translation-time detail, it's the actual acceptable string — so both moved to the per-locale surface instead, matching this engine's spec/surface split (`00-skills-engine.md` §5.1) rather than the build plan's flattened illustration. `causalSteps`' `loadBearing` flag and `planted`'s `type`/`weight`/`turnId` stayed in the spec because those really are locale-invariant: which step matters and which turn carries which influence don't change by language, only their words do.
+
+**Probe-form composition, resolving the build plan's unnumbered "recall items for resolution, one matched pair, one transcript":** 6 recall + 1 pair (2 rows) + 1 transcript per form, giving gamma a stable >=6-item base at every timepoint against build plan §4.1's <4-is-null floor. `s2-explain` and `s6-complacency` are pool-only — no probe form contains either, since item type 1 (recall) is explicitly named "the baseline/post/delayed instrument" in spec §5, and neither the deflation nor the check-rate decay these two modules produce is ever scored, only descriptive. Probe transcript coverage split 2 items to `s4-agreement` (forms A, C) and 1 to `s5-anchor` (form B) — an arbitrary but documented way to land on exactly one transcript per form while still covering both modules across the probe.
+
+**s6-complacency's countermeasure list is one shared 6-option set reused by every pool item**, not authored per-item: the choice being trained (a structural check vs. a noticing-dependent one vs. bare effort) is a general workflow habit, not scenario content. Build plan §4.6 names a third state the illustrative `Countermeasure` type doesn't carry — bare effort (0) vs. attention-dependent-with-a-trigger (1) vs. attention-independent (2) — resolved with a separate `COUNTERMEASURE_HAS_TRIGGER` lookup keyed by `optionId` rather than widening the shared type, since the trigger/no-trigger split only matters within the `attentionDependent: true` half.
+
+**Trivia bank (s1, s3) deliberately avoids anything that could go stale or contested** — capitals, IUPAC element symbols, fixed historical dates, geometry — after Evidence Lab's own scars with "outdated" and "contested" claim profiles; a resolution instrument is worthless if its own key needs re-verifying every year.
+
+Verified: 6 unit tests (validator zero-error, servable, correctly not probe-ready, en/fa parity at 69 items each, s2/s6 excluded from probe forms, every non-clean s4 transcript marked `reauthored` in `fa`). Two authoring bugs caught by the validator before merge: a thin 2-variant answer key on the speed-of-light item (both locales), and six literal Persian-digit numerals in assisted-pair explanations (`fa`) that had been typed by hand rather than following the Western-digit convention.
+
 ### D-43 · Monitoring Lab under active build — 2026-08-23
 
 Build plan Phase 1 (`06-specs/06b-monitoring-lab-build-plan.md`). `SkillKey` gains `monitoring` — the whole schema change; `SkillAttempt.responseStructure` (already present since Decomposition) holds predictions, ratings, explanations, step selections and influence marks, and this tool needs no `rung` column (that scaffold is specific to Verification's cost bench) and no new tables. SQLite has no native enum type, so `npx prisma migrate dev` finds nothing pending; only `prisma generate` ran, same as Delegation's D-37.
