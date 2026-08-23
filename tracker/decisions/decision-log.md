@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.22 · Status: living · 2026-08-23 · Owner: _root**
+**Version 0.23 · Status: living · 2026-08-23 · Owner: _root**
 
 ---
 
@@ -28,6 +28,18 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-23 | *(no migration — enum-only)* | `SkillKey` gains `delegation`. First code for the **Delegation Lab** (skill tool #5). See D-37. |
 
 ## 2. Key decisions
+
+### D-41 · Delegation registered with skill probes; population baseline gated — 2026-08-23
+
+Build plan Phase 5. `probes.ts` gains a real `delegation` branch in `probeReadinessFor` and `loadPackInfo` — before this, any call for delegation silently fell through to `probes.ts`'s unconditional final branch, which validates *Verification's* content. Confirmed live before the fix (`startSkillProbe(skillKey: delegation, ...)` reported "18 item(s)" unverified — Verification's count, not delegation's 21) and after (correctly reports 21). The same shape of gap D-35 found for Verification, this time caught by design rather than by accident, because D-35 was fresh enough to check for deliberately.
+
+`summarizeAttempts`'s delegation branch reports per-criterion means rather than inventing a reliance-discrimination/anchoring headline for a single probe form: only 4 of a form's 7 rows ever produce a WOA, split across trust/keep/none, so any one form has at most 1-2 data points per side — too sparse for a discrimination number to mean anything, unlike the whole-history version on the progress screen (D-39) which pools far more attempts.
+
+**The population-baseline gate (§2.2, "withheld until the baseline probe completes, or 12 scored items if it was skipped") was already built in Phase 3** — `getDelegationProgress`'s `populationBaselineReady` check predates this phase; Phase 5 only needed to wire the probe-container plumbing around it. Confirmed via the live progress query: `populationMeanWoa`/`ownMeanWoa` both null with zero scored items, and the lab page correctly shows the withheld-state copy rather than hiding the metric client-side.
+
+**A flaky test found while adding this phase's own probe-sequence test, unrelated to any of the above:** `delegationProbes.integration.test.ts`'s baseline→post→delayed test (3 timepoints × 7 rows × several sequential mutation calls each) occasionally exceeded the suite's default 30s timeout under full 44-file worker contention, despite completing in ~20s run alone. Verification's structurally identical test turned out to have the exact same latent flakiness once put under the same load — both bumped to a 60s per-test timeout rather than touching the shared global default, which would mask a genuine hang elsewhere in the suite.
+
+Verified: 744 API tests green (43→44 files), live end to end against the running server both before and after the `probeReadinessFor` fix, and the probe-blocked banner rendering correctly on the lab page with all 21 items named.
 
 ### D-40 · Delegation Lab frontend, including the three-position reveal — 2026-08-23
 
