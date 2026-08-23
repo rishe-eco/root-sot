@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.19 · Status: living · 2026-08-23 · Owner: _root**
+**Version 0.20 · Status: living · 2026-08-23 · Owner: _root**
 
 ---
 
@@ -28,6 +28,22 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-23 | *(no migration — enum-only)* | `SkillKey` gains `delegation`. First code for the **Delegation Lab** (skill tool #5). See D-37. |
 
 ## 2. Key decisions
+
+### D-38 · Delegation Lab content pack and validator — 2026-08-23
+
+Build plan Phase 2 of `05b-delegation-lab-build-plan.md`: `delegation/v1`, five item kinds (`estimate`, `cue`, `split`, `stakes`, `sequence`), 42 pool items + 21 probe rows across `en`/`fa`. Three gaps in the build plan's own illustrative type/rule table, resolved here rather than left to drift:
+
+**`isAdviceGood` gives "advice closer to truth than a naive midpoint" an actual definition.** The build plan states the `advice-balance` rule in prose without saying what "naive midpoint" means; the only per-item quantity available to define it against is `plausibleRange`, so `isAdviceGood` (types.ts) compares `|advice − truth|` against `|midpoint(plausibleRange) − truth|`. This is a starting position, not a finding — expect to revisit once real advice-taking data exists, the same posture as `V4_NEAR_RATIO` in Verification Lab.
+
+**`split` and `sequence` items carry no single `truth`/`advice`/`cueDirection`, despite the build plan's flat `DelegationItemSpec` sample marking those fields non-optional.** A split item's correctness is which piece the key marks delegable; a sequence's three rounds each carry their own truth/advice. Forcing a dummy numeric truth onto a split item would be an authored value with nowhere real to point. Resolved with `truth`/`unit`/`plausibleRange`/`advice: null` and `cueDirection: "none"` on those two kinds, and the `advice-balance`/`cue-balance` validator rules scoped to `CUE_SCOPED_MODULES` (g1/g2/g3/g5) — g4 and g6 are naturally exempt rather than forced through a rule that doesn't apply to them.
+
+**A probe form's "6 scored items" (Phase 5 line) counts units, not physical rows.** A `g5-stakes` pair is two rows scoring as one unit everywhere else in this engine (spec §7's pool-floor rule: "g5 pools counted in pairs, not items"), so a form is 5 single-item modules (g1-g4, g6) plus exactly one g5 pair — 7 physical rows, 6 scored units. The pool floor follows the same logic at a larger scale: g5's pool needs ≥6 **pairs** (12 items), not ≥6 items, which is why its pool is twice the size of every other module's.
+
+**`stakesRole: "low" | "high"`** is a field the build plan's sample type never lists, added because scoring G5 (build plan §4.4: `lowHalf, highHalf = the two attempts sharing stakesPairId`) needs a way to tell the two halves of a pair apart beyond the shared `stakesPairId`.
+
+Every item's `keyVerifiedAt` is `null` — including pool items — matching the Verification Lab precedent of deferring all key verification to the human-work phase rather than claiming any item is confirmed before a human has actually looked at it.
+
+Verified: 4 unit tests (zero validator errors, servable, not probe-ready — every key unverified, en/fa parity at 63 items each) plus a clean `tsc --noEmit` across the whole API, which required also registering `DELEGATION_MODULE_KEYS` in `probes.ts`'s `MODULE_KEYS` record ahead of that file's real Phase 5 wiring — TypeScript's `Record<SkillKey, ...>` exhaustiveness check doesn't wait for a build-plan phase boundary the way the runtime GraphQL enum did in D-35.
 
 ### D-37 · Delegation Lab build begins — 2026-08-23
 
