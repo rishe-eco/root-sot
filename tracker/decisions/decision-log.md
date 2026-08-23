@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.18 · Status: living · 2026-08-22 · Owner: _root**
+**Version 0.19 · Status: living · 2026-08-23 · Owner: _root**
 
 ---
 
@@ -25,8 +25,17 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-02 | **drop_loopstate_frame_done** | Removes the `frameDone` mirror; the Day-1 frame's completion is derived from `FrameCompletion`, which is the event. See D-21. |
 | 2026-08-15 | **add_decomposition_lab** | `SkillKey` gains `decomposition`; `SkillAttempt` gains `responseStructure`. First code for the **Decomposition Lab** (skill tool #3). See D-26. |
 | 2026-08-22 | **add_verification_lab** | `SkillKey` gains `verification`; `SkillModuleProgress` gains `rung`; `SkillAttempt` gains `rung`. First code for the **Verification Lab** (skill tool #4). See D-31. |
+| 2026-08-23 | *(no migration — enum-only)* | `SkillKey` gains `delegation`. First code for the **Delegation Lab** (skill tool #5). See D-37. |
 
 ## 2. Key decisions
+
+### D-37 · Delegation Lab build begins — 2026-08-23
+
+Build plan Phase 1 of `05b-delegation-lab-build-plan.md`. `SkillKey` gains `delegation` — the whole schema change. No `rung` (specific to Verification's cost bench) and no other new column: `SkillAttempt.responseStructure` (added for Decomposition) holds the estimate/advice/revision/cue/split/sequence JSON unchanged, and SQLite has no enum type at the DB level, so `npx prisma migrate dev` found nothing pending and only `prisma generate` ran.
+
+**Scope for this pass is Phases 1–6.** Unlike Decomposition and Verification, this tool has no optional judge phase to defer — the spec is explicit (`05-delegation-lab.md` §1, §12) that the scored path is arithmetic on authored numbers with no model anywhere, ever. So the phase set is: migration, content pack + validator, scoring/session/GraphQL, frontend, probes, real-work delegation record — all six landing this pass — with only Phase 7 (human work: re-deriving every `truth` value, Persian native review) deferred, already anticipated in `team/open-work.md`'s row for "#5 Delegation."
+
+**Checked before starting, per the build plan's own §1 dependency table:** `SkillAttempt.responseStructure` exists (Decomposition), `services/skills/probes.ts` is already skill-agnostic (Decomposition Phase 5), and `skillDueReviews` already merges all four skills' due-review modules (confirmed live in `query.ts`, not just by reading the build plan) — so none of the three "if neither did" fallback branches in that table apply.
 
 ### D-36 · Real-work verification records — the last phase in this pass's scope — 2026-08-22
 
