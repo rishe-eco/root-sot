@@ -2,7 +2,7 @@
 
 *Source of truth. What exists and what doesn't, verified. The most time-sensitive file in the canon — trust the date. Update the changelog; don't fork.*
 
-**Version 0.20 · Status: as-built · 2026-08-23 · Owner: _root**
+**Version 0.21 · Status: as-built · 2026-08-23 · Owner: _root**
 
 ---
 
@@ -61,6 +61,7 @@ A sixth tool, **Monitoring Lab**, is specced (`../06-specs/06-monitoring-lab.md`
 
 ## Changelog
 
+- **0.21 · 2026-08-23** — Monitoring Lab: frontend built (Phase 4, D-46), verified live end to end in `fa` across all five item kinds. One real bug found and fixed: `submitMonitoringAnswer` matched every answer against the English content pack regardless of request locale (a hardcoded `"en"` left over from before the answer-key surface split), silently scoring every correct Persian answer wrong — confirmed live before (a correct "پاریس" scored wrong) and after (scored right) the fix, with a permanent regression test added. First phase in this six-tool arc where live verification found only one gap rather than several.
 - **0.20 · 2026-08-23** — Monitoring Lab: scoring engine, session service and GraphQL surface built (Phase 3, D-45), verified with 35 unit + integration tests and live end to end against the running server, including a full recall cycle, both halves of an s1 matched pair, and the D-45 ordering fix rejecting a premature step selection. Two real gaps in the build plan's own illustrative operations table resolved: the s2-explain rate/explain/select-steps/re-rate ordering conflict between spec §5 and §10, and a missing `markMonitoringCheckpoint` event needed for s6's check-rate decay. Confirmed live that `probeReadinessFor("monitoring")` still falls through to Verification's content, exactly as expected — registration is Phase 5.
 - **0.19 · 2026-08-23** — Monitoring Lab: content pack and validator built (Phase 2, D-44) — 69 items across five item kinds (recall, pair, explain, transcript, longset) and six modules, `en`/`fa`. Two authoring gaps resolved and documented: `answerVariants`/`authoredExplanation` moved from the build plan's illustrative spec-level fields to the per-locale surface (they're prose a learner reads/types in their own language, not locale-invariant structure), and `s2-explain`/`s6-complacency` deliberately excluded from every probe form since neither module's output is ever scored, only descriptive.
 - **0.18 · 2026-08-23** — Monitoring Lab (skill tool #6) moved from "specced, no code" to "under active build" (D-43): `SkillKey` gains `monitoring`, the whole Phase 1 schema change. Scope for this pass is phases 1–6; this is the first of the six tools where Phase 7 (human work) and Phase 8 (`skillCrossExport`, spec-marked P2) are **both** out of scope, rather than one optional judge/human phase.
