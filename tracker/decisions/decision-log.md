@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.25 · Status: living · 2026-08-23 · Owner: _root**
+**Version 0.28 · Status: living · 2026-08-25 · Owner: _root**
 
 ---
 
@@ -29,6 +29,46 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-23 | *(no migration — enum-only)* | `SkillKey` gains `monitoring`. First code for the **Monitoring Lab** (skill tool #6). See D-43. |
 
 ## 2. Key decisions
+
+### D-50 · Criterion evidence is localised server-side, `ok` has to mean the move did not cost accuracy, and a key may be revealed but never rendered into the instrument — 2026-08-24/25
+
+The remediation of persona review pass 3 (D-49) forced three design choices worth recording, because each had a plausible alternative that a later change might drift back toward.
+
+**1 · Criterion evidence resolves on the server, not behind client translation keys.** Every lab returns, per criterion, a short line saying *why* that level was awarded; pass 3 found those hardcoded in English in four labs. The obvious fix — turn each into an i18next key and interpolate on the client — would have meant a schema change (`evidenceKey` + a params blob), a client change in five reveals, and ~90 new locale-JSON entries. It was rejected because the server already knows the request locale (**D-22**: locale per request, never stored) and the content packs are already per-locale, so the string can resolve exactly where the item surface it explains does. The wire format stays a plain `String!`.
+
+Tables live at `api/src/content/skills/<lab>/v1/evidence.ts` — authored prose sits with the other authored prose, not in `services/` — behind one `makeEvidence` helper in `services/skills/evidenceText.ts`. Its `EvidenceTable<K> = Record<Locale, Record<K, string>>` type makes a missing translation a **compile error**, which is the property that matters: this is the fourth locale defect in three review passes, and every previous one was a value silently missing at one layer.
+
+**Consequence to hold onto:** a criterion's evidence can now only be produced somewhere `locale` is in scope. Several scoring functions gained a `locale` parameter for no other reason. Do not remove it to tidy a signature.
+
+**2 · `relianceDirection` gained a fourth bucket, `costly`.** Delegation's reveal printed *"Your movement roughly matched what the advice was worth here"* next to `net gain −10`. The cause: the build plan's over-reliance threshold is WOA > 0.5, population-level and deliberately wide, and a move of 0.40 toward worse advice fell into the residual `ok` bucket. Lowering the threshold would have changed a measurement to fix a copy problem. Instead `ok` was narrowed: `costly` is defined by **outcome** — the final answer is further from the truth than the initial one, i.e. net gain is negative — and `over`/`under` keep the build plan's thresholds untouched and still take precedence. Mastery is unaffected: `relianceRates` counts only `over` and `under`, and these attempts were previously `ok`, which it also did not count.
+
+**3 · A window-level criterion still owes the learner an outcome.** Monitoring's S1 and S3 are measured across a window, correctly, and carry no per-attempt level — which left a completed recall sitting showing six "not scored" rows and a heading that also read "not scored", on the one tool whose whole premise is predict-then-measure. `MonitoringScore` gained `answerOutcome`, and the reveal headlines the outcome rather than the absent score. **The scoring model did not change.** The rule this records: *window-level measurement is a statement about the score, not a licence for an empty screen.*
+
+**4 · A screen that shows two objects has to name both.** Clarity's reveal grades the diagnosis against the draft the item shipped while the criteria beside it score the learner's rewrite — two correct facts about two different texts, which read as one screen contradicting itself. The label that fixes it (`diagnosisIsAboutItemText`) is **derived from the same predicate that picks the diagnosis key**, not from the item type re-tested in the client. A label that can disagree with the grading behind it is the defect, so the two are wired to one function.
+
+**5 · An answer key may be revealed, but never rendered into the instrument.** Monitoring's transcript reveal names each planted turn and its kind. It is a separate read-only block rather than a post-commit mode on `TranscriptAudit`, whose contract — asserted in its own test — is that a planted turn and a clean turn are visually identical; marking it up "only after commit" would put that styling one state bug away from the live transcript. A clean control reveals nothing at all rather than an empty block, because an always-present heading is itself a tell. The influence `type` crosses the wire as a closed enum so the reveal localises with four keys; the item's authored `keyNote` stays server-side, being English-only spec prose.
+
+This was safe to build now, rather than after real learner data, because **items are never re-served** — `startMonitoringItem` filters out every `itemId` the learner has attempted, so an item's measurement is complete before its key is shown. That fact, not a judgment call, decided build-versus-wait.
+
+**Not re-scored.** The pass-3 score tables are pre-remediation and were deliberately left that way — a re-score by the same reviewer on the same day measures memory, not usability. Pass 4 runs the tiered procedure on fresh accounts and records its own numbers.
+
+---
+
+### D-49 · The persona review becomes canon, and pass 3 covers all six labs — 2026-08-24
+
+Two review passes in August 2026 walked Evidence and Clarity as two fixed personas and produced defects no test suite had caught — but **the method lived only in a chat transcript**, and the third pass had to recover the personas and metrics by searching session history. That is the decision this entry records: the method is now a canon file (`../canon/05-reviews/00-persona-review-method.md`), with the two personas, the six metrics, the procedure and the score history in one place, and each pass filed beside it as a dated findings file.
+
+**A new canon area, `05-reviews/`, rather than a section inside `06-specs/`.** A review is graded against the running app, not against a design; putting it under `06-specs/` (which the README defines as "designed but not built") would have mis-graded it. Read order gains a step 9: read `05-reviews/` before changing any lab's copy, landing page or reveal.
+
+**Pass 3 (`01-six-lab-review-2026-08-24.md`) confirms all five pass-2 remediation items landed** — `DETECTOR_CRITERIA_BY_LOCALE.fa = []`, the locale-derived unscored count, R1's light-verb backstop, the `checkBody` rename, and the settling-line echo — and scores all six labs per persona for the first time. Report-only by instruction; nothing was fixed in this pass.
+
+**Three blockers, each verified below the UI before being written down:**
+
+1. **Persian-Indic digits never match an answer key.** `normalizeAnswer` (`answerMatch.ts`) is NFKC + lowercase + strip-punctuation, and NFKC does not fold U+06F0–06F9 or U+0660–0669 to ASCII. 16 of the 33 `fa` Monitoring items with answer variants carry Latin-digit-only keys, **ten of them `s3-*`** — the resolution module, whose whole output is gamma/bias/performance. A correct Persian answer is recorded `correct: false`, understating accuracy and therefore overstating overconfidence. **This is the third instance of one pattern** — D-22's locale decision made correctly at one layer and not carried to the next: pass 1 found it in the profile layer, pass 2 in the tokenizer (`contentWords`), pass 3 in the answer key's numeral system. The fix belongs in the normalizer, not in sixteen content edits, so the next authored item cannot reintroduce it.
+2. **The per-criterion "why you scored this" is hardcoded English in four labs** — 28 strings in Decomposition, 15 in Verification, 2 each in Delegation and Monitoring; none in Clarity or Evidence. Verification is worst because the string reaches the headline: `VerificationSessionPage.tsx:545` passes `ritualLine={v3?.evidence}`. Same class as the mastery-gate English-string defect fixed after pass 1 — the fix went to the gates and not to the evidence.
+3. **Monitoring's reveal shows a completed item nothing at all** — no outcome, no key, no committed prediction, no rating. The design reason is sound (S1/S3 are window-level, per D-43 onward), but the tool whose premise is *predict, then measure* shows a blank screen where the measurement should land, and the rating step renders "how well do you understand this?" with the question, answer and prediction all removed from the page.
+
+**And one cross-cutting finding worth acting on as a process change, not a bug:** the four labs built after passes 1–2 (Decomposition, Verification, Delegation, Monitoring) did not inherit what those passes produced — no landing-page walkthrough, inconsistent rubric-rail glosses, and the "scored row is icon-only" defect shipping again in two of them. Fixes from a review pass need porting to the tools built after it, which nothing in the build plans currently instructs.
 
 ### D-48 · Session self-audit records — the last phase in this pass's scope — 2026-08-23
 
@@ -459,6 +499,9 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.28 · 2026-08-25** — D-50 extended with the two decisions that closed the pass: a screen showing two objects must name both, with the label derived from the same predicate as the grading; and an answer key may be revealed but never rendered into the instrument that measures it. Records that Monitoring items are never re-served, which is what made building the planted-influence reveal safe now rather than after data.
+- **0.27 · 2026-08-24** — D-50 added: pass 3's findings were fixed the same day. Records why criterion evidence resolves **server-side** rather than behind client translation keys (D-22 already puts the locale on the request, and the `EvidenceTable` type makes a missing translation a compile error), why `relianceDirection` gained a `costly` bucket instead of moving the build plan's over-reliance threshold, and that a window-level criterion still owes the learner an outcome. Scoring models unchanged; several scoring signatures gained a required `locale`.
+- **0.26 · 2026-08-24** — D-49 added: the **persona review method becomes canon** in a new `../canon/05-reviews/` area, and pass 3 covers all six labs. Records three blockers (Persian-Indic digit matching in `answerMatch.ts`, hardcoded English criterion evidence in four labs, Monitoring's empty reveal), that all five pass-2 remediation items landed, and that fixes from a review pass are not currently ported to tools built after it. No migration — no code changed in this pass.
 - **0.25 · 2026-08-23** — D-43 added: **Monitoring Lab (skill tool #6) build begins** (build plan Phase 1) — `SkillKey` gains `monitoring`, enum-only like Delegation's D-37. Unlike every other tool in this pass, two phases are out of scope rather than one: Phase 7 (human work) as usual, plus Phase 8 (`skillCrossExport`), which the spec itself marks P2 pending real data. Scope for this pass is Phases 1–6.
 - **0.18 · 2026-08-22** — D-36 added: **Real-work verification records built** (build plan Phase 7) — the last phase in this pass's scope. Writes nothing new into Tracker (unlike Decomposition's real-work export); the record saves through the existing `addQuickEntry`/`addNote` mutations. Fixes a real gap the live pass caught: the save buttons failed silently against a fresh account with no default journal, because the page checked `if (data)` rather than the actual mutation result. **This completes the full scope of this pass (phases 1-5 and 7);** only the judge (Phase 6) and human content review (Phase 8) remain, both out of scope and tracked in `team/open-work.md`.
 - **0.17 · 2026-08-22** — D-35 added: **Verification registered with skill probes** (build plan Phase 5). `probes.ts` gains a verification-specific totals branch (strict composite, ritual rate, mean cost ratio). Fixes a real gap invisible to every direct-resolver-call test in the build: `enum SkillKey` in the GraphQL schema never gained `verification`, so a real probe request would have been rejected at the schema layer — found and fixed while wiring this phase, confirmed against the live running server. Verified with 6 integration tests including the assertion that every probe attempt is stamped unassisted regardless of practice rung.

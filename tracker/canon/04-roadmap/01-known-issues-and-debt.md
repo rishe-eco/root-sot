@@ -2,7 +2,7 @@
 
 *Source of truth. The bug catalogue and hygiene items. Status must be re-verified — read the grounding note. Update the changelog; don't fork.*
 
-**Version 0.1 · Status: mixed (see per-item grounding) · 2026-07-22 · Owner: _root**
+**Version 0.5 · Status: mixed (see per-item grounding) · 2026-08-25 · Owner: _root**
 
 ---
 
@@ -28,6 +28,17 @@
 - **B-13 — Calendar shows only interval custom dates, not recurrence.** Rule-based intervals produce no calendar events. **Fix:** run `intervalOccursOnDate` across the visible range (bounded, e.g. ≤90 days).
 - **B-12 — Milestone `doa` parsed as a date.** The calendar falls back to `parseDateOnly(m.doa)`, but `doa` is free text → `Invalid Date`/`NaN`. **Fix:** use only `predictionDate` for milestone placement.
 
+## Open — skill labs (persona review pass 3, 2026-08-24)
+
+*S-1 → S-11 were opened and closed within two days: reported first under a report-only instruction, then fixed once that was lifted. Full context, both personas' scores, the fixes and the live verification: `../05-reviews/01-six-lab-review-2026-08-24.md` §8. See decision-log D-49 and D-50.*
+
+**All eleven closed and verified live (2026-08-24, with S-5a and S-6 on 2026-08-25):** S-1 (Persian-Indic digits never matched an answer key), S-2 (criterion evidence hardcoded in English across four labs), S-3 (Monitoring's per-item reveal showed nothing), S-4 (the criterion rail was the score display), S-5 in full — (a) Clarity's diagnosis and criteria now each name which text they are about, (b) the floating denominator, (c) the static delta caption, (d) `okNote` beside a negative net gain, S-6 (the reveal now names each planted turn and its kind, in either locale), S-7 (Delegation's number field discarded Persian numerals), S-8 (`(s)` artifacts in the skills labs), S-9 (raw markdown in Clarity's authored misread), S-10 (`FA_STATE_CHANGE_VERBS` missed negation), S-11 (landing pages, rail glosses, the Tools hub's "two skills", the first-run tour, the starting point, the `rung` badge, and the real-work dead end).
+
+Still open — both are sweeps rather than defects:
+
+- **Persian register drift.** `verification`'s `fa` locale block is formal (`می‌گوید`, `است`) where the content packs are informal (`تو`/`کن`). Worth one sweep by a native reviewer rather than string-by-string edits.
+- **`(s)` artifacts outside the skills labs:** `intervals.repeatUnitMinute/Hour/Day/Week/Month/Year` and `projects.projectHasActionsPrompt`. Same defect, different feature; listed here so the next sweep has the set.
+
 ## Open — UX / smaller
 
 - **B-7 — Project start/end dates not editable.** Fields exist and drive status, but no UI/mutation args to set them → projects stuck in "Backlog." **Fix:** add date args to `updateProject` + pickers. *(Verify — may have been addressed alongside status work.)*
@@ -49,5 +60,10 @@ Before working a bug, re-read the cited file(s), confirm the issue still reprodu
 ---
 
 ## Changelog
+
+- **0.5 · 2026-08-25** — S-6 closed. Every defect from persona review pass 3 is now fixed; what remains under this heading is two sweeps (the Persian register drift in `verification`'s locale block, and the `(s)` artifacts outside the skills labs), neither of which is a defect in a lab.
+- **0.4 · 2026-08-24** — S-5a closed. Three items remain: S-6, the Persian register drift, and the `(s)` artifacts outside the skills labs.
+- **0.3 · 2026-08-24** — S-1 → S-11 closed the same day they were opened; the section now records what shipped and the four items that remain (S-5a, S-6, Persian register, `(s)` outside the labs). See D-50.
+- **0.2 · 2026-08-24** — New section: **Open — skill labs**, S-1 → S-11, from persona review pass 3 (D-49). Unlike the B-n items, every one was reproduced live and confirmed in source or the dev DB on the date given. Three are blockers for a Persian learner or for Monitoring's whole premise; the rest are copy-vs-state contradictions and content debt. Nothing was fixed — the pass was report-only by instruction.
 
 - **0.1 · 2026-07-22** — Initial. B-1/2/3 marked fixed; remaining items carried from the June-10 audit with verify-first flags and hygiene items from the Root appendix.
