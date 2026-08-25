@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.29 · Status: living · 2026-08-25 · Owner: _root**
+**Version 0.30 · Status: living · 2026-08-25 · Owner: _root**
 
 ---
 
@@ -29,6 +29,32 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-23 | *(no migration — enum-only)* | `SkillKey` gains `monitoring`. First code for the **Monitoring Lab** (skill tool #6). See D-43. |
 
 ## 2. Key decisions
+
+### D-52 · A review has to be able to fail, and the ladder only expands if something writes to it — 2026-08-25
+
+`scheduler.ts` has shipped an expanding review ladder — `REVIEW_INTERVAL_DAYS = [1, 3, 7, 21, 60]` — plus `onReviewPassed` and `onReviewFailed`, since the engine's first version. Both functions were unit-tested. **Neither was ever called by a service, and nothing in the codebase wrote `reviewIntervalIndex`.** `scheduleOnMastery` only reads it, so it read Prisma's default of `0` forever.
+
+Three consequences, all live in all six labs until this change:
+
+- **Every review of every module rescheduled to roughly tomorrow.** The 3-, 7-, 21- and 60-day rungs were unreachable. A spaced-repetition schedule that only ever spaces one day is a daily reminder.
+- **A failed review never routed back to step 5.** `onReviewFailed` returns `resumeAtStep: 5` — diagnose and fix, on the reasoning that re-reading the concept is not the remedy for a failed application — and nothing read it, because `currentStep` was never written from a review outcome.
+- **A failed review could pin a module permanently due.** If the failure dropped the mastery window below criterion, `verdict.mastered` went false, `...(verdict.mastered && scheduleOnMastery(...))` spread nothing, and `nextReviewAt` kept its old past value. `due_review` is derived as `nextReviewAt <= now`, so the module stayed due forever.
+
+**The decision.** `scheduleOnReviewSubmitted(passed, existing, now, seed)` is the one place that answers "what does a submitted review do to this module's row", and **all six labs call it**. A review-mode submission takes that branch on its own pass/fail; every other mode keeps the ordinary first-mastery path. The shared helper and the Evidence/Clarity wiring came off a branch written 2026-08-16 that had been sitting unmerged; the other four labs did not exist then and were wired here.
+
+**A review's pass/fail is the attempt's, not the window's — except where the attempt has no verdict to give.** Each lab passes the bar its own mastery rule already uses: Evidence `score.strict === 1`, Clarity `atCriterion`, Decomposition `scoreAtCriterion` (a score-only form of the bar it already had), Verification `score.strict`, and Delegation and Monitoring the level-2 bar their keyed mastery counts. Using the *window* verdict instead would let a failed review advance the ladder whenever one miss was not enough to unseat mastery, which is precisely backwards.
+
+**`passed: null` is the exception, and it is the D-47/D-50 shape again.** Delegation's G1 and G6 and Monitoring's S1 and S3 are scored over a window and never carry a per-attempt level, so there is no per-attempt verdict to read. Those pass `null`, and the schedule falls back to whether the module still holds — the only honest answer available for a criterion that has no per-attempt existence. Making up a per-attempt pass/fail for them would have been the easier code and a false measurement.
+
+**And the server half alone would have been dead code.** No lab page ever sent `mode: "review"`. Five session pages computed the mode as `isProbe ? "assessment" : moduleKey ? "module" : "calibrated_practice"`, and every module row — including one displaying "Review due" — linked with `?module=`. So a due module was opened as an ordinary sitting, and the review branch could never fire. The state was computed, displayed, and then discarded at the moment it mattered.
+
+`modeForModuleState` and `resolveSessionMode` (`client/app/components/skills/sessionMode.ts`) close that, and `resolveSessionMode` **only honours `review` from the URL**. A query string must not be able to ask for `assessment`: that mode serves frozen probe snapshots and stamps a probe id, so a link that could select it would put un-probed attempts into a probe's results.
+
+**Verified live end to end**, not only in tests: a seeded due module in Monitoring moved `reviewIntervalIndex` 1 → 2, `currentStep` 1 → 7, and `nextReviewAt` from three days overdue to eight days out — the third rung. A second seeded due module left alone stayed at index 1 and stayed overdue.
+
+**Found by** diffing an unmerged branch against `main` rather than by a review pass, which is worth noting: no persona walkthrough would have caught this. The symptom is a review date, and a review date is only wrong relative to what it should have been three reviews later.
+
+---
 
 ### D-51 · A normaliser is a shared artifact, not a per-site fix — 2026-08-25
 
@@ -522,6 +548,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.30 · 2026-08-25** — D-52 added: the review ladder never expanded, because nothing ever wrote `reviewIntervalIndex` and neither `onReviewPassed` nor `onReviewFailed` was called by any service. Every review in all six labs rescheduled at the first rung, a failed review never routed back to diagnose, and a failed review could pin a module permanently due. One shared `scheduleOnReviewSubmitted`, called by all six, with a review's pass/fail taken per attempt except where the criterion is window-level and has none. The client half was missing too — no lab page ever sent `mode: "review"`, so the server branch would have been dead code.
 - **0.29 · 2026-08-25** — D-51 added from persona review pass 4, which confirmed all three pass-3 blockers fixed and found the same digit defect still live in a second detector. Records the rule that would have prevented it — a normaliser is a shared artifact, not a per-site fix — and two further findings (S-14b, S-21) that are consequences of the pass-3 fixes. Leaves open whether §7d extends to authored teaching prose. Nothing fixed; pass 4 was report-only.
 - **0.28 · 2026-08-25** — D-50 extended with the two decisions that closed the pass: a screen showing two objects must name both, with the label derived from the same predicate as the grading; and an answer key may be revealed but never rendered into the instrument that measures it. Records that Monitoring items are never re-served, which is what made building the planted-influence reveal safe now rather than after data.
 - **0.27 · 2026-08-24** — D-50 added: pass 3's findings were fixed the same day. Records why criterion evidence resolves **server-side** rather than behind client translation keys (D-22 already puts the locale on the request, and the `EvidenceTable` type makes a missing translation a compile error), why `relianceDirection` gained a `costly` bucket instead of moving the build plan's over-reliance threshold, and that a window-level criterion still owes the learner an outcome. Scoring models unchanged; several scoring signatures gained a required `locale`.

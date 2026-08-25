@@ -2,7 +2,7 @@
 
 *Source of truth. The bug catalogue and hygiene items. Status must be re-verified — read the grounding note. Update the changelog; don't fork.*
 
-**Version 0.6 · Status: mixed (see per-item grounding) · 2026-08-25 · Owner: _root**
+**Version 0.7 · Status: mixed (see per-item grounding) · 2026-08-25 · Owner: _root**
 
 ---
 
@@ -38,6 +38,16 @@ Still open — both are sweeps rather than defects:
 
 - **Persian register drift.** `verification`'s `fa` locale block is formal (`می‌گوید`, `است`) where the content packs are informal (`تو`/`کن`). Worth one sweep by a native reviewer rather than string-by-string edits.
 - **`(s)` artifacts outside the skills labs:** `intervals.repeatUnitMinute/Hour/Day/Week/Month/Year` and `projects.projectHasActionsPrompt`. Same defect, different feature; listed here so the next sweep has the set.
+
+## Closed — the review ladder never expanded (2026-08-25)
+
+*Not a persona-review finding — found by diffing an unmerged branch against `main`. See decision-log D-52.*
+
+`scheduler.ts` shipped an expanding ladder (1, 3, 7, 21, 60 days) and `onReviewPassed`/`onReviewFailed` from the engine's first version. Both were unit-tested; **neither was called by any service, and nothing wrote `reviewIntervalIndex`**, which `scheduleOnMastery` only ever reads. So in all six labs every review rescheduled at the first rung, a failed review never routed back to step 5, and a failed review that unseated mastery left `nextReviewAt` in the past — pinning the module permanently due.
+
+**The client half was missing too:** no lab page ever sent `mode: "review"` — a module row reading "Review due" linked with `?module=` like any other, so the state was displayed and then discarded at the moment it mattered.
+
+**Fixed:** one `scheduleOnReviewSubmitted`, called by all six session services, and one `sessionMode.ts` on the client that maps a due module to review mode and honours only `review` from the URL (never `assessment`, which serves frozen probe snapshots). A review's pass/fail is the submitted attempt's, using each lab's existing bar; Delegation's G1/G6 and Monitoring's S1/S3 have no per-attempt level, so they pass `null` and fall back to the module's window verdict. Covered by 18 tests in `reviewSchedule.integration.test.ts` plus the five that came with the branch, and verified live: a seeded due module moved 1 → 2 on the ladder, `currentStep` to 7, and its next review from three days overdue to eight days out.
 
 ## Open — skill labs (persona review pass 4, 2026-08-25)
 
@@ -89,6 +99,7 @@ Before working a bug, re-read the cited file(s), confirm the issue still reprodu
 
 ## Changelog
 
+- **0.7 · 2026-08-25** — The review ladder never expanded, in any of the six labs, since the engine's first version: nothing wrote `reviewIntervalIndex` and neither review-outcome function was ever called. Fixed and recorded as closed (D-52). Found by diffing an unmerged branch, not by a review pass — no walkthrough would have caught it, since the symptom is a review date that is only wrong relative to what it should have been several reviews later.
 - **0.6 · 2026-08-25** — S-12 → S-22 opened from persona review pass 4. Three of them (S-12, S-14b, S-21) are consequences of the pass-3 remediation, which is the pass's central finding: the digit fold was applied at the site where the blocker was found rather than shared, so the same defect is still live in a second detector. Records that `04-conventions.md` §7d is not upheld in four of six content packs.
 - **0.5 · 2026-08-25** — S-6 closed. Every defect from persona review pass 3 is now fixed; what remains under this heading is two sweeps (the Persian register drift in `verification`'s locale block, and the `(s)` artifacts outside the skills labs), neither of which is a defect in a lab.
 - **0.4 · 2026-08-24** — S-5a closed. Three items remain: S-6, the Persian register drift, and the `(s)` artifacts outside the skills labs.
