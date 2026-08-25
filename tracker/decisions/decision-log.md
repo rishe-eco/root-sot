@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.30 · Status: living · 2026-08-25 · Owner: _root**
+**Version 0.31 · Status: living · 2026-08-25 · Owner: _root**
 
 ---
 
@@ -29,6 +29,31 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-23 | *(no migration — enum-only)* | `SkillKey` gains `monitoring`. First code for the **Monitoring Lab** (skill tool #6). See D-43. |
 
 ## 2. Key decisions
+
+### D-53 · The hub shows progress, never performance — and its state is decoration, not the page — 2026-08-25
+
+`07-training-lab-hub.md` built: one page at `/tools/skills` in front of the six labs, and one button on the Tools page in place of six cards. Not a seventh lab — nothing on it is scored, no attempt row is written, `SkillAttempt` gains no `hub` value.
+
+**One query, not twelve.** `skillsOverview` returns all six skills in canonical order. Driving the hub from the per-lab queries would have meant `<skill>Modules` × 6 plus `<skill>Progress` × 6 plus `dueSkillProbes` — thirteen round trips, since `useApi` issues one POST per `call()` and does not batch — and it would not have worked anyway, because `skillModules`/`skillProgress`/`skillPlan` are gated by `assertEvidence` and reject the other five keys. The resolver costs four Prisma reads for the whole page, none of them per-skill, plus the six content packs, which are static modules already loaded on every `skillDueReviews` call.
+
+**No metric service runs.** `get<Skill>Progress` computes gammas, Brier scores, WOA aggregates and criterion means. The hub may not display any of them, so it does not pay for any of them. The reason is the spec's §5a and it is the same restraint each lab already applies to its own numbers: the six report **different headline metrics on different scales** — a strict composite, a ritual rate and a mean cost ratio, an over/under-reliance pair, a gamma that may not be rendered without task performance beside it. There is no arithmetic that makes "you are weakest at Verification" true. So the hub counts mastered modules, which is a count and is comparable, and rule 5 of the recommendation ladder **names no lab at all** when everything is clear.
+
+**Deviations from the spec, both deliberate.**
+
+- **Four Prisma reads, not three.** §6 listed `skillModuleProgress`, `skillAttempt.groupBy` and `skillProbe`, and sourced `hasBaseline` from the probe rows. `hasBaseline` and `assessmentSkipped` live on `SkillProfile`, so there is a fourth `skillProfile.findMany`. It is a read, never a write: every `get<Skill>Modules` goes through `ensureProfile`, which inserts on first contact, and **visiting an index must not enrol a learner in six labs they have not opened**. A missing profile is simply a learner who has not started. Locked down by a test that asserts zero profile rows after a hub load.
+- **The recommendation ladder is client-side.** §10 grouped its tests with the resolver. Every string the ladder produces is a locale key — the action, the reason, the lab name — and §6a says no copy crosses the wire. So the server returns facts and `trainingLab.ts` decides what to recommend, unit-tested over all five rules and both tie-breaks without rendering a page.
+
+**`isDueReview` is now one function.** Six `get<Skill>Modules` each carried an identical copy of `p?.nextReviewAt != null && p.nextReviewAt.getTime() <= now`, and the hub needed a seventh reader. A hub that disagreed with a lab page about what is due would be worse than a hub that showed nothing, so the line was extracted to `scheduler.ts` and all seven call it. This is D-51 applied before the duplication had a chance to drift, rather than after.
+
+**The failure state is the load-bearing one.** When `skillsOverview` fails, all six cards still render — names, one-liners, both entrances, no counts, no ribbon — plus one retry. On the Tools page the status line simply does not appear: no spinner, no error, no blocked button. The hub's job is navigation; state is decoration, and a learner who cannot reach the API still needs the door to open.
+
+**Cards are links.** The Tools page used `<Button onClick={() => navigate(...)}>`, which silently swallowed middle-click, ⌘-click and "open in new tab". Every card and every entrance on the hub is a `<Link>`. A fix, not a preference.
+
+**One addition the spec did not have.** The card renders in-progress modules as half-filled pips and says so in words. Found live: a lab with a module underway looked identical to one nobody had opened, because `masteredCount` was 0 in both. `inProgressCount` was already in the payload and unused.
+
+**Verified live in both locales**, on the running server: the first-visit state (rule 3 names Evidence, intro block open, no Due-now section), a state with a review outstanding (rule 2, ribbon on the right card, the row linking with `&mode=review`), the all-clear state (rule 5, no ribbon anywhere, no lab named), the failure state on both pages, RTL chevrons mirrored, Persian module titles served from the pack, and zero profile rows created by the visit. Rule 1 correctly stayed silent throughout: every pack in this install is still `key-unverified`, so `probeReady` is false for all six and a due probe the lab page would refuse to start is never recommended.
+
+---
 
 ### D-52 · A review has to be able to fail, and the ladder only expands if something writes to it — 2026-08-25
 
@@ -548,6 +573,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.31 · 2026-08-25** — D-53 added: the AI Training Lab hub built. One `skillsOverview` query in place of thirteen, four Prisma reads and no metric service, a five-rule recommendation ladder whose last rule names no lab because the six labs' headline metrics are not on a common scale, and a failure state in which all six doors still open. Two deliberate deviations from the spec (a fourth read for the profile, read-only so the hub cannot enrol anyone; the ladder client-side because every string it produces is a locale key). `isDueReview` extracted from its six copies.
 - **0.30 · 2026-08-25** — D-52 added: the review ladder never expanded, because nothing ever wrote `reviewIntervalIndex` and neither `onReviewPassed` nor `onReviewFailed` was called by any service. Every review in all six labs rescheduled at the first rung, a failed review never routed back to diagnose, and a failed review could pin a module permanently due. One shared `scheduleOnReviewSubmitted`, called by all six, with a review's pass/fail taken per attempt except where the criterion is window-level and has none. The client half was missing too — no lab page ever sent `mode: "review"`, so the server branch would have been dead code.
 - **0.29 · 2026-08-25** — D-51 added from persona review pass 4, which confirmed all three pass-3 blockers fixed and found the same digit defect still live in a second detector. Records the rule that would have prevented it — a normaliser is a shared artifact, not a per-site fix — and two further findings (S-14b, S-21) that are consequences of the pass-3 fixes. Leaves open whether §7d extends to authored teaching prose. Nothing fixed; pass 4 was report-only.
 - **0.28 · 2026-08-25** — D-50 extended with the two decisions that closed the pass: a screen showing two objects must name both, with the label derived from the same predicate as the grading; and an answer key may be revealed but never rendered into the instrument that measures it. Records that Monitoring items are never re-served, which is what made building the planted-influence reveal safe now rather than after data.

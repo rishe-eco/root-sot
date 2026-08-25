@@ -1,8 +1,8 @@
 # Tracker — AI Training Lab (the hub)
 
-*Spec, not as-built. One page that houses the entrance to all six skill labs, and one button on the Tools page that replaces the six. Not a seventh lab — it trains nothing and scores nothing. Runs on `00-skills-engine.md`; the six lab specs (`01`–`06`) are unchanged by it. Wireframes: `07a-training-lab-hub-wireframes.html`. Update the changelog; don't fork.*
+*Built 2026-08-25; see the changelog for what shipped differently. One page that houses the entrance to all six skill labs, and one button on the Tools page that replaces the six. Not a seventh lab — it trains nothing and scores nothing. Runs on `00-skills-engine.md`; the six lab specs (`01`–`06`) are unchanged by it. Wireframes: `07a-training-lab-hub-wireframes.html`. Update the changelog; don't fork.*
 
-**Version 0.1 · Status: spec · 2026-08-25 · Owner: _root**
+**Version 0.2 · Status: as-built · 2026-08-25 · Owner: _root**
 
 ---
 
@@ -213,4 +213,5 @@ Small enough not to need a phased plan of its own; four steps, each independentl
 
 ## Changelog
 
+- **0.2 · 2026-08-25** — **Built** (decision-log D-53). Shipped as specced except for two deliberate deviations, both recorded there: the resolver makes **four** Prisma reads, not three — `hasBaseline` and `assessmentSkipped` live on `SkillProfile`, not on the probe rows, and the extra read is read-only so that visiting the hub cannot enrol anyone in six labs; and the recommendation ladder lives on the **client** (`components/skills/trainingLab.ts`), not in the resolver, because every string it produces is a locale key and §6a keeps copy off the wire. Two additions: `isDueReview` was extracted to `scheduler.ts` and all six `get<Skill>Modules` now call it (§6a asked for exactly this), and the lab card shows in-progress modules as half-filled pips plus a words version — found live, where a lab with a module underway was indistinguishable from one nobody had opened. §11's first open question stands; the second is settled in favour of "started", as written. Rule 1 has not yet been seen firing: every pack in this install is `key-unverified`, so `probeReady` is false for all six and the ladder correctly skips it.
 - **0.1 · 2026-08-25** — First draft. One hub at `/tools/skills` replacing six cards on the Tools page with one button; a single `skillsOverview` query costing three Prisma reads; a five-rule recommendation ladder that never ranks the labs against each other, because their headline metrics are not on a common scale.

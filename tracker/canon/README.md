@@ -117,7 +117,7 @@ tracker/                          ← the Tracker area of root-sot
       06b-monitoring-lab-build-plan.md
                                     phase order, the gamma and answer-matching
                                     rules, and gates. For a coding agent.
-      07-training-lab-hub.md        the AI Training Lab hub (spec, unbuilt) — one
+      07-training-lab-hub.md        the AI Training Lab hub (built 2026-08-25) — one
                                     page housing the entrance to all six labs, and
                                     one button replacing six on the Tools page.
                                     Not a seventh lab: it scores nothing.
