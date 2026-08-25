@@ -2,7 +2,7 @@
 
 *How the skill labs are reviewed from a newcomer's seat: the two personas, the six metrics, the procedure, and the score history across passes. Grade: **as-built method** — every pass recorded here was run against the running dev servers on the date in its own file.*
 
-**Version 1.1 · Status: living · 2026-08-24 · Owner: _root**
+**Version 1.2 · Status: living · 2026-08-25 · Owner: _root**
 
 ---
 
@@ -66,6 +66,7 @@ Metrics 1–3 were the founder's own suggestion in pass 1; 4–6 were added beca
 | 1 | 2026-08-14/15 | Evidence + Clarity | pass-1 findings live only in session `local_622daf2d`; the five remediation items it produced are all landed and re-verified in pass 3 |
 | 2 | 2026-08-15 | Evidence + Clarity, re-test after fixes | same session |
 | 3 | 2026-08-24 | **all six labs** | `01-six-lab-review-2026-08-24.md` (§8: fixed same day) |
+| 4 | 2026-08-25 | **all six labs**, re-test on fresh accounts | `02-six-lab-review-2026-08-25.md` |
 
 Passes 1 and 2, averaged over Evidence + Clarity:
 
@@ -87,12 +88,16 @@ Roughly half a day of walkthrough per pass, and every pass has returned at least
 - **Pass 1:** Persian content unreachable (`SkillProfile.locale` defaulted to `en` and every caller used the default); the rewrite step dead for every non-repair item; diagnosis scored against the rewrite instead of the original.
 - **Pass 2:** Persian Clarity scores meaningless (`contentWords` stripped every non-ASCII character, so R1 always returned 0 on Persian).
 - **Pass 3:** Persian-Indic digits never match any answer key (16 of 33 Monitoring items, 10 of them the module whose whole output is the headline measurement); the per-criterion "why" is hardcoded English in four labs. Both fixed the same day (D-50).
+- **Pass 4:** the *same* digit defect, one module over — `normalizeAnswer` was folded and `isBounded` was not, so Persian numerals still fail Decomposition's boundedness check; Clarity's R6 penalises correct writing because one word supplies both halves of its test; Verification requires naming a fault on the nine items that have none.
 
-**The recurring shape is worth naming, because it has recurred three times:** a locale decision is made correctly at one layer and not carried to the next. Pass 1 was the profile layer, pass 2 the tokenizer, pass 3 the answer key's numeral system. When reviewing a locale fix, check every layer that touches the field, not the layer where the fix was made.
+**The recurring shape is worth naming, because it has now recurred four times:** a locale decision is made correctly at one layer and not carried to the next. Pass 1 was the profile layer, pass 2 the tokenizer, pass 3 the answer key's numeral system — and pass 4 was the *same numeral system*, in a second detector the pass-3 fix never reached. When reviewing a locale fix, check every layer that touches the field, not the layer where the fix was made.
+
+**And the rule that would have prevented the fourth.** Pass 3's remediation generalised its component fixes correctly — five `Pips` copies became one `RubricPips`, five landing pages became one `HowASittingWorks` — but left three independent implementations of one digit fold, two correct and one absent. So: *when a fix normalises an input, the normaliser is the artifact, not the fix.* A predicate that answers "is this a number / a date / a done condition" belongs in one place the same way a component does, and "check the other five labs" is not a strong enough form of the rule to catch it.
 
 ---
 
 ## Changelog
 
 - **1.0 · 2026-08-24** — Initial file. Records the two personas and six metrics established in pass 1 (2026-08-14) and used unchanged since, the tiered procedure pass 3 introduced for six labs, the score history, and the three-pass pattern of locale fixes not propagating between layers. Created because the method had been living in a chat transcript and pass 3 had to recover it from one.
+- **1.2 · 2026-08-25** — Pass 4 added to the score history. §6 records the fourth instance of the locale shape and, because it recurred *after* this file warned about it, states the sharper rule that would have caught it: a normaliser is a shared artifact, not a per-site fix.
 - **1.1 · 2026-08-24** — Two procedural rules added from pass 3's remediation: never re-score in the same session as the fixes, and treat a fix that lands in only one lab as unlanded. Pass table notes that pass 3's findings were fixed the same day.

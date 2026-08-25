@@ -72,6 +72,10 @@ tracker/                          ← the Tracker area of root-sot
       01-six-lab-review-2026-08-24.md
                                     pass 3 — all six labs, both personas.
                                     Blockers, bugs, and a ranked fix list
+      02-six-lab-review-2026-08-25.md
+                                    pass 4 — the same six on fresh accounts,
+                                    the day after pass 3's fixes. What held,
+                                    and the defect the fixes left one lab over
     06-specs/                       the Skills Engine — a Grow (Learn) prototype
       00-skills-engine.md           shared machinery for the skill tools (spec)
       01-clarity-lab.md             skill tool #1 — clarity of expression
@@ -113,6 +117,12 @@ tracker/                          ← the Tracker area of root-sot
       06b-monitoring-lab-build-plan.md
                                     phase order, the gamma and answer-matching
                                     rules, and gates. For a coding agent.
+      07-training-lab-hub.md        the AI Training Lab hub (spec, unbuilt) — one
+                                    page housing the entrance to all six labs, and
+                                    one button replacing six on the Tools page.
+                                    Not a seventh lab: it scores nothing.
+      07a-training-lab-hub-wireframes.html
+                                    eight plates plus an RTL pass; open in a browser
 ```
 
 **Where the code is.** This canon describes the `rishe-eco/tracker` repo, whose two workspaces are `api/` (backend) and `client/` (frontend). Code paths throughout this canon are relative to that repo, not to this one.

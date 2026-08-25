@@ -2,7 +2,7 @@
 
 *Source of truth. The bug catalogue and hygiene items. Status must be re-verified — read the grounding note. Update the changelog; don't fork.*
 
-**Version 0.5 · Status: mixed (see per-item grounding) · 2026-08-25 · Owner: _root**
+**Version 0.6 · Status: mixed (see per-item grounding) · 2026-08-25 · Owner: _root**
 
 ---
 
@@ -39,6 +39,34 @@ Still open — both are sweeps rather than defects:
 - **Persian register drift.** `verification`'s `fa` locale block is formal (`می‌گوید`, `است`) where the content packs are informal (`تو`/`کن`). Worth one sweep by a native reviewer rather than string-by-string edits.
 - **`(s)` artifacts outside the skills labs:** `intervals.repeatUnitMinute/Hour/Day/Week/Month/Year` and `projects.projectHasActionsPrompt`. Same defect, different feature; listed here so the next sweep has the set.
 
+## Open — skill labs (persona review pass 4, 2026-08-25)
+
+*Opened by pass 4, run on fresh accounts one day after pass 3's remediation. Full context, both personas' scores and the reproductions: `../05-reviews/02-six-lab-review-2026-08-25.md`. See decision-log D-51. Unlike the B-n items above, every one of these was reproduced live or in a direct harness run.*
+
+**Three of these are consequences of the pass-3 fixes** (S-12, S-14b, S-21) — recorded that way deliberately, because that is the finding.
+
+High:
+
+- **S-12 — Persian numerals still fail Decomposition's boundedness check.** `FA_NUMERIC_BOUND = /\d+/` (`decomposition/detectors.ts:126`) accepts Western digits only. Pass 3 folded Indic digits in `normalizeAnswer` and nowhere else. `شام تا ساعت ۷ آماده باشه.` scores unbounded; the Western-digit form scores bounded. Decomposition's own `fa` pack writes `تا ساعت ۷` (`surface.fa.ts:501`). Affects D1 and D4. **Root cause:** three unshared implementations of one fold — `monitoring/answerMatch.ts:28` and `DelegationSessionPage.tsx:87` have one, this does not. **Fix:** one shared helper, all three call sites.
+- **S-13 — Clarity's R6 penalises correct writing.** Suffix-only nominalisation regex (`clarity/detectors.ts:158`) plus `contains` as bare `String.includes` (`:237`). "Send me the documentation for the payment integration by Friday." is penalised because *documentation* matches the regex and contains the substring `do`. "sentence" is flagged as a hidden action although the same file lists it as an R2 length unit (`:145`).
+- **S-14 — Decomposition D1 cannot read the words its own items use.** (a) `en`: "by tomorrow"/"today"/"tonight" are not dates — `EN_DEADLINE_DATE` needs a digit — on an item reading "due tomorrow"; "checked in" missing from the verb list. (b) `fa`: pass 3's S-10 negation fix used the colloquial tail `نباشه`, so colloquial *negatives* match while colloquial and formal-subjunctive *positives* do not. (c) parity: `en` has four routes to bounded, `fa` two; no `fa` weekday list at all.
+- **S-15 — Verification forces a fault locus on `supported` verdicts.** `canCommit` (`VerificationSessionPage.tsx:286`) requires an element regardless of verdict; no "nothing fails" option exists, though Evidence Lab has one. Nine items carry profile `CORRECT` (`types.ts:106`). The forced answer is then not scored (V5 blank). Disabled button gives no reason.
+
+Medium:
+
+- **S-16 — Delegation's first module scores nothing and the rail caption contradicts it.** G1 and G6 carry no per-attempt level (`delegation/scoring.ts:12`); "Start your first sitting" lands on `g1-own`, so the first reveal reads "RESULT — not scored" with all six blank, while `rubricHint` promises only "the rest" will be. Same for `g6-drift` rounds 1–2.
+- **S-17 — Decomposition's delta tile carries two subjects.** `DecompositionSessionPage.tsx:536-545`: label `overDecomposedLabel` (English value "Draft to revision", `en/common.json:1526`) + `result.delta` + an over-decomposition caption on control items. Pass 3's S-5c fixed Clarity's copy of this tile only.
+- **S-18 — Verification's `fa` mixes register within one screen.** New colloquial `evidence.ts` lines render beside the pre-existing formal `fa/common.json` chrome; one reveal carried three renderings of "your verdict matched the key". Supersedes the pass-3 "Persian register drift" sweep, which is now intra-screen.
+- **S-19 — Auth pages nest `<a>` inside `<button>`.** `LoginPage.tsx:71` (and `RegisterPage`): control renders 83.5×36 but only the inner 51.5×20 anchor navigates; a click on the padding does nothing at all, with no error. First screen a new user sees.
+
+Small:
+
+- **S-20 — The six lab cards on the Tools hub have no titles** (`ToolsHomePage.tsx:49-90`); the lab's name lives only inside its CTA button, unlike the hub's other three sections.
+- **S-21 — Delegation echoes raw Persian numerals beside Latin-digit advice** pre-commit ("تو گفتی ۱۱۰۰" vs "1150"); the reveal normalises. Created by the S-7 fix.
+- **S-22 — Interpolated numeral beside a spelled-out one:** `"{{done}} of six criteria …"` → "3 of six criteria". `en/common.json:1385`, `:1567`; `fa/common.json:1549`.
+
+Also confirmed open, not new: `04-conventions.md` §7d is not upheld in the content packs — Persian digits per `surface.fa.ts` are clarity 58, evidence 42, decomposition 6, verification 3. The `no-persian-digits` validator rule exists only in the delegation, monitoring and verification validators, and its field scope misses module teaching prose.
+
 ## Open — UX / smaller
 
 - **B-7 — Project start/end dates not editable.** Fields exist and drive status, but no UI/mutation args to set them → projects stuck in "Backlog." **Fix:** add date args to `updateProject` + pickers. *(Verify — may have been addressed alongside status work.)*
@@ -61,6 +89,7 @@ Before working a bug, re-read the cited file(s), confirm the issue still reprodu
 
 ## Changelog
 
+- **0.6 · 2026-08-25** — S-12 → S-22 opened from persona review pass 4. Three of them (S-12, S-14b, S-21) are consequences of the pass-3 remediation, which is the pass's central finding: the digit fold was applied at the site where the blocker was found rather than shared, so the same defect is still live in a second detector. Records that `04-conventions.md` §7d is not upheld in four of six content packs.
 - **0.5 · 2026-08-25** — S-6 closed. Every defect from persona review pass 3 is now fixed; what remains under this heading is two sweeps (the Persian register drift in `verification`'s locale block, and the `(s)` artifacts outside the skills labs), neither of which is a defect in a lab.
 - **0.4 · 2026-08-24** — S-5a closed. Three items remain: S-6, the Persian register drift, and the `(s)` artifacts outside the skills labs.
 - **0.3 · 2026-08-24** — S-1 → S-11 closed the same day they were opened; the section now records what shipped and the four items that remain (S-5a, S-6, Persian register, `(s)` outside the labs). See D-50.

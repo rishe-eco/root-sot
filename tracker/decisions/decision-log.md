@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.28 · Status: living · 2026-08-25 · Owner: _root**
+**Version 0.29 · Status: living · 2026-08-25 · Owner: _root**
 
 ---
 
@@ -29,6 +29,29 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-08-23 | *(no migration — enum-only)* | `SkillKey` gains `monitoring`. First code for the **Monitoring Lab** (skill tool #6). See D-43. |
 
 ## 2. Key decisions
+
+### D-51 · A normaliser is a shared artifact, not a per-site fix — 2026-08-25
+
+Persona review pass 4 (`../canon/05-reviews/02-six-lab-review-2026-08-25.md`) ran on fresh accounts one day after pass 3's remediation and confirmed all three of that pass's blockers fixed. It also found the **same defect one module over**, and that is what this entry records.
+
+**What happened.** Pass 3's blocker 1 was that Persian-Indic digits never matched a Monitoring answer key. The fix folded `U+06F0–06F9` and `U+0660–0669` in `normalizeAnswer`, was verified live, and was covered by seven unit tests. It was correct and it was complete *for that call site*. Decomposition's `isBounded` asks the same question of the same kind of input — is there a number here? — through `FA_NUMERIC_BOUND = /\d+/`, which accepts Western digits only. So `شام تا ساعت ۷ آماده باشه.` scores unbounded while the Western-digit form scores bounded, and Decomposition's own `fa` pack writes `تا ساعت ۷`.
+
+There are now three independent implementations of one fold: `monitoring/answerMatch.ts:28` (correct), `DelegationSessionPage.tsx:87` (correct, and added by the same remediation), and Decomposition's, which does not exist.
+
+**The decision.** *When a fix normalises an input, the normaliser is the artifact, not the fix.* Digit folding, boundedness, and answer matching are predicates over learner input, and a predicate belongs in one place for the same reason `RubricPips` and `HowASittingWorks` do. Pass 3 generalised its **component** fixes correctly and left its **predicate** fix per-site; the rule it wrote at the time — *a fix that only lands in one lab has not landed* — was aimed at components and did not have enough edge to catch this. It is sharpened in `00-persona-review-method.md` §6 rather than restated here.
+
+**Consequence to hold onto:** the remedy for S-12 is not a third `replace`. Adding one would satisfy the symptom and preserve the shape that produced it three times.
+
+**Two related findings are recorded as consequences of the pass-3 fixes, deliberately, because that is the point:**
+
+- **S-14b.** S-10 fixed the Persian verb lexicon by deriving negated forms from the positive list, using the tails `["نشد","نشده","نباشه"]`. `نباشه` is colloquial. The positive list is formal-only. So a colloquial *negative* done-condition now matches and a colloquial *positive* one does not — a learner scores better writing "the book is not un-returned" than "the book is returned", in a pack authored in colloquial Tehrani. Deriving one axis from a list while leaving another axis hand-written reproduces the gap it was meant to close; both axes have to come off one list.
+- **S-21.** S-7 made Delegation's estimate field accept Persian numerals, and it echoes them back unfolded beside Latin-digit advice on the screen where the learner decides how far to move. Accepting an input format and displaying it are two decisions; the fix made one.
+
+**Also settled by this pass, and not a defect:** `04-conventions.md` §7d ("Western digits in both locales") is not upheld in four of six Skills content packs — clarity 58, evidence 42, decomposition 6, verification 3 — and the `no-persian-digits` validator rule exists in only three validators, with a field scope that misses module teaching prose. Either the rule extends to every pack and widens its scope, or §7d states what it means for authored prose as distinct from item surface. That is a decision still to be made, not one made here.
+
+**Not fixed in this pass.** Pass 4 is report-only; S-12 → S-22 are open in `../canon/04-roadmap/01-known-issues-and-debt.md` §"Open — skill labs (pass 4)".
+
+---
 
 ### D-50 · Criterion evidence is localised server-side, `ok` has to mean the move did not cost accuracy, and a key may be revealed but never rendered into the instrument — 2026-08-24/25
 
@@ -499,6 +522,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.29 · 2026-08-25** — D-51 added from persona review pass 4, which confirmed all three pass-3 blockers fixed and found the same digit defect still live in a second detector. Records the rule that would have prevented it — a normaliser is a shared artifact, not a per-site fix — and two further findings (S-14b, S-21) that are consequences of the pass-3 fixes. Leaves open whether §7d extends to authored teaching prose. Nothing fixed; pass 4 was report-only.
 - **0.28 · 2026-08-25** — D-50 extended with the two decisions that closed the pass: a screen showing two objects must name both, with the label derived from the same predicate as the grading; and an answer key may be revealed but never rendered into the instrument that measures it. Records that Monitoring items are never re-served, which is what made building the planted-influence reveal safe now rather than after data.
 - **0.27 · 2026-08-24** — D-50 added: pass 3's findings were fixed the same day. Records why criterion evidence resolves **server-side** rather than behind client translation keys (D-22 already puts the locale on the request, and the `EvidenceTable` type makes a missing translation a compile error), why `relianceDirection` gained a `costly` bucket instead of moving the build plan's over-reliance threshold, and that a window-level criterion still owes the learner an outcome. Scoring models unchanged; several scoring signatures gained a required `locale`.
 - **0.26 · 2026-08-24** — D-49 added: the **persona review method becomes canon** in a new `../canon/05-reviews/` area, and pass 3 covers all six labs. Records three blockers (Persian-Indic digit matching in `answerMatch.ts`, hardcoded English criterion evidence in four labs, Monitoring's empty reveal), that all five pass-2 remediation items landed, and that fixes from a review pass are not currently ported to tools built after it. No migration — no code changed in this pass.
