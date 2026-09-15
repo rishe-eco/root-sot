@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Time Themes — wireframes · draft 1</title>
+<style>
+:root{
+  --surface-2:#ffffff; --surface-1:#f6f5f0; --surface-0:#efece4;
+  --text-primary:#2c2c2a; --text-secondary:#5f5e5a; --text-muted:#8a8981;
+  --border:#e3e1d9; --border-strong:#ceccc3;
+  --accent-bg:#e6f1fb; --accent-text:#185fa5; --accent-border:#85b7eb;
+  --warn-bg:#fbf0e6; --warn-text:#9a5a12; --warn-border:#e6b887;
+  --good-bg:#e9f2e8; --good-text:#3d6b39; --good-border:#a8c8a4;
+  --radius:8px; --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  /* tag palette (illustrative) */
+  --t-deep:#5b57c9;  --t-deep-bg:#ecebfb;
+  --t-admin:#6b6a63; --t-admin-bg:#eeede8;
+  --t-create:#b0611a;--t-create-bg:#f8ecdd;
+  --t-errand:#3d7a5c;--t-errand-bg:#e6f1ec;
+  --t-rest:#a24a86;  --t-rest-bg:#f6e9f1;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --surface-2:#2b2b29; --surface-1:#232321; --surface-0:#1b1b19;
+    --text-primary:#e9e7e0; --text-secondary:#b5b3aa; --text-muted:#8a8981;
+    --border:#3a3a37; --border-strong:#4b4b47;
+    --accent-bg:#0c447c; --accent-text:#b5d4f4; --accent-border:#185fa5;
+    --warn-bg:#4a2f10; --warn-text:#e8c39a; --warn-border:#9a5a12;
+    --good-bg:#25381f; --good-text:#b8d4b0; --good-border:#3d6b39;
+    --t-deep:#a7a3f0;  --t-deep-bg:#2c2a55;
+    --t-admin:#b6b4ac; --t-admin-bg:#33322d;
+    --t-create:#e0a86a;--t-create-bg:#402c15;
+    --t-errand:#8fc7a8;--t-errand-bg:#1f3529;
+    --t-rest:#dfa1c9;  --t-rest-bg:#3a1f31;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-0);color:var(--text-primary);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1140px;margin:0 auto;padding:2rem 1.25rem 4rem}
+h1{font-size:22px;font-weight:500;margin:0 0 4px}
+.sub{font-size:13px;color:var(--text-muted);margin:0 0 2rem;max-width:74ch}
+h2{font-size:16px;font-weight:500;margin:2.6rem 0 .3rem;padding-bottom:.5rem;border-bottom:.5px solid var(--border)}
+h2 .n{color:var(--text-muted);font-variant-numeric:tabular-nums;margin-right:.5rem}
+.lead{font-size:12px;color:var(--text-secondary);margin:0 0 .9rem;max-width:80ch}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;align-items:start}
+.board.half{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.board.wide{grid-template-columns:1fr}
+.frame{margin:0;display:flex;flex-direction:column;gap:8px}
+.phone,.panel{background:var(--surface-2);border:.5px solid var(--border);border-radius:12px;padding:14px;display:flex;flex-direction:column;overflow:hidden}
+.phone{flex:1;min-height:360px}
+.panel{flex:1}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-bottom:8px;border-bottom:.5px solid var(--border);font-size:11px;color:var(--text-muted)}
+.title{font-size:13px;color:var(--text-primary);font-weight:500;margin:12px 0 2px}
+.sub2{font-size:11px;color:var(--text-muted);margin:12px 0 5px;text-transform:uppercase;letter-spacing:.04em;font-family:var(--mono)}
+.sub2:first-child{margin-top:6px}
+.note{font-size:11px;color:var(--text-muted);line-height:1.5}
+.spring{margin-top:auto}
+.cap{font-size:12px;color:var(--text-secondary);padding:0 4px}
+.cap b{color:var(--text-primary);font-weight:500}
+.cap .mono{font-family:var(--mono);font-size:11px;color:var(--accent-text)}
+.field{border:.5px solid var(--border-strong);border-radius:var(--radius);padding:8px 10px;font-size:12px;color:var(--text-primary);background:var(--surface-1);min-height:34px;display:flex;align-items:center}
+.field.ph{color:var(--text-muted)}
+.btn{display:inline-block;padding:7px 14px;border:.5px solid var(--border-strong);border-radius:var(--radius);font-size:12px;color:var(--text-primary);background:var(--surface-1)}
+.btn.pri{border-color:var(--accent-border);color:var(--accent-text);background:var(--accent-bg)}
+.btn.dis{color:var(--text-muted);border-style:dashed;background:transparent}
+.row{display:flex;gap:8px;align-items:center}
+.row.wrap{flex-wrap:wrap}
+.row.sb{justify-content:space-between}
+.grow{flex:1}
+
+/* tags / chips */
+.chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:3px 9px;border-radius:999px;border:.5px solid;line-height:1.4;white-space:nowrap}
+.chip .swatch{width:8px;height:8px;border-radius:50%;flex:none}
+.chip.add{border-style:dashed;border-color:var(--border-strong);color:var(--text-muted);background:transparent;cursor:pointer}
+.chip .x{color:currentColor;opacity:.55;font-size:12px;margin-left:1px}
+.deep{color:var(--t-deep);background:var(--t-deep-bg);border-color:var(--t-deep)}
+.deep .swatch{background:var(--t-deep)}
+.admin{color:var(--t-admin);background:var(--t-admin-bg);border-color:var(--t-admin)}
+.admin .swatch{background:var(--t-admin)}
+.create{color:var(--t-create);background:var(--t-create-bg);border-color:var(--t-create)}
+.create .swatch{background:var(--t-create)}
+.errand{color:var(--t-errand);background:var(--t-errand-bg);border-color:var(--t-errand)}
+.errand .swatch{background:var(--t-errand)}
+.rest{color:var(--t-rest);background:var(--t-rest-bg);border-color:var(--t-rest)}
+.rest .swatch{background:var(--t-rest)}
+
+/* tag manager rows */
+.tagrow{display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:.5px solid var(--border);font-size:12px}
+.tagrow:last-child{border:0}
+.tagrow .dot{width:12px;height:12px;border-radius:50%;flex:none;border:.5px solid rgba(0,0,0,.15)}
+.tagrow .nm{flex:1}
+.tagrow .cnt{font-size:10px;color:var(--text-muted);font-family:var(--mono)}
+.tagrow .ed{font-size:11px;color:var(--text-muted);text-decoration:underline}
+.palette{display:flex;gap:6px;margin-top:4px}
+.sw{width:18px;height:18px;border-radius:50%;border:.5px solid rgba(0,0,0,.2)}
+.sw.sel{outline:2px solid var(--text-primary);outline-offset:2px}
+
+/* action rows */
+.act{display:flex;align-items:center;gap:8px;font-size:12px;padding:7px 9px;border:.5px solid var(--border);border-radius:7px;background:var(--surface-1)}
+.act .pr{font-family:var(--mono);font-size:10px;color:var(--accent-text);flex:none;width:14px}
+.act .t{flex:1}
+.act .tm{font-size:10px;color:var(--text-muted);font-family:var(--mono);flex:none}
+.act.match{border-color:var(--t-deep);box-shadow:inset 3px 0 0 var(--t-deep)}
+.act.ghost{border-style:dashed;color:var(--text-muted);background:transparent}
+.affin{font-size:9px;color:var(--t-deep);font-family:var(--mono);flex:none}
+.lockflag{font-size:10px;color:var(--text-muted);font-family:var(--mono);margin-top:5px;display:flex;align-items:center;gap:5px}
+
+/* recurrence control mimic */
+.seg{display:flex;border:.5px solid var(--border-strong);border-radius:var(--radius);overflow:hidden;font-size:11px}
+.seg span{padding:6px 10px;color:var(--text-secondary);border-right:.5px solid var(--border)}
+.seg span:last-child{border:0}
+.seg span.on{background:var(--accent-bg);color:var(--accent-text)}
+.dow{display:flex;gap:4px}
+.dow span{width:24px;height:24px;border-radius:6px;border:.5px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--text-secondary);font-family:var(--mono)}
+.dow span.on{background:var(--accent-text);color:#fff;border-color:var(--accent-text)}
+
+/* timeline */
+.tl{position:relative;display:flex;flex-direction:column;gap:0;margin-top:6px}
+.hourgrid{position:relative;border-left:.5px solid var(--border);margin-left:44px}
+.hr{position:relative;height:52px;border-top:.5px solid var(--border)}
+.hr .lab{position:absolute;left:-44px;top:-8px;width:38px;text-align:right;font-size:10px;color:var(--text-muted);font-family:var(--mono)}
+.band{position:absolute;left:0;right:0;border-radius:6px;padding:6px 9px;font-size:11px;overflow:hidden;border-left:3px solid}
+.band .bl{font-weight:500;display:flex;align-items:center;gap:6px}
+.band .bhint{font-size:10px;opacity:.8;font-family:var(--mono)}
+.band.deep{background:var(--t-deep-bg);border-color:var(--t-deep);color:var(--t-deep)}
+.band.admin{background:var(--t-admin-bg);border-color:var(--t-admin);color:var(--t-admin)}
+.band.rest{background:var(--t-rest-bg);border-color:var(--t-rest);color:var(--t-rest)}
+.pin{position:absolute;left:8px;right:8px;background:var(--surface-2);border:.5px solid var(--border-strong);border-radius:6px;padding:5px 8px;font-size:11px;display:flex;align-items:center;gap:7px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.pin .pr{font-family:var(--mono);font-size:10px;color:var(--accent-text)}
+.pin .tick{width:8px;height:8px;border-radius:50%;flex:none}
+.legendrow{display:flex;gap:14px;flex-wrap:wrap;font-size:10.5px;color:var(--text-muted);font-family:var(--mono);margin-top:12px;padding-top:8px;border-top:.5px solid var(--border)}
+.legendrow b{color:var(--text-secondary);font-weight:500}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Time Themes — wireframes</h1>
+  <p class="sub">Draft 1 · a Time Theme is a recurring, tag-bearing span of time that <b>softly surfaces</b> matching actions — it never blocks anything. Tags are one shared vocabulary across Project · Interval · Routine · Action · TimeTheme. These are lo-fi mockups to react to, not final UI.</p>
+
+  <!-- 1 -->
+  <h2><span class="n">1</span>Tag manager — the shared vocabulary</h2>
+  <p class="lead">One user-scoped list. Each tag has a name + colour (the colour is what paints the timeline band). Renaming/recolouring propagates everywhere the tag is used, because everything references the tag by id, not by spelling.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>Settings › Tags</span><span class="btn pri" style="padding:3px 10px">+ New tag</span></div>
+        <div style="margin-top:8px">
+          <div class="tagrow"><span class="dot" style="background:var(--t-deep)"></span><span class="nm">deep-work</span><span class="cnt">12 uses</span><span class="ed">edit</span></div>
+          <div class="tagrow"><span class="dot" style="background:var(--t-create)"></span><span class="nm">creative</span><span class="cnt">7 uses</span><span class="ed">edit</span></div>
+          <div class="tagrow"><span class="dot" style="background:var(--t-admin)"></span><span class="nm">admin</span><span class="cnt">18 uses</span><span class="ed">edit</span></div>
+          <div class="tagrow"><span class="dot" style="background:var(--t-errand)"></span><span class="nm">errands</span><span class="cnt">4 uses</span><span class="ed">edit</span></div>
+          <div class="tagrow"><span class="dot" style="background:var(--t-rest)"></span><span class="nm">rest</span><span class="cnt">3 uses</span><span class="ed">edit</span></div>
+        </div>
+      </div>
+      <figcaption class="cap">The whole taxonomy in one place. <b>Delete</b> just drops the tag off everything — no cascade to actions/projects.</figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>Edit tag</span><span class="mono" style="font-family:var(--mono);font-size:10px;color:var(--text-muted)">deep-work</span></div>
+        <div class="sub2">Name</div>
+        <div class="field">deep-work</div>
+        <div class="sub2">Colour</div>
+        <div class="palette">
+          <span class="sw sel" style="background:var(--t-deep)"></span>
+          <span class="sw" style="background:var(--t-create)"></span>
+          <span class="sw" style="background:var(--t-errand)"></span>
+          <span class="sw" style="background:var(--t-rest)"></span>
+          <span class="sw" style="background:var(--t-admin)"></span>
+        </div>
+        <div class="spring row sb" style="margin-top:16px">
+          <span class="note">Used on 12 items</span>
+          <span class="btn pri">Save</span>
+        </div>
+      </div>
+      <figcaption class="cap">A fixed palette keeps bands legible in light + dark. Colour is a property of the tag, inherited by themes.</figcaption>
+    </figure>
+  </div>
+
+  <!-- 2 -->
+  <h2><span class="n">2</span>Tagging the four source entities</h2>
+  <p class="lead">The same chip picker appears on Project, Interval, and Routine editors (and the Action editor, §3). Tags set here flow down onto the actions these produce or hold.</p>
+  <div class="board">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>Edit interval</span><span>⋯</span></div>
+        <div class="sub2">Title</div>
+        <div class="field">Write engine internals doc</div>
+        <div class="sub2">Tags</div>
+        <div class="chips">
+          <span class="chip deep"><span class="swatch"></span>deep-work<span class="x">×</span></span>
+          <span class="chip add">+ tag</span>
+        </div>
+        <div class="sub2">Repeat</div>
+        <div class="field ph">Every week · Mon, Wed</div>
+        <div class="note spring">Every action this interval gathers will carry <b>deep-work</b>, locked.</div>
+      </div>
+      <figcaption class="cap"><b>Interval</b> — its tag becomes the nature of every occurrence it generates.</figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>Edit project</span><span>⋯</span></div>
+        <div class="sub2">Title</div>
+        <div class="field">Q4 site redesign</div>
+        <div class="sub2">Tags</div>
+        <div class="chips">
+          <span class="chip create"><span class="swatch"></span>creative<span class="x">×</span></span>
+          <span class="chip deep"><span class="swatch"></span>deep-work<span class="x">×</span></span>
+          <span class="chip add">+ tag</span>
+        </div>
+        <div class="note spring">New actions added under this project <b>start</b> with these tags — but you can change them per action.</div>
+      </div>
+      <figcaption class="cap"><b>Project</b> — tags <b>seed</b> its actions (editable), because project actions aren't generated.</figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>Edit routine</span><span>⋯</span></div>
+        <div class="sub2">Title</div>
+        <div class="field">Inbox &amp; triage</div>
+        <div class="sub2">Tags</div>
+        <div class="chips">
+          <span class="chip admin"><span class="swatch"></span>admin<span class="x">×</span></span>
+          <span class="chip add">+ tag</span>
+        </div>
+        <div class="sub2">Time-of-day blocks</div>
+        <div class="field ph">09:00 · 16:30</div>
+        <div class="note spring">Routine occurrences carry <b>admin</b>, locked — same rule as intervals.</div>
+      </div>
+      <figcaption class="cap"><b>Routine</b> — same as interval: generated actions inherit the tag, locked.</figcaption>
+    </figure>
+  </div>
+
+  <!-- 3 -->
+  <h2><span class="n">3</span>Tags on the action — locked vs editable</h2>
+  <p class="lead">This is where the rule you set becomes visible. A <b>gathered</b> action shows its inherited tags read-only. A <b>standalone / project</b> action lets you edit them (project ones arrive pre-filled).</p>
+  <div class="board">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>Action (gathered)</span><span class="mono" style="font-family:var(--mono);font-size:10px;color:var(--text-muted)">from interval</span></div>
+        <div class="sub2">Title</div>
+        <div class="field" style="color:var(--text-secondary)">Write engine internals doc</div>
+        <div class="sub2">Tags</div>
+        <div class="chips">
+          <span class="chip deep" style="opacity:.85"><span class="swatch"></span>deep-work</span>
+        </div>
+        <div class="lockflag">🔒 inherited from interval · edit on the template to change</div>
+        <div class="spring"></div>
+      </div>
+      <figcaption class="cap"><b>Locked.</b> No × on the chip, no “+ tag”. Nature belongs to the template.</figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>Action (in project)</span><span class="mono" style="font-family:var(--mono);font-size:10px;color:var(--text-muted)">Q4 site redesign</span></div>
+        <div class="sub2">Title</div>
+        <div class="field">Draft new nav layout</div>
+        <div class="sub2">Tags</div>
+        <div class="chips">
+          <span class="chip create"><span class="swatch"></span>creative<span class="x">×</span></span>
+          <span class="chip deep"><span class="swatch"></span>deep-work<span class="x">×</span></span>
+          <span class="chip add">+ tag</span>
+        </div>
+        <div class="note lockflag" style="color:var(--text-muted)">seeded from the project · yours to change</div>
+        <div class="spring"></div>
+      </div>
+      <figcaption class="cap"><b>Editable.</b> Pre-filled from the project, then independent.</figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>Action (standalone)</span><span>⋯</span></div>
+        <div class="sub2">Title</div>
+        <div class="field">Call the accountant</div>
+        <div class="sub2">Tags</div>
+        <div class="chips">
+          <span class="chip admin"><span class="swatch"></span>admin<span class="x">×</span></span>
+          <span class="chip add">+ tag</span>
+        </div>
+        <div class="note lockflag" style="color:var(--text-muted)">free to tag anything</div>
+        <div class="spring"></div>
+      </div>
+      <figcaption class="cap"><b>Editable.</b> No source, no seed — pure user choice.</figcaption>
+    </figure>
+  </div>
+
+  <!-- 4 -->
+  <h2><span class="n">4</span>Time Theme editor</h2>
+  <p class="lead">A theme = tag(s) + a time-of-day span + the <b>same recurrence control the interval editor uses</b>. No outcome, no estimate, no steps, no goal/project link — it is only a shaped, recurring stretch of time.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>New Time Theme</span><span class="btn dis" style="padding:3px 10px">active</span></div>
+        <div class="sub2">Name</div>
+        <div class="field">Deep-work morning</div>
+        <div class="sub2">Nature (tags it attracts)</div>
+        <div class="chips">
+          <span class="chip deep"><span class="swatch"></span>deep-work<span class="x">×</span></span>
+          <span class="chip create"><span class="swatch"></span>creative<span class="x">×</span></span>
+          <span class="chip add">+ tag</span>
+        </div>
+        <div class="row" style="gap:14px;margin-top:12px">
+          <div class="grow"><div class="sub2" style="margin-top:0">From</div><div class="field">08:30</div></div>
+          <div class="grow"><div class="sub2" style="margin-top:0">To</div><div class="field">12:00</div></div>
+        </div>
+      </div>
+      <figcaption class="cap">A theme can hold more than one tag — it surfaces actions matching <b>any</b> of them.</figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>Recurrence — reused from Interval</span><span class="mono" style="font-family:var(--mono);font-size:10px;color:var(--text-muted)">shared control</span></div>
+        <div class="sub2">Repeat every</div>
+        <div class="row"><div class="field" style="width:56px;justify-content:center">1</div>
+          <div class="seg"><span>day</span><span class="on">week</span><span>month</span><span>year</span></div>
+        </div>
+        <div class="sub2">On days</div>
+        <div class="dow"><span>Mo</span><span class="on">Tu</span><span>We</span><span class="on">Th</span><span>Fr</span><span>Sa</span><span>Su</span></div>
+        <div class="sub2">Ends</div>
+        <div class="field ph">never</div>
+        <div class="note spring">Exactly the interval fields: <span class="mono" style="font-family:var(--mono);color:var(--accent-text)">repeatValue · repeatUnit · customRepeatRule · customRepeatDates · endTime</span>.</div>
+      </div>
+      <figcaption class="cap">Same code path that answers “does this interval fire on date D?” resolves theme occurrences.</figcaption>
+    </figure>
+  </div>
+
+  <!-- 5 -->
+  <h2><span class="n">5</span>The payoff — the day, shaped</h2>
+  <p class="lead">On the timeline, themes are colored bands drawn <b>behind</b> your actions. During gathering / Pre-day, actions whose tags match the band they fall in surface to the top of that slot with an affinity tick. Nothing is forced — a non-matching action can still sit anywhere.</p>
+  <div class="board wide">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>Tuesday · Sep 15 — timeline</span><span class="mono" style="font-family:var(--mono);font-size:10px;color:var(--text-muted)">Pre-day</span></div>
+        <div class="hourgrid" style="margin-top:14px">
+          <div class="hr"><span class="lab">08:00</span>
+            <div class="band deep" style="top:26px;height:150px">
+              <div class="bl"><span class="swatch" style="width:8px;height:8px;border-radius:50%;background:var(--t-deep)"></span>Deep-work morning</div>
+              <div class="bhint">surfacing: deep-work · creative</div>
+            </div>
+            <div class="pin" style="top:40px"><span class="tick" style="background:var(--t-deep)"></span><span class="pr">P</span><span class="grow">Write engine internals doc</span><span class="affin" style="font-family:var(--mono)">↑ match</span></div>
+            <div class="pin" style="top:96px"><span class="tick" style="background:var(--t-create)"></span><span class="pr">P</span><span class="grow">Draft new nav layout</span><span class="affin" style="font-family:var(--mono)">↑ match</span></div>
+          </div>
+          <div class="hr"><span class="lab">09:00</span></div>
+          <div class="hr"><span class="lab">10:00</span>
+            <div class="pin" style="top:20px;opacity:.7"><span class="tick" style="background:var(--t-admin)"></span><span class="pr">O</span><span class="grow" style="color:var(--text-secondary)">Call the accountant <span class="note">(admin — allowed, just not surfaced here)</span></span></div>
+          </div>
+          <div class="hr"><span class="lab">11:00</span></div>
+          <div class="hr"><span class="lab">12:00</span>
+            <div class="band admin" style="top:26px;height:98px">
+              <div class="bl"><span class="swatch" style="width:8px;height:8px;border-radius:50%;background:var(--t-admin)"></span>Admin block</div>
+              <div class="bhint">surfacing: admin · errands</div>
+            </div>
+            <div class="pin" style="top:40px"><span class="tick" style="background:var(--t-admin)"></span><span class="pr">O</span><span class="grow">Inbox &amp; triage</span><span class="affin" style="font-family:var(--mono)">↑ match</span></div>
+          </div>
+          <div class="hr"><span class="lab">13:00</span></div>
+          <div class="hr" style="height:20px"></div>
+        </div>
+        <div class="legendrow">
+          <span><b>band</b> = Time Theme (colour from its tag)</span>
+          <span><b>↑ match</b> = tag overlaps the band</span>
+          <span><b>dimmed</b> = allowed but not surfaced</span>
+          <span><b>gap</b> = untheme­d time, anything goes</span>
+        </div>
+      </div>
+      <figcaption class="cap">Top-down shape, bottom-up freedom: the band suggests, it never gates. The 10:00 admin action sitting inside the deep-work band is completely fine — just not floated.</figcaption>
+    </figure>
+  </div>
+
+  <!-- 6 -->
+  <h2><span class="n">6</span>Gathering / Pre-day — surfacing in the picker</h2>
+  <p class="lead">When you’re assigning start times to a day’s gathered actions and you tap into a themed slot, matching actions rise to the top of the list; the rest stay reachable below a divider.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>Fill 08:30 slot</span><span class="chip deep" style="padding:2px 8px;font-size:10px"><span class="swatch"></span>deep-work morning</span></div>
+        <div class="sub2">Suggested for this theme</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div class="act match"><span class="pr">P</span><span class="t">Write engine internals doc</span><span class="affin">deep-work</span></div>
+          <div class="act match"><span class="pr">P</span><span class="t">Draft new nav layout</span><span class="affin">creative</span></div>
+        </div>
+        <div class="sub2">Everything else</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div class="act ghost"><span class="pr">O</span><span class="t">Call the accountant</span><span class="tm">admin</span></div>
+          <div class="act ghost"><span class="pr">S</span><span class="t">Book flights</span><span class="tm">errands</span></div>
+        </div>
+        <div class="note spring">Order is the only thing the theme changes — selection is never restricted.</div>
+      </div>
+      <figcaption class="cap">Soft filter = re-ranking, not a hard filter. “Everything else” is one tap away.</figcaption>
+    </figure>
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>Edge behaviours</span><span class="mono" style="font-family:var(--mono);font-size:10px;color:var(--text-muted)">notes</span></div>
+        <div class="sub2" style="margin-top:6px">Overlapping themes</div>
+        <div class="note">Two themes over the same hour just stack as two bands; both surface their tags. No conflict logic needed — behaviour is soft.</div>
+        <div class="sub2">Multi-tag band colour</div>
+        <div class="note">Band uses the theme’s <b>primary</b> tag colour for v1. Blended/striped is deferred.</div>
+        <div class="sub2">No theme = normal</div>
+        <div class="note">Unthemed time is expected. Gaps are not errors.</div>
+        <div class="sub2">Delete a theme</div>
+        <div class="note">Zero effect on actions — they were never bound to it.</div>
+      </div>
+      <figcaption class="cap">The soft-by-design choices that keep the feature from ever getting in the way.</figcaption>
+    </figure>
+  </div>
+
+</div>
+</body>
+</html>
