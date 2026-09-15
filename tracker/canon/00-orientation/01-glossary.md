@@ -2,7 +2,7 @@
 
 *Source of truth. The domain vocabulary. Read before touching code — these words have precise meanings here. Update the changelog; don't fork.*
 
-**Version 0.1 · Status: as-built · 2026-07-22 · Owner: _root**
+**Version 0.2 · Status: as-built · 2026-09-15 · Owner: _root**
 
 ---
 
@@ -38,6 +38,13 @@ Terms are grouped. Where a term maps to a model field, the field is named so you
 - **Action gathering** — the process that materializes intervals/routines into actual `Action` rows for today, today+1, and today+2. Runs on After-day completion. A gathered action has `isGathered = true`, plus `sourceType`, `sourceId`, `forDate`.
 - **Gathered action** — an action created by gathering (as opposed to user-created). **Linked gathered** = from an interval scoped to a goal/milestone/project (needs disposition in After-day). **Non-linked gathered** = from a routine or unscoped interval (auto-archived if not done).
 
+## Tags & Time Themes
+
+- **Tag** — a user-scoped label with a name and a colour, shared as **one vocabulary** across projects, intervals, routines, actions, and time themes. Not free text: a first-class entity, so it renames once and matches by id. Persian: **برچسب**. Model: `Tag`.
+- **Time Theme** — a recurring **span of time with a nature** — neither a project nor a goal. Carries tag(s) + a time-of-day span + Interval-style recurrence, and **softly surfaces** matching actions (never blocks them). Persian: **حال‌وهوا** *(draft — pending a native pass; must not reuse بازه, which is Interval)*. Model: `TimeTheme`.
+- **Surfacing (soft filter)** — the only thing a Time Theme does to actions: re-rank matching ones to the top and draw a coloured band. It changes **order, never membership** — any action can still go anywhere. Match rule: an action's tags overlap the theme's tags.
+- **Tag inheritance** — how tags reach an action. **Gathered** actions inherit the source interval/routine's tags, **locked** (snapshot at gather; edit the template to change). **Project-linked** actions are seeded from the project's tags, then **editable**. **Standalone** actions start untagged.
+
 ## The daily cycle
 
 - **DayState** — one record per user per `dateKey` tracking the day's lifecycle. Model: `DayState`.
@@ -71,4 +78,5 @@ An **action fate** is the terminal disposition written to `Action.actionFate` wh
 
 ## Changelog
 
+- **0.2 · 2026-09-15** — Added the **Tags & Time Themes** group (Tag, Time Theme, Surfacing/soft-filter, Tag inheritance) — Time Themes, D-54. Records the two Persian terms (برچسب; حال‌وهوا, draft, distinct from بازه/Interval).
 - **0.1 · 2026-07-22** — Initial glossary. Terms reconciled against the live schema and the June-10 platform doc.

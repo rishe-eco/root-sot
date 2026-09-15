@@ -2,7 +2,7 @@
 
 *Source of truth. The Prisma schema, as-built. If the schema changes, update this file in the same change. Update the changelog; don't fork.*
 
-**Version 0.10 · Status: as-built · 2026-08-23 · Owner: _root**
+**Version 0.11 · Status: as-built · 2026-09-15 · Owner: _root**
 
 ---
 
@@ -23,7 +23,7 @@
 ### Action
 The atomic unit. User-created (optionally project-linked) or gathered from a template.
 
-`id` · `title` · `tbd: DateTime?` (scheduled day) · `done: Boolean` · `priority: Priority=P` · `estimatedTimeMinutes: Int?` (required when `tbd` set; max 1440) · `startTimeOfDay: String?` ("HH:mm") · `createdAt` · `projectId: String?` → Project (onDelete: SetNull) · `userId` → User (Cascade) · **gathered fields:** `sourceType: ActionSourceType?` · `sourceId: String?` · `forDate: DateTime?` · `isGathered: Boolean=false` · `actionFate: ActionFate?`
+`id` · `title` · `tbd: DateTime?` (scheduled day) · `done: Boolean` · `priority: Priority=P` · `estimatedTimeMinutes: Int?` (required when `tbd` set; max 1440) · `startTimeOfDay: String?` ("HH:mm") · `createdAt` · `projectId: String?` → Project (onDelete: SetNull) · `userId` → User (Cascade) · **gathered fields:** `sourceType: ActionSourceType?` · `sourceId: String?` · `forDate: DateTime?` · `isGathered: Boolean=false` · `actionFate: ActionFate?` · `tags: Tag[]` (m2m — locked when `sourceType != null`, see §Tags & Time Themes)
 
 ### DayState
 One row per user per calendar day; drives the daily gate.
@@ -43,7 +43,7 @@ Ordered checkpoint under a goal.
 ### Project
 Body of work under a goal **or** milestone (exclusive).
 
-`id` · `title` · `dod: String?` · `type: String="individual"` · `priority: Priority=P` · `createdAt/updatedAt` · `actions: Action[]` · `intervals: Interval[]` · `goalId: String?` → Goal (SetNull) · `milestoneId: String?` → Milestone (SetNull) · `userId` → User (Cascade) · `journals: Journal[]`
+`id` · `title` · `dod: String?` · `type: String="individual"` · `priority: Priority=P` · `createdAt/updatedAt` · `actions: Action[]` · `intervals: Interval[]` · `goalId: String?` → Goal (SetNull) · `milestoneId: String?` → Milestone (SetNull) · `userId` → User (Cascade) · `journals: Journal[]` · `tags: Tag[]` (m2m — seed an action's tags at create)
 
 > Exclusivity of `goalId` / `milestoneId` is enforced by a DB check added in migration, not by the Prisma schema alone.
 
@@ -52,7 +52,7 @@ Body of work under a goal **or** milestone (exclusive).
 ### Interval
 Recurring template, scoped to one of goal/milestone/project or standalone.
 
-`id` · `title` · `status: IntervalStatus=active` · `estimatedTimeMinutes: Int?` (max 1440) · `endTime: DateTime?` · `repeatValue: Int=1` · `repeatUnit: RepeatUnit?` (null when only `customRepeatDates`) · **`customRepeatDates: String?`** (JSON array of ISO datetimes) · **`customRepeatRule: String?`** (JSON: `{unit:"week",daysOfWeek:[1..7]}` / `{unit:"month",daysOfMonth:[1..31]}` / `{unit:"year",months:[1..12],daysOfMonth?:[…]}`) · `predictedToDoTime: String?` ("HH:mm") · `steps: IntervalStep[]` · `goalId/milestoneId/projectId: String?` (≤1 set, all SetNull) · `userId` → User (Cascade) · `createdAt/updatedAt`
+`id` · `title` · `status: IntervalStatus=active` · `estimatedTimeMinutes: Int?` (max 1440) · `endTime: DateTime?` · `repeatValue: Int=1` · `repeatUnit: RepeatUnit?` (null when only `customRepeatDates`) · **`customRepeatDates: String?`** (JSON array of ISO datetimes) · **`customRepeatRule: String?`** (JSON: `{unit:"week",daysOfWeek:[1..7]}` / `{unit:"month",daysOfMonth:[1..31]}` / `{unit:"year",months:[1..12],daysOfMonth?:[…]}`) · `predictedToDoTime: String?` ("HH:mm") · `steps: IntervalStep[]` · `goalId/milestoneId/projectId: String?` (≤1 set, all SetNull) · `userId` → User (Cascade) · `createdAt/updatedAt` · `tags: Tag[]` (m2m — gathered actions inherit these, locked)
 
 ### IntervalStep
 `id` · `title` · `order: Int=0` · `intervalId` → Interval (Cascade) · `createdAt`
@@ -60,10 +60,26 @@ Recurring template, scoped to one of goal/milestone/project or standalone.
 ### Routine
 Daily-with-timer template; no scope link.
 
-`id` · `title` · `status: IntervalStatus=active` · `estimatedTimeMinutes: Int?` (max 1440) · `endTime: DateTime?` · **`timeOfDayBlocks: String?`** (JSON array of "HH:mm") · `timerDurationMinutes: Int?` · `steps: RoutineStep[]` · `userId` → User (Cascade) · `createdAt/updatedAt`
+`id` · `title` · `status: IntervalStatus=active` · `estimatedTimeMinutes: Int?` (max 1440) · `endTime: DateTime?` · **`timeOfDayBlocks: String?`** (JSON array of "HH:mm") · `timerDurationMinutes: Int?` · `steps: RoutineStep[]` · `userId` → User (Cascade) · `createdAt/updatedAt` · `tags: Tag[]` (m2m — gathered actions inherit these, locked)
 
 ### RoutineStep
 `id` · `title` · `order: Int=0` · `routineId` → Routine (Cascade) · `createdAt`
+
+## Tags & Time Themes
+
+The **first many-to-many relations in the schema.** Everywhere else a list is a JSON string (§JSON-string fields), because those are lists of *values*. A tag is a reference to another table, not a value — so it is a real relation, not a JSON blob (decision **D-54**). Prisma implicit m2m; five join tables it manages.
+
+### Tag
+A user-scoped label with a colour, shared across five entities.
+
+`id` (uuid) · `name: String` · `color: String` (palette **key**, not hex — validated against a fixed set in `services/tags.ts`) · `userId` → User (Cascade) · `createdAt` · m2m: `projects` `intervals` `routines` `actions` `timeThemes` · **`@@unique([userId, name])`**
+
+### TimeTheme
+A recurring, tag-bearing **span of time with a nature** — neither a project nor a goal. It only *surfaces* matching actions and draws a band; it never blocks anything (soft by design). Its recurrence fields deliberately mirror `Interval`'s so the exported `intervalOccursOnDate` resolves theme occurrences unchanged.
+
+`id` (uuid) · `title` · `status: IntervalStatus=active` · `startTimeOfDay: String` ("HH:mm") · `endTimeOfDay: String` ("HH:mm", validated `> start`) · **recurrence (Interval-shaped):** `repeatValue: Int=1` · `repeatUnit: RepeatUnit?` · **`customRepeatDates: String?`** (JSON) · **`customRepeatRule: String?`** (JSON) · `endTime: DateTime?` · `tags: Tag[]` (m2m) · `userId` → User (Cascade) · `createdAt/updatedAt`
+
+> **Tag inheritance onto actions** (the rule behind the locked/editable split): a **gathered** action snapshot-copies its source interval/routine's tags at gather time and they are **locked** (server rejects `setActionTags` when `sourceType != null` — the nature belongs to the template). A **project-linked** action is *seeded* from the project's tags at create, then **editable** (it is not generated). A **standalone** action starts empty, editable. Snapshots are copies, not live links; retagging a template affects only future gathers. Tags are **not** part of gathered-action dedup identity (`gatheredActionKey`), so re-gathering stays idempotent.
 
 ## Cross-cutting models
 
@@ -103,17 +119,20 @@ The as-built tables for the Feelings & Needs tool (`06-specs/` companion; plan i
 - **Milestone** → goal (Cascade); projects, intervals; childGoals when the goal is a group.
 - **Project** → optional goal *or* milestone; actions, intervals, journals.
 - **Interval** → optional one-of goal/milestone/project; steps.
-- **Action** → user; optional project; gathered-source fields point (loosely, by id) at an interval/routine.
+- **Action** → user; optional project; gathered-source fields point (loosely, by id) at an interval/routine; tags (m2m).
 - **Journal** → optional linked goal/project; entries, access list; may be a user's default.
+- **Tag** → user; m2m to Project, Interval, Routine, Action, TimeTheme (the shared vocabulary).
+- **TimeTheme** → user; tags (m2m). No scope link, no steps, no estimate — only a time-of-day span + Interval-shaped recurrence.
 
 ## The JSON-string fields (SQLite)
 
-SQLite has no array type. These fields are **JSON strings** in the DB and are parsed back to lists in `typeResolvers.ts`: `Goal.dodFlaggedDimensions`, `Interval.customRepeatDates`, `Interval.customRepeatRule`, `Routine.timeOfDayBlocks`. Any new list field must follow the same stringify-on-write / parse-in-typeResolver pattern (`04-conventions.md`).
+SQLite has no array type. These fields are **JSON strings** in the DB and are parsed back to lists in `typeResolvers.ts`: `Goal.dodFlaggedDimensions`, `Interval.customRepeatDates`, `Interval.customRepeatRule`, `Routine.timeOfDayBlocks`, `TimeTheme.customRepeatDates`. Any new list field must follow the same stringify-on-write / parse-in-typeResolver pattern (`04-conventions.md`). (`customRepeatRule` — on both Interval and TimeTheme — is a JSON string consumed by the service layer, not exposed as a parsed list.) Note that **tags are not in this list**: they are a real m2m relation, not a JSON value-list — this is exactly the distinction D-54 draws.
 
 ---
 
 ## Changelog
 
+- **0.11 · 2026-09-15** — Added **`Tag`** and **`TimeTheme`** and the schema's **first m2m relations** (`tags Tag[]` on Project/Interval/Routine/Action/TimeTheme; migration `add_time_themes`) — Time Themes, D-54. Records the value-list-vs-relation distinction (tags are a relation, so not a JSON string — the one place §JSON-string fields does *not* extend), the locked-vs-editable tag-inheritance rule, and that `TimeTheme`'s recurrence fields mirror `Interval`'s so `intervalOccursOnDate` is reused verbatim.
 - **0.10 · 2026-08-23** — `SkillKey` gained `monitoring` — Monitoring Lab Phase 1 (`06-specs/06b-monitoring-lab-build-plan.md`). No other schema change: `responseStructure` holds predictions/ratings/explanations/step-selections/influence-marks, and this tool needs no `rung` column and no new tables. SQLite has no enum type, so only `prisma generate` ran, same as Delegation's 0.9 entry.
 - **0.9 · 2026-08-23** — `SkillKey` gained `delegation` — Delegation Lab Phase 1 (`06-specs/05b-delegation-lab-build-plan.md`). No other schema change: `responseStructure` (added for Decomposition) holds the estimate/advice/revision/cue/sequence JSON, and this tool needs no `rung` column — the two-rung progression is specific to Verification Lab's cost bench. SQLite has no enum type, so `npx prisma migrate dev` found no pending migration; only `prisma generate` ran.
 - **0.8 · 2026-08-22** — `SkillKey` gained `verification`; `SkillModuleProgress` gained `rung String @default("assisted")` and `SkillAttempt` gained `rung String?` (migration `add_verification_lab`) — Verification Lab Phase 1 (`06-specs/04b-verification-lab-build-plan.md`). Two rungs (assisted = hard cost ceiling, unassisted = none) are two different instruments, not two settings of one, so the rung is a stamped column on the attempt rather than derived from the module's *current* rung — a module's rung changes over time, and deriving it would retroactively relabel history and silently join two different instruments into one trend line. Both columns are unused by every other skill. No other migration was needed: `responseStructure` (added for Decomposition) is reused unchanged for the oracle/verdict response structure.

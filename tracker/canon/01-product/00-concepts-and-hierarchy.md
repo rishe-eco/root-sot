@@ -2,7 +2,7 @@
 
 *Source of truth. The domain model, conceptually. The data-model file has the fields; this file has the meaning. Update the changelog; don't fork.*
 
-**Version 0.1 · Status: as-built (model) / spec (inference behavior, marked) · 2026-07-22 · Owner: _root**
+**Version 0.2 · Status: as-built (model) / spec (inference behavior, marked) · 2026-09-15 · Owner: _root**
 
 ---
 
@@ -99,8 +99,23 @@ Full behavioral detail lives in `01-daily-cycle.md`; the service is `api/src/ser
 
 The intent is that this is **reactive**: a child changing state or date recalculates its parent, up the tree, with no manual step, and the inferred dates/status are shown on projects and goals so the user sees the cascading picture without doing the math.
 
+## 6. Tags and Time Themes
+
+A second axis, orthogonal to the tree of intent. Where the tree answers *what* and *why*, this answers **"what kind of work should this stretch of time be?"**
+
+**Tags** are one user-scoped vocabulary (name + colour) shared across projects, intervals, routines, actions, and time themes. First-class, not free text — so a tag renames once and matches by identity, not spelling.
+
+A **Time Theme** is neither a project nor a goal: it is a **recurring span of time with a nature** (a tag), e.g. "deep-work mornings, Mon/Wed 08:30–12:00." It inverts the usual planning direction — instead of *here are my actions, when do I do each?* (bottom-up), it lets you author the *shape* of the day top-down and have matching actions surface into it.
+
+**It is soft, always.** A Time Theme never blocks, gates, or filters-out anything and never touches the daily cycle or `DayState`. Its entire effect is (a) **surfacing** — actions whose tags overlap the theme's tags rank to the top of a themed slot, order changed but membership never — and (b) a **coloured band** for context. Recurrence reuses the Interval engine verbatim.
+
+**Tag inheritance follows the action-origin distinction from §1.** A **gathered** action inherits its source template's tags, **locked** (the nature belongs to the recurring template; change it there). A **project-linked** action is *seeded* from the project's tags but stays **editable** (it is authored, not generated). A **standalone** action starts untagged. The lock is enforced server-side, not merely hidden in the UI.
+
+> Grounding note: the Time Theme *band* renders where there is real timeline geometry — the **Calendar** — while the list-based **Today/Pre-day** surfaces express the same idea as a "today's themes" banner plus an inline match marker and a "suggested / everything else" ordering. See D-54.
+
 ---
 
 ## Changelog
 
+- **0.2 · 2026-09-15** — Added §6 **Tags and Time Themes** (D-54): the second, orthogonal axis; the soft-surfacing rule (order not membership); and tag inheritance keyed to the §1 action-origin distinction (gathered = locked, project = seeded-editable, standalone = empty).
 - **0.1 · 2026-07-22** — Initial. Hierarchy, priority, recurrence, and gathering are as-built; the inference cascade is carried forward from the design note and flagged as partially implemented.

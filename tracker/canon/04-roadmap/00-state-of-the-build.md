@@ -2,7 +2,7 @@
 
 *Source of truth. What exists and what doesn't, verified. The most time-sensitive file in the canon — trust the date. Update the changelog; don't fork.*
 
-**Version 0.29 · Status: as-built · 2026-08-25 · Owner: _root**
+**Version 0.30 · Status: as-built · 2026-09-15 · Owner: _root**
 
 ---
 
@@ -19,6 +19,7 @@
 - Today view (linked vs standalone), Calendar (month + week/day).
 - Auth (register/login, JWT, bcrypt) with `requireAuth` + `ensureOwned`.
 - P/S/O/B priority.
+- **Tags & Time Themes** — one shared tag vocabulary (first-class `Tag`, colour) across projects/intervals/routines/actions/themes; **Time Themes**, recurring tag-bearing time spans that *softly surface* matching actions (never block). Tag inheritance: gathered actions locked, project actions seeded-editable. Band on the Calendar; banner + match marker on Today/Pre-day. *(built, verified, and **merged to `main`** — en/fa, `add_time_themes`, first m2m. See D-54.)*
 
 **Root-aligned features** (grafted toward the brand)
 - **DoD Clarity Check** (F-1) — 5-dimension wizard, non-gating green/amber, persisted on `Goal`. *(migration `add_dod_clarity_to_goal`)*
@@ -32,6 +33,7 @@
 - Frontend end-to-end: Playwright across auth, actions, goals, journals, navigation, projects, today. *(T-3, substantial)*
 
 **Recent fixes** (session 2026-07-16): delete-confirmation (B-1), toggle-sync (B-2), add-action-button visibility (B-3), plus e2e scaffolding.
+- **Duplicate-gather race** (2026-09-15, D-55) — `runActionGathering` now serializes per user, so a StrictMode double-fire / two tabs / a retry can't double-insert gathered actions. *(A separate, still-open weekly-recurrence bug — intervals firing only on their creation weekday — is diagnosed but unfixed; see D-55's note.)*
 
 ## Not built ○
 
@@ -69,6 +71,7 @@ A sixth tool, **Monitoring Lab**, is specced (`../06-specs/06-monitoring-lab.md`
 
 ## Changelog
 
+- **0.30 · 2026-09-15** — **Time Themes** added to Built & working (D-54): first-class tags shared across five entities and recurring, soft time themes. Built, verified (api + client suites, i18n + tsc clean, live en/fa), and merged to `main` alongside the duplicate-gather race fix (D-55). First m2m in the schema (`add_time_themes`).
 - **0.28 · 2026-08-25** — Persona review pass 4 recorded: all three pass-3 blockers confirmed fixed on fresh accounts, and the same digit defect found still live in a second detector, which is the pass's central finding (D-51 — a normaliser is a shared artifact, not a per-site fix). Eleven findings open, three of them consequences of the pass-3 remediation. Report-only. Also adds the AI Training Lab hub spec to the designed-but-unbuilt list.
 - **0.27 · 2026-08-25** — The last two open findings closed: S-5a (Clarity's reveal names which text each half of the screen is about, driven by a server flag derived from the same predicate that picks the diagnosis key) and S-6 (Monitoring's reveal names each planted turn and its kind — a separate read-only block, since `TranscriptAudit`'s contract is that planted and clean turns look identical). Every defect from persona review pass 3 is now fixed; two locale/copy sweeps remain.
 - **0.26 · 2026-08-24** — Pass 3's findings fixed the same day (D-50), each verified live: Persian numerals now match an answer key, criterion evidence resolves per locale in all six labs, Monitoring's reveal shows the outcome, and the four newer labs got the landing page, rail glosses and score display the earlier passes had produced for Evidence and Clarity. Four items left open and named. No tool gained or lost a phase; no scoring model changed.
