@@ -2,7 +2,7 @@
 
 *Source of truth. What exists and what doesn't, verified. The most time-sensitive file in the canon — trust the date. Update the changelog; don't fork.*
 
-**Version 0.30 · Status: as-built · 2026-09-15 · Owner: _root**
+**Version 0.31 · Status: as-built · 2026-09-15 · Owner: _root**
 
 ---
 
@@ -33,7 +33,9 @@
 - Frontend end-to-end: Playwright across auth, actions, goals, journals, navigation, projects, today. *(T-3, substantial)*
 
 **Recent fixes** (session 2026-07-16): delete-confirmation (B-1), toggle-sync (B-2), add-action-button visibility (B-3), plus e2e scaffolding.
-- **Duplicate-gather race** (2026-09-15, D-55) — `runActionGathering` now serializes per user, so a StrictMode double-fire / two tabs / a retry can't double-insert gathered actions. *(A separate, still-open weekly-recurrence bug — intervals firing only on their creation weekday — is diagnosed but unfixed; see D-55's note.)*
+- **Duplicate-gather race** (2026-09-15, D-55) — `runActionGathering` now serializes per user, so a StrictMode double-fire / two tabs / a retry can't double-insert gathered actions.
+- **Recurrence fires on every selected day, not only the creation day** (2026-09-15, D-56) — `intervalOccursOnDate` double-applied the `repeatValue` cadence against the exact anchor day when the form sent `repeatUnit`+`customRepeatRule` together, so a weekly/monthly interval only fired on its creation weekday/day-of-month (and `year` never fired). Now the cadence applies to the week/month/year *bucket*. Also fixed Time Themes (same reused check). Merged to `main`.
+- **Concurrent sitting-open flake** (2026-09-15, D-57) — the feelings-&-needs "survives concurrent opens" test flaked under load; the per-user gather lock was generalized into `withUserLock` (`services/userLock.ts`) and applied to `startSitting`. Merged to `main`.
 
 ## Not built ○
 
@@ -71,6 +73,7 @@ A sixth tool, **Monitoring Lab**, is specced (`../06-specs/06-monitoring-lab.md`
 
 ## Changelog
 
+- **0.31 · 2026-09-15** — Two recurrence/concurrency fixes merged to `main`: the **weekly/monthly/yearly recurrence bug** (D-56) where a custom day-selection interval fired only on its creation weekday/day-of-month (also fixed Time Themes), and the **concurrent sitting-open flake** (D-57), fixed by generalizing the per-user gather lock into `withUserLock`. The Recent-fixes note that called the recurrence bug "still-open" is now corrected.
 - **0.30 · 2026-09-15** — **Time Themes** added to Built & working (D-54): first-class tags shared across five entities and recurring, soft time themes. Built, verified (api + client suites, i18n + tsc clean, live en/fa), and merged to `main` alongside the duplicate-gather race fix (D-55). First m2m in the schema (`add_time_themes`).
 - **0.28 · 2026-08-25** — Persona review pass 4 recorded: all three pass-3 blockers confirmed fixed on fresh accounts, and the same digit defect found still live in a second detector, which is the pass's central finding (D-51 — a normaliser is a shared artifact, not a per-site fix). Eleven findings open, three of them consequences of the pass-3 remediation. Report-only. Also adds the AI Training Lab hub spec to the designed-but-unbuilt list.
 - **0.27 · 2026-08-25** — The last two open findings closed: S-5a (Clarity's reveal names which text each half of the screen is about, driven by a server flag derived from the same predicate that picks the diagnosis key) and S-6 (Monitoring's reveal names each planted turn and its kind — a separate read-only block, since `TranscriptAudit`'s contract is that planted and clean turns look identical). Every defect from persona review pass 3 is now fixed; two locale/copy sweeps remain.
