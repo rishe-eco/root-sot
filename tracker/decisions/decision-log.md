@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.33 · Status: living · 2026-09-15 · Owner: _root**
+**Version 0.34 · Status: living · 2026-09-15 · Owner: _root**
 
 ---
 
@@ -31,13 +31,23 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 
 ## 2. Key decisions
 
+### D-56 · Recurrence: a custom day-selection rule fires on every day it names, not only the creation day — 2026-09-15
+
+The bug the user hit: a new weekly interval never appeared in linked tasks (and, folklore had it, "showed up after three days"). Root cause in `intervalOccursOnDate` (`api/src/services/actionGathering.ts`). The interval form sends `repeatUnit`, `repeatValue`, **and** a `customRepeatRule` (`daysOfWeek` / `daysOfMonth` / `months`) **together**. The occurrence check first selected the qualifying day from the rule, then *additionally* ran `dateMatchesRepeatFromAnchor(createdAt, date, repeatValue, repeatUnit)` — which requires the date to be an exact multiple of the cadence **from the anchor day**, i.e. the same weekday (week), same day-of-month (month), and for `year` it returned `false` outright (that unit was never in `dateMatchesRepeatFromAnchor`'s switch). So a weekly interval fired only on the weekday it was created on; other selected days were silently dropped, and if no selected day matched the creation weekday it never fired at all. The "three days" was an artifact of the 3-day gathering window happening to include the one aligned occurrence.
+
+Missed because the only weekly-`daysOfWeek` unit test set `repeatUnit: null`, which took an early `return true` and never reached the cadence gate — the form never sends `null`.
+
+**Fix:** the cadence now applies to the **week/month/year bucket**, not the exact anchor day. A new `matchesRuleCadence(createdAt, date, repeatValue, unit)` counts whole weeks (ISO/Monday-aligned), months (`(y·12+m)` difference), or years between the creation bucket and the date's bucket, requires that difference to be `≥ 0` and divisible by `repeatValue`, and never fires before the creation date. For the common `repeatValue: 1` case this collapses to "honor exactly the selected days." `repeatValue > 1` is anchored to the creation week/month/year ("every 2 weeks on Mon & Thu" = both days, every other week from the week of creation). `dateMatchesRepeatFromAnchor` is unchanged — the plain `repeatUnit`+`repeatValue` path (no rule) still uses it and was always correct.
+
+**This also fixes Time Themes**, whose `timeThemesForDate` reuses `intervalOccursOnDate` verbatim (D-54) — a weekly theme had the identical defect. No schema change, so no migration / data-model entry. Covered by 8 new unit cases (the real form payload across week/month/year, incl. every-N cadence and the pre-anchor guard) and one end-to-end gathering integration test (a Thursday-only weekly interval, anchor on a Wednesday, now materializes). Fixed on `fix/recurrence-anchor`.
+
 ### D-55 · The duplicate-gather race — serialize gathering per user, not a DB constraint — 2026-09-15
 
 A pre-existing TOCTOU in `runActionGathering` (found while building Time Themes, fixed separately on `fix/gather-race`, merged to `main` as `18e1e11`). The service reads already-gathered rows into a `seen` set, then writes in a per-date transaction — read and write are not atomic. Two overlapping calls for one user (React StrictMode double-fires the Today mount effect in dev; two tabs or a retry do it in prod) each read "nothing gathered yet" and both insert, producing duplicate gathered actions.
 
 **Fixed with a per-user in-process async lock**, not a DB unique index. SQLite is single-writer (so the API is single-process), and serializing per user preserves the two things the service was tuned for — per-date transaction atomicity ("no empty gathered date") and the four-query batch read (a per-row path cost ~23s) — whereas a unique index would force per-row conflict handling, since SQLite's `createMany` has no `skipDuplicates`. No schema change, so no migration and no data-model entry. An in-code note recommends the DB unique index on `(userId, forDate, sourceType, sourceId, startTimeOfDay)` as the durable guard **if this ever runs multi-instance** — the nullable case is a non-issue: gathered rows are always fully non-null on those columns, and SQLite treats NULLs as distinct, so standalone/project actions are exempt automatically. Two regression tests (two concurrent runs create 3 actions not 6 — verified to fail +6 without the fix; two users still gather in parallel).
 
-> Adjacent, **not fixed**: a confirmed weekly/monthly recurrence bug (`intervalOccursOnDate` double-applies the `repeatValue` cadence when the form sends `repeatUnit`+`customRepeatRule` together, so a weekly interval only fires on the weekday it was created on). Diagnosed with failing repro tests; awaiting a decision on cadence semantics before a fix.
+> Adjacent, since **fixed** in **D-56**: the weekly/monthly recurrence bug where `intervalOccursOnDate` double-applied the `repeatValue` cadence when the form sent `repeatUnit`+`customRepeatRule` together, so a weekly interval only fired on the weekday it was created on.
 
 ### D-54 · Time Themes — a soft, tag-shaped second axis over time; tags are a relation, not a JSON list — 2026-09-15
 
@@ -602,6 +612,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.34 · 2026-09-15** — D-56 added: the **weekly/monthly/yearly recurrence bug** fixed. `intervalOccursOnDate` double-applied the `repeatValue` cadence against the exact anchor day when the form sent `repeatUnit`+`customRepeatRule` together, so a custom day-selection interval only fired on its creation weekday/day-of-month (and `year` never fired). Now the cadence applies to the week/month/year *bucket* via `matchesRuleCadence`; `repeatValue: 1` collapses to "honor the selected days," `> 1` anchors to the creation bucket. Also fixes Time Themes (same reused check). No migration. 8 new unit cases + 1 gathering integration test.
 - **0.33 · 2026-09-15** — D-55 added: the **duplicate-gather race** in `runActionGathering` fixed with a per-user in-process lock (not a DB constraint — SQLite is single-writer, and the lock preserves the transaction atomicity + batch-read the service was tuned for). Merged to `main` alongside Time Themes. Notes the adjacent, still-unfixed weekly-recurrence cadence bug.
 - **0.32 · 2026-09-15** — D-54 added: **Time Themes** built — the first core-feature (non-lab) build in this stretch. Introduces `Tag` + `TimeTheme` and the schema's **first m2m relations**, with the reasoning that a tag is a relation not a value-list (so Convention #2 doesn't extend). Records the soft-surfacing rule (order not membership), tag inheritance keyed to action origin (gathered = server-locked snapshot, project = seeded-editable, standalone = empty), recurrence reuse of `intervalOccursOnDate`, two deliberate deviations (a `timeTheme(id)` getter; the band living on the Calendar while Today/Pre-day get a banner + match marker), and two live findings (a pre-existing duplicate-gather race, left for separate attention; an RTL bidi bug introduced and fixed). Verified 890/890 api · 206/206 client · i18n + tsc clean · live en/fa pass.
 - **0.31 · 2026-08-25** — D-53 added: the AI Training Lab hub built. One `skillsOverview` query in place of thirteen, four Prisma reads and no metric service, a five-rule recommendation ladder whose last rule names no lab because the six labs' headline metrics are not on a common scale, and a failure state in which all six doors still open. Two deliberate deviations from the spec (a fourth read for the profile, read-only so the hub cannot enrol anyone; the ladder client-side because every string it produces is a locale key). `isDueReview` extracted from its six copies.
