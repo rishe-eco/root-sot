@@ -172,6 +172,8 @@ Target-store mechanics (WooCommerce auth, API vs direct) are deliberately unspec
 
 ## 10. Parked decisions *(recorded, not decided)*
 
+*(Later the same day, §10.1's sequencing question was taken up: [ADR 0001](../decisions/0001-studio-first-with-design-wedge.md), status proposed, with its canvas in `root-studio-business-model.md`. The gate on §10.2 is unchanged.)*
+
 ### 10.1 The paid design phase
 
 Nahal's contract required finalized design before signing: free design work, delayed dev start, and `lib/gate.ts` hard-codes that same sequence today. The founder's direction (2026-09-18): **wait until the dashboard idea is clear**, then evaluate design as its own business — VP and BMC — with tiered options per step, from free/cheap (pick from developed themes) through Claude-assisted composition up to senior-designer-plus-Claude custom work.
