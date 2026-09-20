@@ -78,7 +78,7 @@ None. Colour is a string (palette key or hex); status reuses `IntervalStatus`.
 ## 7. UI surfaces
 
 1. **Tag manager** — list, create, rename, recolour, delete tags. Small, lives in settings/modules.
-2. **Tag picker (chips)** on Project / Interval / Routine editors, and on the Action editor.
+2. **Tag picker (chips)** on Project / Interval / Routine editors, and on the Action editor. When editable it also offers **inline create-and-attach** (mint a new tag without leaving the form — an empty vocabulary is never a dead end), an empty-state hint, and a link to the Tag manager. See D-58.
 3. **Action editor** shows inherited tags **read-only with a lock flag** for gathered actions; editable chips for standalone/project actions (project ones pre-filled).
 4. **Time Theme editor** — title, tag(s), `startTimeOfDay`→`endTimeOfDay`, and the **same recurrence control the Interval editor uses**.
 5. **Day timeline** — themes drawn as colored bands behind actions; in Pre-day / gathering, matching actions surface to the top of a themed slot with a subtle affinity marker (non-matching still selectable).

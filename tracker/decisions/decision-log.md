@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.35 · Status: living · 2026-09-15 · Owner: _root**
+**Version 0.36 · Status: living · 2026-09-21 · Owner: _root**
 
 ---
 
@@ -30,6 +30,12 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-09-15 | **add_time_themes** | `Tag` and `TimeTheme` models + the schema's **first m2m relations** (`tags` on Project/Interval/Routine/Action/TimeTheme). First code for **Time Themes** — a core feature, not a skill tool. See D-54. |
 
 ## 2. Key decisions
+
+### D-58 · TagPicker is never a dead end: inline tag creation from any form — 2026-09-21
+
+Found live while re-checking the Time Themes work: a user with an empty tag vocabulary could not attach a tag **anywhere**. `TagPicker` rendered its "+ tag" control only when there were unselected tags to offer, so with zero tags every form (Action, Interval, Routine, Project, Time Theme) showed the "Tags" label above an empty void — and tags could only be *created* in Settings → Tags, which nothing in the forms pointed to. The shared-vocabulary model (D-54, §7) was sound; the picker simply had no path from "no tags" to "a tag."
+
+`TagPicker` now always offers an editable affordance when not locked: an inline **create-and-attach** field that mints a tag via the existing `createTag` mutation and immediately selects it, an empty-state hint, and a link to the manager. Inline creation **auto-assigns the next palette colour** (recolour later in the manager) to stay a single field rather than reproducing the manager's full name+colour form in every surface. The shared load+create logic is extracted into `useTagVocabulary` so all four forms behave identically instead of each hand-rolling `GET_TAGS`. Locked (gathered-action) pickers are unchanged — still read-only per §3.1. **Client-only; no schema, no migration.** Verified 215/215 client · tsc + i18n clean; new tests cover the empty-vocabulary and inline-create paths, which were previously untested (the old picker test only covered the *locked* empty case).
 
 ### D-57 · The per-user gather lock is generalized and now also guards opening a sitting — 2026-09-15
 
@@ -618,6 +624,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.36 · 2026-09-21** — D-58 added: **TagPicker is never a dead end.** An empty tag vocabulary made every form's tag picker a label above an empty void (the "+ tag" control only rendered when unselected tags existed), with no in-form path to create the first tag. The picker now always offers an inline create-and-attach field + empty-state hint + a link to the manager; `useTagVocabulary` shares the load/create logic across all four forms. Client-only, no migration. 215/215 client · tsc + i18n clean.
 - **0.35 · 2026-09-15** — D-57 added: the per-user gather lock (D-55) **generalized** into `withUserLock` (`services/userLock.ts`) and applied to `startSitting`, fixing the `feelingsNeeds` "survives concurrent opens" test that flaked under full-suite contention. Namespace-keyed so unrelated ops for one user don't block each other; the sitting-open converge-and-clean pass stays as multi-instance defense-in-depth. No migration.
 - **0.34 · 2026-09-15** — D-56 added: the **weekly/monthly/yearly recurrence bug** fixed. `intervalOccursOnDate` double-applied the `repeatValue` cadence against the exact anchor day when the form sent `repeatUnit`+`customRepeatRule` together, so a custom day-selection interval only fired on its creation weekday/day-of-month (and `year` never fired). Now the cadence applies to the week/month/year *bucket* via `matchesRuleCadence`; `repeatValue: 1` collapses to "honor the selected days," `> 1` anchors to the creation bucket. Also fixes Time Themes (same reused check). No migration. 8 new unit cases + 1 gathering integration test.
 - **0.33 · 2026-09-15** — D-55 added: the **duplicate-gather race** in `runActionGathering` fixed with a per-user in-process lock (not a DB constraint — SQLite is single-writer, and the lock preserves the transaction atomicity + batch-read the service was tuned for). Merged to `main` alongside Time Themes. Notes the adjacent, still-unfixed weekly-recurrence cadence bug.
