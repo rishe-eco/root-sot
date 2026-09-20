@@ -32,7 +32,7 @@
 - **Gist:** The first explicit **five-pillar** model — but with a *different fifth pillar*: **Learn, Reflect, Organize, Maintain, Envision.** Learn = sets of courses building "capabilities" (mindsets + concepts + skills), with an example Empathy capability (need / emotion / reality-recognition / request-making / empathy modules) plus an eventual open "learn anything" module. Reflect = maps how much time the user spends meeting which needs and how effective the strategy is. Organize = "the tracker app we have right now" (goals + realistic goal-setting). Maintain = the three batteries. **Envision** = bringing a vision of the future into reality, binding into every other module.
 - **What survived into canon:** four of the five pillar names (Learn, Reflect, Organize, Maintain) and much of their intent; Learn's "capabilities = mindset + concept + skill" idea; the empathy/needs/emotion module cluster (→ Learn Module 1).
 - **What changed (the key evolution):** the fifth pillar **Envision (forward/vision)** was later *replaced* by **Others (outward/service)** — the 14 Jul "Finding the fifth pillar" session concluded the load-bearing gap was outward, not forward (self-view is unreliable until mirrored externally). This is the single biggest architectural pivot recorded here.
-- **Superseded by:** `../canon/02-pillars/*` (esp. `../canon/02-pillars/others.md`, which documents why the fifth pillar became outward) and `../decisions/decision-log.md`.
+- **Superseded by:** `../canon/02-pillars/*` (esp. `../canon/02-pillars/impact.md`, which documents why the fifth pillar became outward) and `../decisions/decision-log.md`.
 
 ### #04 — `root main pillars _ simple.txt`
 - **Date:** 2026-06-23 · **Type:** exact duplicate of #03

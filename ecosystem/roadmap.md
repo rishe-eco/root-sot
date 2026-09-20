@@ -36,7 +36,7 @@ Source: `canon/02-pillars/`, `working/`, and the canon log.
 | **Grow (Learn)** | **Phase 1, active** | Module 1 (Feelings & Needs) discovery is the live workstream — `working/learn-discovery/`. `01-research-criteria-and-method.md` done; method artifacts then participant criteria next, produced one at a time. Six hypotheses H1–H6, with H6 split into H6a/H6b on 2026-07-22. English-only for the first build. |
 | **Reflect** | not started | Carries the reconstrual / self-distancing finding folded in on 2026-07-22. |
 | **Maintain** | not started | — |
-| **Others** | not started | Working name, pending resolution (`canon/02-pillars/others.md`). |
+| **Impact** | concept · **Act 1 built, unjudged** | Named 2026-09-20 (`canon/02-pillars/impact.md`); Persian name open. Act 1 = **Noticing** (`working/impact-build/`) — phases 1–7 built and **merged to Tracker `main` 2026-09-21**. **Phase 8 (two-week feel-test) and Gate A (three-day disconfirming smoke) are human and have not been run**, so the code exists and the verdict does not. |
 
 **Sequencing implication:** Learn holds the single Phase-3 slot as soon as its discovery reaches test. No other pillar can enter test until Learn's loop closes. Reflect, Maintain and Others may enter Phases 1–2 in parallel at any time — none has.
 

@@ -11,7 +11,7 @@ Reality over fiction applies to our own foundations. Nearly every framework we u
 
 ## 2. The core motivation science — **strong**
 
-- **Self-Determination Theory** (Deci & Ryan). Autonomy, competence, relatedness as basic needs for intrinsic motivation. Maps onto the pillars (autonomy↔Organize, competence↔Learn, relatedness↔Others). Decades deep.
+- **Self-Determination Theory** (Deci & Ryan). Autonomy, competence, relatedness as basic needs for intrinsic motivation. Maps onto the pillars (autonomy↔Organize, competence↔Learn, relatedness↔Impact). Decades deep.
 - **Overjustification effect.** Extrinsic rewards corrode *existing* intrinsic motivation — worst for the already-motivated. This is the empirical basis of the no-streaks refusal, not a preference. (Broader gamification meta-analyses are more nuanced — game elements can raise perceived autonomy/relatedness but do little for competence — but the corrosion of the intrinsically-motivated is the finding that governs our audience.)
 
 ## 3. Goals — **strong**, with a documented dark side

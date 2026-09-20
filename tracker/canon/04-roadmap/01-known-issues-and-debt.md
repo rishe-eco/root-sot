@@ -2,7 +2,7 @@
 
 *Source of truth. The bug catalogue and hygiene items. Status must be re-verified — read the grounding note. Update the changelog; don't fork.*
 
-**Version 0.7 · Status: mixed (see per-item grounding) · 2026-08-25 · Owner: _root**
+**Version 0.8 · Status: mixed (see per-item grounding) · 2026-09-21 · Owner: _root**
 
 ---
 
@@ -13,6 +13,7 @@
 - **B-1 — Delete without confirmation** (`ActionPreview`). Fixed 2026-07-16; deletes now route through `ConfirmDialog`.
 - **B-2 — Toggle doesn't persist checked state** (`ActionPreview` `useEffect` dep). Fixed 2026-07-16.
 - **B-3 — "Show more" hides the Add-action button** (`ProjectPreview`). Fixed 2026-07-16.
+- **A dead session never redirected to login.** `isAuthenticated` was `!!token` — presence, not validity — so an expired or server-rejected JWT kept the app signed in while every request failed; only a manual logout recovered it. Fixed 2026-09-21 (D-60): expired tokens are dropped at boot and an `Unauthorized` reply signs out centrally. **It was never on this list**, which is the part worth keeping: every page handled its own failure politely, so an app-wide break looked like a series of unrelated local ones. It surfaced only when a brand-new tool was opened on an old session, and had plausibly been reachable since the dev database was reset during the Noticing build.
 
 ## Open — data integrity (highest priority to re-verify)
 
@@ -90,6 +91,7 @@ Also confirmed open, not new: `04-conventions.md` §7d is not upheld in the cont
 
 - Frontend repo has committed `.env` / `.env.production`; the API has a committed `dev.db`. **If any hold real secrets, treat as exposed and rotate.** Add to `.gitignore` going forward.
 - Production `JWT_SECRET` must be a strong random value (the code defaults to `dev-secret` if unset — never ship that).
+- ~~The stored JWT was printed to the browser console on every boot~~ — two stray `console.log` calls in `AuthContext`. Removed 2026-09-21 (D-60).
 
 ## How to use this file
 
@@ -99,6 +101,7 @@ Before working a bug, re-read the cited file(s), confirm the issue still reprodu
 
 ## Changelog
 
+- **0.8 · 2026-09-21** — The **dead-session redirect** bug recorded as fixed (D-60), and the token-in-console leak struck from Hygiene. Both are noted as *never having been on this list*: the first was masked by per-page error handling, the second by nobody reading the console on a page that worked.
 - **0.7 · 2026-08-25** — The review ladder never expanded, in any of the six labs, since the engine's first version: nothing wrote `reviewIntervalIndex` and neither review-outcome function was ever called. Fixed and recorded as closed (D-52). Found by diffing an unmerged branch, not by a review pass — no walkthrough would have caught it, since the symptom is a review date that is only wrong relative to what it should have been several reviews later.
 - **0.6 · 2026-08-25** — S-12 → S-22 opened from persona review pass 4. Three of them (S-12, S-14b, S-21) are consequences of the pass-3 remediation, which is the pass's central finding: the digit fold was applied at the site where the blocker was found rather than shared, so the same defect is still live in a second detector. Records that `04-conventions.md` §7d is not upheld in four of six content packs.
 - **0.5 · 2026-08-25** — S-6 closed. Every defect from persona review pass 3 is now fixed; what remains under this heading is two sweeps (the Persian register drift in `verification`'s locale block, and the `(s)` artifacts outside the skills labs), neither of which is a defect in a lab.

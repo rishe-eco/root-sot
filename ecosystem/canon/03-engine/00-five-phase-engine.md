@@ -32,11 +32,11 @@ A discovery loop (Phases 1–4) runs ~10–15 days and solves one opportunity; 2
 
 ## 4. Variable depth
 
-Uniform process across non-uniform uncertainty is waste. A pillar with strong anchors (Reflect, Learn) needs less empathize-depth than a barely-defined one (Others). A short uncertainty triage at the front of each pillar sizes how much of each phase it actually needs.
+Uniform process across non-uniform uncertainty is waste. A pillar with strong anchors (Reflect, Learn) needs less empathize-depth than a barely-defined one (Impact). A short uncertainty triage at the front of each pillar sizes how much of each phase it actually needs.
 
 ## 5. Two disciplines that protect the engine
 
-- **Pilot on low novelty, not Others.** First real runs go on a slice of Organize or Reflect, so you're stress-testing the *engine*, not the *concept*. Piloting on Others confounds "is the process working" with "is the idea right."
+- **Pilot on low novelty, not Impact.** First real runs go on a slice of Organize or Reflect, so you're stress-testing the *engine*, not the *concept*. Piloting on Impact confounds "is the process working" with "is the idea right."
 - **Don't specify before contact.** Lock only the *canonical, evidence-independent* layer up front (brand, philosophy, vocabulary, ways-of-working, this engine's skeleton). Everything evidence-dependent (a pillar's actual features, guideline detail, UX) gets a container left deliberately empty until contact fills it. Fully specifying in a vacuum is the exact trap Root exists to fight, one level up — and effort spent there converts to commitment that then resists the discovery meant to correct it.
 
 ## 6. Open questions

@@ -30,11 +30,11 @@ Outcome 2 stops at *recognizing and articulating* the loophole. Fixing the patte
 
 ## 5. Failure handling (a gap the concept must close)
 
-Organize needs a first-class **failure mode**, not just a success path. Two toxic responses to guard against: "I tried, it didn't work, so effort is pointless" and "I failed, full stop." Growth mindset's move — **separate effort from outcome** — is the antidote: you own effort, strategy, and learning; you do not own outcomes. So on failure, Organize asks: was this in my control or not? did I know? what can I learn? what next time? The structural read lives here; the emotional and meaning-making read lives in **Reflect** (the Reflect↔Organize coupling). This also closes the Others execution gap — service goals whose outcomes you don't control ("I showed up fully and it still didn't land") need exactly this effort-vs-outcome handling.
+Organize needs a first-class **failure mode**, not just a success path. Two toxic responses to guard against: "I tried, it didn't work, so effort is pointless" and "I failed, full stop." Growth mindset's move — **separate effort from outcome** — is the antidote: you own effort, strategy, and learning; you do not own outcomes. So on failure, Organize asks: was this in my control or not? did I know? what can I learn? what next time? The structural read lives here; the emotional and meaning-making read lives in **Reflect** (the Reflect↔Organize coupling). This also closes the Impact execution gap — service goals whose outcomes you don't control ("I showed up fully and it still didn't land") need exactly this effort-vs-outcome handling.
 
 ## 6. Service goals
 
-Service acts recognized in Others, once they pass Reflect's motive check, arrive in Organize and get the **same rigor as any goal**: blocked time, prep, reliable follow-through. This is the core reframe — **discipline is the container for compassion, not its enemy.** A promise not kept isn't compassion; it's performance. This tightly couples Reflect and Organize on the service path (motive in, failure out).
+Service acts recognized in Impact, once they pass Reflect's motive check, arrive in Organize and get the **same rigor as any goal**: blocked time, prep, reliable follow-through. This is the core reframe — **discipline is the container for compassion, not its enemy.** A promise not kept isn't compassion; it's performance. This tightly couples Reflect and Organize on the service path (motive in, failure out).
 
 ## 7. The Clarity Check (F-1)
 

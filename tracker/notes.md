@@ -2,7 +2,7 @@
 
 *The R&D log: what is being tested for graduation into the product. Designed-but-unbuilt work lives in `canon/06-specs/`; this file tracks its status, what each piece is for, and what has to be true before it ships. Update the changelog; don't fork.*
 
-**Version 1.1 · Status: living · 2026-08-03 · Owner: _root**
+**Version 1.2 · Status: living · 2026-09-21 · Owner: _root**
 
 ---
 
@@ -152,6 +152,37 @@ Two content decisions worth carrying forward. **Pool size ≠ display size:** th
 ### Open decisions carried into later phases (plan §11)
 Palette-vs-free-text (building against **palette + "other → type it" escape**); exact dial values (provisional, in `dials.ts` — tune at M6); how much graduation detection to build vs. stub to prompt-fade only.
 
+## In R&D now — Noticing (Impact Act 1)
+
+**Built 2026-09-20, merged to `main` 2026-09-21.** The first **Impact**-pillar surface in Tracker. Concept, spec, wireframes, spine evaluation and build plan are in the ecosystem repo (`../ecosystem/working/impact-build/`); the as-built record, including every decision the plan did not specify, is `notes/noticing-build-log.md` in the code repo — read that first if you are picking the work up.
+
+Act 1 of Impact is **need recognition**, and the bet is that the bottleneck is **noticing**, not matching: train the perception as a short repeated practice, and read capacity back from what the person turned out to have. Built to the same content discipline as Feelings & Needs (locale-invariant **spec** + per-locale **surface**, versioned in the repo, pinned per user) and, like it, **LLM-free** — all three catches run on authored lexicons. It shares **no table, column or line of code** with Module 1, including the needs palette; see `canon/02-architecture/01-data-model.md`.
+
+Phasing (build plan §10):
+
+| Phase | Milestone | Status |
+|---|---|---|
+| **1** | **Scaffold** — models + `add_noticing`, `content/noticing/` skeleton, `state.ts`, `noticingState` query, tool home | **done 2026-09-20** |
+| **2** | **Content** — place palette, **Noticing’s own needs palette**, frame copy + reroute, cue chips, loop prompts, three catch lexicons, capacity chips, graduation copy, the third-party warning | **done 2026-09-20** |
+| **3** | **The spine** — sitting, four-step pass committing as it goes, the close, the bounded repeat, the recap | **done 2026-09-20** |
+| **4** | **Day-one frame** — beat 1’s five steps + the *can’t think of one* reroute, beat 2’s prediction and its one-time correction, gated to once | **done 2026-09-20** |
+| **5** | **Catches** — three types, per-type cooldown, at most one per pass, in-context and declinable | **done 2026-09-20** |
+| **6** | **Capacity + handoff** — head/hands/heart, the Reflect motive stub | **done 2026-09-20** (folded into the close 2026-09-21) |
+| **7** | **Self-initiation** — server-served prompt fade, the one-time graduation door | **done 2026-09-20** |
+| **8** | **Polish + feel-test** — the two-week run of `03-spine-evaluation.md` | **not run — human** |
+
+Tier 4 (the environmental scan) is **out of scope** for this build, as the spec sets it.
+
+**The honesty line, same as Module 1’s.** Every surface works and 1079 tests pass, and none of that is validation. **Phase 8 and Gate A** — a three-day disconfirming smoke — are both human and neither has run. They exist because the spine’s two failure shapes, *it’s a form* and *it instrumentalizes people*, **produce identical usage logs**: no amount of data settles it, which is why `03-spine-evaluation.md` fixes its decision rule before the data and names the ambiguous result so it cannot be read as a pass.
+
+### Code on disk (Phases 1–7)
+`api/prisma/schema.prisma` (NoticingFrame, NoticingSitting, NoticingEntry, NoticingState) · `api/src/content/noticing/` (types, dials, `v1/` spec + `surface.en`/`surface.fa`, registry) · `api/src/services/noticing/` (`session.ts`, `catches.ts`, `state.ts`) · the `noticing*` GraphQL surface · `client/app/components/impact/` (`NoticingPage`, `NoticingFramePage`, `NoticingLoopPage`, `NoticingLogPage`) under `/tools/impact/noticing` · five backend suites plus `noticingCatchHints` on the client.
+
+**Three refusals are enforced as a test**, not left to review (`noticingFences.unit.test.ts`): no counter field, no `Person` model, no index on `person`, no person argument on a query. Sanity-checking it by planting violations found two ways it would have passed **vacuously** — see `canon/03-engineering/01-testing.md`.
+
+### Open, carried forward
+Whether the **capacity portrait** is ever shown to the person or only accrues; whether an entry ending at *“not sure”* needs its own closing line so noticing-without-capacity does not read as failure; the **Persian native review** of the surface pack (ships `draft`, same as Module 1); and the pillar’s **Persian name**, still open.
+
 ## Open questions before anything here graduates
 
 1. ~~**Does this belong in Tracker at all?**~~ **Resolved 2026-08-01** (`../ecosystem/decisions/decision-log.md`). It belongs conceptually to **Grow (Learn)** (`../ecosystem/canon/02-pillars/learn.md` §1 — skill-training builds durable capacity on purpose). Tracker is a **staging ground**, not the Organize pillar, so hosting it here is not a scope error; code location does not determine ownership. It stays a **second Learn content family**, distinct from Module 1 (Feelings & Needs), and may later move to its own app. Open-Qs 2–3 (reliability gates) still stand.
@@ -167,6 +198,7 @@ Palette-vs-free-text (building against **palette + "other → type it" escape**)
 
 ## Changelog
 
+- **1.2 · 2026-09-21** — **Noticing (Impact Act 1)** added as a second R&D resident: phases 1–7 built and merged, phase 8 and Gate A unrun and human. Records what makes it unlike Feelings & Needs — its own needs palette and no shared code — and that its two failure shapes produce identical usage logs, which is why a feel-test with a pre-committed decision rule is the only thing that can settle it.
 - **1.1 · 2026-08-03** — First review pass on the built demo: split the body step into **where** then **what texture** (the question and its options disagreed; `add_loop_entry_body_location`), added **entry history** as a plain record, added a **schema build test**, and recorded two deferred expansions in the plan's §12. Fixed an unrelated date-rot failure in the Skills planner test. 418 tests passing.
 - **1.0 · 2026-08-03** — Feelings & Needs **Phase 7 (polish + feel-test) done — the demo is built**. Plan §10's eight guardrails are now executable tests; presentation pass (dark mode, 375px, touch targets); `npm run seed:fn` seeds six review accounts. 400 tests passing.
 - **0.9 · 2026-08-02** — Feelings & Needs **Phase 6 (self-initiation) done**: server-side prompt-fade with authored terse prompts, and the one-time capability door (acknowledged, never repeated). Dropped `LoopState.promptFadeLevel`; recorded the derive-over-store rule and P7's accepted unobservability. 381 tests passing.

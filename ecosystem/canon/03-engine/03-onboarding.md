@@ -15,7 +15,7 @@ The trap is a philosophy lecture series — it betrays the product (Root is inte
 - **1 — Become a user.** Before understanding pillars intellectually, live them: Reflect on a real piece of their life; Maintain (name their three batteries, signals, recharge strategies); one real goal through Organize + the Clarity Check. Rough/half-manual prototypes are fine — the point is felt experience and raw reactions for Movement 2.
 - **2 — Discover the why.** Connect what they felt to the reasoning: SDT, overjustification/no-streaks, NVC-as-design-language, Meadows, growth-mindset (effort≠outcome), the service philosophy. Then the architecture: the loop, immediate-action-only, service-via-Reflect-motive-check, plural entry. **Teach the bets honestly** — Reflect's thin evidence, swimming-upstream-on-purpose — so they can both defend the choices and stay alert to the risks rather than treat the philosophy as gospel.
 - **3 — Learn the method.** The five-phase engine and the tree, learned by dissecting a real example (or a 30-min dry run on a throwaway problem). Set up the tools by *using* them: their onboarding tasks live on the kanban (view A); they build a practice tree in Affine (view B).
-- **4 — Run a real loop, supervised → fading.** A real slice of a **low-novelty** pillar (Organize/Reflect, **not** Others). Pair closely at first; review the tree at each gate; step back progressively.
+- **4 — Run a real loop, supervised → fading.** A real slice of a **low-novelty** pillar (Organize/Reflect, **not** Impact). Pair closely at first; review the tree at each gate; step back progressively.
 - **5 — The independence marker.** Not a date — a signal: they run a full discovery loop and you can review the *output tree* without having stepped in mid-loop. The artifact carried the work. This is identical to the team's everyday async standard, so graduation criterion = working standard.
 
 ## 3. This team, specifically
@@ -26,7 +26,7 @@ The trap is a philosophy lecture series — it betrays the product (Root is inte
 
 ## 4. Sequencing (the compression move)
 
-Run **Organize discovery with both joiners (supervised)** while the founder runs **Learn discovery in parallel**; deploy **discrete, complete Learn slices** into their hands as they materialize (they use each slice fully, giving real feedback while it's built). By ~week 2.5 Organize is at Phase 5; week 3+ is *pure* Learn discovery (one clean mode, no context-switching). Result: ~5 weeks to independence on **two** pillars while the third is built — faster than the naive sequence, richer feedback on Learn, and they graduate seeing the whole engine in motion. After Movement 5, split: each owns a pillar (Reflect / Maintain / Others), founder manages gates.
+Run **Organize discovery with both joiners (supervised)** while the founder runs **Learn discovery in parallel**; deploy **discrete, complete Learn slices** into their hands as they materialize (they use each slice fully, giving real feedback while it's built). By ~week 2.5 Organize is at Phase 5; week 3+ is *pure* Learn discovery (one clean mode, no context-switching). Result: ~5 weeks to independence on **two** pillars while the third is built — faster than the naive sequence, richer feedback on Learn, and they graduate seeing the whole engine in motion. After Movement 5, split: each owns a pillar (Reflect / Maintain / Impact), founder manages gates.
 
 ## 5. The recursion
 

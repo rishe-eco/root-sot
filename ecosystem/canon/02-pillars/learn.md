@@ -7,7 +7,7 @@
 
 ## 1. Purpose
 
-Learn is where a person builds capacity on purpose. The general shape: choose a skill, evaluate where you are, set an endpoint and an intensity for a period, follow a pathway, track progress, and evaluate at points along the way. Learn is fed by every other pillar (a gap surfaces in Reflect, Maintain, Organize, or Others) and returns capacity to Organize, where the new ability makes new action possible.
+Learn is where a person builds capacity on purpose. The general shape: choose a skill, evaluate where you are, set an endpoint and an intensity for a period, follow a pathway, track progress, and evaluate at points along the way. Learn is fed by every other pillar (a gap surfaces in Reflect, Maintain, Organize, or Impact) and returns capacity to Organize, where the new ability makes new action possible.
 
 ## 2. First module — Emotion & Need Language Building
 
