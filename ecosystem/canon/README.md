@@ -44,7 +44,7 @@ ecosystem/                              ← the Root area of root-sot
       02-anti-patterns-and-constraints.md
     02-pillars/
       00-the-loop.md                    integration architecture
-      reflect.md   maintain.md   organize.md   learn.md   others.md
+      reflect.md   maintain.md   organize.md   learn.md   impact.md
     03-engine/
       00-five-phase-engine.md
       02-async-coordination.md
@@ -60,7 +60,7 @@ ecosystem/                              ← the Root area of root-sot
 
 **Two files were promoted out of this canon** on 2026-07-29, into the repo's navigational spine: the Opportunity Solution Tree (was `03-engine/01-opportunity-solution-tree.md`, now `../ost.md`) and the decision log (was `05-log/decision-log.md`, now `../decisions/decision-log.md`). This is why `03-engine/` skips from `00` to `02`.
 
-**Naming note:** the master brand is **Root / ریشه** (the Persian side was revised from بن; see the decision log). Pillar files use their working names; **Others** is a working name pending resolution (see `02-pillars/others.md`).
+**Naming note:** the master brand is **Root / ریشه** (the Persian side was revised from بن; see the decision log). The fifth pillar was resolved from the working name *Others* to **Impact** on 2026-09-20 (see `02-pillars/impact.md` §2); its **Persian** name is still open.
 
 ## Status of this pass
 

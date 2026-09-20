@@ -25,7 +25,7 @@ Three things this file is not, on purpose:
 *Source: `00-evidence-summary.md`, `01-known-risks-and-mitigations.md`.*
 
 **Self-Determination Theory** — Deci, E.L. & Ryan, R.M. (seminal statements: *Intrinsic Motivation and Self-Determination in Human Behavior*, 1985, book; Ryan & Deci, "Self-Determination Theory and the Facilitation of Intrinsic Motivation, Social Development, and Well-Being," *American Psychologist*, 2000).
-· **Link only** (book + APA) · *Autonomy, competence, relatedness as basic psychological needs for intrinsic motivation.* · Organize↔autonomy, Learn↔competence, Others↔relatedness — the pillar spine itself. **Strong.**
+· **Link only** (book + APA) · *Autonomy, competence, relatedness as basic psychological needs for intrinsic motivation.* · Organize↔autonomy, Learn↔competence, Impact↔relatedness — the pillar spine itself. **Strong.**
 
 **The overjustification effect** — general finding; no specific paper currently named in our docs.
 · **Gap — needs a citation** · *Extrinsic rewards corrode existing intrinsic motivation, worst for the already-motivated; the empirical basis of the no-streaks refusal.* · Cross-cutting — anti-gamification stance. Evidence-summary itself flags the broader gamification meta-analyses as "more nuanced" — worth citing that nuance alongside, not just the corrosion finding.
@@ -70,7 +70,7 @@ Three things this file is not, on purpose:
 · **Link only — book** · *Influential design language (feelings↔needs, observation vs. judgment); weakly evidenced as an intervention — small samples, few controlled trials, roughly one real RCT.* · Learn. **Thin, and labelled as such is the point** — evidence-summary §6 is explicit that the empirical weight sits on affect labeling/granularity/interoception/malleability instead, not on NVC itself.
 
 **Prosocial behaviour & generativity** — Erikson, E.H. (generativity, general theory); no specific empirical paper named.
-· **Gap — needs a citation** · *Prosocial behaviour and generativity correlate with wellbeing, but much of the literature is correlational and concentrated in older adults; the clean load-bearing finding is that the benefit is motive-dependent — other-oriented motives predict higher wellbeing, and helping lifts wellbeing specifically when autonomous.* · Others pillar. **Moderate, motive-dependent, skewed** toward older-adult samples.
+· **Gap — needs a citation** · *Prosocial behaviour and generativity correlate with wellbeing, but much of the literature is correlational and concentrated in older adults; the clean load-bearing finding is that the benefit is motive-dependent — other-oriented motives predict higher wellbeing, and helping lifts wellbeing specifically when autonomous.* · Impact pillar. **Moderate, motive-dependent, skewed** toward older-adult samples.
 
 **Growth mindset** — Dweck, C.S. *Mindset: The New Psychology of Success* (book); effort/strategy-vs-fixed-ability literature generally.
 · **Link only — book** · *Real but with contested effect sizes in some domains; used narrowly here to separate effort from outcome in failure handling.* · Organize/cross-cutting. **Moderate.**

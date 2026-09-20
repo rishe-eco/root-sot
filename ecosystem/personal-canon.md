@@ -49,7 +49,7 @@ If you're a Claude picking up their work, this is how to be useful fast.
 So you can orient fast — the ecosystem, roughly:
 
 - **Root** — the master brand / self-authorship company. Apex of everything.
-  - **Journey / ماجرا** — the flagship app: five pillars — **Reflect, Maintain, Organize, Learn, Others** (Others is a working name) — that form one "loop." **Built as five independent standalone apps first, integrated into "Journey" only once all five are shaped (~9 months out); an integration vision guides design from day one.** The codebase is referred to as "the tracker."
+  - **Journey / ماجرا** — the flagship app: five pillars — **Reflect, Maintain, Organize, Learn, Impact** (named 2026-09-20; Persian name open) — that form one "loop." **Built as five independent standalone apps first, integrated into "Journey" only once all five are shaped (~9 months out); an integration vision guides design from day one.** The codebase is referred to as "the tracker."
   - **Root Studio** (formerly "Root Dev") — the web-dev/services arm. Active client: **Nahal (نهال)**, a Persian womenswear WooCommerce build. The Root website itself is becoming a client portal.
   - **Root Cast** — a content/community layer.
   - A **coaching** experiment, piloted privately, kept unnamed until validated.

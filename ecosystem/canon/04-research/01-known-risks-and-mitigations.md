@@ -23,9 +23,9 @@
 
 **Learn — rumination instead of regulation.** *Mitigation:* the loop always moves notice→name→need→small thing; body-first on-ramp keeps attention off "why am I like this."
 
-**Others — service curdles into obligation** (benefit is motive-dependent). *Mitigation:* service acts pass **Reflect's motive check** before becoming Organize goals; mindset frame; legacy treated as byproduct, never aimed at.
+**Impact — service curdles into obligation** (benefit is motive-dependent). *Mitigation:* service acts pass **Reflect's motive check** before becoming Organize goals; mindset frame; legacy treated as byproduct, never aimed at.
 
-**Others — execution gap for outcomes you don't control** (you did everything right and it still didn't land). *Mitigation:* Organize's failure handling separates effort from outcome; Reflect holds the meaning/grief (the Reflect↔Organize coupling).
+**Impact — execution gap for outcomes you don't control** (you did everything right and it still didn't land). *Mitigation:* Organize's failure handling separates effort from outcome; Reflect holds the meaning/grief (the Reflect↔Organize coupling).
 
 ## 2. Cross-cutting risks
 

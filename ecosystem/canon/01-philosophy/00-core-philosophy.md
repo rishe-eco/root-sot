@@ -27,13 +27,13 @@ Progress is systemic and lasting, not linear accumulation. We are not counting c
 
 Our view of ourselves is unreliable — partial, defended, quietly distorted — and it does not correct itself from the inside. It clarifies when met from the outside: seen through others, tested against the world. Acting on the uncorrected inner picture, especially in trying to help the world, is how people fail well-meaningly.
 
-This is not one belief among five; it is the hinge the whole architecture turns on. It is why the loop must face outward, why Others/service exists as a pillar rather than an afterthought, and why self-knowledge and contribution are one coupled task, not two (the twofold purpose in §5). Self-knowledge without the outward turn is a hall of mirrors.
+This is not one belief among five; it is the hinge the whole architecture turns on. It is why the loop must face outward, why Impact/service exists as a pillar rather than an afterthought, and why self-knowledge and contribution are one coupled task, not two (the twofold purpose in §5). Self-knowledge without the outward turn is a hall of mirrors.
 
 ## 5. What we build on — and how far each holds
 
 We are explicit about the strength of our own foundations, because a conviction we can't grade is one we can't defend.
 
-- **Self-Determination Theory — strong, load-bearing.** Autonomy, competence, relatedness. The three map onto the pillars (autonomy↔Organize, competence↔Learn, relatedness↔Others), and relatedness being under-served by inward tools is part of why Others is non-optional. The overjustification effect — extrinsic rewards corroding existing intrinsic motivation — is well-evidenced and is the empirical reason for the no-streaks refusal, not merely a taste.
+- **Self-Determination Theory — strong, load-bearing.** Autonomy, competence, relatedness. The three map onto the pillars (autonomy↔Organize, competence↔Learn, relatedness↔Impact), and relatedness being under-served by inward tools is part of why Impact is non-optional. The overjustification effect — extrinsic rewards corroding existing intrinsic motivation — is well-evidenced and is the empirical reason for the no-streaks refusal, not merely a taste.
 - **Nonviolent Communication — design language, *not* validated intervention.** The evidence base is thin (small samples, few controlled trials). We use NVC for how it shapes attention — feelings coupled to needs, observation distinguished from judgment — and we lean on better-evidenced mechanisms (affect labeling, emotional granularity, interoception) for any claim that has to hold. We say this out loud so no one mistakes a design choice for a scientific result.
 - **Systems thinking (Meadows) — the lens.** Loops, not lines; leverage high on the ladder (paradigm and structure) over low (parameters and targets).
 - **Growth mindset — effort separated from outcome.** You own effort, strategy, and learning; you do not own outcomes. Failure handled well audits the first and accepts the second.

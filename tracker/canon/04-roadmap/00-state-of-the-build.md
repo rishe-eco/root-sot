@@ -2,7 +2,7 @@
 
 *Source of truth. What exists and what doesn't, verified. The most time-sensitive file in the canon — trust the date. Update the changelog; don't fork.*
 
-**Version 0.31 · Status: as-built · 2026-09-15 · Owner: _root**
+**Version 0.32 · Status: as-built · 2026-09-21 · Owner: _root**
 
 ---
 
@@ -27,6 +27,7 @@
 - **Concepts page** (F-5) — in-app concept reference.
 - **Onboarding** (F-6a/b) — first-login slideshow + per-module intro overlays, DB-persisted. *(`add_onboarding`)*
 - **Journals** — linkable, shareable-by-email logs with opt-in discoverability; a seed of *Journey/ماجرا*. *(`add_journals`)*
+- **Noticing** (Impact Act 1) — the first **Impact**-pillar surface here. A once-only Day-1 frame that rehearses being read correctly from the inside, then a repeatable loop — place → person → what you saw → what it might point at → an optional small thing — with three authored catches (no model anywhere), a **needs palette of its own** rather than Feelings & Needs’ twelve, and a graduation door retired by acknowledgement rather than by a count. `/tools/impact/noticing`. *(migrations `add_noticing`, `noticing_frame_completed_at_nullable`; merged to `main` 2026-09-21 — D-59.)* **“Built” here means the code and its tests, not a verdict: phase 8 and Gate A are human and have not been run.**
 
 **Engineering**
 - Backend test suite: unit (auth, overlap, recurrence) + integration (actions, auth, gathering, goals, milestones, projects, today, journals). *(T-1, T-4)*
@@ -36,6 +37,7 @@
 - **Duplicate-gather race** (2026-09-15, D-55) — `runActionGathering` now serializes per user, so a StrictMode double-fire / two tabs / a retry can't double-insert gathered actions.
 - **Recurrence fires on every selected day, not only the creation day** (2026-09-15, D-56) — `intervalOccursOnDate` double-applied the `repeatValue` cadence against the exact anchor day when the form sent `repeatUnit`+`customRepeatRule` together, so a weekly/monthly interval only fired on its creation weekday/day-of-month (and `year` never fired). Now the cadence applies to the week/month/year *bucket*. Also fixed Time Themes (same reused check). Merged to `main`.
 - **Concurrent sitting-open flake** (2026-09-15, D-57) — the feelings-&-needs "survives concurrent opens" test flaked under load; the per-user gather lock was generalized into `withUserLock` (`services/userLock.ts`) and applied to `startSitting`. Merged to `main`.
+- **An expired session never redirected to login** (2026-09-21, D-60) — `isAuthenticated` was `!!token`: **presence, not validity.** A dead JWT sat in `localStorage` indefinitely, so the app went on rendering as signed in while every request came back `Unauthorized` and each page drew its own local error card; logging out by hand was the only way back. A token past its own `exp` is now treated as absent at boot, and any `Unauthorized` reply signs the session out centrally (`client/app/api/authSession.ts`), leaving `root.tsx` the single place that decides where a signed-out person goes. Found in first live use of a new tool, not by a test. Merged to `main`.
 
 ## Not built ○
 
@@ -67,12 +69,13 @@ A sixth tool, **Monitoring Lab**, is specced (`../06-specs/06-monitoring-lab.md`
 
 **A seventh spec is designed and unbuilt: the AI Training Lab hub** (`../06-specs/07-training-lab-hub.md`, wireframes `07a-training-lab-hub-wireframes.html`). Not a seventh lab — it trains nothing, scores nothing, and writes no attempt row. One page at `/tools/skills` housing the entrance to all six, replacing the six cards on the Tools page with one button, driven by a single new `skillsOverview` query costing three Prisma reads and a five-rule recommendation ladder that deliberately never ranks the labs against each other, their headline metrics not being on a common scale.
 
-**Maintain** and **Others** are not present. All pillar concept work is tracked in Root canon `02-pillars/`. See `02-refactor-toward-root.md` for how even the Organize prototype is only partly realized.
+An **Impact** prototype now lives here as well — **Noticing**, Act 1 of that pillar (concept, spec, wireframes and build plan in the ecosystem repo at `working/impact-build/`; the as-built record, including every decision the plan did not specify, is the code repo’s `notes/noticing-build-log.md`). Phases 1–7 are built and merged to `main`; **phase 8 (a two-week feel-test) and Gate A (a three-day disconfirming smoke) are human and unrun**, so nothing in it has yet been judged by use. It is also the first resident granted explicit permission to **diverge from Tracker’s own conventions where the pillar’s shape differs** (`../02-architecture/04-conventions.md` §13) — these tools are rehearsals for standalone pillar apps, and the code migrates out later. **Maintain** is not present. All pillar concept work is tracked in Root canon `02-pillars/`. See `02-refactor-toward-root.md` for how even the Organize prototype is only partly realized.
 
 ---
 
 ## Changelog
 
+- **0.32 · 2026-09-21** — **Noticing** (Impact Act 1) added to Built & working (D-59): the first Impact-pillar surface here, phases 1–7 merged to `main`, with phase 8 and Gate A still unrun and human — recorded that way so “built” is not read as “works.” The “Other pillars” section corrected in two places: the fifth pillar is **Impact**, not the working name *Others*, and it is no longer absent from Tracker. Added the **expired-session fix** (D-60) to Recent fixes — an app-wide auth bug that surfaced only because a new tool was opened on an old session.
 - **0.31 · 2026-09-15** — Two recurrence/concurrency fixes merged to `main`: the **weekly/monthly/yearly recurrence bug** (D-56) where a custom day-selection interval fired only on its creation weekday/day-of-month (also fixed Time Themes), and the **concurrent sitting-open flake** (D-57), fixed by generalizing the per-user gather lock into `withUserLock`. The Recent-fixes note that called the recurrence bug "still-open" is now corrected.
 - **0.30 · 2026-09-15** — **Time Themes** added to Built & working (D-54): first-class tags shared across five entities and recurring, soft time themes. Built, verified (api + client suites, i18n + tsc clean, live en/fa), and merged to `main` alongside the duplicate-gather race fix (D-55). First m2m in the schema (`add_time_themes`).
 - **0.28 · 2026-08-25** — Persona review pass 4 recorded: all three pass-3 blockers confirmed fixed on fresh accounts, and the same digit defect found still live in a second detector, which is the pass's central finding (D-51 — a normaliser is a shared artifact, not a per-site fix). Eleven findings open, three of them consequences of the pass-3 remediation. Report-only. Also adds the AI Training Lab hub spec to the designed-but-unbuilt list.

@@ -2,7 +2,7 @@
 
 *Source of truth. The patterns you must follow to change this app without breaking it. If you read one architecture file before writing code, read this one. Update the changelog; don't fork.*
 
-**Version 0.5 · Status: as-built · 2026-08-15 · Owner: _root**
+**Version 0.6 · Status: as-built · 2026-09-21 · Owner: _root**
 
 ---
 
@@ -94,15 +94,24 @@ Every delete/irreversible control routes through the shared confirm dialog — c
 
 `date-fns-jalali` is pinned to the matching `3.6.0-1` and has the same rule. Its locale objects are **not** interchangeable with `date-fns`'s — each package carries its own month tables — so a locale must come from whichever library will consume it. `getCalendarLocale` in `~/lib/dateSystem` is the only place that should be deciding this.
 
+### 11. A dead session is decided in one place, not per page
+Every page handling its own failure politely is how an app-wide break hides as a series of unrelated local ones — which is exactly what happened with the expired-token bug (D-60). Session death is therefore **not** a per-page concern: a token past its own `exp` is dropped at boot, any `Unauthorized` reply notifies centrally through `api/authSession.ts`, and `root.tsx` stays the single place that decides where a signed-out person goes. Two details that are load-bearing rather than incidental: the match is on the **exact** string `requireAuth` throws, so a resolver whose own message mentions authorization cannot sign anyone out; and the notifier is a module-level subscription rather than a hook, because `useApi` is used outside `AuthProvider` (the login page), where `useAuth` throws.
+
 ## Keeping the canon true
 
-### 11. Schema change → data-model doc change, same commit
+### 12. Schema change → data-model doc change, same commit
 If you touch `schema.prisma`, update `02-architecture/01-data-model.md` and add a migration note to `../../decisions/decision-log.md`. The canon is only useful while it matches the code.
+
+### 13. A pillar rehearsal may break these conventions where the pillar’s shape differs — and says so where it does
+Some tools here are **rehearsals for standalone pillar apps** (Feelings & Needs for Learn, Noticing for Impact), and that code migrates out later. Where such a tool’s shape genuinely differs from Tracker’s, it may diverge — founder permission, 2026-09-20. **The test: the reason has to survive without the phrase “the host does it,” and the divergence has to be one you would still want in the standalone app.**
+
+The price is that a divergence is **written down at the site** — in a comment where the code is, and in the decision log. A silent divergence is indistinguishable from a mistake, and the next person to read it will helpfully “fix” it. Spent once so far: `NoticingState.lastCatchAt` is stored rather than derived from the entry rows (`01-data-model.md`), because a catch that was **surfaced and dismissed** is still a touch and dismissal happens after the entry write. Declined twice in the same pass — uuid-and-relations and the derived prompt-fade level both stay as Tracker has them, because both are right on their own merits rather than by house style.
 
 ---
 
 ## Changelog
 
+- **0.6 · 2026-09-21** — Two conventions added, and one renumbered. New §11 (frontend): **a dead session is decided in one place**, from the expired-token bug (D-60) — per-page error handling is what let an app-wide break look like a series of local ones. New §13: a **pillar rehearsal may diverge** from these conventions where the pillar’s shape differs, provided the reason survives without “the host does it” and the divergence is written down at the site (founder permission, 2026-09-20; D-59). The old §11 (schema change → data-model doc change) is now **§12** — nothing referenced it by number.
 - **0.5 · 2026-08-15** — §7d corrected and §7e added, from building the calendar-system setting (D-25). §7d's claim that no Persian digit existed in either locale file was **wrong** — a byte-range `grep` had matched everything; `fa/common.json` has 23 such lines and always did, and they are now recorded as open. Both `Intl` violations are fixed, including one the section did not know about (`FeelingsNeedsHistoryPage`, where `toLocaleDateString("fa", …)` silently selected Jalali *and* Persian digits). The deferred calendar question is settled in D-25. §7e states the wire-vs-display split that the two date libraries make load-bearing, and §10 gains the rule that locale objects don't cross between them.
 - **0.4 · 2026-08-12** — §7d added: **Western digits in both locales**, promoted from `06-specs/04-verification-lab.md` §10 where it was settled during the skill-tool spec pass. Records an invariant that held only by accident, states the three failures it prevents (the digit-shape *tell* in authored content being the expensive one), and names the one known violation — `JournalDetailPage`'s `toLocaleString(undefined, …)`, which reads the browser locale rather than the app's, unfixed and with the fix direction given.
 - **0.3 · 2026-08-04** — §7 extended again, from building the Persian Feelings & Needs surface: server-authored content vs UI copy (and why the F&N pack is translated-then-reviewed while the Skills packs are re-authored), locale from `Accept-Language` rather than a column (D-22), and the rule that `` matches nothing in Persian — which had silently disabled the faux-feeling matcher for the entire locale.

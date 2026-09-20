@@ -20,7 +20,7 @@ Reframed from "understand your needs" to **articulate your experience and let pa
 
 ## 3. Output: immediate action only
 
-If articulation surfaces a need that can be acted on now, it's acted on now. Otherwise it leaves Reflect: a capability gap → Learn; a future commitment → Organize; a recognized need in the world or a person → Others. No deferred tasks, no intervals. A Reflect that queues things for later colludes with the deferral instead of supporting the recognition (see The Loop §3).
+If articulation surfaces a need that can be acted on now, it's acted on now. Otherwise it leaves Reflect: a capability gap → Learn; a future commitment → Organize; a recognized need in the world or a person → Impact. No deferred tasks, no intervals. A Reflect that queues things for later colludes with the deferral instead of supporting the recognition (see The Loop §3).
 
 ## 4. Two layers, deliberately separated
 
@@ -29,7 +29,7 @@ If articulation surfaces a need that can be acted on now, it's acted on now. Oth
 
 ## 5. Role in the couplings
 
-Reflect is the **motive auditor** for service (Reflect↔Others): before a recognized service opportunity becomes an Organize goal, Reflect checks whether it comes from compassion and genuine capacity or from obligation. And on **failure** (Reflect↔Organize), Reflect holds the emotional and meaning-making side — what the loss says about what you value — while Organize holds the structural read. See The Loop §4.
+Reflect is the **motive auditor** for service (Reflect↔Impact): before a recognized service opportunity becomes an Organize goal, Reflect checks whether it comes from compassion and genuine capacity or from obligation. And on **failure** (Reflect↔Organize), Reflect holds the emotional and meaning-making side — what the loss says about what you value — while Organize holds the structural read. See The Loop §4.
 
 ## 6. Known risk and the bet we're taking
 
