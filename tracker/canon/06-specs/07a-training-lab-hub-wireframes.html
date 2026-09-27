@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Training Lab (hub) — wireframes · draft 1</title>
+<style>
+:root{
+  --surface-2:#ffffff; --surface-1:#f6f5f0; --surface-0:#efece4;
+  --text-primary:#2c2c2a; --text-secondary:#5f5e5a; --text-muted:#8a8981;
+  --border:#e3e1d9; --border-strong:#ceccc3;
+  --accent-bg:#e6f1fb; --accent-text:#185fa5; --accent-border:#85b7eb;
+  --warn-bg:#fbf0e6; --warn-text:#9a5a12; --warn-border:#e6b887;
+  --good-bg:#e9f2e8; --good-text:#3d6b39; --good-border:#a8c8a4;
+  --radius:8px; --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --surface-2:#2b2b29; --surface-1:#232321; --surface-0:#1b1b19;
+    --text-primary:#e9e7e0; --text-secondary:#b5b3aa; --text-muted:#8a8981;
+    --border:#3a3a37; --border-strong:#4b4b47;
+    --accent-bg:#0c447c; --accent-text:#b5d4f4; --accent-border:#185fa5;
+    --warn-bg:#4a2f10; --warn-text:#e8c39a; --warn-border:#9a5a12;
+    --good-bg:#25381f; --good-text:#b8d4b0; --good-border:#3d6b39;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-0);color:var(--text-primary);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1140px;margin:0 auto;padding:2rem 1.25rem 4rem}
+h1{font-size:22px;font-weight:500;margin:0 0 4px}
+.sub{font-size:13px;color:var(--text-muted);margin:0 0 2rem;max-width:74ch}
+h2{font-size:16px;font-weight:500;margin:2.5rem 0 .3rem;padding-bottom:.5rem;border-bottom:.5px solid var(--border)}
+h2 .n{color:var(--text-muted);font-variant-numeric:tabular-nums;margin-right:.5rem}
+.lead{font-size:12px;color:var(--text-secondary);margin:0 0 .9rem;max-width:82ch}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px;align-items:start}
+.board.wide{grid-template-columns:repeat(auto-fit,minmax(450px,1fr))}
+.board.half{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.frame{margin:0;display:flex;flex-direction:column;gap:8px}
+.phone,.panel{background:var(--surface-2);border:.5px solid var(--border);border-radius:12px;padding:14px;display:flex;flex-direction:column;overflow:hidden}
+.phone{flex:1;min-height:390px;max-width:290px}
+.panel{flex:1}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-bottom:8px;border-bottom:.5px solid var(--border);font-size:11px;color:var(--text-muted)}
+.sub2{font-size:11px;color:var(--text-muted);margin:12px 0 4px}
+.card{background:var(--accent-bg);border-radius:8px;padding:9px 11px;font-size:11.5px;color:var(--accent-text);line-height:1.5}
+.card.w{background:var(--warn-bg);color:var(--warn-text)}
+.card.g{background:var(--good-bg);color:var(--good-text)}
+.card.n{background:var(--surface-1);color:var(--text-secondary)}
+.spring{margin-top:auto}
+.mut{color:var(--text-muted)}
+.note{font-size:11px;color:var(--text-muted);line-height:1.5}
+.btn{display:inline-block;padding:7px 14px;border:.5px solid var(--border-strong);border-radius:var(--radius);font-size:12px;color:var(--text-primary);background:var(--surface-1);text-align:center}
+.btn.pri{border-color:var(--accent-border);color:var(--accent-text);background:var(--accent-bg)}
+.btn.dis{color:var(--text-muted);border-style:dashed;background:transparent}
+.cap{font-size:12px;color:var(--text-secondary);padding:0 4px}
+.cap .p{color:var(--accent-text);font-family:var(--mono);font-size:11px}
+.cap .x{color:var(--warn-text)}
+.lockflag{font-size:10px;color:var(--text-muted);font-family:var(--mono);margin-top:4px;display:block}
+
+/* ── page head ────────────────────────────────────────────────── */
+.ph{font-size:15px;font-weight:500;margin:2px 0 2px}
+.pd{font-size:11.5px;color:var(--text-secondary);line-height:1.5;margin:0}
+.count{font-size:10.5px;font-family:var(--mono);color:var(--text-muted);margin-top:5px;display:block}
+
+/* ── the next-step card ───────────────────────────────────────── */
+.next{border:.5px solid var(--accent-border);background:var(--accent-bg);border-radius:10px;padding:10px 12px;margin:11px 0}
+.next .k{font-size:9px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--accent-text);opacity:.75}
+.next .h{font-size:13px;font-weight:500;color:var(--accent-text);margin:3px 0 2px}
+.next .r{font-size:11px;color:var(--accent-text);opacity:.85;line-height:1.45}
+.next .go{margin-top:9px}
+.next.flat{border-color:var(--border);background:var(--surface-1)}
+.next.flat .k,.next.flat .h,.next.flat .r{color:var(--text-secondary)}
+.next.flat .h{color:var(--text-primary)}
+
+/* ── lab cards ────────────────────────────────────────────────── */
+.labs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:9px 0}
+.labs.one{grid-template-columns:1fr}
+.lab{border:.5px solid var(--border);border-radius:8px;padding:9px 10px;background:var(--surface-1);display:flex;flex-direction:column;gap:4px;min-height:96px}
+.lab.rec{border-color:var(--accent-border);background:var(--accent-bg)}
+.lab .t{font-size:12px;font-weight:500;display:flex;align-items:center;gap:6px}
+.lab.rec .t{color:var(--accent-text)}
+.lab .d{font-size:10.5px;color:var(--text-secondary);line-height:1.45}
+.lab.rec .d{color:var(--accent-text);opacity:.85}
+.lab .foot{margin-top:auto;display:flex;align-items:center;gap:7px;padding-top:5px}
+.ribbon{font-size:8.5px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;padding:1px 6px;border-radius:999px;border:.5px solid var(--accent-border);color:var(--accent-text);background:var(--surface-2);flex:none}
+.ribbon.d{border-color:var(--warn-border);color:var(--warn-text);background:var(--warn-bg)}
+.pips{display:flex;gap:2.5px;flex:none}
+.pips i{width:8px;height:8px;border-radius:2px;border:.5px solid var(--border-strong);display:block}
+.pips i.on{background:var(--accent-text);border-color:var(--accent-text)}
+.pips i.all{background:var(--good-text);border-color:var(--good-text)}
+.st{font-size:9.5px;font-family:var(--mono);color:var(--text-muted)}
+.st.m{color:var(--good-text)}
+.sec{font-size:10px;color:var(--text-muted);text-decoration:underline;margin-left:auto}
+
+/* ── due list ─────────────────────────────────────────────────── */
+.due{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.drow{display:flex;align-items:center;gap:8px;font-size:11px;padding:5px 8px;border:.5px solid var(--border);border-radius:6px}
+.drow .kk{font-family:var(--mono);font-size:9.5px;color:var(--text-muted);flex:none;width:74px}
+.drow .q{flex:1;color:var(--text-secondary)}
+.drow.probe{border-color:var(--good-border);background:var(--good-bg)}
+.drow.probe .q,.drow.probe .kk{color:var(--good-text)}
+
+/* ── annotation callouts ──────────────────────────────────────── */
+.anno{display:flex;flex-direction:column;gap:5px;margin-top:9px}
+.an{display:flex;gap:7px;font-size:10.5px;color:var(--text-secondary);line-height:1.45}
+.an b{font-family:var(--mono);font-size:9.5px;color:var(--accent-text);flex:none;width:16px;text-align:right}
+
+/* ── before / after ───────────────────────────────────────────── */
+.strike{opacity:.55}
+.tools{display:flex;flex-direction:column;gap:9px;margin:8px 0}
+.tsec{border:.5px solid var(--border);border-radius:8px;padding:9px 10px;background:var(--surface-1)}
+.tsec .t{font-size:12px;font-weight:500}
+.tsec .d{font-size:10.5px;color:var(--text-secondary);line-height:1.45;margin:2px 0 7px}
+.grid6{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-top:6px}
+.g6{border:.5px solid var(--border-strong);border-radius:6px;padding:6px;font-size:9px;color:var(--text-muted);background:var(--surface-2);min-height:52px;display:flex;flex-direction:column;justify-content:space-between}
+.g6 .b{color:var(--text-primary);border:.5px solid var(--border-strong);border-radius:4px;padding:2px 4px;text-align:center;font-size:8.5px}
+.inline{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+
+.rtl{direction:rtl;text-align:right}
+.rtl .sec{margin-left:0;margin-right:auto}
+.legend{margin-top:3rem;font-size:12px;color:var(--text-secondary);background:var(--surface-1);border:.5px solid var(--border);border-radius:12px;padding:1rem 1.25rem}
+.legend b{font-weight:500;color:var(--text-primary)}
+.legend ul{margin:.6rem 0 0;padding-left:1.1rem}
+.legend li{margin-bottom:.45rem}
+.legend code{font-family:var(--mono);font-size:11px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>AI Training Lab (hub) — wireframes · draft 1</h1>
+  <p class="sub">Low-fidelity. Companion to <code>07-training-lab-hub.md</code>. Eight plates plus an RTL pass. This is not a seventh lab: nothing here is scored, and no screen below collects anything. The whole design question is <b>what one page says when it has six equal doors and no right to rank them</b> — plate 3 is the answer, plate 7 is what happens when the numbers behind it are unavailable.</p>
+
+  <h2><span class="n">1</span>The Tools page — six cards become one section</h2>
+  <p class="lead">The other three sections on this page are heading + sentence + button. Skills was the only one that wasn't, and at six cards it dominated the page it was supposed to be one item on. The status line is the only new thing, and it is allowed to be absent.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel strike">
+        <div class="bar"><span>/tools · today</span><span>before</span></div>
+        <div class="tools">
+          <div class="tsec"><div class="t">Time Map</div><div class="d">Plan selected actions into a chosen date range.</div><span class="btn">Open Time Map</span></div>
+          <div class="tsec">
+            <div class="t">Skills</div>
+            <div class="d">Six short labs, each training one habit that decides whether working with AI helps or hurts — saying precisely what you want, breaking a problem down, checking what comes back, and knowing when to rely on it. Do them in any order; each one stands on its own.</div>
+            <div class="grid6">
+              <div class="g6"><span>Checking what an AI tells you…</span><span class="b">Open Evidence Lab</span></div>
+              <div class="g6"><span>Saying precisely what you want…</span><span class="b">Open Clarity Lab</span></div>
+              <div class="g6"><span>Breaking a messy problem down…</span><span class="b">Open Decomposition Lab</span></div>
+              <div class="g6"><span>Checking a claim against a source…</span><span class="b">Open Verification Lab</span></div>
+              <div class="g6"><span>When to trust its judgement…</span><span class="b">Open Delegation Lab</span></div>
+              <div class="g6"><span>Noticing your own state…</span><span class="b">Open Monitoring Lab</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <figcaption class="cap"><span class="x">before</span> · one section, six decisions, no recommendation</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>/tools · proposed</span><span>after</span></div>
+        <div class="tools">
+          <div class="tsec"><div class="t">Time Map</div><div class="d">Plan selected actions into a chosen date range.</div><span class="btn">Open Time Map</span></div>
+          <div class="tsec">
+            <div class="t">AI Training Lab</div>
+            <div class="d">Six short labs, each training one habit that decides whether working with AI helps or hurts. Do them in any order.</div>
+            <div class="inline"><span class="btn pri">Open AI Training Lab</span><span class="st">2 of 6 started · 1 review due</span></div>
+          </div>
+          <div class="tsec"><div class="t">Journals</div><div class="d">Running records of thought and progress.</div><span class="btn">Open Journals</span></div>
+          <div class="tsec"><div class="t">Feelings &amp; Needs</div><div class="d">Notice what you feel, find a word for it, and the need underneath.</div><span class="btn">Open Feelings &amp; Needs</span></div>
+        </div>
+        <span class="lockflag">status line degrades to nothing on error or while loading — never a spinner, never a blocked button (§2a)</span>
+      </div>
+      <figcaption class="cap"><span class="p">§2a</span> · the section now looks like its three neighbours</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">2</span>The hub, returning learner</h2>
+  <p class="lead">Six cards, one of them wearing a ribbon. The order is canonical and never re-sorts by score — a grid that rearranges itself between visits destroys the spatial memory that makes an index worth having.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>/tools/skills</span><span>2 of 6 started</span></div>
+        <p class="ph">AI Training Lab</p>
+        <p class="pd">Six habits that decide whether working with AI helps or hurts. Each lab stands on its own.</p>
+        <span class="count">8 of 36 modules · 1 review due</span>
+
+        <div class="next">
+          <span class="k">next</span>
+          <div class="h">One module is due for review in Clarity Lab</div>
+          <div class="r">You mastered <i>c2 · Name the deliverable</i> nine days ago. Reviews are how it stays.</div>
+          <div class="go"><span class="btn pri">Review c2 · ~6 min</span></div>
+        </div>
+
+        <div class="sub2">the six labs</div>
+        <div class="labs">
+          <div class="lab">
+            <div class="t">Evidence Lab</div>
+            <div class="d">Working out whether a confident answer is actually right.</div>
+            <div class="foot"><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="st">3 of 6</span><span class="sec">Drill →</span></div>
+          </div>
+          <div class="lab rec">
+            <div class="t">Clarity Lab <span class="ribbon d">review due</span></div>
+            <div class="d">Saying precisely what you want, with enough context.</div>
+            <div class="foot"><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="st">5 of 6</span></div>
+          </div>
+          <div class="lab">
+            <div class="t">Decomposition Lab</div>
+            <div class="d">Breaking a messy problem into pieces you can check.</div>
+            <div class="foot"><span class="pips"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="st">not started</span><span class="sec">Real work →</span></div>
+          </div>
+          <div class="lab">
+            <div class="t">Verification Lab</div>
+            <div class="d">Checking a claim against an independent source.</div>
+            <div class="foot"><span class="pips"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="st">not started</span><span class="sec">Real work →</span></div>
+          </div>
+          <div class="lab">
+            <div class="t">Delegation Lab</div>
+            <div class="d">When to trust the AI's judgement and when to trust your own.</div>
+            <div class="foot"><span class="pips"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="st">not started</span><span class="sec">Real work →</span></div>
+          </div>
+          <div class="lab">
+            <div class="t">Monitoring Lab</div>
+            <div class="d">Noticing your own state while something is shaping it.</div>
+            <div class="foot"><span class="pips"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="st">not started</span><span class="sec">Self-audit →</span></div>
+          </div>
+        </div>
+        <p class="note spring" style="padding-top:8px">Any order. The suggestion above is a shortcut, not a sequence.</p>
+      </div>
+      <figcaption class="cap"><span class="p">§3</span> · six doors, one recommendation, no ranking</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>/tools/skills</span><span>lower half</span></div>
+        <div class="sub2">what a sitting is · collapsed after the first attempt</div>
+        <div class="card n" style="margin-bottom:9px"><b>What a sitting is</b> <span style="float:right">▾</span></div>
+
+        <div class="sub2">due now</div>
+        <div class="due">
+          <div class="drow"><span class="kk">clarity · c2</span><span class="q">Name the deliverable</span><span class="btn" style="padding:3px 9px;font-size:10.5px">Review</span></div>
+          <div class="drow probe"><span class="kk">evidence</span><span class="q">Post-test — all six modules are done</span><span class="btn" style="padding:3px 9px;font-size:10.5px">Take it</span></div>
+        </div>
+        <span class="lockflag">absent entirely when nothing is due — not an empty box (§3)</span>
+
+        <div class="sub2" style="margin-top:16px">and the thing this section may never do</div>
+        <div class="card w">No "you are weakest at Verification." Evidence reports a strict composite, Verification a ritual rate, Delegation an over/under-reliance pair, Monitoring a gamma that may not be shown without task performance beside it. There is no arithmetic that puts those on one axis, so the hub shows <b>progress</b> — a count, comparable — and never <b>performance</b>.</div>
+        <span class="lockflag">§5a · the same restraint each lab already applies to its own numbers</span>
+      </div>
+      <figcaption class="cap"><span class="p">§5a</span> · the constraint that shapes the whole page</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">3</span>The next-step card — five states, one ladder</h2>
+  <p class="lead">First match wins; ties broken by canonical order so the card does not flicker between renders. Rule 5 deliberately names no lab.</p>
+  <div class="board">
+    <figure class="frame">
+      <div class="panel" style="min-height:210px">
+        <div class="bar"><span>rule 1</span><span>probe due</span></div>
+        <div class="next">
+          <span class="k">next</span>
+          <div class="h">Take the Evidence post-test</div>
+          <div class="r">You've finished all six modules. This is the measure of what changed.</div>
+          <div class="go"><span class="btn pri">Start · ~12 min</span></div>
+        </div>
+        <p class="note spring">Requires <code>probeReady</code> too — <code>dueSkillProbes</code> doesn't check it, and the lab page refuses to start a probe whose pack isn't verified (§5b).</p>
+      </div>
+      <figcaption class="cap"><span class="p">1</span> · the only time-sensitive thing in the engine</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel" style="min-height:210px">
+        <div class="bar"><span>rule 2</span><span>review due</span></div>
+        <div class="next">
+          <span class="k">next</span>
+          <div class="h">Review c2 in Clarity Lab</div>
+          <div class="r">Mastered nine days ago. Oldest due review first.</div>
+          <div class="go"><span class="btn pri">Review · ~6 min</span></div>
+        </div>
+        <p class="note spring">Due is <b>derived</b> — <code>nextReviewAt &lt;= now</code>, never stored. The hub must use the same rule the six lab pages use, or they disagree about what is due (§6a).</p>
+      </div>
+      <figcaption class="cap"><span class="p">2</span> · spaced repetition decays; nothing else here does</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel" style="min-height:210px">
+        <div class="bar"><span>rule 3</span><span>nothing started</span></div>
+        <div class="next">
+          <span class="k">start here</span>
+          <div class="h">Evidence Lab</div>
+          <div class="r">The only lab that needs no vocabulary from any of the others. About twelve minutes.</div>
+          <div class="go"><span class="btn pri">Start the first sitting</span></div>
+        </div>
+        <p class="note spring">The existing "Start here" reason, unchanged — it was right, it just lived on a card among five identical ones.</p>
+      </div>
+      <figcaption class="cap"><span class="p">3</span> · same recommendation, now with its reason attached</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel" style="min-height:210px">
+        <div class="bar"><span>rule 4</span><span>in progress</span></div>
+        <div class="next">
+          <span class="k">next</span>
+          <div class="h">Carry on in Decomposition Lab</div>
+          <div class="r">You're three modules in. Last sitting was Tuesday.</div>
+          <div class="go"><span class="btn pri">Continue · d4</span></div>
+        </div>
+        <p class="note spring">Most recently touched, from <code>lastAttemptAt</code>. Resuming beats choosing.</p>
+      </div>
+      <figcaption class="cap"><span class="p">4</span> · one <code>groupBy</code> gives this and the attempt count together</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel" style="min-height:210px">
+        <div class="bar"><span>rule 5</span><span>all clear</span></div>
+        <div class="next flat">
+          <span class="k">nothing due</span>
+          <div class="h">All six mastered, no reviews outstanding</div>
+          <div class="r">Practise whichever you like — or come back when a review comes up.</div>
+        </div>
+        <p class="note spring"><b>No lab is named, and there is no button.</b> Naming one would require ranking six incomparable metrics (§5a). An honest blank is the correct output.</p>
+      </div>
+      <figcaption class="cap"><span class="p">5</span> · <span class="x">the state most likely to grow a bad feature later</span></figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">4</span>First visit — nothing started anywhere</h2>
+  <p class="lead">The intro block is open, the due section does not exist, and every card reads the same. Exactly one thing on the page is emphasised.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>/tools/skills</span><span>first visit</span></div>
+        <p class="ph">AI Training Lab</p>
+        <p class="pd">Six habits that decide whether working with AI helps or hurts. Each lab stands on its own.</p>
+        <div class="next">
+          <span class="k">start here</span>
+          <div class="h">Evidence Lab</div>
+          <div class="r">The only lab that needs no vocabulary from any of the others. About twelve minutes.</div>
+          <div class="go"><span class="btn pri">Start the first sitting</span></div>
+        </div>
+        <div class="sub2">what a sitting is · open on a first visit</div>
+        <div class="card n" style="margin-bottom:4px"><b>What a sitting is</b> <span style="float:right">▴</span></div>
+        <div style="border:.5px solid var(--border);border-top:0;border-radius:0 0 8px 8px;padding:9px 11px">
+          <p class="note" style="margin:0 0 7px">Every lab works the same way: you commit to something first, then find out, then compare. Six or so items, ten to fifteen minutes.</p>
+          <p class="note" style="margin:0 0 7px"><b>Mastery takes two different days.</b> Getting it right twice in one sitting measures short-term memory, which is the thing these labs exist to see past.</p>
+          <p class="note" style="margin:0"><b>A baseline is offered once per lab</b> and can be skipped. It is what later tells you whether anything changed.</p>
+        </div>
+        <div class="sub2" style="margin-top:12px">the six labs</div>
+        <div class="labs">
+          <div class="lab rec"><div class="t">Evidence Lab <span class="ribbon">start here</span></div><div class="d">Working out whether a confident answer is actually right.</div><div class="foot"><span class="pips"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="st">not started</span></div></div>
+          <div class="lab"><div class="t">Clarity Lab</div><div class="d">Saying precisely what you want, with enough context.</div><div class="foot"><span class="pips"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="st">not started</span></div></div>
+        </div>
+        <p class="note" style="margin-top:7px">…four more, all the same. <b>No Due-now section at all.</b></p>
+      </div>
+      <figcaption class="cap"><span class="p">§7</span> · one emphasis, and an absent section rather than an empty one</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>why no overlay here</span><span>decision</span></div>
+        <p class="note" style="margin:0 0 9px">Every lab page already opens a full-screen <code>ModuleIntroOverlay</code> on first visit. A hub overlay would mean <b>two full-screen overlays inside the first thirty seconds</b> — hub intro, dismiss, click Evidence, Evidence intro.</p>
+        <div class="card">So the hub's introduction is the inline collapsible on the left, opened by the same <code>defaultOpen={!started}</code> rule the six labs already use for <code>HowASittingWorks</code>. No overlay, no new viewed-flag, no second dismissal.</div>
+        <div class="sub2" style="margin-top:14px">and the ribbon rule</div>
+        <p class="note" style="margin:0"><b>At most one card carries a ribbon, ever.</b> Six cards with six badges is the six-buttons problem with extra colour.</p>
+      </div>
+      <figcaption class="cap"><span class="p">§3</span> · what the hub deliberately does not add</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">5</span>The lab card, annotated</h2>
+  <p class="lead">Everything on it is either navigation or a count. Nothing on it is a score.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>lab card</span><span>anatomy</span></div>
+        <div class="labs one" style="margin-top:14px">
+          <div class="lab rec" style="min-height:118px">
+            <div class="t">Evidence Lab <span class="ribbon">start here</span></div>
+            <div class="d">Checking what an AI tells you — working out whether a confident answer is actually right.</div>
+            <div class="foot"><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="st">3 of 6 modules</span><span class="sec">Drill →</span></div>
+          </div>
+        </div>
+        <div class="anno">
+          <div class="an"><b>1</b><span><b>The whole card is a link</b>, not a div with an <code>onClick</code>. The Tools page uses buttons today, which silently breaks ⌘-click and open-in-new-tab.</span></div>
+          <div class="an"><b>2</b><span>One-liner moves verbatim from <code>toolsHome.&lt;key&gt;LabTrains</code> to <code>skills.hub.labs.&lt;key&gt;.trains</code>. The old keys are deleted, not left behind.</span></div>
+          <div class="an"><b>3</b><span>"3 of 6 modules" needs a <code>count</code>-bearing plural key. A bare string with no <code>_one</code>/<code>_other</code> is how <code>(s)</code> artifacts got into this app.</span></div>
+          <div class="an"><b>4</b><span>Secondary entrance where one exists: Evidence → drill, three labs → real work, Monitoring → self-audit, Clarity → none. Also a link.</span></div>
+          <div class="an"><b>5</b><span>Ribbon only if §5 picked this lab. Never more than one on the page.</span></div>
+        </div>
+      </div>
+      <figcaption class="cap"><span class="p">§4</span> · progress, never performance</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>variants</span><span>four states</span></div>
+        <div class="labs one">
+          <div class="lab"><div class="t">Verification Lab</div><div class="d">Checking a claim against an independent source.</div><div class="foot"><span class="pips"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="st">not started</span><span class="sec">Real work →</span></div></div>
+          <div class="lab"><div class="t">Monitoring Lab <span class="ribbon d">review due</span></div><div class="d">Noticing your own state while something is shaping it.</div><div class="foot"><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="st">4 of 6</span><span class="sec">Self-audit →</span></div></div>
+          <div class="lab"><div class="t">Clarity Lab</div><div class="d">Saying precisely what you want, with enough context.</div><div class="foot"><span class="pips"><i class="all"></i><i class="all"></i><i class="all"></i><i class="all"></i><i class="all"></i><i class="all"></i></span><span class="st m">all six mastered</span></div></div>
+          <div class="lab"><div class="t">Delegation Lab <span class="ribbon d">draft locale</span></div><div class="d">When to trust the AI's judgement and when to trust your own.</div><div class="foot"><span class="pips"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span><span class="st">1 of 6</span><span class="sec">Real work →</span></div></div>
+        </div>
+        <span class="lockflag">draft-locale marker sits on the card it applies to — not six banners stacked above the fold</span>
+      </div>
+      <figcaption class="cap"><span class="p">§4</span> · not started · due · complete · draft locale</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">6</span>Mobile — one column, same order</h2>
+  <p class="lead">The recommendation stays above the fold; the six cards go single-column in canonical order. Nothing is hidden behind a disclosure that isn't hidden on desktop.</p>
+  <div class="board">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>AI Training Lab</span><span>2 of 6</span></div>
+        <div class="next">
+          <span class="k">next</span>
+          <div class="h">Review c2 in Clarity Lab</div>
+          <div class="r">Mastered nine days ago.</div>
+          <div class="go"><span class="btn pri">Review · ~6 min</span></div>
+        </div>
+        <div class="labs one">
+          <div class="lab" style="min-height:0"><div class="t">Evidence Lab</div><div class="foot" style="padding-top:2px"><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="st">3 of 6</span></div></div>
+          <div class="lab rec" style="min-height:0"><div class="t">Clarity Lab <span class="ribbon d">due</span></div><div class="foot" style="padding-top:2px"><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="st">5 of 6</span></div></div>
+          <div class="lab" style="min-height:0"><div class="t">Decomposition Lab</div><div class="foot" style="padding-top:2px"><span class="pips"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="st">not started</span></div></div>
+          <div class="lab" style="min-height:0"><div class="t">Verification Lab</div><div class="foot" style="padding-top:2px"><span class="pips"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="st">not started</span></div></div>
+        </div>
+        <p class="note spring" style="padding-top:6px">…two more</p>
+      </div>
+      <figcaption class="cap"><span class="p">§3</span> · one-liners drop below ~380px, titles never do</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>data</span><span>one round trip</span></div>
+        <p class="note" style="margin:0 0 8px"><code>useApi</code> issues one POST per <code>call()</code> and does not batch. Driving this page off the existing per-lab queries would be <b>twelve requests</b> — and would not work anyway: <code>skillModules</code>, <code>skillProgress</code> and <code>skillPlan</code> are gated by <code>assertEvidence</code> and reject the other five keys.</p>
+        <div class="card n" style="font-family:var(--mono);font-size:10px;line-height:1.6">skillsOverview {<br>&nbsp;&nbsp;skillKey moduleCount masteredCount<br>&nbsp;&nbsp;inProgressCount totalAttempts lastAttemptAt<br>&nbsp;&nbsp;hasBaseline assessmentSkipped probeReady<br>&nbsp;&nbsp;reviewStatus dueProbe<br>&nbsp;&nbsp;dueModules { moduleKey title }<br>}</div>
+        <div class="sub2" style="margin-top:12px">what it costs</div>
+        <p class="note" style="margin:0">Three Prisma reads for the whole page — <code>skillModuleProgress.findMany</code>, one <code>skillAttempt.groupBy</code> for the count and the timestamp together, <code>skillProbe.findMany</code> — plus the six content packs, which <code>skillDueReviews</code> already loads on every call. <b>No metric service runs</b>: gammas, Brier scores and WOA aggregates are all things this page may not display.</p>
+      </div>
+      <figcaption class="cap"><span class="p">§6</span> · one query, and none of the expensive fields</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">7</span>When the numbers aren't there</h2>
+  <p class="lead">The load-bearing state. This page's job is navigation; state is decoration. A hub that shows a full-page error and no links has failed at the only thing it is for.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>/tools/skills</span><span>overview unavailable</span></div>
+        <p class="ph">AI Training Lab</p>
+        <p class="pd">Six habits that decide whether working with AI helps or hurts. Each lab stands on its own.</p>
+        <div class="card w" style="margin:10px 0">Couldn't load your progress. The labs all still work. <span style="text-decoration:underline">Retry</span></div>
+        <div class="labs">
+          <div class="lab"><div class="t">Evidence Lab</div><div class="d">Working out whether a confident answer is actually right.</div><div class="foot"><span class="sec" style="margin-left:0">Drill →</span></div></div>
+          <div class="lab"><div class="t">Clarity Lab</div><div class="d">Saying precisely what you want, with enough context.</div><div class="foot"></div></div>
+          <div class="lab"><div class="t">Decomposition Lab</div><div class="d">Breaking a messy problem into pieces you can check.</div><div class="foot"><span class="sec" style="margin-left:0">Real work →</span></div></div>
+          <div class="lab"><div class="t">Verification Lab</div><div class="d">Checking a claim against an independent source.</div><div class="foot"><span class="sec" style="margin-left:0">Real work →</span></div></div>
+          <div class="lab"><div class="t">Delegation Lab</div><div class="d">When to trust the AI's judgement and when to trust your own.</div><div class="foot"><span class="sec" style="margin-left:0">Real work →</span></div></div>
+          <div class="lab"><div class="t">Monitoring Lab</div><div class="d">Noticing your own state while something is shaping it.</div><div class="foot"><span class="sec" style="margin-left:0">Self-audit →</span></div></div>
+        </div>
+        <span class="lockflag">no pips, no counts, no ribbon, no due list — every door still open</span>
+      </div>
+      <figcaption class="cap"><span class="p">§7</span> · titles and one-liners are client-side, so they survive an API failure</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>compare</span><span>the six lab pages</span></div>
+        <div class="card w" style="margin-bottom:10px">A lab page that can't load <b>refuses to render</b> — error box, retry button, nothing else. That is correct there: without modules and progress there is no lab page, only a title.</div>
+        <div class="card g">The hub is the opposite. Its content is six links, and it knows all six without asking the server anything. <b>It should never show less than the Tools page it replaced.</b></div>
+        <div class="sub2" style="margin-top:14px">so the failure ladder is</div>
+        <p class="note" style="margin:0">Header and six cards render unconditionally → counts and pips appear if the payload arrives → the next-step card appears only if the payload arrives, because a recommendation with no data behind it would be a guess.</p>
+      </div>
+      <figcaption class="cap"><span class="p">§7</span> · why this page's failure mode differs from every other skills page</figcaption>
+    </figure>
+  </div>
+
+  <h2><span class="n">8</span>RTL pass</h2>
+  <p class="lead">The grid is direction-agnostic. Two things are not: the secondary-entrance chevron and the next-step arrow. Both must be logical, not a hardcoded <code>→</code>.</p>
+  <div class="board half">
+    <figure class="frame">
+      <div class="panel rtl">
+        <div class="bar"><span>۲ از ۶ شروع شده</span><span>آزمایشگاه تمرین</span></div>
+        <p class="ph">آزمایشگاه تمرین کار با هوش مصنوعی</p>
+        <p class="pd">شش عادت که تعیین می‌کنند کار با هوش مصنوعی به تو کمک می‌کند یا نه. هر آزمایشگاه مستقل است.</p>
+        <div class="next">
+          <span class="k">بعدی</span>
+          <div class="h">مرور c2 در آزمایشگاه شفافیت</div>
+          <div class="r">نه روز پیش مسلط شدی. مرور همان چیزی است که نگهش می‌دارد.</div>
+          <div class="go"><span class="btn pri">مرور · حدود ۶ دقیقه</span></div>
+        </div>
+        <div class="labs">
+          <div class="lab"><div class="t">آزمایشگاه شواهد</div><div class="d">فهمیدن اینکه یک جواب مطمئن واقعاً درست است یا نه.</div><div class="foot"><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="st">۳ از ۶</span><span class="sec">تمرین ←</span></div></div>
+          <div class="lab rec"><div class="t">آزمایشگاه شفافیت <span class="ribbon d">مرور</span></div><div class="d">دقیق گفتن اینکه چه می‌خواهی، با زمینهٔ کافی.</div><div class="foot"><span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="st">۵ از ۶</span></div></div>
+        </div>
+        <p class="note" style="margin-top:7px">…چهار تای دیگر</p>
+      </div>
+      <figcaption class="cap"><span class="p">§8</span> · pips and counts mirror with the grid; nothing is hand-flipped</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="panel">
+        <div class="bar"><span>localisation notes</span><span>§8</span></div>
+        <div class="anno" style="margin-top:2px">
+          <div class="an"><b>1</b><span><b>Every count is a plural key.</b> "3 of 6 modules", "1 review due", "2 of 6 started" — each needs <code>_one</code>/<code>_other</code> in <code>en</code> and its Persian form. A key with no variants falls back to the bare form silently.</span></div>
+          <div class="an"><b>2</b><span><b>Western digits in Persian</b> (§7d), as everywhere else in this app — shown above as Persian-Indic only to make the RTL plate legible as a mock.</span></div>
+          <div class="an"><b>3</b><span>"AI Training Lab" is <b>translated, not transliterated</b> (§7a — concept, not calque).</span></div>
+          <div class="an"><b>4</b><span>Module titles come from the per-locale content packs, so a Persian due list needs no client work. Lab titles and one-liners are client-side and need both files.</span></div>
+          <div class="an"><b>5</b><span>Informal register throughout — تو / کن, per §7b. The next-step card is the app addressing one person directly, which is where a formal slip would be most audible.</span></div>
+        </div>
+      </div>
+      <figcaption class="cap"><span class="p">§8</span> · the four places a locale bug would land</figcaption>
+    </figure>
+  </div>
+
+  <div class="legend">
+    <b>Reading these plates</b>
+    <ul>
+      <li><b>Plate 3 is the design.</b> Everything else is layout. The five-rule ladder is what converts six equal doors into one recommendation, and rule 5 — which names no lab at all — is the one most likely to grow a bad feature later.</li>
+      <li><b>The hub shows progress, never performance.</b> Six labs report metrics on six different scales; there is no arithmetic that ranks them. Counts of mastered modules are comparable, so those are what appear.</li>
+      <li><b>Absent beats empty.</b> No Due-now heading when nothing is due, no ribbon when no rule fires, no status line on the Tools page when the payload doesn't arrive. Same principle as Monitoring's clean control revealing nothing rather than an empty block.</li>
+      <li><b>The doors don't depend on the numbers</b> (plate 7). Titles and one-liners are client-side; the six links render before anything is fetched and survive an API failure.</li>
+      <li><b>Nothing here is scored.</b> No attempt row, no rubric, no probe. This is not a seventh lab, and the six lab pages keep every metric, rail and banner they have now.</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

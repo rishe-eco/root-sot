@@ -27,6 +27,7 @@ The division of labour between the two canons matters:
 6. `04-roadmap/00-state-of-the-build.md` → `01-known-issues-and-debt.md` → `02-refactor-toward-root.md`
 7. `../decisions/decision-log.md` — how we got here
 8. `06-specs/` — designed but not built; read only when working on that feature
+9. `05-reviews/` — the skill labs from a newcomer's seat; read before changing any lab's copy, landing page or reveal
 
 A human contributor who only wants to *run and change* the app can read 2 → 4 → 5. An AI agent picking up a task should read 2, 3 (the relevant module), and `02-architecture/04-conventions.md` — the conventions file is the one that most prevents mistakes.
 
@@ -65,6 +66,16 @@ tracker/                          ← the Tracker area of root-sot
       00-state-of-the-build.md      what's built vs. not (verified)
       01-known-issues-and-debt.md   bugs, hygiene, tech debt
       02-refactor-toward-root.md    the gap between tracker-as-is and the Organize pillar
+    05-reviews/                     the skill labs from a newcomer's seat
+      00-persona-review-method.md   the two personas, the six metrics, the
+                                    procedure, and the score history across passes
+      01-six-lab-review-2026-08-24.md
+                                    pass 3 — all six labs, both personas.
+                                    Blockers, bugs, and a ranked fix list
+      02-six-lab-review-2026-08-25.md
+                                    pass 4 — the same six on fresh accounts,
+                                    the day after pass 3's fixes. What held,
+                                    and the defect the fixes left one lab over
     06-specs/                       the Skills Engine — a Grow (Learn) prototype
       00-skills-engine.md           shared machinery for the skill tools (spec)
       01-clarity-lab.md             skill tool #1 — clarity of expression
@@ -106,6 +117,12 @@ tracker/                          ← the Tracker area of root-sot
       06b-monitoring-lab-build-plan.md
                                     phase order, the gamma and answer-matching
                                     rules, and gates. For a coding agent.
+      07-training-lab-hub.md        the AI Training Lab hub (built 2026-08-25) — one
+                                    page housing the entrance to all six labs, and
+                                    one button replacing six on the Tools page.
+                                    Not a seventh lab: it scores nothing.
+      07a-training-lab-hub-wireframes.html
+                                    eight plates plus an RTL pass; open in a browser
 ```
 
 **Where the code is.** This canon describes the `rishe-eco/tracker` repo, whose two workspaces are `api/` (backend) and `client/` (frontend). Code paths throughout this canon are relative to that repo, not to this one.
