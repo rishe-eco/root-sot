@@ -1,17 +1,76 @@
 # Root Studio — Build Plan: the project lifecycle, under ADR 0001's motion
 
 **From:** _root
-**Status:** **Plan, 1.0 — final for planning purposes. Every decision that blocks a migration is closed; nothing is built.** Ready to be executed stage by stage, each stage writing its own build-ready file in `root-app/docs/development/` in the shape of `V2.md`, grounded in the code as it is then. Sequences `root-website-project-lifecycle.md` against the business gates of [ADR 0001](../decisions/0001-studio-first-with-design-wedge.md) and `root-studio-business-model.md`. Nothing here is built.
-**Version:** 1.0 · 2026-09-20 · Owner: _root
+**Status:** **Plan 1.1 — L1 through L7 are built** (`rishe-eco/root-app` @ **`0a51b53`**, 2026-09-20 → 21), each with its own record in `root-app/docs/development/L*.md`. **L8 is not built, on purpose** — it is owed when the first wedge customer arrives. Everything is **technically** built and verified against a real database; **no business acceptance is recorded as met** — of the two this plan names, Nahal's bilingual trade **cannot yet happen** (§0.3), and Nahal's first ratification in the portal is not recorded anywhere as having happened. Sequences `root-website-project-lifecycle.md` against the business gates of [ADR 0001](../decisions/0001-studio-first-with-design-wedge.md) and `root-studio-business-model.md`. §0 is the build status; §1 onward is the plan as it was finalized at 1.0, annotated where the build answered or changed something rather than rewritten.
+**Version:** 1.1 · 2026-09-28 · Owner: _root
 **What this is:** the order in which the lifecycle spec's mechanisms get built, the decisions that must be made *before* any of them touches a schema, and the traps that are knowable now. The predecessor plan — `root-website-build-plan.md` (0.13) — is thirteen of fourteen built and its last stage waits on content, not code. This file is what comes after it.
 
 **Grading.** Three kinds of claim, kept apart.
 
-- **As-built** — verified against `rishe-eco/root-app` @ **`e7fcac5`** (`main`) on 2026-09-20, by reading the schema, `lib/capabilities.ts`, `lib/gate.ts`, `desk/sections.ts`, `portal/PortalLayout.tsx` and the source tree. **No test run backs this pass** — the same read-only ceiling the lifecycle spec declared two days earlier, and for the same reason (§9 below).
+- **As-built** — §1 onward was verified against `rishe-eco/root-app` @ **`e7fcac5`** (`main`) on 2026-09-20, by reading the schema, `lib/capabilities.ts`, `lib/gate.ts`, `desk/sections.ts`, `portal/PortalLayout.tsx` and the source tree. **No test run backs this pass** — the same read-only ceiling the lifecycle spec declared two days earlier, and for the same reason (§7 below). **§0 is sourced from the stage records** (`root-app/docs/development/L1.md`–`L7.md`) and the commit messages at `0a51b53`, read 2026-09-28; the verification claims in it are those files' claims, not a re-run.
 - **Plan** — every stage and ordering below. A sequence with reasons, not a commitment to dates.
 - **Unknown, and it matters** — flagged inline. 0.1's largest unknown was whether production held real data; **the founder answered it on 2026-09-20 — the VPS carries none** (§7.1), which is what makes L1 cheap.
 
-**Where this file yields.** On *what to build*, the lifecycle spec wins. On *what the business needs first*, ADR 0001 wins. On *what order the code lands*, this file wins.
+**Where this file yields.** On *what to build*, the lifecycle spec wins. On *what the business needs first*, ADR 0001 wins. On *what order the code lands*, this file wins. **On *what was actually built*, the stage records in `root-app/docs/development/` win** — §0 summarizes them and does not replace them.
+
+---
+
+## 0. Build status *(added 1.1, 2026-09-28)*
+
+### 0.1 · The stages
+
+Built in plan order, one commit per stage (L4 + L5 and L6 + L7 share one). Test counts are the stage record's own final run.
+
+| Stage | Commit | Record | Verified | Left open by the stage |
+|---|---|---|---|---|
+| **L1** registry · `Project` · `DEVELOPER` | `19737e1` | `L1.md` | Typecheck, build, unit only when written; **migration applied for real and hash seal measured at L2** | Customer half of the scope trade; a second contract on a project; desk control for `origin`; a project before a contract |
+| **L2** phases · live demo | `6d77583` | `L2.md` | 173 integration specs — **the first run on this machine** | Capture-at-publish, proxy, deploy lock (all by design); **the reporter snippet has never run in a page** |
+| **L3** review frames · feedback intake | `c1cde62` | `L3.md` | + e2e for the first time (29/29) — **which found L2 had shipped a broken app** | Frame not lockable after publish; no channel moves (→ L4) |
+| **L3b** builds · resolution ledger | `1892131` | `L3b.md` | 199 integration | No portal build list; accepted/declined items cannot be reopened; no per-developer assignment |
+| **L4** change tickets · three channels | `62ecd9a` | `L4.md` | 220 integration | No ticket → feedback conversion; no after-the-fact project assignment |
+| **L5** dependency board | `62ecd9a` | `L5.md` | 220 integration | No overdue notification; customer cannot mark their own commitment done |
+| **L6** billing | `0a51b53` | `L6.md` | 247 integration | **Metered basis not built** (a flagged narrowing of spec §8); no `Milestone` model; no notifications |
+| **L7** services · import panel | `0a51b53` | `L7.md` | 301 API unit, 31 web unit, 247 integration, 29 e2e | No live storefront integration — Nahal's import is still delivered by hand, as §3 L7 planned |
+| **L8** wedge contract shape | — | — | — | **Not started, on purpose.** Owed when a wedge customer arrives (§8.2) |
+
+**The e2e gap every stage after L2 left.** No Playwright spec drives any new L3–L7 screen directly — not the demo feedback panel, the builds desk, support, tickets, dependencies, billing or services. Those surfaces rest on integration specs, typecheck and a clean build. The 29 e2e specs prove the new code did not break the older flows; they prove nothing about the new ones.
+
+### 0.2 · What the building answered
+
+Items this file left open, now closed by the stage that met them:
+
+- **§7 P0 — the verification ceiling — is gone** (L2). The `root` role and both databases already existed; the earlier failure was `psql` defaulting to the OS username. No Docker, no privileged command.
+- **D5 — the spike came back as the lean predicted** (L2 §2): the design-revision machinery is not reused, the page keys are. Settled by reading rather than a throwaway branch, because `computeGate` reads only `DesignConcept.chosenAt` and `PageDesign.approvedAt`. The rule: **no lifecycle code writes either field**, held by `DemoPage.pageDesignId` being `SET NULL`. `gate.ts` untouched, `gate.test.ts` green.
+- **The appendix-as-view trap — measured, not argued** (L1 §7, L2 §7). A real signed revision's `contentHash`, snapshot bytes and `Signature.signedHash` are byte-identical across the migration. Handled by addition: `scopeItems` is a new snapshot key no pre-L1 snapshot carries, and a pre-L1 revision seals no appendix.
+- **D3's escape hatch was taken the careful way** (L3 §1.6): `ratifyFeedback` checks `project.customerId === user.id`, not "is a customer". *One exception, recorded in L1 §2.7:* `setScopeItem` still reaches ownership through `Contract.customerId` — identical today, worth revisiting when a project spans two contracts.
+- **L3's naming trap — avoided** (L3 §1.1): section `demos`, models `DemoFrame` / `FeedbackItem`; the bare word "review" is in no new identifier.
+- **L3b "who writes the Persian" — decided as the lean said** (L3b §1.4): one note plus the language it was authored in.
+- **L6 scheduler — lazy-on-read** (L6 §0), with double-charging answered at the database: a unique index on `(subscriptionId, periodStart)` plus `createMany … skipDuplicates`, covered for repeated and concurrent reads.
+- **L7 Persian fold — reused for matching, refused for storage** (L7 §1.4). Better than "reuse R1's fold": R1 strips ZWNJ, lowercases machine keys and rewrites Arabic script, which is right for a query and wrong for a catalogue. Also widened `StoredFile`'s private-file CHECK to accept a project, not only a contract — a change to an existing invariant, recorded there.
+- **`resolvers/admin.ts` — split by domain at L1** (`resolvers/admin/`), as §3 L1 asked.
+
+### 0.3 · Owed — the list the stage records scatter
+
+Ordered by what blocks a business acceptance first.
+
+1. **The customer half of the scope trade.** `executeScopeTrade` exists and is correctly gated, **and cannot succeed today** because the customer has no confirm mutation, UI or notification (L1 §3). **This blocks L1's own acceptance** — Nahal's bilingual ↔ "notify me" swap is modelled but not executable. Reread V2.md's caution about `Signature` before building the confirmation record.
+2. **Run the reporter snippet against a real framed staging site** — the `postMessage` handshake, the origin rejection path, the viewport scaling (L2 §7). Nothing has exercised it in a browser, and it is the one piece L3's acceptance (Nahal's next demo round) cannot run without. Check the live store for it once after, per §5.1b.
+3. **E2E specs for the L3–L7 screens** (§0.1) — the demo feedback panel first, since it carries the thesis.
+4. **`Contract.projectId` non-nullable, and delete `NO_PROJECT`** once the migrations have run everywhere (L2 §5).
+5. **A second contract on a project** — the model allows it, nothing creates the edge (L1 §3); `firstContractId` is a named shortcut for the one-contract case (L1 §2.3). Owed at or before L8.
+6. **Scoping-stage entry** — `createContract` is still the only door into a new project, so stages 1–2 (contact, scoping) have no screen (L1 §3).
+7. **Smaller, each recorded as a decision rather than a gap:** the `origin` desk control (L1); scope-registry activity in `ChangeLog` — no stage added `ChangeAction` values (L1–L6 §2); reopening accepted/declined feedback (L3b §2.5); overdue-dependency and billing notifications (L5, L6); metered subscriptions (L6); per-developer assignment (L3b, L4).
+
+### 0.4 · Acceptance, separated
+
+| Stage | Technical acceptance | Business acceptance |
+|---|---|---|
+| L1 | Met — trade is recorded and paired; published hashes unchanged | **Not met** — the bilingual trade cannot complete (§0.3.1) |
+| L2 | Met in code; the live-site half is unrun in a browser | Not yet tried on a real staging site |
+| L3 + L3b | Met — frame gate, per-item intake, interception, ratification, notification, the ledger's four rules | **Not recorded as met** — no record of Nahal's next demo round running through the portal, and it needs §0.3.2 first. **Bet 3 is still untested** |
+| L4–L7 | Met | Not recorded as tried with a customer; bet 4 (the SMS probe) waits on L6 being used |
+
+*"Not recorded" means the stage records and this repo say nothing either way. When a business acceptance happens, record it here with the date.*
 
 ---
 
@@ -98,6 +157,8 @@ There is a real structural echo: `DesignRevision → DesignConcept → PageDesig
 
 **The reason not to assume it:** `lib/gate.ts` reads the current design revision to compute `designComplete`, and the versioning spec owns that lineage. A demo round accidentally satisfying or breaking the design gate is a subtle, expensive bug in the one flow that is already built and working. **Spike it with a throwaway branch and a test against the gate before deciding**, and record the answer here.
 
+> **Answered at L2 (1.1):** the lean held — the machinery is not reused, the page keys are. Settled by reading `computeGate`, which depends on `DesignConcept.chosenAt` and `PageDesign.approvedAt` alone, rather than by a throwaway branch; the rule is that no lifecycle code writes either, held by `DemoPage.pageDesignId` being `SET NULL`. `gate.ts` untouched, `gate.test.ts` green. See §0.2 and `L2.md` §2.
+
 ### D6 · The developer's role. **Decided 2026-09-20: a `DEVELOPER` role granted one new capability, `builds.author` — and it lands at L1, not at L3b.**
 
 Added by the founder's L3b requirement (§3), which forced a question no earlier stage had: **the person who authors a build has no role to be.** `Role` is `CUSTOMER | ADMIN | CONTRIBUTOR | REVIEWER`, so today the only account that could disposition feedback is `ADMIN` — which grants everything in the table including `apiTokens.manage`, the one capability `lib/capabilities.ts` singles out as having *the rest of the table* as its blast radius. Handing that to a contractor to let them tick "done" is the shape of grant F3's least-privilege argument exists to refuse, and it is the same argument that narrowed `REVIEWER` to the Review Room and nothing else.
@@ -133,7 +194,7 @@ Critical path: **L0 · L1 · L2 · L3 · L3b**. L5, L6 and L7 hang off L1 and ca
 
 **L3b is on the critical path and it was not in 0.2.** L3 promises the customer that every item shows its fate; L3b is where a fate is written. Shipping L3 alone means shipping the promise without the mechanism — which is the dead-end channel (F2) with better styling, and it would return a **false negative on bet 3**: the customer would leave the channel and the conclusion drawn would be that they never wanted it.
 
-### L1 · The scope registry — *the spine* (spec §3)
+### L1 · The scope registry — *the spine* (spec §3) — **built, `19737e1` · `L1.md`**
 
 The V1-shaped stage of this plan: risky, largely invisible, and the one that gets more expensive with every real engagement.
 
@@ -155,7 +216,7 @@ The V1-shaped stage of this plan: risky, largely invisible, and the one that get
 - **The contract's Appendix 1 becoming a view is a revision-surface change.** `ContractRevision.snapshot` is hash-sealed over a canonical serialization; if the appendix now derives from the registry, the serialization has one more input and every existing hash must still verify. Add the input in a way that leaves published revisions byte-identical, or the signatures attest to something that no longer reproduces. **This is the sharpest trap in L1.**
 - **`resolvers/admin.ts` is 951 lines.** The registry, phases, demos, frames, tickets and billing all land on the desk side. Split it by domain *at L1*, not at L4 when it is 1,800 lines and the split is a merge conflict with three stages in flight.
 
-### L2 · Phases and the live demo surface (spec §4 stage 6, §12 Q1; D2)
+### L2 · Phases and the live demo surface (spec §4 stage 6, §12 Q1; D2) — **built, `6d77583` · `L2.md`**
 
 A `Phase` binding scope items, page designs, a demo and a milestone — implied everywhere in the spec and modelled nowhere. Portal shows coarse progress ("phase 3 of 5, on track"); desk shows the phase board.
 
@@ -193,7 +254,7 @@ Costed against the founder's ask of 2026-09-20 — embed, preset viewports, page
 - **Run the D5 spike before building the phase model**, and run it against `gate.test.ts`. The gate's inputs are structural rather than Prisma types, which is what makes accidental reuse easy here rather than obviously wrong.
 - **Coarse progress must not become a status field someone updates by hand.** F5 is the founder's own slippage; a manually maintained percentage is the first thing to go stale, and a stale honest-progress indicator is worse than none, because the whole promise is that progress is honest. Derive it from phase state and scope-item status.
 
-### L3 · Review frames and feedback intake (spec §6) — **the thesis, testable**
+### L3 · Review frames and feedback intake (spec §6) — **the thesis, testable** — **built, `c1cde62` · `L3.md`**
 
 The heart of the spec, and the stage this plan exists to reach.
 
@@ -212,7 +273,7 @@ The heart of the spec, and the stage this plan exists to reach.
 - **The interception prompt is bilingual prose, and it must not come from the API.** House rule 6 — the API returns a code and parameters, the web renders the sentence. R4's first draft broke this exact rule and was rewritten.
 - **Ratification is a signature-shaped act without being a signature.** It records who decided what, when. Resist binding it to the `Signature` model: that model attests to hashed bytes of a legal instrument, and widening it to cover "the CEO approved this feedback batch" weakens what a signature means in the one product where that word is load-bearing.
 
-### L3b · Builds and the resolution ledger *(founder requirement, 2026-09-20)* — **in no spec, and it closes a gap in one**
+### L3b · Builds and the resolution ledger *(founder requirement, 2026-09-20)* — **in no spec, and it closes a gap in one** — **built, `1892131` · `L3b.md`**
 
 **The other half of the loop.** L3 lets the customer submit and promises that every item shows its fate. **This stage is where a fate gets written**, and it is written by the developer at the moment they put a new version on staging. Without it, L3 ships a promise nothing keeps.
 
@@ -250,11 +311,11 @@ Two lists would drift, would render as two sections nobody reconciles, and could
 - **`ChangeLog` already exists and is not this.** It is an audit trail of app actions (`ChangeAction` enum, feeding the desk feed). A build's change list is **authored prose about the product**. The names will tempt someone to merge them; the test is who writes the row — the system writes a `ChangeLog`, a person writes a change entry.
 - ~~**There is no developer role, and this stage forces the question.**~~ — **decided, and moved out of this stage: see D6.** `DEVELOPER` holding `builds.author` alone, with its own desk section, and **the migration travels with L1's** on F3's precedent rather than waiting here. By the time L3b is built the role should already exist and be seeded; if it does not, that is the signal that L1 was taken in a hurry.
 - **Version numbers are Latin figures, and someone will get this wrong.** House rule 14 puts counts and totals in the locale's digits via `formatCount`, but **versions, refs and hashes stay Latin** — and "version ۴" is exactly the shape of the bug the Persian pass found five times. Number project-wide and monotonic: a counter that restarts per phase makes "version 2" ambiguous in the one sentence the customer repeats back to you.
-- **Who writes the Persian?** Change entries are authored prose read by a Persian-first customer, and the developer may not write Persian. This is the `LibraryEntry` bilingual-as-data problem on a surface with a daily cadence. *Lean: one text field plus the language it was authored in, not two required fields* — forcing bilingual per entry buys empty columns or machine translation, and a change note the customer cannot read is worse than one the PM renders at review time. **Decide inside the stage**, and note it is the first place the three-way work split (canvas §6) shows up in a schema.
+- **Who writes the Persian?** Change entries are authored prose read by a Persian-first customer, and the developer may not write Persian. This is the `LibraryEntry` bilingual-as-data problem on a surface with a daily cadence. *Lean: one text field plus the language it was authored in, not two required fields* — forcing bilingual per entry buys empty columns or machine translation, and a change note the customer cannot read is worse than one the PM renders at review time. **Decide inside the stage**, and note it is the first place the three-way work split (canvas §6) shows up in a schema. **→ Decided at L3b (1.1): the lean — one note plus its authored language** (`L3b.md` §1.4).
 
 **Acceptance:** a feedback item submitted in L3 can be traced, without leaving the portal, from submission → the build that addressed it → what the developer said about it → the customer's acceptance or reopening. And a change nobody asked for appears in the next review frame without anyone remembering to mention it.
 
-### L4 · Ratified item → change ticket; the three channels (spec §5, §6)
+### L4 · Ratified item → change ticket; the three channels (spec §5, §6) — **built, `62ecd9a` · `L4.md`**
 
 Surfaces the as-built `Ticket`/`TicketMessage` models, which are modelled and unsurfaced today.
 
@@ -268,7 +329,7 @@ Surfaces the as-built `Ticket`/`TicketMessage` models, which are modelled and un
 - **`Ticket.customerId` points at a user, not a project.** With D1 taken, a change ticket derived from a demo belongs to a project; a support ticket after delivery may not. Both, nullable, decided here rather than inherited.
 - **`Ticket.billable → BillingEntry` is designed and unbuilt.** Build the edge in L6 with the rest of billing, not here, or it will be built twice.
 
-### L5 · The dependency board (spec §7) — *independent, and cheap*
+### L5 · The dependency board (spec §7) — *independent, and cheap* — **built, `62ecd9a` · `L5.md`**
 
 Symmetric commitments: owner, due date, **verification step**. Customer-side and Root-side on one board under one rule. Overdue surfaces on both dashboards.
 
@@ -276,7 +337,7 @@ Symmetric commitments: owner, due date, **verification step**. Customer-side and
 
 **Banked trap:** *verification* is the whole feature. "They said we have a host" is what failed at Nahal; "we deployed a test file to the host" is what the board is for. A `verifiedAt` with no recorded *how* rebuilds the promise it replaces.
 
-### L6 · Billing — subscriptions, invoices, the report (spec §8)
+### L6 · Billing — subscriptions, invoices, the report (spec §8) — **built, `0a51b53` · `L6.md`**
 
 `BillingEntry` exists and is unsurfaced. Adds `Subscription` (customer, label, amount or metered basis, period, active range) generating entries per period; `SUBSCRIPTION` joins the source enum; the portal's `billing` rail goes live with invoices linked to origin; the report; milestone linkage so the portal shows what each payment is gated on.
 
@@ -286,7 +347,7 @@ Symmetric commitments: owner, due date, **verification step**. Customer-side and
 - **`amount` is `BigInt`** and does not serialize to JSON — the predecessor plan's §6.3 trap, arriving in a second place. Recurrence arithmetic stays integer Toman; no float ever touches a charge.
 - **Keep the no-gateway boundary.** The schema comment says record-keeping only, separate from Hesab. A subscription is the first thing that will feel like it wants to charge a card. It does not.
 
-### L7 · Services — the product-import panel (spec §9)
+### L7 · Services — the product-import panel (spec §9) — **built, `0a51b53` · `L7.md`**
 
 Upload → validate → **preview diff** → explicit apply → run history, each run auditable and chargeable. Framed as the first of a class: a service = a panel + a run history + a billing edge.
 
@@ -294,7 +355,7 @@ Upload → validate → **preview diff** → explicit apply → run history, eac
 
 **Banked traps.** Persian text in spreadsheets will find every encoding weakness — the same normalization problem R1 solved for search (Arabic vs Persian yeh and kaf, ZWNJ, two digit scripts), now on the write path where a wrong fold corrupts a product catalogue rather than missing a search hit. **Reuse R1's fold; do not write a second one.** And the preview diff is the feature: an import that applies without one is a destructive operation on a live store.
 
-### L8 · The wedge's contract shape (ADR 0001 consequences)
+### L8 · The wedge's contract shape (ADR 0001 consequences) — **not built, on purpose**
 
 `lib/gate.ts` hard-codes *design approved → approve contract → e-sign*, which is Nahal's design-finalized-before-signing sequence. The wedge's two-agreement structure needs the gate to express both. **ADR 0001 says owed when the first wedge customer arrives, not now, and that is right** — the gate is structural and small, and building a second sequence before anyone has bought the first is speculation with a migration attached.
 
@@ -318,24 +379,24 @@ The canvas §10 bets, mapped to where evidence actually arrives. A stage that te
 
 ## 5. Where this is most likely to go wrong
 
-1. **The registry re-parenting (D1) is a one-shot migration, and its window is open now.** §7.1 closed favourably — no production data — so the cost is zero *until the first real project is entered*. The risk is no longer technical; it is that the window closes while the plan is being read.
-1b. **The demo snippet leaking into production.** The only new externally-visible surface in this plan runs inside the customer's own site. Three guards (§3 L2.2), and it is worth someone checking the live store for it once after the first delivery rather than trusting the flag.
-2. **The appendix-as-view change touches hash-sealed snapshots.** Published revisions must still verify byte-for-byte. Get this wrong and the product's most load-bearing guarantee fails silently, visible only when someone checks a printed sheet against the record.
-3. **Two "reviews" in one codebase.** The spec warns; `sections.ts` already has the name. This is a naming decision with a deadline, and the deadline is the first commit of L3.
-4. **The gate is built and working, and L2 flirts with it** (D5). The only currently-working end-to-end customer flow is the thing a demo-revision spike can break.
+1. **The registry re-parenting (D1) is a one-shot migration, and its window is open now.** §7.1 closed favourably — no production data — so the cost is zero *until the first real project is entered*. The risk is no longer technical; it is that the window closes while the plan is being read. **→ Closed (1.1): taken at L1, before any real project was entered.**
+1b. **The demo snippet leaking into production.** The only new externally-visible surface in this plan runs inside the customer's own site. Three guards (§3 L2.2), and it is worth someone checking the live store for it once after the first delivery rather than trusting the flag. **→ Open (1.1): the guards are built (L2 §1.4); the snippet has never run in a page** (§0.3.2).
+2. **The appendix-as-view change touches hash-sealed snapshots.** Published revisions must still verify byte-for-byte. Get this wrong and the product's most load-bearing guarantee fails silently, visible only when someone checks a printed sheet against the record. **→ Closed (1.1): measured byte-identical against a real signed revision** (L2 §7).
+3. **Two "reviews" in one codebase.** The spec warns; `sections.ts` already has the name. This is a naming decision with a deadline, and the deadline is the first commit of L3. **→ Closed (1.1): `demos`, `DemoFrame`, `FeedbackItem`** (L3 §1.1).
+4. **The gate is built and working, and L2 flirts with it** (D5). The only currently-working end-to-end customer flow is the thing a demo-revision spike can break. **→ Closed (1.1): `gate.ts` untouched through L7** (D5 answer).
 5. **Every stage costs founder time, and the business plan spends the same hours on parallel design engagements.** This is not a technical risk and it is the most likely one to actually bite. The mitigation is the plan's shape — L5, L6, L7 are genuinely independent, so they can be delegated or dropped without stalling L1–L3.
-6. **`resolvers/admin.ts` is where six stages converge.** Split early (L1) or pay at L4.
-7. **The notification half of L3 is the easiest thing to defer and the thing that makes bet 3 untestable.** If it slips, the stage ships a better-styled dead end and the experiment returns a false negative.
-8. **L3b is the easiest stage to cut under pressure and the one whose absence breaks L3.** It is the unglamorous half — a developer's ledger, no customer-facing sparkle — and it arrives when L3 already *looks* finished. Cutting it converts the flagship stage into the exact failure it was built to fix.
-9. **"Resolved" collapsing into "accepted."** One field instead of two (L3b.2) lets the delivery pipeline close its own feedback, silently and in Root's favour. It will not look like a bug; it will look like the queue draining.
+6. **`resolvers/admin.ts` is where six stages converge.** Split early (L1) or pay at L4. **→ Closed (1.1): split at L1** into `resolvers/admin/`.
+7. **The notification half of L3 is the easiest thing to defer and the thing that makes bet 3 untestable.** If it slips, the stage ships a better-styled dead end and the experiment returns a false negative. **→ Closed (1.1): built in L3, not deferred**; builds notify too (L3b).
+8. **L3b is the easiest stage to cut under pressure and the one whose absence breaks L3.** It is the unglamorous half — a developer's ledger, no customer-facing sparkle — and it arrives when L3 already *looks* finished. Cutting it converts the flagship stage into the exact failure it was built to fix. **→ Closed (1.1): built directly after L3.**
+9. **"Resolved" collapsing into "accepted."** One field instead of two (L3b.2) lets the delivery pipeline close its own feedback, silently and in Root's favour. It will not look like a bug; it will look like the queue draining. **→ Held (1.1): two fields; `addressedInBuildId` is written by the build path, `acceptedAt` only by the customer's own mutation** (L3b §1.2).
 
 ---
 
 ## 6. Open, and blocking nothing
 
 - ~~**Does the registry need per-item threads?**~~ — **closed 2026-09-20, by the founder asking for it directly.** The predecessor plan deferred a tracked "revision requested" object because *"a request is routinely partly satisfied … and an open/closed flag lies about that"*, the honest version being per-item tracking — *"a small issue tracker inside a contract workspace."* **L3b is that object**, arriving from the demo side rather than the contract side, and built deliberately rather than discovered built by accident. What remains is to check at L4 that the contract-side revision request *reuses* it rather than growing a second one.
-- **Does a project need a public-facing name?** "Project" is a working handle here, as "Review Room" was. It reaches the customer's portal, so unlike the Review Room it will need a Persian label — but not before L2.
-- **Whether L5 is actually first.** It is the cheapest fix to two live frictions and it blocks nothing. The argument for L1 first is that everything else needs it; the argument for L5 first is that it could ship this week. *Lean: L1, because L5 done first gets re-parented by D1 anyway.*
+- **Does a project need a public-facing name?** "Project" is a working handle here, as "Review Room" was. It reaches the customer's portal, so unlike the Review Room it will need a Persian label — but not before L2. **→ Still open (1.1):** the locale files use «پروژه» throughout, but no stage recorded it as a decision.
+- **Whether L5 is actually first.** It is the cheapest fix to two live frictions and it blocks nothing. The argument for L1 first is that everything else needs it; the argument for L5 first is that it could ship this week. *Lean: L1, because L5 done first gets re-parented by D1 anyway.* **→ Moot (1.1): L1 went first.**
 
 ---
 
@@ -346,6 +407,8 @@ The canvas §10 bets, mapped to where evidence actually arrives. A stage that te
 `test:integration` wants `postgresql://root:root@localhost:5432/root_website_test`. As of 2026-09-20 this machine has **no Docker**, a **running Postgres** accepting connections on 5432, and **neither a `root` nor a `gholi` role** — so `psql` cannot connect at all today. Creating that role and database is one privileged command, and if it works it changes the plan's whole verification story: the 147-spec integration suite would run locally for the first time, without Docker.
 
 **P0, before L1:** try it, and record the answer here. Until then the honest ceiling is typecheck, build, `prisma validate`, `prisma migrate diff --from-schema-datamodel`, and unit tests — and a migration verified only that far must be described that way, never as tested.
+
+> **Closed at L2 (1.1).** The `root` role and both databases already existed; the failure was `psql` defaulting to the OS username. No Docker, no privileged command. From L2 on, every stage ran integration against real Postgres, and from L3 on, e2e too — see §0.1 for what that still leaves uncovered.
 
 ### 7.1 The unknown that mattered most — **closed 2026-09-20**
 
@@ -363,16 +426,17 @@ This is the single most load-bearing fact in the plan, and it has a shelf life. 
 
 **Three things would reopen this file rather than merely amend it:**
 
-1. **The D5 spike coming back the other way.** If demo review genuinely reuses the design-revision machinery, L3 shrinks by most of its size and L2 grows a lineage. The lean says no; the spike is what decides.
-2. **A wedge customer arriving before L1.** ADR 0001 says the contract structure changes for new entrants and that `lib/gate.ts` is owed *then*. If that arrives first, L8 stops being last.
-3. **The first real project entered into the system.** §7.1's window closes at that moment and the cheap stages stop being cheap. This is the only item with a clock on it.
+1. **The D5 spike coming back the other way.** If demo review genuinely reuses the design-revision machinery, L3 shrinks by most of its size and L2 grows a lineage. The lean says no; the spike is what decides. **→ Did not happen (1.1):** the spike came back the lean's way.
+2. **A wedge customer arriving before L1.** ADR 0001 says the contract structure changes for new entrants and that `lib/gate.ts` is owed *then*. If that arrives first, L8 stops being last. **→ Retired as written (1.1):** L1 is built, so this now reads *a wedge customer arriving* — which makes L8 the next stage, and brings §0.3.5 (a second contract on a project) with it.
+3. **The first real project entered into the system.** §7.1's window closes at that moment and the cheap stages stop being cheap. This is the only item with a clock on it. **→ Defused (1.1):** the schema-shaped stages it was racing (L1, L2) — and every other stage's migration — landed first, with backfills. From here a real project makes schema changes cost a migration over real data — the ordinary cost, no longer a window closing.
 
-**What to do first, in order, on the day this starts:** the §7 P0 (try the local Postgres role — it may lift the verification ceiling for everything that follows), then the D5 spike, then L1 with D6's migration folded in.
+**What to do first, in order, on the day this starts:** the §7 P0 (try the local Postgres role — it may lift the verification ceiling for everything that follows), then the D5 spike, then L1 with D6's migration folded in. **→ Done, in that order (1.1). What to do next is §0.3.**
 
 ---
 
 ## Changelog
 
+- **1.1 · 2026-09-28** — **Build status added; the plan body is annotated, not rewritten.** L1–L7 are built in `rishe-eco/root-app` (`19737e1` → `0a51b53`, 2026-09-20 → 21), each with a stage record in `root-app/docs/development/`; L8 is not, on purpose. New **§0**: the stages with commit, record, verification and what each left open (§0.1); the open items this file carried that the building closed — P0, D5, the hash seal, D3's careful check, L3's naming, L3b's Persian, L6's scheduler, L7's fold, the `admin.ts` split (§0.2); the owed list the stage records scatter, ordered by what blocks a business acceptance (§0.3); and **technical and business acceptance kept in separate columns** (§0.4), because every stage meets the first and none is recorded as meeting the second. The two findings that matter most: **L1's own acceptance — Nahal's bilingual trade — cannot complete**, because the customer half of the scope trade was never built; and **the demo reporter snippet has never run in a browser**, which is what L3's acceptance (Nahal's next demo round) runs on. Also: no e2e spec drives any new L3–L7 screen. Inline `→ (1.1)` notes on D5, L3b's Persian trap, every §5 risk, §6, §7's P0 and §8; each stage heading carries its commit. Corrected a stale cross-reference in the grading note (§9 → §7). Sourced from the stage records and commit messages, not from a re-run of the suites.
 - **1.0 · 2026-09-20** — **Final for planning.** Adds **D6** *(founder direction)*: a **`DEVELOPER` role granted one new capability, `builds.author`** — and the finding that it should land **at L1, not at L3b where it is needed**. That is F3's precedent applied unchanged (*"it is a migration and one small file, and every day it waits is a day more code is written against a role that has to be unwritten"*): otherwise every desk guard across L1–L3 gets written against `contracts.manage`, which is the *admin's* verb, and then rewritten. Records what the role pointedly does **not** get — the contract text, the fee, the customer list, the billing surface, and above all `apiTokens.manage` — and that the consequence is **its own `DESK_SECTIONS` row rather than a widened one**, since a role holding only `builds.author` would otherwise see no working surface at all. That section is also the spec's *"the developer pulls tickets"* made structural. A seeded developer account travels with it, as F2 did for `REVIEWER`. **L3b's one-list-with-an-optional-origin model is confirmed.** Adds §8, naming the three things that would reopen this file — the D5 spike returning the other way, a wedge customer arriving before L1, and the first real project entered, which is the only one with a clock on it.
 - **0.3 · 2026-09-20** — **Adds L3b, builds and the resolution ledger** *(founder requirement)* — the developer's side of the loop, and **it goes on the critical path**, which is the substantive change here. L3 promises the customer that every item shows its fate; L3b is where a fate gets written, so **L3 without L3b is worse than neither** — it ships the promise without the mechanism and would return a *false negative* on bet 3. The stage closes a gap in the lifecycle spec too: §6 generates the review frame's "what's new" from the registry, which structurally **cannot know about a change nobody asked for** — refactors, fixes found in passing — and that is precisely the category F3 records going missing at Nahal. So "what's new" has three sources, not one. **It is also the object the predecessor plan deferred by name** on 2026-08-04 (*"a request is routinely partly satisfied … an open/closed flag lies about that"*), arriving from the demo side instead of the contract side, which closes §6's open item. Modelled as **one change list with an optional origin, not two lists**, because two would drift and could not express the partly-satisfied case the deferral was written about. Four rules make it honest — **"resolved" is the developer's claim and never the customer's acceptance** (two fields, or the pipeline closes its own tickets in Root's favour), no silent fates, `declined` requires its reason structurally, and publishing a build notifies. Traps banked: **`Build` is the only available noun that lies about nothing** (not a revision — nothing is sealed; not a round — twice taken), `ChangeLog` is an audit trail and is *not* this, **there is no developer role and this stage forces that migration** (today only `ADMIN` could author a build, which hands over `apiTokens.manage` too), version numbers stay Latin under house rule 14, and who writes the Persian is a real open sub-decision. Adds two failure modes (§5.8, §5.9).
 - **0.2 · 2026-09-20** — **All five L0 decisions answered, and one of them reversed the file's own recommendation.** D1 (a project) and D4 (dumb interception) taken as recommended; D5 kept as a spike, but D2 has already narrowed what it asks. **D2 is reversed: a demo is the live staging site, embedded, with page-keyed notes** — the founder's live-demo question exposed that 0.1's cross-origin argument was **false for the only case that exists** (a demo is a site Root builds, so Root owns its footer and a reporter snippet is a build-time include), and that the freeze argument, which does stand, only ever bit *pixel*-anchored annotation. A note keyed to a page survives the page changing, which is the whole point of a brief. The captures design is kept, not deleted, as the fallback for a site that cannot take the snippet — **and the rewriting proxy is rejected outright**, being both permanently unfinished work and an XSS vector pointed at Root's own origin. **D3 is simplified by founder direction to one customer role**, so the decider is `project.customerId` and the model gains nothing at all — with the note that this handles F8 *socially rather than structurally*, and one line written the careful way now keeps the door open. Adds **§3 L2.1, the live demo costed piece by piece**: the browsing surface is small, the **path → page → scope-item mapping is the real feature**, and the design-image toggle the founder ranked lower is the cheapest item on the list *conditional on that mapping*. **Automatic capture-at-publish is recommended against for now** — it needs the same headless browser F1b already deferred on VPS memory, and when it is worth paying it should be paid once, for demo captures and the server-side contract PDF together. **§7.1 closes favourably**: no production data, so L1's migration window is open and the risk is that it closes while the plan is being read.
