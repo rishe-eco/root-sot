@@ -34,7 +34,7 @@ Source: `canon/02-pillars/`, `working/`, and the canon log.
 |---|---|---|
 | **Organize** | past the engine — as-built | Prototyped in **Tracker** — a personal staging app, not itself the pillar (decision log, 2026-08-01) — mid-transformation toward the pillar. Its own sequence is `../tracker/roadmap.md`. Did not come through the engine; it predates it. |
 | **Grow (Learn)** | **Phase 1, active** | Module 1 (Feelings & Needs) discovery is the live workstream — `working/learn-discovery/`. `01-research-criteria-and-method.md` done; method artifacts then participant criteria next, produced one at a time. Six hypotheses H1–H6, with H6 split into H6a/H6b on 2026-07-22. English-only for the first build. |
-| **Reflect** | concept · **Act 1 concept written** | Carries the reconstrual / self-distancing finding folded in on 2026-07-22. Act 1 = **Re-seeing** (`working/reflect-build/`) — one moment, re-seen; LLM-free; Reflect's own tool, not Learn Module 1's Tier 4. Concept only (2026-09-30): no spec, no code. Like Noticing, it has not come through the engine. |
+| **Reflect** | concept · **Act 1 concept + wireframes** | Carries the reconstrual / self-distancing finding folded in on 2026-07-22. Act 1 = **Re-seeing** (`working/reflect-build/`) — one moment, re-seen; LLM-free; Reflect's own tool, not Learn Module 1's Tier 4. Concept and wireframes (2026-09-30): no spec, no code. Like Noticing, it has not come through the engine. |
 | **Maintain** | not started | — |
 | **Impact** | concept · **Act 1 built, unjudged** | Named 2026-09-20 (`canon/02-pillars/impact.md`); Persian name open. Act 1 = **Noticing** (`working/impact-build/`) — phases 1–7 built and **merged to Tracker `main` 2026-09-21**. **Phase 8 (two-week feel-test) and Gate A (three-day disconfirming smoke) are human and have not been run**, so the code exists and the verdict does not. |
 
@@ -87,7 +87,7 @@ Named so the gap is explicit rather than silently empty:
 
 ## Changelog
 
-- **0.6 · 2026-09-30** — §2 Reflect row: **Act 1 concept written** (`working/reflect-build/00-act1-concept.md`) — re-seeing a single moment, LLM-free, built as Reflect's own tool rather than Learn Module 1's Tier 4.
+- **0.6 · 2026-09-30** — §2 Reflect row: **Act 1 concept and wireframes written** (`working/reflect-build/`) — re-seeing a single moment, LLM-free, built as Reflect's own tool rather than Learn Module 1's Tier 4.
 - **0.5 · 2026-08-01** — §3: **Contracts' urgency stood down** — a live first client is no longer the driving milestone, so email leaves the critical path (decision log, 2026-08-01). The stream now runs on depth: versioning to completion, then the Research Lab, per `working/root-website-build-plan.md`.
 - **0.4 · 2026-08-01** — §3: the Postgres blocker named in 0.2 is **cleared** — the stack ran against a real database and the initial migration is committed. Email and design-image upload remain; the upload now has a spec. Corrected because 0.2's wording had gone stale the same day it was contradicted by the code.
 - **0.3 · 2026-08-01** — Resolved §6.4: the **Skills Engine belongs to Grow (Learn)**, with **Tracker reframed as a staging ground** rather than the Organize pillar (decision log, 2026-08-01). Adjusted the §2 Organize row and added the "Learn spans two content families" note (Module 1 + the durable-skills stack; the latter off-engine, team-training purpose).

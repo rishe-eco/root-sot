@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reflect Act 1 — Re-seeing · wireframes</title>
+<style>
+:root{
+  --surface-2:#ffffff; --surface-1:#f6f5f0; --surface-0:#efece4;
+  --text-primary:#2c2c2a; --text-secondary:#5f5e5a; --text-muted:#8a8981;
+  --border:#e3e1d9; --border-strong:#ceccc3;
+  --accent-bg:#e6f1fb; --accent-text:#185fa5; --accent-border:#85b7eb;
+  --warn-bg:#f6efe4; --warn-text:#8a6520; --warn-border:#d9bd8a;
+  --radius:8px; --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --surface-2:#2b2b29; --surface-1:#232321; --surface-0:#1b1b19;
+    --text-primary:#e9e7e0; --text-secondary:#b5b3aa; --text-muted:#8a8981;
+    --border:#3a3a37; --border-strong:#4b4b47;
+    --accent-bg:#0c447c; --accent-text:#b5d4f4; --accent-border:#185fa5;
+    --warn-bg:#3a2f1c; --warn-text:#e0c188; --warn-border:#6b5527;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-0);color:var(--text-primary);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:2rem 1.25rem 4rem}
+h1{font-size:22px;font-weight:500;margin:0 0 4px}
+.sub{font-size:13px;color:var(--text-muted);margin:0 0 2rem}
+h2{font-size:16px;font-weight:500;margin:2.25rem 0 .9rem;padding-bottom:.5rem;border-bottom:.5px solid var(--border)}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.frame{margin:0;display:flex;flex-direction:column;gap:8px}
+.phone{flex:1;min-height:375px;background:var(--surface-2);border:.5px solid var(--border);border-radius:12px;padding:14px;display:flex;flex-direction:column}
+.bar{display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:.5px solid var(--border);font-size:11px;color:var(--text-muted)}
+.dots{display:flex;gap:4px}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--border)}
+.dot.on{background:var(--accent-text)}
+.prompt{font-size:13px;color:var(--text-primary);line-height:1.5;margin:12px 0}
+.sub2{font-size:11px;color:var(--text-muted);margin:12px 0 4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{padding:5px 10px;border:.5px solid var(--border);border-radius:999px;font-size:12px;color:var(--text-secondary);background:var(--surface-1)}
+.chip.sel{border:1px solid var(--accent-border);color:var(--accent-text);background:var(--accent-bg)}
+.chip.esc{border:.5px dashed var(--border-strong);color:var(--text-muted);background:transparent}
+.card{background:var(--accent-bg);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--accent-text);line-height:1.5}
+.warn{background:var(--warn-bg);border:.5px solid var(--warn-border);border-radius:6px;padding:7px 9px;font-size:11px;color:var(--warn-text);line-height:1.45;margin-top:7px}
+.field{border:.5px solid var(--border);border-radius:8px;padding:9px 11px;font-size:12px;color:var(--text-muted);background:var(--surface-1)}
+.field.filled{color:var(--text-primary)}
+.spring{margin-top:auto}
+.nav{display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.mut{color:var(--text-muted)}
+.acc{color:var(--accent-text)}
+.link{color:var(--text-muted);text-decoration:underline}
+.note{font-size:11px;color:var(--text-muted);line-height:1.5}
+.btn{display:inline-block;padding:8px 22px;border:.5px solid var(--border-strong);border-radius:var(--radius);font-size:13px;color:var(--text-primary);background:var(--surface-1)}
+.center{text-align:center}
+.cap{font-size:12px;color:var(--text-secondary);padding:0 4px}
+.cap .p{color:var(--accent-text)}
+.bubble{align-self:flex-end;background:var(--surface-1);border:.5px solid var(--border);border-radius:12px 12px 4px 12px;padding:6px 11px;font-size:12px;color:var(--text-primary);margin:12px 0}
+.pair{display:flex;align-items:center;gap:8px;margin:6px 0}
+.legend{margin-top:2.5rem;font-size:12px;color:var(--text-secondary);background:var(--surface-1);border:.5px solid var(--border);border-radius:12px;padding:1rem 1.25rem}
+.legend b{font-weight:500}
+.legend ul{margin:.6rem 0 0;padding-left:1.1rem}
+.legend li{margin:.25rem 0}
+/* Re-seeing additions: the person's own text, their marks, and what is lifted out */
+.story{font-size:12px;line-height:1.7;color:var(--text-primary);background:var(--surface-1);border:.5px solid var(--border);border-radius:8px;padding:9px 11px;margin-top:10px}
+.story.cam{background:var(--surface-2);border:1px solid var(--accent-border)}
+.read{background:var(--warn-bg);color:var(--warn-text);border-bottom:1px solid var(--warn-border);border-radius:3px;padding:0 2px}
+.cand{border-bottom:1px dotted var(--text-muted)}
+.gap{display:inline-block;min-width:34px;height:12px;vertical-align:middle;border:.5px dashed var(--border-strong);border-radius:3px;margin:0 2px}
+.mend{color:var(--accent-text);border-bottom:.5px solid var(--accent-border)}
+.made{font-size:11px;color:var(--warn-text);background:var(--warn-bg);border:.5px solid var(--warn-border);border-radius:6px;padding:7px 9px;margin-top:8px;line-height:1.55}
+.made b{font-weight:500;display:block;margin-bottom:2px}
+.lbl{font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);margin:10px 0 0}
+.tap{border-left:2px solid var(--accent-border);padding-left:8px;font-size:12px;margin-top:8px;color:var(--text-primary)}
+.no{font-size:12px;line-height:1.75;color:var(--text-secondary);margin-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Reflect Act 1 — Re-seeing · wireframes</h1>
+  <p class="sub">Low-fidelity. Companion to <code>00-act1-concept.md</code> §4 (the spec, <code>01</code>, isn’t written yet; these frames are tagged to the concept’s sections and moves). English-only prototype · LLM-free · one running example through the sitting. The guardrails are the design.</p>
+
+  <h2>The frame &mdash; once &middot; what this is, and one worked example</h2>
+  <div class="board">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>before the first one</span></div>
+        <p class="prompt">This is a way to look again at one moment that’s still with you.</p>
+        <div class="note" style="font-size:12px;color:var(--text-secondary)">Not a diary. Not therapy. Only you can see it.</div>
+        <div class="note" style="margin-top:10px">Other people will be in your stories. That’s fine &mdash; this stays private, and nothing here is ever about them.</div>
+        <div class="warn">If what’s with you is more than a moment &mdash; if you’re not safe, or it’s too much to hold &mdash; <u>here’s where to go</u>.</div>
+        <div class="nav spring"><span class="mut">&nbsp;</span><span class="acc">show me one &rarr;</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§4.1</span> &middot; two sentences, not a lecture &middot; the third-party note lives here once (§6)</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>someone else’s &middot; 1 of 3</span><span class="dots"><i class="dot on"></i><i class="dot"></i><i class="dot"></i></span></div>
+        <div class="sub2">here’s a moment someone wrote</div>
+        <div class="story">I texted my brother Friday and again Saturday. Nothing back. He’s <span class="read">clearly avoiding me</span> <span class="read">after what I said at dinner</span>.</div>
+        <div class="note" style="margin-top:10px">They marked the parts that were <em>what they made of it</em>, not what happened.</div>
+        <div class="nav spring"><span class="mut">&nbsp;</span><span class="acc">next &rarr;</span></div>
+      </div>
+      <figcaption class="cap">worked example &middot; authored, ordinary, low-stakes</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>someone else’s &middot; 2 of 3</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i></span></div>
+        <div class="lbl">what a camera would have caught</div>
+        <div class="story cam">I texted my brother Friday and again Saturday. Nothing back.</div>
+        <div class="made"><b>what I made of it</b>clearly avoiding me &middot; because of what I said at dinner</div>
+        <div class="note spring">same words, sorted &mdash; nothing added</div>
+      </div>
+      <figcaption class="cap">the camera version, shown before it’s asked for</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>someone else’s &middot; 3 of 3</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i></span></div>
+        <div class="sub2">what they saw, afterwards</div>
+        <div class="bubble" style="align-self:flex-start;border-radius:12px 12px 12px 4px">I don’t actually know why he hasn’t answered. The dinner part was mine.</div>
+        <div class="card" style="margin-top:4px">Nothing about the weekend changed. How it looked did.</div>
+        <div class="nav spring"><span class="mut">&nbsp;</span><span class="acc">your turn &rarr;</span></div>
+      </div>
+      <figcaption class="cap">a delta, modelled &middot; the whole sitting in three screens</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>straight in</span></div>
+        <div class="center" style="margin:auto 0">
+          <div style="font-size:13px;line-height:1.6">Pick something small for the first one &mdash; small enough to look at comfortably.</div>
+          <div class="note" style="margin-top:10px">about ten minutes &middot; you can stop anywhere</div>
+        </div>
+        <div class="spring center"><span class="btn">start</span></div>
+      </div>
+      <figcaption class="cap">ends in a sitting, never in a summary</figcaption>
+    </figure>
+  </div>
+
+  <h2>Tell it, then mark your reads &mdash; moves 1&ndash;2</h2>
+  <div class="board">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>tell it</span><span class="dots"><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+        <p class="prompt">One moment from the last few days that’s still with you &mdash; a few minutes you could have filmed.</p>
+        <div class="field filled" style="line-height:1.6">At standup my manager brushed me off halfway through my update and went straight to Omid. Nobody said anything. She obviously thinks my work doesn’t matter. I didn’t speak for the rest of the meeting.</div>
+        <div class="note" style="margin-top:8px">the way it comes &mdash; nothing checks this while you write</div>
+        <div class="nav spring"><span class="link">leave</span><span class="acc">done &rarr;</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">move 1</span> &middot; free text &middot; catches silent during telling</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>tell it &middot; if it sprawls</span><span class="dots"><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+        <div class="bubble">work has been awful for months and my manager never listens</div>
+        <div class="card">That’s a lot of moments. Which one &mdash; a few minutes you could film?</div>
+        <div class="field" style="margin-top:10px">one moment inside it&hellip;</div>
+        <div class="note spring">asked after “done”, once &middot; the months stay real, they’re just not this sitting</div>
+      </div>
+      <figcaption class="cap"><span class="p">§5</span> &middot; the scale floor &middot; concreteness is the constructive form (Watkins)</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>mark your reads</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+        <p class="prompt">Tap the parts that are what you <em>made of it</em>, rather than what happened.</p>
+        <div class="story">At standup my manager brushed me off halfway through my update and went straight to Omid. Nobody said anything. <span class="read">She obviously thinks my work doesn’t matter.</span> I didn’t speak for the rest of the meeting.</div>
+        <div class="note" style="margin-top:8px">tap again to unmark &middot; there’s no right number</div>
+        <div class="nav spring"><span class="link">leave</span><span class="acc">done &rarr;</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">move 2</span> &middot; the person sees first &middot; nothing pre-highlighted</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>mark your reads &middot; after “done”</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+        <div class="story">At standup my manager <span class="cand">brushed me off</span> halfway through my update&hellip;</div>
+        <div class="card" style="margin-top:10px">“brushed me off” &mdash; camera, or read?</div>
+        <div class="chips" style="margin-top:10px"><span class="chip sel">read &mdash; mark it</span><span class="chip">it’s what happened</span></div>
+        <div class="note spring">one unmarked lexicon hit, at most two a sitting, on a cooldown &middot; “what happened” is accepted, not argued</div>
+      </div>
+      <figcaption class="cap"><span class="p">move 2</span> &middot; faux-feelings + N6-a lexicons &middot; rationed</figcaption>
+    </figure>
+  </div>
+
+  <h2>The camera version &mdash; move 3 &middot; the mirror, from their own words</h2>
+  <div class="board">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>the camera version</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+        <div class="lbl">what a camera would have caught</div>
+        <div class="story cam">At standup my manager <span class="gap"></span> halfway through my update and went straight to Omid. Nobody said anything. <span class="gap"></span> I didn’t speak for the rest of the meeting.</div>
+        <div class="made"><b>what I made of it</b>brushed me off &middot; she obviously thinks my work doesn’t matter</div>
+        <div class="note spring">seeded by lifting out only what you marked &middot; the gaps are left in on purpose</div>
+      </div>
+      <figcaption class="cap"><span class="p">§4.3</span> &middot; removal only &mdash; the software writes nothing</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>the camera version &middot; mended</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+        <div class="lbl">what a camera would have caught</div>
+        <div class="story cam">At standup my manager <span class="mend">started talking while I was</span> halfway through my update and went to Omid. Nobody said anything. I didn’t speak for the rest of the meeting.</div>
+        <div class="note" style="margin-top:8px">edit it if it reads wrong &mdash; mending it is part of looking</div>
+        <div class="nav spring"><span class="link">leave</span><span class="acc">next &rarr;</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§4.3</span> &middot; the person’s re-description, in their words</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>the camera version &middot; the look</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+        <div class="story cam">At standup my manager started talking while I was halfway through my update and went to Omid. Nobody said anything. I didn’t speak for the rest of the meeting.</div>
+        <div class="made"><b>what I made of it</b>brushed me off &middot; she obviously thinks my work doesn’t matter</div>
+        <div class="note" style="margin-top:10px;font-size:12px;color:var(--text-secondary)">Nothing’s wrong with these. They’re just not the same thing as what happened.</div>
+        <div class="nav spring"><span class="mut">&nbsp;</span><span class="acc">continue when ready &rarr;</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§4.3</span> &middot; no question on this screen &middot; it’s there to be looked at</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>what is not on this screen</span></div>
+        <div class="no">
+          <div>&#10007;&nbsp; &ldquo;38% of your story was interpretation&rdquo;</div>
+          <div>&#10007;&nbsp; &ldquo;this is mind-reading, a cognitive distortion&rdquo;</div>
+          <div>&#10007;&nbsp; evidence for / evidence against</div>
+          <div>&#10007;&nbsp; reads highlighted for you</div>
+          <div>&#10007;&nbsp; &ldquo;how upset are you now, 1&ndash;10?&rdquo;</div>
+        </div>
+        <div class="spring card">The first is the metric this tool makes most tempting. It’s forbidden, including internally.</div>
+      </div>
+      <figcaption class="cap"><span class="p">§5</span> &middot; no objectivity score &middot; no disputing &middot; no scales</figcaption>
+    </figure>
+  </div>
+
+  <h2>Step back, then what’s underneath &mdash; moves 4&ndash;5</h2>
+  <div class="board">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>step back</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot"></i><i class="dot"></i></span></div>
+        <p class="prompt">If a friend told you this happened to them, what would you notice?</p>
+        <div class="field filled">that they don’t actually know why she moved on. and that they went quiet too.</div>
+        <div class="nav spring"><span class="link">leave</span><span class="acc">next &rarr;</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">move 4</span> &middot; one prompt a sitting &middot; friend’s-eye (Grossmann &amp; Kross)</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>step back &middot; the set</span></div>
+        <div class="sub2">one of these, per sitting</div>
+        <div class="tap">If a friend told you this, what would you notice?</div>
+        <div class="tap">Tell one line of it with your own name instead of “I”.</div>
+        <div class="tap">How does this look a year from now?</div>
+        <div class="tap">From the corner of the room &mdash; why did this happen?</div>
+        <div class="note spring">never “why do I always&hellip;” &mdash; that’s the close-up why &middot; which one, and whether it rotates, is a dial</div>
+      </div>
+      <figcaption class="cap"><span class="p">move 4</span> &middot; four separately-evidenced distancing moves</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>what’s underneath</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot"></i></span></div>
+        <div class="sub2">tap a line</div>
+        <div class="tap">I didn’t speak for the rest of the meeting.</div>
+        <div class="sub2">what were you feeling there?</div>
+        <div class="chips"><span class="chip sel">hurt</span><span class="chip sel">embarrassed</span><span class="chip">anxious</span><span class="chip">flat</span><span class="chip esc">other</span></div>
+        <div class="sub2">and what did that point at?</div>
+        <div class="chips"><span class="chip sel">to be heard</span><span class="chip">to matter</span><span class="chip">respect</span><span class="chip esc">other</span></div>
+        <div class="nav spring"><span class="link">not sure &mdash; that’s fine</span><span class="acc">next &rarr;</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">move 5</span> &middot; anchored to a line &middot; Module 1 palettes, broadened, same ids</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>what’s underneath &middot; more than one</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot"></i></span></div>
+        <p class="prompt">Anything else in play? Does anything pull the other way?</p>
+        <div class="chips"><span class="chip">rest</span><span class="chip sel">to not make a scene</span><span class="chip">belonging</span><span class="chip esc">other</span></div>
+        <div class="pair" style="margin-top:14px"><span class="chip sel">to be heard</span><span class="mut">&harr;</span><span class="chip sel">to not make a scene</span></div>
+        <div class="note spring">invited, never required &middot; two needs side by side, nothing resolved for you</div>
+      </div>
+      <figcaption class="cap"><span class="p">move 5</span> &middot; competing needs &mdash; mapping a conflict is itself a step back</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>in context &middot; the feeling field</span></div>
+        <div class="bubble">dismissed</div>
+        <div class="card">“dismissed” is more a read on what she did. Underneath &mdash; hurt? embarrassed? small?</div>
+        <div class="chips" style="margin-top:10px"><span class="chip">hurt</span><span class="chip">embarrassed</span><span class="chip">small</span><span class="chip esc">keep “dismissed”</span></div>
+        <div class="note spring">Module 1’s catch copy, reused &middot; keeping it is allowed</div>
+      </div>
+      <figcaption class="cap"><span class="p">move 5</span> &middot; faux-feeling catch &middot; never blocks</figcaption>
+    </figure>
+  </div>
+
+  <h2>What it clarifies, then now or hand off &mdash; move 6</h2>
+  <div class="board">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>what it clarifies</span><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i></span></div>
+        <p class="prompt">What do you see now that you didn’t when you started?</p>
+        <div class="field filled">I don’t know why she moved on &mdash; the “doesn’t matter” part was mine. And I wanted to be heard but didn’t want a scene, so I went quiet.</div>
+        <div style="margin-top:10px"><span class="chip esc">nothing yet</span></div>
+        <div class="note spring">always asked &middot; “nothing yet” is an answer, and stored as one</div>
+      </div>
+      <figcaption class="cap"><span class="p">move 6</span> &middot; the delta &middot; the feel-test’s one built-in read (§8), never scored</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>now &middot; optional</span></div>
+        <p class="prompt">Anything small you can do or ask for now?</p>
+        <div class="field filled">message her: could I have two minutes after lunch to finish the update?</div>
+        <div style="margin-top:8px"><span class="link">skip</span></div>
+        <div class="note spring">now means now &mdash; nothing here is queued or tracked</div>
+      </div>
+      <figcaption class="cap"><span class="p">move 6</span> &middot; immediate action only (the Loop §3)</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>or &mdash; where it goes</span></div>
+        <p class="prompt">If it’s not for now:</p>
+        <div class="chips" style="flex-direction:column;align-items:flex-start">
+          <span class="chip">something to learn &rarr; Learn</span>
+          <span class="chip">something to commit to later &rarr; Organize</span>
+          <span class="chip">something someone else needs &rarr; Impact</span>
+          <span class="chip sel">nothing &mdash; this was enough</span>
+        </div>
+        <div class="note spring">v1 stores the label and a line &middot; creates nothing in the other tools</div>
+      </div>
+      <figcaption class="cap"><span class="p">move 6</span> &middot; hand-off stubs &middot; re-seeing can be the whole outcome</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>close</span></div>
+        <div style="margin:16px 0 6px;font-size:13px;color:var(--text-secondary)">&#10003; seen.</div>
+        <div class="note">the camera version, and the line you wrote at the end:</div>
+        <div class="tap" style="margin-top:8px">I don’t know why she moved on &mdash; the “doesn’t matter” part was mine.</div>
+        <div class="note" style="margin-top:14px">this moment is closed now.</div>
+        <div class="spring center" style="padding-top:14px"><span class="btn">finish</span></div>
+      </div>
+      <figcaption class="cap"><span class="p">§5</span> &middot; ends moving forward &mdash; the delta, never the reads</figcaption>
+    </figure>
+  </div>
+
+  <h2>Leaving, and the log &mdash; a record, and deliberately nothing more</h2>
+  <div class="board">
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>leave &middot; any move</span></div>
+        <p class="prompt">Stop here?</p>
+        <div class="chips" style="flex-direction:column;align-items:flex-start">
+          <span class="chip">keep it for later</span>
+          <span class="chip">let it go &mdash; nothing is kept</span>
+        </div>
+        <div class="note" style="margin-top:10px">only one moment can wait at a time</div>
+        <div class="warn spring">If this has turned into more than a moment, <u>here’s where to go</u>.</div>
+      </div>
+      <figcaption class="cap"><span class="p">§4.2</span> &middot; “let it go” writes nowhere &middot; one open sitting, max</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>moments you’ve looked at</span></div>
+        <div class="sub2" style="margin-top:12px;color:var(--text-secondary)">Thursday</div>
+        <div style="border-left:2px solid var(--border);padding-left:10px;margin:6px 0 12px">
+          <div style="font-size:12px;margin:3px 0">At standup my manager started talking while I&hellip;</div>
+        </div>
+        <div class="sub2" style="color:var(--text-secondary)">last week</div>
+        <div style="border-left:2px solid var(--border);padding-left:10px;margin:6px 0">
+          <div style="font-size:12px;margin:3px 0">Dad called while I was driving and I let it ring&hellip;</div>
+        </div>
+        <div class="note spring">opening one shows the whole sitting, read-only</div>
+      </div>
+      <figcaption class="cap"><span class="p">§4.4</span> &middot; date and opening words &middot; newest first</figcaption>
+    </figure>
+
+    <figure class="frame">
+      <div class="phone">
+        <div class="bar"><span>what is not on this screen</span></div>
+        <div class="no">
+          <div>&#10007;&nbsp; &ldquo;you’ve looked at 9 moments&rdquo;</div>
+          <div>&#10007;&nbsp; &ldquo;you’ve written about work 3 times&rdquo;</div>
+          <div>&#10007;&nbsp; &ldquo;related moments&rdquo;</div>
+          <div>&#10007;&nbsp; a search box, tags, or a filter by person</div>
+          <div>&#10007;&nbsp; reopen and rework</div>
+        </div>
+        <div class="spring card">The second is pattern recognition. It’s gated behind professional review, not deferred.</div>
+      </div>
+      <figcaption class="cap"><span class="p">§5</span> &middot; no cross-entry anything &middot; the refusals are the feature</figcaption>
+    </figure>
+  </div>
+
+  <div class="legend">
+    <b>Reading the guardrails in the frames:</b>
+    <ul>
+      <li><b>The person sees first.</b> Nothing is pre-highlighted in move 2; the lexicon speaks only after “done”, about an unmarked hit, at most twice a sitting &mdash; and “it’s what happened” is accepted without argument. If the software marked the reads, it would have done the seeing.</li>
+      <li><b>The camera version is made only by removal.</b> The software lifts out what the person marked and writes nothing; the gaps are left for the person to mend, because mending is re-description. This is the model-free mirror: their own words, sorted along the one axis the pillar cares about.</li>
+      <li><b>Reads are kept, never disputed.</b> No evidence-for/against, no distortion labels, no “that’s not true”. <em>Nothing’s wrong with these; they’re just not the same thing as what happened.</em></li>
+      <li><b>No numbers anywhere</b> &mdash; no objectivity score, no intensity ratings, no before/after, no count of moments. The share-of-story-that-was-interpretation is the tempting one, and it isn’t computed even internally.</li>
+      <li><b>Catches are silent during telling.</b> Checking while someone writes teaches them to write for the checker.</li>
+      <li><b>The scale floor is a filmable moment.</b> Sprawl gets one gentle “which moment inside it?” &mdash; concrete processing is the constructive kind; abstract “what does this say about me” is the spiral.</li>
+      <li><b>The step-back prompt never asks “why do I…”.</b> A why asked close up is rumination; the same why from the corner of the room is insight.</li>
+      <li><b>Every sitting ends moving forward</b> &mdash; the delta line, then now-or-hand-off. “Nothing yet” and “nothing &mdash; this was enough” are both finished endings.</li>
+      <li><b>Leaving is always available</b>, “let it go” writes nothing, only one moment can wait at a time, and where-to-get-help sits on the frame and the leave screen.</li>
+      <li><b>Other people exist only in free text.</b> No person field, no search, no filter &mdash; the log can’t become a file on someone. Private-only; any future sharing needs de-identification first.</li>
+      <li><b>The log is a record and nothing more.</b> No cross-entry anything: “you’ve written about work three times” is pattern recognition, which is gated, not merely later.</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
