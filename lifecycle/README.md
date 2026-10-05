@@ -1,8 +1,8 @@
 # Lifecycle — how work moves from idea to closed
 
-*The method behind the lifecycle skills: the three tracks of work, the phases and their gates, where every file lives and who writes it, and the session and build rules that keep usage down. The skills themselves are specified in `skills-plan.md`.*
+*The method behind the lifecycle skills: the three tracks of work, the phases and their gates, where every file lives and who writes it, the session and build rules that keep usage down, and how lessons are kept. The skills themselves are specified in `skills-plan.md`.*
 
-**Version 0.1 · Status: plan — nothing here is built yet · 2026-10-05 · Owner: _root**
+**Version 0.2 · Status: plan — nothing here is built yet · 2026-10-05 · Owner: _root**
 
 ---
 
@@ -80,6 +80,9 @@ NN-slug/
 | `projects/<project>/` | Per-project configuration: `brief-common.md`, `review-checklist.md`, `config.md` (paths, suites, milestone script, lane resources) |
 | `bin/gate` | The mechanical gate check every phase skill runs |
 | `retros/` | Build retrospectives |
+| `learnings/inbox/` | Capture notes from `learned`, one file per session — nothing in them is acted on until consolidated |
+| `learnings/index.md` | Every integrated lesson, where it now lives, and how often it recurred |
+| `decision-log.md` | Decisions about the method itself, including each integrated lesson |
 
 Modules that predate this system stay where they are; `status.md` points at their current paths.
 
@@ -88,7 +91,9 @@ Modules that predate this system stay where they are; `status.md` points at thei
 | File | Only writer |
 |---|---|
 | `status.md` | each phase skill, **its own cell only**; `ideate` adds the row; `revise` sets `STALE`; `close-out` closes the row |
-| `STATE.md` (module or shared) | `handoff`, and `build-phase` when it launches or lands a lane |
+| `STATE.md` (module or shared) | `handoff`; `build-phase` when it launches or lands a lane; `learned` for urgent carry-overs |
+| `learnings/inbox/`, `learnings/index.md` | `learned` (capture writes notes; consolidate writes the index and, once accepted, the destinations) |
+| `lifecycle/decision-log.md` | `decision-record` |
 | Decision logs | `decision-record` |
 | Stage records, development README stage list | `verify` |
 | `tracker/canon/04-roadmap/00-state-of-the-build.md` | `verify` |
@@ -107,6 +112,7 @@ From the retrospective's findings 1, 3 and 6:
 4. **Reviews and live UX reviews run forked** — a fresh context holding only their declared inputs.
 5. **Everything a later session needs is committed**: state, phase cards, lane reports. Nothing load-bearing lives in session memory or a scratchpad.
 6. **Durable environment knowledge goes in the repo's CLAUDE.md**, not in one machine's memory.
+7. **Every session ends `handoff` → `learned` → `/clear`.** Lessons are captured as notes and never edited into instructions mid-flight; `learned --consolidate` integrates them in batches (15 notes or 14 days), with the founder accepting each change.
 
 ## 6. Build rules
 
@@ -139,7 +145,7 @@ Skills set these in their frontmatter, so the session's own model only matters b
 |---|---|---|
 | **0. Baseline** | Retrospective of the journeys build (draft done); `/usage` and `/insights` from the build machine | — |
 | **1. Foundation** | This file; `status.md` backfilled for existing modules; templates; `bin/gate`; `projects/root-app/` from the recovered brief and the plan's §0.2–0.3; CLAUDE.md in all three repos | Backfilling the status table is the first audit |
-| **2. Build side** | `lifecycle-status`, `handoff`, `decision-record`, `build-phase`, `verify`, `debug` | The journeys build's owed items (Change track); a Tracker Fix (B-15) |
+| **2. Build side** | `lifecycle-status`, `handoff`, `learned`, `decision-record`, `build-phase`, `verify`, `debug` | The journeys build's owed items (Change track); a Tracker Fix (B-15) |
 | **3. Design side** | `ideate`, `research`, `personas`, `spec`, `journeys`, `wireframes`, `eval-plan`, `build-plan` | The next new module |
 | **4. Reviews** | `ux-review` (both modes), `design-review` | That module's wireframes, then its built UI |
 | **5. Loop closers** | `revise`, `close-out` | Closing out the journeys build — which completes its retrospective |
@@ -149,4 +155,5 @@ Each stage ends by checking usage against the baseline.
 
 ## Changelog
 
+- **0.2 · 2026-10-05** — Learnings: captured per session as inbox notes, consolidated in batches; session rule 7; files and owners added.
 - **0.1 · 2026-10-05** — Plan. From the conversation that designed the system and the journeys build's retrospective, brief and state log.

@@ -1,20 +1,20 @@
 # Lifecycle — the skills, specified
 
-*Each of the eighteen lifecycle skills: what it does, how it is invoked, which model runs it, exactly what it reads and writes, its gate, and where its shape comes from. The method these skills implement is `README.md`.*
+*Each of the nineteen lifecycle skills: what it does, how it is invoked, which model runs it, exactly what it reads and writes, its gate, and where its shape comes from. The method these skills implement is `README.md`.*
 
-**Version 0.1 · Status: plan — nothing here is built yet · 2026-10-05 · Owner: _root**
+**Version 0.2 · Status: plan — nothing here is built yet · 2026-10-05 · Owner: _root**
 
 ---
 
 ## Summary
 
-Eighteen skills in four groups — every session, design, build, closing the loop — sharing one gate script, one set of templates and one configuration folder per project. Most are invoked by name only, so they cost nothing per turn until used. Reviews run forked, in a fresh context. Lanes are launched by `build-phase` with the project's common brief plus a committed phase card, and return a six-part report that `verify` reads before the diff. Each spec below names its source in this repo, so the skill is a transcription of what already worked, not an invention.
+Nineteen skills in four groups — every session, design, build, closing the loop — sharing one gate script, one set of templates and one configuration folder per project. Most are invoked by name only, so they cost nothing per turn until used. Reviews run forked, in a fresh context. Lanes are launched by `build-phase` with the project's common brief plus a committed phase card, and return a seven-part report that `verify` reads before the diff. What sessions learn about working is captured as notes and integrated in batches, never edited in place. Each spec below names its source in this repo, so the skill is a transcription of what already worked, not an invention.
 
 **Grading.** Mechanics claimed for Claude Code skills (frontmatter fields, forking, injection, skill discovery) are **documented** — read from the Claude Code skills documentation on 2026-10-05. Anything marked **verify in stage N** is a reading of that documentation not yet tried here.
 
 ## 0. Shared mechanics
 
-**Invocation.** Every skill is `disable-model-invocation: true` — invoked by name, invisible in context until then — except `debug`, which Claude may pick up on its own when a test fails. This keeps eighteen skills from adding eighteen descriptions to every turn.
+**Invocation.** Every skill is `disable-model-invocation: true` — invoked by name, invisible in context until then — except `debug`, which Claude may pick up on its own when a test fails. This keeps nineteen skills from adding nineteen descriptions to every turn.
 
 **Model and effort** are set in each skill's frontmatter (`model`, `effort`) and apply to the turn that invokes it.
 
@@ -45,7 +45,8 @@ Eighteen skills in four groups — every session, design, build, closing the loo
 **Invocation:** by name, optional module or a one-line description of new work · **Model:** Sonnet, low.
 **Reads (injected):** `status.md`; `git status -sb`; the top block of the module's `STATE.md` if a module is named.
 **Writes:** nothing.
-**Output:** in chat, under 15 lines: the track; the module's phase; what is missing or stale; the next skill to run and the model it will use.
+**Reads (injected), also:** the count and age of notes in `lifecycle/learnings/inbox/`.
+**Output:** in chat, under 15 lines: the track; the module's phase; what is missing or stale; the next skill to run and the model it will use; "inbox over cap — run `learned --consolidate`" when it is.
 **From:** the table in this conversation's first review of the repos; Spec Kit's phase order.
 
 ### `handoff`
@@ -54,7 +55,7 @@ Eighteen skills in four groups — every session, design, build, closing the loo
 **Reads:** the session's own work; `git log` since the last state block.
 **Writes:** a new block at the top of the module's `STATE.md` (or `lifecycle/STATE.md`), committed. Blocks older than the last five are deleted — stage records hold the history.
 **Block format** (≤40 lines): date and `main @ <hash>`; lanes in flight (stage, branch, database, ports, card, status); next steps in order; carry-overs; questions for the founder; owed.
-**Ends with:** "Run `/clear`."
+**Ends with:** "Run `/learned`, then `/clear`."
 **From:** the journeys orchestrator's state log (`root-app-lifecycle-build` memory), which carried the build across three compactions — moved from private memory into git.
 
 ### `decision-record`
@@ -63,6 +64,39 @@ Eighteen skills in four groups — every session, design, build, closing the loo
 **Reads (injected):** the last three entry headers of the target log (`grep`), for the next ID and the format. Never the whole log.
 **Writes:** one entry; the log's version line.
 **From:** `tracker/decisions/decision-log.md`, `ecosystem/decisions/`.
+
+### `learned`
+**Does:** captures what a session learned about *working* — the environment, the method, a skill, a model's habits; not the product, which belongs in stage records and specs. Two modes; only the second changes anything.
+
+**`learned` (capture)**
+**Invocation:** by name, at the end of a session, after `handoff` · **Model:** the session's own, low effort. **Never forked** — the session it reviews exists only in this context.
+**Reads:** nothing beyond the session itself. Capture does not deduplicate; a lesson recurring across notes is the evidence consolidation needs.
+**Writes:** one file, `lifecycle/learnings/inbox/<date>-<slug>.md`, holding **zero to three** notes. Zero is a valid result; filler is not.
+**Each note** (≤6 lines): the lesson as a rule; the evidence — the specific event in this session, with its cost if known; the scope (repo, project, method, a named skill, model behaviour); a suggested destination; `urgent: yes` if waiting for consolidation would repeat a costly mistake.
+**Urgent notes** are also copied into `STATE.md` as a carry-over, so the next session reads them without any instruction file being touched.
+**Rejects** notes that cite no specific event, that would not change a future action, or that could not be checked later.
+
+**`learned --consolidate`**
+**Invocation:** by name, when `lifecycle-status` reports the inbox over cap — **15 notes or 14 days**, whichever first — and before any `close-out` · **Model:** Opus, high, in a session of its own.
+**Reads:** every note in the inbox; `lifecycle/learnings/index.md`; the line count and headings of each candidate destination.
+**Does:**
+1. Cluster the notes by lesson; count recurrences.
+2. Decide each cluster: **integrate** (seen twice or more, or once at high cost) · **hold** (seen once, cheap — stays in the inbox for the next batch) · **discard** (already integrated, obsolete, or not specific).
+3. For each integration, draft the exact edit at its destination:
+
+| Kind of lesson | Destination |
+|---|---|
+| Repo or environment gotcha | that repo's CLAUDE.md (kept under 200 lines — over it, propose what moves out) |
+| How lanes should work | `projects/<project>/brief-common.md` |
+| How a phase should be done | that skill's reference file |
+| What reviews should check | `projects/<project>/review-checklist.md` |
+| A change to the method | this plan or `README.md`, through `revise` |
+
+4. Present the batch as one proposal; the founder accepts, edits or rejects each item.
+5. Apply the accepted edits; write one `decision-record` entry per integration in `lifecycle/decision-log.md`; add each to `index.md`; delete the processed notes (git keeps them); commit.
+
+**Owns:** the inbox and `index.md`. Edits to founder-owned files (templates, project configs, this plan) happen only through step 4's acceptance.
+**From:** the journeys build's state log, whose lessons ("rerun every test asserting a changed shared rule", "background Bash ignores a leading `cd`") were its most valuable lines and lived only on one machine.
 
 ## 2. Design
 
@@ -159,7 +193,8 @@ Eighteen skills in four groups — every session, design, build, closing the loo
   3. every suite run, with exact counts, or why not;
   4. decisions the brief did not make;
   5. where the plan or brief was wrong, vague or incomplete against the code;
-  6. what could not be verified.
+  6. what could not be verified;
+  7. one thing that would have made this stage faster, or "nothing".
 
 ### `debug`
 **Does:** bounded debugging.
@@ -195,7 +230,8 @@ Nothing else until the diff points somewhere.
 7. Move owed items and anything past the verification ceiling to `team/open-work.md`.
 8. Flag canon files the stage made stale.
 9. Update the stage list and `00-state-of-the-build.md` where they apply.
-10. Report "ready to fast-forward" or what blocks it.
+10. Submit the lane report's item 7, and any lesson from the review itself, to the learnings inbox as a capture note.
+11. Report "ready to fast-forward" or what blocks it.
 
 **Milestone mode:** run the project's milestone script, one heavy runner at a time; record the counts in the development README.
 **Returns:** at most 15 lines.
@@ -253,7 +289,8 @@ Nothing else until the diff points somewhere.
 **Model:** Opus, high.
 **Reads:** the eval plan and its results; every stage record's *decided* and *owed* sections; `STATE.md`; the canon-sync flags.
 **Writes:**
-- `09-close-out.md`: the evaluation result against the rule written beforehand; what the plan did not know, aggregated; the module's cost (sessions, share of weekly limits, lanes); a short retrospective.
+- `09-close-out.md`: the evaluation result against the rule written beforehand; what the plan did not know, aggregated; the module's cost (sessions, share of weekly limits, lanes); a short retrospective, including the lessons consolidated during the module.
+- Requires the learnings inbox consolidated first.
 - Moves documents from `working/` or `drafts/` into canon, per the area's conventions.
 - Applies the canon-sync flags to the as-built canon.
 - Updates the roadmap.
@@ -273,8 +310,9 @@ Stage 1 (foundation) is files, not skills:
 - `projects/tracker/` from `tracker/canon/02-architecture/04-conventions.md` and `03-engineering/01-testing.md`;
 - CLAUDE.md in all three repos — `root-app`'s carrying the environment knowledge from the build machine's memory.
 
-Stage 2 builds `lifecycle-status`, `handoff`, `decision-record`, `build-phase`, `verify` and `debug`, each written with `skill-creator` and tried on real work before stage 3. The rest follow the rollout in `README.md` §8.
+Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `build-phase`, `verify` and `debug`, each written with `skill-creator` and tried on real work before stage 3. The rest follow the rollout in `README.md` §8.
 
 ## Changelog
 
+- **0.2 · 2026-10-05** — `learned` added: capture to an inbox, consolidate in batches; lane report gains item 7; `verify`, `handoff`, `lifecycle-status` and `close-out` wired to it.
 - **0.1 · 2026-10-05** — Plan. Eighteen skills specified from the design conversation, the journeys build's documents, brief and state log, and the Claude Code skills documentation.
