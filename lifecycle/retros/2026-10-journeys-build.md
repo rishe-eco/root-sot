@@ -2,7 +2,7 @@
 
 *What the largest build to date cost, where the cost went, and what the lifecycle system changes because of it. Stage 0 of the lifecycle plan: the baseline every later build is measured against.*
 
-**Version 0.2 · Status: draft — completed once the journeys dev process is fully done · 2026-10-05 · Owner: _root**
+**Version 0.3 · Status: draft — completed once the journeys dev process is fully done · 2026-10-05 · Owner: _root**
 
 ---
 
@@ -75,9 +75,9 @@ The five together ≈843M, about 43% of all lane input; J1 alone ≈14% *(analys
 3. **Lanes straddled limit resets.** J1 overnight, J8 ≈9 h across limit hits, J12 killed mid-run. A lane resumed hours later re-reads its context uncached; a fresh lane from the brief and the WIP commit is cheaper.
 4. **Parallel lanes collided on schema.** J8 had to absorb J9a's `Demo.projectId` change. Parallelism was not the problem; two lanes changing shared schema at once was.
 5. **Smaller leaks.** Full e2e runs inside lanes, against the build's own milestone rule; test fixtures tied to today's date; the 117 KB plan and 94 KB spec written inside the session that then orchestrated, so they sat in its context from day one.
-6. **Process state outside git did not survive.** The orchestrator's memory file — what actually carried the build across three compactions — cannot be retrieved, and `brief-common.md` and the stage briefs were never committed. The stage records, which were committed, are the part of the process that remains usable. Anything a later session needs — handoffs, briefs — belongs in the repo.
+6. **Process state lived outside git.** The orchestrator's memory files and the stage briefs survived only because they sat in `~/.claude` on the build machine — the briefs were copied there on purpose after the session scratchpad proved volatile — and were recovered by hand on 2026-10-05. Another account, another machine, or a second developer would not have had them. The memory also held durable environment knowledge that belongs in `root-app`'s CLAUDE.md, not in one machine's memory: start Docker Desktop first; `E2E_BROWSER_CHANNEL=msedge`; `prisma generate` after every `npm install`; revert the lockfile's `fsevents` noise; background Bash ignores a leading `cd`; never `git add -A` in the main checkout (agent worktrees would be committed as embedded repos).
 
-**What worked, and is kept:** stage briefs that name exact sections (better than loading documents whole); Sonnet builds, Opus reviews; a standing per-project review checklist; stage records with *decided* and *owed* sections; a worktree, database and port set per lane; the pre-build defect pass (`defects-found.md`, nine of ten fixed inside their assigned stages).
+**What worked, and is kept:** stage briefs that name exact sections (better than loading documents whole); `brief-common.md` — one shared lane brief holding environment, git rules, style and a six-part **lane report** (branch and hashes, files and why, exact suite counts, decisions the brief did not make, where the plan was wrong or vague, what could not be verified) that the reviewer reads before the diff; the orchestrator's **rolling state log** (main @ hash, lanes in flight with branch/database/ports/brief, next, carry-overs, open founder questions, owed); Sonnet builds, Opus reviews; a standing per-project review checklist; stage records with *decided* and *owed* sections; a worktree, database and port set per lane; the pre-build defect pass (`defects-found.md`, nine of ten fixed inside their assigned stages).
 
 ## 5. What changes in the lifecycle *(analysis — adopted into the plan)*
 
@@ -98,7 +98,7 @@ The five together ≈843M, about 43% of all lane input; J1 alone ≈14% *(analys
 ## 6. Open — to complete this retrospective
 
 - [x] **The source documents are pushed** — `7fb81fc` (user journeys 0.7, build plan 0.2) on `root-sot` branch `journeys-build`, 2026-10-05. Not yet on `main`.
-- [ ] The orchestrator's memory file is not retrievable (§4 finding 6); `brief-common.md` and one stage brief, if the build machine still has them.
+- [x] The orchestrator's memory files and `brief-common.md` recovered from the build machine, 2026-10-05 (§4 finding 6). Read as evidence; not committed — they hold machine paths and unrelated projects.
 - [ ] **Final cost**, once the remaining dev work (owed items, review, merge to `main`) is done — the figures above stop at Oct 5 morning.
 - [ ] **Owed items consolidated** from the stage records into `team/open-work.md` (e.g. J12: Persian native read of new strings, phone width, print).
 - [ ] `/usage` (7-day attribution and flags) and `/insights` from the build machine, to check §3 against Claude Code's own breakdown.
@@ -109,5 +109,6 @@ The five together ≈843M, about 43% of all lane input; J1 alone ≈14% *(analys
 
 ## Changelog
 
+- **0.3 · 2026-10-05** — Memory files and `brief-common.md` recovered: finding 6 corrected (state survived, but only on one machine); lane report and state log added to what worked.
 - **0.2 · 2026-10-05** — Source documents found pushed; finding 6 (process state outside git) added.
 - **0.1 · 2026-10-05** — Draft. Built from `journeys-build` @ `267a71d` and the build session's transcript-based account. Sections 1–5 written; §6 lists what completes it.
