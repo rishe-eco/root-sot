@@ -2,7 +2,7 @@
 
 *Each of the nineteen lifecycle skills: what it does, how it is invoked, which model runs it, exactly what it reads and writes, its gate, and where its shape comes from. The method these skills implement is `README.md`.*
 
-**Version 0.3 · Status: plan — nothing here is built yet · 2026-10-06 · Owner: _root**
+**Version 0.4 · Status: plan — nothing here is built yet · 2026-10-06 · Owner: _root**
 
 ---
 
@@ -129,7 +129,8 @@ Nineteen skills in four groups — every session, design, build, closing the loo
 **Model:** Opus, high.
 **Asks first:** up to eight clarifying questions in one batch.
 **Writes:** `02-spec.md` in the house template — what it is, metrics, interface requirements, risks, acceptance criteria, changelog; references the journeys file rather than restating it.
-**Gate:** research, or a waiver line in the intake.
+**Writes, in `change` mode:** `changes/NN-slug.md` — what changes and why, acceptance criteria, what must not break, and a **Stages** section: one or more stages in the build plan's §5 shape, each with a size (S/M/L) and its traps. This section is what `build-phase` and `verify` read in place of a build plan; a change too large to stage here is a Module.
+**Gate:** research, or a waiver line in the intake (`full`); none (`change`).
 **From:** `tracker/canon/06-specs/04-verification-lab.md`; Superpowers' brainstorming questions.
 
 ### `journeys`
@@ -167,11 +168,12 @@ Nineteen skills in four groups — every session, design, build, closing the loo
 
 ### `build-phase`
 **Does:** launches a stage as a lane, or lands one.
-**Invocation:** `build-phase <stage>` to launch · `build-phase <stage> --land` after the lane reports.
+**Invocation:** `build-phase <stage>` to launch · `build-phase <stage> --land` after the lane reports. On the Change track, `<stage>` names a stage in a change note (`changes/NN-slug.md#<stage>`).
+**Gate:** the build plan, or a change note with a Stages section.
 **Model:** Opus, medium (it drafts the card; the lane is Sonnet).
 **Launch:**
 1. Run the gate. Check `STATE.md`: at most two lanes in flight, no other lane touching shared schema.
-2. Draft the phase card from the plan's §5 section and the code as it is now: 500–700 words, naming exactly which plan sections, journeys sections and earlier stage records to read. Commit it as `briefs/<stage>.md`.
+2. Draft the phase card from the plan's §5 section — or the change note's stage — and the code as it is now: 500–700 words, naming exactly which plan sections, journeys sections and earlier stage records to read. Commit it as `briefs/<stage>.md`.
 3. Assign lane resources from `config.md`: branch, test database, ports.
 4. Launch a background Sonnet subagent in its own worktree with `brief-common.md` + the card.
 5. Record the lane in `STATE.md`.
@@ -214,7 +216,7 @@ Nineteen skills in four groups — every session, design, build, closing the loo
 **Reads (injected):**
 - the lane report;
 - `git diff --stat main...<branch>`;
-- the phase card and the plan's §5 section for the stage;
+- the phase card and the plan's §5 section for the stage, or the change note's stage;
 - `review-checklist.md`;
 - for UI stages, `design-review`'s reference checklist.
 
@@ -315,6 +317,7 @@ Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `bui
 
 ## Changelog
 
+- **0.4 · 2026-10-06** — Change track: `spec change` writes a Stages section into the change note; `build-phase` gates on and drafts cards from it; `verify` reads it in place of the plan's §5.
 - **0.3 · 2026-10-06** — Consistency pass against `README.md`: gate always exits 0 (a failing injected command aborts the skill) and passes `n/a`; decision-log entries from `personas`, `revise` and `learned` use `decision-record`'s format; `revise` gains a method mode; `close-out` gains a gate line; `build-plan`'s gate matches the README; canon flags go in the stage record; state-of-the-build file is per project; source paths completed.
 - **0.2 · 2026-10-05** — `learned` added: capture to an inbox, consolidate in batches; lane report gains item 7; `verify`, `handoff`, `lifecycle-status` and `close-out` wired to it.
 - **0.1 · 2026-10-05** — Plan. Eighteen skills specified from the design conversation, the journeys build's documents, brief and state log, and the Claude Code skills documentation.

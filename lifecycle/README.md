@@ -2,7 +2,7 @@
 
 *The method behind the lifecycle skills: the three tracks of work, the phases and their gates, where every file lives and who writes it, the session and build rules that keep usage down, and how lessons are kept. The skills themselves are specified in `skills-plan.md`.*
 
-**Version 0.3 · Status: plan — nothing here is built yet · 2026-10-06 · Owner: _root**
+**Version 0.4 · Status: plan — nothing here is built yet · 2026-10-06 · Owner: _root**
 
 ---
 
@@ -31,7 +31,7 @@ The design is drawn from what already worked in this repo — the journeys build
 | Track | Example | Path |
 |---|---|---|
 | **Module** | Loophole Lens; a new lab; the journeys build | every phase below |
-| **Change** | Inline tag creation (D-58) | change note → stages → verify → decision record |
+| **Change** | Inline tag creation (D-58) | change note (with its stages) → `build-phase` → verify → decision record |
 | **Fix** | B-15, status always "Backlog" | debug → verify → decision record |
 
 `lifecycle-status` sorts incoming work into a track. When in doubt between Change and Module: if it needs new journeys or new screens, it is a Module.
@@ -48,7 +48,7 @@ The design is drawn from what already worked in this repo — the journeys build
 | 5 | UX review | `ux-review` (wireframes mode) | `05-ux-review.md` | wireframes, journeys |
 | 6 | Eval plan | `eval-plan` | `06-eval-plan.md` | spec |
 | 7 | Build plan | `build-plan` | `07-build-plan.md` | 2–6, UX findings closed or carried |
-| 8 | Build | `build-phase` → `verify` per stage | phase cards in `briefs/`; stage records in the code repo | build plan |
+| 8 | Build | `build-phase` → `verify` per stage | phase cards in `briefs/`; stage records in the code repo | build plan (Change track: a change note with a Stages section) |
 | 9 | Live review | `ux-review` (live), `design-review` | appended to `05-…`; `08-design-review.md` | UI stages verified |
 | 10 | Close-out | `close-out` | `09-close-out.md` | every stage verified, milestones green, learnings inbox consolidated |
 
@@ -119,7 +119,7 @@ From the journeys build, kept or corrected:
 
 1. **Sonnet lanes build; Opus reviews, fixes, merges and records.** Kept.
 2. **One stage per lane, one lane per worktree**, with its own test database and ports (from `projects/<project>/config.md`). Kept.
-3. **Phase cards are drafted just in time** from the plan's stage section and the code as it is then, and committed before the lane launches. Kept, plus committing.
+3. **Phase cards are drafted just in time** from the plan's stage section — or, on the Change track, the change note's — and the code as it is then, and committed before the lane launches. Kept, plus committing.
 4. **At most two lanes at once, and never two that change shared schema.** Corrected (J8 and J9a).
 5. **Lane budget:** each stage has a size (S/M/L). A lane past twice its size, after three failed hypotheses on one failure, or near a limit reset commits its work in progress, writes its report and stops; a fresh lane continues from the branch. New (J1, J8).
 6. **No debugging through the e2e suite.** An environmental cause — rate limits, time, the database — means fixing the test setup, not rerunning. New (J1).
@@ -157,6 +157,7 @@ Each stage ends by checking usage against the baseline.
 
 ## Changelog
 
+- **0.4 · 2026-10-06** — Change track builds from its change note: the note carries a Stages section and `build-phase` accepts it in place of a build plan.
 - **0.3 · 2026-10-06** — Consistency pass against `skills-plan.md`: lane report is seven-part; every `STATE.md`, inbox and decision-log writer listed; state-of-the-build file is per project; founder-owned files also change through accepted consolidations; close-out gate requires a consolidated inbox; `n/a` phases pass the gate; models for `learned` and `debug`; `projects/tracker/` in stage 1.
 - **0.2 · 2026-10-05** — Learnings: captured per session as inbox notes, consolidated in batches; session rule 7; files and owners added.
 - **0.1 · 2026-10-05** — Plan. From the conversation that designed the system and the journeys build's retrospective, brief and state log.
