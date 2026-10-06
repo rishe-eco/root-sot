@@ -2,7 +2,7 @@
 
 *Each of the nineteen lifecycle skills: what it does, how it is invoked, which model runs it, exactly what it reads and writes, its gate, and where its shape comes from. The method these skills implement is `README.md`.*
 
-**Version 0.2 · Status: plan — nothing here is built yet · 2026-10-05 · Owner: _root**
+**Version 0.3 · Status: plan — nothing here is built yet · 2026-10-06 · Owner: _root**
 
 ---
 
@@ -22,9 +22,9 @@ Nineteen skills in four groups — every session, design, build, closing the loo
 
 **Injection.** Skills pull their inputs with `!` commands at invocation — the gate result, the status row, the top of `STATE.md`, a diff stat — so the model does not spend turns fetching them.
 
-**The gate.** `lifecycle/bin/gate <module> <phase>` checks that the phase's inputs exist, contain the headings listed in `templates/required-headings.txt`, and are not marked `STALE` in `status.md`. Exit 0 prints `GATE OK`; otherwise it prints what is missing and the skill stops and says so. A script runs without entering context; only its output does.
+**The gate.** `lifecycle/bin/gate <module> <phase>` checks that the phase's inputs exist, contain the headings listed in `templates/required-headings.txt`, and are not marked `STALE` in `status.md`; a phase marked `n/a` passes. It prints `GATE OK`, or `GATE FAIL` and what is missing, and the skill stops and says so. It **always exits 0**: an injected `!` command that exits non-zero aborts the whole skill invocation before Claude sees it (documented), so a failing gate could not be reported. Skills call it by a path relative to their own directory (`${CLAUDE_SKILL_DIR}`), since injected commands run in the session's current directory, which may be a code repo. A script runs without entering context; only its output does.
 
-**Where the skills live until the plugin (stage 6).** All in `root-sot/.claude/skills/`. A session in a code repo loads them by adding `root-sot` as an additional directory (`--add-dir ../root-sot`, or `/add-dir`). *Verify in stage 1* how cloud sessions with several repositories expose additional-directory skills; if they do not, copy the build-side skills into each code repo until stage 6.
+**Where the skills live until the plugin (stage 6).** All in `root-sot/.claude/skills/`. A session in a code repo loads them by adding `root-sot` as an additional directory (`--add-dir ../root-sot`, or `/add-dir`) — documented: added directories' `.claude/skills/` are loaded and watched. *Verify in stage 1* how cloud sessions with several repositories expose additional-directory skills; if they do not, copy the build-side skills into each code repo until stage 6.
 
 **Skills do not call skills.** Skill-to-skill invocation is not documented. Where one skill needs another's checklist, both load the same reference file; where a sequence is needed, the skill ends by naming the next one.
 
@@ -43,9 +43,8 @@ Nineteen skills in four groups — every session, design, build, closing the loo
 ### `lifecycle-status`
 **Does:** shows where things stand and what comes next; sorts new work into a track.
 **Invocation:** by name, optional module or a one-line description of new work · **Model:** Sonnet, low.
-**Reads (injected):** `status.md`; `git status -sb`; the top block of the module's `STATE.md` if a module is named.
+**Reads (injected):** `status.md`; `git status -sb`; the top block of the module's `STATE.md` if a module is named; the count and age of notes in `lifecycle/learnings/inbox/`.
 **Writes:** nothing.
-**Reads (injected), also:** the count and age of notes in `lifecycle/learnings/inbox/`.
 **Output:** in chat, under 15 lines: the track; the module's phase; what is missing or stale; the next skill to run and the model it will use; "inbox over cap — run `learned --consolidate`" when it is.
 **From:** the table in this conversation's first review of the repos; Spec Kit's phase order.
 
@@ -93,9 +92,9 @@ Nineteen skills in four groups — every session, design, build, closing the loo
 | A change to the method | this plan or `README.md`, through `revise` |
 
 4. Present the batch as one proposal; the founder accepts, edits or rejects each item.
-5. Apply the accepted edits; write one `decision-record` entry per integration in `lifecycle/decision-log.md`; add each to `index.md`; delete the processed notes (git keeps them); commit.
+5. Apply the accepted edits; write one entry per integration in `lifecycle/decision-log.md`, in `decision-record`'s format; add each to `index.md`; delete the processed notes (git keeps them); commit.
 
-**Owns:** the inbox and `index.md`. Edits to founder-owned files (templates, project configs, this plan) happen only through step 4's acceptance.
+**Owns:** the inbox and `index.md` (`verify` also drops one capture note per review into the inbox). Edits to founder-owned files (templates, project configs, this plan) happen only through step 4's acceptance.
 **From:** the journeys build's state log, whose lessons ("rerun every test asserting a changed shared rule", "background Bash ignores a leading `cd`") were its most valuable lines and lived only on one machine.
 
 ## 2. Design
@@ -120,7 +119,7 @@ Nineteen skills in four groups — every session, design, build, closing the loo
 **Does:** selects which registered personas a module serves; rarely, proposes a new one.
 **Model:** Sonnet, medium.
 **Reads:** `personas.md`; the intake.
-**Writes:** the selection into the module's `03-journeys.md` header; a proposed persona into `personas.md` marked *hypothesis*, with a `decision-record` entry.
+**Writes:** the selection into the module's `03-journeys.md` header (creating the file; `journeys` fills it); a proposed persona into `personas.md` marked *hypothesis*, with a decision-log entry in `decision-record`'s format.
 **Rule:** never redefines an existing persona — the persona review's score history depends on them being fixed.
 **From:** `tracker/canon/05-reviews/00-persona-review-method.md` §2.
 
@@ -139,7 +138,7 @@ Nineteen skills in four groups — every session, design, build, closing the loo
 **Model:** Opus, high.
 **Writes:** `03-journeys.md`.
 **Gate:** spec; personas selected.
-**From:** `ecosystem/working/root-studio-user-journeys.md` (the `gap` mode); the Impact spec's flows (the `new` mode); bug B-14 as the case it exists to catch.
+**From:** `ecosystem/working/root-studio-user-journeys.md` on branch `journeys-build`, not yet on `main` (the `gap` mode); the Impact spec's flows, `ecosystem/working/impact-build/01-noticing-spec.md` (the `new` mode); bug B-14 as the case it exists to catch.
 
 ### `wireframes`
 **Does:** low-fidelity HTML for every journey step, including empty, error, loading and not-enough-data states.
@@ -160,9 +159,9 @@ Nineteen skills in four groups — every session, design, build, closing the loo
 **Model:** Opus, high.
 **Reads:** spec, journeys, wireframes, UX review, eval plan; `projects/<project>/`; the existing code — a defect pass, read before planning.
 **Writes:** `07-build-plan.md` in the journeys plan's shape — §0 what was read, what must not break, house rules, defects found and assigned · §1 the shape at the end · §2 planning decisions (PD-n), each vetoable · §3 stage order, milestones, parallel lanes allowed (never two touching shared schema) · §4 pre-flight unknowns · §5 one section per stage, to the level of models, mutations, refusal codes, screens and tests, with a **size (S/M/L)** and its **traps** · §6 cross-cutting catalogues · §7 what changes in built code · §8 verification and its ceiling · §9 where this goes wrong · §10 for the founder.
-**Gate:** phases 2–6.
+**Gate:** phases 2–6; UX findings closed or carried.
 **Rule:** this session ends once the plan is committed and pushed. The build starts fresh.
-**From:** `ecosystem/working/root-studio-journeys-build-plan.md`.
+**From:** `ecosystem/working/root-studio-journeys-build-plan.md` on branch `journeys-build`, not yet on `main`.
 
 ## 3. Build
 
@@ -228,8 +227,8 @@ Nothing else until the diff points somewhere.
 5. Rerun the affected test files, and every file asserting a changed shared rule.
 6. Write the stage record in the code repo (shape of `J12.md`: built · decided · owed · verification).
 7. Move owed items and anything past the verification ceiling to `team/open-work.md`.
-8. Flag canon files the stage made stale.
-9. Update the stage list and `00-state-of-the-build.md` where they apply.
+8. Flag canon files the stage made stale, in the stage record, where `close-out` collects them.
+9. Update the stage list and the project's state-of-the-build file (from `config.md`) where they apply.
 10. Submit the lane report's item 7, and any lesson from the review itself, to the learnings inbox as a capture note.
 11. Report "ready to fast-forward" or what blocks it.
 
@@ -242,8 +241,8 @@ Nothing else until the diff points somewhere.
 **Invocation:** by name, on a stage or a screen · **Model:** Opus, high · **Forked.**
 **Reads:**
 - the summary sections of `ecosystem/canon/01-philosophy/01-brand-definition.md`;
-- `apps/web/src/styles/tokens.css`;
-- the type and spacing rules from `root-website-requirements_2.md`;
+- the code repo's `apps/web/src/styles/tokens.css`;
+- the type and spacing rules from `ecosystem/working/root-website-requirements_2.md`;
 - its own reference checklist: accessibility gates (contrast, touch targets, text scaling, keyboard, screen reader); hierarchy, feedback and consistency; right-to-left rules.
 
 **Writes:** findings to `08-design-review.md`, each as What / Why (citing a source) / Fix, ranked blocker / defect / polish.
@@ -275,22 +274,24 @@ Nothing else until the diff points somewhere.
 ### `revise`
 **Does:** carries a change back upstream.
 **Model:** Opus, medium.
-**Input:** a change request — from a lane report's item 5, a review, or a live UX finding.
-**Writes:**
+**Input:** a change request — from a lane report's item 5, a review, or a live UX finding; or a change to the method itself.
+**Writes,** for a module:
 - `changes/NN-slug.md`;
 - the spec's version bump and changelog line;
 - `STALE` in `status.md` on every downstream phase the change invalidates;
-- a `decision-record` entry.
+- a decision-log entry in `decision-record`'s format.
+
+**For the method** (`lifecycle/` files): the edit, the file's version and changelog line, and an entry in `lifecycle/decision-log.md`. No status cells.
 
 **From:** the journeys build's mid-plan changes (J9 split, J13's "signed" rule).
 
 ### `close-out`
 **Does:** finishes a module.
 **Model:** Opus, high.
+**Gate:** every stage verified, milestones green, the learnings inbox consolidated.
 **Reads:** the eval plan and its results; every stage record's *decided* and *owed* sections; `STATE.md`; the canon-sync flags.
 **Writes:**
 - `09-close-out.md`: the evaluation result against the rule written beforehand; what the plan did not know, aggregated; the module's cost (sessions, share of weekly limits, lanes); a short retrospective, including the lessons consolidated during the module.
-- Requires the learnings inbox consolidated first.
 - Moves documents from `working/` or `drafts/` into canon, per the area's conventions.
 - Applies the canon-sync flags to the as-built canon.
 - Updates the roadmap.
@@ -314,5 +315,6 @@ Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `bui
 
 ## Changelog
 
+- **0.3 · 2026-10-06** — Consistency pass against `README.md`: gate always exits 0 (a failing injected command aborts the skill) and passes `n/a`; decision-log entries from `personas`, `revise` and `learned` use `decision-record`'s format; `revise` gains a method mode; `close-out` gains a gate line; `build-plan`'s gate matches the README; canon flags go in the stage record; state-of-the-build file is per project; source paths completed.
 - **0.2 · 2026-10-05** — `learned` added: capture to an inbox, consolidate in batches; lane report gains item 7; `verify`, `handoff`, `lifecycle-status` and `close-out` wired to it.
 - **0.1 · 2026-10-05** — Plan. Eighteen skills specified from the design conversation, the journeys build's documents, brief and state log, and the Claude Code skills documentation.

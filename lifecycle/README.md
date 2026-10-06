@@ -2,7 +2,7 @@
 
 *The method behind the lifecycle skills: the three tracks of work, the phases and their gates, where every file lives and who writes it, the session and build rules that keep usage down, and how lessons are kept. The skills themselves are specified in `skills-plan.md`.*
 
-**Version 0.2 · Status: plan — nothing here is built yet · 2026-10-05 · Owner: _root**
+**Version 0.3 · Status: plan — nothing here is built yet · 2026-10-06 · Owner: _root**
 
 ---
 
@@ -22,7 +22,7 @@ The design is drawn from what already worked in this repo — the journeys build
 | **Milestone** | A group of stages after which the full suites run (M1 …) | — |
 | **Lane** | A Sonnet subagent building one stage in its own worktree, test database and ports | a track |
 | **Phase card** | The 500–700-word brief a lane gets for its stage, naming exactly what to read | the plan |
-| **Lane report** | The six-part final message a lane returns; the reviewer reads it before the diff | the stage record |
+| **Lane report** | The seven-part final message a lane returns; the reviewer reads it before the diff | the stage record |
 | **Stage record** | The reviewed, committed account of a stage, next to the code (`docs/development/<stage>.md`) | the lane report |
 | **Gate** | A mechanical check a skill runs before starting: files exist, required sections present, nothing stale | a sign-off (there is none) |
 
@@ -50,9 +50,9 @@ The design is drawn from what already worked in this repo — the journeys build
 | 7 | Build plan | `build-plan` | `07-build-plan.md` | 2–6, UX findings closed or carried |
 | 8 | Build | `build-phase` → `verify` per stage | phase cards in `briefs/`; stage records in the code repo | build plan |
 | 9 | Live review | `ux-review` (live), `design-review` | appended to `05-…`; `08-design-review.md` | UI stages verified |
-| 10 | Close-out | `close-out` | `09-close-out.md` | every stage verified, milestones green |
+| 10 | Close-out | `close-out` | `09-close-out.md` | every stage verified, milestones green, learnings inbox consolidated |
 
-Phases 3, 4, 5 and 9 apply only to modules with UI. Back-end-only modules mark them `n/a`.
+Phases 3, 4, 5 and 9 apply only to modules with UI. Back-end-only modules mark them `n/a`, and the gate passes an `n/a` phase.
 
 ## 3. Where things live
 
@@ -63,7 +63,7 @@ NN-slug/
   STATE.md               rolling state, newest first — what a fresh session reads first
   00-intake.md … 07-build-plan.md, 08-design-review.md, 09-close-out.md
   briefs/                phase cards (<stage>.md) and lane reports (<stage>.report.md) — committed
-  changes/               numbered change requests from `revise`
+  changes/               numbered change notes from `spec change` and change requests from `revise`
 ```
 
 **Next to the code**, in the code repo: stage records (`docs/development/<stage>.md`) and the development README's stage list — as the journeys build did. The code repo keeps a one-line pointer to the module folder.
@@ -91,20 +91,19 @@ Modules that predate this system stay where they are; `status.md` points at thei
 | File | Only writer |
 |---|---|
 | `status.md` | each phase skill, **its own cell only**; `ideate` adds the row; `revise` sets `STALE`; `close-out` closes the row |
-| `STATE.md` (module or shared) | `handoff`; `build-phase` when it launches or lands a lane; `learned` for urgent carry-overs |
-| `learnings/inbox/`, `learnings/index.md` | `learned` (capture writes notes; consolidate writes the index and, once accepted, the destinations) |
-| `lifecycle/decision-log.md` | `decision-record` |
-| Decision logs | `decision-record` |
+| `STATE.md` (module or shared) | `handoff`; `ideate` creates it; `build-phase` when it launches or lands a lane; `debug` when it stops after three failed hypotheses; `learned` for urgent carry-overs |
+| `learnings/inbox/`, `learnings/index.md` | `learned` (capture writes notes; consolidate writes the index and, once accepted, the destinations); `verify` adds one capture note per review |
+| `lifecycle/decision-log.md`, decision logs | `decision-record`; also the entries `personas`, `revise` and `learned --consolidate` cause, written in `decision-record`'s format from its shared reference file |
 | Stage records, development README stage list | `verify` |
-| `tracker/canon/04-roadmap/00-state-of-the-build.md` | `verify` |
+| The project's state-of-the-build file (named in `config.md`; for Tracker, `tracker/canon/04-roadmap/00-state-of-the-build.md`) | `verify` |
 | As-built canon (data model, API, glossary) | `close-out`, from `verify`'s flags |
 | `team/open-work.md` | `verify`, `close-out` |
 | `personas.md` | `personas` |
-| Templates, project configs, `review-instrument.md`, this file | the founder, through `revise` on the method itself |
+| Templates, project configs, `review-instrument.md`, this file, `skills-plan.md` | the founder, through `revise` on the method itself, or by accepting a `learned --consolidate` proposal |
 
 ## 5. Session rules
 
-From the retrospective's findings 1, 3 and 6:
+Rules 1–6 from the retrospective's findings 1, 3 and 6; rule 7 from `learned`:
 
 1. **One session per milestone at most** for orchestration. Planning is its own session, which ends once the plan is committed and pushed.
 2. **`/clear`, not `/compact`**, once `handoff` has written `STATE.md`. `/compact` reads the whole context it summarises; `/clear` is free.
@@ -136,6 +135,9 @@ From the journeys build, kept or corrected:
 | Wireframes, revise, phase cards | Opus · medium |
 | Lanes (stage builds) | Sonnet |
 | Intake, personas, decision records, handoff, status | Sonnet · low to medium |
+| Learnings capture | the session's own · low |
+| Learnings consolidation | Opus · high |
+| Debugging | the session's own · high |
 
 Skills set these in their frontmatter, so the session's own model only matters between skills.
 
@@ -144,7 +146,7 @@ Skills set these in their frontmatter, so the session's own model only matters b
 | Stage | What | Proven on |
 |---|---|---|
 | **0. Baseline** | Retrospective of the journeys build (draft done); `/usage` and `/insights` from the build machine | — |
-| **1. Foundation** | This file; `status.md` backfilled for existing modules; templates; `bin/gate`; `projects/root-app/` from the recovered brief and the plan's §0.2–0.3; CLAUDE.md in all three repos | Backfilling the status table is the first audit |
+| **1. Foundation** | This file; `status.md` backfilled for existing modules; templates; `bin/gate`; `projects/root-app/` from the recovered brief and the plan's §0.2–0.3 and §8; `projects/tracker/`; CLAUDE.md in all three repos | Backfilling the status table is the first audit |
 | **2. Build side** | `lifecycle-status`, `handoff`, `learned`, `decision-record`, `build-phase`, `verify`, `debug` | The journeys build's owed items (Change track); a Tracker Fix (B-15) |
 | **3. Design side** | `ideate`, `research`, `personas`, `spec`, `journeys`, `wireframes`, `eval-plan`, `build-plan` | The next new module |
 | **4. Reviews** | `ux-review` (both modes), `design-review` | That module's wireframes, then its built UI |
@@ -155,5 +157,6 @@ Each stage ends by checking usage against the baseline.
 
 ## Changelog
 
+- **0.3 · 2026-10-06** — Consistency pass against `skills-plan.md`: lane report is seven-part; every `STATE.md`, inbox and decision-log writer listed; state-of-the-build file is per project; founder-owned files also change through accepted consolidations; close-out gate requires a consolidated inbox; `n/a` phases pass the gate; models for `learned` and `debug`; `projects/tracker/` in stage 1.
 - **0.2 · 2026-10-05** — Learnings: captured per session as inbox notes, consolidated in batches; session rule 7; files and owners added.
 - **0.1 · 2026-10-05** — Plan. From the conversation that designed the system and the journeys build's retrospective, brief and state log.

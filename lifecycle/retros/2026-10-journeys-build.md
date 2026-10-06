@@ -2,7 +2,7 @@
 
 *What the largest build to date cost, where the cost went, and what the lifecycle system changes because of it. Stage 0 of the lifecycle plan: the baseline every later build is measured against.*
 
-**Version 0.3 · Status: draft — completed once the journeys dev process is fully done · 2026-10-05 · Owner: _root**
+**Version 0.4 · Status: draft — completed once the journeys dev process is fully done · 2026-10-05 · Owner: _root**
 
 ---
 
@@ -85,13 +85,13 @@ The five together ≈843M, about 43% of all lane input; J1 alone ≈14% *(analys
 |---|---|
 | One session per milestone at most. `/clear` once a handoff exists, not `/compact`. Never resume a large session after a limit reset — start fresh from the handoff | `handoff`, CLAUDE.md, `lifecycle/README.md` |
 | Planning and orchestration in separate sessions; the plan is committed and pushed before the build starts | `build-plan` |
-| Reviews in a fresh context: stage diff, phase card, stage record, review checklist — nothing else | `verify` |
-| Lane budget: past twice its size, or near a limit reset, a lane commits WIP, writes its record and stops; a fresh lane continues | `build-phase` |
+| Reviews in a fresh context: lane report, stage diff, phase card, review checklist — nothing else | `verify` |
+| Lane budget: past twice its size, or near a limit reset, a lane commits WIP, writes its report and stops; a fresh lane continues | `build-phase` |
 | Debug stop rule; no debugging through e2e; an environmental cause means fixing the test setup, not rerunning | `debug` |
 | Parallel lanes only without shared schema changes; at most two | `build-plan` |
 | Full suites only at milestones, enforced | `verify` |
 | Fixed clock and clock-relative fixtures as a test convention | `root-app` CLAUDE.md |
-| `brief-common` and per-phase briefs ("phase cards") as standard build-plan outputs | `build-plan` template |
+| `brief-common` per project, and per-stage briefs ("phase cards") drafted just in time and committed | `projects/<project>/`, `build-phase` |
 
 **Estimate, not measurement:** had each review session started near 50k tokens instead of 500k+, review turns would have cost about a tenth as much. With J1 stopped early and no cold resumes of the large session, a build of this size plausibly fits in about one weekly limit. The next comparable build tests this.
 
@@ -109,6 +109,7 @@ The five together ≈843M, about 43% of all lane input; J1 alone ≈14% *(analys
 
 ## Changelog
 
+- **0.4 · 2026-10-06** — §5 aligned with the lifecycle plan: reviews read the lane report (they write the stage record); a stopping lane writes its report; phase cards are drafted by `build-phase`, `brief-common` lives in the project config.
 - **0.3 · 2026-10-05** — Memory files and `brief-common.md` recovered: finding 6 corrected (state survived, but only on one machine); lane report and state log added to what worked.
 - **0.2 · 2026-10-05** — Source documents found pushed; finding 6 (process state outside git) added.
 - **0.1 · 2026-10-05** — Draft. Built from `journeys-build` @ `267a71d` and the build session's transcript-based account. Sections 1–5 written; §6 lists what completes it.
