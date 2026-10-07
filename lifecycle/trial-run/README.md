@@ -2,7 +2,7 @@
 
 *One real piece of work taken through every phase of the lifecycle, each phase run by a fresh agent acting as that phase's skill would. The point is to find what the method and the skill specs are missing, and to leave behind real outputs the skills and templates are written from. If you are an agent starting a phase, this file is your brief: read it all.*
 
-**Version 0.1 · Status: active · 2026-10-06 · Owner: _root**
+**Version 0.2 · Status: active · 2026-10-07 · Owner: _root**
 
 ---
 
@@ -53,10 +53,10 @@ Model and effort follow `lifecycle/README.md` §7. The founder starts each sessi
 
 | Step | Act as | Model | Inputs | Output | Foundation stub allowed | Done looks like | Don't |
 |---|---|---|---|---|---|---|---|
-| 0 Intake | `ideate` | Sonnet · medium | the founder's description | module folder, `00-intake.md`, `STATE.md`; the module's row in `lifecycle/status.md` | `lifecycle/status.md` holding only this row | one page, the six questions answered, no sources | research; propose solutions beyond the smallest version |
+| 0 Intake | `ideate` | Sonnet · medium | the founder's description | module folder, `00-intake.md`, `STATE.md`; the module's row in `lifecycle/status.md` | `lifecycle/status.md` holding only the header and this row (format below) | one page, the six questions answered, no sources | research; propose solutions beyond the smallest version |
 | 1 Research | `research` | Opus · high | intake; `ecosystem/canon/04-research/00-evidence-summary.md` first | `01-research.md` | — | five-line summary on top, claims graded, ≤ ~2,500 words | re-research what the evidence summary already holds |
 | 2 Spec | `spec` (`full`) | Opus · high | intake, research | `02-spec.md` | — | clarifying questions asked in one batch and answered; acceptance criteria testable | restate journeys; design screens |
-| 3a Personas | `personas` | Sonnet · medium | intake; `lifecycle/personas.md` | the selection in the header of `03-journeys.md` | `lifecycle/personas.md`, seeded from `tracker/canon/05-reviews/00-persona-review-method.md` §2 | named personas, each with why | redefine an existing persona |
+| 3a Personas | `personas` | Sonnet · medium | intake; `lifecycle/personas.md` | the selection in the header of `03-journeys.md` | `lifecycle/personas.md`, seeded from `tracker/canon/05-reviews/00-persona-review-method.md` §2; `lifecycle/decision-log.md`, if a new persona is proposed, holding only that entry | named personas, each with why | redefine an existing persona |
 | 3b Journeys | `journeys` (`new`) | Opus · high | spec; `03-journeys.md` header | `03-journeys.md` | — | 3–5 journeys of ~10 steps, including first day, return after a gap, not enough data, error | wireframe |
 | 4 Wireframes | `wireframes` | Opus · medium | journeys | `04-wireframes.html` | — | every journey step, plus empty, error, loading and not-enough-data states | style beyond low fidelity |
 | 5 UX review | `ux-review` (`wireframes`) | Opus · high | journeys, wireframes, the spec's interface and acceptance sections, the selected personas, the review instrument | first pass in `05-ux-review.md` | `lifecycle/review-instrument.md`: the six metrics from the persona method §3, plus Nielsen's ten heuristics and the coverage checklist | each finding scored and graded *simulated*; spec-changing findings listed for `revise` | fix the wireframes yourself |
@@ -71,6 +71,16 @@ Model and effort follow `lifecycle/README.md` §7. The founder starts each sessi
 | 10a Consolidate | `learned --consolidate` | Opus · high | every log's *Lessons* section | a proposal for the founder; accepted items listed in `log/` | — | lessons clustered and counted; founder decides each | apply edits to the method; that happens in 10c |
 | 10b Close-out | `close-out` | Opus · high | eval plan and results, stage records, `STATE.md` | `09-close-out.md`; the status row closed | — | evaluation against the rule written beforehand; the module's cost | — |
 | 10c Trial wrap-up | *(`revise` on the method)* | Opus · high | every log | `findings.md` in this folder: each spec gap, grouped by skill, with a proposed edit | — | every *Spec gaps* and *Missing foundation* item accounted for | apply the edits; the founder decides |
+
+**`lifecycle/status.md`** has one row per module and one column per phase:
+
+```
+| Module | Track | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| [NN-slug](path/to/module/) | Module | done | | | | | | | | | | |
+```
+
+Each cell is blank (not started), `done`, `n/a` or `STALE`. Write only your own phase's cell. Steps 3a and 3b share column 3, which 3b marks done. Step 7b has no column. During the build, column 8 holds stages done out of the total (e.g. `3/9`) until every stage is verified.
 
 If intake finds the piece is a **Change**, not a Module, the run follows the Change track instead: `spec change` writes a change note with stages, then 8a–8c run against it. Log that decision.
 
@@ -123,4 +133,5 @@ The next step, and anything its agent must know that `STATE.md` doesn't say.
 
 ## Changelog
 
+- **0.2 · 2026-10-07** — `status.md` format defined; step 3a may create `lifecycle/decision-log.md` for a new persona's entry.
 - **0.1 · 2026-10-06** — Trial brief: rules, the phase table with outputs and boundaries, and the log format.
