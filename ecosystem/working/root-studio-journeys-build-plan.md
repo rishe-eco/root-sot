@@ -1,8 +1,8 @@
 # Root Studio — Build Plan: the customer and staff journeys
 
 **From:** _root
-**Status:** **Plan, 0.2 — reviewed, with the founder's P0 answers folded in. Nothing here is built.** The build order and the concrete design for every missing piece in `root-studio-user-journeys.md` (0.5), written against `rishe-eco/root-app` @ **`0a51b53`** after reading the whole application, not only the lifecycle half of it. Each stage below is specified to the level of models, mutations, refusal codes, screens and tests, so that its own build-ready file in `root-app/docs/development/` is a transcription plus whatever the code has moved on by then — not a design exercise.
-**Version:** 0.2 · 2026-09-28 · Owner: _root
+**Status:** **Plan 1.0 — built.** P0 through J12, all eighteen stages, are built in `rishe-eco/root-app` (2026-09-29 → 2026-10-05), each with its own record in `root-app/docs/development/`. M1–M4 full suites are green; the last run was M4 at `7303a66`: unit 1064+327, integration 1242, e2e 114. **Not merged to `origin/main` and not deployed.** The code is on origin as branch `journeys-build` (`267a71d`), and the post-build work continues on `wp-dashboards`. The build status section below is new at 1.0. §0 onward is the plan as it was at 0.2: the build was measured against it, so it stays unrewritten. *(0.2 status, kept for the record: "reviewed, with the founder's P0 answers folded in. Nothing here is built.")*
+**Version:** 1.0 · 2026-10-08 (0.2 · 2026-09-28) · Owner: _root
 **What this is:** the successor to `root-studio-lifecycle-build-plan.md` (L1–L7 built, L8 owed) and the execution half of `root-studio-user-journeys.md`. That file says *what* the customer and each staff role experience; this file says *in what order it lands, and how*.
 
 **Grading.**
@@ -12,6 +12,68 @@
 - **Unknown, and it matters** — flagged inline and collected in §4 (P0).
 
 **Where this file yields.** On *what the customer or a staff member experiences*, `root-studio-user-journeys.md` wins. On *what the business needs first*, ADR 0001 and the canvas win. On *what order the code lands and what shape it takes*, this file wins — and where it had to depart from the journeys file's own sketch (three places), §2 says so and why.
+
+---
+
+## Build status *(added 1.0, 2026-10-08)*
+
+### The stages
+
+| Stage | What | Built | Record |
+|---|---|---|---|
+| P0 | pre-flight: CSP frame-src (D-1), the dev README (D-4), same-site hardening (D-8), test lanes | code half 2026-09-29 | `P0.md` |
+| S1 | roles, the capability split, visibility, assignment (D-2, D-3) | 2026-09-29 | `S1.md` |
+| J1 | phone identity, SMS, the notify router, the staff second factor | 2026-09-29 | `J1.md` |
+| T1 | template types, scope templates, `ScopeItem.kind` | 2026-09-29 | `T1.md` |
+| S3 | customer and staff management, the Users place's first slice, Tools | 2026-09-29 | `S3.md` |
+| | **M1** full suites: unit 472+38 · integration 476 · e2e 47 | 2026-09-29 | |
+| J2 | requests: a project before a contract | 2026-09-29 | `J2.md` |
+| J3 | steps, the wizard shell, the status area, attention, view-as-customer | 2026-09-29 | `J3.md` |
+| S2 | one feedback model, answers and approvals, `approveStepTx` | 2026-09-30 | `S2.md` |
+| | **M2** full suites: unit 594+46 · integration 595 · e2e 67 | 2026-09-30 | |
+| J4 | step 1: requirements, the payment plan, phases on a contract | 2026-09-30 | `J4.md` |
+| J5 + J6 | steps 2a/2b: scope proposals, the trade's customer half, the draft and its notes (D-5) | 2026-09-30 | `J56.md` |
+| J13 | invoices: drafts, numbers, due dates, issuing the plan (D-7) | 2026-09-30 | `J13.md` |
+| J7 | step 3: approve and sign, the agreement gate (L8's gate change), snapshot format 2, the flip | 2026-10-01 | `J7.md` |
+| | **M3** full suites: unit 787+281 · integration 880 · e2e 86 | 2026-10-01 | |
+| T2 + J8 | step 4: the theme catalogue, wireframes, palette, design approval | 2026-09-29 / 2026-10-01 | `T2.md`, `J8.md` |
+| J9 | step 5: the mockup host, the streamed bundle upload (D-9), mockup demos | 2026-10-01 / 2026-10-04 | `J9a.md`, `J9b.md` |
+| J11 | step 7: handover, closing a contract, the summary | 2026-10-04 | `J11.md` |
+| J10 | step 6: demo submission, readiness, the page map, per-phase approval | 2026-10-04 | `J10.md` |
+| J12 | the customer Dashboard and a home per staff role (`myAttention`) | 2026-10-05 | `J12.md` |
+| | **M4** full suites: unit 1064+327 · integration 1242 · e2e 114 | 2026-10-05 | |
+
+How it was built:
+- Most stages were Sonnet lanes in parallel git worktrees. Each lane had its own test database and ports.
+- Every lane was reviewed by Opus before merging, and several reviews added fixes of their own. The records say which.
+- Targeted tests ran per stage, and full suites ran at each milestone.
+- The process is in `root-studio-v1-readiness.md`.
+
+### After the build: two work packages (2026-10-08, on root-app branch `wp-dashboards`)
+
+- **`wp-dashboards.md`: the founder's walk through the desk and the portal.**
+  - Eleven items, recorded with what the code says about each.
+  - Two decisions:
+    - the staff SMS step is archived behind a flag that is off, to return as 2FA;
+    - the desk's "Waiting on Root" tile counts the attention module's answer, not the stored status.
+  - Nothing applied yet, except item #10, below.
+- **`wp-design-review.md`: a design review of the public site and the customer portal, built and reviewed.**
+  - The review was held against Apple's Human Interface Guidelines, as foundations and principles.
+  - What it fixed:
+    - contrast across every text tier, the fields and the focus ring;
+    - two spacing tokens that were never defined;
+    - an unlabeled phone rail, now a bottom tab bar with icons (wp-dashboards #10);
+    - a public Menu on a phone;
+    - one heading per page;
+    - touch targets;
+    - Library labels and empty states;
+    - a dark appearance that follows the system.
+  - A unit test now computes every contrast pair from `tokens.css`. Suites: unit 1064+334, e2e 129.
+  - Merged into `wp-dashboards` at the founder's instruction.
+
+### Owed
+
+The working list toward prototype v1 is in `root-studio-v1-readiness.md` §3. It collects what the stage records leave owed, so that list is not repeated here.
 
 ---
 
