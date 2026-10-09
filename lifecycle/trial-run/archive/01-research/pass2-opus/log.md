@@ -52,7 +52,7 @@ Opus · high, as planned. Not forked, since it may need the founder. Inject at i
 - **Rule:** research on a habit-forming product should look for evidence on the habit itself, not only on the tech. **Event:** the first pass researched sites and auth and missed the module's main outcome. **Scope:** `research`. **Destination:** the research reference file ("research the outcome the drop rule names"). **urgent: no**
 
 ## Cost
-*Founder fills in.*
+Session total (passes 1 and 2 ran in one session, the model switched between them, so they share this figure): Sonnet 5.5, 24 in / 710 out / 896.5k cache read / 52.1k cache write; Opus 5.5, 34 in / 899 out / 1.8M cache read / 87.8k cache write; **$1.96**; API 5m; wall 5m. The per-pass split is not available. Founder's `/usage`, 2026-10-10.
 
 ## Next
 Step 2, Spec (`spec full`, Opus · high), in a **fresh** session started on Opus. Its batch of questions is in the top block of `STATE.md`.
