@@ -62,7 +62,7 @@ Required (for `required-headings.txt`): `## Summary`, `## 1. What Root already k
 3. **Rule:** quote headline numbers with their caveats (Lally's "66 days" is the median of 39 of 96 participants, with a range of 18–254). **Event:** this session's search results carried the bare figure. **Scope:** `research`, `eval-plan`. **Destination:** the grading key. urgent: no.
 
 ## Cost
-*Founder fills in.*
+Session total (pass 3 and the integration ran in one session, so they share this figure): Opus 5.5, 72 in / 1.1k out / 3.2M cache read / 106.3k cache write; **$2.72**; API 10m; wall 9m. Founder's `/usage`, 2026-10-10.
 
 ## Next
 Step 2, Spec (`spec full`, Opus · high). The six founder questions are in `STATE.md`'s top block. The archived passes are for 10a/10c only. Spec should read the fresh `01-research.md`, not the archive.

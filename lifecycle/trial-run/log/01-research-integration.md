@@ -82,7 +82,7 @@ Additions for `research` on top of the earlier logs:
 3. **Rule:** options handed to a later phase are named by noun ("Access-gated editor"), with letters as aliases at most. **Event:** P2 and P3 lettered the same four admin shapes incompatibly, and both letterings sat in `STATE.md`. **Cost:** a mis-answered spec question, caught before it happened. **Scope:** every phase that hands decisions on. **Destination:** `skills-plan.md` §0 or the `handoff` format. urgent: **yes**: the spec session must use the names in the top `STATE.md` block, not the letters in the older blocks.
 
 ## Cost
-*Founder fills in.* The repetition overall: three research passes plus this integration for one phase. P1's cost was wasted except for three small finds.
+Session total (pass 3 and the integration ran in one session, so they share this figure): Opus 5.5, 72 in / 1.1k out / 3.2M cache read / 106.3k cache write; **$2.72**; API 10m; wall 9m. Founder's `/usage`, 2026-10-10. The repetition overall: three research passes plus this integration for one phase. P1's cost was wasted except for three small finds.
 
 ## Next
 Step 2, Spec (`spec full`, Opus · high), in a fresh session. Use the admin-shape **names** from the top `STATE.md` block. 10a/10c: this log, plus the three logs in `archive/01-research/`, are the evidence on redo and independence.
