@@ -72,7 +72,7 @@ Not asked, inferred from the description: smallest version (the four parts as de
 2. Rule: a founder's drop rule may be vague; record it verbatim and hand the testability to `spec`/`eval-plan`. Event: the answer was "no more use for it". Scope: `ideate`, `eval-plan`. Destination: `ideate` reference file. urgent: no.
 
 ## Cost
-*Founder fills in.*
+Sonnet 5.5: 14 in / 800 out / 502.8k cache read / 48.3k cache write. $0.31; API 1m; wall 4m. (From the founder.)
 
 ## Next
 Step 1, Research (`research`, Opus · high). Inputs: `00-intake.md`; read `ecosystem/canon/04-research/00-evidence-summary.md` first, though it likely holds nothing on this subject. Research scope is narrow (see `STATE.md`). Anything on the shape of the log and admin belongs to spec, not research.
