@@ -2,6 +2,24 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` @ d8245d0 (+ step 1, third pass, fresh)
+
+**Lanes in flight:** none.
+
+**Next steps, in order**
+1. Step 2, Spec (`spec full`, Opus · high): read `00-intake.md`, then `01-research.md` (summary, then §5–§6). In the one batch of questions, ask: admin shape A / B / B′ / C (research §5); entry fields (title? tags? prompt wording that invites explaining, §2.1); can entries be edited or unpublished without trace (§2.4); podcast: one link or several per episode, and the empty state if no episodes exist yet (§4); a dated "now" line on the landing page, yes or no (§3, mind §2.2); the drop review: the private question at 3 and 6 months (§6).
+2. Steps 3a/3b journeys, then 4 wireframes, 4b Claude Design. Step 6 can run beside 3–5.
+
+**Carry-overs**
+- `01-research.md` was redone fresh at the founder's request. Both 2026-10-09 passes and their logs are in `lifecycle/trial-run/archive/01-research/` for the final review. **The two blocks below are stale on research findings.**
+- Hard lines: no streaks, counters or gap markers on the site; the log publishes what was learned, never public plans.
+- If shape A: the security floor in research §5 becomes acceptance criteria, and auth gets its own build stage.
+- IMNSTR is outside Root: no pillar, no OST, no Root brand. Design system from 4b. Code repo needed by step 7.
+
+**Questions for the founder:** the six in next step 1 (for spec).
+
+**Owed:** nothing.
+
 ## 2026-10-09 · `lifecycle-trial/imnstr` @ f087846 (+ step 1, second pass)
 
 **Lanes in flight:** none.

@@ -1,102 +1,109 @@
 # IMNSTR.com — research
 
-*Module `imnstr/modules/01-website/` · Phase 1 · 2026-10-09 · Owner: founder · Second pass (replaces the first, shallower pass of the same day)*
+*Module `imnstr/modules/01-website/` · Track: Module · Phase 1 · 2026-10-10 · Owner: founder*
 
-**Summary**
-1. **The habit is the product's core risk, and the evidence says: never punish a gap, log what was learned rather than what you plan to do.** One missed day barely slows habit formation, but being very inconsistent stops it (Lally et al.). Announcing identity intentions can widen the gap between intending and doing (Gollwitzer et al.). Measuring an enjoyed activity can sour it (Root's evidence summary). *(evidence: moderate to strong; two of the three papers read only through summaries)*
-2. **Long-running learning logs exist, and they are plain markdown in git with no admin app**: Simon Willison's TIL (583 entries) and Josh Branchaud's TIL (1,888 entries). Both are grouped by topic, whereas IMNSTR's is newest first. *(evidence, read in the repos)*
-3. **"One admin page" has a cheaper reading than a custom login.** A git-backed CMS such as Decap is "a single-page app that you pull into the `/admin` part of your site". It edits content stored in git, so the public site can stay static. A custom passkey login is the costly option. *(evidence for what Decap is; proposal for the ranking)*
-4. **If the site gets its own login, the baseline is known**: passkeys (phishing-resistant, scoped to the domain; WebAuthn Level 3 is a W3C Recommendation), throttling counted per account, `Secure; HttpOnly; SameSite=Strict` session cookies, no tokens in `localStorage`, and recovery through an authenticator already bound to the account, never security questions. *(evidence, primary sources: W3C, OWASP)*
-5. **Decisions for spec**: which admin shape (four options are in §4); one link or several per podcast episode; how "still of use" is measured without showing visitors any counter. *(proposal)*
-
-**Grading.** *Evidence* means read in a named source; where I saw only a search engine's summary and not the source itself, it says so. *As-built*: none, as no code exists. *Proposal* means my reading. Network note: this environment reached GitHub but not most other sites, so the primary sources here were read from their GitHub repositories (OWASP cheat sheets, the W3C WebAuthn source, Decap, Cloudflare docs, the TIL repos). The papers could not be opened.
+**Status of this page:** research brief for the spec. Claims graded **evidence** (published research or a primary standard, with strength: strong / moderate / thin), **as-built** (observed on a live site or in documentation, 2026-10-10), or **proposal** (this brief's reading, for spec to accept or reject). Supersedes the two 2026-10-09 passes, now archived under `lifecycle/trial-run/archive/01-research/`.
 
 ---
 
-## 1. What Root already knows
+## Summary
 
-I read `ecosystem/canon/04-research/00-evidence-summary.md` first. It covers motivation, goals, emotion and mindset, and nothing on websites, CMSs or auth. Two parts apply, and I did not re-research them:
+1. **Write the log to explain, not to record or promise.** Explaining material to an absent reader improves learning more than restudying it (evidence, moderate). Announcing identity goals publicly can lower follow-through (evidence, moderate to thin). The log should hold what was learned, written for a reader, and never public plans.
+2. **Don't show any streak, counter or gap on the site.** Root's evidence summary already rules these out (overjustification and the cost of quantification; strong). A single missed day does not disrupt habit formation (evidence, moderate), so a gap needs no visible repair.
+3. **Comparable sites converge on one shape.** Willison's TIL, /now pages and digital gardens all use short entries with a date, a topic tag and a feed, published with very little effort (as-built). What keeps them going is how easy it is to publish, not what features they have.
+4. **The admin is the risk.** There are four shapes. Putting Cloudflare Access in front of `/admin` (C), or keeping entries as files in git (B), removes most of the authentication code. A home-built login (A) is the riskiest build stage and must meet the OWASP/NIST floor in §5.
+5. **"Still of use" can't be judged early.** In the best-known study, automaticity took 18–254 days to plateau (evidence, moderate). A drop review earlier than about three months would be testing the habit before it exists. Measure it privately, with the founder's own check, not a public count.
 
-- **§4, self-tracking (strong).** People abandon self-tracking mainly through loss of motivation, and quantifying an enjoyed activity can reduce the enjoyment (Etkin). **Consequence (proposal):** no streaks, entry counts or "days in a row" on the log, public or admin.
-- **§3, the dark side of goals (strong, general).** A hard specific target can corrode the activity it serves. **Consequence (proposal):** "daily" is the founder's aim, not a rule the product enforces. Nothing in the UI should mark a missed day.
+---
 
-## 2. The habit: what helps a public daily log last
+## 1. What Root already knows (not re-researched)
 
-The intake says "writing the log is the habit" and that the drop rule is "no more use for it". So whether the habit survives is the module's main outcome, and it is what the eval plan will measure.
+From `ecosystem/canon/04-research/00-evidence-summary.md`, by section. IMNSTR is outside Root, but the findings are about people, not about Root:
 
-| Finding | Source and grade | What it means here (proposal) |
-|---|---|---|
-| Habit formation took a median of about 66 days among participants whose data fit the model, with a range of 18–254. Missing one opportunity did not materially affect it, but very inconsistent participants did not form a habit. | Lally, van Jaarsveld, Potts & Wardle, *Eur. J. Soc. Psych.* 2010. **Evidence, through search summaries and UCL's news item; paper not opened.** Sample size is reported inconsistently (96 recruited, 82 analysed per coverage). A 2024 meta-analysis reportedly finds medians of 59–66 days. | The eval plan should not judge the habit before roughly two to three months. The "return after a gap" journey should make the next entry easy, not mark the gap. |
-| Identity-related intentions that other people noticed were acted on *less* intensively than unnoticed ones, and only among people strongly committed to the identity. Being noticed gave a premature sense of already having the identity. | Gollwitzer, Sheeran, Michalski & Seifert, *Psych. Science* 20(5), 2009, four studies ([PubMed 19389130](https://pubmed.ncbi.nlm.nih.gov/19389130/)). **Evidence, abstract-level through search summaries; replication status not checked.** | It concerns announcing *intentions*, not publishing *outputs*. So the log should hold what was learned (past tense), and the landing page should not become a list of public promises such as "this month I'm going to…". A "now" section, if any, describes what is under way rather than pledging it. |
-| People who quit blogging cited unmet recognition (no comments or readers), external pressure, and migration to social networks. | Small studies through search summaries only: Iranian blogs ([Univ. of Tehran journal](https://gmj.ut.ac.ir/article_66515.html?lang=en)); UK police bloggers (Pedersen et al., 2014); Pew (2010), which is speculation, not a finding. **Evidence, thin.** | The intake rules out comments and analytics. That is consistent with §1, but it means the site gives the founder no sign that anyone reads it. This is a risk for the drop rule to name, not a reason to add features. Any reader signal belongs to the founder's own eval, off the site. |
+| Finding | Evidence summary § | Grade there | Bearing on IMNSTR |
+|---|---|---|---|
+| Overjustification: extrinsic rewards corrode existing intrinsic motivation, worst for the already motivated | §2 | strong | The founder is already motivated (the intake calls the log "the habit"). No streaks, badges or "N days in a row". |
+| Self-tracking: permanent abandonment is mostly loss of motivation, not broken mechanics | §4 | strong | The drop rule should watch motivation ("do I still want to write here"), not how well the mechanics work. |
+| Cost of quantification (Etkin): measuring an enjoyed activity can reduce the enjoyment | §4 | strong | No public counts of entries, words or frequency. Any private measure is light and occasional (§6). |
+| Expressive writing has a small average effect. The active ingredient is reconstrual (labelling, meaning-making), not writing as such | §5 | moderate–strong | Writing alone isn't what helps. Making sense of something does. Supports §2.1 below. |
 
-## 3. Comparable sites
+## 2. The learnings log: what the evidence says about writing it
 
-**Read in the repos (evidence):**
+**2.1 Explaining to a reader helps the writer learn.** *Evidence, moderate.* Fiorella & Mayer (2013, 2014): students who **actually taught** (recorded a short video lesson) understood the material better on both immediate and delayed tests. Students who only **expected** to teach did better on the immediate test alone. Later work found that explaining to fictitious students who aren't present, with no interaction, beats restudying. The proposed mechanism is generative processing: choosing what matters, organising it, and connecting it to what you already know. Lab tasks with students, not daily public logs, hence moderate.
+→ *Proposal:* the entry form should invite an explanation ("what I learned, said so someone else gets it") rather than a record ("read chapter 4 today"). Prompt wording is a spec decision. Keep it a nudge, not a required field.
 
-- **Simon Willison, `simonw/til`.** It describes itself as "My Today I Learned snippets" and holds 583 TILs. Each entry is a markdown file in a topic folder. `build_database.py` takes each entry's *created* and *updated* times from `git log --follow`, so the date comes from the commit and is not typed in. A GitHub Action triggered on push to `main` builds a SQLite database, rewrites the README and runs `datasette publish fly` with Atom and sitemap plugins. Writing an entry means committing a file; there is no admin page. ([repo](https://github.com/simonw/til))
-- **Josh Branchaud, `jbranchaud/til`.** "A collection of concise write-ups on small things I learn day to day", things that "don't really warrant a full blog post"; 1,888 TILs. Same structure: a markdown file per entry in topic folders, with no admin page. ([repo](https://github.com/jbranchaud/til))
+**2.2 Public intentions can stand in for the work.** *Evidence, moderate to thin.* Gollwitzer, Sheeran, Michalski & Seifert (2009), *Psychological Science* 20: in four experiments, identity-related intentions that others took notice of were acted on less than ignored ones, and only among people strongly committed to the identity. Study 4 found that being noticed gives a premature sense of already having the identity. One paper with small samples, and its replication record was not checked here, hence moderate to thin.
+→ *Proposal:* the log publishes what was learned. It does not publish goals ("this month I will…"). A /now-style section (§3) is the place where this risk would bite. If spec adds one, it should describe the present, not commit to the future.
 
-**What they show (proposal).** The format lasts: both logs run to hundreds or thousands of short entries over years. Both lean on git for authoring, dating and history, and both provide a feed (Atom) or an index. Both are grouped **by topic**, whereas IMNSTR's intake says **newest first** and names no tags. Willison derives the date from the commit, which supports keeping entries title-light and date-led. Whether IMNSTR log entries have titles or tags is a spec question.
+**2.3 A missed day doesn't break a habit, and habits take months.** *Evidence, moderate.* Lally, van Jaarsveld, Potts & Wardle (2010), *Eur. J. Soc. Psychol.* 40, 998–1009: 96 adults, one daily behaviour, 84 days. Of these, 39 had a good model fit, and their time to 95% of peak automaticity ranged from **18 to 254 days** (the median of 66 days is often quoted without these caveats). The abstract says "missing one opportunity … did not materially affect the habit formation process". The behaviours were simple health habits, not writing, hence moderate.
+→ *Proposal:* the site never marks gaps. The drop review (§6) waits at least ~3 months.
 
-**Blog vs garden (evidence, secondary; from the first pass).** Gardens are linked and revised, while blogs or streams are reverse-chronological and rarely edited ([Obsidian wiki note](https://publish.obsidian.md/dakotamurray/2.00+-+Wiki/general/Digital+Gardening); [swyx](https://dev.to/swyx/digital-garden-terms-of-service-ljd); counter-view: [Kev Quirk](https://kevq.uk/blogs-gardens-and-thinking-aloud-in-public)). IMNSTR's log is a stream. Linking and revision stay out of v1, consistent with the intake's out-of-scope list.
+**2.4 Blogs are mostly abandoned, mainly for reasons a design can only partly touch.** *Evidence, thin.* Technorati's 2008 survey, reported by the NYT in 2009: 7.4M of the 133M blogs it tracked had been updated in the last 120 days (~95% inactive). That is a count of a different web and an inference, not a study. A qualitative study of 30 Iranian blogs (2007, followed up 2011; published 2014) named three reasons for abandonment: technical access problems, social pressure leading to self-censorship, and social networks meeting the need for recognition more easily. The common thread was an unmet need for recognition.
+→ *Proposal:* two readings for spec. (a) Recognition is the founder's second audience (intake §4), so a feed and shareable entry links matter more than features. (b) Self-censorship under social pressure is a real exit route, so the founder should be able to unpublish or edit an entry without trace. Both are spec calls, not findings.
 
-**Not reached:** the `/now` page movement (Derek Sivers) is a close precedent for "what I'm doing now", but its sites were outside the network allowlist. The precedent is known to me but not read, so it is not graded.
+## 3. Comparable sites (as-built, observed 2026-10-10)
 
-**Podcast page.** No standard was found; only vendor and podcaster guides came up, read through search summaries (**evidence, thin**). They recommend a stable URL that survives platform changes, a per-episode set of listen links (Apple, Spotify, YouTube and so on) or a picker page, and ordering platforms by where listeners actually are ([Podder](https://www.podderapp.com/post/smartlinks-for-podcasters), [The Audacity to Podcast](https://theaudacitytopodcast.com/bestlink)). The intake says each episode is "a link". **Spec question:** one link, or one per platform?
+| Site | Shape | Authoring | What IMNSTR can take |
+|---|---|---|---|
+| **Simon Willison, TIL** (til.simonwillison.net) | "Things I've learned": 583 entries, each with title, topic tag and date; a tag index with counts; an Atom feed; companion to his blog | Markdown files in a public GitHub repo; can be created in GitHub's web editor; a GitHub Actions workflow builds the index and the site on every push, deriving dates from git history | Short entry with title, tag and date; a feed; a low publishing bar. Its **tag counts** sit uneasily with §1 (counts per topic, not per day, so less of a scoreboard). Spec should decide. |
+| **Derek Sivers, /now** (sive.rs/now; nownownow.com) | One page of what he's doing now, dated "Updated …", replaced rather than appended | Hand-edited | A dated "now" line on the landing page could do the job the old portfolio did. Mind §2.2. |
+| **Digital gardens** (Maggie Appleton's history of the form) | Notes linked by topic rather than by date; maturity labels (seedling → evergreen); learning in public, with the freedom to be wrong and revise | Varies | Permission to post rough entries and revise them later. Topic-first navigation is out of scope for v1 (no search, no per-project pages), but tags leave room for it. |
+| **swyx, "Learn in Public"** | Essay: publish "learning exhaust" for your future self; cites anecdotes, no studies | — | The founder's stated motive, but practitioner opinion, not evidence. Lean on §2.1 instead. |
 
-## 4. The admin page
+**Pattern (proposal):** every one of these lasts because publishing costs almost nothing: a file, a commit, a text box. None of them has engagement features. That argues for spending effort on the editor's speed (open, write, publish in under a minute) over anything a visitor sees.
 
-Intake: "Only the founder; a simple editor for log entries and a form for podcast items. One page, one user." Visitor accounts are out of scope.
+## 4. The Monster Podcast page
 
-### Four shapes
+**As-built:** schema.org `PodcastEpisode` carries `name`, `description`, `url`, `datePublished`, `partOfSeries`, `keywords` and `episodeNumber`. These map directly onto the intake's link, name, description and one or two tags. Marking the list up this way costs nothing and helps search engines read it.
+**As-built (repo):** `ecosystem/personal-canon.md` describes Monster Podcast as narrative (talking to self and listeners, with music between segments). The founder's goals file still asks whether the first three scripts are ready. **Episodes may not exist when the site launches.**
+→ *Proposal:* spec should define the page's **empty state** (no episodes yet) as a first-class screen, not an edge case. Whether each episode has one link or several (one per platform) is a spec question. Several links per episode is common in practice but was not researched.
 
-| | A. Own login, own database | B. Files in git, no admin page | C. Git-backed CMS at `/admin` | D. Edge gate in front of `/admin` |
-|---|---|---|---|---|
-| What it is | The site has a passkey login and stores entries in a database | Founder commits markdown, as both TIL sites do | e.g. Decap CMS: "a single-page app that you pull into the `/admin` part of your site… a clean UI for editing content stored in a Git repository… When a user navigates to `/admin/` they'll be prompted to log in" ([Decap README](https://github.com/decaporg/decap-cms)) | A or C, with a provider such as Cloudflare Access authenticating before the request reaches the site |
-| Public site | Dynamic or rebuilt from the database | Static | Static | Unchanged |
-| Auth the module builds | All of it (§4.2) | None | None; login goes through the git host. *Which providers Decap supports was not read.* | None for the gate itself |
-| Matches "one admin page" | Yes | No, unless the founder accepts the git client as the admin | Yes | Combined with A or C |
-| Editor design (4b) | Fully custom | n/a | Constrained by the CMS UI | — |
-| Evidence | §4.2 | §3 | The README alone (**evidence**); its fit and limits are not tested | Cloudflare's docs say Access "authenticate[s] users accessing your applications" and that Zero Trust has "both Free and Paid plans" ([cloudflare-docs](https://github.com/cloudflare/cloudflare-docs)). **Free-tier limits not read.** |
+## 5. The admin: four shapes and a security floor
 
-**Proposal.** C is the smallest shape that still matches the intake's four parts. A is the one to choose only if the founder wants the editor designed in Claude Design like the rest of the site ("design matters a lot"). That conflict is real, and it is the founder's to settle at spec. B is the fallback if the admin page is dropped. D is an extra layer, not an alternative.
+The intake asks for one admin page for one user. These shapes differ in how much authentication code IMNSTR has to own:
 
-### What a custom login must meet (shape A)
+| Shape | How | Owns auth code? | Cost / risk |
+|---|---|---|---|
+| **A. Built-in login** | App serves `/admin`; founder signs in with a passkey; server session cookie | Yes: all of it | Most build and most attack surface. Needs passkey registration, recovery, sessions, throttling. |
+| **B. Files in git** | Entries are Markdown files in the repo, written in GitHub's web editor or locally; a build publishes them (Willison's model) | None (GitHub's login) | No admin page in the app, which departs from intake §5. Publishing goes through a commit plus a build delay. |
+| **B′. Git-backed editor** | Decap CMS at `/admin` commits to the repo | Partly: GitHub OAuth needs a server-side helper (Decap: "GitHub requires a server for authentication"), from Netlify, Decap Turbo, or self-hosted | Gives an admin page without owning sessions, but adds a third-party OAuth piece. |
+| **C. Access in front** | Cloudflare Access protects the `/admin` path. Founder signs in through Access (one-time PIN by email, GitHub, Google…); origin validates Access's token | Small: validate one token at origin | Free for up to 50 users. Path-level apps are supported. Requires the domain on Cloudflare, and the origin must reject requests that bypass Access. |
 
-From the primary sources (**evidence**):
+*All as-built from vendor documentation (Decap, Cloudflare), observed 2026-10-10. The choice is a proposal for spec.*
 
-- **Passkeys.** WebAuthn credentials are "scoped to a given WebAuthn Relying Party" and bound to authenticators. The spec's own consumer use case is "phishing-resistant sign in using multi-device credentials (commonly referred to as synced passkeys)". The Level 3 source is marked Status REC, dated 2026-08-25 ([w3c/webauthn](https://github.com/w3c/webauthn), `index.bs`; I did not check the published TR page). OWASP: "WebAuthn credentials form the foundation of modern Passkeys"; relying parties "should not assume that keys are hardware-backed and non-exportable unless this is verified" ([OWASP Authentication Cheat Sheet](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Authentication_Cheat_Sheet.md), FIDO section).
-- **Throttling.** Limit attempts. "The counter of failed logins should be associated with the account itself, rather than the source IP address" (same, Login Throttling).
-- **Recovery.** "Require an authenticator already bound to the account, such as the current password or a passkey. Do not substitute security questions" (same). **Proposal:** register two passkeys on two devices at setup, so that losing one device does not lock the founder out.
-- **Session.** Cookies use the `Secure`, `HttpOnly` and `SameSite=Strict` attributes, with an example `__Host-` prefix. "Do not store authentication tokens, session IDs, JWTs… in `localStorage` or `sessionStorage`." Treat SameSite "as defense in depth against CSRF, not as a replacement for a CSRF token" ([OWASP Session Management Cheat Sheet](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Session_Management_Cheat_Sheet.md)).
-- **Magic links (first pass, thin):** easy to build, but the inbox becomes the single point of failure. This makes them a recovery option at most.
+**Security floor if A is chosen** (*evidence: primary standards*):
+- **Phishing-resistant sign-in.** NIST SP 800-63B-4 §3.2.5: WebAuthn gives phishing resistance through verifier name binding. Synced passkeys are acceptable below AAL3 (§2.3.2), which is ample for one personal admin. OWASP Authentication Cheat Sheet: passkeys are WebAuthn credentials with local user verification. *Proposal:* register at least two passkeys (two devices) as the recovery path. Neither source prescribes this. It follows from having one user and no support desk.
+- **Session cookie** (OWASP Session Management): `__Host-` prefix, `Secure`, `HttpOnly`, `SameSite=Strict`; session ID from a CSPRNG with ≥64 bits of entropy (128 recommended); regenerate it on login; enforce expiry server-side; never put tokens in `localStorage`/`sessionStorage`; store a one-way verifier, not the token.
+- **Timeouts.** NIST §2.2.3 at AAL2: overall timeout should be no more than 24h, and inactivity no more than 1h. OWASP's typical idle times are 15–30 min for low-risk apps.
+- **Brute force.** OWASP: lock out per account, not per IP, with exponential back-off. Give generic failure messages. Re-authenticate before changing credentials.
+- **If a password is kept at all**, NIST and OWASP treat passwords under 8 characters as weak when MFA is on, and under 15 characters without it.
 
-**Proposal.** With one user there is no sign-up, no account table beyond one row, and no password storage. Even so, A is the largest and riskiest stage of the build, and the build plan should size it so.
+→ *Proposal:* C, or B′ with a hosted OAuth helper, gives the intake's admin page while leaving sessions and credential storage to a provider. A should be chosen only if the founder wants to own auth. If so, auth is the riskiest build stage and should get its own build-plan stage with the list above as acceptance criteria.
 
-## 5. For the next phases
+## 6. Making the drop rule testable
 
-- **Spec:** choose an admin shape (§4); settle whether entries have titles, tags and a shown date, and whether the podcast has one link per episode or several; turn "still of use" into the founder's private measure, read over months rather than weeks (§2); keep counters and streaks off the site.
-- **Journeys:** "first day" means first entry; "return after a gap" lands on an easy new entry with no gap shown; "not enough data" means a log with zero to three entries looking deliberate, not empty; "error" covers a failed save in the admin and, under A, a lost passkey.
-- **Eval plan:** gaps are normal (§2), so the decision rule should not fire on a short lull. No on-site reader signal exists by design.
-- **Build plan:** under A, auth is the risk stage; under C, the git/CMS integration is.
+Intake §6: drop it when there is "no more use for it" (as public image, and as a learning habit).
+- §1 rules out measuring this through anything visible or quantified on the site.
+- §2.3 says not to judge it before habit formation has had time. The range runs to 254 days, so ~3 months is a floor, not a verdict.
+→ *Proposal:* one private, periodic question for the founder at 3 and 6 months: "Do I still choose to write here, and has it done either job?" Support it with one fact the system already has (date of the last entry) and nothing more. The eval plan (step 6) should write the decision rule before data, as its gate requires.
 
-## 6. Not found / not researched
+## 7. Not researched / open
 
-- `/now` pages, other personal landing pages, and project-listing patterns: outside the reachable network.
-- Cloudflare Access free-tier limits and setup; which Decap backends and login providers exist; any alternative git-based CMS.
-- Hosting, cost, RSS/Atom (both precedents ship a feed: worth a spec line), accessibility, SEO, podcast-directory metadata.
-- The full texts of Lally 2010 and Gollwitzer 2009, and the latter's replication record.
+- **Learning-in-public outcomes** (careers, audience) have no research behind them beyond anecdote (§3). Not pursued.
+- **Podcast link conventions** (one link vs several per platform, smart-link services): not researched. The founder can answer this at spec.
+- **Passkey recovery practice:** passkeys.dev's bootstrapping page doesn't cover it. §5's two-passkey rule is a proposal.
+- **Hosting/stack choice** belongs to the build plan, apart from shape C requiring Cloudflare for the domain.
+- **Gollwitzer 2009 replication status:** not checked. Re-check before citing it outside this brief.
+- **Accessibility** (WCAG 2.2): not researched here. It belongs to the design and review steps (4b, 5, 9).
 
 ## Sources
 
-- `ecosystem/canon/04-research/00-evidence-summary.md` §3, §4
-- Lally P., van Jaarsveld C., Potts H., Wardle J. (2010), "How are habits formed", *European Journal of Social Psychology*, read only through [UCL news](https://www.ucl.ac.uk/news/2009/aug/how-long-does-it-take-form-habit) and search summaries
-- Gollwitzer P., Sheeran P., Michalski V., Seifert A. (2009), "When intentions go public", *Psychological Science* 20(5) 612–618, [PubMed](https://pubmed.ncbi.nlm.nih.gov/19389130/) (abstract through a search summary)
-- Blog cessation: [Univ. of Tehran study](https://gmj.ut.ac.ir/article_66515.html?lang=en); Pedersen et al. 2014 ([RGU](https://rgu-repository.worktribe.com/output/245905/the-impact-of-the-cessation-of-blogs-within-the-uk-police-blogosphere)), both through search summaries
-- [simonw/til](https://github.com/simonw/til): README, `build_database.py`, `.github/workflows/build.yml`; [jbranchaud/til](https://github.com/jbranchaud/til): README
-- [Decap CMS README](https://github.com/decaporg/decap-cms)
-- [W3C WebAuthn Level 3 source](https://github.com/w3c/webauthn), `index.bs` (abstract; §1.2 use cases)
-- OWASP [Authentication](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Authentication_Cheat_Sheet.md) and [Session Management](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Session_Management_Cheat_Sheet.md) cheat sheets
-- [cloudflare-docs](https://github.com/cloudflare/cloudflare-docs), `cloudflare-one/index.mdx`
-- Gardens and streams: [Obsidian wiki note](https://publish.obsidian.md/dakotamurray/2.00+-+Wiki/general/Digital+Gardening), [swyx](https://dev.to/swyx/digital-garden-terms-of-service-ljd), [Kev Quirk](https://kevq.uk/blogs-gardens-and-thinking-aloud-in-public); podcast links: [Podder](https://www.podderapp.com/post/smartlinks-for-podcasters), [The Audacity to Podcast](https://theaudacitytopodcast.com/bestlink); magic links: [OneUptime](https://oneuptime.com/blog/post/2026-01-30-passwordless-authentication/view). All through search summaries.
+- Root evidence summary: `ecosystem/canon/04-research/00-evidence-summary.md` §2, §4, §5.
+- Fiorella & Mayer, learning by teaching: summary via [UNH teaching hub PDF](https://www.unh.edu/teaching-learning-resource-hub/sites/default/files/media/2023-06/itow-learning-by-teaching-fiorella.pdf); review in [Educational Psychology Review](https://link.springer.com/article/10.1007/s10648-021-09643-4).
+- Gollwitzer et al. 2009, *Psychological Science* 20, 612–618: [Konstanz PDF](https://www.socmot.uni-konstanz.de/sites/default/files/09_Gollwitzer_Sheeran_Seifert_Michalski_When_Intentions_.pdf).
+- Lally et al. 2010, *EJSP* 40, 998–1009: abstract via [ISPA repository](https://repositorio.ispa.pt/handle/10400.12/3364), [Crossref](https://api.crossref.org/works/10.1002/ejsp.674); caveats in [The Behavioral Scientist](https://www.thebehavioralscientist.com/articles/how-long-to-form-a-habit).
+- Blog abandonment: NYT 2009 via [archive copy](https://attrition.org/pipermail/infowarrior/2009-June/004289.html); [Iranian blogs study](https://gmj.ut.ac.ir/article_66515.html?lang=en).
+- Comparable sites: [til.simonwillison.net](https://til.simonwillison.net/); [Willison 2020, self-rewriting README](https://simonwillison.net/2020/Apr/20/self-rewriting-readme/); [sive.rs/now](https://sive.rs/now); [Appleton, garden history](https://maggieappleton.com/garden-history); [swyx, Learn in Public](https://www.swyx.io/learn-in-public).
+- Podcast markup: [schema.org/PodcastEpisode](https://schema.org/PodcastEpisode).
+- Admin: [Decap GitHub backend](https://decapcms.org/docs/github-backend/); [Cloudflare Access self-hosted apps](https://developers.cloudflare.com/cloudflare-one/applications/configure-apps/self-hosted-public-app/); [Cloudflare Zero Trust plans](https://blog.cloudflare.com/teams-plans/).
+- Security: [OWASP Authentication](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html); [OWASP Session Management](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html); [NIST SP 800-63B-4](https://pages.nist.gov/800-63-4/sp800-63b.html).
