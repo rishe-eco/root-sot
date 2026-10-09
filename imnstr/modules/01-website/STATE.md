@@ -2,6 +2,25 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-09 · `lifecycle-trial/imnstr` @ f087846 (+ step 1, second pass)
+
+**Lanes in flight:** none.
+
+**Next steps, in order**
+1. Step 2, Spec (`spec full`, Opus · high): read `00-intake.md`, then `01-research.md` (summary, then §4–§5). In the one batch of questions, ask: admin shape A / B / C / D (research §4); entry titles, tags, shown date; one link or several per podcast episode; how "still of use" is measured privately and over what period (research §2: not before ~2–3 months).
+2. Steps 3a/3b journeys, then 4 wireframes, 4b Claude Design. Step 6 can run beside 3–5.
+
+**Carry-overs**
+- `01-research.md` was redone on Opus and supersedes the morning's Sonnet pass; the block below is out of date on research findings.
+- Hard lines from research: no streaks, counters or gap markers on the site; the log records what was learned, not public intentions.
+- If shape A: passkeys (two devices), per-account throttling, `__Host-` Secure/HttpOnly/SameSite=Strict cookies, no tokens in localStorage (OWASP). Auth is the risk stage.
+- Not researched (network): `/now` pages, Cloudflare Access limits, Decap backends.
+- IMNSTR is outside Root: no pillar, no OST, no Root brand. Design system from 4b. Code repo needed by step 7.
+
+**Questions for the founder:** the four in next step 1 (for spec).
+
+**Owed:** nothing.
+
 ## 2026-10-09 · `lifecycle-trial/imnstr` @ b3155c5 (+ step 1)
 
 **Lanes in flight:** none.
