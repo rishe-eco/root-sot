@@ -66,6 +66,3 @@ Required (for `required-headings.txt`): `## Summary`, `## 1. What Root already k
 
 ## Next
 Step 2, Spec (`spec full`, Opus · high). The six founder questions are in `STATE.md`'s top block. The archived passes are for 10a/10c only. Spec should read the fresh `01-research.md`, not the archive.
-
-## Correction (added after integration, same day)
-The *Read* section says archiving unread kept this pass from being anchored. That was only partly true. The top `STATE.md` block, which the read order requires, carried the second pass's findings (Gollwitzer's conclusion, the "2–3 months" window, the OWASP cookie list, admin shapes A–D), and the founder's reachability question named its failed hosts. See `01-research-integration.md`.

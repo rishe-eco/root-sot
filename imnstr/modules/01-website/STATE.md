@@ -2,21 +2,21 @@
 
 *Newest block first. Written by `handoff`.*
 
-## 2026-10-10 · `lifecycle-trial/imnstr` @ d8245d0 (+ step 1, third pass, fresh)
+## 2026-10-10 · `lifecycle-trial/imnstr` @ b7318ac (+ step 1, three passes integrated)
 
 **Lanes in flight:** none.
 
 **Next steps, in order**
-1. Step 2, Spec (`spec full`, Opus · high): read `00-intake.md`, then `01-research.md` (summary, then §5–§6). In the one batch of questions, ask: admin shape A / B / B′ / C (research §5); entry fields (title? tags? prompt wording that invites explaining, §2.1); can entries be edited or unpublished without trace (§2.4); podcast: one link or several per episode, and the empty state if no episodes exist yet (§4); a dated "now" line on the landing page, yes or no (§3, mind §2.2); the drop review: the private question at 3 and 6 months (§6).
+1. Step 2, Spec (`spec full`, Opus · high): read `00-intake.md`, then `01-research.md` (summary, then §5–§6). Ask in one batch: admin shape **A own login / B files in git / C git CMS / D Access-gated editor** (research §5; the names are now fixed, and earlier blocks used other letters); entry fields (title, tags, shown date) and prompt wording that invites explaining (§2.1); quiet edit and unpublish (§2.4); podcast: one link or one per platform, and the empty state (§4); a dated "now" line, yes or no (§3, §2.2); a feed; the drop review as a private question at 3 and 6 months (§6).
 2. Steps 3a/3b journeys, then 4 wireframes, 4b Claude Design. Step 6 can run beside 3–5.
 
 **Carry-overs**
-- `01-research.md` was redone fresh at the founder's request. Both 2026-10-09 passes and their logs are in `lifecycle/trial-run/archive/01-research/` for the final review. **The two blocks below are stale on research findings.**
+- `01-research.md` now integrates all three passes; claims found by only one pass are tagged [P1]/[P2]/[P3]. Every pass is archived in `lifecycle/trial-run/archive/01-research/`, and the comparison is in `log/01-research-integration.md` (for 10a/10c). **The two blocks below are stale on research findings and on admin-shape letters.**
 - Hard lines: no streaks, counters or gap markers on the site; the log publishes what was learned, never public plans.
-- If shape A: the security floor in research §5 becomes acceptance criteria, and auth gets its own build stage.
+- The admin pulls against "design matters": C's editor can't be designed. D gives a designed editor without owning auth. If A, research §5.3 becomes acceptance criteria and auth gets its own stage.
 - IMNSTR is outside Root: no pillar, no OST, no Root brand. Design system from 4b. Code repo needed by step 7.
 
-**Questions for the founder:** the six in next step 1 (for spec).
+**Questions for the founder:** the seven in next step 1 (for spec).
 
 **Owed:** nothing.
 
