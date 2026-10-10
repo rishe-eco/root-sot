@@ -135,7 +135,9 @@
    - **Destination:** `revise` reference file.
 
 ## Cost
-*Founder fills in after the session.*
+*From the founder, after the session:*
+- Opus 5.5: 42 in / 223 out / 1.8M cache read / 82.8k cache write.
+- Cost $1.55; API 4 min; wall 13 min.
 
 ## Next
 - **Step 7, build plan** (Opus · high), against spec 0.4. Change notes 02 and 03 each list what's new for the build plan.
