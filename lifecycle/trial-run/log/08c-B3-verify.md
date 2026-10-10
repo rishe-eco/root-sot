@@ -79,7 +79,10 @@ The verify spec's eleven steps:
   - `lifecycle/status.md`, column 8 `2/10`;
   - this log.
 
-  All in one commit, pushed.
+  All in one commit, pushed as `2e8b450`.
+- **After the founder's answers:**
+  - code repo: `main` fast-forwarded to `f830534` and pushed; then `95d3311` on `main`, which closes the founder's items in the record, also pushed. The B3 worktree is removed, and the branch is kept locally, merged;
+  - root-sot: build plan 0.3, brief-common 0.2, config 0.2, `open-work.md` 0.4 (F-5 and F-6 closed), the `STATE.md` block rewritten in place, and this log. These are in the second 8c commit.
 
 ## Spec gaps
 - **Verify's inputs don't include the PD rows the stage implements.** The checklist sends you to "the plan's §5 section", but the lane's calls (report item 4) can only be judged against PD-7, PD-8, PD-24 and PD-25, and the card lists those by id. I read them. B1's verify logged the same need. Inject the PD and D rows the card names.
@@ -101,9 +104,13 @@ The stage record used B1's headings unchanged: title line with branch and commit
 - **No launch entry for a review server.** I added one to `E:\_root\.claude\launch.json` for the session and removed it afterwards.
 
 ## Founder Q&A
-None during the review. The closing message asks:
-1. Fast-forward `main` to `b3-public-log` and push?
-2. Make F-5 (`--ignore-scripts` in `brief-common.md` and `config.md` §6) and F-6 (plan changelog for B3) now?
+None during the review. After the first push (`2e8b450`), the closing message asked two questions, and the founder answered **"yes to both"**:
+1. *Fast-forward `main` to `b3-public-log` and push?* Done: `main @ f830534`, then `95d3311`, which closes the founder's items in the record. Pushed, worktree removed.
+2. *Make F-5 and F-6 now?* Done:
+   - **F-5:** brief-common 0.2 (setup is `npm install --ignore-scripts`, with why). Config 0.2 has the same in the milestone script (§6) and a new *Image install* row in §7 for B2. I also brought both files' status lines up to date (in use; the repo exists).
+   - **F-6:** build plan 0.3. §5 B3 gets `id ASC`, the extra files and the test-only entry routes. PD-8 gets the `<bdi>` attributes and the run rule. PD-7 says `lib/escape.ts` drops XML-forbidden characters. §6.1 adds B3 to `/__test/*`.
+
+The founder also asked for the next step's opening prompts. They are in the closing message and under *Next*.
 
 ## Skill shape
 - **Model and effort:** Opus, high. Both real findings needed knowledge the tests didn't encode: how `C++` renders in a right-to-left run, and that XML forbids control characters. That judgement is the reason verify is a separate session.
@@ -131,5 +138,9 @@ None during the review. The closing message asks:
 *Founder fills in after the session.*
 
 ## Next
-- **Founder:** answer the two questions above. On a yes to 1, the orchestrator fast-forwards `main` to `b3-public-log` (`f830534`), pushes, and removes the B3 worktree. The branch stays locally, merged.
-- **Then 8a for B4a** (Opus · medium, slot A), which can start once B3 is on `main`. Or **8a for B2** (slot B) once P0-2 and P0-3 are done. Either card must say `npm install --ignore-scripts`, until F-5 puts it in `brief-common.md`. B2's card must also cover S-6, the image's install.
+*Rewritten after the founder's answers.*
+
+B3 is on `main @ 95d3311`. The next step depends on P0-2 and P0-3:
+- **If P0-2 and P0-3 are done: 8a for B2** (Opus · medium), in slot B. Its card must cover S-6 (`npm ci --ignore-scripts` in the image) and V-1 (headers through Nginx). Its verify needs the founder for the VPS.
+- **8a for B4a** (Opus · medium), in slot A. It depends only on B1, and runs after B2, not beside it (plan §3 has no B2 + B4a pair). If P0-2 or P0-3 is still open, B4a goes first. Its card must cover S-1 and review checklist §4.
+- Either card: `npm install --ignore-scripts` now comes from brief-common 0.2. Read plan **0.3**.

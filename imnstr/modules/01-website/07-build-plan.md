@@ -2,7 +2,7 @@
 
 *Module `imnstr/modules/01-website/` · Track: Module · Phase 7 · `build-plan`. The order the code lands in and the shape it takes, to the level of tables, routes, refusal codes, screens and tests, so that each stage's phase card is a transcription and not a design exercise. Inputs: `02-spec.md` 0.4, `03-journeys.md` 0.3, `04-wireframes.html` (W1–W11), `04b-design/README.md` 0.2, `05-ux-review.md` pass 1, `06-eval-plan.md` 0.2, change notes 01–03; for the host, `root-app/deploy/`. Update the changelog; don't fork.*
 
-**Version 0.2 · Status: plan; B1 built and verified · 2026-10-11 · Owner: founder**
+**Version 0.3 · Status: plan; B1 and B3 built and verified · 2026-10-11 · Owner: founder**
 
 **Where this file yields.** On *what* the site does, the spec wins. On what a person experiences, the journeys win. On how it looks, the design wins. On *what order the code lands in and what shape it takes*, this file wins. Where it settles something the spec left open, §2 says so.
 
@@ -149,7 +149,7 @@ IMNSTR has no code yet, so it has no house rules yet. These are the rules, writt
 **PD-7 · The body is a ProseMirror document, stored as JSON.**
 - The schema in `shared/doc.ts` is `doc > paragraph+ > text`, with marks `link{href}` and `highlight`. Nothing else is allowed (spec §4.2).
 - The same schema runs in the admin and on the server. The server validates every save against it (`DOC_INVALID`).
-- Links must be `https:`, `http:` or `mailto:`. `lib/render.ts` serialises the document to `<p>`, `<a>` and `<mark>`, escaping all text, for both pages and feeds.
+- Links must be `https:`, `http:` or `mailto:`. `lib/render.ts` serialises the document to `<p>`, `<a>` and `<mark>`, escaping all text, for both pages and feeds. The one escape is `lib/escape.ts`; it also drops the control characters XML 1.0 forbids, since one in an entry would make the whole feed malformed.
 - *Fallback, named now (D-5):* if B6 finds ProseMirror unusable on the founder's phone keyboard, in either language, the editor becomes a textarea with `[text](url)` and `==highlight==`, and the stored format stays the same. This is decided at B6's verify, by the founder, on the phone.
 
 **PD-8 · Bidirectional text is isolated at render time, by one function.**
@@ -157,6 +157,7 @@ IMNSTR has no code yet, so it has no house rules yet. These are the rules, writt
 - The paragraph's direction comes from the entry's `lang`, never from its first character.
 - The editor applies the same function as ProseMirror inline decorations (`unicode-bidi: isolate`).
 - Pages, `/fa/log` and both feeds all call it (AC-48).
+- *As built at B3:* a URL becomes `<bdi dir="ltr">`, without its trailing punctuation. In Persian, a Latin run becomes `<bdi lang="en">`: letters and digits joined by ` . - _ ' / : & + # @`, keeping a trailing `+` or `#` and a leading dot before a letter (`C++`, `C#`, `.NET`), and holding at least one letter. In English, an Arabic-script run becomes `<bdi lang="fa" dir="rtl">`. Isolation is per text node.
 
 **PD-9 · Dates go through `Intl`, with no date library.**
 - Instants are stored as UTC milliseconds and shown in `SITE_TZ`, default **`Asia/Tehran`**, confirmed by the founder (P0-5, 2026-10-11).
@@ -464,13 +465,15 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
   - "Root 2.0" inside Persian;
   - Persian inside English;
   - digits next to Latin text.
-- `lib/entries.ts` (read side): `listPublished(lang, before?)` ordered by `first_published_at DESC, id`, 20 per page plus a look-ahead for "Older"; `getPublished(lang, id)`.
+- `lib/entries.ts` (read side): `listPublished(lang, before?)` ordered by `first_published_at DESC, id ASC`, 20 per page plus a look-ahead for "Older"; `getPublished(lang, id)`.
 - `lib/feed.ts`: Atom per language.
   - `xml:lang`, the self link and the alternate link.
   - The 20 most recent entries, full content as `type="html"`. Persian content is wrapped in `<div dir="rtl">`.
   - An untitled entry's `<title>` is its date: Gregorian in the English feed, Solar Hijri with Persian digits in the Persian one (AC-40).
   - Dates as PD-24.
 - A CLI, `seed-entry --lang --title? --body-file`, for MS2's demonstration and for manual checks. It inserts published rows straight into the table. Rows it makes on production are cleared by B8's `reset-content` before launch.
+
+- *As built:* also `lib/escape.ts` (the one HTML/XML escape), views `views/log.tsx`, `views/entry.tsx` and `views/fill.tsx` (locale strings with `{placeholders}` filled by elements), and the test-only `POST`/`DELETE /__test/entries`, which call the CLI's `insertPublished()`.
 
 **Routes:** `/log`, `/log/<id>`, `/log/feed.xml`, and the same under `/fa/`.
 - The landing page gains its way into the log.
@@ -844,7 +847,7 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
 | `/admin/api/{session, passkeys, enrolment-codes, settings/*}` | session + CSRF | B4a |
 | `/admin/api/entries*` | session + CSRF | B5 |
 | `/admin/api/episodes*` | session + CSRF | B7 |
-| `/__test/*` | only with `E2E_CLOCK=1`; refused at boot in production | B1, B4a |
+| `/__test/*` | only with `E2E_CLOCK=1`; refused at boot in production | B1, B3, B4a |
 
 ### 6.2 · Refusal codes
 
@@ -1030,6 +1033,12 @@ The other PD-n are mechanics. Veto any one of them, and the stage it governs cha
 ---
 
 ## Changelog
+
+- **0.3 · 2026-10-11:** After B3's verify (stage record `docs/development/B3.md` in the code repo), by the founder's decision. These are corrections, and change no stage's scope.
+  - **§5 B3:** the order is `first_published_at DESC, id ASC`. The files the stage needed beyond the list, and the test-only entry routes, are named.
+  - **PD-8:** the `<bdi>` attributes and the run rule, as built, including `C++`, `C#` and `.NET`, which the review fixed.
+  - **PD-7:** the one escape is `lib/escape.ts`, and it drops XML-forbidden control characters (found at review).
+  - **§6.1:** `/__test/*` gains B3.
 
 - **0.2 · 2026-10-11:** After B1's verify (stage record `docs/development/B1.md` in the code repo), by the founder's decision. These are corrections, and change no stage's scope.
   - **PD-26, §4 and B1's traps:** the Persian families ship both their Arabic and Latin subsets, because the Arabic ones lack «» and Latin punctuation.

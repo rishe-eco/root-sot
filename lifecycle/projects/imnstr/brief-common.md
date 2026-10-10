@@ -2,7 +2,7 @@
 
 *What every Sonnet lane building an IMNSTR stage gets, ahead of its phase card. `build-phase` sends this file and then the card. Paths, ports and suite commands are in `config.md` beside this file. Generalised from the journeys build's `brief-common.md` (recovered 2026-10-05, not committed), with the lane budget, the debug rules and a seventh part of the report added, as `skills-plan.md` §0 and `build-phase` ask.*
 
-**Version 0.1 · Status: proposal, not yet used by a lane · 2026-10-10 · Owner: founder**
+**Version 0.2 · Status: in use, by the B1 and B3 lanes · 2026-10-11 · Owner: founder**
 
 ---
 
@@ -29,7 +29,7 @@ You work in a **git worktree** of `E:\_root\imnstr`, which is your current direc
 ## Environment
 
 Windows 10. The Bash tool runs Git Bash; npm runs package scripts through **cmd.exe**.
-- **Node 24.** Setup, once, at the worktree root: `npm install`. *(If it changes `package-lock.json` only by stripping `"dev": true` from an optional platform package, revert that file; don't commit it.)*
+- **Node 24.** Setup, once, at the worktree root: **`npm install --ignore-scripts`**. A plain `npm install` fails on this machine: better-sqlite3 ships a `binding.gyp`, so npm runs `node-gyp rebuild` for it, and there is no Windows SDK. The package carries its own prebuilt binaries and loads them at run time, so skipping scripts loses nothing. *(If it changes `package-lock.json` only by stripping `"dev": true` from an optional platform package, revert that file; don't commit it.)*
 - **No `VAR=value cmd` prefixes inside `package.json` scripts.** cmd.exe can't run them. Set your lane's variables in the Bash command that runs the suite instead, in every command, since shell state doesn't persist between Bash calls.
 - **Your lane's variables** are in your card: the e2e server port, the e2e database file, and `E2E_CLOCK=1` for e2e. Unit and integration tests make their own temporary SQLite file per test file; you don't need a database of your own for them.
 - **There is no Chrome.** Playwright runs on Edge: `channel: 'msedge'` in the config. Don't install Playwright's Chromium.
@@ -96,4 +96,5 @@ A stopped lane is not a failure. A fresh lane continues from your branch and you
 
 ## Changelog
 
+- **0.2 · 2026-10-11** — Install with `npm install --ignore-scripts`, and why (F-5, found at B3's lane and verify). Status: in use.
 - **0.1 · 2026-10-10** — First version, at trial step 7b, from the journeys `brief-common.md`, build plan 0.1 §0.3, §3 and §8, and the build machine's notes. Not yet used by a lane.

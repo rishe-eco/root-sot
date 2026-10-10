@@ -2,7 +2,7 @@
 
 *Where things are for the IMNSTR build, how its suites run, and which resources each lane gets. Read by `build-phase` (lane resources, the card's paths) and `verify` (suites, stage records, the milestone script, the deploy checks). The rules a lane follows are in `brief-common.md`; what a review checks is in `review-checklist.md`.*
 
-**Version 0.1 · Status: proposal; the code repo doesn't exist yet (P0-1) · 2026-10-10 · Owner: founder**
+**Version 0.2 · Status: in use; the code repo exists (`rishe-eco/imnstr`) · 2026-10-11 · Owner: founder**
 
 **Grading.** Founder decisions are marked **[F]**. Everything about the code repo is **planned**: B1 creates the scripts and names, so where B1's stage record differs, it wins and this file is updated. Machine facts are **as-built** from the build machine's notes (`root-app-dev-machine`, `imnstr-build`), 2026-10-10.
 
@@ -83,13 +83,13 @@ At most **two lanes at once**, and never two that change the schema (PD-5 puts i
 
 ```bash
 cd /e/_root/imnstr && git fetch && git status -sb
-npm ci
+npm ci --ignore-scripts
 npm run check
 npm test
 PORT=4100 DB_PATH=.tmp/milestone.db E2E_CLOCK=1 npm run e2e
 ```
 
-One after another, never in parallel. Record the counts in `docs/development/README.md` under the milestone, with the date and `main @ <hash>`. Then the milestone's checks outside the suites:
+`--ignore-scripts` because better-sqlite3's `binding.gyp` makes npm call `node-gyp`, which fails here (no Windows SDK); the package's prebuilt binaries need no compiling. One after another, never in parallel. Record the counts in `docs/development/README.md` under the milestone, with the date and `main @ <hash>`. Then the milestone's checks outside the suites:
 
 | Milestone | Stages | Also, by hand |
 |---|---|---|
@@ -105,6 +105,7 @@ One after another, never in parallel. Record the counts in `docs/development/REA
 | Host | root-app's VPS, as a co-tenant **[F]** |
 | App | compose project `imnstr`, `127.0.0.1:4100`, `/srv/imnstr/` (data in `/srv/imnstr/data`, backups in `/srv/imnstr/backups`) |
 | Nginx | `/etc/nginx/sites-available/imnstr`, linked from `sites-enabled`; zone `imnstr_auth`; the repo copy is `deploy/nginx/imnstr.conf` |
+| Image install | `npm ci --ignore-scripts` in the Dockerfile, for the same reason; better-sqlite3 ships Linux prebuilds (S-6, B2) |
 | Routine deploy | on the server: `cd /srv/imnstr && git pull && docker compose -f docker-compose.prod.yml build && docker compose -f docker-compose.prod.yml up -d` |
 | Who deploys | the orchestrator with the founder, at each stage's verify from B2 on. Lanes have no server access. |
 | Checks after each deploy | `nginx -t` (before any reload); `curl -I` on `/`, `/fa/` and a 404; root-app's own URL answering. Into the stage record. |
@@ -122,4 +123,5 @@ One after another, never in parallel. Record the counts in `docs/development/REA
 
 ## Changelog
 
+- **0.2 · 2026-10-11** — §6 and §7: install with `--ignore-scripts` (F-5, found at B3's verify). Status: in use.
 - **0.1 · 2026-10-10** — First version, at trial step 7b, from build plan 0.1 (§3, §4, B1, B2, §7, §8) and the build machine's notes. The org is `rishe-eco`, confirmed by the founder.

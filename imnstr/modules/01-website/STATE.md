@@ -2,15 +2,15 @@
 
 *Newest block first. Written by `handoff`.*
 
-## 2026-10-11 · `lifecycle-trial/imnstr` (step 8c, B3 verified)
+## 2026-10-11 · `lifecycle-trial/imnstr` (step 8c, B3 verified and merged)
 
-*Replaces the lane table, next steps and "For verify to decide" of the step-8b B3 block; each call there is ruled on in the stage record. The step-8c B1 carry-overs still stand, except S-2, now done.*
+*Replaces the lane table, next steps and "For verify to decide" of the step-8b B3 block; each call there is ruled on in the stage record. The step-8c B1 carry-overs still stand, except S-2, which is done, and the `npm install` line, which is now `npm install --ignore-scripts` (brief-common 0.2).*
 
-**Code repo:** `rishe-eco/imnstr`, `main @ 7ebc220`, unchanged. **Lanes in flight:** none.
+**Code repo:** `rishe-eco/imnstr`, **`main @ 95d3311`, pushed.** B3 was fast-forwarded at the founder's word. The `b3-public-log` worktree is removed, and the branch remains locally, merged. **Lanes in flight:** none.
 
-| Stage | Branch | Record | Status |
+| Stage | Commits on `main` | Record | Status |
 |---|---|---|---|
-| B3 Public log and feed (L) | `b3-public-log` @ `f830534` (lane `ae521b1`, `83d8ce6`; review `b9e5e8a`; record `f830534`), **local only** | `docs/development/B3.md` | **verified, ready to fast-forward.** check clean, Vitest 349/349, e2e 174/174 (log, entry, landing, 404); W3C Feed Validator: both feeds valid |
+| B3 Public log and feed (L) | lane `ae521b1`, `83d8ce6`; review `b9e5e8a`; record `f830534`; founder's answers `95d3311` | `docs/development/B3.md` | **verified and merged.** check clean, Vitest 349/349, e2e 174/174 (log, entry, landing, 404); W3C Feed Validator: both feeds valid |
 
 **The review fixed:**
 - `C++`, `C#` and `.NET` were split in Persian, so `C++` was drawn `++C`.
@@ -18,17 +18,24 @@
 - The owner line used a hand-written `<bdi>`.
 - `CLAUDE.md` now says `npm install --ignore-scripts`. better-sqlite3's `binding.gyp` makes npm call `node-gyp`, and its prebuilt binaries need no compiling.
 
+**Founder's answers (2026-10-11):**
+- Merge B3: done.
+- F-5: done, as brief-common **0.2** and config **0.2** (`--ignore-scripts` in setup, the milestone script and the image).
+- F-6: done, as build plan **0.3** (§5 B3, §6.1, PD-7, PD-8).
+
 **Next steps, in order**
-1. **Founder:** fast-forward `main` to `b3-public-log` and push. Then remove the worktree `E:\_root\imnstr\.claude\worktrees\b3-public-log`.
-2. **Founder:** F-5 (`--ignore-scripts` in `brief-common.md` and `config.md` §6) and F-6 (the plan changelog for B3), in `open-work.md`.
-3. **8a for B4a** (slot A), now that B3 is in. Or **8a for B2** once P0-2 and P0-3 are done (slot B).
+1. **If P0-2 (DNS) and P0-3 (VPS facts) are done: 8a for B2** (Opus · medium), slot B. It is S, and it closes MS1. Its card must cover S-6 (`npm ci --ignore-scripts` in the image) and V-1.
+2. **8a for B4a** (Opus · medium), slot A. It depends only on B1. It runs after B2, not beside it: plan §3 lists no B2 + B4a pair. If P0-2 or P0-3 is still open, B4a goes first, and B2 waits for it to land.
+3. Founder, in parallel: P0-2, P0-3, P0-4, P0-6.
 
 **Carry-overs for the next cards**
-- Install with `npm install --ignore-scripts` in a fresh worktree. Urgent until F-5 lands in `brief-common.md`.
-- **B2:** the image needs `npm ci --ignore-scripts` or build tools (S-6).
-- **B5 and B6:** empty paragraphs (S-4), control characters (S-5), and `docHasText` for `BODY_REQUIRED`.
+- **Every UI card:** e2e at 360 and 180 px (`expectNoSidewaysScroll`). Routes in `routes/<area>.ts`, with one line in `app.ts`.
+- **B4a:** S-1 (the 401 test enumerating the router). Review checklist §4, line by line.
+- **B2:** S-6, V-1.
+- **B5 and B6:** S-4 (empty paragraphs), S-5 (control characters), and `docHasText` for `BODY_REQUIRED`.
+- A lane's report must reach a committed file or the launching session (`.tmp/<stage>.report.md` in the worktree, as at B3).
 
-**Questions for the founder:** fast-forward and push B3? Do F-5 and F-6 now?
+**Questions for the founder:** are P0-2 and P0-3 done? That decides whether B2 or B4a is next.
 
 ## 2026-10-11 · `lifecycle-trial/imnstr` (step 8b, B3 landed)
 
