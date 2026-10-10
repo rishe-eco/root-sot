@@ -132,7 +132,8 @@ Headings used:
    - **Urgent:** yes. Steps 5 and 6 are in flight now.
 
 ## Cost
-*Founder fills in.*
+- Opus 5.5: 56 in / 439 out / 2.7M cache read / 91.2k cache write.
+- $1.98 · API 6 min · wall 11 min.
 
 ## Next
 - **`revise`** (`05b-revise-spec.md`, Opus · medium): step 5's items and `06-eval-plan.md` §6's five. Analytics is the one that changes the spec most (AC-7).
