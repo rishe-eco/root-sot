@@ -2,6 +2,46 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` @ 88dde2f (+ step 4b import)
+
+**Lanes in flight:** none.
+
+**Next steps, in order**
+1. **`revise` on `02-spec.md`** for G1–G9, which the founder accepted in 4b. Also route the following:
+   - emphasis renders as the highlighter;
+   - the G1 enrolment code lasts 10 min (proposal);
+   - the eye-follow must stop under reduced motion (found in the import).
+2. **Step 5, UX review**, against `04b-design/imnstr-design.html`. Step 6 (eval plan) can run beside it.
+
+**Carry-overs**
+- **4b is in the repo:** `04b-design/` and `log/04b-design.md`, with the import log at `log/04b-design-import.md`.
+- The README's "What didn't survive" is filled in: nothing that the design depends on was lost. The export is self-contained (fonts and React are bundled, no network requests).
+- `imnstr-design.html` needs JavaScript and was checked over `http://127.0.0.1`. `file://` is untested.
+- Everything in the 4b block below still holds: its own design system, the decisions, the design gaps and the hard lines.
+
+**Questions for the founder:** real copy (name, bio, projects, episodes, the jokes); YouTube/Castbox marks; cost for both 4b logs.
+
+**Owed:** none from 4b.
+
+## 2026-10-10 · `lifecycle-trial/imnstr` (+ step 4b)
+
+**Lanes in flight:** none.
+
+**Next steps, in order**
+1. **Import session (Opus · medium)**: copy `04b-design/` and `lifecycle/trial-run/log/04b-design.md` from the Claude Design project into the repo, commit and push. Claude Design can't write to git. Then fill in the README's "What didn't survive the move" section by opening `04b-design/imnstr-design.html` and checking it against the Claude Design preview.
+2. **`revise` on `02-spec.md`** for G1–G9, which the founder accepted in 4b. Also: emphasis renders as the highlighter; the G1 enrolment code lasts 10 min (proposal).
+3. **Step 5, UX review**, against `04b-design/imnstr-design.html`. Step 6 (eval plan) can run beside it.
+
+**Carry-overs**
+- IMNSTR has its **own design system**, settled in `04b-design/README.md`: Bricolage Grotesque + Newsreader, green on green-tinted paper, the highlighter, and the iMNSTR wordmark (i-monster) with eyes. Classical was tried and dropped. Step 9's `design-review` reviews against this README.
+- Decided in 4b: entries show date **and time**; platform links open in a **new tab**; W11 reads "Episodes will be listed here"; light and dark modes.
+- Design gaps (README §Coverage): some desktop counterparts, dark admin states, platform icons (marks not supplied), real copy.
+- Hard lines unchanged: nothing on any page, public or admin, counts entries or marks gaps.
+
+**Questions for the founder:** real copy (name, bio, projects, episodes, the jokes); YouTube/Castbox marks.
+
+**Owed:** the import commit (step 1 above).
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` @ 0cd2ed1 (+ step 4)
 
 **Lanes in flight:** none.

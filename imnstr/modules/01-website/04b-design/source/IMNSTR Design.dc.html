@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&amp;family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&amp;display=swap"><style>body{margin:0;background:#dfe1da;font-family:system-ui,sans-serif}a{color:#2f5442}a:hover{color:#3f8f3a}:focus-visible{outline:2px solid #3f8f3a;outline-offset:2px}::selection{background:#bfe8ad}@keyframes imn-blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}@keyframes imn-mark{from{background-size:0% 52%}to{background-size:100% 52%}}@keyframes imn-markf{from{background-size:0% 100%}to{background-size:100% 100%}}@keyframes imn-spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}.pl{padding:48px 44px 40px;border-bottom:1px solid rgba(0,0,0,.08)}.pl-h{display:flex;align-items:baseline;gap:12px;margin:0 0 6px}.pl-n{font:600 11px ui-monospace,Menlo,monospace;padding:3px 8px;background:#1b211d;color:#eff0ea;border-radius:4px}.pl-t{font:700 20px 'Bricolage Grotesque',sans-serif;color:#1b211d;letter-spacing:-.01em}.pl-s{font:12.5px/1.5 system-ui,sans-serif;color:rgba(0,0,0,.6);margin:0 0 24px;max-width:120ch}.row{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}.fr{display:flex;flex-direction:column;gap:8px}.cap{font:10.5px/1.45 ui-monospace,Menlo,monospace;color:rgba(0,0,0,.55);max-width:360px}.card{border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08),0 0 0 1px rgba(0,0,0,.06)}</style></helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#eff0ea"></rect><text x="50" y="62" text-anchor="middle" font-family="sans-serif" font-weight="800" font-size="34" fill="#1b211d">iM</text><circle cx="36" cy="76" r="5" fill="#fff" stroke="#1b211d" stroke-width="1.5"></circle><circle cx="50" cy="76" r="5" fill="#fff" stroke="#1b211d" stroke-width="1.5"></circle></svg></template>
+<section class="pl" data-screen-label="00 Cover">
+<div style="display:flex;align-items:flex-end;gap:16px">{{ heroCover }}</div>
+<p style="font:400 22px/1.45 'Newsreader',serif;color:#1b211d;max-width:780px;margin:20px 0 8px">IMNSTR.com, designed. Step 4b, from <code>02-spec.md</code>, <code>03-journeys.md</code> and the 13 plates of <code>04-wireframes.html</code>. The direction is <b>8a</b> from <code>IMNSTR Directions.dc.html</code>.</p>
+<p class="pl-s">Plates follow the wireframes' numbering. Each frame's caption cites the journey steps and ACs it carries. G1–G9 are designed as accepted, as the founder asked; the README lists them for <code>revise</code>. Entries show date and time; platform links open in a new tab; the podcast empty state reads "Episodes will be listed here" (W11). The copy is placeholder in the founder's voice until the real words arrive. Hover any iMNSTR; the eyes follow the pointer.</p>
+</section>
+<section class="pl" id="p1" data-screen-label="01 Landing">
+<div class="pl-h"><span class="pl-n">1</span><span class="pl-t">Landing: who, the two ways in, the projects</span></div>
+<p class="pl-s">Wireframe plate 1. The name is loud and everything else lean. There is no "latest entry" teaser and no date anywhere on the page (W4, AC-5), and no cookie banner, because nothing sets one (AC-7). The landing content lives in the code repo (journeys decision 1).</p>
+<div class="row">
+<div class="fr"><div class="card" lang="en" style="width:1100px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="display:flex;justify-content:flex-end;gap:28px;padding:28px 64px 0;font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:15px"><a href="#" style="color:#1b211d;text-decoration:none">Learnings</a><a href="#" style="color:#1b211d;text-decoration:none">Podcast</a><a href="#" style="color:#56605a;text-decoration:none">Feed</a></div>
+<div style="display:flex;align-items:flex-end;gap:16px;padding:44px 58px 0;min-height:200px">{{ hero }}</div>
+<p style="font-size:28px;line-height:1.42;margin:32px 64px 0;max-width:760px;text-wrap:pretty">I make things so I can <span style="background-image:linear-gradient(#bfe8ad,#bfe8ad);background-repeat:no-repeat;background-position:0 85%;background-size:100% 52%;animation:imn-mark .7s 1.2s ease-out both;padding:0 2px">understand them</span>. Right now that's Root and Tracker. Then I <span style="background-image:linear-gradient(#bfe8ad,#bfe8ad);background-repeat:no-repeat;background-position:0 85%;background-size:100% 52%;animation:imn-mark .8s 1.8s ease-out both;padding:0 2px">write down what I learned</span>, before I forget it.</p>
+<div style="display:flex;flex-direction:column;padding:64px 64px 0">
+<a href="#" style="display:flex;justify-content:space-between;align-items:center;padding:14px 10px;border-top:1.5px solid #1b211d;color:#1b211d;text-decoration:none;background-image:linear-gradient(#bfe8ad,#bfe8ad);background-repeat:no-repeat;background-size:0% 100%;transition:background-size .35s ease" style-hover="background-size:100% 100%"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:56px;line-height:1;letter-spacing:-.03em">Learnings</span><span style="display:flex;gap:12px;align-items:center;font-size:19px;color:#3a443e">things I figured out, newest on top<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1b211d" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span></a>
+<a href="#" style="display:flex;justify-content:space-between;align-items:center;padding:14px 10px;border-top:1.5px solid #1b211d;border-bottom:1.5px solid #1b211d;color:#1b211d;text-decoration:none;background-image:linear-gradient(#bfe8ad,#bfe8ad);background-repeat:no-repeat;background-size:0% 100%;transition:background-size .35s ease" style-hover="background-size:100% 100%"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:56px;line-height:1;letter-spacing:-.03em">Monster Podcast</span><span style="display:flex;gap:12px;align-items:center;font-size:19px;color:#3a443e">I talk with people, you listen<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1b211d" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span></a>
+</div>
+<div style="padding:56px 64px 0">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:14px;color:#2f5442;margin-bottom:14px">Things I'm building</div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px">
+<a href="#" target="_blank" style="display:flex;flex-direction:column;gap:4px;color:#1b211d;text-decoration:none"><span style="display:flex;gap:6px;align-items:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:22px">Root<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span><span style="font-size:17px;line-height:1.45;color:#3a443e">A small ecosystem of tools for learning and organising a life.</span></a>
+<div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:22px">Tracker</span><span style="font-size:17px;line-height:1.45;color:#3a443e">Where Root's ideas get tried on me first.</span></div>
+<a href="#" target="_blank" style="display:flex;flex-direction:column;gap:4px;color:#1b211d;text-decoration:none"><span style="display:flex;gap:6px;align-items:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:22px">Root Studio<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span><span style="font-size:17px;line-height:1.45;color:#3a443e">Root's website, built as an app. Persian first.</span></a>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;padding:88px 64px 32px;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;color:#56605a"><span>No cookies here. The monster ate them.</span><div style="display:flex;gap:22px"><a href="#" style="color:#56605a">Learnings</a><a href="#" style="color:#56605a">Podcast</a><a href="#" style="color:#56605a">Feed</a></div></div>
+</div><div class="cap">desktop 1100 · J4.5 · AC-1 · AC-5 · AC-7 · W4</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="display:flex;justify-content:flex-end;gap:18px;padding:18px 22px 0;font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:14px"><a href="#" style="color:#1b211d;text-decoration:none">Learnings</a><a href="#" style="color:#1b211d;text-decoration:none">Podcast</a></div>
+<div style="display:flex;align-items:flex-end;gap:10px;padding:36px 18px 0">{{ heroPhone }}</div>
+<p style="font-size:21px;line-height:1.42;margin:22px 22px 0;text-wrap:pretty">I make things so I can <span style="background-image:linear-gradient(#bfe8ad,#bfe8ad);background-repeat:no-repeat;background-position:0 85%;background-size:100% 52%;animation:imn-mark .7s 1.2s ease-out both">understand them</span>. Then I <span style="background-image:linear-gradient(#bfe8ad,#bfe8ad);background-repeat:no-repeat;background-position:0 85%;background-size:100% 52%;animation:imn-mark .8s 1.8s ease-out both">write down what I learned</span>, before I forget it.</p>
+<div style="display:flex;flex-direction:column;padding:40px 22px 0">
+<a href="#" style="display:flex;flex-direction:column;gap:2px;padding:14px 4px;border-top:1.5px solid #1b211d;color:#1b211d;text-decoration:none"><span style="display:flex;justify-content:space-between;align-items:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;line-height:1;letter-spacing:-.03em">Learnings<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1b211d" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span><span style="font-size:16px;color:#3a443e">things I figured out, newest on top</span></a>
+<a href="#" style="display:flex;flex-direction:column;gap:2px;padding:14px 4px;border-top:1.5px solid #1b211d;border-bottom:1.5px solid #1b211d;color:#1b211d;text-decoration:none"><span style="display:flex;justify-content:space-between;align-items:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;line-height:1;letter-spacing:-.03em">Monster Podcast<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1b211d" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span><span style="font-size:16px;color:#3a443e">I talk with people, you listen</span></a>
+</div>
+<div style="padding:36px 22px 0;display:flex;flex-direction:column;gap:16px">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:13px;color:#2f5442">Things I'm building</div>
+<a href="#" target="_blank" style="display:flex;flex-direction:column;gap:2px;color:#1b211d;text-decoration:none"><span style="display:flex;gap:6px;align-items:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px">Root<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span><span style="font-size:16px;line-height:1.45;color:#3a443e">A small ecosystem of tools for learning and organising a life.</span></a>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px">Tracker</span><span style="font-size:16px;line-height:1.45;color:#3a443e">Where Root's ideas get tried on me first.</span></div>
+<a href="#" target="_blank" style="display:flex;flex-direction:column;gap:2px;color:#1b211d;text-decoration:none"><span style="display:flex;gap:6px;align-items:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px">Root Studio<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span><span style="font-size:16px;line-height:1.45;color:#3a443e">Root's website, built as an app. Persian first.</span></a>
+</div>
+<div style="padding:56px 22px 24px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:#56605a;display:flex;flex-direction:column;gap:10px"><div style="display:flex;gap:16px"><a href="#" style="color:#56605a">Learnings</a><a href="#" style="color:#56605a">Podcast</a><a href="#" style="color:#56605a">Feed</a></div><span>No cookies here. The monster ate them.</span></div>
+</div><div class="cap">phone 360 · light</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;background:#141a17;color:#e4e8e3;font-family:'Newsreader',serif">
+<div style="display:flex;justify-content:flex-end;gap:18px;padding:18px 22px 0;font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:14px"><a href="#" style="color:#e4e8e3;text-decoration:none">Learnings</a><a href="#" style="color:#e4e8e3;text-decoration:none">Podcast</a></div>
+<div style="display:flex;align-items:flex-end;gap:10px;padding:36px 18px 0">{{ heroPhoneD }}</div>
+<p style="font-size:21px;line-height:1.42;margin:22px 22px 0;text-wrap:pretty">I make things so I can <span style="background-image:linear-gradient(#7fd36b,#7fd36b);background-repeat:no-repeat;background-size:100% 100%;animation:imn-markf .7s 1.2s ease-out both;color:#141a17;padding:0 2px">understand them</span>. Then I <span style="background-image:linear-gradient(#7fd36b,#7fd36b);background-repeat:no-repeat;background-size:100% 100%;animation:imn-markf .8s 1.8s ease-out both;color:#141a17;padding:0 2px">write down what I learned</span>, before I forget it.</p>
+<div style="display:flex;flex-direction:column;padding:40px 22px 0">
+<a href="#" style="display:flex;flex-direction:column;gap:2px;padding:14px 4px;border-top:1.5px solid #e4e8e3;color:#e4e8e3;text-decoration:none"><span style="display:flex;justify-content:space-between;align-items:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;line-height:1;letter-spacing:-.03em">Learnings<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span><span style="font-size:16px;color:#c9d0cb">things I figured out, newest on top</span></a>
+<a href="#" style="display:flex;flex-direction:column;gap:2px;padding:14px 4px;border-top:1.5px solid #e4e8e3;border-bottom:1.5px solid #e4e8e3;color:#e4e8e3;text-decoration:none"><span style="display:flex;justify-content:space-between;align-items:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;line-height:1;letter-spacing:-.03em">Monster Podcast<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span><span style="font-size:16px;color:#c9d0cb">I talk with people, you listen</span></a>
+</div>
+<div style="padding:36px 22px 0;display:flex;flex-direction:column;gap:16px">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:13px;color:#7fd36b">Things I'm building</div>
+<a href="#" target="_blank" style="display:flex;flex-direction:column;gap:2px;color:#e4e8e3;text-decoration:none"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px">Root ↗</span><span style="font-size:16px;line-height:1.45;color:#c9d0cb">A small ecosystem of tools for learning and organising a life.</span></a>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px">Tracker</span><span style="font-size:16px;line-height:1.45;color:#c9d0cb">Where Root's ideas get tried on me first.</span></div>
+<a href="#" target="_blank" style="display:flex;flex-direction:column;gap:2px;color:#e4e8e3;text-decoration:none"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px">Root Studio ↗</span><span style="font-size:16px;line-height:1.45;color:#c9d0cb">Root's website, built as an app. Persian first.</span></a>
+</div>
+<div style="padding:56px 22px 24px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:#aab4ad;display:flex;flex-direction:column;gap:10px"><div style="display:flex;gap:16px"><a href="#" style="color:#aab4ad">Learnings</a><a href="#" style="color:#aab4ad">Podcast</a><a href="#" style="color:#aab4ad">Feed</a></div><span>No cookies here. The monster ate them.</span></div>
+</div><div class="cap">phone 360 · dark (prefers-color-scheme)</div></div>
+</div>
+</section>
+<section class="pl" id="p2" data-screen-label="02 Log">
+<div class="pl-h"><span class="pl-n">2</span><span class="pl-t">The log: empty, one entry, three, long</span></div>
+<p class="pl-s">Wireframe plate 2. It is the same page at four amounts of data. Entries run on as ¶ paragraphs with the same space between every one, so 3 days and 23 days look identical (AC-5). The date is each entry's link to its own page. A short log is just shorter; it never apologises. There is a feed link once something exists (G6), and paging is a single "Older entries" row: 20 per page, no page numbers (W2, W3).</p>
+<div class="row">
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:640px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:18px 22px 0">{{ mark }}<div style="display:flex;gap:14px;font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:14px"><a href="#" style="color:#1b211d;text-decoration:underline;text-decoration-color:#3f8f3a;text-decoration-thickness:2px;text-underline-offset:5px">Learnings</a><a href="#" style="color:#1b211d;text-decoration:none">Podcast</a></div></div>
+<div style="padding:0 22px 28px">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:48px;line-height:1;letter-spacing:-.03em;margin:52px 0 10px">Learnings</div>
+<p style="font-size:18px;line-height:1.45;color:#3a443e;margin:0">Things I figured out. Newest on top.</p>
+<div style="margin:48px 0 0;padding:22px;border:1.5px solid rgba(27,33,29,.25);border-radius:18px;display:flex;flex-direction:column;gap:14px">{{ eyesSmall }}<p style="font-size:19px;line-height:1.45;margin:0">Nothing published here at the moment.</p><p style="font-size:17px;line-height:1.5;color:#3a443e;margin:0">Meanwhile, there's <a href="#" style="color:#2f5442">who I am</a> and the <a href="#" style="color:#2f5442">Monster Podcast</a>.</p></div>
+</div></div><div class="cap">empty · J4.10 · AC-4 · no feed link while empty; "at the moment" also covers "all unpublished"</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:640px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:18px 22px 0">{{ mark }}<div style="display:flex;gap:14px;font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:14px"><a href="#" style="color:#1b211d;text-decoration:underline;text-decoration-color:#3f8f3a;text-decoration-thickness:2px;text-underline-offset:5px">Learnings</a><a href="#" style="color:#1b211d;text-decoration:none">Podcast</a></div></div>
+<div style="padding:0 22px 28px">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:48px;line-height:1;letter-spacing:-.03em;margin:52px 0 10px">Learnings</div>
+<p style="font-size:18px;line-height:1.45;color:#3a443e;margin:0 0 10px">Things I figured out. Newest on top.</p>
+<a href="#" style="display:inline-flex;gap:6px;align-items:center;min-height:32px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:14px;color:#2f5442"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>Get them in a feed reader</a>
+<div style="border-top:1.5px solid #1b211d;margin:24px 0 20px"></div>
+<p style="font-size:18px;line-height:1.55;margin:0 0 8px;text-wrap:pretty"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;color:#2f5442">¶</span> <a href="#" style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-variant-numeric:tabular-nums;color:#56605a;text-decoration:none">10 Oct 2026, 08:42</a> Counting makes the thing about the count. A streak turns a habit I chose into a debt I owe, and it bites hardest on people who were already doing it for its own sake.</p>
+<p style="font-size:18px;line-height:1.55;margin:0;text-indent:1.1em;text-wrap:pretty">So nothing here counts. <a href="#" style="color:#2f5442">The research, if you're curious.</a></p>
+</div></div><div class="cap">one entry, untitled · J1.10 · not enough data: the same page, only shorter. Nothing says "first".</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:640px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:18px 22px 0">{{ mark }}<div style="display:flex;gap:14px;font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:14px"><a href="#" style="color:#1b211d;text-decoration:underline;text-decoration-color:#3f8f3a;text-decoration-thickness:2px;text-underline-offset:5px">Learnings</a><a href="#" style="color:#1b211d;text-decoration:none">Podcast</a></div></div>
+<div style="padding:0 22px 28px">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:48px;line-height:1;letter-spacing:-.03em;margin:52px 0 10px">Learnings</div>
+<p style="font-size:18px;line-height:1.45;color:#3a443e;margin:0 0 10px">Things I figured out. Newest on top.</p>
+<a href="#" style="display:inline-flex;gap:6px;align-items:center;min-height:32px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:14px;color:#2f5442"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>Get them in a feed reader</a>
+<div style="border-top:1.5px solid #1b211d;margin:24px 0 20px"></div>
+<p style="font-size:18px;line-height:1.55;margin:0 0 8px;text-wrap:pretty"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;color:#2f5442">¶</span> <a href="#" style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-variant-numeric:tabular-nums;color:#56605a;text-decoration:none">2 Nov 2026, 21:14</a> <b style="font-weight:600">Two passkeys can be one key.</b> If both devices sync the same passkey through one account, <span style="background-image:linear-gradient(#bfe8ad,#bfe8ad);background-repeat:no-repeat;background-position:0 85%;background-size:100% 52%">“two passkeys” is a single point of failure</span>: remove one and both are gone.</p>
+<p style="font-size:18px;line-height:1.55;margin:0 0 20px;text-indent:1.1em;text-wrap:pretty">The fix is dull and worth it. Give each device its own, and name them.</p>
+<p style="font-size:18px;line-height:1.55;margin:0 0 20px;text-wrap:pretty"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;color:#2f5442">¶</span> <a href="#" style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-variant-numeric:tabular-nums;color:#56605a;text-decoration:none">13 Oct 2026, 07:52</a> A blank page with a good question beats a form with five fields. <span style="background-image:linear-gradient(#bfe8ad,#bfe8ad);background-repeat:no-repeat;background-position:0 85%;background-size:100% 52%">What did you learn?</span> gets me writing; title, tags and category get me deciding.</p>
+<p style="font-size:18px;line-height:1.55;margin:0;text-wrap:pretty"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;color:#2f5442">¶</span> <a href="#" style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-variant-numeric:tabular-nums;color:#56605a;text-decoration:none">10 Oct 2026, 08:42</a> Counting makes the thing about the count. So nothing here counts. Not even sheep.</p>
+</div></div><div class="cap">three entries · J4.3 · J4.4 · J2.5 · AC-2 · AC-5 · 20 days apart, spaced like 3. No pager when there's nothing to page. Emphasis renders as the highlighter.</div></div>
+<div class="fr"><div class="card" lang="en" style="width:1100px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:28px 64px 0">{{ markM }}<div style="display:flex;gap:28px;font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:15px"><a href="#" style="color:#1b211d;text-decoration:underline;text-decoration-color:#3f8f3a;text-decoration-thickness:2px;text-underline-offset:6px">Learnings</a><a href="#" style="color:#1b211d;text-decoration:none">Podcast</a><a href="#" style="color:#56605a;text-decoration:none">Feed</a></div></div>
+<div style="max-width:680px;margin:0 0 0 64px;padding-bottom:40px">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:80px;line-height:1;letter-spacing:-.035em;margin:88px 0 14px">Learnings</div>
+<div style="display:flex;gap:24px;align-items:baseline"><p style="font-size:21px;line-height:1.45;color:#3a443e;margin:0">Things I figured out. Newest on top.</p><a href="#" style="display:inline-flex;gap:6px;align-items:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:14px;color:#2f5442;flex:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>Feed</a></div>
+<div style="border-top:1.5px solid #1b211d;margin:36px 0 28px"></div>
+<p style="font-size:20px;line-height:1.6;margin:0 0 26px;text-wrap:pretty"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;color:#2f5442">¶</span> <a href="#" style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-variant-numeric:tabular-nums;color:#56605a;text-decoration:none">26 Nov 2026, 19:03</a> <b style="font-weight:600">Coming back is the habit.</b> The streak was never the point; the next entry is. Writing one after a quiet month felt exactly like writing one after a busy day, which is the whole design.</p>
+<p style="font-size:20px;line-height:1.6;margin:0 0 26px;text-wrap:pretty"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;color:#2f5442">¶</span> <a href="#" style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-variant-numeric:tabular-nums;color:#56605a;text-decoration:none">3 Nov 2026, 22:40</a> A feed is a promise you don't have to keep on a schedule. Readers get the next thing whenever it exists.</p>
+<p style="font-size:20px;line-height:1.6;margin:0 0 26px;text-wrap:pretty"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;color:#2f5442">¶</span> <a href="#" style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-variant-numeric:tabular-nums;color:#56605a;text-decoration:none">2 Nov 2026, 21:14</a> <b style="font-weight:600">Two passkeys can be one key.</b> If both devices sync the same passkey through one account, <span style="background-image:linear-gradient(#bfe8ad,#bfe8ad);background-repeat:no-repeat;background-position:0 85%;background-size:100% 52%">“two passkeys” is a single point of failure</span>: remove one and both are gone.</p>
+<p style="font-size:16px;font-family:'Bricolage Grotesque',sans-serif;color:#56605a;text-align:center;margin:0 0 26px">⋯ up to 20 entries ⋯</p>
+<a href="#" style="display:flex;justify-content:space-between;align-items:center;padding:14px 10px;border-top:1.5px solid #1b211d;border-bottom:1.5px solid #1b211d;color:#1b211d;text-decoration:none;background-image:linear-gradient(#bfe8ad,#bfe8ad);background-repeat:no-repeat;background-size:0% 100%;transition:background-size .35s ease" style-hover="background-size:100% 100%"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:32px;letter-spacing:-.02em">Older entries</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1b211d" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+</div>
+<div style="display:flex;justify-content:space-between;padding:56px 64px 32px;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;color:#56605a"><span>No cookies here. The monster ate them.</span><div style="display:flex;gap:22px"><a href="#" style="color:#56605a">Home</a><a href="#" style="color:#56605a">Podcast</a><a href="#" style="color:#56605a">Feed</a></div></div>
+</div><div class="cap">desktop · long log · J2.5 · J2.9 · W2 · W3 · after a 23-day gap the new entry sits on top with nothing marking the gap. "Older entries" is a plain link to /log?before=…</div></div>
+</div>
+</section>
+<section class="pl" id="p3" data-screen-label="03 Entry, 404, feed">
+<div class="pl-h"><span class="pl-n">3</span><span class="pl-t">An entry, the 404, the feed</span></div>
+<p class="pl-s">Wireframe plate 3. The entry page is where a follower first meets the site (J4.1), so it says whose site this is and offers a way on (G5). There is no previous/next, which would expose neighbouring dates (W4), and never an "edited" mark (AC-13). The 404 is the same page for "unpublished" and "never existed" (AC-14, G7). The feed is drawn as a reader shows it.</p>
+<div class="row">
+<div class="fr"><div class="card" lang="en" style="width:360px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:18px 22px 0">{{ mark }}<div style="display:flex;gap:14px;font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:14px"><a href="#" style="color:#1b211d;text-decoration:none">Learnings</a><a href="#" style="color:#1b211d;text-decoration:none">Podcast</a></div></div>
+<div style="padding:0 22px 28px">
+<a href="#" style="display:block;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-variant-numeric:tabular-nums;color:#56605a;text-decoration:none;margin:56px 0 10px">2 Nov 2026, 21:14</a>
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;line-height:1.05;letter-spacing:-.025em;margin:0 0 18px;text-wrap:balance">Two passkeys can be one key</div>
+<p style="font-size:19px;line-height:1.6;margin:0 0 14px;text-wrap:pretty">If both devices sync the same passkey through one account, <span style="background-image:linear-gradient(#bfe8ad,#bfe8ad);background-repeat:no-repeat;background-position:0 85%;background-size:100% 52%">“two passkeys” is a single point of failure</span>: remove one and both are gone.</p>
+<p style="font-size:19px;line-height:1.6;margin:0;text-wrap:pretty">The fix is dull and worth it. Give each device its own credential, and <a href="#" style="color:#2f5442">name them</a> so you can tell which is which.</p>
+<a href="#" style="display:flex;justify-content:space-between;align-items:center;margin-top:48px;padding:14px 4px;border-top:1.5px solid #1b211d;border-bottom:1.5px solid #1b211d;color:#1b211d;text-decoration:none"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;letter-spacing:-.02em">More learnings</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1b211d" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+<p style="font-size:16px;line-height:1.5;color:#3a443e;margin:16px 0 0">Written by <a href="#" style="color:#2f5442">iMNSTR</a>, who also makes the <a href="#" style="color:#2f5442">Monster Podcast</a>.</p>
+</div></div><div class="cap">entry · J1.11 · J4.1 · J4.2 · J4.8 · AC-13 · G5 · arriving from a shared link</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;background:#141a17;color:#e4e8e3;font-family:'Newsreader',serif">
+<div style="padding:18px 22px 36px">
+{{ markD }}
+<div style="margin:96px 0 28px">{{ eyesBigD }}</div>
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:40px;line-height:1.02;letter-spacing:-.03em;text-wrap:balance">Something ate this page.</div>
+<p style="font-size:19px;line-height:1.5;color:#c9d0cb;margin:16px 0 32px;text-wrap:pretty">Maybe it never existed. Maybe it did. Either way, it isn't here now.</p>
+<div style="display:flex;flex-direction:column;gap:10px">
+<a href="#" style="display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 18px;border:1.5px solid #e4e8e3;border-radius:14px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px;color:#e4e8e3;text-decoration:none">Read the learnings<span>→</span></a>
+<a href="#" style="display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 18px;border:1.5px solid rgba(228,232,227,.3);border-radius:14px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px;color:#e4e8e3;text-decoration:none">Go home<span>→</span></a>
+</div>
+</div></div><div class="cap">404, dark · J4.9 · AC-14 · G7 · identical for unpublished and never-existed; no "removed" wording</div></div>
+<div class="fr"><div class="card" style="width:360px;background:#fff;color:#222;font-family:system-ui,sans-serif">
+<div style="padding:12px 16px;border-bottom:1px solid #e5e5e5;font-size:12px;color:#777;display:flex;justify-content:space-between"><b style="color:#222">iMNSTR — Learnings</b><span>feed reader</span></div>
+<div style="padding:12px 16px;border-bottom:1px solid #eee"><div style="font-size:15px;font-weight:600">Two passkeys can be one key</div><div style="font-size:12px;color:#777">2 Nov 2026</div></div>
+<div style="padding:12px 16px;border-bottom:1px solid #eee"><div style="font-size:15px;font-weight:600">13 October 2026</div><div style="font-size:12px;color:#777">untitled → titled by its date</div></div>
+<div style="padding:12px 16px"><div style="font-size:15px;font-weight:600">10 October 2026</div><div style="font-size:12px;color:#777">full text inside; links to /log/&lt;id&gt;</div></div>
+</div><div class="cap">feed, not designed by us · J4.6–J4.8 · AC-3 · G6 · feed title "iMNSTR — Learnings"; an untitled entry is titled with its date written in full ("13 October 2026"). &lt;link rel="alternate"&gt; on every public page.</div></div>
+</div>
+</section>
+<section class="pl" id="p4" data-screen-label="04 Podcast">
+<div class="pl-h"><span class="pl-n">4</span><span class="pl-t">The podcast page: empty, one link, several, long</span></div>
+<p class="pl-s">Wireframe plate 4. A listener's whole visit is this page (persona E). The show-level links sit at the top whether or not episodes exist (G8), so it's never a dead end. Each episode shows only the links it has, as pills that open in a new tab. An unknown label ("Spotify") gets the same pill. The YouTube and Castbox icons are left out until the founder supplies the marks; the label is always the name. Tags are plain words, not filters.</p>
+<div class="row">
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:640px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:18px 22px 0">{{ mark }}<div style="display:flex;gap:14px;font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:14px"><a href="#" style="color:#1b211d;text-decoration:none">Learnings</a><a href="#" style="color:#1b211d;text-decoration:underline;text-decoration-color:#3f8f3a;text-decoration-thickness:2px;text-underline-offset:5px">Podcast</a></div></div>
+<div style="padding:0 22px 28px">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;line-height:.98;letter-spacing:-.03em;margin:52px 0 12px">Monster Podcast</div>
+<p style="font-size:18px;line-height:1.45;color:#3a443e;margin:0 0 20px;text-wrap:pretty">I talk with people about making things and learning out loud.</p>
+<a href="#" target="_blank" style="display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 6px;border-top:1.5px solid #1b211d;color:#1b211d;text-decoration:none;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;letter-spacing:-.02em">The show on YouTube<span>↗</span></a>
+<a href="#" target="_blank" style="display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 6px;border-top:1.5px solid #1b211d;border-bottom:1.5px solid #1b211d;color:#1b211d;text-decoration:none;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;letter-spacing:-.02em">The show on Castbox<span>↗</span></a>
+<div style="margin-top:36px;padding:22px;border:1.5px solid rgba(27,33,29,.25);border-radius:18px;display:flex;gap:14px;align-items:center">{{ eyesSmall }}<p style="font-size:18px;line-height:1.45;margin:0">Episodes will be listed here, with links to listen.</p></div>
+</div></div><div class="cap">empty · J5.1 · J5.2 · AC-4 · G8 · W11 wording as chosen; no count, no email capture</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:640px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:18px 22px 0">{{ mark }}<div style="display:flex;gap:14px;font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:14px"><a href="#" style="color:#1b211d;text-decoration:none">Learnings</a><a href="#" style="color:#1b211d;text-decoration:underline;text-decoration-color:#3f8f3a;text-decoration-thickness:2px;text-underline-offset:5px">Podcast</a></div></div>
+<div style="padding:0 22px 28px">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:46px;line-height:.98;letter-spacing:-.03em;margin:52px 0 12px">Monster Podcast</div>
+<p style="font-size:18px;line-height:1.45;color:#3a443e;margin:0 0 20px;text-wrap:pretty">I talk with people about making things and learning out loud.</p>
+<a href="#" target="_blank" style="display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 6px;border-top:1.5px solid #1b211d;color:#1b211d;text-decoration:none;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;letter-spacing:-.02em">The show on YouTube<span>↗</span></a>
+<a href="#" target="_blank" style="display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 6px;border-top:1.5px solid #1b211d;border-bottom:1.5px solid #1b211d;color:#1b211d;text-decoration:none;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;letter-spacing:-.02em">The show on Castbox<span>↗</span></a>
+<article style="margin-top:40px">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-variant-numeric:tabular-nums;color:#56605a;margin-bottom:6px">10 Oct 2026 · origins</div>
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:23px;line-height:1.15;margin-bottom:8px">Why a monster?</div>
+<p style="font-size:17px;line-height:1.5;color:#3a443e;margin:0 0 14px">Episode one: where the name comes from, and what the show is for.</p>
+<a href="#" target="_blank" style="display:inline-flex;gap:6px;align-items:center;min-height:44px;padding:0 16px;border:1.5px solid #1b211d;border-radius:999px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px;color:#1b211d;text-decoration:none">YouTube ↗</a>
+</article>
+</div></div><div class="cap">one episode, one link · J5.6 · J5.7 · AC-6 · not enough data · Castbox simply absent: no greyed pill, no "coming soon"</div></div>
+<div class="fr"><div class="card" lang="en" style="width:1100px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:28px 64px 0">{{ markM }}<div style="display:flex;gap:28px;font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:15px"><a href="#" style="color:#1b211d;text-decoration:none">Learnings</a><a href="#" style="color:#1b211d;text-decoration:underline;text-decoration-color:#3f8f3a;text-decoration-thickness:2px;text-underline-offset:6px">Podcast</a><a href="#" style="color:#56605a;text-decoration:none">Feed</a></div></div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:64px;padding:88px 64px 40px">
+<div>
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:80px;line-height:.95;letter-spacing:-.035em;margin:0 0 18px">Monster Podcast</div>
+<p style="font-size:22px;line-height:1.45;color:#3a443e;margin:0 0 48px;max-width:560px">I talk with people about making things and learning out loud. <span style="background-image:linear-gradient(#bfe8ad,#bfe8ad);background-repeat:no-repeat;background-position:0 85%;background-size:100% 52%;animation:imn-mark .7s 1.2s ease-out both">New episodes land on YouTube first.</span></p>
+<article style="padding:24px 0;border-top:1.5px solid #1b211d">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-variant-numeric:tabular-nums;color:#56605a;margin-bottom:6px">24 Oct 2026 · making, habits</div>
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:30px;line-height:1.1;letter-spacing:-.015em;margin-bottom:8px">Building in public without an audience</div>
+<p style="font-size:19px;line-height:1.5;color:#3a443e;margin:0 0 16px;max-width:600px">What keeps a project going when nobody's watching yet, and why that might be the better start.</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px"><a href="#" target="_blank" style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1.5px solid #1b211d;border-radius:999px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px;color:#1b211d;text-decoration:none;transition:background .2s" style-hover="background:#bfe8ad">YouTube ↗</a><a href="#" target="_blank" style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1.5px solid #1b211d;border-radius:999px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px;color:#1b211d;text-decoration:none;transition:background .2s" style-hover="background:#bfe8ad">Castbox ↗</a><a href="#" target="_blank" style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1.5px solid #1b211d;border-radius:999px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px;color:#1b211d;text-decoration:none;transition:background .2s" style-hover="background:#bfe8ad">Spotify ↗</a></div>
+</article>
+<article style="padding:24px 0;border-top:1px solid rgba(27,33,29,.18)">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-variant-numeric:tabular-nums;color:#56605a;margin-bottom:6px">10 Oct 2026 · origins</div>
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:30px;line-height:1.1;letter-spacing:-.015em;margin-bottom:8px">Why a monster?</div>
+<p style="font-size:19px;line-height:1.5;color:#3a443e;margin:0 0 16px">Episode one: where the name comes from, and what the show is for.</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px"><a href="#" target="_blank" style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1.5px solid #1b211d;border-radius:999px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px;color:#1b211d;text-decoration:none">YouTube ↗</a><a href="#" target="_blank" style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1.5px solid #1b211d;border-radius:999px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px;color:#1b211d;text-decoration:none">Castbox ↗</a></div>
+</article>
+<a href="#" style="display:flex;justify-content:space-between;align-items:center;padding:14px 10px;border-top:1.5px solid #1b211d;border-bottom:1.5px solid #1b211d;color:#1b211d;text-decoration:none;background-image:linear-gradient(#bfe8ad,#bfe8ad);background-repeat:no-repeat;background-size:0% 100%;transition:background-size .35s ease" style-hover="background-size:100% 100%"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:28px;letter-spacing:-.02em">Older episodes</span><span style="font-size:22px">→</span></a>
+</div>
+<div style="padding-top:150px">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:14px;color:#2f5442;margin-bottom:10px">Listen wherever you like</div>
+<a href="#" target="_blank" style="display:flex;justify-content:space-between;align-items:center;min-height:56px;padding:0 8px;border-top:1.5px solid #1b211d;color:#1b211d;text-decoration:none;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.02em;background-image:linear-gradient(#bfe8ad,#bfe8ad);background-repeat:no-repeat;background-size:0% 100%;transition:background-size .35s ease" style-hover="background-size:100% 100%">YouTube<span>↗</span></a>
+<a href="#" target="_blank" style="display:flex;justify-content:space-between;align-items:center;min-height:56px;padding:0 8px;border-top:1.5px solid #1b211d;border-bottom:1.5px solid #1b211d;color:#1b211d;text-decoration:none;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.02em;background-image:linear-gradient(#bfe8ad,#bfe8ad);background-repeat:no-repeat;background-size:0% 100%;transition:background-size .35s ease" style-hover="background-size:100% 100%">Castbox<span>↗</span></a>
+</div>
+</div>
+<div style="padding:24px 64px 32px;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;color:#56605a">No cookies here. The monster ate them.</div>
+</div><div class="cap">desktop · several + long · J5.8 · J5.9 · J5.10 · AC-6 · "Spotify" is an unknown label, same pill. The first episode got its Castbox link later, as an ordinary edit, and its date and place are unchanged. 20 per page, same as the log.</div></div>
+</div>
+</section>
+<section class="pl" id="p5" data-screen-label="05 Setup">
+<div class="pl-h"><span class="pl-n">5</span><span class="pl-t">Admin setup: the first passkey</span></div>
+<p class="pl-s">Wireframe plate 5. One page that does one thing; nothing else in the admin exists until it's done (AC-8, AC-9). The admin uses the same type and green as the site, with the highlighter as its primary action. The OS passkey sheet is the system's own, drawn here as context. A used or expired token gets one message for both (W10). The 30-minute expiry is W9, a proposal for the build plan.</p>
+<div class="row">
+<div class="fr"><div class="card" style="width:360px;background:#1b211d;color:#d9e0d6;font:12.5px/1.6 ui-monospace,Menlo,monospace;padding:18px;white-space:pre-wrap">$ imnstr setup-token
+One-time setup token (shown once):
+  <span style="color:#7fd36b">7Q2M-XK4P-9DHT-L6WB</span>
+Open https://imnstr.com/admin/setup
+on the device to register.
+Valid until used, or 30 min.
+$ _</div><div class="cap">server shell · J1.1 · J3.10 · not ours to style; command name is a placeholder</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:600px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif;display:flex;flex-direction:column">
+<div style="padding:18px 22px 0">{{ mark }}</div>
+<div style="padding:0 22px 28px;display:flex;flex-direction:column;flex:1">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:38px;line-height:1.02;letter-spacing:-.03em;margin:64px 0 12px">Register this device</div>
+<p style="font-size:18px;line-height:1.5;color:#3a443e;margin:0 0 28px">This phone will sign in to the admin with a passkey. There's no password, ever.</p>
+<label style="font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:14px;margin-bottom:6px">Setup token</label>
+<div style="min-height:48px;display:flex;align-items:center;padding:0 14px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;background:#f7f8f3;font-family:'Bricolage Grotesque',sans-serif;font-size:18px;letter-spacing:.06em;font-variant-numeric:tabular-nums">7Q2M-XK4P-9DHT-L6WB</div>
+<p style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:#56605a;margin:6px 0 0">Filled in from the link.</p>
+<span style="flex:1"></span>
+<a href="#" style="display:flex;justify-content:center;align-items:center;min-height:52px;border:1.5px solid #1b211d;border-radius:14px;background:#bfe8ad;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px;color:#1b211d;text-decoration:none">Create a passkey on this phone</a>
+</div></div><div class="cap">setup · J1.2 · AC-9 · one field, one action, at thumb height</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:600px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif;display:flex;flex-direction:column;position:relative">
+<div style="padding:18px 22px 0;opacity:.4">{{ mark }}</div>
+<div style="padding:0 22px;opacity:.4"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:38px;line-height:1.02;letter-spacing:-.03em;margin:64px 0 12px">Register this device</div></div>
+<div style="padding:0 22px;opacity:.55;margin-top:12px"><div style="display:flex;justify-content:center;align-items:center;gap:10px;min-height:52px;border:1.5px solid #1b211d;border-radius:14px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16px"><span style="width:16px;height:16px;border:2px solid #1b211d;border-top-color:transparent;border-radius:50%;animation:imn-spin .8s linear infinite"></span>Waiting for the passkey prompt…</div></div>
+<div style="position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:18px 18px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.18);padding:22px 20px 26px;font-family:system-ui,sans-serif;text-align:center;color:#222"><div style="width:36px;height:4px;border-radius:2px;background:#ccc;margin:0 auto 14px"></div><div style="font-weight:600;font-size:16px">Create a passkey for imnstr.com?</div><div style="font-size:13px;color:#777;margin:6px 0 14px">[OS sheet: Face ID / fingerprint / PIN]</div><div style="background:#0a84ff;color:#fff;border-radius:10px;padding:12px;font-weight:600">Continue</div></div>
+</div><div class="cap">loading · J1.3 · page behind is inert and says what it's waiting for. Cancelled → back with "Not created. Try again when you're ready." (neutral, not an error)</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:600px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif;display:flex;flex-direction:column">
+<div style="padding:18px 22px 0">{{ mark }}</div>
+<div style="padding:0 22px 28px;display:flex;flex-direction:column;flex:1">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:38px;line-height:1.02;letter-spacing:-.03em;margin:64px 0 28px">Register this device</div>
+<label style="font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:14px;margin-bottom:6px">Setup token</label>
+<div style="min-height:48px;display:flex;align-items:center;padding:0 14px;border:1.5px solid #b0492f;border-radius:12px;background:#f7f8f3;font-family:'Bricolage Grotesque',sans-serif;font-size:18px;letter-spacing:.06em">7Q2M-XK4P-9DHT-L6WB</div>
+<div style="margin-top:14px;padding:16px;border:1.5px solid #b0492f;border-radius:14px;background:#f6e1d9;color:#5e2414"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16px;margin-bottom:4px">This token can't be used.</div><div style="font-size:16px;line-height:1.45">Setup tokens work once. Issue a new one on the server if you still need to register a device.</div></div>
+<span style="flex:1"></span>
+<div style="display:flex;justify-content:center;align-items:center;min-height:52px;border:1.5px solid #1b211d;border-radius:14px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px;opacity:.45">Create a passkey on this phone</div>
+</div></div><div class="cap">error · J1.3 · AC-9 · W10 · used or expired, one message; says nothing about the token's history</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:600px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:18px 22px 0">{{ mark }}<a href="#" style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;color:#56605a">View site</a></div>
+<div style="padding:0 22px 28px">
+<div style="margin:28px 0 16px;padding:14px 16px;border:1.5px solid #3f8f3a;border-radius:14px;background:#dcebd7;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px">Passkey created. You're signed in on this phone.</div>
+<div style="min-height:220px;padding:14px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;background:#f7f8f3;font-size:19px;line-height:1.5;color:#5c6660">What did you learn? Say it so someone else would get it.</div>
+<div style="margin-top:22px;display:flex;flex-direction:column;gap:8px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px"><div style="display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:0 4px;border-top:1px solid rgba(27,33,29,.18)">Entries<span>+</span></div><div style="display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:0 4px;border-top:1px solid rgba(27,33,29,.18)">Podcast<span>+</span></div><div style="display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:0 4px;border-top:1px solid rgba(27,33,29,.18);border-bottom:1px solid rgba(27,33,29,.18)">Passkeys<span>+</span></div></div>
+<p style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;color:#2f5442;margin:14px 0 0">Next: add your laptop under Passkeys.</p>
+</div></div><div class="cap">success · J1.3 · AC-9 · lands signed in, on the editor (plate 7). The pointer shows only while one passkey exists: a setup step, not a count.</div></div>
+</div>
+</section>
+<section class="pl" id="p6" data-screen-label="06 Sign-in">
+<div class="pl-h"><span class="pl-n">6</span><span class="pl-t">Sign-in: passkey only</span></div>
+<p class="pl-s">Wireframe plate 6. The only thing between the founder and the editor (J2.1): one button, no username, no password field (AC-9). This is the one admin screen with the big eyes, since it's the one the founder sees most. Failures get the same message every time and slow down without counting (AC-11, W10).</p>
+<div class="row">
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:600px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif;display:flex;flex-direction:column">
+<div style="padding:18px 22px 0">{{ mark }}</div>
+<div style="padding:0 22px 28px;display:flex;flex-direction:column;flex:1">
+<div style="margin:88px 0 24px">{{ eyesBig }}</div>
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:40px;line-height:1.02;letter-spacing:-.03em">It's you, right?</div>
+<p style="font-size:18px;line-height:1.5;color:#3a443e;margin:12px 0 0">This admin has one user. There's nothing to sign up for.</p>
+<span style="flex:1"></span>
+<a href="#" style="display:flex;justify-content:center;align-items:center;min-height:52px;border:1.5px solid #1b211d;border-radius:14px;background:#bfe8ad;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px;color:#1b211d;text-decoration:none">Sign in with a passkey</a>
+</div></div><div class="cap">signed out · J1.6 · J2.1 · J2.9 · J3.6 · AC-9 · after sign-in, lands where you asked: almost always the editor</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:600px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif;display:flex;flex-direction:column">
+<div style="padding:18px 22px 0">{{ mark }}</div>
+<div style="padding:0 22px 28px;display:flex;flex-direction:column;flex:1">
+<div style="margin:88px 0 24px">{{ eyesBig }}</div>
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:40px;line-height:1.02;letter-spacing:-.03em">It's you, right?</div>
+<div style="margin-top:20px;padding:16px;border:1.5px solid #b0492f;border-radius:14px;background:#f6e1d9;color:#5e2414;font-size:17px;line-height:1.45"><b style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700">Sign-in didn't work.</b> Try again.</div>
+<span style="flex:1"></span>
+<div style="display:flex;justify-content:center;align-items:center;min-height:52px;border:1.5px solid #1b211d;border-radius:14px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px;opacity:.45">Try again in a moment</div>
+<p style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:#56605a;text-align:center;margin:8px 0 0">After repeated failures the button waits, then comes back.</p>
+</div></div><div class="cap">error · AC-11 · W10 · generic, never "unknown passkey". Back-off is a disabled button, not a number of tries</div></div>
+<div class="fr"><div class="card" lang="en" style="width:1100px;height:600px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif;position:relative">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:28px 64px 0">{{ markM }}<a href="#" style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;color:#56605a">View site</a></div>
+<div style="max-width:520px;margin:96px 0 0 64px;opacity:.35"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:56px;line-height:1;letter-spacing:-.03em">It's you, right?</div></div>
+<div style="position:absolute;inset:0;background:rgba(20,26,23,.35)"></div>
+<div style="position:absolute;left:50%;top:90px;transform:translateX(-50%);width:380px;background:#fff;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.3);padding:24px;font-family:system-ui,sans-serif;color:#222;text-align:center"><div style="font-weight:600;font-size:16px">Sign in to imnstr.com</div><div style="font-size:13px;color:#777;margin:6px 0 16px">Use a passkey on another device: scan with your phone</div><div style="width:150px;height:150px;margin:0 auto;background:repeating-linear-gradient(45deg,#ddd 0 6px,#f4f4f4 6px 12px);border:1px solid #ccc;display:grid;place-items:center;font:11px ui-monospace,monospace;color:#888">QR code</div><div style="font-size:12px;color:#999;margin-top:14px">[Browser's cross-device sheet]</div></div>
+</div><div class="cap">laptop · J1.4 · AC-9 · loading · the browser's own cross-device route; we draw nothing here. Afterwards the laptop is offered enrolment under Passkeys (G1, plate 10)</div></div>
+</div>
+</section>
+<section class="pl" id="p7" data-screen-label="07 Admin editor">
+<div class="pl-h"><span class="pl-n">7</span><span class="pl-t">The admin: one page, ready to write</span></div>
+<p class="pl-s">Wireframe plate 7, call W1. The editor always comes first and empty, with its prompt as the placeholder (AC-18). Entries, Podcast and Passkeys sit collapsed below and carry no counts (W2). There's no greeting and no last-entry date, so day 1 and day 23 look the same (J2.2, AC-5). Formatting is a link and the highlighter, which is how emphasis renders on the site. "Kept on this phone" is the only draft signal (W7). Publish is one action and can't be tapped twice.</p>
+<div class="row">
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:660px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:18px 22px 0">{{ mark }}<a href="#" style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;color:#56605a">View site</a></div>
+<div style="padding:24px 22px 24px">
+<div style="min-height:48px;display:flex;align-items:center;padding:0 14px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;background:#f7f8f3;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:19px;color:#5c6660">Title (optional)</div>
+<div style="margin-top:10px;min-height:220px;padding:14px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;background:#f7f8f3;font-size:19px;line-height:1.5;color:#5c6660">What did you learn? Say it so someone else would get it.</div>
+<div style="display:flex;gap:8px;align-items:center;margin-top:12px"><span style="display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px">Link</span><span style="display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px"><span style="background:#bfe8ad;padding:0 3px">Highlight</span></span><span style="flex:1"></span><span style="display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border:1.5px solid #1b211d;border-radius:14px;background:#bfe8ad;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px">Publish</span></div>
+<div style="margin-top:32px;display:flex;flex-direction:column;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px"><div style="display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:0 4px;border-top:1px solid rgba(27,33,29,.18)">Entries<span>+</span></div><div style="display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:0 4px;border-top:1px solid rgba(27,33,29,.18)">Podcast<span>+</span></div><div style="display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:0 4px;border-top:1px solid rgba(27,33,29,.18);border-bottom:1px solid rgba(27,33,29,.18)">Passkeys<span>+</span></div></div>
+<div style="margin-top:20px;font-family:'Bricolage Grotesque',sans-serif;font-size:14px"><a href="#" style="color:#56605a">Sign out</a></div>
+</div></div><div class="cap">landing · J1.6 · J2.2 · J2.3 · J2.9 · AC-5 · AC-12 · AC-18 · first day and after 23 days, identical. No date field exists.</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;height:660px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif;display:flex;flex-direction:column">
+<div style="padding:12px 22px 0">
+<div style="min-height:44px;display:flex;align-items:center;padding:0 14px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;background:#f7f8f3;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:18px;color:#5c6660">Title (optional)</div>
+<div style="margin-top:8px;height:178px;overflow:hidden;padding:12px 14px;border:1.5px solid #1b211d;border-radius:14px;background:#f7f8f3;font-size:18px;line-height:1.5">A streak turns a habit I chose into a debt I owe. It bites hardest on people already doing it for its own sake.<br><br>So I won't count. <span style="color:#2f5442;text-decoration:underline">Here's what I read</span><span style="display:inline-block;width:2px;height:20px;background:#3f8f3a;vertical-align:-3px;margin-left:1px"></span></div>
+<div style="display:flex;gap:8px;align-items:center;margin-top:8px"><span style="display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:14px">Link</span><span style="display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:14px"><span style="background:#bfe8ad;padding:0 3px">Hi</span></span><span style="flex:1;text-align:right;font-family:'Bricolage Grotesque',sans-serif;font-size:12.5px;color:#56605a">Kept on this phone</span><span style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1.5px solid #1b211d;border-radius:14px;background:#bfe8ad;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16px">Publish</span></div>
+</div>
+<span style="flex:1"></span>
+<div style="height:250px;background:#d3d6cf;display:grid;place-items:center;font:12px ui-monospace,monospace;color:#555">[on-screen keyboard]</div>
+</div><div class="cap">keyboard up, 360 px · J1.7 · J2.3 · AC-15 · toolbar and Publish stay above the keyboard; nothing scrolls sideways. Link opens a small URL field in place.</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:660px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="padding:18px 22px 0">{{ mark }}</div>
+<div style="padding:24px 22px 24px">
+<div style="opacity:.5;min-height:200px;padding:14px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;background:#f7f8f3;font-size:19px;line-height:1.5">A streak turns a habit I chose into a debt I owe…</div>
+<div style="margin-top:12px;display:flex;justify-content:center;align-items:center;gap:10px;min-height:52px;border:1.5px solid #1b211d;border-radius:14px;background:#bfe8ad;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px"><span style="width:16px;height:16px;border:2px solid #1b211d;border-top-color:transparent;border-radius:50%;animation:imn-spin .8s linear infinite"></span>Publishing…</div>
+<p style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:#56605a;margin:8px 0 0">The text stays read-only until the server says yes.</p>
+</div></div><div class="cap">loading · J1.8 · J2.4 · J3.1 · the button is the spinner, so it can't be tapped twice. No "first entry!" ever (AC-5).</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:660px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:18px 22px 0">{{ mark }}<a href="#" style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;color:#56605a">View site</a></div>
+<div style="padding:24px 22px 24px">
+<div style="padding:16px;border:1.5px solid #3f8f3a;border-radius:14px;background:#dcebd7"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px">Published. It's out there.</div><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:#3a443e;margin:4px 0 12px;font-variant-numeric:tabular-nums">imnstr.com/log/k3f9q2</div><div style="display:flex;gap:8px"><span style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1.5px solid #1b211d;border-radius:12px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:15px">Open</span><span style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1.5px solid #1b211d;border-radius:12px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:15px">Copy link</span></div></div>
+<div style="margin-top:14px;min-height:48px;display:flex;align-items:center;padding:0 14px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;background:#f7f8f3;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:19px;color:#5c6660">Title (optional)</div>
+<div style="margin-top:10px;min-height:150px;padding:14px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;background:#f7f8f3;font-size:19px;line-height:1.5;color:#5c6660">What did you learn? Say it so someone else would get it.</div>
+</div></div><div class="cap">done · J1.9 · J1.11 · J2.4 · M3 · AC-12 · URL with Open and Copy (the share step); editor empty again. Draft cleared only on the server's confirmation.</div></div>
+<div class="fr"><div class="card" lang="en" style="width:1100px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:28px 64px 0">{{ markM }}<div style="display:flex;gap:24px;font-family:'Bricolage Grotesque',sans-serif;font-size:15px"><a href="#" style="color:#56605a">View site</a><a href="#" style="color:#56605a">Sign out</a></div></div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px;padding:56px 64px 48px">
+<div>
+<div style="min-height:56px;display:flex;align-items:center;padding:0 18px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;background:#f7f8f3;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:24px;color:#5c6660">Title (optional)</div>
+<div style="margin-top:12px;min-height:320px;padding:18px;border:1.5px solid rgba(27,33,29,.28);border-radius:16px;background:#f7f8f3;font-size:22px;line-height:1.55;color:#5c6660">What did you learn? Say it so someone else would get it.</div>
+<div style="display:flex;gap:8px;align-items:center;margin-top:14px"><span style="display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px">Link</span><span style="display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px"><span style="background:#bfe8ad;padding:0 3px">Highlight</span></span><span style="flex:1"></span><span style="display:inline-flex;align-items:center;min-height:52px;padding:0 28px;border:1.5px solid #1b211d;border-radius:14px;background:#bfe8ad;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:18px">Publish</span></div>
+</div>
+<div style="display:flex;flex-direction:column;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:18px"><div style="display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 4px;border-top:1.5px solid #1b211d">Entries<span>+</span></div><div style="display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 4px;border-top:1px solid rgba(27,33,29,.18)">Podcast<span>+</span></div><div style="display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 4px;border-top:1px solid rgba(27,33,29,.18);border-bottom:1px solid rgba(27,33,29,.18)">Passkeys<span>+</span></div></div>
+</div>
+</div><div class="cap">desktop · same order as the phone (W1); the sections sit beside the editor, still collapsed, still uncounted</div></div>
+</div>
+</section>
+<section class="pl" id="p8" data-screen-label="08 Entries">
+<div class="pl-h"><span class="pl-n">8</span><span class="pl-t">Entries: find, fix, unpublish, republish</span></div>
+<p class="pl-s">Wireframe plate 8. Every entry can be told apart: by its date and title, or by its opening words if it has no title. Drafts carry a "draft" tag and published entries carry nothing (J2.6). An entry is edited in the same editor at the top of the page, where the action reads Save, not Publish. Unpublishing asks for no reason and leaves no trace (AC-14). Republishing says where the entry will reappear (G9).</p>
+<div class="row">
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:600px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="padding:18px 22px 0">{{ mark }}</div>
+<div style="padding:20px 22px 24px;font-family:'Bricolage Grotesque',sans-serif">
+<div style="display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:0 4px;border-top:1.5px solid #1b211d;font-weight:800;font-size:20px">Entries<span>−</span></div>
+<div style="display:grid;grid-template-columns:62px 1fr auto;gap:10px;align-items:center;min-height:52px;border-top:1px solid rgba(27,33,29,.18)"><span style="font-size:13px;color:#56605a;font-variant-numeric:tabular-nums">2 Nov</span><span style="font-weight:600;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Two passkeys can be one key</span><span style="font-size:14px;color:#2f5442;text-decoration:underline">Edit</span></div>
+<div style="display:grid;grid-template-columns:62px 1fr auto;gap:10px;align-items:center;min-height:52px;border-top:1px solid rgba(27,33,29,.18)"><span style="font-size:13px;color:#56605a;font-variant-numeric:tabular-nums">13 Oct</span><span style="font-family:'Newsreader',serif;font-size:16px;color:#3a443e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">“A blank page with a good question…”</span><span style="font-size:14px;color:#2f5442;text-decoration:underline">Edit</span></div>
+<div style="display:grid;grid-template-columns:62px 1fr auto;gap:10px;align-items:center;min-height:52px;border-top:1px solid rgba(27,33,29,.18)"><span style="font-size:13px;color:#56605a;font-variant-numeric:tabular-nums">12 Oct</span><span style="font-family:'Newsreader',serif;font-size:16px;color:#3a443e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">“Broken link here, see…”</span><span style="font-size:14px;color:#2f5442;text-decoration:underline">Edit</span></div>
+<div style="display:grid;grid-template-columns:62px 1fr auto auto;gap:10px;align-items:center;min-height:52px;border-top:1px solid rgba(27,33,29,.18)"><span style="font-size:13px;color:#56605a;font-variant-numeric:tabular-nums">10 Oct</span><span style="font-weight:600;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Counting</span><span style="font-size:12px;padding:2px 8px;border:1.5px dashed #56605a;border-radius:999px;color:#3a443e">draft</span><span style="font-size:14px;color:#2f5442;text-decoration:underline">Edit</span></div>
+<div style="display:grid;grid-template-columns:62px 1fr auto auto;gap:10px;align-items:center;min-height:52px;border-top:1px solid rgba(27,33,29,.18);border-bottom:1px solid rgba(27,33,29,.18)"><span style="font-size:13px;color:#56605a">—</span><span style="font-family:'Newsreader',serif;font-size:16px;color:#3a443e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">“Half a thought about…”</span><span style="font-size:12px;padding:2px 8px;border:1.5px dashed #56605a;border-radius:999px;color:#3a443e">draft</span><span style="font-size:14px;color:#2f5442;text-decoration:underline">Edit</span></div>
+<div style="text-align:center;margin-top:12px"><span style="display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;font-weight:600;font-size:15px">Older</span></div>
+</div></div><div class="cap">list · J2.6 · J2.8 · AC-5 · AC-14 · an unpublished entry keeps its date (it returns there); a never-published draft shows "—". No totals, no "5 of 9".</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:600px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="padding:18px 22px 0">{{ mark }}</div>
+<div style="padding:20px 22px 24px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;margin-bottom:10px"><span style="color:#3a443e">Editing · published 12 Oct 2026</span><a href="#" style="color:#2f5442">Cancel</a></div>
+<div style="min-height:180px;padding:14px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;background:#f7f8f3;font-size:18px;line-height:1.5">Broken link here, now fixed: <span style="color:#2f5442;text-decoration:underline">https://example.org/paper</span></div>
+<div style="display:flex;gap:8px;align-items:center;margin-top:12px"><span style="display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px">Unpublish</span><span style="flex:1"></span><span style="display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border:1.5px solid #1b211d;border-radius:14px;background:#bfe8ad;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px">Save</span></div>
+<div style="margin-top:14px;padding:14px 16px;border:1.5px solid #3f8f3a;border-radius:14px;background:#dcebd7;font-size:16px;line-height:1.45"><b style="font-family:'Bricolage Grotesque',sans-serif">Saved.</b> The live entry shows this now. Its link and date haven't changed.</div>
+</div></div><div class="cap">edit · J2.7 · AC-13 · the confirmation names what didn't change; the public page gets no "edited" mark</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:600px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif;position:relative">
+<div style="padding:18px 22px 0;opacity:.35">{{ mark }}</div>
+<div style="padding:20px 22px;opacity:.35"><div style="min-height:180px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;background:#f7f8f3"></div></div>
+<div style="position:absolute;left:14px;right:14px;bottom:14px;background:#eff0ea;border:1.5px solid #1b211d;border-radius:18px;padding:20px;box-shadow:0 12px 40px rgba(0,0,0,.18)">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px;margin-bottom:6px">Take this entry off the site?</div>
+<p style="font-size:16px;line-height:1.45;color:#3a443e;margin:0 0 16px">It leaves the log and the feed, and its link stops working. It stays here as a draft.</p>
+<div style="display:flex;gap:8px"><span style="flex:1;display:flex;justify-content:center;align-items:center;min-height:48px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16px">Keep it live</span><span style="flex:1;display:flex;justify-content:center;align-items:center;min-height:48px;border:1.5px solid #1b211d;border-radius:12px;background:#bfe8ad;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16px">Unpublish</span></div>
+</div>
+</div><div class="cap">unpublish · J2.8 · AC-14 · one confirmation, no reason asked. Result: "Unpublished. It's in your entries as a draft."</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:600px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="padding:18px 22px 0">{{ mark }}</div>
+<div style="padding:20px 22px 24px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;margin-bottom:10px"><span style="color:#3a443e">Draft · first published 20 Oct 2026</span><a href="#" style="color:#2f5442">Cancel</a></div>
+<div style="min-height:160px;padding:14px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;background:#f7f8f3;font-size:18px;line-height:1.5">The rewritten entry, now right.</div>
+<div style="margin-top:12px;padding:14px 16px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;font-size:16px;line-height:1.45">Publishing puts it back at <span style="background:#bfe8ad;padding:0 3px">20 Oct 2026</span>, its original date. It won't be at the top of the log.</div>
+<div style="display:flex;justify-content:flex-end;margin-top:12px"><span style="display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border:1.5px solid #1b211d;border-radius:14px;background:#bfe8ad;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px">Publish</span></div>
+<div style="margin-top:14px;padding:14px 16px;border:1.5px solid #3f8f3a;border-radius:14px;background:#dcebd7;font-size:16px"><b style="font-family:'Bricolage Grotesque',sans-serif">Published, at 20 Oct 2026.</b> <a href="#" style="color:#2f5442">Open</a></div>
+</div></div><div class="cap">republish · J2.10 · AC-14 · G9 · said before and after, so the founder isn't hunting for it at the top</div></div>
+</div>
+</section>
+<section class="pl" id="p9" data-screen-label="09 Write-time failures">
+<div class="pl-h"><span class="pl-n">9</span><span class="pl-t">Writing on a phone when things fail</span></div>
+<p class="pl-s">Wireframe plate 9. Nothing typed is ever lost (§4.2, AC-16). Every failure keeps the text in full and editable, and says in plain words whether the entry is published. Errors sit right above the action, where the eye already is, not in a top banner the keyboard would hide (W5). An expired session is signed back in over the editor, without leaving it (W6). There are no timestamps like "61 min ago" (W7).</p>
+<div class="row">
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:560px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="padding:18px 22px 0">{{ mark }}</div>
+<div style="padding:20px 22px 24px">
+<div style="min-height:200px;padding:14px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;background:#f7f8f3;font-size:18px;line-height:1.5">A streak turns a habit I chose into a debt I owe. It bites hardest on people already doing it for its own sake. So I won't count.</div>
+<div style="margin-top:12px;padding:14px 16px;border:1.5px solid #b0492f;border-radius:14px;background:#f6e1d9;color:#5e2414;font-size:16px;line-height:1.45"><b style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:17px">Not published yet.</b> The connection dropped. Your text is kept on this phone.</div>
+<div style="margin-top:10px;display:flex;justify-content:center;align-items:center;min-height:52px;border:1.5px solid #1b211d;border-radius:14px;background:#bfe8ad;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px">Try again</div>
+</div></div><div class="cap">offline · J3.1 · AC-16 · error · the one fact first: not published. Nothing half-published anywhere.</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:560px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="padding:18px 22px 0">{{ mark }}</div>
+<div style="padding:20px 22px 24px">
+<div style="padding:16px;border:1.5px solid #3f8f3a;border-radius:14px;background:#dcebd7"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px">Published. It's out there.</div><div style="display:flex;gap:8px;margin-top:12px"><span style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1.5px solid #1b211d;border-radius:12px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:15px">Open</span><span style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1.5px solid #1b211d;border-radius:12px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:15px">Copy link</span></div></div>
+<div style="margin-top:14px;min-height:150px;padding:14px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;background:#f7f8f3;font-size:19px;line-height:1.5;color:#5c6660">What did you learn? Say it so someone else would get it.</div>
+<p style="font:11px/1.45 ui-monospace,monospace;color:#56605a;margin:14px 0 0;padding:10px;border:1px dashed #56605a;border-radius:8px">G4 · no UI: however many times Try again was tapped or the browser retried, exactly one entry exists. Publishing is idempotent on the server.</p>
+</div></div><div class="cap">retried · J3.2 · AC-16 · G4 · same confirmation as J1.9</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:560px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="padding:18px 22px 0">{{ mark }}</div>
+<div style="padding:20px 22px 24px">
+<div style="padding:16px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;display:flex;flex-direction:column;gap:10px"><div style="display:flex;gap:10px;align-items:center">{{ eyesSmall }}<b style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px">You left something here.</b></div><p style="font-size:16px;line-height:1.45;color:#3a443e;margin:0">Unsent text from earlier on this phone. It isn't published.</p><div style="display:flex;gap:8px"><span style="flex:1;display:flex;justify-content:center;align-items:center;min-height:44px;border:1.5px solid #1b211d;border-radius:12px;background:#bfe8ad;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:15px">Put it back</span><span style="display:flex;justify-content:center;align-items:center;min-height:44px;padding:0 16px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:15px">Discard</span></div></div>
+<div style="margin-top:14px;min-height:48px;display:flex;align-items:center;padding:0 14px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;background:#f7f8f3;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:19px;color:#5c6660">Title (optional)</div>
+<div style="margin-top:10px;min-height:130px;padding:14px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;background:#f7f8f3;font-size:19px;line-height:1.5;color:#5c6660">What did you learn? Say it so someone else would get it.</div>
+</div></div><div class="cap">recovery · J3.3 · §4.2 · the editor is still in first view (J2.2), with the offer above it. "from earlier", not a timestamp. Discard asks once more. The laptop doesn't see this draft; accepted in v1.</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:560px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="padding:18px 22px 0">{{ mark }}</div>
+<div style="padding:20px 22px 24px">
+<div style="min-height:200px;padding:14px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;background:#f7f8f3;font-size:18px;line-height:1.5">The entry, intact, exactly as typed before the break.</div>
+<div style="margin-top:12px;padding:14px 16px;border:1.5px solid #b0492f;border-radius:14px;background:#f6e1d9;color:#5e2414;font-size:16px;line-height:1.45"><b style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:17px">Not published yet.</b> You were signed out after an hour idle. Sign in to finish. Your text stays right here.</div>
+<div style="margin-top:10px;display:flex;justify-content:center;align-items:center;min-height:52px;border:1.5px solid #1b211d;border-radius:14px;background:#bfe8ad;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px">Sign in and publish</div>
+</div></div><div class="cap">session expired · J3.4 · AC-10 · AC-16 · error · a normal case, since typing doesn't keep the session alive</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:560px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif;position:relative">
+<div style="padding:18px 22px 0;opacity:.4">{{ mark }}</div>
+<div style="padding:20px 22px;opacity:.4"><div style="min-height:200px;padding:14px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;background:#f7f8f3;font-size:18px;line-height:1.5">The entry, intact…</div></div>
+<div style="position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:18px 18px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.18);padding:22px 20px 26px;font-family:system-ui,sans-serif;text-align:center;color:#222"><div style="width:36px;height:4px;border-radius:2px;background:#ccc;margin:0 auto 14px"></div><div style="font-weight:600;font-size:16px">Sign in to imnstr.com</div><div style="font-size:13px;color:#777;margin:6px 0 14px">[OS passkey sheet]</div><div style="background:#0a84ff;color:#fff;border-radius:10px;padding:12px;font-weight:600">Continue</div></div>
+</div><div class="cap">signing in, in place · J3.5 · W6 · then → "Published. It's out there." once, on a fresh session and CSRF token (AC-10, AC-11)</div></div>
+</div>
+</section>
+<section class="pl" id="p10" data-screen-label="10 Passkeys">
+<div class="pl-h"><span class="pl-n">10</span><span class="pl-t">Passkeys: add, tell apart, remove, recover</span></div>
+<p class="pl-s">Wireframe plate 10, with G1 and G2 designed as accepted. Passkeys have names you give them, and a date (G2). Removing one ends its sessions now (G2). A signed-in laptop can enrol a new phone without the server (G1). Adding or removing asks for a fresh sign-in first (AC-11). The last passkey has no Remove (W8).</p>
+<div class="row">
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:560px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="padding:18px 22px 0">{{ mark }}</div>
+<div style="padding:20px 22px 24px;font-family:'Bricolage Grotesque',sans-serif">
+<div style="display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:0 4px;border-top:1.5px solid #1b211d;font-weight:800;font-size:20px">Passkeys<span>−</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;min-height:60px;border-top:1px solid rgba(27,33,29,.18)"><div><div style="font-weight:700;font-size:18px">phone</div><div style="font-size:13px;color:#56605a;font-variant-numeric:tabular-nums">added 10 Oct 2026</div></div><span style="font-size:13px;color:#2f5442">this device</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;min-height:60px;border-top:1px solid rgba(27,33,29,.18);border-bottom:1px solid rgba(27,33,29,.18)"><div><div style="font-weight:700;font-size:18px">laptop</div><div style="font-size:13px;color:#56605a;font-variant-numeric:tabular-nums">added 10 Oct 2026</div></div><span style="display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;font-weight:600;font-size:14px">Remove</span></div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:16px"><span style="display:flex;justify-content:center;align-items:center;min-height:48px;border:1.5px solid #1b211d;border-radius:12px;font-weight:700;font-size:16px">Add a passkey on this device</span><span style="display:flex;justify-content:center;align-items:center;min-height:48px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;font-weight:700;font-size:16px">Enrol another device</span></div>
+<p style="font-family:'Newsreader',serif;font-size:15px;color:#3a443e;margin:14px 0 0">With one passkey left, there's no Remove: that would lock you out.</p>
+</div></div><div class="cap">list · J1.5 · J3.9 · AC-9 · G2 · W8</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:560px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="padding:18px 22px 0">{{ mark }}</div>
+<div style="padding:20px 22px 24px;display:flex;flex-direction:column;gap:14px">
+<div style="padding:14px 16px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;font-size:16px;line-height:1.45"><b style="font-family:'Bricolage Grotesque',sans-serif">1 · Show it's you.</b> Sign in again before changing passkeys. <span style="color:#2f5442">✓ done</span></div>
+<div style="display:flex;flex-direction:column;gap:6px"><label style="font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:14px">2 · Name this passkey</label><div style="min-height:48px;display:flex;align-items:center;padding:0 14px;border:1.5px solid #1b211d;border-radius:12px;background:#f7f8f3;font-family:'Bricolage Grotesque',sans-serif;font-size:18px">laptop</div><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:#56605a">So you can tell it apart later.</span></div>
+<span style="display:flex;justify-content:center;align-items:center;min-height:52px;border:1.5px solid #1b211d;border-radius:14px;background:#bfe8ad;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px">3 · Create the passkey</span>
+<div style="padding:14px 16px;border:1.5px solid #3f8f3a;border-radius:14px;background:#dcebd7;font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:15px">Passkey "laptop" added.</div>
+</div></div><div class="cap">add · J1.4 · J1.5 · AC-11 · G2 · three moments in one frame: re-authenticate, name, create</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:560px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif;position:relative">
+<div style="padding:18px 22px 0;opacity:.35">{{ mark }}</div>
+<div style="position:absolute;left:14px;right:14px;bottom:14px;background:#eff0ea;border:1.5px solid #1b211d;border-radius:18px;padding:20px;box-shadow:0 12px 40px rgba(0,0,0,.18)">
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px;margin-bottom:6px">Remove "phone"?</div>
+<p style="font-size:16px;line-height:1.45;color:#3a443e;margin:0 0 16px">It won't sign in any more, and anywhere it's signed in now is signed out at once.</p>
+<div style="display:flex;flex-direction:column;gap:8px"><span style="display:flex;justify-content:center;align-items:center;min-height:48px;border:1.5px solid #1b211d;border-radius:12px;background:#bfe8ad;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16px">Sign in again and remove</span><span style="display:flex;justify-content:center;align-items:center;min-height:48px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16px">Cancel</span></div>
+</div>
+</div><div class="cap">remove, on the laptop · J3.6 · J3.7 · AC-11 · G2 · a stolen, signed-in phone loses access now, not at the 24 h limit</div></div>
+<div class="fr"><div class="card" lang="en" style="width:1100px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:28px 64px 0">{{ markM }}<div style="display:flex;gap:24px;font-family:'Bricolage Grotesque',sans-serif;font-size:15px"><a href="#" style="color:#56605a">View site</a><a href="#" style="color:#56605a">Sign out</a></div></div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:64px;padding:56px 64px 56px">
+<div>
+<div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:44px;line-height:1;letter-spacing:-.03em;margin-bottom:12px">Enrol a new device</div>
+<p style="font-size:20px;line-height:1.5;color:#3a443e;margin:0 0 24px;max-width:520px">On the new phone, scan this code or open the link. It works once, for the next 10 minutes. No server needed.</p>
+<div style="display:flex;gap:28px;align-items:center"><div style="width:180px;height:180px;border:1.5px solid #1b211d;border-radius:14px;background:repeating-linear-gradient(45deg,#dfe2d9 0 6px,#f7f8f3 6px 12px);display:grid;place-items:center;font:11px ui-monospace,monospace;color:#56605a">QR code</div><div style="font-family:'Bricolage Grotesque',sans-serif"><div style="font-size:14px;color:#56605a">or open</div><div style="font-size:18px;font-weight:600;font-variant-numeric:tabular-nums">imnstr.com/admin/setup/K7FQ…</div><span style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;margin-top:10px;border:1.5px solid #1b211d;border-radius:12px;font-weight:700;font-size:15px">Copy link</span></div></div>
+</div>
+<div style="font-family:'Bricolage Grotesque',sans-serif"><div style="display:flex;justify-content:space-between;align-items:center;min-height:48px;border-top:1.5px solid #1b211d;font-weight:800;font-size:18px">Passkeys</div><div style="display:flex;justify-content:space-between;align-items:center;min-height:56px;border-top:1px solid rgba(27,33,29,.18)"><b style="font-size:17px">laptop</b><span style="font-size:13px;color:#2f5442">this device</span></div><div style="display:flex;justify-content:space-between;align-items:center;min-height:56px;border-top:1px solid rgba(27,33,29,.18);border-bottom:1px solid rgba(27,33,29,.18)"><span style="font-size:17px;color:#56605a">new phone: waiting…</span><span style="width:14px;height:14px;border:2px solid #1b211d;border-top-color:transparent;border-radius:50%;animation:imn-spin .8s linear infinite"></span></div></div>
+</div>
+<p style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;color:#56605a;padding:0 64px 32px;margin:0">If both devices are lost, the server route still works: issue a setup token and start from plate 5. No content is touched.</p>
+</div><div class="cap">desktop · enrol a replacement · J3.8 · J3.9 · J3.10 · G1 · the 10-minute one-time code is a proposal, alongside W9. G3 has no screen; it's a build-plan check.</div></div>
+</div>
+</section>
+<section class="pl" id="p11" data-screen-label="11 Podcast admin">
+<div class="pl-h"><span class="pl-n">11</span><span class="pl-t">Admin: the podcast form and its list</span></div>
+<p class="pl-s">Wireframe plate 11. One form serves both new and edit. One link is enough to publish (journeys decision 3). Each link's label sits over its URL, because side by side doesn't fit at 360 px. Labels are free text, with YouTube and Castbox offered as suggestions. The date defaults to today and can be changed (§4.4). A non-https link is refused, with the fix written out in your own text (AC-17).</p>
+<div class="row">
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:600px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="padding:18px 22px 0">{{ mark }}</div>
+<div style="padding:20px 22px 24px;font-family:'Bricolage Grotesque',sans-serif">
+<div style="display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:0 4px;border-top:1.5px solid #1b211d;font-weight:800;font-size:20px">Podcast<span>−</span></div>
+<span style="display:flex;justify-content:center;align-items:center;min-height:48px;margin-top:8px;border:1.5px solid #1b211d;border-radius:12px;background:#bfe8ad;font-weight:700;font-size:16px">New episode</span>
+<p style="font-family:'Newsreader',serif;font-size:16px;color:#3a443e;text-align:center;margin:18px 0">No episodes yet.</p>
+<div style="display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:0 4px;border-top:1.5px solid #1b211d;font-weight:800;font-size:20px">Entries<span>−</span></div>
+<p style="font-family:'Newsreader',serif;font-size:16px;color:#3a443e;text-align:center;margin:18px 0">No entries yet.</p>
+</div></div><div class="cap">empty lists · J1.6 · J5.3 · "No … yet" is a fact, not a count; the button is the only call to act</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;height:760px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif;display:flex;flex-direction:column">
+<div style="padding:14px 22px 0;display:flex;flex-direction:column;gap:8px;font-family:'Bricolage Grotesque',sans-serif">
+<label style="font-weight:600;font-size:13px">Name</label><div style="min-height:44px;display:flex;align-items:center;padding:0 12px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;background:#f7f8f3;font-size:17px">Why a monster?</div>
+<label style="font-weight:600;font-size:13px">Description</label><div style="min-height:60px;padding:10px 12px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;background:#f7f8f3;font-family:'Newsreader',serif;font-size:16px;line-height:1.4">Episode one: where the name comes from.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div style="display:flex;flex-direction:column;gap:6px"><label style="font-weight:600;font-size:13px">Tags (one or two)</label><div style="min-height:44px;display:flex;align-items:center;padding:0 12px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;background:#f7f8f3;font-size:16px">origins</div></div><div style="display:flex;flex-direction:column;gap:6px"><label style="font-weight:600;font-size:13px">Date</label><div style="min-height:44px;display:flex;align-items:center;padding:0 12px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;background:#f7f8f3;font-size:16px;font-variant-numeric:tabular-nums">10 Oct 2026</div></div></div>
+<label style="font-weight:600;font-size:13px">Link</label>
+<div style="padding:10px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;display:flex;flex-direction:column;gap:6px"><div style="min-height:44px;display:flex;align-items:center;padding:0 12px;border:1.5px solid #1b211d;border-radius:10px;background:#f7f8f3;font-size:16px">YouTube</div><div style="min-height:44px;display:flex;align-items:center;padding:0 12px;border:1.5px solid rgba(27,33,29,.28);border-radius:10px;background:#f7f8f3;font-size:15px;color:#3a443e">https://youtu.be/…</div></div>
+<div style="display:flex;gap:6px"><span style="font-size:13px;padding:4px 10px;border:1.5px solid rgba(27,33,29,.28);border-radius:999px">YouTube</span><span style="font-size:13px;padding:4px 10px;border:1.5px solid rgba(27,33,29,.28);border-radius:999px">Castbox</span><span style="font-size:13px;color:#2f5442;padding:4px 0;margin-left:auto">+ Another link</span></div>
+<div style="display:flex;gap:8px;margin-top:4px"><span style="display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;font-weight:600;font-size:15px">Save draft</span><span style="flex:1"></span><span style="display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border:1.5px solid #1b211d;border-radius:14px;background:#bfe8ad;font-weight:700;font-size:17px">Publish</span></div>
+</div>
+<span style="flex:1"></span>
+<div style="height:220px;background:#d3d6cf;display:grid;place-items:center;font:12px ui-monospace,monospace;color:#555">[on-screen keyboard]</div>
+</div><div class="cap">new episode, keyboard up · J5.3 · J5.4 · AC-15 · AC-17 · §4.4 · label stacked over URL; the suggestion chips fill the label</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:600px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="padding:18px 22px 0">{{ mark }}</div>
+<div style="padding:20px 22px 24px;display:flex;flex-direction:column;gap:8px;font-family:'Bricolage Grotesque',sans-serif">
+<label style="font-weight:600;font-size:13px">Name</label><div style="min-height:44px;display:flex;align-items:center;padding:0 12px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;background:#f7f8f3;font-size:17px">Building in public</div>
+<label style="font-weight:600;font-size:13px">Link</label>
+<div style="padding:10px;border:1.5px solid #b0492f;border-radius:14px;display:flex;flex-direction:column;gap:6px"><div style="min-height:44px;display:flex;align-items:center;padding:0 12px;border:1.5px solid rgba(27,33,29,.28);border-radius:10px;background:#f7f8f3;font-size:16px">YouTube</div><div style="min-height:44px;display:flex;align-items:center;padding:0 12px;border:1.5px solid #b0492f;border-radius:10px;background:#f7f8f3;font-size:15px">youtu.be/abc123</div></div>
+<div style="padding:14px 16px;border:1.5px solid #b0492f;border-radius:14px;background:#f6e1d9;color:#5e2414;font-family:'Newsreader',serif;font-size:16px;line-height:1.45">This link needs to start with <b>https://</b>, like <b>https://youtu.be/abc123</b>. Everything else you typed is still here.</div>
+<div style="display:flex;justify-content:flex-end;margin-top:6px"><span style="display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border:1.5px solid #1b211d;border-radius:14px;background:#bfe8ad;font-weight:700;font-size:17px">Publish</span></div>
+</div></div><div class="cap">error · J5.5 · AC-17 · refused at the field, fix spelled out using your own text. Not auto-prefixed, since AC-17 says refuse.</div></div>
+<div class="fr"><div class="card" lang="en" style="width:360px;min-height:600px;background:#eff0ea;color:#1b211d;font-family:'Newsreader',serif">
+<div style="padding:18px 22px 0">{{ mark }}</div>
+<div style="padding:20px 22px 24px;display:flex;flex-direction:column;gap:8px;font-family:'Bricolage Grotesque',sans-serif">
+<div style="display:flex;justify-content:space-between;align-items:baseline;font-size:14px"><span style="color:#3a443e">Editing · published · 10 Oct 2026</span><a href="#" style="color:#2f5442">Cancel</a></div>
+<label style="font-weight:600;font-size:13px;margin-top:6px">Links</label>
+<div style="padding:10px;border:1.5px solid rgba(27,33,29,.28);border-radius:14px;display:flex;flex-direction:column;gap:6px"><div style="min-height:44px;display:flex;align-items:center;padding:0 12px;border:1.5px solid rgba(27,33,29,.28);border-radius:10px;background:#f7f8f3;font-size:16px">YouTube</div><div style="min-height:44px;display:flex;align-items:center;padding:0 12px;border:1.5px solid rgba(27,33,29,.28);border-radius:10px;background:#f7f8f3;font-size:15px;color:#3a443e">https://youtu.be/…</div></div>
+<div style="padding:10px;border:1.5px solid #1b211d;border-radius:14px;display:flex;flex-direction:column;gap:6px"><div style="min-height:44px;display:flex;align-items:center;padding:0 12px;border:1.5px solid rgba(27,33,29,.28);border-radius:10px;background:#f7f8f3;font-size:16px">Castbox</div><div style="min-height:44px;display:flex;align-items:center;padding:0 12px;border:1.5px solid rgba(27,33,29,.28);border-radius:10px;background:#f7f8f3;font-size:15px;color:#3a443e">https://castbox.fm/…</div></div>
+<span style="font-size:13px;color:#2f5442">+ Another link</span>
+<div style="display:flex;gap:8px;margin-top:6px"><span style="display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1.5px solid rgba(27,33,29,.28);border-radius:12px;font-weight:600;font-size:15px">Unpublish</span><span style="flex:1"></span><span style="display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border:1.5px solid #1b211d;border-radius:14px;background:#bfe8ad;font-weight:700;font-size:17px">Save</span></div>
+<div style="padding:14px 16px;border:1.5px solid #3f8f3a;border-radius:14px;background:#dcebd7;font-family:'Newsreader',serif;font-size:16px"><b style="font-family:'Bricolage Grotesque',sans-serif">Saved.</b> The episode keeps its date and its place.</div>
+</div></div><div class="cap">edit, adding Castbox · J5.8 · AC-17 · an ordinary edit, no unpublish. Unpublish and republish work as for entries (plate 8).</div></div>
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  static WM = function WM(p) {
+    const [on, setOn] = React.useState(false);
+    React.useEffect(() => {
+      if (!p.intro) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const a = setTimeout(() => setOn(true), 900), b = setTimeout(() => setOn(false), 2900);
+      return () => { clearTimeout(a); clearTimeout(b); };
+    }, []);
+    const h = React.createElement;
+    const pop = p.dark ? '#7fd36b' : '#3f8f3a', ink = p.dark ? '#e4e8e3' : '#1b211d';
+    const hid = (ch) => h('span', { style: { display: 'inline-block', overflow: 'hidden', verticalAlign: 'bottom', maxWidth: on ? '0.7em' : 0, opacity: on ? 1 : 0, color: pop, fontWeight: 500, transition: 'max-width .35s cubic-bezier(.3,1.4,.5,1), opacity .25s' } }, ch);
+    return h('a', { href: '#', 'aria-label': 'iMNSTR, i-monster, home', onMouseEnter: () => setOn(true), onMouseLeave: () => setOn(false), onClick: (e) => { e.preventDefault(); setOn(!on); },
+      style: { fontFamily: '"Bricolage Grotesque", sans-serif', fontWeight: 800, fontSize: p.size, lineHeight: 1, letterSpacing: '-0.02em', color: ink, textDecoration: 'none', whiteSpace: 'nowrap', cursor: 'pointer' } },
+      'i', hid('-'), 'M', hid('o'), 'NST', hid('e'), 'R');
+  };
+  static Eyes = function Eyes(p) {
+    const h = React.createElement, ink = p.dark ? '#e4e8e3' : '#1b211d', s = p.size;
+    const eye = (d) => h('span', { 'data-imn-eye': '', style: { width: s, height: s, borderRadius: '50%', background: '#fbfcf8', border: `1.5px solid ${ink}`, display: 'grid', placeItems: 'center', animation: `imn-blink 5.5s ${d} infinite`, flex: 'none' } },
+      h('span', { style: { width: s * 0.46, height: s * 0.46, borderRadius: '50%', background: '#1b211d', transition: 'transform .08s linear' } }));
+    return h('span', { 'aria-hidden': 'true', style: { display: 'inline-flex', gap: Math.round(s * 0.12) } }, eye('0s'), eye('0.04s'));
+  };
+  componentDidMount() {
+    this.onMove = (e) => {
+      document.querySelectorAll('[data-imn-eye]').forEach((el) => {
+        const r = el.getBoundingClientRect();
+        const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+        const a = Math.atan2(e.clientY - cy, e.clientX - cx);
+        const d = Math.min(r.width * 0.2, Math.hypot(e.clientX - cx, e.clientY - cy) / 40);
+        el.firstChild.style.transform = `translate(${Math.cos(a) * d}px,${Math.sin(a) * d}px)`;
+      });
+    };
+    window.addEventListener('pointermove', this.onMove);
+  }
+  componentWillUnmount() { window.removeEventListener('pointermove', this.onMove); }
+  renderVals() {
+    const h = React.createElement, W = Component.WM, E = Component.Eyes;
+    const pair = (ws, es, dark, intro, pad) => h('span', { style: { display: 'inline-flex', alignItems: pad ? 'flex-end' : 'center', gap: Math.round(es * 0.45) } },
+      h(W, { size: ws, dark, intro }), h('span', { style: { paddingBottom: pad || 0, display: 'inline-flex' } }, h(E, { size: es, dark })));
+    return {
+      heroCover: pair(96, 26, false, true, 14),
+      hero: pair(156, 38, false, true, 22),
+      heroPhone: pair(76, 20, false, true, 10),
+      heroPhoneD: pair(76, 20, true, true, 10),
+      mark: pair(22, 17, false),
+      markD: pair(22, 17, true),
+      markM: pair(26, 20, false),
+      markMD: pair(26, 20, true),
+      eyesBig: h(E, { size: 64 }),
+      eyesSmall: h(E, { size: 30 }),
+      eyesSmallD: h(E, { size: 30, dark: true }),
+      eyesBigD: h(E, { size: 64, dark: true }),
+    };
+  }
+}
+</script>
+</body>
+</html>
