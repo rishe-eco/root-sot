@@ -129,7 +129,10 @@ The founder also asked for the next step's opening prompt, which is in the closi
 - **Rule:** a UI stage's checks include a reflow width (200% zoom), not only 360 px. **Event:** B1's lane met "360 px, no sideways scroll" exactly, and every page still overflowed at 200%. The card and plan named only 360 px. **Scope:** IMNSTR cards B3–B9. **Destination:** `brief-common.md` or the `build-phase` card template: "e2e at 360 and 180 px". **urgent:** yes, for B3's card.
 
 ## Cost
-*Founder fills in after the session.*
+*From the founder, after the session. The total covers the review and the follow-ups: the merge, the timezone and HSTS answers, and build plan 0.2.*
+- Opus 5.5: 168 in / 858 out / 12.3M cache read / 216.9k cache write.
+- Cost $5.40; API 16 min; wall 23 min. No subagent.
+- Almost all of it is cache read: about 12.3M tokens over a long single context. Each tool call re-reads everything so far, and the browser pass with its screenshots added many calls. Wall time is well above API time because of the e2e runs and the Edge driving.
 
 ## Next
 - **8a for B3** (public log and feed), Opus · medium, slot A. It can start now: B1 is on `main @ 7ebc220`. B3's card must:
