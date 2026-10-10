@@ -2,6 +2,29 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` (step 7b, project config)
+
+*Adds to the blocks below and replaces none. Item 1 of the step-7 block is done.*
+
+**Lanes in flight:** none.
+
+**Done:** `lifecycle/projects/imnstr/`, all 0.1, none yet used:
+- `brief-common.md`: role, read order, environment, git, style, the lane budget, debug rules, targeted tests only, and the seven-part report.
+- `review-checklist.md`: plan §0.2 and §0.3; every stage; auth (spec §4.3 line by line); UI; deploy and the shared VPS; done means (§8); the verification ceiling.
+- `config.md`: paths, suites, lane slots A (`4110`) and B (`4120`) with a `.tmp/e2e.db` per worktree, branch names, stages, the milestone script, deploy.
+- **Founder [F]:** the org is `rishe-eco`. Closes the step-7 carry-over.
+
+**Next steps, in order**
+1. **Founder, P0** (plan §4): **P0-1, create `rishe-eco/imnstr`**, public, empty, with `main`. Needed before 8a. Then P0-2 to P0-5.
+2. **8a, B1** (Opus · medium) once P0-1 exists: the card from plan §5 B1, slot A, branch `b1-foundation`.
+
+**Carry-overs**
+- `config.md` names the lane variables `PORT` and `DB_PATH`. They are planned, not built: B1's card must tell the lane to use them, and B1's stage record wins if they change.
+- B1 must gitignore `.claude/worktrees/` and `.tmp/`, and write `CLAUDE.md` with the house rules and the environment (config §2). `brief-common.md` reads `CLAUDE.md` first.
+- Owed items go to `root-sot/imnstr/open-work.md`, not Root's `team/open-work.md`. The first verify that owes something creates it.
+
+**Questions for the founder:** still open from step 7: the PD vetoes in plan §10; the Persian show's name and channels; real copy; the YouTube and Castbox marks.
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` (step 7, build plan)
 
 *Adds to the blocks below and replaces none. Item 1 of the 05f block (step 7) is done.*
