@@ -43,7 +43,7 @@ Sonnet · medium, not forked. Inject: `personas.md`, the spec's language section
 1. Rule: when a spec adds a language or audience, run `personas` right then, not before the review that needs it. Taught by: M6 was unscorable at step 5 (F11); cost a carried item and this session. Scope: `revise`, `personas`. Destination: `skills-plan.md` `revise` section. `urgent: no`.
 
 ## Cost
-*Founder fills in after the session.*
+Sonnet 5.5: 20 in / 412 out / 660.5k cache read / 45.4k cache write. Cost $0.37; API time 1m; wall time 2m.
 
 ## Next
 05d, journeys gap (Opus · high). It must give F journeys and bump `03-journeys.md`; F's anchors are in the header.
