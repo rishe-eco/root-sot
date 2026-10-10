@@ -62,7 +62,7 @@ Sonnet · medium, not forked. Inject: `personas.md` (or "absent"), the intake's 
 1. Rule: when a module's audiences are not in the registry, propose personas from the intake's audience list, one per audience, with behaviour not demographics. Taught by: the registry had only Tracker personas defined by Tracker's entry page; the cost was one founder question. Scope: `personas`. Destination: `skills-plan.md` `personas` section. `urgent: no`.
 
 ## Cost
-*Founder fills in after the session.*
+*Founder-supplied.* Sonnet 5.5: 18 in / 715 out / 702.3k cache read / 56.7k cache write. Cost $0.39; API time 1m; wall time 3m.
 
 ## Next
 Step 3b, Journeys (`journeys new`, Opus · high). Must know beyond `STATE.md`: `03-journeys.md` already exists with only a header, so `journeys` fills the `## Journeys` section and must leave `## Personas` as is; the gate for 3b should confirm the `## Personas` table. Column 3 of `status.md` is blank until 3b marks it.
