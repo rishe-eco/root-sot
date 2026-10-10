@@ -79,7 +79,7 @@ README headings: What's here · Decisions taken in 4b · The design system it se
 3. **Rule:** in Claude Design, re-read the repo's latest version of the source before editing, because the local project copy may predate later commits. **Event:** here the repo's `source/` hadn't changed since 4b, so nothing was lost, but nothing checked that. **Scope:** every Claude Design step. **Destination:** the trial's Claude Design rows. **urgent: yes**
 
 ## Cost
-*Founder fills in after the session.*
+*Founder-supplied, **estimated**.* Claude Design shows no token or cost figures. The founder recalled the session using about **30% of the session limit**. Wall time wasn't recorded.
 
 ## Next
 The 05e import session (Opus · medium): copy `repo-handoff/` in at its paths, refill the README's *What didn't survive*, log `05e-design-import.md`, commit and push. Persian rendering needs checking in a real browser: fonts from the bundle, `dir="rtl"`, `<bdi>`.

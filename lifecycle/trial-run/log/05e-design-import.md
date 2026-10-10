@@ -75,7 +75,9 @@ None asked. The handoff matched its block, and nothing needed a decision.
 2. **Rule:** state the handoff folder's path relative to the repo, at one fixed location. **Event:** the prompt said `/repo-handoff-1010`, but the folder was at `../`. It took one extra `ls`. **Scope:** Claude Design steps. **Destination:** the trial README's Claude Design rows. **urgent: no**
 
 ## Cost
-*Founder fills in after the session.*
+*Founder-supplied.*
+- **Usage:** Opus 5.5: 54 in / 1k out / 1.9M cache read / 47.9k cache write.
+- **Cost:** $1.02; API time 2m; wall time 3m.
 
 ## Next
 `revise` for G10–G16 (Opus · medium), with the README 0.2's new beyond-the-spec items, as the 05e block's item 2 says. Then step 7. The dark frames and the Persian frames other than plate 13's landing page weren't checked by eye. Step 9 sees them live.
