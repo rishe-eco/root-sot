@@ -2,6 +2,25 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` @ 68e2cb8 (+ step 2)
+
+**Lanes in flight:** none.
+
+**Next steps, in order**
+1. Step 3a, Personas (`personas`, Sonnet · medium): read `00-intake.md` §4 and `lifecycle/personas.md` (doesn't exist yet; seed it from `tracker/canon/05-reviews/00-persona-review-method.md` §2). Three audiences in order: the founder, followers, podcast listeners.
+2. Step 3b, Journeys (`journeys new`, Opus · high): read `02-spec.md` §2, §4, §6. First day = first entry, on a phone, after the passkey bootstrap. Return after a gap lands on an easy new entry with no gap shown. Not enough data = 0–3 entries and an empty podcast page. Errors: failed save, expired session mid-write, lost passkey.
+3. Step 6 (eval plan) can run beside 3–5: decision rule from spec §3 (M1 at 3 and 6 months, M2 only supporting fact).
+
+**Carry-overs**
+- Founder chose **admin shape A** (own passkey login). Spec §4.3 and AC-8 to AC-11 carry the OWASP/NIST floor; auth is the build's risk stage. Site needs a server and database.
+- Entries: optional title, automatic date-time, no tags. Silent edit and unpublish. Podcast: one link per platform, platforms free text (mostly YouTube, Castbox). No now line. Atom feed. Admin editor phone-first.
+- Open assumption for the founder: landing content (who, projects) is edited in the code repo, not the admin (spec §4.1).
+- Hard lines unchanged: nothing on any page, public or admin, counts entries or marks gaps.
+
+**Questions for the founder:** confirm the landing-content assumption (spec §4.1) at journeys.
+
+**Owed:** nothing.
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` @ b7318ac (+ step 1, three passes integrated)
 
 **Lanes in flight:** none.
