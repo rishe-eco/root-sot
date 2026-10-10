@@ -39,7 +39,7 @@ None.
 - **Rule:** the lane's environment problems belong in `brief-common.md` the first time they cost time. **Event:** B3's lane lost about ten minutes to `npm install` failing in node-gyp (no Windows SDK); `--ignore-scripts` works because better-sqlite3 ships a prebuilt binary. B1's lane may have met the same thing. **Scope:** IMNSTR project config, `CLAUDE.md`. **Destination:** `lifecycle/projects/imnstr/brief-common.md` Environment, through the founder; `CLAUDE.md` at B3 verify. **urgent:** yes, for the next lane (B2 or B4a).
 
 ## Cost
-*Founder fills in after the session. This session ran 8a and 8b; 8b's share is the total minus 8a's.*
+*From the founder. This session also ran 8a; the totals are in `08a-B3-launch.md` ($5.69 for both, the lane 62%). The founder gave no reading between 8a and 8b, so 8b's share isn't separable; it was a few small tool calls on top of 8a's context.*
 - Lane, from its completion notice: 275,496 tokens, 92 tool uses, about 28 min.
 
 ## Next

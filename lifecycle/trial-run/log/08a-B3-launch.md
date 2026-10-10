@@ -56,7 +56,11 @@ As at 8a B1: Opus, medium; not forked; it holds the lane. Inject the top `STATE.
 - **Rule:** carry-overs a review marks "for every card" belong in `brief-common.md`, not repeated in each card. **Event:** the B3 card spends ~120 words on 180 px, `app.ts`, `npm install`, the root-sot path and report-to-file, all of which apply to B4a–B9 too; it pushed the card over its limit. **Scope:** IMNSTR project config. **Destination:** `lifecycle/projects/imnstr/brief-common.md`, through the founder. **urgent:** no.
 
 ## Cost
-*Founder fills in after the session.*
+*From the founder, after the session. This session ran 8a and 8b; the figures are the whole session:*
+- Opus 5.5: 76 in / 1.8k out / 3.8M cache read / 97.2k cache write.
+- Cost $5.69; API 30 min; wall 10 min. The general-purpose subagent, the B3 lane, was 62% of it.
+- The lane alone, from its completion notice: 275,496 tokens, 92 tool uses, about 28 min.
+- Against 8a B1 ($6.35, lane 76%): the lane's share fell, and the orchestrator's rose by about $0.60 because 8b's land ran in the same session.
 
 ## Next
 8b, land B3, in this session when the lane reports. If the session ends first, see the `STATE.md` block for where the report is.
