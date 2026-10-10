@@ -84,7 +84,7 @@ Opus · high, not forked (it asks the founder questions). Inject: the gate resul
 3. Rule: a journey phase that finds spec gaps needs a route back to the spec before the build plan. Taught by: nine Suggested items now sit in `03-journeys.md` with no gate that reads them. Scope: lifecycle gates. Destination: `skills-plan.md` `build-plan` gate. `urgent: yes` — the step-7 agent should check `03-journeys.md` §4 is resolved or carried.
 
 ## Cost
-*Founder fills in after the session.*
+*Founder-supplied.* Opus 5.5: 42 in / 208 out / 1.9M cache read / 77.2k cache write. Cost $1.57; API time 5m; wall time 6m.
 
 ## Next
 Step 4, Wireframes (`wireframes`, Opus · medium). Beyond `STATE.md`: draw from `03-journeys.md` §2 and the states table in §3; G1–G9 are **not** requirements, so draw them as marked options or not at all, and say which. Step 6 (eval plan) can still run beside 4–5. Before step 7, the founder should decide G1–G9 through `revise` on the spec.
