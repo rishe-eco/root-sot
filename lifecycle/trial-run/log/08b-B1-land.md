@@ -42,7 +42,10 @@ Sonnet, low would do: it copies and records, and decides nothing. Not forked; it
 - **Rule:** launch and land of one lane happen in the same session, or the lane writes its report to a committed file. **Event:** 8a/8b B1: a fresh 8b session would have had no report; I landed it in 8a's session at the founder's request. **Scope:** method, `build-phase`, `brief-common.md`. **Destination:** `skills-plan.md` `build-phase` through `revise`; `projects/imnstr/brief-common.md`. **urgent:** yes, for B2 and B3.
 
 ## Cost
-*Founder fills in.*
+*From the founder. This session also ran 8a, so its usage is a running total. 8b's share is the total after 8b minus the total recorded in the 8a log:*
+- After 8b: Opus 5.5 66 in / 1.5k out / 3.3M cache read / 80k cache write; $6.76; API 24 min; wall 8 min.
+- **8b alone:** about 18 in / 0.6k out / 1.2M cache read / 7.4k cache write; **$0.41**; API about 1 min; wall about 2 min. The output figure is approximate, because "1.5k" is rounded.
+- Most of 8b's cost is the cache read of 8a's context, which a fresh session wouldn't carry. A fresh 8b would read less, but it would have had no report to land.
 
 ## Next
 8c, `verify B1`, Opus · high, a fresh session on this machine (the branch is only in `E:\_root\imnstr`). Its inputs: `briefs/B1.report.md`, `git diff --stat main...b1-foundation`, `briefs/B1.md`, plan §5 B1, `lifecycle/projects/imnstr/review-checklist.md`. The fonts call (report item 4) is the first thing to decide.
