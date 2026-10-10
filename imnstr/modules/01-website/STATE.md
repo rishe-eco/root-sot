@@ -2,6 +2,73 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` (step 05e, import)
+
+*Adds to the blocks below and replaces none. Item 1 of the 05e Claude Design block (the import) is done.*
+
+**Lanes in flight:** none.
+
+**Done:** `04b-design/` **0.2** is in git: the export, `source/`, the README with *What didn't survive* refilled, and the 05e log. Checked in the browser pane:
+- no requests leave the page;
+- all four families, including Estedad and Vazirmatn, load from the bundle;
+- the right-to-left frames mirror, and `<mark>` shows the highlighter;
+- plates 1–15 render, with no console errors.
+
+The eye-follow now respects reduced motion, which closes the 4b import's build gap for the eyes.
+
+**Next steps, in order:** as in the 05e Claude Design block, items 2 and 3:
+- `revise` for G10–G16, plus the README's new beyond-the-spec items;
+- M6 at step 9.
+
+Then step 7.
+
+**Carry-overs:** no `STALE` set; 05e has no status column. Not checked by eye: the dark frames, and the Persian frames other than plate 13's landing page. Step 9 sees them in the running app.
+
+**Questions for the founder:** none new. Still open: as in the block below.
+
+## 2026-10-10 · `lifecycle-trial/imnstr` (step 05e, Claude Design)
+
+*Adds to the blocks below and replaces none. Item 1 of the 05d block (05e, design second pass) is drawn; the import is owed.*
+
+**Lanes in flight:** none.
+
+**Done (in Claude Design, not yet in git):** `04b-design/` **0.2**, design system kept.
+- Plates 1–11 carry the HIG review's fixes (#1–#12) and the UX review's design findings (F2, F3, F5, F7, F8, F10, F12–F17, F19), plus Save draft and the language field.
+- New plates:
+  - 12, admin states from spec 0.3;
+  - 13, the Persian public pages;
+  - 14, writing in Persian;
+  - 15, the admin in dark.
+- G10 and G12 drawn, flagged Suggested; `/fa/podcast` links the Persian show (placeholders).
+- The founder chose:
+  - Persian type: Estedad for UI, Vazirmatn for body;
+  - the Latin wordmark, unchanged, on Persian pages;
+  - the switch in the header;
+  - dark admin as a token sheet plus three screens;
+  - fixes in place and new plates from 12;
+  - Persian at phone and desktop;
+  - placeholder Persian copy.
+
+**Next steps, in order**
+1. **05e import session** (Opus · medium):
+   - copy the handoff folder in: `04b-design/imnstr-design.html`, `source/IMNSTR Design.dc.html`, `README.md`, this block, and `lifecycle/trial-run/log/05e-design.md`;
+   - refill the README's *What didn't survive*;
+   - log as `05e-design-import.md`;
+   - commit and push.
+
+   `imnstr-directions.html` is unchanged and not in the folder.
+2. **`revise` for G10–G16** (journeys §4), as in the 05d block. It can also take the README's new beyond-the-spec items: "was live", the year rule, one message for used or expired codes, and the independence note.
+3. **M6 at step 9:** F scores it, walking J6 against plates 13–14.
+
+Then step 7.
+
+**Carry-overs**
+- **No `STALE` set.** 05e has no status column.
+- The wireframes still predate J6; the design now covers it.
+- Gaps are listed in the README: some desktop counterparts, the rest of the admin in dark, platform marks, real copy in both languages, the Persian show's channels, the Persian feed (G11).
+
+**Questions for the founder:** still open: the Persian show's name and channels; real copy in two languages, with a Persian reader checking the placeholders; the YouTube and Castbox marks.
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` (step 06b)
 
 *Adds to the blocks below and replaces none. Item 3 of the 05d block and item 2 of the 05b block (the eval-plan touch-up) are done.*
