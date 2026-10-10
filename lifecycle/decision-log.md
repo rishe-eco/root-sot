@@ -2,7 +2,7 @@
 
 *Decisions about the method itself. Written in `decision-record`'s format.*
 
-**Version 0.4 · 2026-10-10**
+**Version 0.5 · 2026-10-10**
 
 ---
 
@@ -61,3 +61,19 @@ No downstream phase is marked `STALE`. The eval plan's two "not measured" senten
 **Decided by.** Founder, accepting the proposal at trial step 05c.
 
 **Revisit.** After step 9, if F surfaced nothing C, D or E would not have, or if the Persian writing path in the admin needs its own persona.
+
+## L-5 · 2026-10-10 · IMNSTR spec 0.4: journeys gaps G10–G16 and the 05e design's items
+
+**Decision.** Revise `imnstr/modules/01-website/02-spec.md` to version 0.4, as set out in its change note `changes/03-journeys-gaps-design-0-2.md`:
+- G10–G16 become criteria: the switch's label, the Persian feed's untitled titles, mixed-direction text (new AC-48), the last-language default, a separate Persian show, idempotent episode publish, and the wrong-language 404 and its switch;
+- both shows' links are edited in the code repo;
+- from the 05e design: "was live" in the admin lists, the year in admin lists only when it isn't the current one, a one-time independence note until dismissed, and one refusal message for used, expired or unknown codes;
+- "Copied" stays a build detail, not a criterion.
+
+No downstream phase is marked `STALE`: the journeys proposed these items and the design drew them.
+
+**Why.** Step 7 reads the spec. Four of the gaps restated decisions already taken at journeys and needed only a criterion. The design items change behaviour the build must implement and verify, apart from "Copied", which is presentation.
+
+**Decided by.** Founder, at trial step 05f, all as recommended.
+
+**Revisit.** At step 9, if F finds the switch or mixed-direction text still fails in the running site.

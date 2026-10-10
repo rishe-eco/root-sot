@@ -2,6 +2,32 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` (step 05f, revise)
+
+*Adds to the blocks below and replaces none. Item 2 of the 05e Claude Design block, and item 2 of the 05d block, are done.*
+
+**Lanes in flight:** none.
+
+**Done:** `02-spec.md` is at **0.4**. Change note `changes/03-journeys-gaps-design-0-2.md`; decision-log entry L-5. The founder decided all twelve items as recommended:
+- **G10–G16 accepted.** The changes are in AC-28, AC-29, AC-40, AC-41 and AC-42, and there's a new **AC-48** for mixed-direction text. Both shows' links are edited in the code repo.
+- **From the 05e design, accepted:**
+  - "was live" (AC-14);
+  - the year in admin lists only when it isn't the current one (AC-31);
+  - the independence note, until dismissed (AC-24);
+  - one refusal message for codes (AC-20, AC-21).
+- **"Copied" refused** as a criterion and carried to the build.
+
+**Next steps, in order**
+1. **Step 7, build plan** (Opus · high), against spec 0.4. Change notes 02 and 03 each have a "Build plan" list. Note 03 leaves the build plan one choice: whether the last-language default is kept per device or per account.
+2. **M6 at step 9:** F scores it, walking J6 against plates 13–14, as before.
+
+**Carry-overs**
+- **No `STALE` set.** 05f has no status column.
+- Journeys 0.3 still mark G10–G16 *Suggested*. That is wording only; the next `journeys gap` can mark them accepted.
+- AC-29 can't be checked for `/fa/podcast` until the Persian show has a name and channels.
+
+**Questions for the founder:** none new. Still open: the Persian show's name and channels; real copy in two languages, with a Persian reader checking the placeholders; the YouTube and Castbox marks.
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` (step 05e, import)
 
 *Adds to the blocks below and replaces none. Item 1 of the 05e Claude Design block (the import) is done.*

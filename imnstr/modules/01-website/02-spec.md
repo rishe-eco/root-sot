@@ -1,10 +1,10 @@
 # IMNSTR.com — spec
 
-*Module `imnstr/modules/01-website/` · Track: Module · Phase 2 · Spec, not as-built. A personal site with four parts, in English and Persian: a landing page, a learnings log, a Monster Podcast page and one admin page. Inputs: `00-intake.md`, `01-research.md`; revised from `03-journeys.md` §4, `04b-design/README.md` and `04b-design/review/README.md` (change note `changes/01-journeys-design-bilingual.md`), then from `05-ux-review.md` and `06-eval-plan.md` §6 (change note `changes/02-ux-review-eval-plan.md`). This spec doesn't restate the journeys. Update the changelog; don't fork.*
+*Module `imnstr/modules/01-website/` · Track: Module · Phase 2 · Spec, not as-built. A personal site with four parts, in English and Persian: a landing page, a learnings log, a Monster Podcast page and one admin page. Inputs: `00-intake.md`, `01-research.md`; revised from `03-journeys.md` §4, `04b-design/README.md` and `04b-design/review/README.md` (change note `changes/01-journeys-design-bilingual.md`), then from `05-ux-review.md` and `06-eval-plan.md` §6 (change note `changes/02-ux-review-eval-plan.md`), then from `03-journeys.md` §4 (G10–G16) and `04b-design/README.md` 0.2, *Beyond the spec* (change note `changes/03-journeys-gaps-design-0-2.md`). This spec doesn't restate the journeys. Update the changelog; don't fork.*
 
-**Version 0.3 · Status: spec · 2026-10-10 · Owner: founder**
+**Version 0.4 · Status: spec · 2026-10-10 · Owner: founder**
 
-**Grading.** Everything here is **proposal** until built. Items marked **[F]** were decided by the founder, at spec (§2), at the 0.2 revise (§2.1) or at the 0.3 revise (§2.2). Research findings carry their grade from `01-research.md` and are cited by section. Unmarked requirements are this spec's reading, open to the founder at any later phase through `revise`.
+**Grading.** Everything here is **proposal** until built. Items marked **[F]** were decided by the founder, at spec (§2), at the 0.2 revise (§2.1), at the 0.3 revise (§2.2) or at the 0.4 revise (§2.3). Research findings carry their grade from `01-research.md` and are cited by section. Unmarked requirements are this spec's reading, open to the founder at any later phase through `revise`.
 
 ---
 
@@ -69,6 +69,25 @@ From the step-5 UX review (`05-ux-review.md`, "For `revise`") and the eval plan 
 | 27 | AC-15's "30 s or less" (eval plan §6.3) | **The warm median of five runs per language; the slowest run reported with its cause; no run loses text** | AC-15. |
 | 28 | M1's schedule and format (eval plan §6.4, §6.5) | **3 and 6 months, then every 6 months; the five questions of `06-eval-plan.md` §3.C** | §3. |
 
+### 2.3 Decisions taken at the 0.4 revise
+
+From journeys 0.3 §4 (G10–G16) and the 05e design's *Beyond the spec* (`04b-design/README.md` 0.2). Change note `changes/03-journeys-gaps-design-0-2.md`.
+
+| # | Item (source) | Answer **[F]** | Consequence |
+|---|---|---|---|
+| 29 | The switch's label (G10) | **It names the other language in that language:** "فارسی" on English pages, "English" on Persian ones | §4.5; AC-41. |
+| 30 | An untitled Persian entry's feed title (G11) | **Its date in Solar Hijri, with Persian digits** | §4.1; AC-40. |
+| 31 | Mixed-direction text (G12) | **A paragraph's direction follows the entry's language. English terms and URLs inside Persian are isolated and keep their order, in the editor and on the page** | §4.5; AC-48. |
+| 32 | The language a new entry starts in (G13; journeys decision 4) | **The last language used** | §4.5; AC-42. |
+| 33 | Show-level links per language (G14; journeys decision 5) | **The Persian podcast is a separate show with its own links. Both sets are edited in the code repo, with the landing content** | §4.1; AC-29. |
+| 34 | A retried episode publish (G15) | **Idempotent, as an entry's** | §4.2; AC-25. |
+| 35 | The wrong-language entry URL, and the 404's switch (G16; journeys decisions 6, 7) | **The other language's 404, with no redirect. The 404's switch goes to the other language's landing page** | §4.1, §4.5; AC-28, AC-41. |
+| 36 | "was live" (05e design) | **The admin lists tell an unpublished item, shown with its original date, from a never-published draft** | §4.2; AC-14. |
+| 37 | The year in dates (05e design) | **Admin lists show the year only when it isn't the current one. Public pages always show it** | §4.4; AC-31. |
+| 38 | "Copied" for 2 s after Copy link (05e design) | **Not a criterion.** Interaction detail, built as drawn | Carried to the build (change note 03). |
+| 39 | The independence note (05e design) | **A note in the passkey list asks for AC-24's check, and stays until the founder dismisses it.** The site has no "launched" state to end it | §4.3; AC-24. |
+| 40 | Used or expired codes (05e design; review F2) | **One refusal message for a setup token or enrolment code that is used, expired or unknown. It names both ways to recover** | §4.3; AC-20, AC-21. |
+
 ## 3. Metrics
 
 The site collects nothing about visitors (intake §5). Every metric comes from the founder or from the content itself, and none is displayed on any page.
@@ -103,9 +122,9 @@ M1 is the drop rule's measure; M2 and R are its supporting facts (research §6),
 | **Landing** `/` | Who this is; the projects, as a list on this page (name, one line, optional outbound link); a way into the log and into the podcast page. |
 | **Log** `/log` | Published entries, newest first by first-publish time. Each shows its date and time, its title if it has one, and its body. 20 per page, with a plain "Older" link that works without script (W3) **[F]**. A visible link to the feed (G6). |
 | **Entry** `/log/<id>` | One entry at a stable, shareable URL (research §2.4). The URL never changes when the entry is edited. |
-| **Feed** `/log/feed.xml` | Atom: the 20 most recent published entries, full text. An entry without a title takes its date as its feed title. |
-| **Podcast** `/podcast` | Show-level links to the platforms, whether or not episodes exist (G8). Episodes, newest first: name, description, one or two tags, and one link per platform, each opening in a new tab **[F]**. 20 per page, as the log. `PodcastEpisode` markup from schema.org (research §4). |
-| **Not found** | One designed 404 page, the same for an unpublished entry and a URL that never existed, with ways to `/log` and `/` (G7). |
+| **Feed** `/log/feed.xml` | Atom: the 20 most recent published entries, full text. An entry without a title takes its date as its feed title, in its language's format: Gregorian in the English feed; Solar Hijri with Persian digits in the Persian feed **[F]**. |
+| **Podcast** `/podcast` | Show-level links to the platforms, whether or not episodes exist (G8). Each language's page links to its own show: the Persian podcast is a separate show with its own channels **[F]**. Episodes, newest first: name, description, one or two tags, and one link per platform, each opening in a new tab **[F]**. 20 per page, as the log. `PodcastEpisode` markup from schema.org (research §4). |
+| **Not found** | One designed 404 page, the same for an unpublished entry and a URL that never existed, with ways to `/log` and `/` (G7). An entry's id under the other language's paths is a URL that doesn't exist there: it gets that language's 404, with no redirect **[F]**. |
 
 - **Every public page** names the site's owner and links to `/`, `/log` and `/podcast` (G5), and carries `<link rel="alternate">` to its language's feed (G6).
 - The empty log and the empty podcast page are **designed states**, not blanks or errors (research §4, §6). The podcast may have no episodes at launch.
@@ -113,7 +132,7 @@ M1 is the drop rule's measure; M2 and R are its supporting facts (research §6),
 - Public pages set no cookies, load no analytics or tracking scripts, and host no audio. The server counts requests into the reader record (§3.1) and stores nothing about one visitor.
 - The owner is named as **iMNSTR**; the founder's personal name doesn't appear **[F]**.
 - **Light and dark** both follow `prefers-color-scheme` **[F]**, on every public and admin page and in every state.
-- Landing-page content (who, projects) is edited in the code repo, not the admin; the admin holds only log entries and podcast items. **[F]**, journeys §1.1.
+- Landing-page content (who, projects) and the show-level podcast links, for both languages, are edited in the code repo, not the admin; the admin holds only log entries and podcast items. **[F]**, journeys §1.1; show links at the 0.4 revise.
 - The paths above are the English site. Persian has the same pages under `/fa/` (§4.5).
 
 ### 4.2 The admin page
@@ -128,9 +147,10 @@ One page at `/admin`, one user (intake §5). It holds: the entry editor; the lis
 - **Editing never discards unsent text [F].** Opening another entry to edit while unsent text exists keeps that text, says so, and offers it back.
 - **Save draft [F].** An entry can be saved to the server without publishing. A saved draft is listed in the admin, can be opened, edited and published from any signed-in device, and never appears publicly. Text not yet saved or published still lives only on the device it was typed on (journeys J3.3).
 - **No counts here either.** The admin shows no streaks, totals or time since the last entry, no count per language, and nothing from the reader record. Overjustification hits the already motivated hardest, and that is the founder (research §1).
-- **Publishing is idempotent** (G4): one draft publishes once, however many times the request is sent or retried.
+- **Publishing is idempotent** (G4): one draft, entry or episode, publishes once, however many times the request is sent or retried **[F]** (episodes at the 0.4 revise).
+- **The lists tell drafts apart [F]:** an unpublished entry or episode is labelled "was live" and shows its original date, where it returns; a never-published draft is labelled "draft" and has no date.
 - **Republishing says where the entry goes** (G9): the admin says it returns at its original date, and names that date.
-- **Language:** each entry and episode is given a language when it is written (§4.5). The admin's own UI is English.
+- **Language:** each entry and episode is given a language when it is written; a new one starts in the last language used (§4.5). The admin's own UI is English.
 
 ### 4.3 Authentication (shape A)
 
@@ -138,11 +158,12 @@ From research §5.3 (primary standards: W3C WebAuthn L3, NIST SP 800-63B-4, OWAS
 
 - **Passkeys only.** No password field anywhere and no email magic link in v1 (the inbox would be a single point of failure).
 - **Two passkeys on two devices** (phone and laptop, journeys §1.2), registered before launch; either alone signs in. Recovery is the other passkey. No security questions.
-- **Independent credentials** (G3): the setup checks that the two passkeys are separate credentials, either device-bound or held by different sync providers, so that removing one leaves the other working. *Proposal from how passkey sync works in general; verify at the auth stage.*
+- **Independent credentials** (G3): the setup checks that the two passkeys are separate credentials, either device-bound or held by different sync providers, so that removing one leaves the other working. *Proposal from how passkey sync works in general; verify at the auth stage.* The passkey list carries a one-time note asking for this check (AC-24), until the founder dismisses it **[F]**.
 - **Bootstrap:** the first passkey is enrolled with a one-time setup token issued on the server. The token dies after use, or after 30 min unused (W9) **[F]**. Losing both passkeys is recovered the same way, by someone with server access.
 - **Enrolling more devices** (G1) **[F]** needs no server access:
   - a signed-in, re-authenticated admin issues a one-time enrolment code that lasts 10 min, and the new device enrols with it;
   - or a new device enrols through a cross-device sign-in from an enrolled one.
+- **Refusals don't tell codes apart [F]:** a setup token or enrolment code that is used, expired or unknown gets one message, which names both ways to recover: a new code from a signed-in device, or a setup token from the server.
 - **Telling passkeys apart** (G2): each passkey has a name and the date it was added. Removing one ends every session it opened. The last remaining passkey can't be removed (W8) **[F]**. The passkey of the device in use can be removed, unless it is the last; doing so signs this device out **[F]**.
 - **Session cookie:** `__Host-` prefix, `Secure`, `HttpOnly`, `SameSite=Strict`; ID from a CSPRNG with 128 bits of entropy; regenerated at sign-in; only a one-way verifier stored server-side; no tokens in `localStorage` or `sessionStorage`.
 - **Expiry, server-enforced:** 1 h idle, 24 h absolute (NIST AAL2 ceilings). Sign-out ends the session on the server.
@@ -154,7 +175,7 @@ From research §5.3 (primary standards: W3C WebAuthn L3, NIST SP 800-63B-4, OWAS
 
 | Item | Fields | Rules |
 |---|---|---|
-| **Entry** | language: English / Persian **[F]**; body (required); title (optional) **[F]**; first-published date-time (automatic) **[F]**; state: draft / published | A draft is an entry saved but not published: by Save draft, or by unpublishing. The date-time is set at first publish in the founder's timezone and is never typed in. Edits leave it and the URL unchanged. Unpublishing returns the entry to draft; republishing restores its original date. **Date and time are both shown** ("2 Nov 2026, 21:14") **[F]**. |
+| **Entry** | language: English / Persian **[F]**; body (required); title (optional) **[F]**; first-published date-time (automatic) **[F]**; state: draft / published | A draft is an entry saved but not published: by Save draft, or by unpublishing. The date-time is set at first publish in the founder's timezone and is never typed in. Edits leave it and the URL unchanged. Unpublishing returns the entry to draft; republishing restores its original date. **Date and time are both shown** ("2 Nov 2026, 21:14") **[F]**. Public pages always show the year; admin lists show it only when it isn't the current year **[F]**. |
 | **Episode** | language: English / Persian **[F]**; name; description; one or two tags; date (defaults to today, used for order and `datePublished`); links: one or more pairs of platform label and https URL **[F]**; state: draft / published | Platform labels are free text. Known platforms (YouTube, Castbox) may get an icon; unknown ones still show their label. An episode goes up with its first link; more are added later (journeys §1.3). A link can be removed, but a published episode keeps at least one **[F]**. |
 
 ### 4.5 Languages
@@ -164,10 +185,11 @@ From research §5.3 (primary standards: W3C WebAuthn L3, NIST SP 800-63B-4, OWAS
 - **Two streams, not translations.** Each entry and episode belongs to one language and appears only on that language's pages and in its feed. Nothing links an entry to a counterpart, and none is expected.
 - **Paths [F]:** English stays at `/`, `/log`, `/log/<id>`, `/log/feed.xml` and `/podcast`. Persian uses the same paths under `/fa/`. There's no redirect by browser language; the visitor chooses.
 - **Landing content in both**, still edited in the code repo.
-- **A language switch on every public page** goes to the other language's page of the same kind: landing to landing, log to log, podcast to podcast. From an entry, it goes to the other language's log, because there is no counterpart entry. The landing, log and podcast pages carry `hreflang` alternates for each other.
+- **A language switch on every public page** goes to the other language's page of the same kind: landing to landing, log to log, podcast to podcast. From an entry, it goes to the other language's log, because there is no counterpart entry; from a 404, it goes to the other language's landing page **[F]**. It names the other language in that language: "فارسی" on English pages, "English" on Persian ones **[F]**. The landing, log and podcast pages carry `hreflang` alternates for each other.
 - **Persian pages** are `lang="fa" dir="rtl"`, with a mirrored layout and type that covers Persian script. English pages are `lang="en" dir="ltr"`. **The 4b design system covers neither**, since Bricolage Grotesque and Newsreader have no Arabic-script glyphs. Choosing the Persian type and the mirrored layouts is owed by design.
 - **Each language stands alone.** One language may have few or no entries while the other has many. Each gets the designed empty and not-enough-data states (AC-4), and no page compares the two or shows that one is behind.
-- **The admin UI is English.** The editor and the episode form set the language. A Persian body is written right-to-left. The lists show each item's language.
+- **Mixed-direction text [F].** A paragraph's direction follows its entry's language, not its first character. English terms and URLs inside Persian text, and Persian inside English, are isolated so they keep their own order, in the editor and on every page and feed.
+- **The admin UI is English.** The editor and the episode form set the language; a new one starts in the last language used **[F]**. A Persian body is written right-to-left. The lists show each item's language.
 - **Dates [F]:** Persian pages show dates in the Solar Hijri calendar with Persian digits (the `fa-IR` default); English pages show Gregorian dates, as in 4b. Ordering always uses the stored first-publish time.
 
 ### 4.6 Access and motion
@@ -195,7 +217,7 @@ From the 4b HIG review (`04b-design/review/README.md`), run with `apple-design`.
 | **More to run than a static site** | A server, a database and sessions mean hosting cost and upkeep. | The build plan picks the stack and hosting, and sizes them. |
 | **"Daily" turns into pressure** | A hard target can corrode the activity it serves (research §1). | Nothing enforces or displays frequency (AC-5). |
 | **Two streams double the pressure** | A second language can feel like a second quota, and one stream will lag the other. | Each language stands alone, and nothing compares them or counts per language (§4.5; AC-5, AC-42). |
-| **Persian is right-to-left and undesigned** | The 4b design has no Persian type and no mirrored layouts. Bidirectional text, such as English terms and URLs inside Persian entries, is easy to get wrong. | §4.5 names the work as owed by design; AC-40 and AC-36 check it in the running site. The build plan sizes it. |
+| **Persian is right-to-left and undesigned** | The 4b design has no Persian type and no mirrored layouts. Bidirectional text, such as English terms and URLs inside Persian entries, is easy to get wrong. | The 05e design draws Persian type and mirrored layouts; AC-40, AC-48 and AC-36 check them in the running site. The build plan sizes it. |
 | **A stolen, signed-in phone** | A session can last up to 24 h. | Removing the phone's passkey ends its sessions (G2; AC-22). |
 
 ## 6. Acceptance criteria
@@ -212,10 +234,10 @@ Each is checkable on the running site. Journey-level criteria belong to `03-jour
 - **AC-7** No public page sets a cookie or makes a request to an analytics or tracking host (checked in the browser's network panel).
 - **AC-26** Every public page, including the 404, names the site's owner as iMNSTR and links to `/`, `/log` and `/podcast` in its own language.
 - **AC-27** `/log` shows a visible link to its feed, and every public page carries `<link rel="alternate" type="application/atom+xml">` pointing at its language's feed.
-- **AC-28** An unpublished entry's URL and a URL that never existed both return 404 with the same designed page, which links to `/log` and `/`.
-- **AC-29** `/podcast` shows show-level platform links both with zero episodes and with more than 20.
+- **AC-28** An unpublished entry's URL and a URL that never existed both return 404 with the same designed page, which links to `/log` and `/`. An English entry's id under `/fa/log/`, and a Persian entry's id under `/log/`, return that language's 404, with no redirect.
+- **AC-29** `/podcast` shows show-level platform links both with zero episodes and with more than 20. `/fa/podcast`'s show-level links go to the Persian show's channels, not the English show's. Both sets are changed in the code repo; the admin has no field for them.
 - **AC-30** `/log` and `/podcast` show 20 items per page with an "Older" link that works with JavaScript off; no page shows a page number, a total or a count.
-- **AC-31** Each entry shows its first-publish date and time in the founder's timezone, in the page's language's date format: Gregorian on English pages, Solar Hijri with Persian digits on Persian pages (§4.5).
+- **AC-31** Each entry shows its first-publish date and time in the founder's timezone, in the page's language's date format: Gregorian on English pages, Solar Hijri with Persian digits on Persian pages (§4.5). Public pages always show the year. In the admin lists, an item from the current year shows no year and an older one does.
 - **AC-32** Every page and state, public and admin, including notices, field states and the 404, renders in light and in dark following `prefers-color-scheme`, and meets AC-19 in both.
 - **AC-33** Platform links open in a new tab with `rel="noopener"`.
 
@@ -224,18 +246,18 @@ Each is checkable on the running site. Journey-level criteria belong to `03-jour
 - **AC-9** Sign-in works by passkey only, from either of two registered devices; no password field exists. The setup token works once and is then refused.
 - **AC-10** The session cookie carries `__Host-`, `Secure`, `HttpOnly`, `SameSite=Strict`; its ID changes at sign-in; a session idle for 1 h or older than 24 h is refused by the server; sign-out invalidates it server-side.
 - **AC-11** A state-changing request without a valid CSRF token is rejected. Repeated failed sign-ins are slowed per account, with the same generic message each time. Adding or removing a passkey, or issuing an enrolment code, asks for a fresh sign-in; a sign-in within the last 5 min counts as fresh, an older one doesn't.
-- **AC-20** A signed-in, re-authenticated admin can issue an enrolment code. It enrols exactly one new passkey within 10 min and is refused after use or after 10 min. A new device can also enrol through a cross-device sign-in from an enrolled one. Neither path needs server access.
-- **AC-21** The setup token is refused after one use, and after 30 min unused.
+- **AC-20** A signed-in, re-authenticated admin can issue an enrolment code. It enrols exactly one new passkey within 10 min and is refused after use or after 10 min, with the same message as AC-21's, which names both ways to recover. A new device can also enrol through a cross-device sign-in from an enrolled one. Neither path needs server access.
+- **AC-21** The setup token is refused after one use, and after 30 min unused. A used, expired or unknown token or code gets one message, the same in each case, naming a new code from a signed-in device and a setup token from the server.
 - **AC-22** Each passkey is listed with its name and the date it was added. Removing one ends every session it opened: that session's next request gets 401.
 - **AC-23** The last remaining passkey shows no Remove action, and the server refuses a request to remove it.
-- **AC-24** Before launch, with the phone's and laptop's passkeys registered, removing either one leaves the other able to sign in. This shows they are independent credentials.
-- **AC-25** Sending one draft's publish request twice, or retrying it after a dropped connection, results in one published entry.
+- **AC-24** Before launch, with the phone's and laptop's passkeys registered, removing either one leaves the other able to sign in. This shows they are independent credentials. Until the founder dismisses it, the passkey list shows a note asking for this check; once dismissed, it doesn't return.
+- **AC-25** Sending one draft's publish request twice, or retrying it after a dropped connection, results in one published entry; the same holds for an episode.
 - **AC-45** The passkey of the device in use shows Remove when another passkey exists. Removing it asks for a fresh sign-in, then signs this device out; its next request gets 401.
 
 **Admin**
 - **AC-12** An entry with no title and a body publishes; it appears on `/log`, at its URL and in the feed, dated automatically. No date field can be typed in.
 - **AC-13** Editing a published entry changes its text on every page and in the feed; its URL and date stay the same and nothing marks it as edited.
-- **AC-14** Unpublishing removes the entry from `/log` and the feed, and its URL returns the same 404 as a URL that never existed; it stays in the admin as a draft. Republishing restores its original date.
+- **AC-14** Unpublishing removes the entry from `/log` and the feed, and its URL returns the same 404 as a URL that never existed; it stays in the admin as a draft, labelled "was live" with its original date, while a never-published draft is labelled "draft" with no date. Republishing restores its original date.
 - **AC-15** On a phone at 360 CSS px wide, with the on-screen keyboard open, every admin task completes without horizontal scrolling. On the founder's own phone, on mobile data, the **warm** M3 median of five runs is 30 s or less in **each** language, and no run loses text. The slowest run is reported with its cause, and the cold runs are timed and reported, not gated (§3; `06-eval-plan.md` §3.A).
 - **AC-16** With the network cut during a save, or the session expired, the text stays in the editor, or in the episode form, and is saved after reconnecting or signing in again.
 - **AC-17** An episode can be added, edited, unpublished and republished, with one to two tags and one or more links whose labels are free text; non-https URLs are refused. A link can be removed; removing the last link of a published episode is refused, by the admin and by the server.
@@ -257,15 +279,18 @@ Each is checkable on the running site. Journey-level criteria belong to `03-jour
 
 **Languages**
 - **AC-39** English and Persian each have their own landing page, log, entry pages, feed and podcast page, English at the paths in §4.1 and Persian under `/fa/`. An entry or episode appears only on its own language's pages and in its own feed. AC-2 to AC-4, AC-6 and AC-26 to AC-31 hold for each language.
-- **AC-40** Persian pages are `lang="fa" dir="rtl"` with a mirrored layout and every glyph in a font that covers Persian script, so no fallback boxes or system-font fallback; English pages are `lang="en" dir="ltr"`. Each feed declares its language.
-- **AC-41** Every public page has a language switch to the other language's page of the same kind; from an entry it goes to the other language's log. The landing, log and podcast pages carry `hreflang` alternates for each other. No page redirects by browser language.
-- **AC-42** In the admin, each new entry and episode is given a language before it is published. A Persian body is edited right-to-left. The admin lists show each item's language and no count per language. With 40 English entries and zero Persian, `/fa/log` shows its designed empty state, and no page mentions the other language's entries.
+- **AC-40** Persian pages are `lang="fa" dir="rtl"` with a mirrored layout and every glyph in a font that covers Persian script, so no fallback boxes or system-font fallback; English pages are `lang="en" dir="ltr"`. Each feed declares its language. An untitled entry's title in the Persian feed is its date in Solar Hijri with Persian digits.
+- **AC-41** Every public page has a language switch to the other language's page of the same kind; from an entry it goes to the other language's log, and from a 404 to the other language's landing page. The switch reads "فارسی" on English pages and "English" on Persian ones. The landing, log and podcast pages carry `hreflang` alternates for each other. No page redirects by browser language.
+- **AC-42** In the admin, each new entry and episode is given a language before it is published, and starts in the last language used: after a Persian entry is published, the next new entry starts in Persian. A Persian body is edited right-to-left. The admin lists show each item's language and no count per language. With 40 English entries and zero Persian, `/fa/log` shows its designed empty state, and no page mentions the other language's entries.
+- **AC-48** A Persian entry whose paragraph starts with an English word, and contains a URL, edits and renders right-to-left; the English word and the URL keep their left-to-right order inside the line, in the editor, on its page, on `/fa/log` and in the feed. The same holds for Persian inside an English entry.
 
 ## 7. Out of scope
 
 From the intake: per-project pages, a projects page, comments, visitor accounts, search, analytics, newsletter, audio hosting. At the 0.3 revise, "analytics" was narrowed to analytics anyone can watch, or any per-visitor data; the private reader record (§3.1) is in scope. Added at spec: a dated now line **[F]**; tags on log entries **[F]**; a tag index; a podcast feed; email or password sign-in; images in entries; scheduled publishing. Added at the 0.2 revise: translations, or links between an entry and a counterpart in the other language; redirects by browser language; an admin UI in Persian; languages beyond English and Persian. Added at the 0.3 revise: counting podcast link clicks; counts of the founder's own writing; the founder's personal name on the site.
 
 ## Changelog
+
+- **0.4 · 2026-10-10** — Revise (change note `changes/03-journeys-gaps-design-0-2.md`), from journeys 0.3 §4 (G10–G16) and the 05e design's *Beyond the spec*. Added: the switch names the other language in that language, and goes from a 404 to the other landing page (AC-41); the Persian feed titles untitled entries by Solar Hijri date (AC-40); mixed-direction text kept in order (new AC-48); a new entry starts in the last language used (AC-42); a separate Persian show, with both shows' links edited in the code repo (AC-29); episode publish is idempotent (AC-25); an entry id under the other language returns that language's 404 (AC-28); "was live" in the admin lists (AC-14); the year in admin lists only when it isn't the current one (AC-31); a one-time independence note until dismissed (AC-24); one refusal message for used, expired or unknown codes (AC-20, AC-21). "Copied" stays a build detail, not a criterion. New: §2.3.
 
 - **0.3 · 2026-10-10** — Revise (change note `changes/02-ux-review-eval-plan.md`), from the step-5 UX review and the eval plan's §6. Added: editing never discards unsent text (AC-43); Save draft on the server (AC-44); removing this device's passkey (AC-45); a fresh sign-in is one within 5 min (AC-11); the episode form loses nothing (AC-16); episode links can be removed, a published episode keeps one (AC-17); the owner is named as iMNSTR (AC-26). New §3.1, a private reader record of totals read only at the checks (AC-46, AC-47); AC-7 unchanged. M3 gates warm runs and reports cold; AC-15 reads as the warm median of five runs per language. M1 every 6 months after the 6-month check, as five questions. New: §2.2.
 
@@ -275,8 +300,8 @@ From the intake: per-project pages, a projects page, comments, visitor accounts,
 ## References
 
 - `00-intake.md`; `01-research.md` §1–§6 (sources listed there).
-- `05-ux-review.md`, pass 1 (findings F1, F4, F6, F9–F11, F15, F18); `06-eval-plan.md` §3, §6.
-- `03-journeys.md` §1 (decisions), §4 (G1–G9); `04-wireframes.html` plate 12 (W3, W8, W9); `04b-design/README.md` (decisions, beyond the spec, import findings); `04b-design/review/README.md` (findings #1–#4, #7, #8, #10).
+- `05-ux-review.md`, pass 1 (findings F1, F2, F4, F6, F9–F11, F14–F16, F18); `06-eval-plan.md` §3, §6.
+- `03-journeys.md` §1 (decisions 1–7), §4 (G1–G16); `04-wireframes.html` plate 12 (W3, W8, W9); `04b-design/README.md` 0.1 and 0.2 (decisions, beyond the spec, import findings); `04b-design/review/README.md` (findings #1–#4, #7, #8, #10).
 - WCAG 2.2: 1.4.11 Non-text Contrast, 2.5.8 Target Size (Minimum), 1.4.4 Resize Text. The 44 px target is Apple's HIG (via the review), and is stricter than WCAG AA.
 - W3C Web Authentication Level 3; NIST SP 800-63B-4; OWASP Authentication, Session Management and CSRF cheat sheets, as read in research §5.3.
 - schema.org `PodcastEpisode`.
