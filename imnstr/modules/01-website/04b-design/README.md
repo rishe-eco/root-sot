@@ -11,6 +11,7 @@
 | `imnstr-design.html` | **The design.** Plates 1–11, numbered as in the wireframes. Every frame is captioned with the journey steps and ACs it covers. Self-contained: open it in a browser, offline. |
 | `imnstr-directions.html` | How we got there: rounds 1–8 of directions. Round 8 (8a) was chosen, with a lowercase *i*. Kept for provenance. Self-contained. |
 | `source/*.dc.html` | The Claude Design sources of both files, for re-editing in Claude Design. They don't run on their own. |
+| `review/` | A HIG design review of `imnstr-design.html` (import session, 2026-10-10), with three before/after images. **Proposals only**; the design wasn't edited. |
 
 ## Decisions taken in 4b (founder)
 

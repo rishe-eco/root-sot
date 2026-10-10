@@ -10,11 +10,13 @@
 1. **`revise` on `02-spec.md`** for G1–G9, which the founder accepted in 4b. Also route the following:
    - emphasis renders as the highlighter;
    - the G1 enrolment code lasts 10 min (proposal);
-   - the eye-follow must stop under reduced motion (found in the import).
+   - the eye-follow must stop under reduced motion (found in the import);
+   - the findings in `04b-design/review/README.md` that `revise` accepts. The Critical one: text links on phones need tap areas of 44 px, or 24 px for inline dates. The High ones: the phone wordmark overflows; field edges are 1.8:1; emphasis must be a `<mark>`.
 2. **Step 5, UX review**, against `04b-design/imnstr-design.html`. Step 6 (eval plan) can run beside it.
 
 **Carry-overs**
 - **4b is in the repo:** `04b-design/` and `log/04b-design.md`, with the import log at `log/04b-design-import.md`.
+- **A HIG design review** is in `04b-design/review/`: 12 findings with before/after images. It's an early read, not step 5. Step 5 can use it as input, but should score on its own.
 - The README's "What didn't survive" is filled in: nothing that the design depends on was lost. The export is self-contained (fonts and React are bundled, no network requests).
 - `imnstr-design.html` needs JavaScript and was checked over `http://127.0.0.1`. `file://` is untested.
 - Everything in the 4b block below still holds: its own design system, the decisions, the design gaps and the hard lines.

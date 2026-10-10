@@ -37,13 +37,21 @@ Not read: `lifecycle/README.md` and `skills-plan.md`. 4b has no skill section, a
 4. Filled in the README's *What didn't survive the move from Claude Design*.
 5. Wrote a new top block in `STATE.md`: the import is done, and the reduced-motion item is added to the work owed to `revise`.
 6. Left `status.md` unchanged. Column 4 is already `done`, and 4b has no column.
-7. Left the 4b log as Claude Design wrote it. Its *Output* still says "not yet committed"; this log records the commit.
+7. **After the commit, at the founder's request:**
+   - ran the founder's `apple-design` skill on `imnstr-design.html`. It loaded the HIG files `accessibility`, `motion`, `branding`, `dark-mode`, `color`, `layout`, `typography`, `writing` and `feedback`, and the cross-platform notes;
+   - computed contrast from the README's tokens and measured tap targets in the rendered page;
+   - rendered 11 sample screenshots with headless Chrome (scratchpad only, not committed);
+   - made three before/after images by restyling a scratch copy of the export.
+
+   I saved the review and the before/after images to `04b-design/review/`, added a row for it to the README's *What's here*, and added the findings to STATE for `revise`.
+8. Left the 4b log as Claude Design wrote it. Its *Output* still says "not yet committed"; this log records the commit.
 
 ## Output
 - `imnstr/modules/01-website/04b-design/`: the README (with *What didn't survive* filled in), `imnstr-design.html`, `imnstr-directions.html` and `source/`.
 - `imnstr/modules/01-website/STATE.md`: the 4b block and the import block.
 - `lifecycle/trial-run/log/04b-design.md`, `lifecycle/trial-run/log/04b-design-import.md`.
-- Commit: see `git log` ("IMNSTR trial step 4b: design + log").
+- `imnstr/modules/01-website/04b-design/review/`: `README.md` and `ba-1…3-*.png`.
+- Commits: `c6ff42e` (import); the review commit follows it (see `git log`).
 
 ## Spec gaps
 1. **The import session has no row or log name of its own.** The 4b row says "then a session to bring it in". It doesn't say whether that session:
@@ -55,6 +63,9 @@ Not read: `lifecycle/README.md` and `skills-plan.md`. 4b has no skill section, a
 2. **The handoff location is unspecified.** The founder put it beside the repo as `repo-handoff/`, mirroring repo paths, which made the import a plain `cp -r`. Proposed: make this the convention, as the 4b log's gap 2 suggests.
 3. **"Open it offline"** can't be done literally from the desktop browser pane, which refuses `file://`. A local `http.server` with no external requests observed is equivalent evidence. Proposed: the check says "serve locally and confirm zero external requests".
 4. **Reduced motion can't be emulated** from the pane. I checked it by reading the source. Proposed: the import checklist accepts a source check, or names a tool that can emulate reduced motion.
+
+5. **A design review between 4b and step 5 isn't in the method.** The founder asked for one after the import. It overlaps with step 5 (`ux-review`) and step 9 (`design-review`). I kept it to proposals in `04b-design/review/`, didn't edit the design, and left the scoring to step 5. Proposed: either 4b ends with an optional HIG/accessibility pass whose findings go to `revise`, or that pass belongs in step 5's instrument.
+6. **"Phone and desktop for every screen" didn't catch overflow.** The revealed wordmark is wider than the 360 px column. That only shows once the intro or hover state is drawn. Proposed: 4b's checklist asks for every animated or revealed state to be drawn at the narrowest width.
 
 ## Template sample
 This log used the standard headings. The README section *What didn't survive* worked best as a checklist:
@@ -83,9 +94,10 @@ None asked. The 4b log's *Next* was explicit enough.
 
 ## Lessons
 1. **Rule:** the import check separates *lost in the move* from *missing in the design*. Only the first is 4b-import's to log as a loss; the second goes to `revise` or the build. **Event:** the eye-follow under reduced motion looked like an export defect, but the source shows it was never handled. **Scope:** 4b import, step 9. **Destination:** the 4b brief's import checklist.
+2. **Rule:** a design review must show its tap targets and its revealed or animated states, not just the resting frames. **Event:** the wordmark overflow and the 16 px links were invisible in the plates as drawn, and only showed up through measurement and a forced reveal. **Scope:** 4b, 5, 9. **Destination:** `review-instrument.md`, the coverage checklist.
 
 ## Cost
 *Founder fills in after the session:* tokens or share of the limit from `/usage`, and wall time.
 
 ## Next
-`revise` on `02-spec.md` for G1–G9, plus the three items in STATE's top block. Then step 5 (UX review) against `04b-design/imnstr-design.html`; step 6 can run beside it. The founder also owes the cost for both 4b logs.
+`revise` on `02-spec.md` for G1–G9, plus the items in STATE's top block, including whichever findings from `04b-design/review/` it accepts. Finding 1 (tap targets) is Critical. Then step 5 (UX review) against `04b-design/imnstr-design.html`; step 6 can run beside it. The founder also owes the cost for both 4b logs.
