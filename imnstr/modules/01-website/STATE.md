@@ -2,6 +2,23 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` (step 05c)
+
+*Adds to the blocks below and replaces none. Item 4 of the 05b block ("`personas`, before step 9") is done.*
+
+**Lanes in flight:** none.
+
+**Done:** persona **F, Persian follower** (hypothesis) registered in `lifecycle/personas.md` 0.2 and selected in the `03-journeys.md` header; decision-log entry L-4. No existing persona changed. Founder accepted.
+
+**Next steps, in order**
+1. **05d, journeys gap** (Opus · high): a journey for F (arrive at a `/fa/` entry or feed, read, find the switch, thin Persian stream, `/fa/podcast`), plus everything owed since 3b (spec 0.2/0.3 criteria, Coverage, Suggested). F's header row already says which journeys it should anchor.
+2. 05e design second pass, 06b eval-plan touch-up, as in the 05b block.
+3. Step 5's M6 stays "not scorable" until Persian is drawn (05e); then F scores it at step 9.
+
+**Carry-overs:** journeys' version bump and changelog are 05d's; the header was edited here without a bump. **No `STALE` set.**
+
+**Questions for the founder:** none open.
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` @ d770211 (+ step 05b)
 
 *Replaces step 1 (`revise`) of both the step-6 and step-5 blocks below. Their other items still hold, amended here.*

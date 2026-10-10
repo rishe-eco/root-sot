@@ -18,13 +18,14 @@
 
 ## Personas
 
-Registry: `lifecycle/personas.md`. A and B are not selected: they are defined by entering Tracker's Tools page. C, D and E are hypotheses, accepted by the founder 2026-10-10 (`lifecycle/decision-log.md` L-1).
+Registry: `lifecycle/personas.md`. A and B are not selected: they are defined by entering Tracker's Tools page. C, D and E are hypotheses, accepted by the founder 2026-10-10 (`lifecycle/decision-log.md` L-1). F is a hypothesis added at step 05c, accepted 2026-10-10 (L-4); journeys for F are owed to step 05d.
 
 | Persona | Serves | Why selected | Journeys it should anchor |
 |---|---|---|---|
 | **C Writer** | Intake audience 1: the founder | The admin is the habit, and the spec's hardest requirements sit there: phone-first, nothing lost, passkey auth, no counters. | First day (passkey bootstrap, first entry); return after a gap; failed save; expired session; lost passkey; the podcast form |
 | **D Follower** | Intake audience 2 | Reads the log from a shared link or the feed; the public pages must orient someone who has never seen the site. | Arriving at an entry; reading the log; not enough data (0–3 entries) |
 | **E Listener** | Intake audience 3 | Arrives for one episode link; the podcast page, including its empty state, is their whole visit. | Finding an episode and its platform link; empty podcast page |
+| **F Persian follower** | Intake audience 2, in Persian (spec §4.5) | Reads only Persian, arrives at a `/fa/` entry or feed, and is the only selected persona who can score language parity (M6). Added at step 05c from UX review F11. | Arriving at a Persian entry; reading the Persian log and podcast; finding the language switch; a thin or empty Persian stream |
 
 ## 1. Decisions taken at journeys
 

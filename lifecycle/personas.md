@@ -2,7 +2,7 @@
 
 *The fixed set of simulated people that journeys are written for and UX reviews are scored against. Each has a grounding. Existing personas are never redefined: score history depends on them staying the same.*
 
-**Version 0.1 · Status: seeded by the trial run · 2026-10-10 · Owner: _root**
+**Version 0.2 · Status: seeded by the trial run · 2026-10-10 · Owner: _root**
 
 ---
 
@@ -44,9 +44,19 @@ A Monster Podcast listener who may not know the founder. Grounding: intake §4 a
 - Little patience for anything else; ordinary technical ability.
 - Probes: finding the episode, choosing the right platform link, the empty podcast page.
 
+### F — Persian follower · *hypothesis* · added 2026-10-10 for IMNSTR
+Someone who reads Persian and follows the founder's Persian stream. Grounding: `imnstr/modules/01-website/02-spec.md` §4.5 (independent English and Persian streams, `/fa/` paths, Solar Hijri dates, RTL, language switch); `05-ux-review.md` F11 (no selected persona reads Persian, so M6 could not be scored).
+- Arrives from a shared `/fa/log/<id>` link or a Persian feed reader; reads on a phone; ordinary technical ability.
+- Reads Persian; English is partial at best, so cannot use an English page as a fallback.
+- Does not know the site is bilingual; finds the language switch only if it is findable.
+- Probes: language parity (M6), right-to-left layout and mixed-direction text (English terms and URLs inside Persian), Persian type, Solar Hijri dates and digits, the switch, a thin or empty Persian stream beside a fuller English one.
+- Also stands in for a Persian listener on `/fa/podcast`; no separate persona is proposed for that.
+- Does not stand in for the real founder's own M1 judgment (`02-spec.md` §3).
+
 ## Not proposed
 A reader using a screen reader or other assistive technology. It is covered by the accessibility acceptance criterion (spec AC-19) and the review's coverage checklist, not by a persona.
 
 ## Changelog
 
+- **0.2 · 2026-10-10** — Added F (Persian follower, hypothesis) for IMNSTR, from UX review F11. No existing persona changed.
 - **0.1 · 2026-10-10** — Seeded by the trial run: A and B copied from the persona review method §2; C, D, E proposed for IMNSTR.

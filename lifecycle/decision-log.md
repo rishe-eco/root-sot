@@ -2,7 +2,7 @@
 
 *Decisions about the method itself. Written in `decision-record`'s format.*
 
-**Version 0.3 · 2026-10-10**
+**Version 0.4 · 2026-10-10**
 
 ---
 
@@ -51,3 +51,13 @@ No downstream phase is marked `STALE`. The eval plan's two "not measured" senten
 **Decided by.** Founder, at trial step 05b. F6 went against the recommendation (local only).
 
 **Revisit.** At the first check, if R2 proves thin or the record steers the answers. At step 9, if cold M3 is far over 30 s.
+
+## L-4 · 2026-10-10 · IMNSTR persona F (Persian follower) proposed and selected
+
+**Decision.** Add hypothesis persona F (Persian follower) to `lifecycle/personas.md` and select it for IMNSTR beside C, D and E in `03-journeys.md`. No existing persona is changed. A is not used: it is defined by entering Tracker's Tools page.
+
+**Why.** UX review F11: the spec has had two languages since 0.2, and none of C, D, E reads Persian, so M6 (language parity) cannot be scored and the Persian stream has no journey. F reads only Persian, which is what the Persian pages must serve.
+
+**Decided by.** Founder, accepting the proposal at trial step 05c.
+
+**Revisit.** After step 9, if F surfaced nothing C, D or E would not have, or if the Persian writing path in the admin needs its own persona.
