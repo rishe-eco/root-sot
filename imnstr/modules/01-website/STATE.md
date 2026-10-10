@@ -2,6 +2,39 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` @ 6b3b42a (+ step 4c)
+
+*Replaces the "`revise` on `02-spec.md`" step in the blocks below; their other items still hold.*
+
+**Lanes in flight:** none.
+
+**Next steps, in order**
+1. **Step 5, UX review** (`ux-review wireframes`, Opus · high), against `04b-design/imnstr-design.html` and **spec 0.2**: §4, §6 (AC-1 to AC-42). Persian, the language switch, the admin's language field and the dark admin states aren't designed yet. Score them as coverage gaps, not design defects (change note, "Carried to the build"). Step 6 (eval plan) can run beside it; nothing in 0.2 changes §3 Metrics.
+2. **A Claude Design pass (the founder), before the UI stages:**
+   - Persian type that covers the script;
+   - mirrored (RTL) layouts;
+   - the language switch;
+   - dark admin states;
+   - the review fixes.
+   The build plan places it. It isn't a redo of 4b.
+3. Step 7, build plan: `/fa/` routing, per-language feeds and `hreflang`; the auth stage now holds G1–G3, W8 and W9.
+
+**Carry-overs**
+- **Spec 0.2:** G1–G9 accepted; the 10-min enrolment code, the 30-min setup token and no removal of the last passkey; date and time shown; light and dark; links in a new tab; 20 per page.
+- **New: English and Persian** (§4.5): independent streams, not translations, on one site. English is at `/` and Persian at `/fa/` (proposal). One admin, in English. Nothing compares or counts the two streams.
+- Access criteria from the 4b review (§4.6, AC-35 to AC-38): 44/24 px targets, no horizontal scroll at 360 px, `<mark>`, 3:1 field edges, and reduced motion stopping the eyes.
+- Design and copy items (review #5, #6, #9, #11, #12; admin styling; names) are carried to the build, not the spec.
+- **No `STALE` set:** steps 3–4b are silent on 0.2, not contradicting it. The change note lists what each owes.
+- Hard lines unchanged: nothing on any page, public or admin, counts entries or marks gaps.
+
+**Questions for the founder:**
+- Persian dates: Solar Hijri with Persian digits (proposal), or Gregorian?
+- Are `/fa/` paths OK?
+- Real copy, now in two languages.
+- YouTube/Castbox marks.
+
+**Owed:** none from 4c.
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` @ 88dde2f (+ step 4b import)
 
 **Lanes in flight:** none.
