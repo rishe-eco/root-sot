@@ -2,6 +2,33 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` @ e8c9c97 (+ step 5)
+
+*Replaces step 1 ("Step 5, UX review") of the 4c block below. Its other items still hold.*
+
+**Lanes in flight:** none.
+
+**Next steps, in order**
+1. **`revise` on `02-spec.md`** (log as `05b-revise-spec.md`), from `05-ux-review.md`, "For `revise`":
+   - F1: editing never discards unsent text;
+   - F4: a "fresh sign-in" is one within 5 min (proposal);
+   - F9: the episode form loses nothing either;
+   - F10: links can be removed from an episode, and a published one keeps one.
+   - Questions: F6 (server drafts for entries?), F11 (a Persian-reading persona), F15 (removing this device's passkey), F18 (the founder's name beside iMNSTR).
+2. **Step 6** (eval plan) is running in parallel.
+3. **The Claude Design pass** (the 4c block's step 2) also takes F2, F3, F5, F7, F8, F12–F14, F16, F17 and F19.
+4. **Step 7, build plan:** read the routes column in `05-ux-review.md`. Build items: F1's draft handling and F2's server refusal of a used or expired code.
+
+**Carry-overs**
+- **Pass 1 scores** (simulated, 1–5) are mostly 4–5, with 3s on C·J2 (use, data) and on C·J3 and C·J5 recovery. M6 is not scorable. Step 9 scores against the same instrument.
+- **Two High findings:** F1, unsent text versus Edit; F2, the enrolment code's error sends the founder to the server.
+- **New:** `lifecycle/review-instrument.md` 0.1, a stub. It adds 1–5 anchors, the finding fields and routes, and the "not scorable" rule for M6.
+- **Coverage:** 28 / 42 ACs drawn in full; 6 partly; 5 gaps owed by design (Persian, the switch, dark admin); 3 have no screen.
+
+**Questions for the founder:** F6, F11, F15, F18 (through `revise`). Also, from earlier: real copy in two languages; the YouTube and Castbox marks.
+
+**Owed:** none from step 5.
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` @ 6b3b42a (+ step 4c)
 
 *Replaces the "`revise` on `02-spec.md`" step in the blocks below; their other items still hold.*
