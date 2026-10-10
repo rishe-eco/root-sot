@@ -77,7 +77,7 @@ Opus · medium is right: the thinking is layout and coverage, not research; most
 2. **Rule:** a session's first action is to pull the run branch. **Event:** local checkout lacked steps 0–3b; caught only because the module folder was missing. Cost: one command, but a less obvious drift would have produced work on stale inputs. **Scope:** every session. **Destination:** `lifecycle-status` / trial brief. **urgent: yes**.
 
 ## Cost
-*Founder fills in.*
+*Founder-supplied.* Opus 5.5: 40 in / 316 out / 2M cache read / 93.8k cache write. Cost $1.87; API time 5m; wall time 6m.
 
 ## Next
 Step 4b, Claude Design (the founder), then an import session (Opus · medium). The designer should read plate 12 (W1–W11) and the dashed G-options as options, not decisions; G1–G9 are still unaccepted. W11 (podcast empty wording) is open. Step 6 (eval plan) can run beside 4b–5.
