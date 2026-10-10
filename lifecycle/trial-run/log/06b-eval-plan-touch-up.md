@@ -99,7 +99,7 @@ None. The gate was checked by hand.
   - **Destination:** `skills-plan.md` `handoff` block format.
 
 ## Cost
-*Founder fills in.*
+Opus 5.5: 30 in / 147 out / 1.1M cache read / 59k cache write. $0.99. API 3 min, wall 5 min.
 
 ## Next
 Step 7, build plan (Opus · high), once 05e and the G10–G16 `revise` are done, per the 05d block. Eval plan 0.2 changes nothing step 7 must build. The M3 runs (warm and cold) are still in the admin stage's verification. The reader record's report command is still AC-47.
