@@ -2,6 +2,24 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` @ c6fcb79 (+ step 3a)
+
+**Lanes in flight:** none.
+
+**Next steps, in order**
+1. Step 3b, Journeys (`journeys new`, Opus · high): read `02-spec.md` §2, §4, §6 and the `03-journeys.md` header (personas C Writer, D Follower, E Listener; A and B not selected). Anchors per persona are in the header table. 3–5 journeys of ~10 steps: first day (C), return after a gap (C), not enough data (D, E), error (C: failed save, expired session, lost passkey), plus the listener's path (E).
+2. Step 4 wireframes, 4b Claude Design. Step 6 (eval plan) can run beside 3–5.
+
+**Carry-overs**
+- `lifecycle/personas.md` now exists (A, B grounded; C, D, E hypotheses). `lifecycle/decision-log.md` holds only L-1 (the persona proposal).
+- Column 3 of `status.md` is left blank on purpose: 3b marks it done.
+- Open assumption for the founder, still unconfirmed: landing content is edited in the code repo, not the admin (spec §4.1).
+- Hard lines unchanged: nothing on any page, public or admin, counts entries or marks gaps.
+
+**Questions for the founder:** confirm the landing-content assumption (spec §4.1) at journeys.
+
+**Owed:** nothing.
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` @ 68e2cb8 (+ step 2)
 
 **Lanes in flight:** none.
