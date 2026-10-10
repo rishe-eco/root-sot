@@ -2,6 +2,38 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` (step 05d)
+
+*Adds to the blocks below and replaces none. Item 1 of the 05c block is done.*
+
+**Lanes in flight:** none.
+
+**Done:** `03-journeys.md` **0.3**.
+- J6 is persona F's journey; C writes in Persian.
+- J1–J5 are amended for AC-20 to AC-47. 0.2 step numbers are kept; new steps are J1.5a, J2.6a, J2.11–12, J3.11, J5.5a and J5.8a, and changes are marked **[0.3]**.
+- Coverage maps AC-1 to AC-47. AC-46, and AC-47's report command, have no screen.
+- The founder took four decisions (§1, rows 4–7):
+  - a new entry starts in the last language used;
+  - **the Persian podcast is a separate show** with its own channels;
+  - an English id under `/fa/` returns the Persian 404;
+  - the 404's switch goes to the other landing page.
+
+**Next steps, in order**
+1. **05e, design second pass:**
+   - draw the *0.3* rows of journeys §3 ("States the design must draw"), alongside everything carried in the 05b block's item 3 and the change notes;
+   - draw G10 (the switch names the other language in that language) and G12 (mixed-direction text) as the journeys describe them, flagged Suggested;
+   - `/fa/podcast` links the Persian show.
+2. **`revise` for G10–G16** (journeys §4) before step 7 reads the spec; it can run beside 05e. G13, G14 and G16 carry decisions the founder has already taken; they need only an AC each.
+3. 06b, as in the 05b block.
+4. Step 5's M6 stays "not scorable" until 05e draws Persian. F scores it at step 9, walking J6.
+
+**Carry-overs**
+- `status.md` is unchanged: 05d has no column.
+- **No `STALE` set.**
+- The wireframes predate J6 and the 0.3 steps. Following 4c's precedent, they are carried to the design pass, not marked stale.
+
+**Questions for the founder:** the Persian show's platform channels (names and URLs), needed by 05e or the build. Still open from earlier: real copy in two languages; the YouTube and Castbox marks.
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` (step 05c)
 
 *Adds to the blocks below and replaces none. Item 4 of the 05b block ("`personas`, before step 9") is done.*
