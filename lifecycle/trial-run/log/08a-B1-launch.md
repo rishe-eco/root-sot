@@ -58,7 +58,10 @@ Opus, medium; not forked, because it must hold the lane handle until the report 
 - **Rule:** a lane's report must survive the session that launched it. **Event:** 8a B1: the method splits launch and land into two sessions, but the report comes back only to the first. **Scope:** method, `build-phase`. **Destination:** `skills-plan.md` `build-phase`, through `revise`; meanwhile, `brief-common.md` could ask the lane to also commit its report as a file. **urgent:** yes, for 8b.
 
 ## Cost
-*Founder fills in.*
+*From the founder, after the session:*
+- Opus 5.5: 48 in / 882 out / 2.1M cache read / 72.6k cache write.
+- Cost $6.35; API 23 min; wall 6 min. The general-purpose subagent, the B1 lane, was 76% of it.
+- The lane alone, from its completion notice: 274,078 tokens, 118 tool uses, about 27 min.
 
 ## Next
 8b, B1 land, once the lane reports. This session holds the lane, so the report arrives here. If the founder ends the session first, check `b1-foundation` for commits and relaunch from `briefs/B1.md` with a "continue from the branch" note.
