@@ -2,6 +2,29 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-11 · `lifecycle-trial/imnstr` (step 8c, B1 verified)
+
+*Replaces the lane table, next steps and "For verify to decide" of the step-8b block: each call there is ruled on in the stage record. The step-8a and 7b carry-overs still stand, except that `root-sot/imnstr/open-work.md` now exists.*
+
+**Code repo:** `rishe-eco/imnstr`, `main @ 6e5a915`. **Lanes in flight:** none.
+
+| Stage | Branch | Record | Status |
+|---|---|---|---|
+| B1 Foundation (L) | `b1-foundation` @ `8b52ea7` (lane `bc745c5`, review fixes `e49a27c`, record `8b52ea7`), **local only, not pushed**, in `E:\_root\imnstr` | `docs/development/B1.md` | **verified, ready to fast-forward**; check clean, Vitest 220/220, e2e 68/68 |
+
+**Next steps, in order**
+1. **Founder:** fast-forward `main` to `b1-foundation` and push (the review didn't: the repo is public and the founder hadn't said to). Then remove the worktree `.claude/worktrees/b1-foundation`.
+2. **Founder:** F-4 in `open-work.md`, the plan changelog, before B2's card is written.
+3. **8a for B2** (needs P0-2 and P0-3) and/or **B3** (needs only B1 on `main`), Opus · medium. They can run side by side, in slots A and B.
+
+**Carry-overs**
+- Accepted at review: both font subsets for the Persian families; the insert trigger (B7 does draft → link → publish); `episode.date NOT NULL` (B7 supplies today's date); `SITE_ORIGIN` as a constant; HSTS without `includeSubDomains` (F-3).
+- Fixed at review: overflow at 200% zoom. The header nav wraps, the big-row grid is `minmax(0, 1fr)`, and the display sizes are capped by vw. `expectNoSidewaysScroll(page, width)` now waits for fonts. Also `.gitattributes` (LF) and a corrected `.env.example`.
+- Later cards should cite `expectNoSidewaysScroll(page, 180)` for 200% zoom, and should say that routes mount in `app.ts`, not `server.ts`.
+- Owed to stages: S-1 (B4a), S-2 (B3), S-3 (B7), V-1 (B2), V-2 (B9). These are in `open-work.md` and in the code repo's development README.
+
+**Questions for the founder:** F-1 (timezone), F-3 (HSTS), and the fast-forward and push in step 1.
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` (step 8b, B1 landed)
 
 *Replaces the lane table and item 1 of the step-8a block; its carry-overs still stand. Run in the same session as 8a, because the report came back only there (8a log, Spec gaps).*
