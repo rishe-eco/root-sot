@@ -2,6 +2,27 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` (step 8b, B1 landed)
+
+*Replaces the lane table and item 1 of the step-8a block; its carry-overs still stand. Run in the same session as 8a, because the report came back only there (8a log, Spec gaps).*
+
+**Lanes in flight:** none. B1 has reported and is waiting for verify.
+
+| Stage | Branch | Worktree | Report | Status |
+|---|---|---|---|---|
+| B1 Foundation (L) | `b1-foundation` @ `bc745c5`, **local only, not pushed** | `E:\_root\imnstr\.claude\worktrees1-foundation` | `briefs/B1.report.md` | landed; 79 files, +7,612 lines (2,994 of them `package-lock.json`) |
+
+**Next steps, in order**
+1. **8c, verify B1** (Opus · high), a fresh session on this machine. The branch exists only here, in `E:\_root\imnstr`.
+2. Founder, in parallel: P0-2 to P0-5 (B2 needs P0-2 and P0-3).
+
+**For verify to decide** (the lane's calls, report item 4):
+- **Fonts:** the Arabic subsets lack «», the space, punctuation and Latin digits. The lane went on without stopping, and ships the Arabic and Latin subsets of Estedad and Vazirmatn. PD-26 says "Arabic subsets" only.
+- An extra trigger refuses inserting an already-published episode. B7 must create the draft, add a link, then publish.
+- Schema beyond §6.3: `auth_throttle` holds one row; `episode.date` is not null with a format CHECK; episode columns are read from "like `entry`".
+- `SITE_ORIGIN` is a constant, not an environment variable; `/fa` redirects to `/fa/` with 308; HSTS has no `includeSubDomains`; `CLOCK_INVALID` is test-only.
+- Owed to later stages (report item 5): B4a creates the 401 enumeration test; B3 does bidi in the Persian placeholder copy; `.gitattributes` for line endings.
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` (step 8a, B1 launched)
 
 *Adds to the blocks below and replaces none. Item 2 of the step-7b block is done; the founder did P0-1.*
