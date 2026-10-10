@@ -118,7 +118,8 @@ Headings used in `05-ux-review.md`:
 3. **Rule:** read an earlier review only after scoring. **Event:** the HIG review was held back until F1–F19 were written. It covered visual access; this pass covered the journeys, with four overlaps, which were easy to mark. **Scope:** any review with an earlier pass in the folder. **Destination:** `skills-plan.md` `ux-review`. `urgent: no`.
 
 ## Cost
-*Founder fills in.*
+- Opus 5.5: 60 in / 354 out / 3.9M cache read / 152.8k cache write.
+- $2.75 · API 8 min · wall 9 min.
 
 ## Next
 - **`revise` on `02-spec.md` (a `05b-revise-spec` session):** F1, F4, F9, F10, and the four questions F6, F11, F15, F18 (`05-ux-review.md`, "For `revise`"). F11 may need a `personas` session before step 9.
