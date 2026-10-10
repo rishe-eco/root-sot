@@ -2,7 +2,7 @@
 
 *One real piece of work taken through every phase of the lifecycle, each phase run by a fresh agent acting as that phase's skill would. The point is to find what the method and the skill specs are missing, and to leave behind real outputs the skills and templates are written from. If you are an agent starting a phase, this file is your brief: read it all.*
 
-**Version 0.3 · Status: active · 2026-10-09 · Owner: _root**
+**Version 0.4 · Status: active · 2026-10-10 · Owner: _root**
 
 ---
 
@@ -18,9 +18,13 @@
 | Module folder | `imnstr/modules/01-website/` |
 | Branch | `lifecycle-trial/imnstr` |
 
+**Starting a session (founder).** Open a fresh session on the step's model and give it: "On branch `lifecycle-trial/imnstr`, pull first, then read `lifecycle/trial-run/README.md`. You are step N. Model: X, effort: Y." Name the branch every time: `main` has no brief.
+
 ## 1. What you are doing
 
 You are running **one phase** of the lifecycle by hand. Act as the skill for that phase would, as specified in `lifecycle/skills-plan.md`. Produce the phase's output in the module folder, then **log** how it went in `log/`. The output is the work. The log is the evidence for designing the skill.
+
+**Before anything else,** check out the run's branch and pull it. A stale checkout looks like missing inputs, or worse, like complete ones.
 
 Read, in this order, and nothing more until your work needs it:
 1. this file;
@@ -46,10 +50,12 @@ Log every file you read beyond these, and why you needed it.
 6. **Grade claims** the house way, *evidence / as-built / proposal*, and don't invent sources.
 7. **Ask the founder** when the skill would ask: clarifying questions, acceptance, decisions. Log each question and its answer.
 8. **Commit and push** to the run's branch, then end the session. Nothing load-bearing stays in chat.
+9. **Redoing a step**, only when the founder asks. Move the earlier output and log, unread, to `archive/<step>/passN-<model>/` with `git mv`. Reuse the normal log name. Leave the status cell as it is. Say in your `STATE.md` block which earlier blocks it replaces. A redo still reads the top `STATE.md` block, so it isn't independent of the earlier pass; say so in the log. Merging passes is its own session, logged as `log/NN-<step>-integration.md`.
+10. **Don't prune `STATE.md`.** `handoff` deletes blocks beyond the last five; in the trial, keep them all, so 10a and 10c can read the whole run.
 
 ## 3. The phases
 
-Model and effort follow `lifecycle/README.md` §7. The founder starts each session on that model. Log files are numbered by session order.
+Model and effort follow `lifecycle/README.md` §7. The founder starts each session on that model. In your first message, state the model you are running on; you can't see the effort, so the founder states it in the opening prompt. If the model is wrong, stop: don't carry on after `/model`; the founder starts a new session. Log files are numbered by session order.
 
 | Step | Act as | Model | Inputs | Output | Foundation stub allowed | Done looks like | Don't |
 |---|---|---|---|---|---|---|---|
@@ -59,7 +65,8 @@ Model and effort follow `lifecycle/README.md` §7. The founder starts each sessi
 | 3a Personas | `personas` | Sonnet · medium | intake; `lifecycle/personas.md` | the selection in the header of `03-journeys.md` | `lifecycle/personas.md`, seeded from `tracker/canon/05-reviews/00-persona-review-method.md` §2; `lifecycle/decision-log.md`, if a new persona is proposed, holding only that entry | named personas, each with why | redefine an existing persona |
 | 3b Journeys | `journeys` (`new`) | Opus · high | spec; `03-journeys.md` header | `03-journeys.md` | — | 3–5 journeys of ~10 steps, including first day, return after a gap, not enough data, error | wireframe |
 | 4 Wireframes | `wireframes` | Opus · medium | journeys | `04-wireframes.html` | — | every journey step, plus empty, error, loading and not-enough-data states | style beyond low fidelity |
-| 4b Design | *(the founder, in Claude Design; then a session to bring it in)* | Opus · medium for the import session | spec, journeys, wireframes | `04b-design/` holding what Claude Design exports, plus a short `README.md` listing what's there and the design system it settles (type, colour, spacing, components) | — | every wireframed screen has a designed counterpart, or the gap is listed; what did not survive the move from Claude Design is logged | redesign anything in the import session |
+| 4b Design | *(the founder, in Claude Design; then a session to bring it in)* | Opus · medium for the import session | spec, journeys, wireframes | `04b-design/` holding self-contained HTML exports plus `source/`, and a short `README.md` listing what's there and the design system it settles (type, colour, spacing, components). Claude Design can't push, so it leaves files at their repo paths in a handoff folder; the import session copies them in, commits, and logs as `log/04b-design-import.md` | — | every wireframed screen has a designed counterpart, or the gap is listed; what did not survive the move from Claude Design is logged | redesign anything in the import session |
+| 4c Revise spec | `revise` | Opus · medium | `02-spec.md`; the items listed for `revise` in `STATE.md`'s top block and the files they cite (journeys' Suggested, the 4b README's beyond-the-spec list, any early design review) | `02-spec.md` with a version bump and changelog line; `changes/NN-slug.md` in the module folder; an entry in `lifecycle/decision-log.md` | — | each item accepted or refused by the founder, and each accepted one an acceptance criterion; `STALE` set only where a downstream output now contradicts the spec | mark 3–4b `STALE` for items they proposed or already drew (record those as carried to the build instead); edit journeys, wireframes or the design |
 | 5 UX review | `ux-review` (`wireframes`) | Opus · high | journeys, the 4b design where it exists (wireframes as fallback), the spec's interface and acceptance sections, the selected personas, the review instrument | first pass in `05-ux-review.md` | `lifecycle/review-instrument.md`: the six metrics from the persona method §3, plus Nielsen's ten heuristics and the coverage checklist | each finding scored and graded *simulated*; spec-changing findings listed for `revise` | fix the wireframes or design yourself |
 | 6 Eval plan | `eval-plan` | Opus · high | spec | `06-eval-plan.md` | — | decision rule written before any data; ambiguous outcome named | — *(can run beside 3–5)* |
 | 7 Build plan | `build-plan` | Opus · high | 2–6; the code, through a defect pass | `07-build-plan.md` | — | §0–§10 as in the skill spec; every stage sized with its traps | build anything; carry on into the build in the same session |
@@ -81,7 +88,7 @@ Model and effort follow `lifecycle/README.md` §7. The founder starts each sessi
 | [NN-slug](path/to/module/) | Module | done | | | | | | | | | | |
 ```
 
-Each cell is blank (not started), `done`, `n/a` or `STALE`. Write only your own phase's cell. Steps 3a and 3b share column 3, which 3b marks done. Step 7b has no column. During the build, column 8 holds stages done out of the total (e.g. `3/9`) until every stage is verified.
+Each cell is blank (not started), `done`, `n/a` or `STALE`. Write only your own phase's cell. Steps 3a and 3b share column 3, which 3b marks done. Steps 4b, 4c and 7b have no column; a revise after a later step (e.g. after 5) is logged as `05b-revise-spec.md`. During the build, column 8 holds stages done out of the total (e.g. `3/9`) until every stage is verified.
 
 If intake finds the piece is a **Change**, not a Module, the run follows the Change track instead: `spec change` writes a change note with stages, then 8a–8c run against it. Log that decision.
 
@@ -133,6 +140,8 @@ The next step, and anything its agent must know that `STATE.md` doesn't say.
 ```
 
 ## Changelog
+
+- **0.4 · 2026-10-10** — From the logs of steps 1–4b: pull first and name the branch in every opening prompt; state the model, the founder states the effort; rule 9 for redoing a step; rule 10, `STATE.md` isn't pruned in the trial; step 4b's handoff and import log; step 4c, revising the spec before UX review.
 
 - **0.3 · 2026-10-09** — Run filled in: IMNSTR.com. Step 4b added for Claude Design; steps 5 and 9 review against its output.
 - **0.2 · 2026-10-07** — `status.md` format defined; step 3a may create `lifecycle/decision-log.md` for a new persona's entry.
