@@ -2,6 +2,32 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-11 · `lifecycle-trial/imnstr` (step 8b, B3 landed)
+
+*Replaces the lane table and next step 1 of the step-8a B3 block; its card calls and the 8c carry-overs still stand. Run in the same session as 8a, because the report came back there.*
+
+**Lanes in flight:** none. B3 has reported and is waiting for verify.
+
+| Stage | Branch | Worktree | Report | Status |
+|---|---|---|---|---|
+| B3 Public log and feed (L) | `b3-public-log` @ `83d8ce6` (`ae521b1`, `83d8ce6`), **local only** | `E:\_root\imnstr\.claude\worktrees3-public-log` | `briefs/B3.report.md` | landed; 38 files, +2,303 / −20; lane ~28 min, 275k tokens, 92 tool uses |
+
+**Next steps, in order**
+1. **8c, verify B3** (Opus · high), a fresh session on this machine. The branch is only in `E:\_root\imnstr`. Run the W3C Feed Validator by paste on both feeds (plan §8).
+2. **8a for B2** when P0-2 and P0-3 are done (slot B).
+
+**For verify to decide** (report items 4 and 5):
+- **`npm install` fails** on this machine (node-gyp, no Windows SDK); the lane used `npm install --ignore-scripts`, relying on better-sqlite3's prebuilt binary. Owed to `CLAUDE.md` and `brief-common.md`.
+- **`latinName` removed** from `SiteContent`; `isolate` finds Latin runs itself, and the unit test that asserted it went too. The 404's owner line is still not routed through `lib/bidi.ts`.
+- **Doc schema:** paragraphs need at least one non-empty text node; `docHasText` exported for B5.
+- **Order** `first_published_at DESC, id ASC`; a cursor must be a published entry of the same language, else 404.
+- **Bidi rules** as in report item 4 (URLs `<bdi dir="ltr">`, Latin runs in Persian `<bdi lang="en">`, Persian runs in English `<bdi lang="fa" dir="rtl">`, per text node).
+- **Feed:** empty feed `<updated>` is `now()`; new `formatFeedTitleDate` for untitled titles (date without time); well-formedness by a hand-written checker in `tests/helpers.ts`.
+- **Untitled entry page** has a visually hidden `<h1>` holding its date.
+- **New files beyond plan and card:** `lib/escape.ts`, `views/fill.tsx`; B1's `pages.test.ts` lost `/log/feed.xml` from its unknown-paths list.
+- **New Persian strings** are the lane's placeholders (V-4, F-2).
+- **Not rerun after the last CSS edit:** `switch`, `i18n`, `boot`, `db` tests; dark contrast of new elements unchecked.
+
 ## 2026-10-11 · `lifecycle-trial/imnstr` (step 8a, B3 launched)
 
 *Adds to the step-8c block below and replaces only its next step 1. Its carry-overs still stand; the B3 card applies all of those that are B3's (180 px, `app.ts`, S-2, `npm install`, plan 0.2).*
@@ -19,7 +45,8 @@
 2. **8c, verify B3** (Opus · high), fresh session, on this machine. It runs the W3C Feed Validator by paste (plan §8).
 3. **8a for B2** when P0-2 and P0-3 are done, in slot B. **8a for B4a** may run beside B3 only after B2 is in (plan §3).
 
-**Card calls verify should know about** (beyond plan §5 B3): seeding goes through one `insertPublished()` shared by the CLI (`scripts/seed-entry.ts`) and new test-only routes `POST`/`DELETE /__test/entries`; `shared/doc.ts` imports nothing from `lib/`; the feed is built by hand, with no XML dependency; the lane reads root-sot from `E:\_rootoot-sot-imnstr`.
+**Card calls verify should know about** (beyond plan §5 B3): seeding goes through one `insertPublished()` shared by the CLI (`scripts/seed-entry.ts`) and new test-only routes `POST`/`DELETE /__test/entries`; `shared/doc.ts` imports nothing from `lib/`; the feed is built by hand, with no XML dependency; the lane reads root-sot from `E:\_root
+oot-sot-imnstr`.
 
 **Questions for the founder:** none.
 
