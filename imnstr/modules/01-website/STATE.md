@@ -2,6 +2,27 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-11 · `lifecycle-trial/imnstr` (step 8a, B3 launched)
+
+*Adds to the step-8c block below and replaces only its next step 1. Its carry-overs still stand; the B3 card applies all of those that are B3's (180 px, `app.ts`, S-2, `npm install`, plan 0.2).*
+
+**Code repo:** `rishe-eco/imnstr`, `main @ 7ebc220`, unchanged.
+
+**Lanes in flight**
+
+| Stage | Branch | Worktree | Slot | Card | Status |
+|---|---|---|---|---|---|
+| B3 Public log and feed (L) | `b3-public-log` from `main @ 7ebc220`, **local only** | `E:\_root\imnstr\.claude\worktrees3-public-log` (made by hand with `git worktree add`) | A: port `4110`, `.tmp/e2e.db` | `briefs/B3.md` (`403fdf0`) | running, background Sonnet lane launched from this session |
+
+**Next steps, in order**
+1. **8b, land B3**, in this same session when the lane reports (the report comes back only here). If the session has ended first, the lane also writes its report to `<worktree>/.tmp/B3.report.md`, uncommitted: 8b copies it from there to `briefs/B3.report.md`. If neither exists, check `b3-public-log` for commits and relaunch from the card with "continue from the branch".
+2. **8c, verify B3** (Opus · high), fresh session, on this machine. It runs the W3C Feed Validator by paste (plan §8).
+3. **8a for B2** when P0-2 and P0-3 are done, in slot B. **8a for B4a** may run beside B3 only after B2 is in (plan §3).
+
+**Card calls verify should know about** (beyond plan §5 B3): seeding goes through one `insertPublished()` shared by the CLI (`scripts/seed-entry.ts`) and new test-only routes `POST`/`DELETE /__test/entries`; `shared/doc.ts` imports nothing from `lib/`; the feed is built by hand, with no XML dependency; the lane reads root-sot from `E:\_rootoot-sot-imnstr`.
+
+**Questions for the founder:** none.
+
 ## 2026-10-11 · `lifecycle-trial/imnstr` (step 8c, B1 verified and merged)
 
 *Replaces the lane table, next steps and "For verify to decide" of the step-8b block; each call there is ruled on in the stage record. The step-8a and 7b carry-overs still stand, with three changes: `root-sot/imnstr/open-work.md` now exists, P0-5 is confirmed, and the B1 worktree is gone.*
