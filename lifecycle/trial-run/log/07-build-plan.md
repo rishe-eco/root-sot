@@ -138,7 +138,9 @@ No other questions. The open content items (the Persian show, real copy, the mar
 3. **Rule:** before drafting a plan for a project with no code, ask the founder the foundation batch: repo, host, stack, domain. **Event:** each answer changed several stages: co-tenancy added §0.2 and §7; a public repo added house rule 10. As PDs, they would have been vetoed after the plan was written around them. **Scope:** `build-plan`. **Destination:** `skills-plan.md` `build-plan`. **urgent:** no.
 
 ## Cost
-*Founder fills in after the session.*
+*From the founder, after the session:*
+- Opus 5.5: 78 in / 418 out / 5.4M cache read / 209.5k cache write.
+- Cost $4.52; API 16 min; wall 25 min.
 
 ## Next
 - **Step 7b, project config** (Opus · medium):
