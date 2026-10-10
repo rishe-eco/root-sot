@@ -2,6 +2,25 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` @ 29f9342 (+ step 3b)
+
+**Lanes in flight:** none.
+
+**Next steps, in order**
+1. Step 4, Wireframes (`wireframes`, Opus · medium): read `03-journeys.md` §2 (J1–J5, every step) and §3 (the states table: empty, not enough data, error, loading, admin setup). Draw every journey step and every state; low fidelity only. Steps marked **Suggested** (G1–G9, §4) are not requirements: draw them only as marked options, or leave them out and say so.
+2. Step 4b, Claude Design (the founder). Step 6 (eval plan) can run beside 4–5.
+3. `revise` on `02-spec.md` for G1–G9 is the founder's call; nothing is waiting on it before wireframes.
+
+**Carry-overs**
+- Founder decided at journeys: landing content is edited in the code repo (spec §4.1 assumption now settled); passkeys on **phone + laptop**; an episode goes up with its first link, more links added later.
+- The admin must open ready to write, not on the dated list (J2.2): the top date would show the gap.
+- Security gaps for the build plan's auth stage: G1 enrolling a second/replacement passkey, G2 naming passkeys and ending their sessions on removal, G3 synced passkeys may be one credential, G4 idempotent publish.
+- Hard lines unchanged: nothing on any page, public or admin, counts entries or marks gaps.
+
+**Questions for the founder:** accept or refuse G1–G9 (`03-journeys.md` §4), through `revise` on the spec; not needed before step 4.
+
+**Owed:** nothing.
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` @ c6fcb79 (+ step 3a)
 
 **Lanes in flight:** none.
