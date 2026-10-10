@@ -2,6 +2,30 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` (step 8a, B1 launched)
+
+*Adds to the blocks below and replaces none. Item 2 of the step-7b block is done; the founder did P0-1.*
+
+**Code repo:** `rishe-eco/imnstr`, `main @ 6e5a915` (a one-line `README.md`), cloned by this session to `E:\_root\imnstr`.
+
+**Lanes in flight**
+
+| Stage | Branch | Worktree | Slot · port · database | Card | Status |
+|---|---|---|---|---|---|
+| B1 Foundation (L) | `b1-foundation` | `E:\_root\imnstr\.claude\worktrees1-foundation` | A · `4110` · `.tmp/e2e.db` | `briefs/B1.md` (`1e00bce`) | running: background Sonnet 5.5 lane, launched 2026-10-10 from this session |
+
+**Next steps, in order**
+1. **8b, B1 land** (Opus · medium) when the lane reports: save the report as `briefs/B1.report.md`. If this session has ended before the lane reports, the report is lost with it; check the branch for commits and relaunch a continuation lane from the card.
+2. **8c, verify B1** (Opus · high), fresh session.
+3. Founder, in parallel: P0-2 to P0-5 (B2 needs P0-2 and P0-3).
+
+**Carry-overs**
+- The card settles what the plan left open: `lib/env.ts` with `PORT`, `DB_PATH`, `SITE_TZ`, `E2E_CLOCK`, `PRELAUNCH`, `NODE_ENV`; dev dependencies `@types/node`, `@types/better-sqlite3`, `eslint`, `typescript-eslint` beyond §6.6; fonts from `@fontsource` by `npm pack`, not as dependencies; the hashing mechanism is the lane's choice. Verify should check each against the report.
+- `SITE_TZ` defaults to `Asia/Tehran`; P0-5 is still unconfirmed.
+- Owed items still go to `root-sot/imnstr/open-work.md` (not yet created).
+
+**Questions for the founder:** as in the step-7b block.
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` (step 7b, project config)
 
 *Adds to the blocks below and replaces none. Item 1 of the step-7 block is done.*
