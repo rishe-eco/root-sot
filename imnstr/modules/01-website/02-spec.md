@@ -48,7 +48,7 @@ The site carries no Root brand. Its design system is settled in step 4b, and not
 | 13 | Platform links (4b) | **Open in a new tab** | AC-33. |
 | 14 | Paging (W3) | **20 per page, a plain "Older" link** | §4.1 settles the threshold; AC-30. |
 | 15 | Accessibility findings (4b HIG review, `apple-design`) | **Its Critical and High findings, plus reduced motion, become criteria**; Mediums #7, #8 are named checks under AC-19 | §4.6; AC-19, AC-35 to AC-38. The design fixes themselves go to the build. |
-| 16 | Languages (founder, at this revise) | **English and Persian. Content is independent, on one site.** One server, one admin, one set of passkeys. Each entry and episode belongs to one language, and nothing is a translation. Landing, log, feed and podcast come in both. The admin UI is English only. | §4.5; AC-39 to AC-42. Persian is right-to-left and needs a type family that covers its script, which the 4b design lacks. |
+| 16 | Languages (founder, at this revise) | **English and Persian. Content is independent, on one site.** One server, one admin, one set of passkeys. Each entry and episode belongs to one language, and nothing is a translation. Landing, log, feed and podcast come in both. The admin UI is English only. | §4.5; AC-31, AC-39 to AC-42. Solar Hijri dates with Persian digits and `/fa/` paths, settled after the first pass. Persian is right-to-left and needs a type family that covers its script, which the 4b design lacks. |
 
 ## 3. Metrics
 
@@ -127,13 +127,13 @@ From research §5.3 (primary standards: W3C WebAuthn L3, NIST SP 800-63B-4, OWAS
 **[F]** at the 0.2 revise: English and Persian, as independent content on one site.
 
 - **Two streams, not translations.** Each entry and episode belongs to one language and appears only on that language's pages and in its feed. Nothing links an entry to a counterpart, and none is expected.
-- **Paths (proposal):** English stays at `/`, `/log`, `/log/<id>`, `/log/feed.xml` and `/podcast`. Persian uses the same paths under `/fa/`. There's no redirect by browser language; the visitor chooses.
+- **Paths [F]:** English stays at `/`, `/log`, `/log/<id>`, `/log/feed.xml` and `/podcast`. Persian uses the same paths under `/fa/`. There's no redirect by browser language; the visitor chooses.
 - **Landing content in both**, still edited in the code repo.
 - **A language switch on every public page** goes to the other language's page of the same kind: landing to landing, log to log, podcast to podcast. From an entry, it goes to the other language's log, because there is no counterpart entry. The landing, log and podcast pages carry `hreflang` alternates for each other.
 - **Persian pages** are `lang="fa" dir="rtl"`, with a mirrored layout and type that covers Persian script. English pages are `lang="en" dir="ltr"`. **The 4b design system covers neither**, since Bricolage Grotesque and Newsreader have no Arabic-script glyphs. Choosing the Persian type and the mirrored layouts is owed by design.
 - **Each language stands alone.** One language may have few or no entries while the other has many. Each gets the designed empty and not-enough-data states (AC-4), and no page compares the two or shows that one is behind.
 - **The admin UI is English.** The editor and the episode form set the language. A Persian body is written right-to-left. The lists show each item's language.
-- **Open, for the founder:** do Persian pages show dates in the Solar Hijri calendar with Persian digits, or Gregorian? The proposal is Solar Hijri with Persian digits, the `fa-IR` default. The ACs say "in the page's language's date format" until this is settled.
+- **Dates [F]:** Persian pages show dates in the Solar Hijri calendar with Persian digits (the `fa-IR` default); English pages show Gregorian dates, as in 4b. Ordering always uses the stored first-publish time.
 
 ### 4.6 Access and motion
 
@@ -178,7 +178,7 @@ Each is checkable on the running site. Journey-level criteria belong to `03-jour
 - **AC-28** An unpublished entry's URL and a URL that never existed both return 404 with the same designed page, which links to `/log` and `/`.
 - **AC-29** `/podcast` shows show-level platform links both with zero episodes and with more than 20.
 - **AC-30** `/log` and `/podcast` show 20 items per page with an "Older" link that works with JavaScript off; no page shows a page number, a total or a count.
-- **AC-31** Each entry shows its first-publish date and time in the founder's timezone, in the page's language's date format (§4.5, open item).
+- **AC-31** Each entry shows its first-publish date and time in the founder's timezone, in the page's language's date format: Gregorian on English pages, Solar Hijri with Persian digits on Persian pages (§4.5).
 - **AC-32** Every page and state, public and admin, including notices, field states and the 404, renders in light and in dark following `prefers-color-scheme`, and meets AC-19 in both.
 - **AC-33** Platform links open in a new tab with `rel="noopener"`.
 
@@ -223,7 +223,7 @@ From the intake: per-project pages, a projects page, comments, visitor accounts,
 
 ## Changelog
 
-- **0.2 · 2026-10-10** — Revise (change note `changes/01-journeys-design-bilingual.md`). Added: G1–G9 from journeys §4, accepted in 4b. Added auth timings: the enrolment code lasts 10 min, the setup token expires unused after 30 min, and the last passkey can't be removed. Settled from 4b: date and time shown, light and dark modes, platform links in a new tab, 20 per page with "Older". Added access and motion criteria from the 4b HIG review (§4.6). Added English and Persian as independent streams on one site (§4.5). New: §2.1, §4.5, §4.6, AC-20 to AC-42. Open: the Persian date format.
+- **0.2 · 2026-10-10** — Revise (change note `changes/01-journeys-design-bilingual.md`). Added: G1–G9 from journeys §4, accepted in 4b. Added auth timings: the enrolment code lasts 10 min, the setup token expires unused after 30 min, and the last passkey can't be removed. Settled from 4b: date and time shown, light and dark modes, platform links in a new tab, 20 per page with "Older". Added access and motion criteria from the 4b HIG review (§4.6). Added English and Persian as independent streams on one site (§4.5). New: §2.1, §4.5, §4.6, AC-20 to AC-42. Settled by the founder after the first pass: Persian dates in Solar Hijri with Persian digits; `/fa/` paths.
 - **0.1 · 2026-10-10** — First spec: eight founder decisions; admin as shape A with the research §5.3 floor as acceptance criteria; phone-first editor; 19 acceptance criteria.
 
 ## References

@@ -127,7 +127,7 @@ A right-to-left script is the multiplier: mirrored layouts and a second type fam
 4. *How to treat downstream?*
    - In now, carry the gaps, no `STALE`.
 
-**Not asked**, and left open in the spec: the Persian date format, and `/fa/` paths (proposal).
+**After the first commit** (f5f925c), the two items left open were settled. *Persian date format; `/fa/` paths?* — "Solar Hijri with Persian digits, /fa/ is fine." Spec, change note, L-2 and STATE were updated in a follow-up commit.
 
 ## Skill shape
 - **Model:** Opus, medium is right. The work is sorting and careful writing, not research.
@@ -163,7 +163,8 @@ A right-to-left script is the multiplier: mirrored layouts and a second type fam
    - **Urgent:** no.
 
 ## Cost
-*Founder fills in after the session.*
+- Opus 5.5: 52 in / 310 out / 2.3M cache read / 78.9k cache write.
+- $1.75 · API 6 min · wall 13 min.
 
 ## Next
 - **Step 5, UX review** (Opus · high), against the 4b design and spec 0.2.

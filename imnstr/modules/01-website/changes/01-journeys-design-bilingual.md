@@ -63,7 +63,7 @@ Nothing downstream **contradicts** spec 0.2: journeys, wireframes and 4b are sil
 - the `/fa/` routing, per-language feeds and `hreflang`;
 - the auth stage, with G1–G3, W8 and W9;
 - idempotent publish (G4);
-- the Persian date format, once the founder settles it.
+- Solar Hijri dates with Persian digits on Persian pages (AC-31).
 
 ## What must not break
 
@@ -73,5 +73,4 @@ Nothing downstream **contradicts** spec 0.2: journeys, wireframes and 4b are sil
 
 ## Open
 
-- **Persian dates:** Solar Hijri with Persian digits (proposal), or Gregorian. AC-31 holds either way.
-- **Paths:** `/fa/` for Persian with English at the root is a proposal. The build plan can change it if the founder prefers otherwise.
+None. Settled by the founder after the first pass: Persian pages show **Solar Hijri dates with Persian digits**, and Persian lives under **`/fa/`**, with English at the root.

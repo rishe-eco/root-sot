@@ -30,4 +30,4 @@ Design and copy fixes are carried to the build. No downstream phase is marked `S
 
 **Decided by.** Founder, at trial step 4c. For the review findings the founder deferred to the `apple-design` skill's severities.
 
-**Revisit.** At step 5, if the missing language switch or Persian layouts block the review. At step 7, the Persian date format (open) and the `/fa/` paths (proposal).
+**Revisit.** At step 5, if the missing language switch or Persian layouts block the review. At step 7, if the `/fa/` paths or Solar Hijri dates (both settled after the first pass) prove costly to build.
