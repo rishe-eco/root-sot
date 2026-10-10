@@ -2,6 +2,34 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-11 · `lifecycle-trial/imnstr` (step 8c, B3 verified)
+
+*Replaces the lane table, next steps and "For verify to decide" of the step-8b B3 block; each call there is ruled on in the stage record. The step-8c B1 carry-overs still stand, except S-2, now done.*
+
+**Code repo:** `rishe-eco/imnstr`, `main @ 7ebc220`, unchanged. **Lanes in flight:** none.
+
+| Stage | Branch | Record | Status |
+|---|---|---|---|
+| B3 Public log and feed (L) | `b3-public-log` @ `f830534` (lane `ae521b1`, `83d8ce6`; review `b9e5e8a`; record `f830534`), **local only** | `docs/development/B3.md` | **verified, ready to fast-forward.** check clean, Vitest 349/349, e2e 174/174 (log, entry, landing, 404); W3C Feed Validator: both feeds valid |
+
+**The review fixed:**
+- `C++`, `C#` and `.NET` were split in Persian, so `C++` was drawn `++C`.
+- One pasted control character (U+000B) made the whole feed malformed.
+- The owner line used a hand-written `<bdi>`.
+- `CLAUDE.md` now says `npm install --ignore-scripts`. better-sqlite3's `binding.gyp` makes npm call `node-gyp`, and its prebuilt binaries need no compiling.
+
+**Next steps, in order**
+1. **Founder:** fast-forward `main` to `b3-public-log` and push. Then remove the worktree `E:\_root\imnstr\.claude\worktrees\b3-public-log`.
+2. **Founder:** F-5 (`--ignore-scripts` in `brief-common.md` and `config.md` §6) and F-6 (the plan changelog for B3), in `open-work.md`.
+3. **8a for B4a** (slot A), now that B3 is in. Or **8a for B2** once P0-2 and P0-3 are done (slot B).
+
+**Carry-overs for the next cards**
+- Install with `npm install --ignore-scripts` in a fresh worktree. Urgent until F-5 lands in `brief-common.md`.
+- **B2:** the image needs `npm ci --ignore-scripts` or build tools (S-6).
+- **B5 and B6:** empty paragraphs (S-4), control characters (S-5), and `docHasText` for `BODY_REQUIRED`.
+
+**Questions for the founder:** fast-forward and push B3? Do F-5 and F-6 now?
+
 ## 2026-10-11 · `lifecycle-trial/imnstr` (step 8b, B3 landed)
 
 *Replaces the lane table and next step 1 of the step-8a B3 block; its card calls and the 8c carry-overs still stand. Run in the same session as 8a, because the report came back there.*
