@@ -85,7 +85,7 @@ Asked in one batch:
 3. **Rule:** a new persona's journey is where spec gaps in its area surface. Run `journeys` after `personas` before the design pass, not after it. **Event:** J6 found G10–G12, all about how Persian is drawn, just ahead of 05e. **Scope:** method ordering. **Destination:** `lifecycle/README.md` §2. **Urgent:** yes for 05e: the design pass must draw G10–G12 as options, or list them as gaps, since `revise` hasn't decided them.
 
 ## Cost
-*Founder fills in.*
+Opus 5.5: 34 in / 888 out / 1.4M cache read / 99k cache write. Cost $1.72; API time 6m; wall time 8m.
 
 ## Next
 - **05e, design second pass** (founder in Claude Design, then an Opus · medium import session). Take the *0.3* rows of journeys §3, "States the design must draw", plus everything the change notes carry.
