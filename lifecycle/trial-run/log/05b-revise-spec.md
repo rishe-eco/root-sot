@@ -120,7 +120,9 @@
    - **urgent:** no.
 
 ## Cost
-*Founder fills in.*
+*From the founder, after the session:*
+- Opus 5.5: 36 in / 162 out / 1.7M cache read / 95.5k cache write.
+- Cost $1.67; API 5 min; wall 5 min.
 
 ## Next
 - **Step 7, build plan** (Opus · high), against spec 0.3. Read the top STATE block; it lists what is new for the build plan.
