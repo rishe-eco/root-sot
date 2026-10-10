@@ -133,7 +133,11 @@ Required: *What's here*, *The design system it settles*, *Coverage* (with Gaps),
 3. **Rule:** a Suggested item accepted on screen is still owed to `revise`; record it in STATE, don't treat it as settled. **Event:** G1–G9 were accepted by sight in 4b. **Scope:** wireframes, 4b, and review phases. **Destination:** `revise` and the 4b brief.
 
 ## Cost
-*Founder fills in after the session:* tokens or share of the limit from `/usage`, and wall time.
+*Founder-supplied, **estimated**.* Claude Design shows no token or cost figures. This estimate is the change in the founder's session-limit usage, recalled after the session:
+- about 60–62% at the start and about 75–78% at the end;
+- that is roughly **13–18% of the session limit**.
+
+Wall time wasn't recorded. See the import log's spec gap 7.
 
 ## Next
 **Import session (Opus · medium)** on `lifecycle-trial/imnstr`:

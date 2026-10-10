@@ -67,6 +67,8 @@ Not read: `lifecycle/README.md` and `skills-plan.md`. 4b has no skill section, a
 5. **A design review between 4b and step 5 isn't in the method.** The founder asked for one after the import. It overlaps with step 5 (`ux-review`) and step 9 (`design-review`). I kept it to proposals in `04b-design/review/`, didn't edit the design, and left the scoring to step 5. Proposed: either 4b ends with an optional HIG/accessibility pass whose findings go to `revise`, or that pass belongs in step 5's instrument.
 6. **"Phone and desktop for every screen" didn't catch overflow.** The revealed wordmark is wider than the 360 px column. That only shows once the intro or hover state is drawn. Proposed: 4b's checklist asks for every animated or revealed state to be drawn at the narrowest width.
 
+7. **Claude Design reports no usage.** The founder can't get token counts from it. The only measure is the change in their session-limit percentage, read before and after, and for 4b that was estimated after the fact. Proposed: any session run outside Claude Code reads the session-limit percentage at start and end, and the log's *Cost* says which kind of figure it holds (exact or estimated).
+
 ## Template sample
 This log used the standard headings. The README section *What didn't survive* worked best as a checklist:
 
@@ -97,7 +99,11 @@ None asked. The 4b log's *Next* was explicit enough.
 2. **Rule:** a design review must show its tap targets and its revealed or animated states, not just the resting frames. **Event:** the wordmark overflow and the 16 px links were invisible in the plates as drawn, and only showed up through measurement and a forced reveal. **Scope:** 4b, 5, 9. **Destination:** `review-instrument.md`, the coverage checklist.
 
 ## Cost
-*Founder fills in after the session:* tokens or share of the limit from `/usage`, and wall time.
+*Founder-supplied.*
+- **Usage:** Opus 5.5: 152 in / 12.7k out / 9M cache read / 147.2k cache write.
+- **Cost:** $2.93; API time 7m; wall time 10m.
+- **Breakdown by share:** the `/apple-design` skill was 25% and the Claude_Browser MCP 3%.
+- **Scope:** covers the import, the HIG review, the screenshots and the before/after cuts.
 
 ## Next
 `revise` on `02-spec.md` for G1–G9, plus the items in STATE's top block, including whichever findings from `04b-design/review/` it accepts. Finding 1 (tap targets) is Critical. Then step 5 (UX review) against `04b-design/imnstr-design.html`; step 6 can run beside it. The founder also owes the cost for both 4b logs.
