@@ -89,7 +89,9 @@ Not done: the status cell, since 7b has no column (brief §3).
 2. **Rule:** project config for a project with no code is planned, and the first stage's verify confirms it. **Event:** every suite command and variable in `config.md` is a name B1 hasn't chosen yet; B1's card will have to copy them, and the lane may pick others. **Scope:** `build-phase` (B1's card), `verify` (first stage). **Destination:** `skills-plan.md` `verify`, a step "first stage: reconcile `config.md`". urgent: yes, for 8a B1's card: tell the lane to use `PORT` and `DB_PATH`.
 
 ## Cost
-*Founder fills in after the session.*
+*From the founder, after the session:*
+- Opus 5.5: 48 in / 404 out / 2.2M cache read / 82.7k cache write.
+- Cost $1.58; API 5 min; wall 8 min.
 
 ## Next
 - **Founder:** P0-1, create `rishe-eco/imnstr` (public, empty, with `main`). P0-2 to P0-5 can run alongside.
