@@ -2,7 +2,7 @@
 
 *Module `imnstr/modules/01-website/` · Track: Module · Phase 7 · `build-plan`. The order the code lands in and the shape it takes, to the level of tables, routes, refusal codes, screens and tests, so that each stage's phase card is a transcription and not a design exercise. Inputs: `02-spec.md` 0.4, `03-journeys.md` 0.3, `04-wireframes.html` (W1–W11), `04b-design/README.md` 0.2, `05-ux-review.md` pass 1, `06-eval-plan.md` 0.2, change notes 01–03; for the host, `root-app/deploy/`. Update the changelog; don't fork.*
 
-**Version 0.1 · Status: plan, nothing built · 2026-10-10 · Owner: founder**
+**Version 0.2 · Status: plan; B1 built and verified · 2026-10-11 · Owner: founder**
 
 **Where this file yields.** On *what* the site does, the spec wins. On what a person experiences, the journeys win. On how it looks, the design wins. On *what order the code lands in and what shape it takes*, this file wins. Where it settles something the spec left open, §2 says so.
 
@@ -159,7 +159,7 @@ IMNSTR has no code yet, so it has no house rules yet. These are the rules, writt
 - Pages, `/fa/log` and both feeds all call it (AC-48).
 
 **PD-9 · Dates go through `Intl`, with no date library.**
-- Instants are stored as UTC milliseconds and shown in `SITE_TZ`, default **`Asia/Tehran`** (§10, to confirm).
+- Instants are stored as UTC milliseconds and shown in `SITE_TZ`, default **`Asia/Tehran`**, confirmed by the founder (P0-5, 2026-10-11).
 - English pages: "2 Nov 2026, 21:14".
 - Persian pages: `fa-IR` with `calendar: 'persian'` and Persian digits, assembled from `formatToParts`: "۲۸ مهر ۱۴۰۵، ۲۱:۱۴".
 - **The admin is English, so its dates are Gregorian for both languages.** It omits the year when it is the current year in `SITE_TZ` (AC-31).
@@ -212,7 +212,7 @@ IMNSTR has no code yet, so it has no house rules yet. These are the rules, writt
 - Registration sends `excludeCredentials`. If a synced provider already holds the site's passkey, the browser refuses to make a second one, so the site can't end up with two passkeys that are really one (G3, AC-24). *Unknown:* how each platform words that refusal (B4b).
 
 **PD-18 · Security headers are set by the app, not by Nginx.**
-- Public pages: `Content-Security-Policy: default-src 'self'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'none'; form-action 'self'`, plus HSTS, `Referrer-Policy: strict-origin-when-cross-origin`, `X-Content-Type-Options: nosniff` and `Permissions-Policy`.
+- Public pages: `Content-Security-Policy: default-src 'self'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'none'; form-action 'self'`, plus HSTS (`max-age=63072000`, with no `includeSubDomains` and no preload: the founder, 2026-10-11), `Referrer-Policy: strict-origin-when-cross-origin`, `X-Content-Type-Options: nosniff` and `Permissions-Policy`.
 - The admin adds `Cache-Control: no-store`.
 - *Why:* root-app's D-1 hid a broken CSP from every test, because Nginx set it. Here the integration suite sees every header. Nginx only terminates TLS, redirects `www` and proxies.
 
@@ -248,7 +248,7 @@ The user agent and the referrer are read in memory and never stored. Two CLIs go
 
 **PD-25 · Paging uses a cursor:** `?before=<id>`, 20 per page (AC-30). No page number appears in a URL or on a page (W2). An unknown cursor gives a 404.
 
-**PD-26 · Fonts are self-hosted** (D-1). Bricolage Grotesque and Newsreader use the Latin subsets. Estedad and Vazirmatn use the Arabic subsets, which include the Persian digits and ZWNJ (*verify in B1*). All are woff2 with `font-display: swap`, and each language preloads only its own families. All four are OFL, so the licence files ship beside them.
+**PD-26 · Fonts are self-hosted** (D-1). Bricolage Grotesque and Newsreader use the Latin subsets. Estedad and Vazirmatn use **both** their Arabic and Latin subsets. B1 found that the Arabic subsets hold the letters, the Persian digits, ZWNJ and ، but not «», the space, Latin punctuation or ASCII digits, which are in the Latin subsets. Each face's `unicode-range` is its exact cmap, so no face claims a character it can't draw. All are woff2 with `font-display: swap`, and each language preloads only its own families. All four are OFL, so the licence files ship beside them.
 
 **PD-27 · Milestones are named MS1–MS4,** because M1–M3 are the spec's metrics.
 
@@ -293,7 +293,7 @@ B1  foundation: server · schema · dates · tokens and fonts · page shell in b
 
 **Sizes** *(estimate; the method defines none, so this file does)*: **S** is about 1–2 h of lane time and under ~600 changed lines including tests. **M** is 2–4 h and under ~1,500. **L** is 4–6 h and under ~3,000. Under the lane budget (lifecycle README §6, rule 5), a lane past twice its size commits its work, reports and stops.
 
-**Parallel lanes:** never more than two at once. None of the pairs above changes the schema (PD-5). The only shared file at risk is the router's mount list, so each stage mounts its routes in its own file (`routes/<area>.ts`), and `server.ts` gains one line per stage.
+**Parallel lanes:** never more than two at once. None of the pairs above changes the schema (PD-5). The only shared file at risk is the router's mount list, so each stage mounts its routes in its own file (`routes/<area>.ts`), and `app.ts` gains one line per stage (`server.ts` only boots).
 
 **Milestones:** at each, the orchestrator runs the full suites, one heavy runner at a time.
 - **MS1 (B1, B2):** the shell is live at `https://imnstr.com` with noindex. Headers are checked by `curl -I`, and a backup has been restored once.
@@ -321,7 +321,7 @@ Only the founder can do these. Several of them have lead times, so start them th
 
 **P0-4 · An off-box backup target** (B2). root-app has the same gap (its `deploy/README.md`, "Backups"). One target can serve both: another machine, or object storage.
 
-**P0-5 · Confirm `SITE_TZ = Asia/Tehran`.** It is the "founder's timezone" of spec §4.4. It changes every displayed date and is easy to set now.
+**P0-5 · Confirm `SITE_TZ = Asia/Tehran`.** It is the "founder's timezone" of spec §4.4. It changes every displayed date and is easy to set now. **Confirmed by the founder, 2026-10-11.**
 
 **P0-6 · Content.** None of these block the build; all of them block launch.
 - Real copy for the landing page in both languages: who, and the projects.
@@ -336,7 +336,7 @@ Only the founder can do these. Several of them have lead times, so start them th
 
 **Unknowns that the lanes settle** *(each in its stage's first hour; if it fails, say so in the lane report)*:
 - Edge accepts a `Secure`, `__Host-` cookie on `http://localhost` (B4a). If not, development drops the prefix, and a test asserts production keeps it.
-- The Arabic subsets of Estedad and Vazirmatn cover Persian digits, ZWNJ, «» and ، (B1).
+- ~~The Arabic subsets of Estedad and Vazirmatn cover Persian digits, ZWNJ, «» and ، (B1).~~ Settled in B1: they don't cover «» or Latin punctuation, so both subsets ship (PD-26).
 - Which aggregators report subscribers, and in what user-agent format (B8).
 - How the passkey providers word the `excludeCredentials` refusal, and what AAGUID each reports (B4b).
 - ProseMirror with Gboard and the iOS keyboard, in Persian and English (B6, then the founder's phone).
@@ -364,7 +364,7 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
 - `lib/dates.ts`: `formatEntryDate(instant, lang)`, `formatAdminDate(instant, now)` (PD-9), `feedDate()` (RFC 3339 with offset). Unit tests run on a fixed clock and cover:
   - Nowruz (the Solar Hijri new year);
   - 31 December and 1 January in `SITE_TZ` against UTC;
-  - a 23:59 publish in Tehran, which is another day in UTC.
+  - a publish between 00:00 and 03:29 in Tehran, which is still the day before in UTC; and a 23:59 publish in Tehran, which is 20:29 the same day in UTC.
 - `lib/i18n.ts`: the language from the path prefix, plus `locales/en.ts` and `locales/fa.ts`, with one type so parity is checked by the compiler.
 - `lib/switch.ts`: the switch target for each page kind (§6.5). `hreflang` alternates for landing, log and podcast.
 - `content/site.en.ts`, `content/site.fa.ts`: who, projects, show name and links (placeholders until P0-6). A unit test checks that every link is https.
@@ -400,7 +400,7 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
 **Size: L.**
 
 **Traps.**
-- **Fonts:** the Persian families are large. Ship the Arabic subset and test a string holding ZWNJ, Persian digits and «». The e2e test checks `document.fonts` and that the fallback is never used (AC-40).
+- **Fonts:** the Persian families are large. Ship the Arabic and Latin subsets (PD-26) and test a string holding ZWNJ, Persian digits and «». The e2e test checks `document.fonts` and that the fallback is never used (AC-40).
 - **`Intl` output varies by ICU version.** Build Persian dates from `formatToParts`, never from string surgery. The tests pin exact strings, so a Node upgrade that changes them fails loudly.
 - **Mirroring with `left`/`right` breaks quietly.** Use logical properties everywhere. The ¶, the arrows and the feed icon flip, and the wordmark doesn't (design README, Persian).
 - **The 404 must not depend on which entry was asked for.** It is one page per language.
@@ -874,8 +874,14 @@ Each is asserted by an integration test in its stage.
   - `id` pk, `lang` CHECK in (`en`, `fa`), `title`, `body` (not null), `state` CHECK in (`draft`, `published`);
   - `first_published_at`, `publish_key` unique, `created_at`, `updated_at`;
   - CHECK `state = 'draft' OR first_published_at IS NOT NULL`.
-- **`episode`:** like `entry`, plus `name`, `description`, `tag1`, `tag2`, and `date` (text `YYYY-MM-DD`).
-- **`episode_link`:** `episode_id` → `episode` ON DELETE CASCADE, `position`, `label` (not null), `url` CHECK `url LIKE 'https://%'`. Triggers `episode_last_link` and `episode_publish_needs_link`.
+- **`episode`:**
+  - `id` pk, `lang` CHECK in (`en`, `fa`), `state` CHECK in (`draft`, `published`);
+  - `name`, `description`, `tag1`, `tag2`, all nullable, because a draft needs only a language (PD-23);
+  - `date` (text, not null, CHECK `YYYY-MM-DD`), which the code fills with today in `SITE_TZ` (PD-23);
+  - `first_published_at`, `publish_key` unique, `created_at`, `updated_at`;
+  - CHECK `state = 'draft' OR first_published_at IS NOT NULL`.
+  - There is no `title` or `body`.
+- **`episode_link`:** `episode_id` → `episode` ON DELETE CASCADE, `position`, `label` (not null), `url` CHECK `url LIKE 'https://%'`. Triggers `episode_last_link` and `episode_publish_needs_link`, the second on update and again on insert (`episode_publish_needs_link_on_insert`): an episode is never inserted already published, so B7 inserts a draft, adds a link, then publishes.
 - **`record_view`** (`month`, `lang`, `page`, `views`), **`record_feed`** (`month`, `lang`, `aggregator`, `subscribers`), **`record_referrer`** (`month`, `lang`, `domain`, `count`). Each has a composite primary key and **no other column**.
 
 ### 6.4 · Limits (`lib/limits.ts`)
@@ -1002,7 +1008,7 @@ Each is recorded in the imnstr repo's `deploy/README.md`. root-app's `deploy/REA
 - create the repo (P0-1) and point DNS (P0-2);
 - run the VPS commands (P0-3);
 - name a backup target (P0-4);
-- confirm `Asia/Tehran` (P0-5).
+- ~~confirm `Asia/Tehran` (P0-5)~~: confirmed 2026-10-11.
 
 Content (P0-6) can follow, but it blocks launch: real copy, both shows' links, and especially the Persian show.
 
@@ -1024,6 +1030,14 @@ The other PD-n are mechanics. Veto any one of them, and the stage it governs cha
 ---
 
 ## Changelog
+
+- **0.2 · 2026-10-11:** After B1's verify (stage record `docs/development/B1.md` in the code repo), by the founder's decision. These are corrections, and change no stage's scope.
+  - **PD-26, §4 and B1's traps:** the Persian families ship both their Arabic and Latin subsets, because the Arabic ones lack «» and Latin punctuation.
+  - **§6.3:** the episode's columns are listed, not "like `entry`". The insert trigger is named.
+  - **§5 B1:** the date example is corrected. 23:59 in Tehran is the same day in UTC; 00:00–03:29 is the day before.
+  - **§3:** routes mount in `app.ts`, not `server.ts`.
+  - **P0-5:** `Asia/Tehran` is confirmed.
+  - **PD-18:** HSTS is `max-age=63072000`, with no `includeSubDomains` and no preload, by the founder's choice.
 
 - **0.1 · 2026-10-10:** First plan, against spec 0.4. There is no code, so the defect pass read the documents and root-app's deploy files, and found eight issues (D-1 to D-8). Two shape the build:
   - sequential ids would put a count in every URL (D-2);

@@ -2,28 +2,42 @@
 
 *Newest block first. Written by `handoff`.*
 
-## 2026-10-11 · `lifecycle-trial/imnstr` (step 8c, B1 verified)
+## 2026-10-11 · `lifecycle-trial/imnstr` (step 8c, B1 verified and merged)
 
-*Replaces the lane table, next steps and "For verify to decide" of the step-8b block: each call there is ruled on in the stage record. The step-8a and 7b carry-overs still stand, except that `root-sot/imnstr/open-work.md` now exists.*
+*Replaces the lane table, next steps and "For verify to decide" of the step-8b block; each call there is ruled on in the stage record. The step-8a and 7b carry-overs still stand, with three changes: `root-sot/imnstr/open-work.md` now exists, P0-5 is confirmed, and the B1 worktree is gone.*
 
-**Code repo:** `rishe-eco/imnstr`, `main @ 6e5a915`. **Lanes in flight:** none.
+**Code repo:** `rishe-eco/imnstr`, **`main @ 7ebc220`, pushed.** B1 was fast-forwarded at the founder's word. The `b1-foundation` worktree is removed, and the branch remains locally, merged. **Lanes in flight:** none.
 
-| Stage | Branch | Record | Status |
+| Stage | Commits on `main` | Record | Status |
 |---|---|---|---|
-| B1 Foundation (L) | `b1-foundation` @ `8b52ea7` (lane `bc745c5`, review fixes `e49a27c`, record `8b52ea7`), **local only, not pushed**, in `E:\_root\imnstr` | `docs/development/B1.md` | **verified, ready to fast-forward**; check clean, Vitest 220/220, e2e 68/68 |
+| B1 Foundation (L) | lane `bc745c5`; review `e49a27c`; record `8b52ea7`; founder's answers `7ebc220` | `docs/development/B1.md` | **verified and merged.** check clean, Vitest 220/220, e2e 68/68 |
+
+**Founder's answers (2026-10-11):**
+- Merge B1: done.
+- P0-5: `Asia/Tehran` confirmed.
+- HSTS: no `includeSubDomains` and no preload, for now.
+- Plan changelog: done, as build plan **0.2** and review checklist **0.2**.
+
+In `open-work.md`, F-1, F-3 and F-4 are closed and F-2 (content) stays open.
 
 **Next steps, in order**
-1. **Founder:** fast-forward `main` to `b1-foundation` and push (the review didn't: the repo is public and the founder hadn't said to). Then remove the worktree `.claude/worktrees/b1-foundation`.
-2. **Founder:** F-4 in `open-work.md`, the plan changelog, before B2's card is written.
-3. **8a for B2** (needs P0-2 and P0-3) and/or **B3** (needs only B1 on `main`), Opus · medium. They can run side by side, in slots A and B.
+1. **8a for B3** (Opus · medium), public log and feed. It needs only B1 on `main`, so it can start now. It runs in slot A.
+2. **8a for B2** when P0-2 (DNS) and P0-3 (VPS facts) are done. It can run beside B3, in slot B.
+3. Founder, in parallel: P0-2, P0-3, P0-4, P0-6.
 
-**Carry-overs**
-- Accepted at review: both font subsets for the Persian families; the insert trigger (B7 does draft → link → publish); `episode.date NOT NULL` (B7 supplies today's date); `SITE_ORIGIN` as a constant; HSTS without `includeSubDomains` (F-3).
-- Fixed at review: overflow at 200% zoom. The header nav wraps, the big-row grid is `minmax(0, 1fr)`, and the display sizes are capped by vw. `expectNoSidewaysScroll(page, width)` now waits for fonts. Also `.gitattributes` (LF) and a corrected `.env.example`.
-- Later cards should cite `expectNoSidewaysScroll(page, 180)` for 200% zoom, and should say that routes mount in `app.ts`, not `server.ts`.
-- Owed to stages: S-1 (B4a), S-2 (B3), S-3 (B7), V-1 (B2), V-2 (B9). These are in `open-work.md` and in the code repo's development README.
+**Carry-overs for the next cards**
+- **Every UI card requires e2e at 360 px and at 180 px** (200% zoom): `expectNoSidewaysScroll(page, 180)` in `tests/e2e/support.ts`. It waits for fonts.
+- Routes mount in `routes/<area>.ts`, with one line in `app.ts` (plan 0.2 §3).
+- Owed to stages:
+  - **S-2** (B3): bidi in the Persian placeholder copy.
+  - **S-1** (B4a): the 401 enumeration test.
+  - **S-3** (B7): draft → link → publish, and the episode date.
+  - **V-1** (B2): headers through Nginx.
+  - **V-2** (B9): dark contrast.
+- A fresh lane worktree needs `npm install`. The main checkout has no `node_modules`.
+- The lane's report must reach a committed file or the launching session (8b lesson, urgent).
 
-**Questions for the founder:** F-1 (timezone), F-3 (HSTS), and the fast-forward and push in step 1.
+**Questions for the founder:** none open from 8c.
 
 ## 2026-10-10 · `lifecycle-trial/imnstr` (step 8b, B1 landed)
 

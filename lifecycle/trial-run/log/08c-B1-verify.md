@@ -67,9 +67,15 @@ The verify spec's eleven steps:
   - `lifecycle/status.md`, column 8 `1/10`;
   - this log.
 
-  Commit hash in the push that carries this file.
+  Pushed as `b0561fa`.
+- **After the founder's answers:**
+  - code repo `7ebc220`, fast-forwarded to `main` and pushed;
+  - root-sot: build plan 0.2, review checklist 0.2, `open-work.md` 0.2 (F-1, F-3, F-4 closed), the `STATE.md` block rewritten in place, and this log.
+
+  These are in the second 8c commit.
 
 ## Spec gaps
+- **The founder's answers reach past verify's scope.** Editing the build plan and the review checklist is `revise`'s job, or the founder's (lifecycle README §4). The founder said "do it" in this session, so I made the edits here, kept them to corrections that change no stage's scope, and logged them. The skill should say whether verify may carry out founder-approved edits to the plan, or must hand them to a `revise` session.
 - **Verify's injected inputs omit `config.md`,** yet steps 7 and 9 need it: where owed items go, the state-of-the-build file, the suites. I read it. Inject it, or at least its §1 paths and §3 suites.
 - **"Fix on the branch" has no limit.** The zoom fix is small, but it changes design tokens, and nothing says how far a reviewer may go before it is redesign, or a new lane. I kept it to caps that are inert at 360 px and on desktop, and confirmed that by screenshot. The spec could say: fixes that change no rendered pixel at the designed sizes are the reviewer's; anything else goes back to a lane or to the founder.
 - **"Rerun the affected test files"** didn't say what counts when the shared helper changes. I ran every e2e spec that imports `support.ts`, which in B1 is all of them.
@@ -90,7 +96,13 @@ The stage record used: title line with branch and commits · **Built** (with a "
 - **`config.md` §1 says lane worktrees are made by the Agent tool.** B1's was made by hand (8a). Flagged in the record.
 
 ## Founder Q&A
-None asked during the session. The review's two choices, to accept every lane call and not to fast-forward or push, go to the founder as questions in `STATE.md` and the closing message.
+None asked during the review itself. After the first push (`b0561fa`), the closing message asked four questions:
+1. *Fast-forward `main` to `b1-foundation` and push?* **"merge it on main."** I fast-forwarded and pushed: `main @ 7ebc220` on origin. I removed the worktree and kept the branch locally, merged.
+2. *Confirm `SITE_TZ = Asia/Tehran` (P0-5, F-1)?* **"confirmed."** I updated the comments in `lib/env.ts` and `.env.example`, and closed the item in the stage record (`7ebc220`, on the branch before the fast-forward). The plan now says P0-5 is confirmed.
+3. *HSTS `includeSubDomains` and preload (F-3)?* **"nah, leave both off for now."** No code change. Plan PD-18 now gives the exact HSTS value.
+4. *Do the plan changelog (F-4)?* **"do it."** Build plan 0.2 covers PD-26, §4, §5 B1, §6.3, §3, P0-5, PD-18 and §10. Review checklist 0.2 covers §3.
+
+The founder also asked for the next step's opening prompt, which is in the closing message and under *Next*.
 
 ## Skill shape
 - **Model and effort:** Opus, high, is right. The one real finding (zoom) needed judgement about whether a test that passed was actually measuring anything.
@@ -120,5 +132,10 @@ None asked during the session. The review's two choices, to accept every lane ca
 *Founder fills in after the session.*
 
 ## Next
-- **Founder:** fast-forward `main` to `b1-foundation` @ `8b52ea7` in `E:\_root\imnstr`, push, and remove the worktree. Answer F-1 (timezone) and F-3 (HSTS). Do F-4, the plan changelog.
-- **Then 8a** for B2 (needs P0-2 and P0-3) or B3, Opus · medium. B3's card should require `expectNoSidewaysScroll(page, 180)`, mount routes in `app.ts`, and do S-2 (bidi in the Persian placeholder copy).
+- **8a for B3** (public log and feed), Opus · medium, slot A. It can start now: B1 is on `main @ 7ebc220`. B3's card must:
+  - require `expectNoSidewaysScroll(page, 180)` beside 360 px;
+  - mount routes in `routes/log.ts` with one line in `app.ts`;
+  - do S-2 (bidi in the Persian placeholder copy);
+  - read plan 0.2, not 0.1;
+  - say that a fresh worktree needs `npm install`.
+- **8a for B2** once P0-2 and P0-3 are done, in slot B.

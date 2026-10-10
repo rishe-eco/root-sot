@@ -2,7 +2,7 @@
 
 *Owed items from stage reviews and close-out: what a stage left for the founder or for later, and anything past the verification ceiling. Written by `verify` and `close-out` only (lifecycle README §4); created by `verify B1`, trial step 8c. Not Root's `team/open-work.md`: IMNSTR is outside Root (`lifecycle/projects/imnstr/config.md` §1). Items owed to a later stage are also listed in the code repo's `docs/development/README.md`.*
 
-**Version 0.1 · 2026-10-11 · Owner: founder**
+**Version 0.2 · 2026-10-11 · Owner: founder**
 
 ---
 
@@ -10,10 +10,10 @@
 
 | # | What | From | Needed by |
 |---|---|---|---|
-| F-1 | Confirm the site timezone. `SITE_TZ` defaults to `Asia/Tehran` (P0-5). | B1 | B3 (dates on pages) |
+| ~~F-1~~ | ~~Confirm the site timezone.~~ **Closed 2026-10-11:** `Asia/Tehran`, confirmed. | B1 | — |
 | F-2 | Real landing content (`content/site.{en,fa}.ts`) and show links; real Persian strings (`locales/fa.ts`). Both are placeholders (P0-6). | B1 | before launch |
-| F-3 | HSTS: add `includeSubDomains` and preload, or leave them off (B1 leaves them off). | B1 | B2 |
-| F-4 | Build plan changelog: PD-26 and §4 (ship the Latin subset of Estedad and Vazirmatn too); §6.3 (list the episode columns, as `001_init.sql` has them); §5 B1 (the "23:59 in Tehran is another day in UTC" example is wrong; it's 00:00–03:29); §3 and review checklist §3 (`app.ts` gains the line, not `server.ts`). | B1 record, *Decided* | before B2's card |
+| ~~F-3~~ | ~~HSTS `includeSubDomains` and preload.~~ **Closed 2026-10-11:** both stay off for now. | B1 | — |
+| ~~F-4~~ | ~~Build plan changelog.~~ **Closed 2026-10-11:** build plan 0.2 and review checklist 0.2. | B1 record | — |
 
 ## Owed to later stages
 
@@ -34,4 +34,5 @@
 
 ## Changelog
 
+- **0.2 · 2026-10-11** — F-1, F-3 and F-4 closed by the founder's answers, in the 8c session.
 - **0.1 · 2026-10-11** — Created at `verify B1`.

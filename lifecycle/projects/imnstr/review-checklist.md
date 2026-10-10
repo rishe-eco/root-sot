@@ -2,7 +2,7 @@
 
 *What every `verify` of an IMNSTR stage checks, after the lane report and the diff stat and before the stage record. Items are short so a review can tick them; each cites where it comes from. The plan's §5 section for the stage adds that stage's own acceptance and traps on top. Sources: build plan 0.1 §0.2, §0.3, §0.4, §8 and §9; spec 0.4 §4.3; the journeys build's review pass (retro §2).*
 
-**Version 0.1 · Status: proposal, not yet used by a review · 2026-10-10 · Owner: founder**
+**Version 0.2 · Status: in use, first by `verify B1` · 2026-10-11 · Owner: founder**
 
 ---
 
@@ -41,7 +41,7 @@
 - [ ] **Scope.** The diff stays inside the stage's §5 section and its *Not here* line. Nothing from a later stage was built ahead.
 - [ ] **Defects.** Each §0.4 defect assigned to this stage (D-1 to D-8) is fixed, and the fix is tested.
 - [ ] **Dependencies.** Nothing outside plan §6.6 was added, unless the card named it.
-- [ ] **Routes** are mounted in the stage's own `routes/<area>.ts`; `server.ts` gains one line (plan §3, parallel lanes).
+- [ ] **Routes** are mounted in the stage's own `routes/<area>.ts`; `app.ts` gains one line, and `server.ts` none (plan §3, parallel lanes; corrected at B1's verify).
 - [ ] **Schema.** No migration after `001_init.sql` unless the card says so (PD-5: the whole schema lands in B1).
 - [ ] **Tests ran on a fixed clock** and pass when rerun at the review; the lane didn't run the full suites.
 - [ ] **The lane report's item 5** (where the plan was wrong) is answered: in the plan's changelog through the founder, or in the stage record.
@@ -128,4 +128,5 @@ These can't be proven by a lane or a suite. Each goes to the stage record's *ver
 
 ## Changelog
 
+- **0.2 · 2026-10-11** — §3: routes mount in `app.ts`, not `server.ts`; found at B1's verify and accepted by the founder.
 - **0.1 · 2026-10-10** — First version, at trial step 7b, from build plan 0.1 and spec 0.4 §4.3. Not yet used by a review.
