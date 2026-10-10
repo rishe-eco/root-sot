@@ -2,6 +2,25 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` @ 0cd2ed1 (+ step 4)
+
+**Lanes in flight:** none.
+
+**Next steps, in order**
+1. Step 4b, Claude Design (the founder): design from `02-spec.md`, `03-journeys.md` and `04-wireframes.html`. Plate 12 lists the layout calls (W1–W11); dashed purple boxes are Suggested G-items, options only. Then an import session (Opus · medium) writes `04b-design/` and its `README.md`.
+2. Step 5, UX review, against 4b's design (wireframes as fallback). Step 6 (eval plan) can run beside 4b–5.
+3. `revise` on `02-spec.md` for G1–G9 is the founder's call; needed before step 7.
+
+**Carry-overs**
+- Admin layout settled in wireframes (W1): editor first and empty; Entries, Podcast, Passkeys collapsed below; no counts in any heading or pager (W2); "Older" paging at 20 per page (W3).
+- Behaviour proposals beyond the spec, for the build plan's auth stage alongside G1–G4: setup token also expires unused after 30 min (W9); no Remove on the last passkey (W8).
+- Open: podcast empty-state wording, "will be listed" vs "nothing here at the moment" (W11).
+- Hard lines unchanged: nothing on any page, public or admin, counts entries or marks gaps.
+
+**Questions for the founder:** W11; G1–G9 through `revise` (before step 7).
+
+**Owed:** nothing.
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` @ 29f9342 (+ step 3b)
 
 **Lanes in flight:** none.
