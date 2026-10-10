@@ -2,6 +2,44 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` (step 7, build plan)
+
+*Adds to the blocks below and replaces none. Item 1 of the 05f block (step 7) is done.*
+
+**Lanes in flight:** none.
+
+**Done:** `07-build-plan.md` **0.1**, against spec 0.4.
+- **Founder decisions [F]:**
+  - the repo is `rishe-eco/imnstr`, public;
+  - the host is root-app's VPS, as a co-tenant;
+  - the stack is Hono SSR, SQLite and a Preact admin;
+  - `imnstr.com` is registered, and the founder controls its DNS.
+- **The plan:**
+  - 27 PDs. PD-10 answers change note 03's open choice: **the last language is per account, on the server.**
+  - Ten stages, B1–B9 (B4 split into a and b), in four milestones, MS1–MS4.
+  - E1 (M3) runs at B6's verify.
+  - Defects D-1 to D-8 are found and assigned.
+  - Every AC and every carried build item is mapped to a stage (§6.7).
+
+**Next steps, in order**
+1. **Step 7b, project config** (Opus · medium): `lifecycle/projects/imnstr/`. The house rules come from plan §0.3, the done means from §8; lane ports `4110` and `4120`; a temporary SQLite file per lane.
+2. **Founder, P0** (plan §4):
+   - P0-1: create `rishe-eco/imnstr`, public. **Needed before 8a launches B1.**
+   - P0-2: DNS records.
+   - P0-3: the VPS commands.
+   - P0-4: a backup target.
+   - P0-5: confirm `Asia/Tehran`.
+3. **8a, B1** once P0-1 exists. Then B2 ∥ B3, as in plan §3.
+
+**Carry-overs**
+- The founder wrote "risheh-eco". The plan reads it as `rishe-eco` (§10); to confirm.
+- root-app's `deploy/` on `wp-dashboards` differs from `origin/main`. Which is live on the VPS is P0-3.
+- The only edit to root-app is one line in its `deploy/README.md`, at B2's verify, with the founder's go-ahead (plan §7).
+
+**Questions for the founder:**
+- **New:** the PDs flagged for veto in plan §10, which are PD-7's fallback, PD-10, PD-12, PD-15, PD-22, PD-23 and PD-24.
+- **Still open:** the Persian show's name and channels; real copy in both languages; the YouTube and Castbox marks.
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` (step 05f, revise)
 
 *Adds to the blocks below and replaces none. Item 2 of the 05e Claude Design block, and item 2 of the 05d block, are done.*
