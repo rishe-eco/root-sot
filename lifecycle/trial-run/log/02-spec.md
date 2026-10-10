@@ -67,7 +67,7 @@ Required for the gate: Summary, Metrics, Interface requirements, Risks, Acceptan
 - **Rule:** a skill that asks questions should end by asking acceptance of its open assumptions. **Event:** spec left one assumption (landing content edited in the repo) open and pushed it to journeys. Cost: one carry-over. **Scope:** `spec`, `journeys`, `build-plan`. **Destination:** `skills-plan.md` §`spec`.
 
 ## Cost
-*Founder fills in.*
+Opus 5.5, 44 in / 285 out / 1.4M cache read / 69.8k cache write; **$1.14**; API 6m; wall 14m (includes the founder answering the eight questions). Founder's `/usage`, 2026-10-10.
 
 ## Next
 Step 3a, Personas (Sonnet · medium), then 3b Journeys (Opus · high). Journeys must cover the passkey bootstrap and a lost-passkey error (shape A), writing on a phone, and an expired session mid-write. Confirm the spec §4.1 assumption with the founder.
