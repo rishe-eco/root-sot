@@ -2,7 +2,7 @@
 
 *Decisions about the method itself. Written in `decision-record`'s format.*
 
-**Version 0.2 · 2026-10-10**
+**Version 0.3 · 2026-10-10**
 
 ---
 
@@ -31,3 +31,23 @@ Design and copy fixes are carried to the build. No downstream phase is marked `S
 **Decided by.** Founder, at trial step 4c. For the review findings the founder deferred to the `apple-design` skill's severities.
 
 **Revisit.** At step 5, if the missing language switch or Persian layouts block the review. At step 7, if the `/fa/` paths or Solar Hijri dates (both settled after the first pass) prove costly to build.
+
+## L-3 · 2026-10-10 · IMNSTR spec 0.3: UX review findings, a private reader record, M3 gated warm
+
+**Decision.** Revise `imnstr/modules/01-website/02-spec.md` to version 0.3, as set out in its change note `changes/02-ux-review-eval-plan.md`:
+- review F1, F4 (5 min), F9 and F10 become criteria;
+- entries can be saved as drafts on the server (F6);
+- this device's passkey can be removed unless it is the last (F15);
+- the owner is named as iMNSTR only (F18);
+- a Persian-reading persona is selected before step 9 (F11);
+- "no analytics" narrows to nothing anyone can watch, plus a private reader record (views, feed subscribers, referring domains; totals only) read only at each check;
+- M3 gates warm runs (the median of five per language) and reports cold;
+- M1 runs every 6 months after the 6-month check, as the eval plan's five questions.
+
+No downstream phase is marked `STALE`. The eval plan's two "not measured" sentences are carried to an eval-plan touch-up.
+
+**Why.** The build plan needs these settled. The founder wanted reader facts at the checks without a place to watch them (research §2.4 against §1). Cold sign-in time is mostly the phone's passkey dialog, and gating it would press on the 1 h idle ceiling.
+
+**Decided by.** Founder, at trial step 05b. F6 went against the recommendation (local only).
+
+**Revisit.** At the first check, if R2 proves thin or the record steers the answers. At step 9, if cold M3 is far over 30 s.

@@ -2,6 +2,34 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` @ d770211 (+ step 05b)
+
+*Replaces step 1 (`revise`) of both the step-6 and step-5 blocks below. Their other items still hold, amended here.*
+
+**Lanes in flight:** none.
+
+**Next steps, in order**
+1. **Step 7, build plan** (Opus · high) against **spec 0.3**. New for it:
+   - the reader record §3.1: counting, bot filter, R2 from feed fetches, the report command (AC-46, AC-47);
+   - the host's raw-log retention (§5);
+   - Save draft on the server (AC-44), beside the local unsent buffer (AC-43);
+   - the 5-min fresh sign-in (AC-11);
+   - removing this device's passkey (AC-45);
+   - the server refusing removal of a published episode's last link (AC-17);
+   - M3 runs in the admin stage: warm gated, cold reported (AC-15).
+2. **Eval plan touch-up** before close-out (10b), or folded into step 7 if the founder prefers. §2's "Not measured: visits, reads" and §1 F4's "no reader signal" are out of date; §3.D's analytics branch now applies. The rules in §4 don't change.
+3. **The Claude Design pass**, before the UI stages, also takes: Save draft and F6's draft row; F1's kept-text notice; F9's failure states; F10's remove control; F15's Remove on this device; the owner as iMNSTR.
+4. **`personas`, before step 9:** a Persian-reading follower (F11).
+
+**Carry-overs**
+- **Spec 0.3:** AC-43 to AC-47; §2.2 decisions 17–28; change note `changes/02-ux-review-eval-plan.md`; L-3.
+- **No `STALE` set.** The cells are unchanged.
+- **The reader record is never shown on the site.** It is read by command at each check, after M1's answers.
+
+**Questions for the founder:** none open. Still from earlier: real copy in two languages; the YouTube and Castbox marks.
+
+**Owed:** the eval-plan touch-up (step 2).
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` @ ac06ddb (+ step 6)
 
 *Step 6 ran beside step 5. This block adds to the step-5 block below and replaces none of it. Read both.*
