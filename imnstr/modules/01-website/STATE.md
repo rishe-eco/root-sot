@@ -2,6 +2,34 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` (step 06b)
+
+*Adds to the blocks below and replaces none. Item 3 of the 05d block and item 2 of the 05b block (the eval-plan touch-up) are done.*
+
+**Lanes in flight:** none.
+
+**Done:** `06-eval-plan.md` **0.2**, matching spec 0.3:
+- the reader record is read at the check's step 9, after M2 (§3.C, §3.D);
+- "not measured", F4 and §8 now match spec §3.1;
+- §6's five items are marked settled.
+
+The founder made two decisions:
+- §4.1's cold-ambiguous row is dropped; cold M3 is report-only and gives no reading;
+- a conflict between the record and Q5 is resolved in a second line, after the record.
+
+§4.2's rules are unchanged.
+
+**Next steps, in order:** as in the 05d block, items 1, 2 and 4:
+- 05e;
+- `revise` for G10–G16;
+- M6 at step 9.
+
+Then step 7. Nothing in eval plan 0.2 adds build work: the M3 runs (warm and cold, reported) and AC-47's report command are already listed for step 7 in the 05b block.
+
+**Carry-overs:** 06b has no status column, so `status.md` is unchanged. **No `STALE` set.**
+
+**Questions for the founder:** none new. Still open: the Persian show's channels; real copy in two languages; the YouTube and Castbox marks.
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` (step 05d)
 
 *Adds to the blocks below and replaces none. Item 1 of the 05c block is done.*

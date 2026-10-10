@@ -1,45 +1,45 @@
 # IMNSTR.com — eval plan
 
-*Module `imnstr/modules/01-website/` · Track: Module · Phase 6. How we will know the site works for the people it is for. It sets out the failures that look alike in the data, the instruments, and the decision rules, written before any data so that an ambiguous result can't be read as a pass. Input: `02-spec.md` 0.2 (§3 Metrics, §5 Risks, AC-15), with the research sections that §3 cites. Update the changelog; don't fork.*
+*Module `imnstr/modules/01-website/` · Track: Module · Phase 6. How we will know the site works for the people it is for. It sets out the failures that look alike in the data, the instruments, and the decision rules, written before any data so that an ambiguous result can't be read as a pass. Input: `02-spec.md` 0.3 (§3 Metrics, §3.1 the reader record, §5 Risks, AC-15), with the research sections that §3 cites. Update the changelog; don't fork.*
 
-**Version 0.1 · Status: evaluation design · 2026-10-10 · Owner: founder**
+**Version 0.2 · Status: evaluation design · 2026-10-10 · Owner: founder**
 
-**Grading.** Everything here is a **proposal**: nothing is built, and no data exists. Research findings keep their grade from `01-research.md` and are cited by section. Items marked **[F]** were decided by the founder at this step (log `06-eval-plan.md`, Founder Q&A).
+**Grading.** Everything here is a **proposal**: nothing is built, and no data exists. Research findings keep their grade from `01-research.md` and are cited by section. Items marked **[F]** were decided by the founder at step 6 (log `06-eval-plan.md`, Founder Q&A) or at the 0.2 touch-up (log `06b-eval-plan-touch-up.md`).
 
 ---
 
 ## Summary
 
-1. **Two evaluations, at two times.** Before launch: is publishing on a phone nearly free (M3, AC-15)? After launch: is the site still of use (M1, with M2 as its only supporting fact)? The first can be judged at close-out. The second can't, because the first check comes three months after launch.
+1. **Two evaluations, at two times.** Before launch: is publishing on a phone nearly free (M3, AC-15)? After launch: is the site still of use (M1, with M2 and the reader record as its supporting facts)? The first can be judged at close-out. The second can't, because the first check comes three months after launch.
 2. **The check is private, and it is more than one question.** It asks whether the founder still chooses to write, whether writing feels chosen or owed, what got in the way, and whether either job was done. It is answered before any fact is looked at.
 3. **A lull is never a drop.** M2, the date of the last entry, can only turn a "yes" into "ambiguous". It can never produce a drop on its own (research §2.3).
 4. **When the site is the reason, fix the site, don't drop the habit.** Friction is a product defect and goes to the Change track. Pressure is a design problem and goes to `revise`. Only the founder's own "no" leads to a drop, and what goes is decided at that time **[F]**.
-5. **Named ambiguous outcomes:** a "yes" with no entry in six weeks, and, before launch, a signed-in M3 that passes while the signed-out case, which is the daily one, doesn't. Two ambiguous checks in a row count as a drop reading.
+5. **The named ambiguous outcome:** a "yes" with no entry in six weeks. Two ambiguous checks in a row count as a drop reading. Before launch, M3 has no ambiguous reading: cold runs are reported, not judged **[F]**.
 
 ## 1. The failures, stated so they can be measured
 
-The site collects nothing about visitors (spec §3), so the only data is the founder's answers and the content itself. Four failures produce the same content store:
+The site keeps nothing about any one visitor (spec §3). The data are the founder's answers, the content itself, and the reader record's monthly totals (spec §3.1). Four failures produce the same content store:
 
 | | Failure | What the data shows | Why it matters |
 |---|---|---|---|
 | **F1** | **Lull or end.** Writing has paused, or it has stopped for good. | An old last-entry date (M2). The two cases look the same. | A lull is normal, and one missed day doesn't disrupt a habit; time to habit ranged from 18 to 254 days (research §2.3, *evidence, moderate*). A rule that fires on M2 would kill a habit that is still forming. |
 | **F2** | **Quota.** Entries continue, but writing has become something owed: to the "daily" aim, or to two streams. | Recent entries; it looks like success. | Overjustification hurts the already motivated most, and the founder is already motivated (research §1, *evidence, strong* via the evidence summary). Spec risks: "'Daily' turns into pressure"; "Two streams double the pressure". |
 | **F3** | **Friction.** Writing stops because publishing costs too much: sign-in, the editor on a phone, lost text. | Same as F1. | The site can be fixed and the habit kept. It is the intake's "nearly free" promise failing, not the founder's interest. |
-| **F4** | **Unread.** The notebook continues, but the public-image job isn't being done. | Same as F2. | Unmet recognition is the common thread in blog abandonment (research §2.4, *evidence, thin*), and the site gives no reader signal by design (spec §5, "No sign anyone reads it"). |
+| **F4** | **Unread.** The notebook continues, but the public-image job isn't being done. | Same as F2 in the content store. The reader record may show low totals, but they are approximate, and views aren't recognition. | Unmet recognition is the common thread in blog abandonment (research §2.4, *evidence, thin*). The site shows no reader signal anyone can watch; the private totals reach the founder only at the check (spec §3.1; §5, "No sign anyone reads it"). |
 
-So no fact the site holds can decide the outcome. The founder's answers decide it, and they are asked in a fixed order, so that the fact (M2) can't steer them.
+So no fact the site holds can decide the outcome. The founder's answers decide it, and they are asked in a fixed order, so that the facts (M2 and the reader record) can't steer them.
 
 ## 2. What is evaluated, and when
 
 | | Question | Measures | When | Who judges |
 |---|---|---|---|---|
 | **E1** | Is publishing on a phone nearly free? | M3, warm and cold (§3.A) | At the build's verification of the admin stage, and at step 9 | `verify`, then step 9. Close-out reads both. |
-| **E2** | Is the site still of use? | M1 in parts, M2, reader sign (§3.C, §3.D) | 3 and 6 months after launch, then every 6 months **[F]** | The founder, alone |
+| **E2** | Is the site still of use? | M1 in parts, M2, reader sign and the reader record (§3.C, §3.D) | 3 and 6 months after launch, then every 6 months **[F]** | The founder, alone |
 | — | Early friction | One note (§3.B) | 2 weeks after launch | The founder. It feeds fixes, not the decision. |
 
 **Launch** is the day the first real entry, in either language, is published on the production domain. Close-out (step 10b) judges E1 and writes the E2 dates in `STATE.md`. Reminders live **outside the site**, in the founder's calendar. The admin never prompts for a check: a "3-month check due" notice would be the "time since" display that AC-5 rules out.
 
-**Not evaluated here:** correctness (the acceptance criteria, at `verify`) and usability (`ux-review`, steps 5 and 9). **Not measured, by design** (spec §3): visits, reads, entries per period, words written.
+**Not evaluated here:** correctness (the acceptance criteria, at `verify`) and usability (`ux-review`, steps 5 and 9). **Not measured, by design** (spec §3, §3.1): anything about one visitor, entries per period, words written, podcast link clicks. Views are counted only as the reader record's private totals.
 
 ## 3. The instruments
 
@@ -52,8 +52,8 @@ So no fact the site holds can decide the outcome. The founder's answers decide i
 - **Timing:** record the phone's screen and read the start and stop times from the video. This beats a stopwatch held in the other hand.
 - **Runs:** five warm and five cold per language, 20 in all.
   - **Warm** is M3 as the spec defines it: already signed in.
-  - **Cold** starts signed out, so it includes the passkey sign-in. *Proposal:* with a 1 h idle limit (AC-10) and roughly daily writing, almost every real publish starts signed out. Cold is reported but not gated, because the spec gates only warm (see §6).
-- **Test data.** Runs happen on a staging instance, or on production before launch, followed by a database reset. Anything published where a feed reader can see it may be kept after it is unpublished (spec §5, "Unpublish is not erasure").
+  - **Cold** starts signed out, so it includes the passkey sign-in. *Proposal:* with a 1 h idle limit (AC-10) and roughly daily writing, almost every real publish starts signed out. Cold is timed and reported, not gated (spec §3, AC-15).
+- **Test data.** Runs happen on a staging instance, or on production before launch, followed by a database reset that also clears the reader record, since checking `/log` after each run counts as a view. Anything published where a feed reader can see it may be kept after it is unpublished (spec §5, "Unpublish is not erasure").
 
 ### B. The first fortnight
 
@@ -77,14 +77,17 @@ It takes about 10 minutes, and the founder answers before opening the admin or t
 6. **Q5. Has it done the public-image job?** Does it show the people who follow my work what I'm learning and building, and support the attempt to have an impact? Yes / no.
 7. **One line**, in the founder's words.
 8. **Then M2.** Read the date of the last published entry, in either language, from the admin list or the database.
+9. **Then the reader record** (§3.D), for the period since the last check.
 
 Q1, Q4 and Q5 are spec M1 ("Do I still choose to write here, and has it done either job?") split into its parts. Q2 and Q3 tell F2 and F3 apart from a real "no". English and Persian are judged as **one site** **[F]**. Q2 names a stream only when that stream feels owed. Nothing compares the two streams or counts either (spec §4.5).
 
 ### D. Reader sign
 
-**Now: recall at the check [F].** The founder lists any time someone mentioned an entry, the feed or the podcast page, together with where and who. There is no running tally, because a tally is the counter the spec refuses. The list informs Q5 and doesn't decide it.
+**Recall at the check [F].** The founder lists any time someone mentioned an entry, the feed or the podcast page, together with where and who. There is no running tally, because a tally is the counter the spec refuses. The list informs Q5 and doesn't decide it.
 
-**If `revise` admits analytics.** The founder raised it at this step **[F]**, but spec 0.2 rules analytics out (Summary 1, §3, §4.1, AC-7, §7), so it goes to `revise` (§6) and isn't assumed here. The limits it would need to keep research §1's warning: server-side, no cookies, totals only, never shown in the admin, and read only at the check, after step 7 above. If the totals contradict the founder's Q5 answer, Q5 reads as **not sure**, and the founder resolves it in the one line. The totals never decide the reading on their own.
+**The reader record [F]** (spec §3.1, decided at the 0.3 revise). Monthly totals per language: R1 views, R2 feed subscribers as feed readers report them, R3 referring domains. The founder reads them with the report command (AC-47), for the period since the last check, at step 9 of §3.C, after the answers and M2. The limits that keep research §1's warning are the spec's: server-side, no cookies, totals only, shown nowhere on the site, and read only at the check. R1 is approximate, since bots that don't identify themselves are counted, and R2 is thin if few aggregators report (change note 02, Open).
+
+If the totals contradict the founder's Q5 answer, Q5 reads as **not sure**. The founder resolves it in **a second line**, written after the record, and the one line from step 7 stays as written **[F]**. The totals never decide the reading on their own.
 
 ## 4. The decision rules (written before the data)
 
@@ -96,7 +99,8 @@ This rule is fixed by this commit. Any change before the first check goes throug
 |---|---|---|
 | Warm median ≤ 30 s in **each** language, and no run loses text | **Pass** (AC-15) | Launch-ready on M3. Report the medians and the slowest run, with its cause. |
 | Warm median > 30 s in either language | **Fail** | Fix before launch. `verify` blocks the admin stage. |
-| Warm passes, but the cold median > 30 s in either language | **Ambiguous**: the spec's case passes, and the daily case misses "nearly free" | Not a launch block. Goes to `revise`: should M3 include sign-in? The idle limit stays, because 1 h is the NIST AAL2 ceiling (spec §4.3). The fix belongs in sign-in speed. |
+
+Cold runs give no reading. Their median and slowest run are reported beside the warm results (spec §3, AC-15) **[F]**.
 
 ### 4.2 At each check
 
@@ -114,7 +118,7 @@ Read the rows top-down and stop at the first that matches.
 
 ## 5. Results
 
-Each occasion adds one row, written by whoever runs it. For a check, record the codes and the reading. The one line is the founder's to include or leave out.
+Each occasion adds one row, written by whoever runs it. For a check, record the codes and the reading. The one line, and any second line, are the founder's to include or leave out.
 
 | Date | Occasion | Answers or measures | Reading | Action |
 |---|---|---|---|---|
@@ -122,13 +126,13 @@ Each occasion adds one row, written by whoever runs it. For a check, record the 
 
 ## 6. For `revise`
 
-These items came out of this step. None of them changes the plan above until `revise` decides it.
+Nothing is open. The five items 0.1 raised were settled at the spec 0.3 revise (change note `changes/02-ux-review-eval-plan.md`, items 9–13), and this plan now follows them:
 
-1. **Analytics [F]:** the founder would accept them. They contradict spec 0.2 in five places. If admitted: the limits in §3.D, and AC-7 rewritten.
-2. **M3's definition:** warm only, or including sign-in (§3.A, §4.1)?
-3. **AC-15's "M3 is 30 s or less":** this plan reads it as the warm median of five runs per language. Confirm.
-4. **§3's "When" for M1:** add "then every 6 months" **[F]**.
-5. **§3's M1 format:** "yes / no, plus one line" is now the five questions in §3.C. Align the wording.
+1. **Analytics:** a private reader record, R1–R3, read only at the checks (spec §3.1; AC-46, AC-47). Here: §1, §3.C step 9, §3.D.
+2. **M3's definition:** warm is gated; cold is timed and reported, not gated. Here: §3.A, §4.1.
+3. **AC-15:** the warm median of five runs per language, with the slowest run reported and no run losing text. Confirmed as §4.1 reads it.
+4. **M1's schedule:** 3 and 6 months, then every 6 months. Already in §2.
+5. **M1's format:** the five questions of §3.C. Already in §3.C.
 
 ## 7. Cost
 
@@ -142,20 +146,22 @@ That is about an hour and a half before launch, and about 20 minutes a year afte
 
 ## 8. What this can't do, said plainly
 
-- **The founder is both the judge and the subject.** Every reading rests on self-report from the one person who most wants the site to work and who paid for its home-built login. The fixed question order, M2 read last, and "two ambiguous in a row" are the guards against that. They can't remove it.
+- **The founder is both the judge and the subject.** Every reading rests on self-report from the one person who most wants the site to work and who paid for its home-built login. The fixed question order, M2 and the reader record read last, and "two ambiguous in a row" are the guards against that. They can't remove it.
 - **Six months falls inside the habit range** of 18 to 254 days (research §2.3). A "yes" at 6 months doesn't mean the habit has formed, and the rule doesn't claim it.
-- **The public-image job is judged from memory.** Without reader data (§3.D), Q5 is the founder's impression. If the founder wants a better read, it comes through `revise` (§6).
+- **The public-image job is judged mostly from memory.** Q5 is the founder's impression, checked against approximate totals (§3.D). Views and subscriber counts show reach, not whether anyone valued what they read.
 - **It can't separate the site from the founder's life.** Q3's codes **time** and **nothing to say** name that, and the rule doesn't act on them.
-- **n = 1, no comparison, and no reader is ever asked.** Followers and listeners are judged only through what reaches the founder.
+- **n = 1, no comparison, and no reader is ever asked.** Followers and listeners are judged only through what reaches the founder and through the record's totals.
 
 ---
 
 ## Changelog
 
+- **0.2 · 2026-10-10**: touch-up to spec 0.3 (step 06b). The reader record replaces the "if analytics" branch in §3.D and is read at the check's new step 9, after M2. The "not measured" line, F4 and §8 now match spec §3.1. §6's five items are marked settled. Two founder decisions **[F]**: §4.1's cold-ambiguous row is dropped, because cold is report-only, and Summary 5 goes with it; a conflict between the record and Q5 is resolved in a second line. §4.2 is unchanged.
 - **0.1 · 2026-10-10**: first eval plan. Four failures with the same data; two evaluations, E1 before launch and E2 after; the M3 protocol (warm and cold, both languages, screen-recorded, off production); the check's fixed order of questions; recall for the reader sign, with analytics as a `revise` item; decision rules with the ambiguous outcomes named; five items for `revise`.
 
 ## References
 
-- `02-spec.md` 0.2: Summary, §3, §4.3, §4.5, §5, AC-5, AC-7, AC-10, AC-15, AC-16, AC-42, §7.
+- `02-spec.md` 0.3: Summary, §2.2 (decisions 25–28), §3, §3.1, §4.3, §4.5, §5, AC-5, AC-7, AC-10, AC-15, AC-16, AC-42, AC-46, AC-47, §7.
+- `changes/02-ux-review-eval-plan.md`: items 9–13 and Open.
 - `01-research.md` §1, §2.3, §2.4, §6 (sources listed there). `00-intake.md` §4–§6.
 - `ecosystem/working/impact-build/03-spine-evaluation.md`: the shape (failures with identical data, a rule written before the data, the ambiguous outcome named) and the IMI pressure/tension construct.
