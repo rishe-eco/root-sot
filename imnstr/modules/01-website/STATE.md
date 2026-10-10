@@ -2,6 +2,39 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-10 · `lifecycle-trial/imnstr` @ ac06ddb (+ step 6)
+
+*Step 6 ran beside step 5. This block adds to the step-5 block below and replaces none of it. Read both.*
+
+**Lanes in flight:** none.
+
+**Next steps, in order**
+1. **`revise` (`05b-revise-spec.md`)** also takes `06-eval-plan.md` §6, five items, alongside step 5's:
+   - **analytics:** the founder would accept them; they contradict AC-7, §3 and §7;
+   - M3: warm only, or including sign-in;
+   - AC-15 read as the warm median of five runs per language;
+   - M1 asked every 6 months after the 6-month check;
+   - M1's format is now five questions.
+2. **Step 7, build plan.** Place in the admin stage's verification:
+   - the M3 runs: warm and cold, both languages, screen-recorded;
+   - off production, or before launch, then a database reset.
+   Name "launch" as the first real entry on the production domain.
+3. Close-out (10b) judges E1 (M3) only. It writes the E2 dates into this file: launch + 2 weeks (friction note), + 3 months, + 6 months, then every 6 months.
+
+**Carry-overs**
+- **Eval plan 0.1:** four failures with the same data (lull or end, quota, friction, unread).
+- **The check:** five private questions in a fixed order, with M2 read last. M2 never triggers a drop.
+- **Ambiguous:** "yes" with no entry for 6 weeks. Two ambiguous readings in a row count as a drop reading.
+- **Decided by the founder:**
+  - what a drop removes is decided at the time;
+  - one check for both languages, with a pressure question that can name a stream;
+  - every 6 months after the 6-month check.
+- **Reminders for the checks** live in the founder's calendar, never in the admin (AC-5).
+
+**Questions for the founder:** analytics, at `revise`. What limits would they need (§3.D)?
+
+**Owed:** none from 6.
+
 ## 2026-10-10 · `lifecycle-trial/imnstr` @ e8c9c97 (+ step 5)
 
 *Replaces step 1 ("Step 5, UX review") of the 4c block below. Its other items still hold.*
