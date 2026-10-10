@@ -135,7 +135,18 @@ The founder also asked for the next step's opening prompts. They are in the clos
 - **Rule:** to write a `\uXXXX` escape for a noncharacter into a file, build the backslash in code (`String.fromCharCode(92)`); the Write and Edit tools turn the sequence into the character. **Event:** three attempts at `\uFFFE` in `lib/escape.ts`. Each produced the literal character, and one `sed` attempt produced `FFFE` with no backslash, before a Node one-liner wrote it. About five minutes. **Scope:** this machine's tools, all projects. **Destination:** the build-machine memory (`root-app-dev-machine`), or `brief-common.md`'s environment notes. **urgent:** no.
 
 ## Cost
-*Founder fills in after the session.*
+*From the founder, after the session. The total covers the review and the follow-ups: the merge, F-5 (brief-common 0.2, config 0.2), F-6 (build plan 0.3) and the next steps' prompts.*
+- Opus 5.5: 204 in / 2k out / 16.9M cache read / 205k cache write.
+- Cost $6.52; API 42 min; wall 48 min. No subagent.
+- Against B1's verify ($5.40, API 16 min, wall 23 min), this one cost about a fifth more and took about twice as long.
+- **Cache read is again almost all of it**, 16.9M against B1's 12.3M, from a single long context. Three things added calls:
+  - the probe scripts;
+  - the browser pass, with screenshots timing out in the preview pane;
+  - three attempts at one escape sequence, and one misquoted shell command.
+- **API time is up 2.6×, most of it waiting on work rather than thinking:**
+  - the 2-minute e2e run;
+  - the W3C validator round trips;
+  - a 6-second Vitest run, three times.
 
 ## Next
 *Rewritten after the founder's answers.*
