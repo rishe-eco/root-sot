@@ -2,6 +2,35 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-11 · `lifecycle-trial/imnstr` (step 8b, B2 landed)
+
+*Replaces the lane table and next step 1 of the step-8a B2 block. Its card calls, founder's answers and the owed item still stand. Run in the same session as 8a, because the report came back here.*
+
+**Lanes in flight:** none. B2 has reported and is waiting for verify.
+
+| Stage | Branch | Worktree | Report | Status |
+|---|---|---|---|---|
+| B2 Deploy (S) | `b2-deploy` @ `7010775` (one commit), **local only** | `E:\_root\imnstr\.claude\worktrees\b2-deploy` | `briefs/B2.report.md` | landed; 13 files, +470 / −34; lane ~4 min, 90.5k tokens, 20 tool uses |
+
+**Next steps, in order**
+1. **8c, verify B2** (Opus · high), a fresh session on this machine, with the founder at the server. The branch is only in `E:\_root\imnstr`. Start Docker Desktop first, and build and run the image locally (report item 6) before anything touches the VPS. Then do the first deploy and MS1's checks: `nginx -t`, `curl -I` (V-1), root-app answering, `certbot renew --dry-run`, one restore. Last, root-app's README line (plan §7).
+2. **8a for B4a** (slot A), once B2 is verified or at least landed (plan §3).
+
+**For verify to decide** (report items 4 and 5):
+- **The image was never built:** Docker Desktop wasn't running. `nginx -t` and `backup.sh` haven't run either. Linux prebuild `linux-x64.node` (glibc) confirmed in the package.
+- **`sites-enabled/imnstr` links into the repo** (`/srv/imnstr/deploy/nginx/…`), instead of a copy in `sites-available` as plan §7 and config §7 say. The founder may prefer copies.
+- **Numbers the card left open:**
+  - zone `imnstr_auth:1m rate=30r/m`, `burst=10 nodelay`, 429 on refusal (B4a may tune them);
+  - TLS session cache `imnstr_tls`;
+  - `client_max_body_size 1m` (B5 and B7 may need more).
+- **`backup.ts` opens the source through `openDb`,** so it runs pending migrations on the live database. It refuses an existing destination and checks the copy read-only. `npm run backup` added.
+- **`backup.sh` keeps the local copy and exits 1** when `BACKUP_REMOTE` is unset. The cron line goes in `/etc/cron.d/imnstr-backup`, which sets `BACKUP_REMOTE`.
+- **The unit test strips comment lines** before asserting. It also covers the bootstrap conf, the `http2` spelling, the Dockerfile, `package.json` and `.dockerignore`.
+- **The README clones over `https://github.com/rishe-eco/imnstr`.** Confirm.
+- **`package-lock.json`** changes only by `tsx`'s move and the dev flags. Check it isn't the stripped-`dev` noise brief-common warns about.
+
+**Owed by the founder:** `BACKUP_REMOTE`, and an ssh key from the VPS to that host, before B2's verify.
+
 ## 2026-10-11 · `lifecycle-trial/imnstr` (step 8a, B2 launched)
 
 *Replaces next steps 1 and 3 and the founder question of the step-8c B3 block; its carry-overs still stand. P0-2 and P0-3 are done, and P0-4 is answered, so B2 goes before B4a.*
