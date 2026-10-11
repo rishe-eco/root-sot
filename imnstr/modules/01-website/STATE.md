@@ -2,6 +2,34 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-11 · `lifecycle-trial/imnstr` (step 8a, B2 launched)
+
+*Replaces next steps 1 and 3 and the founder question of the step-8c B3 block; its carry-overs still stand. P0-2 and P0-3 are done, and P0-4 is answered, so B2 goes before B4a.*
+
+**Code repo:** `rishe-eco/imnstr` `main @ 95d3311`. **Lanes in flight:** one.
+
+| Stage | Branch | Worktree | Slot | Card | Status |
+|---|---|---|---|---|---|
+| B2 Deploy (S) | `b2-deploy`, from `95d3311`, local | `E:\_root\imnstr\.claude\worktrees\b2-deploy` | B: `4120`, `.tmp/e2e.db` | `briefs/B2.md` (`7127642`) | running, background Sonnet lane; report to `<worktree>/.tmp/B2.report.md` and its final message |
+
+**Founder's answers (2026-10-11):**
+- P0-2 done: DNS for `imnstr.com` and `www` points at the VPS.
+- P0-3 done: the output is in the card, under *The server*. Ubuntu 22.04, nginx 1.18.0, certbot 1.21.0, Docker 29.6.1, Compose v5.3.1. 1.2 GiB available and no swap. No `default_server` on the box. root-app runs `main @ 6179274`.
+- P0-4: another host, over rsync/ssh. Its address is not named yet; `backup.sh` reads it from `BACKUP_REMOTE`.
+
+**Card calls the plan didn't make** (for verify to rule on, against plan §5 B2):
+- There is no toolchain and no build stage. The image runs `npm ci --omit=dev --ignore-scripts`, and `tsx` moves to `dependencies`, since the server runs through it.
+- certbot runs `certonly` against a bootstrap port-80 conf, so it never edits `imnstr.conf`.
+- `scripts/backup.ts` is new (plan §5 B2 assumed a `backup` CLI). There is a second volume for `/backups`. Compose has `mem_limit: 256m` and `restart: unless-stopped`.
+- The lane may build the image locally if Docker Desktop is running; it wasn't when the card was written.
+
+**Next steps, in order**
+1. **8b, land B2** when the lane reports (Opus · medium), in this session if it comes back here.
+2. **8c, verify B2** (Opus · high), fresh, with the founder at the server. That covers the first deploy, V-1 (`curl -I`), `nginx -t`, root-app answering, `certbot renew --dry-run`, one restore, and root-app's README line (plan §7, founder's go-ahead). Those make MS1.
+3. **8a for B4a** (slot A), after B2 lands (plan §3: no B2 + B4a pair).
+
+**Owed by the founder:** `BACKUP_REMOTE` (user, host, path), and an ssh key from the VPS to that host, before B2's verify.
+
 ## 2026-10-11 · `lifecycle-trial/imnstr` (step 8c, B3 verified and merged)
 
 *Replaces the lane table, next steps and "For verify to decide" of the step-8b B3 block; each call there is ruled on in the stage record. The step-8c B1 carry-overs still stand, except S-2, which is done, and the `npm install` line, which is now `npm install --ignore-scripts` (brief-common 0.2).*
