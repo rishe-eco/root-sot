@@ -43,7 +43,10 @@ As at 8b B3. It can run in the launching session, since it is cheap. It should i
 - **Rule:** before launching a lane, ask the founder for any machine precondition the card relies on (Docker Desktop running, a device plugged in), rather than making the check conditional. **Event:** 8a B2 found Docker's engine down and made the image build conditional; the lane skipped it, so it moves to verify, a high-effort session. **Scope:** `build-phase`. **Destination:** `skills-plan.md` `build-phase`, Launch step 1. **urgent:** no.
 
 ## Cost
-*Founder fills in after the session. Same session as 8a B2. Lane: about 4 min, 90.5k tokens, 20 tool uses.*
+*From the founder, after the session. This session ran 8a and 8b; the figures are the whole session:*
+- Opus 5.5: 62 in / 875 out / 3M cache read / 92.3k cache write.
+- Cost: $2.47 · API 7m · wall 23m.
+- Lane (Sonnet, background): about 4 min, 90.5k tokens, 20 tool uses.
 
 ## Next
 8c, verify B2, in a fresh Opus · high session, with the founder at the server. Start Docker Desktop first. `BACKUP_REMOTE` and the VPS's ssh key are needed before it.

@@ -88,7 +88,9 @@ For stages that depend on a P0 item, the skill asks for it in **one** question b
 - **Rule:** before drafting a card, check every artifact the plan's stage section assumes exists. **Event:** plan §5 B2 has `backup.sh` run "the `backup` CLI", but no stage built it; one grep found the gap. **Scope:** `build-phase`. **Destination:** the card checklist in the skill's reference file. **urgent:** no.
 
 ## Cost
-*Founder fills in after the session.*
+*From the founder, after the session. This session ran 8a and 8b; the figures are the whole session:*
+- Opus 5.5: 62 in / 875 out / 3M cache read / 92.3k cache write.
+- Cost: $2.47 · API 7m · wall 23m.
 
 ## Next
 8b, land B2, when the lane reports: in this session if it comes back here. Then 8c verify B2 with the founder at the server; `BACKUP_REMOTE` and the VPS's ssh key to the backup host are needed before it.
