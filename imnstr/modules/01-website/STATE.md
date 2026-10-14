@@ -6,7 +6,7 @@
 
 *Adds to the step-8c B4b block below and amends the step-8e block (10-14). The 8e block's CD1 plan stands, as amended by change note **0.2**. Same 8e session, continued after the founder pasted the CD-0 output.*
 
-**CD-0, answered:** SSH is open to all on 22 (`ufw`: 22/80/443 from anywhere, IPv4 and IPv6), key-only (`passwordauthentication no`), with no `AllowUsers` or `AllowGroups`. GitHub's hosted runners can connect, and `sshd` needs no change. **Still open:** root-app's URL for the "still answers" check; the GitHub environment `production`.
+**CD-0, answered:** SSH is open to all on 22 (`ufw`: 22/80/443 from anywhere, IPv4 and IPv6), key-only (`passwordauthentication no`), with no `AllowUsers` or `AllowGroups`. GitHub's hosted runners can connect, and `sshd` needs no change. **Root-app's URL:** `https://m-root.com/`, which answers 200 (note 0.3). **Still open:** the GitHub environment `production` (note, CD-0).
 
 **Note 0.2, brought up to `main @ 4c2b9b2`:**
 - B4b was deployed by hand, so it is **not** the first CI deploy; likely B5 is. B4b's shell and bundle checks join CI-8.
@@ -16,7 +16,7 @@
 
 **Next steps** are unchanged from the B4b block: 8d MS1/MS2; **8a B5** (slot A) and/or **8a CD1** (slot B, from note 0.2's CD1 section).
 
-**Owed by the founder:** root-app's check URL and the `production` environment (both before CD1's verify); F-7; F-2.
+**Owed by the founder:** the `production` environment, before CD1's verify; F-7; F-2.
 
 ## 2026-10-15 · `lifecycle-trial/imnstr` (step 8c, B4b verified and deployed) · imnstr `main @ 4c2b9b2`
 

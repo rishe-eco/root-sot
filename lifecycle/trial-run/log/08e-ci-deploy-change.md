@@ -107,7 +107,7 @@ Asked in one batch:
 **Continued 2026-10-15, same session.** The founder pasted the CD-0 output and asked "does this change anything?", adding that the repo had moved on.
 - `ufw` is active and allows 22, 80 and 443 from anywhere. `sshd -T` shows `port 22`, key-only login and no `AllowUsers` or `AllowGroups`. **The design stands.** Hosted runners can connect, no `sshd` change is needed, and `DEPLOY_PORT` is 22.
 - **The prompt shows the founder's sudo user is named `deploy`.** The note now says that CI's `imnstr-deploy` is a separate account.
-- **Still open:** root-app's URL and the GitHub environment.
+- Then: root-app is **`https://m-root.com/`**, and `curl -sI` from this machine gives 200. The founder asked what the GitHub environment needs; the note's CD-0 (0.3) now spells out the clicks.
 
 ## Skill shape
 `spec` in `change` mode: Opus, high, as specified. Not forked: it asks the founder. Inject at invocation:
@@ -137,4 +137,4 @@ The reference file should hold:
   - Check `git config --local user.email` in the new worktree.
   - The card must say: no edits to `Dockerfile`, `package.json` or the compose file; new test files only; action SHAs by `git ls-remote`.
   - `checks.sh` carries every README check on `main`, B4b's included.
-- **CD-0:** SSH is settled. root-app's check URL and the GitHub `production` environment are needed by CD1's verify, not its lane.
+- **CD-0:** SSH and root-app's URL are settled. The GitHub `production` environment is needed by CD1's verify, not its lane.

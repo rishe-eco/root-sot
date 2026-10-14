@@ -55,7 +55,7 @@ Numbered **CI-n**, so they don't collide with the spec's AC-n. Each is checked a
 
 ## Founder pre-flight (CD-0)
 
-**Status 2026-10-15:** questions 1 and 2 are answered (below). Question 3 and the GitHub environment are still open.
+**Status 2026-10-15:** questions 1–3 are answered (below). Only the GitHub environment is left.
 
 Before CD1's verify, not before its lane. Run at the server as the sudo user, one line at a time:
 
@@ -67,11 +67,15 @@ sudo sshd -T | grep -iE '^(port|allowusers|allowgroups|passwordauthentication|pu
 Also check any firewall in the hosting provider's panel. Then answer three things:
 1. **Can any address reach SSH, and on which port?** *Answered:* `ufw` is active, deny incoming by default, and allows 22/tcp (OpenSSH), 80 and 443 from anywhere, IPv4 and IPv6. `sshd -T`: `port 22`, `pubkeyauthentication yes`, `passwordauthentication no`. Hosted runners can connect, so `DEPLOY_PORT` is `22`. The provider's own firewall wasn't reported; the first CI run tests it. GitHub's hosted runners connect from a wide, changing range. If SSH is limited by source address, CD1's lane still runs, but its verify **stops before the server part**. The founder then chooses between opening SSH to all (key-only), a tunnel, or another route, and this note goes back to `spec change`.
 2. **Do `AllowUsers` or `AllowGroups` exist?** *Answered: neither,* so no `sshd` change is needed. If either is added later, the verify adds `imnstr-deploy` to them, using `sshd -t` before `systemctl reload ssh`.
-3. **root-app's own URL** for the "still answers" check. *Open.* The B2 record says it was checked, but not which URL, and B4b's record says it was missing from the pasted output.
+3. **root-app's own URL** for the "still answers" check. *Answered:* **`https://m-root.com/`**. From this machine on 10-15, it and `www.m-root.com` answer `200` (nginx/1.18.0). `checks.sh` takes it as an argument, defaulting to `https://m-root.com/`, and expects `200`. The B2 record says it was checked, but not which URL, and B4b's record says it was missing from the pasted output.
 
 **Not to reuse:** the founder's sudo user on the box is named `deploy`. CI's user is `imnstr-deploy`, a separate account. Never give CI's key to `deploy`, which has full `sudo`.
 
-On GitHub (web; `gh` isn't installed on the build machine): Actions enabled on `rishe-eco/i-monster`, and an environment named `production` limited to the `main` branch. The secrets go in at the verify.
+On GitHub (web; `gh` isn't installed on the build machine), in `rishe-eco/i-monster` → **Settings**:
+- **Environments → New environment,** named `production`. Under *Deployment branches and tags*, choose *Selected branches and tags* and add `main`. Leave *Required reviewers* and *Wait timer* off: either one would make every deploy wait for a click. Add no secrets yet.
+- **Actions → General:** Actions allowed (all actions, or at least GitHub's own `actions/*`).
+
+At CD1's verify, the environment gets the secrets `DEPLOY_HOST`, `DEPLOY_PORT` (`22`), `DEPLOY_KEY` and `DEPLOY_KNOWN_HOSTS`. The repo gets the variable `DEPLOY_ENABLED` (*Secrets and variables → Actions → Variables*), set last.
 
 ## Stages
 
@@ -219,5 +223,6 @@ These are not edited by this note. CD1's verify lists them in the stage record, 
 
 ## Changelog
 
+- **0.3 · 2026-10-15** — CD-0 question 3 answered: root-app is `https://m-root.com/` (200). The GitHub environment's steps are spelt out.
 - **0.2 · 2026-10-15** — CD-0 questions 1 and 2 answered (SSH open on 22, key-only, no `AllowUsers`); root-app's URL still open. Brought up to `main @ 4c2b9b2`: B4b was verified and deployed by hand, so it is not CD1's first CI deploy; its checks join CI-8; `npm run build` in CI; the lockfile trap is retired; the next conf change (S-14) is a stop. The founder's sudo user `deploy` is not CI's.
 - **0.1 · 2026-10-14** — First version (trial step 8e). Four founder decisions; one stage, CD1 (M).
