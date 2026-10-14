@@ -2,7 +2,7 @@
 
 *Module `imnstr/modules/01-website/` · Track: Module · Phase 7 · `build-plan`. The order the code lands in and the shape it takes, to the level of tables, routes, refusal codes, screens and tests, so that each stage's phase card is a transcription and not a design exercise. Inputs: `02-spec.md` 0.4, `03-journeys.md` 0.3, `04-wireframes.html` (W1–W11), `04b-design/README.md` 0.2, `05-ux-review.md` pass 1, `06-eval-plan.md` 0.2, change notes 01–03; for the host, `root-app/deploy/`. Update the changelog; don't fork.*
 
-**Version 0.4 · Status: plan; B1, B2 and B3 built and verified; MS1 live · 2026-10-14 · Owner: founder**
+**Version 0.5 · Status: plan; B1, B2, B3 and B4a built and verified; MS1 live · 2026-10-14 · Owner: founder**
 
 **Where this file yields.** On *what* the site does, the spec wins. On what a person experiences, the journeys win. On how it looks, the design wins. On *what order the code lands in and what shape it takes*, this file wins. Where it settles something the spec left open, §2 says so.
 
@@ -527,10 +527,10 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
 
 **Logic**
 - `lib/webauthn.ts`: wraps `@simplewebauthn/server`.
-  - `rpID` and origin come from env; attestation is `none`.
+  - `rpID` and origin come from env: `ORIGIN`, defaulting to `https://imnstr.com` in production and `http://localhost:<PORT>` otherwise; the RP ID is its hostname. Attestation is `none`.
   - Registration requires a resident key and `userVerification: 'required'`, and sends `excludeCredentials` (PD-17).
   - Sign-in is discoverable, with an empty `allowCredentials`.
-  - Challenges are kept in memory for 5 min, single use. They are lost on restart, which only means retrying.
+  - Challenges are kept in memory for 5 min, single use, and the options tell the browser the same 5 min (`timeout`; the library default of 60 s is short for a hybrid sign-in). They are lost on restart, which only means retrying.
   - The sign count and the backup flags (BE/BS) are stored.
 - `lib/sessions.ts`: `create(openedBy)`, `touch`, `validate` (1 h idle, 24 h absolute, server-side), `reauth` (rotates the id, sets `auth_at`), `isFresh` (5 min), `destroy`. PD-13 covers the columns.
 - `lib/codes.ts`:
@@ -540,22 +540,23 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
 - `lib/throttle.ts`: PD-15.
 - `lib/csrf.ts`, `lib/origin.ts`: PD-14.
 
-**API** (`/admin/api`)
+**API** (`/admin/api`, in `routes/admin-api.ts`)
 - Sign-in: `POST auth/signin/options`, `POST auth/signin/verify` (sets the cookie), `POST auth/signout`.
 - Registration: `POST auth/register/options` and `POST auth/register/verify`. With a `code`, they enrol by setup token or enrolment code and sign the device in. With a session instead, the session must be fresh.
 - Re-authentication: `POST auth/reauth/options` and `POST auth/reauth/verify`.
-- `GET session`: signed in or not, `csrf`, `fresh`, and `deviceCredentialId`.
+- `GET session`: 401 `UNAUTHENTICATED` when signed out; signed in, `csrf`, `fresh`, `deviceCredentialId` and `independenceNoteDismissed`.
 - Passkeys: `GET passkeys` (name, date added, "this device"; **no** last-used time, W7), `DELETE passkeys/<id>`.
   - Deleting needs a fresh session.
   - It refuses the last passkey with `LAST_PASSKEY` (AC-23).
   - Deleting this device's passkey ends this session too (AC-45).
 - `POST enrolment-codes`: fresh session; returns the code, the link, the QR and the expiry.
 - `POST settings/independence-note/dismiss`.
-- `requireSession`: wraps every `/admin/api` route except the auth ceremonies. It answers 401 `UNAUTHENTICATED`.
+- `requireSession`: wraps every `/admin/api` route except the auth ceremonies. It answers 401 `UNAUTHENTICATED`. Re-authentication, registration without a code, and sign-out check the session (and CSRF) themselves, inside `auth/`.
+- **Nginx (S-8):** `imnstr_auth` stays at `30r/m burst=10`; a ceremony is two requests.
 - **CLI:** `setup-token` prints the link and its expiry.
 
 **Tests**
-- `test/softAuthenticator.ts`: an ES256 key pair in `node:crypto` that builds real attestation and assertion responses. With it, every ceremony runs in integration tests, with no browser.
+- `tests/softAuthenticator.ts`: an ES256 key pair in `node:crypto` that builds real attestation and assertion responses. With it, every ceremony runs in integration tests, with no browser.
 - Integration:
   - **AC-8:** the route enumeration from house rule 7.
   - **AC-9:** the setup token works once.
@@ -847,7 +848,7 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
 | `/podcast`, `/fa/podcast` (`?before=`) | public | B7 |
 | 404, per language · `/assets/*` · `/healthz` · `robots.txt` | public | B1 |
 | `/admin`, `/admin/setup/<code>` | the shell is public; the data needs a session | B4b |
-| `/admin/api/auth/*` | pre-session, with an Origin check | B4a |
+| `/admin/api/auth/*` | pre-session, with an Origin check; re-authentication, registration without a code, and sign-out check a session themselves | B4a |
 | `/admin/api/{session, passkeys, enrolment-codes, settings/*}` | session + CSRF | B4a |
 | `/admin/api/entries*` | session + CSRF | B5 |
 | `/admin/api/episodes*` | session + CSRF | B7 |
@@ -864,9 +865,11 @@ Each is asserted by an integration test in its stage.
 | `REAUTH_REQUIRED` | 403 | passkey add or remove, enrolment code (AC-11) |
 | `SIGNIN_FAILED` | 400 | every sign-in failure, one body |
 | `CODE_REFUSED` | 400 | setup token or enrolment code that is used, expired or unknown, one body (AC-20, AC-21) |
+| `REGISTRATION_FAILED` | 400 | B4a: attestation, challenge or flags refused, one body |
+| `REQUEST_INVALID` | 400 | B4a: a passkey name over 60 characters or with control characters |
 | `LAST_PASSKEY` | 409 | AC-23 |
 | `BODY_REQUIRED` · `DOC_INVALID` · `LANG_INVALID` | 400 | B5 |
-| `NAME_REQUIRED` · `DESCRIPTION_REQUIRED` · `TAGS_ONE_OR_TWO` · `LINK_REQUIRED` · `LINK_NOT_HTTPS` | 400 | B7 |
+| `NAME_REQUIRED` · `DESCRIPTION_REQUIRED` · `TAGS_ONE_OR_TWO` · `LINK_REQUIRED` · `LINK_NOT_HTTPS` | 400 | B7; `NAME_REQUIRED` from B4a, for a blank passkey name |
 | `LAST_LINK` | 409 | B7 (AC-17) |
 | `NOT_FOUND` | 404 | admin reads |
 
@@ -1037,6 +1040,11 @@ The other PD-n are mechanics. Veto any one of them, and the stage it governs cha
 ---
 
 ## Changelog
+
+- **0.5 · 2026-10-14:** After B4a's verify (stage record `docs/development/B4a.md` in the code repo), by the founder's decision (F-9). These are corrections, and change no stage's scope.
+  - **§5 B4a:** `ORIGIN` and the RP ID from it; the browser timeout equals the challenge's 5 min (found at review); routes in `routes/admin-api.ts`; `GET session` answers 401 when signed out and carries `independenceNoteDismissed`; the ceremonies that check a session themselves; S-8 kept at `30r/m burst=10`; `tests/`, not `test/`.
+  - **§6.1:** the `auth/*` row says which ceremonies need a session.
+  - **§6.2:** `REGISTRATION_FAILED` and `REQUEST_INVALID` added; `NAME_REQUIRED` used from B4a.
 
 - **0.4 · 2026-10-14:** After B2's verify (stage record `docs/development/B2.md` in the code repo), by the founder's decision (F-8). These are corrections, and change no stage's scope.
   - **§5 B2:** one image stage without a toolchain; `tsx` a runtime dependency; `restart`, `mem_limit` and the backups volume; the bootstrap conf and `certbot certonly` with a deploy hook; `scripts/backup.ts` as a new file; the README for a sudo user. The certbot-sync trap is replaced by the copy rule; a new trap for listen-level flags (the card's `http2`, found at review).

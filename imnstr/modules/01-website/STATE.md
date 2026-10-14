@@ -2,6 +2,26 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-14 · `lifecycle-trial/imnstr` (step 8c, B4a verified and deployed) · imnstr `main @ d29166b`
+
+*Replaces the 8b B4a block's lanes and next steps. Its "for verify to decide" list is answered in `docs/development/B4a.md` (*Decided*). Run as 8c: the opening prompt said "step 8a, review B4a", and this block's predecessor named 8c verify B4a as next.*
+
+**Lanes in flight:** none. The `b4a-auth-server` worktree and branch are gone; B4a is on `main` (`43cc2b3`, `2433e91`, review `39d363e`, `19c6202`; record `d29166b`).
+
+**Live:** the admin API at `https://imnstr.com/admin/api`, with no screens. The image was rebuilt from `19c6202`, with no conf change. Pasted checks: `session` 401; foreign-Origin POST 403; own-Origin POST 200 with `rpId` `imnstr.com` and `timeout` 300000; `/__test/auth` 404; public headers unchanged, with no `Set-Cookie`. No setup token has been issued in production.
+
+**Review fixed:** enrolling by code now ends the session the request arrived with; the ceremony timeout is 5 min, not the library's 60 s; the `auth/` prefix is pinned to its seven ceremonies, with 401 proven for the four that check a session; a correct-Origin deploy check.
+
+**Founder decided:** F-9 accepted: build plan **0.5** (§5 B4a, §6.1, §6.2). Fast-forward, push and deploy now. Status col 8 `4/10`; open-work 0.7.
+
+**Next steps, in order**
+1. **8a B4b** (slot A), from build plan 0.5. The card carries S-13: `@simplewebauthn/browser`, the `/admin/setup/<code>` page, and the `excludeCredentials` refusal wording. B4b's verify issues the first real setup token, and MS2's real passkeys (V-7) follow.
+2. **8d MS1** (full suites, one runner at a time), any time.
+
+**Carry-overs:** server commands as before (a sudo user; one per line; plain `text` fences, since the founder couldn't see this session's first set until it was re-sent in a plain reply). Later routers go inside `adminApiRoutes`, never under `auth/` (S-12). Start Docker Desktop before a review that builds the image.
+
+**Owed by the founder:** F-7 (off-box backups), F-2 (content).
+
 ## 2026-10-14 · `lifecycle-trial/imnstr` (step 8b, B4a landed)
 
 *Replaces the lane table and next step 1 of the step-8a B4a block. Its card calls and "what the verify deploys" still stand. Run in the same session as 8a, because the report came back here.*
