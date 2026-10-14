@@ -2,6 +2,26 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-15 · `lifecycle-trial/imnstr` (step 8b, CD1 landed) · imnstr `main @ 4c2b9b2`
+
+*Replaces the step-8a CD1 block's lane table and its next step 1. Adds to the 8e blocks and to any 8d block.*
+
+**Report:** `briefs/CD1.report.md`. **Branch** `cd1-ci-deploy` @ `8fd95a9` (2 commits on `4c2b9b2`, founder identity), **local only, not pushed**. Worktree kept: `E:\_root\imnstr\.claude\worktrees\cd1-ci-deploy`. +1,285 / −22 over 8 files, against the note's M estimate of ~700. **Lanes in flight:** none.
+
+**What the lane says** (not reviewed): 50 new tests pass under Git Bash (31 text, 19 harness, ~96 s); `deploy.test.ts` 20/20; `npm run check` clean; `checks.sh 1` against the live site: 14 checks ok. **Not run:** `shellcheck` and the Linux `node:24` run, because Docker Desktop is down (`docker info` timed out).
+
+**For verify to decide** (report item 5):
+1. **"Already current" no longer skips build and up.** The lane found the note's version gives a false green after a failed build, since the checkout has already moved. It skips only the merge. Confirm, or go back to the note.
+2. The text test bans `reset --hard` / unfiltered prune anywhere in the file, comments included.
+3. The README's server setup (root-owned `authorized_keys`, `mktemp` sudoers file, `usermod -p '*'` fallback, the `nobody` run) is unproven on the box.
+4. The workflow has never run. Its first `check` is the first Linux/UTC full suite.
+
+**Next steps, in order**
+1. **8c, verify CD1** (Opus · high), with the founder at the server: the note's *At the verify*. Before it: the GitHub environment `production`; Docker up if `shellcheck` should run locally.
+2. 8a B5 (slot A) any time; 8d as in the B4b block.
+
+**Owed by the founder:** `production` environment; F-7; F-2.
+
 ## 2026-10-15 · `lifecycle-trial/imnstr` (step 8a, CD1 launched) · imnstr `main @ 4c2b9b2`
 
 *Adds to the step-8e blocks below; replaces nothing. Run beside a step-8d session (milestones), which writes its own block.*
