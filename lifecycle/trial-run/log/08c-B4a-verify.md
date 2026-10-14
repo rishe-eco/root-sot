@@ -78,7 +78,11 @@ The reference file should hold:
 - *Lane's item 7:* the Bash tool strips a doubled backslash from commands, which cost the lane minutes on regexes; the Write and Edit tools don't. That is a brief-common environment note. (The memory already records the reverse quirk for `￾`-style escapes in Write/Edit.)
 
 ## Cost
-*Founder fills in after the session.*
+*From the founder, after the session. It covers the review, the local image run, the deploy with the founder, the record and F-9 (build plan 0.5).*
+- Opus 5.5: 140 in / 2.3k out / 11.7M cache read / 191.5k cache write.
+- Cost $5.01; API 11 min; wall 25 min. No subagent.
+- **Wall time is the session's, not the deploy's:** the founder ran the server steps between turns, plus one round trip lost to commands that didn't show.
+- Against the earlier verifies (B1 $5.40, B3 $6.52, B2 $5.28), the cheapest yet, for the largest stage (L, +3,875 lines). Cache read 11.7M sits between B1's 12.3M and B2's 9.5M. **The reported output, 2.3k, looks low** for a session that wrote a record, a log and four commits of code and tests; most of the writing went through tool calls, which this figure may not count. Worth checking how `/usage` counts output before 10a compares sessions by it.
 
 ## Next
 **8a B4b** (slot A), Opus medium, from build plan 0.5 and review checklist 0.3. Its card carries S-13 (`@simplewebauthn/browser`, the `/admin/setup/<code>` page, the `excludeCredentials` wording) and says what its verify deploys. That verify issues the first production setup token, then MS2's real passkeys (V-7). **8d MS1** can run at any point.
