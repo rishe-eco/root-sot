@@ -15,7 +15,7 @@
 **MS1's acceptance holds** (live, headers by `curl -I`, one restore). Status col 8 `3/10`.
 
 **Next steps, in order**
-1. **Founder: F-8.** Accept the B2 changes to build plan §5 B2/§7, review checklist §6, `config.md` §7, `CLAUDE.md` (listed in `imnstr/open-work.md` 0.5 and the record's *Flagged for close-out*).
+1. ~~Founder: F-8~~ **done:** accepted and applied: build plan 0.4, review checklist 0.3, config 0.3, `CLAUDE.md`.
 2. **8a B4a** (slot A). The card must say what its verify deploys, and write server commands for a sudo user. S-8 (tune `imnstr_auth`) is B4a's.
 3. **8d MS1** (full suites, one runner at a time), any time.
 

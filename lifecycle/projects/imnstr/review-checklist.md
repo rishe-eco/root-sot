@@ -2,7 +2,7 @@
 
 *What every `verify` of an IMNSTR stage checks, after the lane report and the diff stat and before the stage record. Items are short so a review can tick them; each cites where it comes from. The plan's §5 section for the stage adds that stage's own acceptance and traps on top. Sources: build plan 0.1 §0.2, §0.3, §0.4, §8 and §9; spec 0.4 §4.3; the journeys build's review pass (retro §2).*
 
-**Version 0.2 · Status: in use, first by `verify B1` · 2026-10-11 · Owner: founder**
+**Version 0.3 · Status: in use · 2026-10-14 · Owner: founder**
 
 ---
 
@@ -92,7 +92,9 @@ root-app runs in production on the same box; IMNSTR is a guest.
 - [ ] **After the deploy:** `curl -I` on `/`, `/fa/` and a 404 shows the exact CSP and no `Set-Cookie`; root-app's own URL still answers. Both go in the stage record.
 - [ ] **Noindex** until launch (PD-22).
 - [ ] **`E2E_CLOCK` is unset in production**, and the server refuses to boot if it is set.
-- [ ] **certbot's edits** to `imnstr.conf` are copied back to the repo, so the next deploy keeps TLS.
+- [ ] **The live conf is a copy** in `sites-available`, changed only by `cp`, `nginx -t`, reload. certbot runs `certonly` and edits no conf.
+- [ ] **No listen-level flag** in `imnstr.conf`: no `http2`, `default_server`, `proxy_protocol` or `reuseport`. In nginx 1.18 each one reaches every site sharing the port.
+- [ ] **Commands for the server** are written for a sudo user: `sudo` on each line, `| sudo tee` for root-owned files, one command per line.
 - [ ] **Any edit to root-app** is the one line in its `deploy/README.md` at B2's verify, on root-app's `main`, with the founder's go-ahead. Nothing else.
 
 ## 7. Done means *(plan §8)*
@@ -128,5 +130,6 @@ These can't be proven by a lane or a suite. Each goes to the stage record's *ver
 
 ## Changelog
 
+- **0.3 · 2026-10-14** — §6: the conf is a copy and certbot runs `certonly`; no listen-level flags; server commands for a sudo user. From B2's verify, accepted by the founder (F-8).
 - **0.2 · 2026-10-11** — §3: routes mount in `app.ts`, not `server.ts`; found at B1's verify and accepted by the founder.
 - **0.1 · 2026-10-10** — First version, at trial step 7b, from build plan 0.1 and spec 0.4 §4.3. Not yet used by a review.

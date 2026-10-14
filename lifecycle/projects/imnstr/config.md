@@ -2,7 +2,7 @@
 
 *Where things are for the IMNSTR build, how its suites run, and which resources each lane gets. Read by `build-phase` (lane resources, the card's paths) and `verify` (suites, stage records, the milestone script, the deploy checks). The rules a lane follows are in `brief-common.md`; what a review checks is in `review-checklist.md`.*
 
-**Version 0.2 · Status: in use; the code repo exists (`rishe-eco/imnstr`) · 2026-10-11 · Owner: founder**
+**Version 0.3 · Status: in use; the code repo is `rishe-eco/i-monster`; MS1 live · 2026-10-14 · Owner: founder**
 
 **Grading.** Founder decisions are marked **[F]**. Everything about the code repo is **planned**: B1 creates the scripts and names, so where B1's stage record differs, it wins and this file is updated. Machine facts are **as-built** from the build machine's notes (`root-app-dev-machine`, `imnstr-build`), 2026-10-10.
 
@@ -12,8 +12,8 @@
 
 | | |
 |---|---|
-| Code repo | `rishe-eco/imnstr`, **public [F]** (org spelling confirmed at step 7b) |
-| Remote (this machine) | `git@github-TheMonster1995:rishe-eco/imnstr.git` (SSH alias; `gh` isn't installed) |
+| Code repo | `rishe-eco/i-monster`, **public [F]** (moved from `rishe-eco/imnstr` on 2026-10-14, history rewritten for the commit identity) |
+| Remote (this machine) | `git@github-TheMonster1995:rishe-eco/i-monster.git` (SSH alias; `gh` isn't installed). Commit as `TheMonster1995`: check `git config --local user.email` first |
 | Main checkout | `E:\_root\imnstr` |
 | Lane worktrees | `E:\_root\imnstr\.claude\worktrees\<branch>` (made by the Agent tool's worktree isolation). **B1 adds `.claude/worktrees/` to `.gitignore`.** |
 | Module folder | `root-sot/imnstr/modules/01-website/` |
@@ -104,12 +104,14 @@ PORT=4100 DB_PATH=.tmp/milestone.db E2E_CLOCK=1 npm run e2e
 |---|---|
 | Host | root-app's VPS, as a co-tenant **[F]** |
 | App | compose project `imnstr`, `127.0.0.1:4100`, `/srv/imnstr/` (data in `/srv/imnstr/data`, backups in `/srv/imnstr/backups`) |
-| Nginx | `/etc/nginx/sites-available/imnstr`, linked from `sites-enabled`; zone `imnstr_auth`; the repo copy is `deploy/nginx/imnstr.conf` |
-| Image install | `npm ci --ignore-scripts` in the Dockerfile, for the same reason; better-sqlite3 ships Linux prebuilds (S-6, B2) |
-| Routine deploy | on the server: `cd /srv/imnstr && git pull && docker compose -f docker-compose.prod.yml build && docker compose -f docker-compose.prod.yml up -d` |
+| Nginx | `/etc/nginx/sites-available/imnstr`, a **copy** of `deploy/nginx/imnstr.conf`, linked from `sites-enabled`; zone `imnstr_auth`. Changed only by `cp`, `nginx -t`, reload. Certificate by `certbot certonly` with a reload deploy hook |
+| The box | Ubuntu 22.04, nginx 1.18, certbot 1.21; no swap, about 1.2 GiB free. Five other tenants (root-app and four more); none uses `http2` on `:443`, and no `default_server`. The founder works as a **sudo user** and pastes one command at a time |
+| Image install | `npm ci --omit=dev --ignore-scripts` in the Dockerfile, one stage; better-sqlite3 ships Linux prebuilds (S-6, B2) |
+| Routine deploy | on the server, as a sudo user, three lines: `cd /srv/imnstr && sudo git pull`; `sudo docker compose -f docker-compose.prod.yml build`; `sudo docker compose -f docker-compose.prod.yml up -d`. Conf changes as in the deploy README |
 | Who deploys | the orchestrator with the founder, at each stage's verify from B2 on. Lanes have no server access. |
 | Checks after each deploy | `nginx -t` (before any reload); `curl -I` on `/`, `/fa/` and a 404; root-app's own URL answering. Into the stage record. |
-| Open | the VPS facts (P0-3), the backup target (P0-4), DNS (P0-2) |
+| Image check | start Docker Desktop before launching a deploy lane; the lane, or else the review, builds and runs the image once before it reaches the server |
+| Open | the off-box backup target (F-7, deferred by the founder); P0-2 and P0-3 answered |
 
 ## 8. Models
 
@@ -123,5 +125,6 @@ PORT=4100 DB_PATH=.tmp/milestone.db E2E_CLOCK=1 npm run e2e
 
 ## Changelog
 
+- **0.3 · 2026-10-14** — §1: the repo is `rishe-eco/i-monster`; commit identity. §7: the conf is a copy, `certonly` with a deploy hook; the box's facts; deploy as a sudo user; `--omit=dev`; the image check. From B2's verify, accepted by the founder (F-8).
 - **0.2 · 2026-10-11** — §6 and §7: install with `--ignore-scripts` (F-5, found at B3's verify). Status: in use.
 - **0.1 · 2026-10-10** — First version, at trial step 7b, from build plan 0.1 (§3, §4, B1, B2, §7, §8) and the build machine's notes. The org is `rishe-eco`, confirmed by the founder.

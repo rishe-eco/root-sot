@@ -70,6 +70,7 @@ The record used B3's headings: **Built** (with *The review changed*), **Decided*
 - *Founder:* "Is that last `cp` correct? … wasn't it re-written by certbot? wouldn't this destroy that?" *Answer:* `certonly` changes no config. The live file is still the bootstrap until the `cp` replaces it, and the final conf already holds the TLS lines. The README now says so.
 - *Founder's notes after the deploy:* every command needed `sudo`; they pasted one at a time; redirects broke under `sudo`. The README is now fixed for a sudo user.
 - *The root-app line, on `main`?* **"Pull first, then commit, then push."** Done.
+- *F-8, the B2 changes to the plan, checklist, config and `CLAUDE.md`?* **"Accept all of them."** Applied in this session, as at 8c B1 and B3: build plan 0.4, review checklist 0.3, config 0.3, `CLAUDE.md` in the code repo.
 
 ## Skill shape
 `verify`, Opus high, is right for the review. For a deploy stage, split it:
@@ -91,8 +92,7 @@ Injectable at invocation: the diff stat, the report's items 4–6, `docker info`
 *Founder fills in after the session.*
 
 ## Next
-**8a B4a** (slot A), Opus medium. Before writing its card:
-- F-8: the founder's go-ahead on the plan, checklist and config changes, so the card cites current text;
+**8a B4a** (slot A), Opus medium, from build plan 0.4, review checklist 0.3 and config 0.3 (F-8 applied). For its card:
 - every card from now on deploys at its verify, so the card should say what the verify will deploy.
 
 The repo is `rishe-eco/i-monster`; the local clone `E:\_root\imnstr` already points there. **8d MS1** (full suites) can run at any point; MS1's acceptance otherwise holds.

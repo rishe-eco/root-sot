@@ -2,7 +2,7 @@
 
 *Module `imnstr/modules/01-website/` · Track: Module · Phase 7 · `build-plan`. The order the code lands in and the shape it takes, to the level of tables, routes, refusal codes, screens and tests, so that each stage's phase card is a transcription and not a design exercise. Inputs: `02-spec.md` 0.4, `03-journeys.md` 0.3, `04-wireframes.html` (W1–W11), `04b-design/README.md` 0.2, `05-ux-review.md` pass 1, `06-eval-plan.md` 0.2, change notes 01–03; for the host, `root-app/deploy/`. Update the changelog; don't fork.*
 
-**Version 0.3 · Status: plan; B1 and B3 built and verified · 2026-10-11 · Owner: founder**
+**Version 0.4 · Status: plan; B1, B2 and B3 built and verified; MS1 live · 2026-10-14 · Owner: founder**
 
 **Where this file yields.** On *what* the site does, the spec wins. On what a person experiences, the journeys win. On how it looks, the design wins. On *what order the code lands in and what shape it takes*, this file wins. Where it settles something the spec left open, §2 says so.
 
@@ -415,9 +415,10 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
 **Goal.** B1's shell running at `https://imnstr.com` on root-app's VPS, redeployable with one command, backed up, and leaving root-app untouched.
 
 **Files** (in the code repo):
-- `Dockerfile`: `node:24-slim`, with a build stage that has the toolchain for `better-sqlite3`, and a runtime stage without it. It runs as the `node` user, with a healthcheck on `/healthz`.
+- `Dockerfile`: `node:24-slim`, one stage, `npm ci --omit=dev --ignore-scripts`. better-sqlite3 loads its prebuilt glibc binary, so there is no toolchain and no build stage. It runs as the `node` user, through `tsx` (a runtime dependency), with a healthcheck on `/healthz`. `.dockerignore` keeps the host's `node_modules` out.
 - `docker-compose.prod.yml`:
-  - project `imnstr`, port `127.0.0.1:4100:4100`, volume `/srv/imnstr/data:/data`;
+  - project `imnstr`, port `127.0.0.1:4100:4100`, volumes `/srv/imnstr/data:/data` and `/srv/imnstr/backups:/backups`;
+  - `restart: unless-stopped`, `mem_limit: 256m` (the box has no swap);
   - `logging: json-file, max-size 10m, max-file 3`;
   - `env_file: .env`.
 - `deploy/nginx/imnstr.conf`:
@@ -426,8 +427,10 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
   - `access_log off` (spec §5, "server logs");
   - `error_log /var/log/nginx/imnstr-error.log crit`;
   - `limit_req_zone … zone=imnstr_auth` (PD-15), a name distinct from root-app's.
-- `deploy/README.md`: first-time setup, routine deploys (`git pull && docker compose build && up -d`), certificates (`certbot --nginx -d imnstr.com -d www.imnstr.com`), the CLIs, and the checks after a deploy.
-- `deploy/backup.sh`: runs the `backup` CLI (SQLite's online backup API) into `/srv/imnstr/backups/`, keeps 14 days, and copies off-box to P0-4's target. Run by host cron, daily.
+- `deploy/nginx/imnstr.bootstrap.conf`: port 80 only, for the first certificate.
+- `deploy/README.md`, written for a sudo user, one command per line: first-time setup, routine deploys (`git pull`, `docker compose build`, `up -d`), certificates (`certbot certonly --nginx -d imnstr.com -d www.imnstr.com --deploy-hook 'nginx -t && systemctl reload nginx'`, after the bootstrap conf), the CLIs, and the checks after a deploy. The live conf is a **copy** in `sites-available`, not a link into the repo.
+- `scripts/backup.ts` (new, `npm run backup`): SQLite's online backup API to a new file, switched to a rollback journal so it is one self-contained file, then `integrity_check`.
+- `deploy/backup.sh`: runs it in the container into `/srv/imnstr/backups/`, keeps 14 days, and copies off-box to P0-4's target (`BACKUP_REMOTE`; exit 1 when unset). Run by host cron, daily.
 
 **Tests.**
 - A unit test reads `imnstr.conf` as text. It asserts `access_log off`, that the zone name starts `imnstr_`, and that the conf sets no security headers (PD-18).
@@ -444,7 +447,8 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
 
 **Traps.**
 - **Duplicate `limit_req_zone` names fail `nginx -t` for the whole box,** and with it root-app's reloads. Use distinct names, and always run `nginx -t` first.
-- **`certbot --nginx` edits the conf file it's given.** Point it at `imnstr.conf` only, and keep the repo's copy in sync with what certbot wrote, or the next deploy undoes TLS.
+- **The live conf is a copy.** Change it only by `cp`, `nginx -t`, reload, keeping the previous file to put back. A link into the repo would let certbot's renewal edits land in the checkout, and a `git pull` change what the next reload loads. certbot runs `certonly`, so it never edits the conf.
+- **No listen-level flags in a guest's conf.** `http2`, `default_server`, `proxy_protocol` and `reuseport` belong to the address and port in nginx 1.18, so one in `imnstr.conf` changes every site on the box.
 - **`TRUST_PROXY` doesn't apply:** the app never reads the client address (house rule 9). Don't copy root-app's setting.
 - **The lane has no server access.** It writes the files and the README. The orchestrator, with the founder, runs the first deploy and records the checks.
 
@@ -948,7 +952,7 @@ The label is the other language, in that language: "فارسی" or "English" (AC
 
 **In root-app's code: nothing.** On the shared VPS:
 1. A new Nginx file, `/etc/nginx/sites-available/imnstr`, linked from `sites-enabled`, with its own `limit_req` zone and error log.
-2. A certificate for `imnstr.com` and `www.imnstr.com`, renewed by the same certbot timer.
+2. A certificate for `imnstr.com` and `www.imnstr.com`, by `certbot certonly`, renewed by the same certbot timer, with a deploy hook that reloads Nginx after `nginx -t`.
 3. A compose project, `imnstr`, on `127.0.0.1:4100`, and `/srv/imnstr/`.
 4. A cron line for `deploy/backup.sh`.
 
@@ -1033,6 +1037,10 @@ The other PD-n are mechanics. Veto any one of them, and the stage it governs cha
 ---
 
 ## Changelog
+
+- **0.4 · 2026-10-14:** After B2's verify (stage record `docs/development/B2.md` in the code repo), by the founder's decision (F-8). These are corrections, and change no stage's scope.
+  - **§5 B2:** one image stage without a toolchain; `tsx` a runtime dependency; `restart`, `mem_limit` and the backups volume; the bootstrap conf and `certbot certonly` with a deploy hook; `scripts/backup.ts` as a new file; the README for a sudo user. The certbot-sync trap is replaced by the copy rule; a new trap for listen-level flags (the card's `http2`, found at review).
+  - **§7 item 2:** `certonly` and the deploy hook.
 
 - **0.3 · 2026-10-11:** After B3's verify (stage record `docs/development/B3.md` in the code repo), by the founder's decision. These are corrections, and change no stage's scope.
   - **§5 B3:** the order is `first_published_at DESC, id ASC`. The files the stage needed beyond the list, and the test-only entry routes, are named.
