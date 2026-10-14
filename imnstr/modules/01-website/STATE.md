@@ -2,6 +2,35 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-14 · `lifecycle-trial/imnstr` (step 8b, B4b landed)
+
+*Replaces the lane table and next step 1 of the step-8a B4b block. Its card calls and "what the verify deploys" still stand. Adds to the step-8e block, which it doesn't replace: CD1 and CD-0 stand as written there. Run in the same session as 8a, because the report came back here.*
+
+**Lanes in flight:** none. B4b has reported and is waiting for verify.
+
+| Stage | Branch | Worktree | Report | Status |
+|---|---|---|---|---|
+| B4b Auth screens (M) | `b4b-auth-screens` @ `8cb1e99` (`8e0e524`, `fafa366`, `8cb1e99`), **local only** | `E:\_root\imnstr\.claude\worktrees\b4b-auth-screens` | `briefs/B4b.report.md` | landed; 40 files, +2,617 / −63 (over M's ~1,500, under L's); lane ~29 min wall, 341k tokens, 116 tool uses |
+
+**Next steps, in order**
+1. **8c, verify B4b** (Opus · high), a fresh session on this machine. Review checklist §4, §5 and §6. The card's image check was **not done**: see below. Then deploy with the founder, the first real setup token and phone passkey.
+2. CD1 as in the 8e block, beside it. **8d MS1** any time; MS2 after B4b's verify.
+
+**For verify to decide** (report items 4 to 6):
+- **The image was never built.** Docker Desktop's VM disk went read-only (`meta.db: read-only file system`; `docker run` fails too). Both stages' `npm ci` ran first. The lane didn't restart Docker Desktop. Restarting it is the founder's call, or the verify builds the image after a restart. Vite's Linux binding in `node:24-slim` is unproven.
+- **The VPS builds the image** (B2; and CD1's deploy). There's 1.2 GiB free and no swap, and the build stage now runs `npm ci` with dev deps plus `vite build`. Check that the box can do it.
+- **CD1's check job** runs "build if present". B4b adds `npm run build` and `check` now also runs `tsc -p admin`.
+- **A 401 console error on every signed-out visit:** the bundle probes `GET session`, which answers 401 by design (B4a). The e2e filters 4xx "failed to load" lines only. A `200 {signedIn:false}` would change `admin-api.ts`.
+- **The bundle has no wall clock.** The code's 10 min, "Copied" and a new `signInPauseMs` (5 s after 3 failures) are timers from `limits.ts`. The ban on `Date.now()` holds everywhere.
+- **No poll on the enrol panel,** because a poll would be a heartbeat. Plate 12's "waiting…" row isn't built.
+- **Remove's button says "Remove",** not the design's "Sign in again and remove".
+- **The name rule is duplicated** in `admin/passkey.ts` (checked before the ceremony); the server still decides.
+- **Default name** `phone` / `tablet` / `computer` from the UA; "laptop" can't be detected.
+- **`formatAdminDay` in `lib/dates.ts`,** with `define process.env = {}` in Vite; the zone comes from a `<meta>` in the shell.
+- **The setup view picks enrolment code or token by shape.** The address becomes `/admin` after success.
+- **`preact` is bundled** but listed as a runtime dependency (plan §6.6).
+- **Not verified:** the image; real providers and their `excludeCredentials` wording; a real phone and keyboard; dark contrast.
+
 ## 2026-10-14 · `lifecycle-trial/imnstr` (step 8e, spec change: CI deploy) · imnstr `main @ d29166b`
 
 *Adds to the step-8a B4b block below; replaces nothing. B4b's lane, card calls and next steps 1–3 stand. Run as `spec change`, as the founder asked: the trial table has no row for a mid-build Change (log `08e-ci-deploy-change.md`, Spec gaps).*
