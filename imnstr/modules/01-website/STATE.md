@@ -2,6 +2,27 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-15 · `lifecycle-trial/imnstr` (step 8a, CD1 launched) · imnstr `main @ 4c2b9b2`
+
+*Adds to the step-8e blocks below; replaces nothing. Run beside a step-8d session (milestones), which writes its own block.*
+
+**Card:** `briefs/CD1.md` (`e3470f8`), from change note 0.3 *CD1*.
+
+**Lanes in flight**
+
+| Stage | Branch | Worktree | Slot | Status |
+|---|---|---|---|---|
+| CD1 | `cd1-ci-deploy` from `4c2b9b2`, no upstream | `E:\_root\imnstr\.claude\worktrees\cd1-ci-deploy` | B (`4120`, `.tmp/e2e.db`; no e2e server needed) | background Sonnet lane, running; report also to `<worktree>/.tmp/CD1.report.md` |
+
+**The card settles:** actions pinned by `git ls-remote`; the harness stubs `flock` and `runuser` (Git Bash has neither) and resolves Git Bash explicitly on Windows (System32's `bash.exe` is WSL); `checks.sh` run against the live site with `PRELAUNCH=1`; Docker only if already up, and the Linux `node:24` full run only when no other heavy runner shows (8d may be running one), else CI does it at the verify.
+
+**Next steps, in order**
+1. **8b, land CD1** when the lane reports (this session, if it comes back here).
+2. **8c, verify CD1** (Opus · high), with the founder at the server: the note's *At the verify* list. The `production` environment must exist first (CD-0).
+3. 8a B5 (slot A) can start beside the CD1 lane; 8d MS1/MS2 as in the B4b block.
+
+**Owed by the founder:** the GitHub environment `production` (before CD1's verify); F-7; F-2.
+
 ## 2026-10-15 · `lifecycle-trial/imnstr` (step 8e, amended: CD-0 answers) · imnstr `main @ 4c2b9b2`
 
 *Adds to the step-8c B4b block below and amends the step-8e block (10-14). The 8e block's CD1 plan stands, as amended by change note **0.2**. Same 8e session, continued after the founder pasted the CD-0 output.*
