@@ -45,7 +45,7 @@ As at B4b: landing is mechanical. It could be Sonnet · low, apart from the "for
 - **Rule:** when a lane departs from the plan or the note, the land step lifts that departure into `STATE.md` for verify. It is not left inside the report's item 5. **Event:** the CD1 lane changed the "already current" path, for a sound reason. **Scope:** `build-phase --land`. **Destination:** its Land steps. **urgent:** no.
 
 ## Cost
-*Founder fills in after the session.* Lane, by the harness: 189k tokens, 59 tool uses, about 15 min.
+Shared with 8a; see `08a-CD1-launch.md`, *Cost* ($4.35 for the whole session). Lane, by the harness: 189k tokens, 59 tool uses, about 15 min.
 
 ## Next
 8c verify CD1 (Opus · high), in a fresh session, with the founder at the server and on GitHub. Before it: create the `production` environment. Start Docker Desktop if the review should run `shellcheck` and the Linux run locally; otherwise CI's first `check` does the Linux run.

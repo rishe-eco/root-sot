@@ -79,7 +79,11 @@ Opus, medium is enough when a change note is this detailed: most of the card is 
 - **Rule:** shell scripts tested from Node on Windows resolve Git Bash explicitly; `bash` may be WSL. Git Bash lacks `flock` and `runuser`, so harnesses stub them. **Event:** found by `which`/`where` before the lane, at no cost. **Scope:** IMNSTR and any repo on this machine. **Destination:** `brief-common.md` *Environment*. **urgent:** no.
 
 ## Cost
-*Founder fills in after the session.*
+*From the founder, after the session. This session ran 8a and 8b; the figures are the whole session, including the Sonnet lane:*
+- Cost: $4.35 · API 12m 52s · active 7m 39s, as reported.
+- Split: Sonnet 55%, Opus 45%; cache hit 98%.
+- Lines: +1,544 / −28 (the lane's code plus this session's card, report, STATE and logs).
+- The lane, by the harness: 189k tokens, 59 tool uses, about 15 min.
 
 ## Next
 8b, land CD1, when the lane reports: in this session if it comes back here. Then 8c verify CD1 (Opus · high), with the founder at the server and on GitHub; the `production` environment must exist first. 8a B5 (slot A) can launch beside the lane.
