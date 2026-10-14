@@ -76,7 +76,7 @@ Stage record: *Built* (with *The review changed*) · *Decided* (with *Where the 
 3. **Rule:** a sign-out button may claim success only when the server confirmed it. **Event:** B4b's sign-out ignored the answer. Caught at review. **Scope:** any app with server sessions. **Destination:** review checklist §4.
 
 ## Cost
-*Founder fills in after the session.*
+From `/usage` at the end of the session (it covers the whole session, deploy included): Opus 5.5, 134 input / 2.2k output / 10.1M cache read / 313.9k cache write tokens; **$5.47**; API time 9 min; wall time **115 min**, most of it waiting on Docker, the e2e runs and the founder at the server.
 
 ## Next
 - **8d MS1** any time. **MS2** (B3, B4a, B4b) is now reachable: the founder's laptop, a hybrid sign-in, enrolment by code with the QR, AC-24 (V-7, S-15).
