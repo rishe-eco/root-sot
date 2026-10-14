@@ -2,6 +2,30 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-14 · `lifecycle-trial/imnstr` (step 8a, B4a launched) · imnstr `main @ 76727e4`
+
+*Replaces next step 2 of the step-8c B2 block. Its carry-overs, the owed founder items and step 3 (8d MS1) still stand.*
+
+**Code repo:** `rishe-eco/i-monster` `main @ 76727e4`. **Lanes in flight:** one.
+
+| Stage | Branch | Worktree | Slot | Card | Status |
+|---|---|---|---|---|---|
+| B4a Passkeys and sessions, server (L) | `b4a-auth-server`, from `76727e4`, local | `E:\_root\imnstr\.claude\worktrees\b4a-auth-server` | A: `4110`, `.tmp/e2e.db` | `briefs/B4a.md` (`3df044f`) | running, background Sonnet lane; report to `<worktree>/.tmp/B4a.report.md` and its final message |
+
+**Card calls the plan didn't make** (for verify to rule on, against plan §5 B4a):
+- `ORIGIN` is a new env variable. It defaults to `https://imnstr.com` in production and `http://localhost:<PORT>` otherwise, and the RP ID comes from its hostname, so the server's `.env` needs no new line.
+- `GET /admin/api/session` answers 401 when signed out. The plan says it reports "signed in or not"; a 401 keeps the AC-8 enumeration free of exceptions. Signed in, it also carries `independenceNoteDismissed` (AC-24).
+- Routes go in `routes/admin-api.ts`. The software authenticator goes in `tests/`, not `test/` as the plan wrote.
+- `@simplewebauthn/browser` waits for B4b; the e2e drives Edge's virtual authenticator on a bare page.
+- S-8: the lane keeps or retunes `imnstr_auth` and says why.
+
+**What the verify deploys:** image rebuild and restart, plus the conf only if S-8 changed it. Then `curl` checks: `/admin/api/session` 401, a foreign-Origin POST 403, `/__test/auth` 404, public headers unchanged. No setup token is issued in production until B4b.
+
+**Next steps, in order**
+1. **8b, land B4a** (Opus · medium) when the lane reports, in this session if it comes back here.
+2. **8c, verify B4a** (Opus · high), fresh, with review checklist §4 line by line; the founder at the server for the deploy.
+3. **8a B4b** after B4a lands. **8d MS1** any time.
+
 ## 2026-10-14 · `lifecycle-trial/imnstr` (step 8c, B2 verified and deployed) · imnstr `main @ 10db886`
 
 *Replaces the 8b B2 block's lanes and next steps. Its "for verify to decide" list is answered in `docs/development/B2.md`. The session ran 10-11 (review) and 10-14 (server).*
