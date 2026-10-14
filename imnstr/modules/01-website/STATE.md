@@ -2,6 +2,32 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-14 · `lifecycle-trial/imnstr` (step 8b, B4a landed)
+
+*Replaces the lane table and next step 1 of the step-8a B4a block. Its card calls and "what the verify deploys" still stand. Run in the same session as 8a, because the report came back here.*
+
+**Lanes in flight:** none. B4a has reported and is waiting for verify.
+
+| Stage | Branch | Worktree | Report | Status |
+|---|---|---|---|---|
+| B4a Passkeys and sessions, server (L) | `b4a-auth-server` @ `2433e91` (`43cc2b3`, `2433e91`), **local only** | `E:\_root\imnstr\.claude\worktrees\b4a-auth-server` | `briefs/B4a.report.md` | landed; 29 files, +3,875 / −5 (over L's ~3,000, under budget); lane ~23 min, 277k tokens, 92 tool uses |
+
+**Next steps, in order**
+1. **8c, verify B4a** (Opus · high), a fresh session on this machine. Review checklist §4 line by line. Then deploy with the founder at the server: an image rebuild only (the lane kept the Nginx zone), and the card's `curl` checks.
+2. **8a B4b** after B4a is verified. **8d MS1** any time.
+
+**For verify to decide** (report items 4 and 5):
+- **`__Host-` works on Edge over `http://localhost`.** The cookie is the same in every environment, so there's no development exception and no "production keeps it" test.
+- **Three refusal codes are not in plan §6.2:** `REGISTRATION_FAILED`, `REQUEST_INVALID` (a name over 60 characters or with control characters), and `NAME_REQUIRED` reused from B7's list.
+- **`auth/reauth/*`, `auth/register/*` (from a session) and `auth/signout`** check the session and CSRF themselves, inside the unguarded `auth/` prefix. Is the 401 enumeration still complete with them outside it?
+- **The guard is one `use('*')`,** so an unregistered `/admin/api` path answers 401. Signed in, it gets the public HTML 404, not JSON `NOT_FOUND` (B5's to settle).
+- **Issuing an enrolment code voids earlier unused ones,** and issuing any code sweeps used and expired rows. A used code then reads as unknown, with the same refusal.
+- **Back-off:** a request inside the wait is refused unchecked and doesn't extend it. Reauth failures count.
+- **Algorithms pinned** to ES256, RS256 and EdDSA. One user handle is kept in `setting.webauthn_user_handle`.
+- **Delete order:** `REAUTH_REQUIRED`, then `NOT_FOUND`, then `LAST_PASSKEY`.
+- **S-8:** zone kept at `30r/m burst=10`, so no conf change; `deploy.test.ts` pins it as a floor.
+- **Not verified:** timing equality of `redeemCode` (by reading only); `npm run setup-token` inside the container; real providers (MS2).
+
 ## 2026-10-14 · `lifecycle-trial/imnstr` (step 8a, B4a launched) · imnstr `main @ 76727e4`
 
 *Replaces next step 2 of the step-8c B2 block. Its carry-overs, the owed founder items and step 3 (8d MS1) still stand.*
