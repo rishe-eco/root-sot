@@ -89,7 +89,16 @@ Injectable at invocation: the diff stat, the report's items 4–6, `docker info`
 - *Lane's item 7:* "Docker Desktop running on the build machine, so the card's one-off image check could be done." Agreed. `config.md` should say to start Docker Desktop before launching a deploy lane.
 
 ## Cost
-*Founder fills in after the session.*
+*From the founder, after the session. The total covers the review, the deploy with the founder, the root-app line, and F-8 (build plan 0.4, checklist 0.3, config 0.3, `CLAUDE.md`).*
+- Opus 5.5: 132 in / 30.4k out / 9.5M cache read / 434.9k cache write.
+- Cost $5.28; API 8 min; wall 12 min. No subagent.
+- **Wall time is the session's, not the deploy's.** The founder ran the server parts between turns, over two calendar days, and that time isn't counted. The session also restarted between 10-11 and 10-14, so these figures may cover only the second half. If so, the review's local Docker work is missing from them.
+- Against B1's verify ($5.40) and B3's ($6.52), it is the cheapest of the three, with the least cache read (9.5M against 12.3M and 16.9M). Output was 15× B3's: the record, the log, the rewritten README and the F-8 edits were all written here, not copied.
+- **What added calls:**
+  - Git Bash rewriting container paths (`MSYS_NO_PATHCONV`);
+  - CRLF in root-sot and root-app, which broke two exact-match edits;
+  - a heredoc the shell misparsed;
+  - re-checking the repo after the history rewrite.
 
 ## Next
 **8a B4a** (slot A), Opus medium, from build plan 0.4, review checklist 0.3 and config 0.3 (F-8 applied). For its card:
