@@ -2,6 +2,27 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-15 · `lifecycle-trial/imnstr` (step 8c, B4b verified and deployed) · imnstr `main @ 4c2b9b2`
+
+*Replaces the step-8b B4b block: its lane table, its next step 1 and its "for verify to decide" list are settled in `docs/development/B4b.md`. Adds to the step-8e block, which still stands: CD1 and CD-0 as written there. Run as 8c at medium effort, at the founder's word: the opening prompt said "step 8a, review B4b" (log `08c-B4b-verify.md`, Session).*
+
+**Code repo:** `rishe-eco/i-monster` `main @ 4c2b9b2`, pushed and deployed. The worktree and branch `b4b-auth-screens` are removed. **Lanes in flight:** none. Status column 8: `5/10`.
+
+**Review fixes** (`7676c6c`): the passkey-name rule now lives in one file (`lib/passkey-name.ts`). Removing the passkey that opened the session, when it isn't this device's own, goes to sign-in, not "can't sign in any more". Sign-out keeps the shell unless the server confirmed it. Two new e2e tests.
+
+**Deployed 2026-10-14 22:43 UTC:** the shell, bundle, API and public headers all as expected (record, *Verification*). The VPS built both stages with 1,209 MiB still available. **The founder's phone holds the first real passkey:** set up from a real token, then signed out and back in.
+
+**Next steps, in order**
+1. **8d MS1** any time; **MS2** is reachable now: the laptop by enrolment code with the QR, a hybrid sign-in, AC-24 (V-7, S-15).
+2. **8a B5** (slot A, Opus · medium), and/or **8a CD1** (slot B) per the 8e block.
+
+**Carry-overs**
+- **This machine's `C:` drive has 0 GB free.** Docker Desktop's disk goes read-only when it grows: that's what broke the lane's image check. Free space before any Docker work.
+- **B6 reuses `withReauth` / `ReauthHost`** from `admin/reauth.tsx`. B5 fills the empty editor, Entries and Podcast slots in `admin/app.tsx` (W1 order), and owes S-11 and S-12.
+- Signed-out visits log one 401 in the console (`GET session`, by design). The e2e filters 4xx load lines only.
+
+**Owed by the founder:** CD-0; F-7 (off-box backups); F-2 (content). Open-work 0.8.
+
 ## 2026-10-14 · `lifecycle-trial/imnstr` (step 8b, B4b landed)
 
 *Replaces the lane table and next step 1 of the step-8a B4b block. Its card calls and "what the verify deploys" still stand. Adds to the step-8e block, which it doesn't replace: CD1 and CD-0 stand as written there. Run in the same session as 8a, because the report came back here.*
