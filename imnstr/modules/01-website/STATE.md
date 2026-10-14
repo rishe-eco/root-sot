@@ -2,6 +2,28 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-14 · `lifecycle-trial/imnstr` (step 8e, spec change: CI deploy) · imnstr `main @ d29166b`
+
+*Adds to the step-8a B4b block below; replaces nothing. B4b's lane, card calls and next steps 1–3 stand. Run as `spec change`, as the founder asked: the trial table has no row for a mid-build Change (log `08e-ci-deploy-change.md`, Spec gaps).*
+
+**Change note:** `changes/04-ci-deploy.md` 0.1. A push to `main` on `rishe-eco/i-monster` runs check (`npm ci --ignore-scripts`, `npm run check`, build if present, Vitest), then deploys over SSH. The deploy user is forced-command-locked to `/usr/local/sbin/imnstr-deploy` and has one sudoers line with no arguments. The image builds on the VPS. Stop files (exit 2, nothing changed): `imnstr.conf` against the live copy, `docker-compose.prod.yml`, the installed script. A failed health check or `deploy/checks.sh` check exits 1 and doesn't roll back. Switched on by the repo variable `DEPLOY_ENABLED`. One stage, **CD1 (M)**.
+
+**Founder decided:** no automatic rollback; compose is a stop file; checks split (the root script is fixed, the `curl` checks live in the repo and run as `nobody`). SSH reachability is not known yet: **CD-0**, founder pre-flight before CD1's verify.
+
+**Lanes in flight:** B4b only (slot A), unchanged. CD1 is not launched.
+
+**Next steps, in order** (B4b's 1–3 above still stand; CD1 can run beside them)
+1. **8a CD1** (Opus · medium): `build-phase changes/04-ci-deploy.md#CD1`. Branch `cd1-ci-deploy`, **slot B** (`4120`), beside B4b. The card is drawn from the note's CD1 section, not plan §5.
+2. **Founder, CD-0,** before CD1's verify: `ufw` and `sshd -T` output, `AllowUsers`, root-app's own URL; the GitHub environment `production`.
+3. **8b, then 8c CD1** (Opus · high), with the founder at the box, following the note's *At the verify* steps 1–8.
+
+**Carry-overs**
+- **From `DEPLOY_ENABLED=true` on, a verify's push to `main` is the deploy.** Check for stop files, a new `.env` line or one-off server steps before pushing. Watch the run (public Actions page) and paste its URL into the record. A red run means not deployed (note, CD1 *Traps*).
+- **B4b may be the first stage deployed this way,** if CD1 verifies first. Its `/admin` and bundle checks then go into `deploy/checks.sh`. Its `setup-token` step stays by hand.
+- **Owed at CD1's verify (founder, as F-items):** what goes stale in config §7, review checklist §6, plan B2 and §7, and `brief-common` (note, last section). The status cell isn't touched: col 8 stays `4/10`, and whether CD1 counts in the total is the verify's call.
+
+**Owed by the founder:** CD-0; F-7 (off-box backups); F-2 (content).
+
 ## 2026-10-14 · `lifecycle-trial/imnstr` (step 8a, B4b launched) · imnstr `main @ d29166b`
 
 *Replaces next step 1 of the step-8c B4a block. Its carry-overs, the owed founder items and step 2 (8d MS1) still stand. Run as 8a: the opening prompt said "step 8a, review B4b", but B4b had no card yet, so this session launched it.*
