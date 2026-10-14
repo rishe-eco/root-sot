@@ -2,6 +2,32 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-14 · `lifecycle-trial/imnstr` (step 8a, B4b launched) · imnstr `main @ d29166b`
+
+*Replaces next step 1 of the step-8c B4a block. Its carry-overs, the owed founder items and step 2 (8d MS1) still stand. Run as 8a: the opening prompt said "step 8a, review B4b", but B4b had no card yet, so this session launched it.*
+
+**Code repo:** `rishe-eco/i-monster` `main @ d29166b`. **Lanes in flight:** one.
+
+| Stage | Branch | Worktree | Slot | Card | Status |
+|---|---|---|---|---|---|
+| B4b Auth screens (M) | `b4b-auth-screens`, from `d29166b`, local, no upstream | `E:\_root\imnstr\.claude\worktrees\b4b-auth-screens` | A: `4110`, `.tmp/e2e.db` | `briefs/B4b.md` (`01b8233`) | running, background Sonnet lane; report to `<worktree>/.tmp/B4b.report.md` and its final message |
+
+**Card calls the plan didn't make** (for verify to rule on, against plan §5 B4b and PD-21):
+- **A build step, for the admin only.** `vite build` writes one fixed-name `admin.js` and `admin.css` to `dist/admin/`. `lib/assets.ts` hashes them like every other asset, so there is one scheme. Production boot refuses a missing bundle. Pages still render with no build (PD-4).
+- **The Dockerfile becomes two stages:** build, then the current runtime stage copying `dist/admin`. The lane builds and runs the image once, since Docker Desktop is up. The routine deploy stays three lines.
+- **Deps:** `preact` and `@simplewebauthn/browser` in dependencies, `vite` in dev, no `@preact/preset-vite`. `admin/` gets its own JSX setting (root tsconfig is `hono/jsx`).
+- **Routes:** `routes/admin.tsx` serves one shell for `/admin` and `/admin/setup/:code`. The W1 sections B5–B7 fill are empty slots that render nothing.
+- **Copy** in `admin/copy.ts`, keyed by refusal code. The code's 10 min is stated with no countdown, then "Expired. Make a new code." by the clock.
+- **Re-authentication** is one dialog, run on `REAUTH_REQUIRED`, which retries the action once (for B6).
+- **No change to `routes/admin-api.ts`'s behaviour.** If one is needed, the lane stops and says so.
+
+**What the verify deploys:** an image rebuild (two stages), no conf change. `curl -I` on `/admin` and `/admin/setup/x` gives 200, CSP, `no-store` and no `Set-Cookie`; the bundle's hashed URL gives 200, immutable; the public headers are unchanged. Then the founder runs `setup-token` in the container and registers the real phone, the first real passkey (V-7 starts).
+
+**Next steps, in order**
+1. **8b, land B4b** (Opus · medium) when the lane reports, in this session if it comes back here.
+2. **8c, verify B4b** (Opus · high), fresh, with review checklist §4, §5 and §6; the founder at the server and on the phone.
+3. **8d MS1** any time; MS2 (B3, B4a, B4b) after B4b's verify.
+
 ## 2026-10-14 · `lifecycle-trial/imnstr` (step 8c, B4a verified and deployed) · imnstr `main @ d29166b`
 
 *Replaces the 8b B4a block's lanes and next steps. Its "for verify to decide" list is answered in `docs/development/B4a.md` (*Decided*). Run as 8c: the opening prompt said "step 8a, review B4a", and this block's predecessor named 8c verify B4a as next.*
