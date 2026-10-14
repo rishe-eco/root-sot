@@ -39,7 +39,10 @@ None.
 - **Rule:** `land` checks commit authors on the lane branch before recording it. **Event:** the 10-14 history rewrite; here both commits were right. **Scope:** `build-phase --land` for rishe-eco repos. **Destination:** the skill's land steps. **urgent:** no.
 
 ## Cost
-*From the founder, after the session. The session ran 8a and 8b; the lane used about 277k tokens, 92 tool uses, 23 minutes.*
+*From the founder, after the session. This session ran 8a and 8b; the figures are the whole session, including the Sonnet lane:*
+- Opus 5.5: 66 in / 1.2k out / 3.7M cache read / 109.6k cache write.
+- Cost: $6.95 · API 21m · wall 5m, as reported.
+- The subagent (the lane) was 67% of the cost. The lane itself reported about 277k tokens, 92 tool uses and 23 minutes.
 
 ## Next
 8c, verify B4a (Opus · high), in a fresh session, with the founder at the server for the deploy.

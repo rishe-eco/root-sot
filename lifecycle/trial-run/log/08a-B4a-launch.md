@@ -78,7 +78,10 @@ The reference file should hold the card template, with *What the verify deploys*
 - **Rule:** the lane prompt repeats the commit-identity check, and the orchestrator checks the worktree's `user.email` before launching. **Event:** the 10-14 history rewrite (memory `rishe-eco-git-identity`). A worktree inherits the repo's local config, but a lane can't know whose identity is right. **Scope:** `build-phase` launches for any rishe-eco repo. **Destination:** `brief-common.md` *Git*, through the founder. **urgent:** no.
 
 ## Cost
-*From the founder, after the session.*
+*From the founder, after the session. This session ran 8a and 8b; the figures are the whole session, including the Sonnet lane:*
+- Opus 5.5: 66 in / 1.2k out / 3.7M cache read / 109.6k cache write.
+- Cost: $6.95 · API 21m · wall 5m, as reported.
+- The subagent (the lane) was 67% of the cost. The lane itself reported about 277k tokens, 92 tool uses and 23 minutes.
 
 ## Next
 8b, land B4a, when the lane reports: in this session if it comes back here. Then 8c verify B4a (Opus · high), with the founder at the server for the deploy.
