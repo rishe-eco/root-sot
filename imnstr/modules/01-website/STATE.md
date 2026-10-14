@@ -2,6 +2,22 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-15 · `lifecycle-trial/imnstr` (step 8e, amended: CD-0 answers) · imnstr `main @ 4c2b9b2`
+
+*Adds to the step-8c B4b block below and amends the step-8e block (10-14). The 8e block's CD1 plan stands, as amended by change note **0.2**. Same 8e session, continued after the founder pasted the CD-0 output.*
+
+**CD-0, answered:** SSH is open to all on 22 (`ufw`: 22/80/443 from anywhere, IPv4 and IPv6), key-only (`passwordauthentication no`), with no `AllowUsers` or `AllowGroups`. GitHub's hosted runners can connect, and `sshd` needs no change. **Still open:** root-app's URL for the "still answers" check; the GitHub environment `production`.
+
+**Note 0.2, brought up to `main @ 4c2b9b2`:**
+- B4b was deployed by hand, so it is **not** the first CI deploy; likely B5 is. B4b's shell and bundle checks join CI-8.
+- CI runs `npm run build`. The lockfile trap is retired: the VPS built Vite on Linux at B4b.
+- The next `imnstr.conf` change (S-14) will stop a CI deploy with exit 2.
+- The founder's sudo user on the box is `deploy`; CI's is `imnstr-deploy`, a separate account.
+
+**Next steps** are unchanged from the B4b block: 8d MS1/MS2; **8a B5** (slot A) and/or **8a CD1** (slot B, from note 0.2's CD1 section).
+
+**Owed by the founder:** root-app's check URL and the `production` environment (both before CD1's verify); F-7; F-2.
+
 ## 2026-10-15 · `lifecycle-trial/imnstr` (step 8c, B4b verified and deployed) · imnstr `main @ 4c2b9b2`
 
 *Replaces the step-8b B4b block: its lane table, its next step 1 and its "for verify to decide" list are settled in `docs/development/B4b.md`. Adds to the step-8e block, which still stands: CD1 and CD-0 as written there. Run as 8c at medium effort, at the founder's word: the opening prompt said "step 8a, review B4b" (log `08c-B4b-verify.md`, Session).*

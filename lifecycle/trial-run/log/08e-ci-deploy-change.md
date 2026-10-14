@@ -57,6 +57,14 @@ Design calls in the note that the founder's constraints left open, each a *propo
 - This log.
 - Commit hash: see `git log` (one commit, *IMNSTR trial step 08e: spec change CI deploy*).
 
+- **0.2 amendment (2026-10-15):** re-pulled first. root-sot had gained 8b and 8c B4b (`444f350`, `b6b8979`, `39d543b`), and imnstr `main` had moved `d29166b` → `4c2b9b2`. I read the diff of `deploy/`, `Dockerfile`, `package.json`, `vitest.config.ts` and `CLAUDE.md`, the new top `STATE.md` block, open-work S-14 and S-15, and a grep of `docs/development/B4b.md`. Then I updated the note to **0.2**:
+  - B4b was deployed by hand, so it isn't the first CI deploy, and its checks join CI-8;
+  - `npm run build` replaces `--if-present`;
+  - the lockfile trap is retired, since the VPS built Vite on Linux;
+  - S-14's conf change is a stop;
+  - slot B is still CD1's, now next to a possible B5 in slot A.
+  New STATE block on top of 8c B4b's.
+
 ## Spec gaps
 - **The trial table has no row for a mid-build Change.** The README's Change-track line only covers intake finding a Change. This one arrived during the build, from the founder. I followed that line anyway (`spec change` writes a note with stages, then 8a–8c), as the founder said. The table wants a row: *8e Change · `spec` (`change`) · Opus · high · inputs: the founder's description, `STATE.md`, the plan sections and code it touches · output `changes/NN-slug.md` · done: questions asked, CI-style criteria, Stages in §5 shape · don't: write code or a card.*
 - **Step numbering for a Change mid-build.** "8e" was the founder's. `8d` is the milestone, so the letters run out quickly if Changes recur. The trial needs a rule, perhaps `8x-<slug>`.
@@ -69,6 +77,8 @@ Design calls in the note that the founder's constraints left open, each a *propo
 - **Who updates the documents a Change makes stale?** These are the config, the review checklist, the plan's B2 and `brief-common`. The method gives `revise` the spec and the founder the configs, but says nothing about a Change that overrides the plan. I listed them in the note for the founder to accept at CD1's verify, the way F-8 and F-9 went.
 - **The status table has no place for a Change.** Does CD1 count in column 8's `n/10`? I left the cell alone and passed the question to the verify.
 - **`changes/` mixes two kinds of file:** `revise`'s change requests (01–03) and `spec change`'s notes (04). The numbering is shared, and nothing in a file's name says which kind it is. The header line says so, here.
+
+- **A change note written beside a running build goes stale before its stage launches.** 0.1 was written against `d29166b`. By the time the founder answered, B4b had been verified and deployed by hand, so the note's "B4b may be the first" trap and its file guard against B4b were wrong. `build-phase` should re-read a change note against `main`'s log since the note's `main @` before drafting the card. A change note should carry its `main @` in the header, as this one does.
 
 ## Template sample
 Headings used:
@@ -94,6 +104,11 @@ Asked in one batch:
 3. *Should a `docker-compose.prod.yml` change stop the CI deploy, like `imnstr.conf`?* **Stop on change** (recommended).
 4. *Where do the post-deploy checks live?* **Split** (recommended): the root script is fixed, and the `curl` checks are `deploy/checks.sh` in the repo, run as an unprivileged user.
 
+**Continued 2026-10-15, same session.** The founder pasted the CD-0 output and asked "does this change anything?", adding that the repo had moved on.
+- `ufw` is active and allows 22, 80 and 443 from anywhere. `sshd -T` shows `port 22`, key-only login and no `AllowUsers` or `AllowGroups`. **The design stands.** Hosted runners can connect, no `sshd` change is needed, and `DEPLOY_PORT` is 22.
+- **The prompt shows the founder's sudo user is named `deploy`.** The note now says that CI's `imnstr-deploy` is a separate account.
+- **Still open:** root-app's URL and the GitHub environment.
+
 ## Skill shape
 `spec` in `change` mode: Opus, high, as specified. Not forked: it asks the founder. Inject at invocation:
 - the top two `STATE.md` blocks;
@@ -116,9 +131,10 @@ The reference file should hold:
 *Founder fills in after the session.*
 
 ## Next
-- **8a CD1** (Opus · medium): `build-phase changes/04-ci-deploy.md#CD1`, slot B, beside B4b.
-  - Draft the card from the note's CD1 section, not plan §5.
+*(As of 0.2, 2026-10-15.)*
+- **8a CD1** (Opus · medium): `build-phase changes/04-ci-deploy.md#CD1`, slot B. It can run beside a B5 lane in slot A.
+  - Draft the card from note 0.2's CD1 section, not plan §5.
   - Check `git config --local user.email` in the new worktree.
-  - The card must say: no edits to `Dockerfile`, `package.json` or `deploy.test.ts` (B4b's files); new test files only; action SHAs by `git ls-remote`.
-- **The founder's CD-0** answers are needed by CD1's verify, not its lane.
-- **If CD-0 finds SSH limited by address,** CD1's verify stops before the server part, and the note goes back to `spec change`.
+  - The card must say: no edits to `Dockerfile`, `package.json` or the compose file; new test files only; action SHAs by `git ls-remote`.
+  - `checks.sh` carries every README check on `main`, B4b's included.
+- **CD-0:** SSH is settled. root-app's check URL and the GitHub `production` environment are needed by CD1's verify, not its lane.
