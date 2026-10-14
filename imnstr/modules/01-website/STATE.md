@@ -2,6 +2,27 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-14 · `lifecycle-trial/imnstr` (step 8c, B2 verified and deployed) · imnstr `main @ 10db886`
+
+*Replaces the 8b B2 block's lanes and next steps. Its "for verify to decide" list is answered in `docs/development/B2.md`. The session ran 10-11 (review) and 10-14 (server).*
+
+**Lanes in flight:** none. The `b2-deploy` worktree is gone; B2 is on `main`.
+
+**Live:** `https://imnstr.com` (noindex). Compose project `imnstr` on `127.0.0.1:4100`, `/srv/imnstr` cloned from **`rishe-eco/i-monster`** (repo moved, history rewritten 10-14: B2 is `ddfb8af` + `ed83c99`). Nginx: a **copy** at `/etc/nginx/sites-available/imnstr`; certificate by `certbot certonly` with a reload deploy hook; `/etc/cron.d/imnstr-backup`, local only. root-app `main @ 46eeabf` carries the one co-tenant paragraph (plan §7).
+
+**Review fixed:** backup sidecars (`-wal`/`-shm`); `http2` removed (per-socket in nginx 1.18, it would have reached every tenant); symlink → copy; deploy hook; README for a sudo user, one command per line.
+
+**MS1's acceptance holds** (live, headers by `curl -I`, one restore). Status col 8 `3/10`.
+
+**Next steps, in order**
+1. **Founder: F-8.** Accept the B2 changes to build plan §5 B2/§7, review checklist §6, `config.md` §7, `CLAUDE.md` (listed in `imnstr/open-work.md` 0.5 and the record's *Flagged for close-out*).
+2. **8a B4a** (slot A). The card must say what its verify deploys, and write server commands for a sudo user. S-8 (tune `imnstr_auth`) is B4a's.
+3. **8d MS1** (full suites, one runner at a time), any time.
+
+**Carry-overs:** commands for the founder at the server: `sudo` on each line, `| sudo tee` for root-owned files, one command per line, no shell-tagged fences. Check `git config --local user.email` in every rishe-eco repo before committing.
+
+**Owed by the founder:** F-7, off-box backups (`BACKUP_REMOTE` + ssh key), deferred at their word; daily local copies run, cron exits 1 until then. F-2 content.
+
 ## 2026-10-11 · `lifecycle-trial/imnstr` (step 8b, B2 landed)
 
 *Replaces the lane table and next step 1 of the step-8a B2 block. Its card calls, founder's answers and the owed item still stand. Run in the same session as 8a, because the report came back here.*
