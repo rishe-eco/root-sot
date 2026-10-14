@@ -79,7 +79,10 @@ The reference file should hold the card template, and a line for "this stage cha
 - **Rule:** `build-phase` picks launch or land from the files (`briefs/<stage>.md`, `.report.md`) and `STATE.md`, not from the verb in the opening prompt. **Event:** twice now (B4a, B4b) the prompt said "review" for a different step; the state was right both times. **Scope:** `build-phase`, `verify`. **Destination:** both skills' first step. **urgent:** no.
 
 ## Cost
-*Founder fills in after the session.*
+*From the founder, after the session. This session ran 8a and 8b; the figures are the whole session, including the Sonnet lane:*
+- Opus 5.5: 76 in / 1.9k out / 4.7M cache read / 111k cache write.
+- Cost: $9.31 · API 23m · wall 7m, as reported.
+- The subagent (the lane) was 73% of the cost. The harness gave it 341k tokens, 116 tool uses and about 29 min.
 
 ## Next
 8b, land B4b, when the lane reports: in this session if it comes back here. Then 8c verify B4b (Opus · high), with the founder at the server and on the phone: the first real setup token and passkey.

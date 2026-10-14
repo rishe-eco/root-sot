@@ -45,7 +45,10 @@ Opus, medium; or Sonnet, since landing is a transcription plus a lane table. Inj
 - **Rule:** the land records the harness's duration and tokens, not the lane's own estimate. **Event:** the B4b report says 3.5 h; the harness says about 29 min. **Scope:** `build-phase --land`. **Destination:** its reference file. **urgent:** no.
 
 ## Cost
-*Founder fills in after the session (this session ran 8a and 8b; the lane alone was 341k tokens, 116 tool uses, about 29 min).*
+*From the founder, after the session. This session ran 8a and 8b; the figures are the whole session, including the Sonnet lane:*
+- Opus 5.5: 76 in / 1.9k out / 4.7M cache read / 111k cache write.
+- Cost: $9.31 · API 23m · wall 7m, as reported.
+- The subagent (the lane) was 73% of the cost. The harness gave it 341k tokens, 116 tool uses and about 29 min.
 
 ## Next
 8c, verify B4b (Opus · high), fresh. First get Docker Desktop working again, or build the image another way, because the card's image check is undone. Then deploy with the founder: the first setup token and the phone's passkey. CD1 (8e block) may run beside it.
