@@ -2,7 +2,7 @@
 
 *Where things are for the IMNSTR build, how its suites run, and which resources each lane gets. Read by `build-phase` (lane resources, the card's paths) and `verify` (suites, stage records, the milestone script, the deploy checks). The rules a lane follows are in `brief-common.md`; what a review checks is in `review-checklist.md`.*
 
-**Version 0.3 · Status: in use; the code repo is `rishe-eco/i-monster`; MS1 live · 2026-10-14 · Owner: founder**
+**Version 0.4 · Status: in use; the code repo is `rishe-eco/i-monster`; MS1 live; a push to `main` deploys · 2026-10-15 · Owner: founder**
 
 **Grading.** Founder decisions are marked **[F]**. Everything about the code repo is **planned**: B1 creates the scripts and names, so where B1's stage record differs, it wins and this file is updated. Machine facts are **as-built** from the build machine's notes (`root-app-dev-machine`, `imnstr-build`), 2026-10-10.
 
@@ -107,9 +107,9 @@ PORT=4100 DB_PATH=.tmp/milestone.db E2E_CLOCK=1 npm run e2e
 | Nginx | `/etc/nginx/sites-available/imnstr`, a **copy** of `deploy/nginx/imnstr.conf`, linked from `sites-enabled`; zone `imnstr_auth`. Changed only by `cp`, `nginx -t`, reload. Certificate by `certbot certonly` with a reload deploy hook |
 | The box | Ubuntu 22.04, nginx 1.18, certbot 1.21; no swap, about 1.2 GiB free. Five other tenants (root-app and four more); none uses `http2` on `:443`, and no `default_server`. The founder works as a **sudo user** and pastes one command at a time |
 | Image install | `npm ci --omit=dev --ignore-scripts` in the Dockerfile, one stage; better-sqlite3 ships Linux prebuilds (S-6, B2) |
-| Routine deploy | on the server, as a sudo user, three lines: `cd /srv/imnstr && sudo git pull`; `sudo docker compose -f docker-compose.prod.yml build`; `sudo docker compose -f docker-compose.prod.yml up -d`. Conf changes as in the deploy README |
-| Who deploys | the orchestrator with the founder, at each stage's verify from B2 on. Lanes have no server access. |
-| Checks after each deploy | `nginx -t` (before any reload); `curl -I` on `/`, `/fa/` and a 404; root-app's own URL answering. Into the stage record. |
+| Routine deploy | **a push to `main`** (CD1, change note 04). `.github/workflows/deploy.yml` runs `check` (shellcheck, `npm run check`, build, `npm test` on Linux), then `deploy`: SSH as `imnstr-deploy`, whose key runs only `/usr/local/sbin/imnstr-deploy` (fast-forward, build on the box, `up -d --wait`, health, `nginx -t`, `deploy/checks.sh` as `nobody`). Gated by the **repository** variable `DEPLOY_ENABLED=true`. By hand, the same deploy: `sudo /usr/local/sbin/imnstr-deploy`. The script exits 2, changing nothing, when `deploy/nginx/imnstr.conf` differs from the live copy, `docker-compose.prod.yml` changed, or `deploy/imnstr-deploy.sh` differs from the installed copy; those steps stay manual, as in the deploy README |
+| Who deploys | **`verify`, by pushing `main`** (`git push origin HEAD:main` from the stage worktree; only `verify` moves `main`). Before the push it checks the stage's diff for a stop file or a new `.env` line; a new `.env` line goes in by hand **before** the push, and a stop file is planned with the founder. The founder is at the server only for those and one-off steps (a setup token, a cron line). Lanes have no server access and never push. |
+| Checks after each deploy | `deploy/checks.sh` is the one list (the script runs it; by hand, `bash deploy/checks.sh 1` while `PRELAUNCH=1`). A stage that adds a deploy check adds it there. **Reading the run:** job logs need a signed-in viewer even though the repo is public, so `verify` reads status and conclusion from `https://api.github.com/repos/rishe-eco/i-monster/actions/runs` (and `…/runs/<id>/jobs`), and asks the founder for the log download when it needs the lines. The run's URL goes in the stage record; a red run means the stage is not deployed. |
 | Image check | start Docker Desktop before launching a deploy lane; the lane, or else the review, builds and runs the image once before it reaches the server |
 | Open | the off-box backup target (F-7, deferred by the founder); P0-2 and P0-3 answered |
 
@@ -125,6 +125,7 @@ PORT=4100 DB_PATH=.tmp/milestone.db E2E_CLOCK=1 npm run e2e
 
 ## Changelog
 
+- **0.4 · 2026-10-15** — §7: a push to `main` deploys (CD1); who deploys; `deploy/checks.sh`; reading a run through the API. From CD1's verify, accepted by the founder (F-10).
 - **0.3 · 2026-10-14** — §1: the repo is `rishe-eco/i-monster`; commit identity. §7: the conf is a copy, `certonly` with a deploy hook; the box's facts; deploy as a sudo user; `--omit=dev`; the image check. From B2's verify, accepted by the founder (F-8).
 - **0.2 · 2026-10-11** — §6 and §7: install with `--ignore-scripts` (F-5, found at B3's verify). Status: in use.
 - **0.1 · 2026-10-10** — First version, at trial step 7b, from build plan 0.1 (§3, §4, B1, B2, §7, §8) and the build machine's notes. The org is `rishe-eco`, confirmed by the founder.

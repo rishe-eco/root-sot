@@ -2,7 +2,7 @@
 
 *Module `imnstr/modules/01-website/` · Track: Module · Phase 7 · `build-plan`. The order the code lands in and the shape it takes, to the level of tables, routes, refusal codes, screens and tests, so that each stage's phase card is a transcription and not a design exercise. Inputs: `02-spec.md` 0.4, `03-journeys.md` 0.3, `04-wireframes.html` (W1–W11), `04b-design/README.md` 0.2, `05-ux-review.md` pass 1, `06-eval-plan.md` 0.2, change notes 01–03; for the host, `root-app/deploy/`. Update the changelog; don't fork.*
 
-**Version 0.5 · Status: plan; B1, B2, B3 and B4a built and verified; MS1 live · 2026-10-14 · Owner: founder**
+**Version 0.6 · Status: plan; B1, B2, B3, B4a, B4b and CD1 built and verified; MS1 live; a push to `main` deploys · 2026-10-15 · Owner: founder**
 
 **Where this file yields.** On *what* the site does, the spec wins. On what a person experiences, the journeys win. On how it looks, the design wins. On *what order the code lands in and what shape it takes*, this file wins. Where it settles something the spec left open, §2 says so.
 
@@ -412,7 +412,7 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
 
 ### B2 · Deploy
 
-**Goal.** B1's shell running at `https://imnstr.com` on root-app's VPS, redeployable with one command, backed up, and leaving root-app untouched.
+**Goal.** B1's shell running at `https://imnstr.com` on root-app's VPS, redeployable with one command, backed up, and leaving root-app untouched. *(Since CD1, change note 04: redeployed by a push to `main`, or by hand with `sudo /usr/local/sbin/imnstr-deploy`.)*
 
 **Files** (in the code repo):
 - `Dockerfile`: `node:24-slim`, one stage, `npm ci --omit=dev --ignore-scripts`. better-sqlite3 loads its prebuilt glibc binary, so there is no toolchain and no build stage. It runs as the `node` user, through `tsx` (a runtime dependency), with a healthcheck on `/healthz`. `.dockerignore` keeps the host's `node_modules` out.
@@ -452,7 +452,7 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
 - **`TRUST_PROXY` doesn't apply:** the app never reads the client address (house rule 9). Don't copy root-app's setting.
 - **The lane has no server access.** It writes the files and the README. The orchestrator, with the founder, runs the first deploy and records the checks.
 
-**Not here:** the content routes. Each later stage deploys at its own verify.
+**Not here:** the content routes. Each later stage deploys at its own verify: since CD1, by that verify's push to `main` (config §7).
 
 ---
 
@@ -958,6 +958,7 @@ The label is the other language, in that language: "فارسی" or "English" (AC
 2. A certificate for `imnstr.com` and `www.imnstr.com`, by `certbot certonly`, renewed by the same certbot timer, with a deploy hook that reloads Nginx after `nginx -t`.
 3. A compose project, `imnstr`, on `127.0.0.1:4100`, and `/srv/imnstr/`.
 4. A cron line for `deploy/backup.sh`.
+5. Since CD1 (change note 04): the user `imnstr-deploy` (no groups; key with a forced command; root-owned `authorized_keys`), `/etc/sudoers.d/imnstr-deploy` (that one script, no arguments), and the root script `/usr/local/sbin/imnstr-deploy`.
 
 Each is recorded in the imnstr repo's `deploy/README.md`. root-app's `deploy/README.md` gains one line under "Somewhere else on the box", saying the box also hosts IMNSTR and pointing at that file. *That line is the only edit to root-app. It is made at B2's verify, on root-app's `main`, with the founder's go-ahead.*
 
@@ -1041,6 +1042,7 @@ The other PD-n are mechanics. Veto any one of them, and the stage it governs cha
 
 ## Changelog
 
+- **0.6 · 2026-10-15:** After CD1's verify (`docs/development/CD1.md`), by the founder's decision (F-10). §5 B2: a push to `main` deploys, in the goal and *Not here*. §7: item 5, what CD1 put on the box. No stage's scope changes.
 - **0.5 · 2026-10-14:** After B4a's verify (stage record `docs/development/B4a.md` in the code repo), by the founder's decision (F-9). These are corrections, and change no stage's scope.
   - **§5 B4a:** `ORIGIN` and the RP ID from it; the browser timeout equals the challenge's 5 min (found at review); routes in `routes/admin-api.ts`; `GET session` answers 401 when signed out and carries `independenceNoteDismissed`; the ceremonies that check a session themselves; S-8 kept at `30r/m burst=10`; `tests/`, not `test/`.
   - **§6.1:** the `auth/*` row says which ceremonies need a session.

@@ -33,11 +33,11 @@
 - a red run means not deployed.
 
 **Next steps, in order**
-1. **The founder answers F-10** (open-work 0.9): config §7, checklist §6, build plan B2/§7, brief-common, change note 04.
+1. ~~The founder answers F-10~~ **Done, same session:** config 0.4, checklist 0.4, build plan 0.6, brief-common 0.3, change note 0.4, open-work 0.11.
 2. **8a B5** (slot A). Its verify is likely the first stage deployed by CI.
 3. 8d as in its own block; its push of `main` now deploys too.
 
-**Owed by the founder:** F-10; F-7; F-2. Status column 8 stays `5/10` (CD1 is a Change, not a plan stage).
+**Owed by the founder:** F-7; F-2. Status column 8 stays `5/10` (CD1 is a Change, not a plan stage).
 
 ## 2026-10-15 · `lifecycle-trial/imnstr` (step 8b, CD1 landed) · imnstr `main @ 4c2b9b2`
 

@@ -69,6 +69,7 @@ The stage record kept B4b's headings: *Built* (with *The review changed*), *Deci
 
 ## Founder Q&A
 - *Founder:* "like this?", with the key's `SHA256:` fingerprint in angle brackets in the `authorized_keys` line. *Answer:* no; the line takes the public key's text (`Get-Content …\imnstr-ci-key.pub`), without the brackets.
+- *Founder:* "would you run F10 or should I run it in another session?" *Answer:* here, as F-8 and F-9 were; listed the edits. *Founder:* "yes, F-10". Applied: config 0.4 §7, review checklist 0.4 §6, build plan 0.6 (B2 goal and *Not here*, §7 item 5), brief-common 0.3 (Git), change note 0.4 (lock path, already-current build, repository variable, reading a run), open-work 0.11 (F-10 closed; 0.10 was the 8d session's).
 - *Founder:* "Deploy keeps saying job was skipped", with run 2's logs. *Answer:* `DEPLOY_ENABLED` must be a **repository** variable, not one of the `production` environment; move it and re-run. Run 3 went green.
 
 ## Skill shape

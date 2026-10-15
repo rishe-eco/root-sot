@@ -97,7 +97,7 @@ One stage. The lane writes the files and proves them locally. The server part is
   - writes `DEPLOY_KEY` and `DEPLOY_KNOWN_HOSTS` to `0600` files under `$RUNNER_TEMP`, then runs `ssh -i … -p "$DEPLOY_PORT" -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=… imnstr-deploy@"$DEPLOY_HOST"` with no remote command;
   - passes the remote exit code through, and reads `DEPLOYED <sha>` from the output (CI-9).
 - **`deploy/imnstr-deploy.sh`**, the reference copy of `/usr/local/sbin/imnstr-deploy`, in bash with `set -euo pipefail`. In order:
-  1. take `flock -n` on `/run/lock/imnstr-deploy.lock`;
+  1. take `flock -n` on `/run/imnstr-deploy.lock` *(0.4: not `/run/lock`, which is world-writable on a shared box)*;
   2. check the tree is clean;
   3. `git fetch origin main` (anonymous HTTPS, as today);
   4. check it is a fast-forward;
@@ -110,7 +110,7 @@ One stage. The lane writes the files and proves them locally. The server part is
   11. run `runuser -u nobody -- bash deploy/checks.sh <prelaunch>` from the new checkout;
   12. print `DEPLOYED <sha>`.
 
-  If `main` is already checked out, it skips steps 6–8 and still checks, so a re-run gives a verdict. Exit codes: **0** deployed; **2** stopped, nothing changed; **1** failed after something changed. Paths default to `/srv/imnstr` and the live locations, overridable by environment variables for the test harness only. `sudo`'s `env_reset` strips them from the deploy user.
+  If `main` is already checked out, it skips step 6 only, and still builds (cached), ups and checks, so a re-run gives a verdict *(0.4: skipping the build too gave a false green after a failed build, since the checkout had already moved)*. Exit codes: **0** deployed; **2** stopped, nothing changed; **1** failed after something changed. Paths default to `/srv/imnstr` and the live locations, overridable by environment variables for the test harness only. `sudo`'s `env_reset` strips them from the deploy user.
 - **`deploy/checks.sh`**: the README's checks, each one named and asserted (status, header present or absent, body code). It takes the origin (default `https://imnstr.com`), the `PRELAUNCH` flag and root-app's URL as arguments. It exits non-zero on the first failure and prints which check failed. It needs only `bash`, `curl`, `grep` and `sed` (it reads the bundle's hashed URLs from `/admin`).
 - **`deploy/README.md`**:
   - **Server setup for CI,** for a sudo user, `sudo` on each line, one command per line, `| sudo tee` for root files:
@@ -182,7 +182,7 @@ One stage. The lane writes the files and proves them locally. The server part is
 - **From the moment `DEPLOY_ENABLED` is `true`, every verify's push to `main` is that stage's deploy.** The verify then:
   1. **Before pushing,** checks the stage's diff for a stop file (`deploy/nginx/imnstr.conf`, `docker-compose.prod.yml`, `deploy/imnstr-deploy.sh`), a new `.env` line, or a one-off server step. A new `.env` line goes in by hand **before** the push: the app boots on defaults without it. For a stop file, plan the manual step, or expect the red exit 2 and do it then.
   2. **Pushes.**
-  3. **Watches the run** in a browser. The repo is public, so the Actions page reads without signing in, and the in-app browser can read it.
+  3. **Reads the run.** *(0.4: the job logs need a signed-in viewer even on a public repo.)* Status and conclusion come from `api.github.com/repos/rishe-eco/i-monster/actions/runs`; the log lines, when needed, from the founder's download.
   4. **Puts the run's URL and the `checks.sh` output** in the stage record.
 
   **A red run means the stage is not deployed, and the verify isn't done.** One-off server steps stay the founder's, by hand: a setup token, a conf, a cron line. A stage that adds a deploy check adds it to `deploy/checks.sh` in its own diff.
@@ -223,6 +223,7 @@ These are not edited by this note. CD1's verify lists them in the stage record, 
 
 ## Changelog
 
+- **0.4 · 2026-10-15** — After CD1's verify (F-10): the lock is `/run/imnstr-deploy.lock`; an already-current run still builds and ups; `DEPLOY_ENABLED` is a **repository** variable (an environment variable leaves `deploy` skipped); the Actions log needs sign-in, so the verify reads a run through the API. CD1 verified and switched on: imnstr `main @ 60d30db`, CI-11 by run 4.
 - **0.3 · 2026-10-15** — CD-0 question 3 answered: root-app is `https://m-root.com/` (200). The GitHub environment's steps are spelt out.
 - **0.2 · 2026-10-15** — CD-0 questions 1 and 2 answered (SSH open on 22, key-only, no `AllowUsers`); root-app's URL still open. Brought up to `main @ 4c2b9b2`: B4b was verified and deployed by hand, so it is not CD1's first CI deploy; its checks join CI-8; `npm run build` in CI; the lockfile trap is retired; the next conf change (S-14) is a stop. The founder's sudo user `deploy` is not CI's.
 - **0.1 · 2026-10-14** — First version (trial step 8e). Four founder decisions; one stage, CD1 (M).

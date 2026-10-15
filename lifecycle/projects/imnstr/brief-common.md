@@ -2,7 +2,7 @@
 
 *What every Sonnet lane building an IMNSTR stage gets, ahead of its phase card. `build-phase` sends this file and then the card. Paths, ports and suite commands are in `config.md` beside this file. Generalised from the journeys build's `brief-common.md` (recovered 2026-10-05, not committed), with the lane budget, the debug rules and a seventh part of the report added, as `skills-plan.md` §0 and `build-phase` ask.*
 
-**Version 0.2 · Status: in use, by the B1 and B3 lanes · 2026-10-11 · Owner: founder**
+**Version 0.3 · Status: in use · 2026-10-15 · Owner: founder**
 
 ---
 
@@ -42,7 +42,7 @@ Windows 10. The Bash tool runs Git Bash; npm runs package scripts through **cmd.
 
 - Work on the branch your card names, created from `main`. Small, meaningful commits are fine; follow the style of `git log --oneline -15`.
 - End every commit message with `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`.
-- **Don't merge, push, rebase or touch `main`.** Don't write a stage record in `docs/development/`: the reviewer writes it from your report.
+- **Don't merge, push, rebase or touch `main`.** A push to `main` is a production deploy (CD1), and only `verify` makes it. Don't push your branch either. Don't write a stage record in `docs/development/`: the reviewer writes it from your report.
 - **Never `git add -A` or `git add .`.** Add the files you changed by name.
 - **The repo is public.** No secrets, tokens, `.env` files, machine paths beyond `E:\_root\…` in docs, or personal data in any commit. `.env.example` only.
 
@@ -96,5 +96,6 @@ A stopped lane is not a failure. A fresh lane continues from your branch and you
 
 ## Changelog
 
+- **0.3 · 2026-10-15** — Git: a push to `main` deploys, so only `verify` pushes (F-10, from CD1's verify).
 - **0.2 · 2026-10-11** — Install with `npm install --ignore-scripts`, and why (F-5, found at B3's lane and verify). Status: in use.
 - **0.1 · 2026-10-10** — First version, at trial step 7b, from the journeys `brief-common.md`, build plan 0.1 §0.3, §3 and §8, and the build machine's notes. Not yet used by a lane.

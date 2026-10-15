@@ -2,7 +2,7 @@
 
 *What every `verify` of an IMNSTR stage checks, after the lane report and the diff stat and before the stage record. Items are short so a review can tick them; each cites where it comes from. The plan's §5 section for the stage adds that stage's own acceptance and traps on top. Sources: build plan 0.1 §0.2, §0.3, §0.4, §8 and §9; spec 0.4 §4.3; the journeys build's review pass (retro §2).*
 
-**Version 0.3 · Status: in use · 2026-10-14 · Owner: founder**
+**Version 0.4 · Status: in use · 2026-10-15 · Owner: founder**
 
 ---
 
@@ -96,6 +96,10 @@ root-app runs in production on the same box; IMNSTR is a guest.
 - [ ] **No listen-level flag** in `imnstr.conf`: no `http2`, `default_server`, `proxy_protocol` or `reuseport`. In nginx 1.18 each one reaches every site sharing the port.
 - [ ] **Commands for the server** are written for a sudo user: `sudo` on each line, `| sudo tee` for root-owned files, one command per line.
 - [ ] **Any edit to root-app** is the one line in its `deploy/README.md` at B2's verify, on root-app's `main`, with the founder's go-ahead. Nothing else.
+- [ ] **A push to `main` deploys** (CD1). Before the push: the stage's diff has no stop file (`deploy/nginx/imnstr.conf`, `docker-compose.prod.yml`, `deploy/imnstr-deploy.sh`), or its manual step is planned with the founder; any new `.env` line is on the box first. After it: the run is green (read through the API), and its URL is in the stage record.
+- [ ] **A stage that adds a deploy check edits `deploy/checks.sh`** in its own diff; the README points there.
+- [ ] **The deploy user stays narrow** (CI-4): `imnstr-deploy` is in no group but its own, its one sudoers line is `/usr/local/sbin/imnstr-deploy ""`, and its `authorized_keys` belongs to root with `restrict,command=…`. A change to the deploy script is reinstalled by hand.
+- [ ] **No global prune.** `docker image prune` or `system prune` without a filter removes other tenants' images; any pruning is filtered to `imnstr`.
 
 ## 7. Done means *(plan §8)*
 
@@ -130,6 +134,7 @@ These can't be proven by a lane or a suite. Each goes to the stage record's *ver
 
 ## Changelog
 
+- **0.4 · 2026-10-15** — §6: a push to `main` deploys, with the before and after checks; deploy checks go in `checks.sh`; the deploy user stays narrow; no global prune. From CD1's verify, accepted by the founder (F-10).
 - **0.3 · 2026-10-14** — §6: the conf is a copy and certbot runs `certonly`; no listen-level flags; server commands for a sudo user. From B2's verify, accepted by the founder (F-8).
 - **0.2 · 2026-10-11** — §3: routes mount in `app.ts`, not `server.ts`; found at B1's verify and accepted by the founder.
 - **0.1 · 2026-10-10** — First version, at trial step 7b, from build plan 0.1 and spec 0.4 §4.3. Not yet used by a review.
