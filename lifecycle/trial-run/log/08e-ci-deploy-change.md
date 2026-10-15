@@ -128,7 +128,7 @@ The reference file should hold:
 - **Rule:** facts only the founder can look up on a server go to a pre-flight list, not into the clarifying batch. **Event:** one of four questions came back "not sure; I'll check", which spent a slot in a four-question tool call. **Scope:** `spec` (both modes), `build-plan`. **Destination:** `spec`'s reference file. **urgent:** no.
 
 ## Cost
-*Founder fills in after the session.*
+From the founder's session panel at the end. It covers the whole session: the 10-14 note, plus the 10-15 CD-0 and root-app amendments. Opus 5.5 100%; **$4.79**; API time 11 min 6 s; active time **15 min 45 s**; +350 / −2 lines; cache hit 96%. Wall time, from 10-14 to 10-15, was mostly the founder away at the server.
 
 ## Next
 *(As of 0.2, 2026-10-15.)*
