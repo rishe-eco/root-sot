@@ -2,6 +2,25 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-15 · `lifecycle-trial/imnstr` (step 8c, CD1 verified) · imnstr `main @ 60d30db`
+
+*Replaces the step-8b CD1 block's next step 1. Adds to the 8e blocks and to any 8d block (an 8d MS2 session ran beside this one).*
+
+**CD1 is verified, on `main` and switched on.** Record: `docs/development/CD1.md`. The review's fixes are in `faceda1`: the lock moved to `/run/imnstr-deploy.lock`; the harness stubs are executable for Linux; `shellcheck` runs in CI. The lane's "already current still builds" was accepted. The box has `imnstr-deploy` (no groups, one sudoers command with `""`, a root-owned `authorized_keys` with the forced command) and the script installed at `/usr/local/sbin/imnstr-deploy`. GitHub has the environment `production` with four secrets, and the **repository** variable `DEPLOY_ENABLED=true`. Run 4 deployed `0cbfdc1` on its own (CI-11). Worktree and branch `cd1-ci-deploy` removed.
+
+**From now on, a push to `main` deploys.** Before a verify pushes:
+- check the stage's diff for a stop file (`deploy/nginx/imnstr.conf`, `docker-compose.prod.yml`, `deploy/imnstr-deploy.sh`) or a new `.env` line;
+- push `HEAD:main` from the stage worktree;
+- read the run at `api.github.com/repos/rishe-eco/i-monster/actions/runs` (job logs need sign-in);
+- a red run means not deployed.
+
+**Next steps, in order**
+1. **The founder answers F-10** (open-work 0.9): config §7, checklist §6, build plan B2/§7, brief-common, change note 04.
+2. **8a B5** (slot A). Its verify is likely the first stage deployed by CI.
+3. 8d as in its own block; its push of `main` now deploys too.
+
+**Owed by the founder:** F-10; F-7; F-2. Status column 8 stays `5/10` (CD1 is a Change, not a plan stage).
+
 ## 2026-10-15 · `lifecycle-trial/imnstr` (step 8b, CD1 landed) · imnstr `main @ 4c2b9b2`
 
 *Replaces the step-8a CD1 block's lane table and its next step 1. Adds to the 8e blocks and to any 8d block.*
