@@ -75,7 +75,7 @@ Opus · high suits it: the runs are mechanical, but the failure diagnosis and th
 3. **Rule:** with one WebAuthn user handle, two passkeys in **one** synced provider account share one slot and can replace each other. Ask whether two devices share an account before AC-24. **Event:** the risk came up mid-check, and a non-destructive check cleared it. **Scope:** IMNSTR auth; AC-24 before launch. **Destination:** review checklist §4/§8 (AC-24 row). urgent: no.
 
 ## Cost
-*Founder fills in.*
+From the founder's paste of the session panel: **$4.59**, API time 11 m 26 s, active 27 m 14 s, +166 / −20 lines, Opus 100%, cache hit 99%.
 
 ## Next
 1. Done in this session: both repos pushed, and run 6 green.
