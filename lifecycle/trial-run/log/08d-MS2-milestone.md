@@ -41,8 +41,8 @@ Milestone mode: the milestone script, one heavy runner at a time, then MS2's by-
 9. **The push of imnstr `main` was blocked** by the auto-mode permission check (as a production deploy), although the founder had said "push now". Before it, I had checked the Actions API: runs 3–5 green, none in progress. After the block, even `git status` and `git pull` in root-sot were refused. So I wrote the root-sot files with the file tools and left commits and pushes to the founder.
 
 ## Output
-- imnstr: `505be06` (Playwright `workers: 1`); `aa889cb` (MS2 record, B4b correction). **Local, not pushed** at the time of writing.
-- root-sot: `imnstr/open-work.md` 0.10; `STATE.md` block; this log. **Not committed** at the time of writing (git was blocked).
+- imnstr: `505be06` (Playwright `workers: 1`); `aa889cb` (MS2 record, B4b correction). Pushed later at the founder's word. CI run 6 (check, deploy) was green: https://github.com/rishe-eco/i-monster/actions/runs/38664468639
+- root-sot: `imnstr/open-work.md` 0.10; `STATE.md` block; this log, in `113ca14`, then a follow-up commit marking the push done. Git worked again later in the session, and the founder said to commit everything, then to push both.
 
 ## Spec gaps
 - **`verify --milestone` doesn't say what to do with a red suite.** I fixed the cause on `main` (a test config, not app code), as stage mode's step 3 would, and recorded both runs. The skill should say that a milestone may fix test infrastructure, but that a failing app test makes the milestone red and goes to `debug`.
@@ -78,7 +78,7 @@ Opus · high suits it: the runs are mechanical, but the failure diagnosis and th
 *Founder fills in.*
 
 ## Next
-1. **Push imnstr `main`** (`505be06`, `aa889cb`) and read the run (`api.github.com/repos/rishe-eco/i-monster/actions/runs?per_page=1`): green means deployed (same app code). Commit and push this root-sot session's files.
+1. Done in this session: both repos pushed, and run 6 green.
 2. **The phone check (V-7), when the founder has a phone:**
    - register the phone by code from a signed-in computer;
    - sign in on a computer by hybrid (the browser's QR, scanned by the phone), then see which passkey says "this device" (S-15);

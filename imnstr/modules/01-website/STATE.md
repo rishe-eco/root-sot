@@ -2,7 +2,7 @@
 
 *Newest block first. Written by `handoff`.*
 
-## 2026-10-15 · `lifecycle-trial/imnstr` (step 8d, MS2) · imnstr `main @ aa889cb` (local until the founder pushes it)
+## 2026-10-15 · `lifecycle-trial/imnstr` (step 8d, MS2) · imnstr `main @ aa889cb`, pushed and deployed (run 6 green)
 
 *Adds to the step-8c CD1 block below, which ran beside this session. It replaces next step 1 of the step-8c B4b block (8d MS1/MS2). Log: `08d-MS2-milestone.md`.*
 
@@ -12,12 +12,11 @@
 
 **MS2 status:** suites done; by hand partly owed (V-7). Status column 8 stays `5/10`.
 
-**Push pending.** The session's `git push` of imnstr `main` (`505be06`, `aa889cb`) was blocked by the auto-mode permission check as a production deploy. A push to `main` deploys now (CD1), with no stop file in these commits. The founder pushes it, or allows it, and then the CI run is read at `api.github.com/repos/rishe-eco/i-monster/actions/runs`.
+**Pushed and deployed.** The auto-mode permission check blocked the first push (as a production deploy). It went out later at the founder's word. CI run 6 was green on `aa889cb` (check, then deploy), and `/`, `/log`, `/fa/log` and `/admin` answer `200`.
 
 **Next steps, in order**
-1. Push imnstr `main` and check the run is green.
-2. As in the CD1 block: F-10, then **8a B5**.
-3. **The phone check (V-7)**, when the founder has a phone. Use the steps in this session's log, *Next*.
+1. As in the CD1 block: F-10, then **8a B5**.
+2. **The phone check (V-7)**, when the founder has a phone. Use the steps in this session's log, *Next*.
 
 **Owed by the founder:** V-7 (phone); F-10; F-7; F-2. **MS1's 8d** never ran on its own: MS2's suites cover its stages, and its by-hand checks were done at B2.
 
