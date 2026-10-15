@@ -2,6 +2,25 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-15 · `lifecycle-trial/imnstr` (step 8d, MS2) · imnstr `main @ aa889cb` (local until the founder pushes it)
+
+*Adds to the step-8c CD1 block below, which ran beside this session. It replaces next step 1 of the step-8c B4b block (8d MS1/MS2). Log: `08d-MS2-milestone.md`.*
+
+**Suites green** (counts in `docs/development/README.md`, *MS2*): `check` clean; Vitest **32 files, 599 tests**; Playwright **213 passed, 9 skipped**. The first full e2e failed 5 enrolment tests: two workers shared one server, database and clock. Fix `505be06`: `workers: 1` in `playwright.config.ts`.
+
+**By hand:** one English and one Persian entry seeded on production by the CLI (cleared by B8's `reset-content`). Two real computers: the Windows desktop (Chrome, Google Password Manager) holds the first passkey. **It was the desktop, not a phone, at B4b**; record corrected in `aa889cb`. The Ubuntu laptop (Chrome, GPM, another Google account) was enrolled by code. Chrome's `excludeCredentials` case is done. **Not done (the founder has no phone now):** phone passkey, hybrid sign-in, S-15, camera QR, phone keyboard, and **AC-24**, which the founder deferred to the phone check (open-work 0.10, V-7).
+
+**MS2 status:** suites done; by hand partly owed (V-7). Status column 8 stays `5/10`.
+
+**Push pending.** The session's `git push` of imnstr `main` (`505be06`, `aa889cb`) was blocked by the auto-mode permission check as a production deploy. A push to `main` deploys now (CD1), with no stop file in these commits. The founder pushes it, or allows it, and then the CI run is read at `api.github.com/repos/rishe-eco/i-monster/actions/runs`.
+
+**Next steps, in order**
+1. Push imnstr `main` and check the run is green.
+2. As in the CD1 block: F-10, then **8a B5**.
+3. **The phone check (V-7)**, when the founder has a phone. Use the steps in this session's log, *Next*.
+
+**Owed by the founder:** V-7 (phone); F-10; F-7; F-2. **MS1's 8d** never ran on its own: MS2's suites cover its stages, and its by-hand checks were done at B2.
+
 ## 2026-10-15 · `lifecycle-trial/imnstr` (step 8c, CD1 verified) · imnstr `main @ 60d30db`
 
 *Replaces the step-8b CD1 block's next step 1. Adds to the 8e blocks and to any 8d block (an 8d MS2 session ran beside this one).*

@@ -2,7 +2,7 @@
 
 *Owed items from stage reviews and close-out: what a stage left for the founder or for later, and anything past the verification ceiling. Written by `verify` and `close-out` only (lifecycle README §4); created by `verify B1`, trial step 8c. Not Root's `team/open-work.md`: IMNSTR is outside Root (`lifecycle/projects/imnstr/config.md` §1). Items owed to a later stage are also listed in the code repo's `docs/development/README.md`.*
 
-**Version 0.9 · 2026-10-15 · Owner: founder**
+**Version 0.10 · 2026-10-15 · Owner: founder**
 
 ---
 
@@ -38,7 +38,7 @@
 | S-11 | JSON `NOT_FOUND` for an unknown `/admin/api` path when signed in; it gets the public HTML 404 now | B5 | B4a |
 | S-12 | Routers go inside `adminApiRoutes`, after the guard, never under `auth/` (`auth-guard.test.ts` lists that prefix exactly) | B5, B7 | B4a |
 | ~~S-13~~ | ~~`@simplewebauthn/browser`; the `/admin/setup/<code>` page the CLI's link opens~~ **Done 2026-10-15** at B4b verify. Each platform's `excludeCredentials` wording moves to V-7. | B4b | B4a |
-| S-15 | "this device" after a hybrid sign-in names the other device's passkey: B4a's `device_credential` defaults to `opened_by`. Look at it with a real hybrid sign-in | MS2 | B4b |
+| S-15 | "this device" after a hybrid sign-in names the other device's passkey: B4a's `device_credential` defaults to `opened_by`. Look at it with a real hybrid sign-in. Not done at MS2: no phone | phone check (V-7) | B4b |
 | S-14 | Correct the stale "B4a puts routes here" comment in `imnstr.conf` | next conf change | B4a |
 | S-16 | Prune old `imnstr` images on the box, filtered by label or repository, never a global prune (other tenants' images) | any deploy | CD1 |
 
@@ -52,10 +52,11 @@
 | V-4 | Persian copy read by a Persian reader, including B3's new log and entry strings | before launch |
 | V-5 | Feed readers (NetNewsWire or Feedly) with Persian RTL and `<bdi>` in content | MS4 |
 | V-6 | W3C Feed Validator by URL, now the site is up. By direct input at B3: both feeds valid | optional |
-| V-7 | Real passkeys on the founder's phone and laptop, hybrid sign-in and enrolment by code; AC-24, both passkeys independent. B4a ran only the software and Edge virtual authenticators. **Started 2026-10-15** at B4b's deploy: the phone set up from a real setup token, then signed out and in. Still owed: the laptop, hybrid sign-in, enrolment by code with the QR scanned by a camera, each platform's `excludeCredentials` wording, the on-screen keyboard at 360 px | MS2 |
+| V-7 | Real passkeys on the founder's phone and laptop, hybrid sign-in and enrolment by code; AC-24, both passkeys independent. B4a ran only the software and Edge virtual authenticators. **Started 2026-10-15** at B4b's deploy: the founder's **Windows desktop** (Chrome, Google Password Manager) set up from a real setup token, then signed out and in (B4b's record first said "phone"; corrected at MS2). **At MS2, 2026-10-15:** the Ubuntu laptop (Chrome, Google Password Manager, a different Google account) enrolled by code from the desktop's link; each device signs in with its own passkey and marks it "this device"; `excludeCredentials` on Chrome with Google Password Manager shows the page's "This device already has a passkey for this site." after the manager's PIN, with no wording from Chrome. **Still owed, with a phone** (the founder had none at MS2): a phone passkey; hybrid (QR) sign-in, and S-15; the QR scanned by a camera; the phone's `excludeCredentials` wording; the on-screen keyboard at 360 px; **AC-24**, deferred by the founder to the phone check | when the founder has a phone; AC-24 again before launch |
 
 ## Changelog
 
+- **0.10 · 2026-10-15** — From `verify --milestone MS2`: V-7 advanced (laptop, enrolment by code, Chrome's `excludeCredentials`; the first passkey corrected to the desktop); the phone parts, S-15 and AC-24 moved to the phone check.
 - **0.9 · 2026-10-15** — From `verify CD1`: F-10 and S-16 added.
 - **0.8 · 2026-10-15** — From `verify B4b`: S-13 done; S-15 added; V-7 started (the first real passkey).
 - **0.7 · 2026-10-14** — From `verify B4a`: S-1 and S-8 done; S-11 to S-14 and V-7 added; F-9 added and closed by the founder's answer in the same session.
