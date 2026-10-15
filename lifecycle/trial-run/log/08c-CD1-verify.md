@@ -81,7 +81,7 @@ Opus · high fits: the review found three real defects in 1,285 lines of shell a
 3. **Rule:** when a parallel session holds the code repo's local `main`, verify pushes `HEAD:main` from the stage worktree and tells that session to rebase. **Event:** 8d had `09c7302` unpushed on local `main` during this verify. **Scope:** parallel 8c/8d. **Destination:** `verify` skill, trial README's parallel rule. `urgent: yes`: any later stage's verify pushes a deploy.
 
 ## Cost
-*Founder fills in.*
+From the founder's paste: **$5.82**; API time 9 m 55 s; active 15 m 46 s; +167 / −0 lines (as the app counts them); Opus 100%; cache hit 99%. Wall time ran longer, mostly waiting on the founder at the server and on GitHub.
 
 ## Next
 **8a B5** (slot A). B5's verify is likely the first stage deployed by CI: before its push, check the diff for stop files and `.env` lines, then read the run through the API. The 8d session will push `2020960` plus the MS2 record, which deploys too. F-10 is for the founder before 8a B5.
