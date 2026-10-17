@@ -2,6 +2,21 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-17 · `lifecycle-trial/imnstr` (step 8c, B7 deployed) · imnstr `main @ ca1b2aa`
+
+*Replaces the 8c B7 block's lane table and its next step 1. Its steps 2–3 stand. Log: `log/08c-B7-verify.md`, addendum.*
+
+**Lanes in flight:** none. No stage worktree is left; `b7-podcast` is merged and deleted.
+
+**B7 is live**, pushed with the founder's word: run 39071916145 (the stage) and 39072108147 (the record) green. `curl -I` right on every page incl. `/podcast` and `/fa/podcast`; the episodes API answers 401 signed out; `/admin` serves the new bundle (310,540 B, uncompressed until F-17). Production has no episodes yet. Status column 8 is `9/10`.
+
+**Next steps, in order**
+1. **8d MS3** (suites, `main @ ca1b2aa`); MS3 can't close until V-9.
+2. **8a B9**, the last stage (motion, wordmark, the access sweep). Its card should carry: move `expectWithinColumn` into `tests/e2e/support.ts`; the date input's clip at 180 px; contrast of B7's dark pairs.
+3. **The founder:** add one episode on production (sign in, publish, read `/podcast`); F-18, F-17, then V-9 with V-7.
+
+**Owed by the founder:** F-18, F-17, V-9 (with V-7), F-11, F-14, F-7, F-2. open-work 0.17.
+
 ## 2026-10-17 · `lifecycle-trial/imnstr` (step 8c, B7 verified, not yet deployed) · imnstr `main @ 7d82cc0`
 
 *Replaces the 8b B7 block's next step 1. Its steps 2–3 stand. Log: `log/08c-B7-verify.md`.*

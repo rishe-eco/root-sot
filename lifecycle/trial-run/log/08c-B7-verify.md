@@ -66,7 +66,7 @@ The record used B6's headings: Built (with "The review changed"), Decided (with 
 - `expectWithinColumn` is now copied in two specs (`editor.spec.ts`, `admin-podcast.spec.ts`); it belongs in `tests/e2e/support.ts` (B6 lesson 1; B9 can move it).
 
 ## Founder Q&A
-- **Asked at the wrap-up:** may I push `b7-podcast` to `main` (which deploys)? *Answer: below, in the addendum.*
+- **Asked at the wrap-up:** may I push `b7-podcast` to `main` (which deploys)? **Answer:** "You have my permission to push b7-podcast to main yourself."
 
 ## Skill shape
 - Opus · high was right. The one defect needed the form's display read against the server's PUT semantics, which a lane at Sonnet reasoning about one verb missed.
@@ -78,11 +78,20 @@ The record used B6's headings: Built (with "The review changed"), Decided (with 
 1. **Rule:** when a client may omit a field so the server fills it, check what the form shows for each verb: the fallback must be the value the server will keep. **Event:** B7's edit showed today for a cleared date while Save kept the episode's date. Found by reading, ~15 min with the test. **Scope:** any form with server-filled defaults. **Destination:** review checklist §1 (nothing lost / what you see is saved) and the plan's PD for defaults.
 2. **Rule:** a card's "Done" section lists the existing tests that pin the stage's absence. **Event:** three tests said "B7 isn't here yet"; the lane spent a full run on each to find them (lane item 7). **Scope:** every card for a stage that fills a placeholder. **Destination:** `build-phase`'s card template.
 
+## Addendum: the deploy
+With the founder's word, the push went through on the first try (`7d82cc0..a7c6292`). Asking before the push, as B6's lesson 3 said, avoided the classifier's refusal.
+- Run 39071916145 was green: `check` 21:40:14–21:40:42 UTC, `deploy` 21:40:45–21:41:18 UTC.
+- `curl -I` on `/`, `/fa/`, `/podcast`, `/fa/podcast`, `/log`, `/admin` and a 404: the exact CSP, noindex, no `Set-Cookie`. root-app answers `200`. `GET /admin/api/episodes` signed out: the one 401.
+- `/podcast` live shows the placeholder show links and the empty state (no episodes on production). That GET placed one counted `en:podcast` view (S-18, live).
+- `/admin` serves `admin.8356b93061.js`, 310,540 B, with the episode form: the new bundle, still uncompressed (F-17).
+- The record's deploy section went out as `ca1b2aa`, in run 39072108147 (green). imnstr **`main @ ca1b2aa`**; the local main checkout fast-forwarded.
+- The worktree and branch are removed. `git worktree remove` hit Permission denied on the folder again; `rm -rf` worked once the shell had left it. Status column 8 is now `9/10`.
+
 ## Cost
 *Founder fills in after the session.*
 
 ## Next
-1. **The founder's word on the push** (the closing question). Then: `git push origin HEAD:main` from `E:\_root\imnstr\.claude\worktrees\b7-podcast`; read the run at `api.github.com/repos/rishe-eco/i-monster/actions/runs`; `curl -I` the pages; fill the record's deploy section in a commit of its own; remove the worktree and branch; status column 8 → `9/10`.
+1. ~~The founder's word on the push~~ done: B7 is live (addendum). The founder adds one episode on production, with V-9 at the latest.
 2. **8d MS3** once B7 is live (suites), though MS3 can't close until V-9.
 3. **8a B9** after that.
 4. **The founder:** F-18, F-17, then V-9 with V-7.
