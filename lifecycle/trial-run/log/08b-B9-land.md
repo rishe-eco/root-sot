@@ -41,7 +41,7 @@ As at B7: Opus, medium is enough; the land is a copy, a size measured from the l
 None new; see *Spec gaps* item 1, which sharpens the 8a log's lesson.
 
 ## Cost
-*Founder fills in after the session. This session ran 8a and 8b; the lane's figures are above.*
+See `08a-B9-launch.md`: one session, one figure.
 
 ## Next
 8c, verify B9 (Opus · high), in a fresh session: the worktree is kept; ask the founder's word before the deploy push; read `Content-Encoding` on the live assets; status column 8 → `10/10`. Then 8d MS4.

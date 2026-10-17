@@ -88,7 +88,11 @@ Opus, medium (this session ran high, at the founder's word). Not forked; it hold
 - **Rule:** before drafting a card, grep the tests for assertions of an absence that the stage will end ("no script", "B7 absent"), and name each as a test that changes on purpose. **Event:** four tests pin "no `<script` at all" on public pages, though house rule 2 only bans inline script; B9's planned `wordmark.js` fails all four. B7's lane met the same thing ("B7 absent" tests) and edited them unprompted. Caught here by one grep. **Scope:** `build-phase` launch step 2; `verify` (hold tests to the rule's wording). **Destination:** `build-phase`'s card checklist. **urgent:** no.
 
 ## Cost
-*Founder fills in after the session.*
+*From the founder, after the session. This session ran 8a and 8b:*
+- Opus 5.5: 136 in / 2.4k out / 10.3M cache read / 327.9k cache write.
+- Cost: $12.94 · API 53m · wall 18m, as reported.
+- The harness gave the lane 402k tokens, 157 tool uses and about 78 min.
+- For comparison, B7 (L) cost $12.84 for its 8a+8b session, B6 (L) $12.35, B5 (M) $9.33.
 
 ## Next
 8b, land B9, when the lane reports: in this session if it comes back here. Then 8c, verify B9 (Opus · high): ask the founder's word before the deploy push; read `Content-Encoding` on the live assets; status column 8 → `10/10`. Then 8d MS4.
