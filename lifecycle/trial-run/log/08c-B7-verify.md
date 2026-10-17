@@ -94,7 +94,9 @@ The founder answered in chat: "I like them, accepted. And I tested publishing an
 - Like the F-15/F-16 follow-up at B6, this was done in the verify's own session at the founder's word, not as a new phase.
 
 ## Cost
-*Founder fills in after the session.*
+From the founder's paste: **$9.51**; API time 18 m, wall 30 m; Opus 5.5 only; 194 input / 2.4k output tokens, 21.3M cache read, 493.1k cache write. The wall time likely counts only the session after the usage-limit pause, while the dollars cover the whole session, so they don't line up. The total covers the review, the deploy with its follow-up commit, and F-18.
+
+For comparison: B6's verify (L, high, browser pass, two deploys and a follow-up) cost $8.49; B8's (M, high) $4.57. B7 is an L stage with a browser pass, an external validator run and one deploy, at about B6's cost.
 
 ## Next
 1. ~~The founder's word on the push~~ done: B7 is live (addendum). The founder adds one episode on production, with V-9 at the latest.
