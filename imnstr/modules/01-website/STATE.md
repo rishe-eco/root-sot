@@ -2,6 +2,38 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-17 · `lifecycle-trial/imnstr` (step 8a, B5 launched) · imnstr `main @ aa889cb`
+
+*Replaces next step 1 of the step-8d MS2 block and next step 2 of the step-8c CD1 block (8a B5). Log: `08a-B5-launch.md`.*
+
+**Card:** `briefs/B5.md` (`3bf1924`), from build plan 0.6 §5 B5 and design plate 8.
+
+**Lanes in flight**
+
+| Stage | Branch | Worktree | Slot | Status |
+|---|---|---|---|---|
+| B5 Entries API, admin shell, list (M) | `b5-entries-admin` from `aa889cb`, no upstream | `E:\_root\imnstr\.claude\worktrees\b5-entries-admin` | A (`4110`, `.tmp/e2e.db`) | background Sonnet lane, running; report also to `<worktree>/.tmp/B5.report.md` |
+
+**The founder decided at launch: plate 8 wins over plan §5 B5's row actions.** Rows carry the date, the title or opening words, the pills and Edit, with "Older" below. Edit opens an edit-view frame in the editor slot: the entry read-only, Unpublish (outlined, with its confirm) or Publish again (naming the date). **B6** swaps the read-only body for the editor and adds Save and Copy link.
+
+**The card also settles:**
+- an existing `publishKey` changes nothing, and once a draft is saved the client works by id;
+- every write moves `updated_at`;
+- entry routes in `routes/admin-entries.ts`, inside `adminApiRoutes` (S-12), plus the catch-all `NOT_FOUND` (S-11);
+- `normalizeDoc` drops empty paragraphs (S-4), and control characters are `DOC_INVALID` (S-5);
+- the list is ordered by `COALESCE(first_published_at, created_at)`, pages with "Older", and carries the server's `now` for the year rule;
+- a new list-date format ("2 Nov", "14 Dec 2025") in `lib/dates.ts`.
+
+No stop file, no `.env` line, no migration.
+
+**Next steps, in order**
+1. **8b, land B5** when the lane reports (this session, if it comes back here).
+2. **8c, verify B5** (Opus · high). Its push to `main` is the first stage deployed by CI.
+3. **8a B8** (slot B) may run beside B5 or B6 (plan §3).
+4. The phone check (V-7), as in the MS2 block.
+
+**Owed by the founder:** V-7 (phone); F-7; F-2. Status column 8 stays `5/10`.
+
 ## 2026-10-15 · `lifecycle-trial/imnstr` (step 8d, MS2) · imnstr `main @ aa889cb`, pushed and deployed (run 6 green)
 
 *Adds to the step-8c CD1 block below, which ran beside this session. It replaces next step 1 of the step-8c B4b block (8d MS1/MS2). Log: `08d-MS2-milestone.md`.*
