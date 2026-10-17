@@ -63,7 +63,7 @@ Opus · high is more than this run needed: with green suites, the work was mecha
 2. **Rule:** in a background suite script, end with a line that can't fail, and judge each suite by its own exit code. **Event:** the task reported "failed" because of a trailing `tail -3` over several files, while every suite passed. **Scope:** milestone scripts. **Destination:** project config §6 (the script could write each exit code itself). urgent: no.
 
 ## Cost
-*Founder fills in.*
+From the founder's paste of the session panel: **$2.56**, API 7 m, wall 11 m; Opus 5.5 only: 110 in / 1.4k out / 6.5M cache read / 100.8k cache write. The suites ran in the background (e2e alone 12.4 min), so the panel's wall time is less than the session's clock time. MS2 cost $4.59: a green milestone with no device checks costs about half.
 
 ## Next
 1. **8a B9**, the last stage. Its card carries what the 8c B7 block lists (`expectWithinColumn` into `support.ts`; the date input's clip at 180 px; contrast of B7's dark pairs).
