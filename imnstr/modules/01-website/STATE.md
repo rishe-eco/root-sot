@@ -13,9 +13,9 @@
 **Next steps, in order**
 1. **8d MS3** (suites, `main @ ca1b2aa`); MS3 can't close until V-9.
 2. **8a B9**, the last stage (motion, wordmark, the access sweep). Its card should carry: move `expectWithinColumn` into `tests/e2e/support.ts`; the date input's clip at 180 px; contrast of B7's dark pairs.
-3. **The founder:** add one episode on production (sign in, publish, read `/podcast`); F-18, F-17, then V-9 with V-7.
+3. **The founder:** F-17, then V-9 with V-7. *(Added 10-18: F-18 accepted, build plan 0.8; the founder published an episode on production and it worked.)*
 
-**Owed by the founder:** F-18, F-17, V-9 (with V-7), F-11, F-14, F-7, F-2. open-work 0.17.
+**Owed by the founder:** F-17, V-9 (with V-7), F-11, F-14, F-7, F-2. open-work 0.17.
 
 ## 2026-10-17 · `lifecycle-trial/imnstr` (step 8c, B7 verified, not yet deployed) · imnstr `main @ 7d82cc0`
 

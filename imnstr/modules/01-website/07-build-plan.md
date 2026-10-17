@@ -2,7 +2,7 @@
 
 *Module `imnstr/modules/01-website/` · Track: Module · Phase 7 · `build-plan`. The order the code lands in and the shape it takes, to the level of tables, routes, refusal codes, screens and tests, so that each stage's phase card is a transcription and not a design exercise. Inputs: `02-spec.md` 0.4, `03-journeys.md` 0.3, `04-wireframes.html` (W1–W11), `04b-design/README.md` 0.2, `05-ux-review.md` pass 1, `06-eval-plan.md` 0.2, change notes 01–03; for the host, `root-app/deploy/`. Update the changelog; don't fork.*
 
-**Version 0.7 · Status: plan; B1–B6, B8 and CD1 built and verified; MS1 live; a push to `main` deploys · 2026-10-17 · Owner: founder**
+**Version 0.8 · Status: plan; B1–B8 and CD1 built and verified; MS1 live; a push to `main` deploys · 2026-10-18 · Owner: founder**
 
 **Where this file yields.** On *what* the site does, the spec wins. On what a person experiences, the journeys win. On how it looks, the design wins. On *what order the code lands in and what shape it takes*, this file wins. Where it settles something the spec left open, §2 says so.
 
@@ -735,7 +735,7 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
 
 **Goal.** `/podcast` and `/fa/podcast` with their show links and episodes, and the admin's episode form.
 
-**Logic.** `lib/episodes.ts`, read and write; publish through `lib/publish.ts` (PD-11); PD-23's rules. Show links come from `content/site.<lang>.ts` (AC-29: no admin field).
+**Logic.** `lib/episodes.ts`, read and write; publish through `lib/publish.ts` (PD-11); PD-23's rules. Show links come from `content/site.<lang>.ts` (AC-29: no admin field). *As built:* an episode can't be inserted already published (it needs a link first), so `createOrGet` takes an `afterInsert` step that runs inside its transaction, after the insert and before the publish, and only when the call made the row; episodes insert their links there, so new text publishes in one request (S-3). Entries pass nothing.
 
 **Routes:** `/podcast` and `/fa/podcast`, with the `?before=` cursor at 20 per page (AC-30).
 
@@ -746,14 +746,14 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
   - the designed empty state: "Episodes will be listed here, with links to listen." (W11);
   - the landing page gains its way in.
 - **The admin's episode form (plate 11):**
-  - language, name, description, tag and second tag (F17), and the date;
+  - language, name, description, tag and second tag (F17), and the date (the browser's own `<input type="date">`, drawn in the browser's format, not plate 11's "10 Oct 2026");
   - links as label and URL pairs: add, remove (F10), https only, with the fix spelled out ("https://…");
   - Save draft and Publish;
   - B6's buffers and failure states (AC-16, F9);
   - the list with "draft" and "was live", unpublish and republish (F13).
 
 **API.**
-- `GET/POST/PUT episodes`, `POST episodes/<id>/publish|unpublish`, and `DELETE episodes/<id>/links/<n>`.
+- `GET/POST/PUT episodes`, `POST episodes/<id>/publish|unpublish`. **No route deletes one link:** a `PUT` carries the whole list of links, so Remove is part of the edit and Cancel undoes it. The server inserts the new rows before it deletes the old, so `episode_last_link` never fires on a save; an empty list on a published episode is `LAST_LINK` (409).
 - Refusals: `LINK_NOT_HTTPS`, `LAST_LINK` (also enforced by B1's trigger), `TAGS_ONE_OR_TWO`, `NAME_REQUIRED`, `DESCRIPTION_REQUIRED`, `LINK_REQUIRED`.
 
 **Tests.**
@@ -908,6 +908,8 @@ Each is asserted by an integration test in its stage.
 | "Copied" | 2 s | change note 03 |
 | Body size | 64 KB | proposal: a guard, not a rule; no message names it |
 | Title length | 1,000 UTF-16 code units, after trimming; the field's `maxlength` matches | **[F]** F-16, at B6's verify: a large guard |
+| Episode name · description · tag · link label · link address | 1,000 · 10,000 · 100 · 100 · 2,000 UTF-16 code units, after trimming; each `REQUEST_INVALID`, each field's `maxlength` matches | **[F]** F-18, at B7's verify: guards, not rules |
+| Links per episode | 20 | **[F]** F-18, at B7's verify |
 
 ### 6.5 · The language switch
 
@@ -1044,6 +1046,7 @@ The other PD-n are mechanics. Veto any one of them, and the stage it governs cha
 
 ## Changelog
 
+- **0.8 · 2026-10-18:** After B7's verify (`docs/development/B7.md`), by the founder's decision (F-18). Corrections; no stage's scope changes. **§5 B7:** no `DELETE episodes/<id>/links/<n>` (links travel whole in `PUT`); `createOrGet`'s `afterInsert` step publishes new text in one request (S-3); the date is the browser's own input. **§6.4:** the episode guards.
 - **0.7 · 2026-10-17:** After B6's verify (`docs/development/B6.md`), by the founder's decisions (F-15, F-16). Corrections; no stage's scope changes. **PD-11:** a composition keeps its key; a field `PUT` can't change is fixed while a send is unanswered. **§5 B6:** a 401 signs in over the editor with the passkey sign-in, not the re-authentication dialog; "View" is Open; the buffers go through one file. **§6.4:** the title is capped at 1,000.
 - **0.6 · 2026-10-15:** After CD1's verify (`docs/development/CD1.md`), by the founder's decision (F-10). §5 B2: a push to `main` deploys, in the goal and *Not here*. §7: item 5, what CD1 put on the box. No stage's scope changes.
 - **0.5 · 2026-10-14:** After B4a's verify (stage record `docs/development/B4a.md` in the code repo), by the founder's decision (F-9). These are corrections, and change no stage's scope.

@@ -87,6 +87,12 @@ With the founder's word, the push went through on the first try (`7d82cc0..a7c62
 - The record's deploy section went out as `ca1b2aa`, in run 39072108147 (green). imnstr **`main @ ca1b2aa`**; the local main checkout fast-forwarded.
 - The worktree and branch are removed. `git worktree remove` hit Permission denied on the folder again; `rm -rf` worked once the shell had left it. Status column 8 is now `9/10`.
 
+## Addendum: F-18 and the live episode
+The founder answered in chat: "I like them, accepted. And I tested publishing an episode and it worked perfectly."
+- **F-18:** build plan **0.8**: §5 B7 drops `DELETE episodes/<id>/links/<n>` (links travel whole in `PUT`), notes `createOrGet`'s `afterInsert` (S-3) and the browser's own date input; §6.4 gains the episode guards and the 20-link cap. open-work 0.18.
+- **The live write path:** the founder signed in on production and published an episode, so the B7 record's owed row "the founder adds one episode" is done. The record in the code repo still lists it; changing it would be a push to `main`, which deploys, for one line, so it stays for close-out to read here.
+- Like the F-15/F-16 follow-up at B6, this was done in the verify's own session at the founder's word, not as a new phase.
+
 ## Cost
 *Founder fills in after the session.*
 
