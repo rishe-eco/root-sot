@@ -2,6 +2,20 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-17 · `lifecycle-trial/imnstr` (step 8c, B6 deployed) · imnstr `main @ e3d492a`
+
+*Replaces the block below's next step 1. Same session: the founder gave the word to push. Log: `log/08c-B6-verify.md`, *Addendum*.*
+
+**B6 is live.** `f4b67d0` went out in run 39049852350 (green), and the record `e3d492a` in run 39050124433 (green). Headers are right, and `/admin` serves the new bundle with no CSP report. The worktree and branch `b6-editor` are removed. Status column 8 is `8/10`.
+
+**Found after the deploy:** the bundle goes out **uncompressed**, at 285 KB, because Nginx gzips HTML only. The fix is open-work F-17, a stop file, so it is the founder's step. Do it before E1's cold runs.
+
+**Next steps, in order**
+1. **8a B7.** Its card carries S-19 (reuse the buffers; keep the language fixed while a send is unanswered) and the 180 px check against the column (log lesson 1).
+2. **The founder:** F-17, ideally before the phone check. Sign in once and see the editor live (the review had no passkey). Then V-9 with V-7: E1, the phone keyboard, PD-7's fallback. M3 can't close without V-9.
+
+**Owed by the founder:** F-15, F-16, F-17, V-9 (with V-7), F-11, F-14, F-7, F-2.
+
 ## 2026-10-17 · `lifecycle-trial/imnstr` (step 8c, B6 verified, not yet deployed) · imnstr `main @ b831fd3`
 
 *Replaces the 8b B6 block's next step 1. Its step 2 (8a B7) stands, after the deploy. Log: `log/08c-B6-verify.md`.*

@@ -84,6 +84,17 @@ None asked during the review. Two calls are put to the founder in open-work F-16
 2. **Rule:** with an idempotency key, any field the server ignores on a known key is frozen while a send is unanswered; never mint a new key to "change" it. **Event:** B6's language switch after a lost answer would have published one text twice. Found by reading, ~20 min with the test. **Scope:** B7's episode form; any create-with-key flow. **Destination:** build plan PD-11 (F-15), B7's card (S-19).
 3. **Rule:** a review can't deploy from this machine in auto mode. Plan the push as the founder's step, or add a permission rule for it. **Event:** `git push origin HEAD:main` was refused here and at MS2, and B6 is verified but not live. **Scope:** every verify that deploys. **Destination:** `config.md` §7 and the `verify` skill. **urgent: yes**.
 
+## Addendum: the deploy
+After the wrap-up, the founder said: "you have my permission to push it yourself". With that, the same push went through (`b831fd3..f4b67d0`), so the earlier refusal was the classifier asking for the founder's word, not a hard block.
+- Run 39049852350 was green: `check` 16:32:26–16:32:50 UTC, `deploy` 16:32:53–16:33:41 UTC.
+- The record's deploy section went out as `e3d492a`, in run 39050124433 (green).
+- `curl -I` on `/`, `/fa/`, `/log`, `/fa/log`, `/admin` and a 404: the exact CSP, noindex, and no `Set-Cookie`. root-app answers `200`.
+- `/admin` serves `admin.a398ecbea0.js` (285,097 B, ProseMirror inside). In the browser pane, signed out, the only console line was the expected 401 from `GET session`.
+- **New finding: the JS and CSS go out uncompressed.** Nginx's default `gzip_types` covers only HTML, so the lane's "87.7 KB gzipped" is not what a phone downloads. Filed as F-17 (stop file, the founder's step).
+- The worktree and branch are removed. `git worktree remove` hit Permission denied on the folder again, so it was cleared with `rm -rf` once the shell had left it. Status column 8 is now `8/10`.
+- **Lesson 3, corrected:** the classifier refuses a deploy push until the founder says so in chat. Ask for that word before the push, as part of the review's last question, rather than treating the refusal as final.
+- **Lesson 4:** a lane's bundle-size measurement should be what the server actually sends. Read `Content-Encoding` on the live asset at each verify, because the gzip figure assumed compression that wasn't there. **Destination:** review checklist §6 (after the deploy) and the B9 sweep.
+
 ## Cost
 *Founder fills in after the session.*
 

@@ -26,6 +26,7 @@
 | F-14 | Build plan changelog for B8 (B8 record, *Flagged for close-out*): §6.4 gains `recordKeysPerMonth` (500); §5 B8's `report(from, to)` is `report(db, from, to)`; the bot pattern also covers link-preview fetchers (Mastodon and the fediverse, WhatsApp, Bluesky, Iframely, Embedly, vkShare); R3 drops local names as well as IP literals | B8 record | next plan revision |
 | F-15 | Build plan changelog for B6 (B6 record, *Flagged for close-out*): §5 B6's 401 signs in over the editor with `signIn()`, not the re-authentication dialog; "View" is Open; B4b's "keep nothing in the browser" is now "only the text buffers, in `localStorage`, through `admin/browser-storage.ts`"; and the review's rule that the language is fixed while a send is unanswered (PD-11, AC-42) | B6 record | next plan revision |
 | F-16 | Two calls the B6 review left to you. **(a)** Plate 9's signed-out copy says "You were signed out after an hour idle." That is the usual case, but a session also ends at 24 h absolute, or when this device's passkey is removed elsewhere. Keep the plate's words, or say "You were signed out." without the reason? **(b)** An entry's title has no length limit (`readTitle`); only Nginx's `1m` stops a huge one. Add a limit to `lib/limits.ts` (a server rule, so a small change of its own), or leave it? | B6 record | before launch |
+| F-17 | **Compress the admin bundle.** Nginx gzips HTML only (its default `gzip_types`), so `admin.js` goes out at 285 KB rather than about 88 KB, and so do the CSS and the feeds. That weighs on E1's cold runs (V-9). Add one line to `deploy/nginx/imnstr.conf`'s server block: `gzip_types text/css text/javascript application/javascript application/atom+xml image/svg+xml;`. It is a stop file, so: edit it in the repo, then `sudo cp` to `sites-available`, `sudo nginx -t`, `sudo systemctl reload nginx`, then push (deploy README). A session can write the change and its conf test, for you to run the server steps | B6 record (deploy) | before V-9's cold runs |
 
 ## Owed to later stages
 
@@ -67,7 +68,7 @@
 
 ## Changelog
 
-- **0.15 · 2026-10-17** — From `verify B6`: F-15 (plan changelog for B6), F-16 (signed-out copy; title length), S-4, S-5 and S-17 closed, S-9 narrowed to B7, S-19 (B7 reuses the buffers; language fixed while unanswered), V-9 (E1 and the phone keyboard, with the phone check).
+- **0.15 · 2026-10-17** — From `verify B6`: F-15 (plan changelog for B6), F-16 (signed-out copy; title length), F-17 (gzip for the bundle; found after the deploy), S-4, S-5 and S-17 closed, S-9 narrowed to B7, S-19 (B7 reuses the buffers; language fixed while unanswered), V-9 (E1 and the phone keyboard, with the phone check).
 - **0.14 · 2026-10-17** — F-12 and F-13 closed by the founder, after `verify B8`: the production record counts, and MS2's seeds are cleared.
 - **0.13 · 2026-10-17** — From `verify B8`: F-13 (run `report` in the container; `reset-content` at the founder's word, after F-12), F-14 (plan changelog for B8), S-18 (the podcast counts, B7), V-8 (real aggregator formats, after MS3).
 - **0.12 · 2026-10-17** — From `verify B5`: S-11 done; S-4, S-5 and S-12 done for B5 and moved on; S-9 moved to B6; F-11, F-12 and S-17 added.
