@@ -2,6 +2,30 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-17 · `lifecycle-trial/imnstr` (step 8c, B7 verified, not yet deployed) · imnstr `main @ 7d82cc0`
+
+*Replaces the 8b B7 block's next step 1. Its steps 2–3 stand. Log: `log/08c-B7-verify.md`.*
+
+**Lanes in flight:** none.
+
+| Stage | Branch | Worktree | Status |
+|---|---|---|---|
+| B7 Podcast (L) | `b7-podcast` @ `a7c6292` (lane's `d1b9c92`, `c0401f4`, then the review's fix and record), local only, on `7d82cc0` | `E:\_root\imnstr\.claude\worktrees\b7-podcast` | verified, **ready to fast-forward**; the push deploys and waits for the founder's word |
+
+**The review:**
+- **One fix:** in an edit, a cleared date showed today while Save kept the episode's own date; now it shows the episode's date again (test fails on the lane's code).
+- **AC-6:** validator.schema.org on both pages with fixture episodes: 0 errors, 0 warnings.
+- Suites: check clean; Vitest 17 files, 435; e2e four specs 230 on the lane's code, `admin-podcast` 64 with the fix.
+- Seen, not changed: a Persian name's `C++` draws `++C` in the admin's plain `<input>` (V-4); the date input clips its year at 180 px (B9).
+- No stop file, `.env` line, migration or package change in the diff.
+
+**Next steps, in order**
+1. **The founder's word, then the push:** `git push origin HEAD:main` from the B7 worktree; read the run through the API; `curl -I`; the record's deploy section in its own commit; remove the worktree and branch; status column 8 → `9/10`.
+2. **8d MS3** (suites) once B7 is live; MS3 can't close until V-9.
+3. **8a B9.**
+
+**Owed by the founder:** F-18 (new: plan changelog for B7), F-17, V-9 (with V-7), F-11, F-14, F-7, F-2. open-work 0.17.
+
 ## 2026-10-17 · `lifecycle-trial/imnstr` (step 8b, B7 landed) · imnstr `main @ 7d82cc0`
 
 *Replaces the 8a B7 block's lane table and its next step 1. The card's calls there still stand. Run in the same session as 8a B7, because the report came back here. Log: `08b-B7-land.md`.*
