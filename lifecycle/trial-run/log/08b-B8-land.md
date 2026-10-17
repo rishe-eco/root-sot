@@ -39,7 +39,7 @@ Sonnet, low would do: it copies a file and summarises. Inject `git diff --stat <
 - **Rule:** a land measures the lane's diff from its recorded base, not from `main`. **Event:** B5 merged during B8's lane, and `main..HEAD` showed B5's files as B8's deletions (−2,772). Caught by eye at no cost. **Scope:** `build-phase --land`, `verify`. **Destination:** `build-phase` land step. **urgent:** no.
 
 ## Cost
-Shared with 8a; see `08a-B8-launch.md`, *Cost* ($4.09 for the session). Lane, by the harness: 154k tokens, 41 tool uses, about 16 min.
+Shared with 8a; see `08a-B8-launch.md`, *Cost* ($5.24 for the whole session, lane included). Lane, by the harness: 154k tokens, 41 tool uses, about 16 min.
 
 ## Next
 8c, verify B8 (Opus · high), in a fresh session. Rebase onto `main @ 13d82dd` first. `reset-content --yes` on production only at the founder's word.

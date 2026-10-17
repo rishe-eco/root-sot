@@ -91,10 +91,12 @@ The reference file should carry a "parallel session" checklist: use a separate r
 - **Rule:** for every count the record (or any table) takes from request headers, the plan names what bounds its growth. **Event:** PD-20 lets `Referer` and the user agent create rows, with no limit. Caught at the card. **Scope:** `build-plan`. **Destination:** the `build-plan` checklist (abuse of write paths). **urgent:** no.
 
 ## Cost
-*From the founder, after the session. This session ran 8a and 8b; the figures are the whole session, as reported:*
-- Opus 5.5: 84 in / 15.1k out / 5.3M cache read / 119.3k cache write.
-- Cost: $4.09 · API 23m · wall 13m.
-- The figures list no Sonnet line, so the lane may not be in them. Lane, by the harness: 154k tokens, 41 tool uses, about 16 min.
+*From the founder, after the session. This session ran 8a and 8b; the figures are the whole session, including the Sonnet lane:*
+- Cost: $5.24 · API 23m 53s · active 13m 48s, as reported.
+- Split: Opus 74%, Sonnet 26%; cache hit 96%.
+- Lines: +1,431 / −8 (the lane's code plus this session's card, report, STATE and logs).
+- An earlier paste showed only the Opus line ($4.09; 84 in / 15.1k out / 5.3M cache read / 119.3k cache write). The figures above replace it.
+- Lane, by the harness: 154k tokens, 41 tool uses, about 16 min.
 
 ## Next
 8b, land B8, when the lane reports: in this session if it comes back here. Then 8c verify B8 (Opus · high), after B5's verify has pushed, rebased onto the new `main`. That verify runs `reset-content --yes` on production only at the founder's word.
