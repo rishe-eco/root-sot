@@ -78,7 +78,7 @@ Opus. Medium was enough for an M stage whose server side was clean. Forked, with
 Lane report item 7 (say on the card that `STATUS` is parsed by `admin-copy.test.ts`; a shared signed-in e2e helper) goes to S-17 for B6's card.
 
 ## Cost
-*Founder fills in.*
+From the founder, after the session: Opus 5.5, 122 tokens in, 1.4k out, 9.4M cache read, 170.1k cache write. **$4.07**; API time 16 min, wall time 23 min.
 
 ## Next
 8b/8c B8 as its block says, rebased onto `13d82dd`. F-12 before B8's `reset-content` removes the MS2 seeds. Then 8a B6, whose card takes S-17 and lesson 1.
