@@ -41,7 +41,7 @@ Sonnet, low would do, as at B6 and B8. Inject `git diff --shortstat <base>..<bra
 - **Rule:** before drafting a card, grep the test suites for the stage's routes, tables and page names, and list in the card every test that asserts their absence. **Event:** three B7 tests (`record.test.ts`, `admin-entries.test.ts`, `admin-entries.spec.ts`) encoded "B7 isn't here yet". The lane found each by a failing run and edited them, and now verify must judge those edits. **Scope:** `build-phase` (launch). **Destination:** `build-phase` launch step 2. **urgent:** no.
 
 ## Cost
-*From the founder, after the session. This session ran 8a and 8b. The harness gave the lane 539k tokens, 159 tool uses and about 44 min.*
+*From the founder, after the session.* This session ran 8a and 8b, so the figures are in `08a-B7-launch.md`, *Cost*: $12.84 for the whole session, Sonnet (the lane) 64%. The harness gave the lane 539k tokens, 159 tool uses and about 44 min.
 
 ## Next
 8c, verify B7 (Opus · high), in a fresh session on this machine. Ask the founder's word before the deploy push. Run validator.schema.org on both pages and check S-18 live.

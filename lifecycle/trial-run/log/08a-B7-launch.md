@@ -85,7 +85,11 @@ Opus, medium (this session ran high, at the founder's word). Most of the session
 - **Rule:** when a card says a stage "reuses" earlier code, check that code's types and exports first. If it isn't reusable as it stands, the card names the refactor and the tests that must stay green. **Event:** S-19 said B7 reuses B6's buffers and failure notice. `buffers.ts` is typed to an entry's title and doc, and the notice isn't exported, so a lane told only "reuse" would likely have copied 300 lines. Caught here by reading two files. **Scope:** `verify` (how it writes an owed reuse), `build-phase`. **Destination:** `build-phase` launch step 2; `verify`'s owed-item wording. **urgent:** no.
 
 ## Cost
-*Founder fills in after the session.*
+*From the founder, after the session. This session ran 8a and 8b. The figures cover the whole session, including the Sonnet lane:*
+- Cost: $12.84 · API 39m 11s · active 12m 2s · lines +5,032 / −17, as reported.
+- Share: Sonnet (the lane) 64%, Opus 36%; cache hit 98%.
+- The harness gave the lane 539k tokens, 159 tool uses and about 44 min.
+- For comparison, B6 (L) cost $12.35 for its whole 8a+8b session, with a lane of 492k tokens in ~83 min. B5 (M) cost $9.33.
 
 ## Next
 8b, land B7, when the lane reports: in this session if it comes back here. Then 8c, verify B7 (Opus · high): ask the founder's word before the deploy push; validator.schema.org on both pages; S-18.
