@@ -2,6 +2,38 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-17 · `lifecycle-trial/imnstr` (step 8a, B8 launched) · imnstr `main @ aa889cb`
+
+*Adds to the step-8b B5 block below; it replaces only that block's next step 2 (8a B8). Run beside the 8c B5 session, which may write its own block above or below this one. Log: `08a-B8-launch.md`.*
+
+**Card:** `briefs/B8.md` (`ee54f61`), from build plan 0.6 §5 B8 and PD-20.
+
+**Lanes in flight**
+
+| Stage | Branch | Worktree | Slot | Status |
+|---|---|---|---|---|
+| B8 Reader record (M) | `b8-reader-record` from `aa889cb`, no upstream | `E:\_root\imnstr\.claude\worktrees\b8-reader-record` | B (`4120`, `.tmp/e2e.db`; no Playwright needed) | background Sonnet lane, running; report also to `<worktree>/.tmp/B8.report.md` |
+
+**The card settles what PD-20 leaves open:**
+- requests are classified by a path whitelist (landing, log, podcast, entry id, feed);
+- the middleware sits inside the ETag middleware, so a 304 counts like its 200 (R2 would go stale otherwise);
+- R2 ignores the bot pattern, keeps the month's MAX, and every user-agent format is marked a guess;
+- R3 drops the own host, IP literals, non-http schemes;
+- new limit `recordKeysPerMonth: 500` against hostile `Referer` and user-agent values (a plan §6.4 addition);
+- the session-cookie check reads the name only;
+- `reset-content` needs `--yes`, otherwise it prints row counts;
+- `report --to` defaults to this month.
+
+No stop file, no `.env` line, no migration.
+
+**B5 is not in B8's base.** Whoever lands second rebases. The shared files are `lib/dates.ts`, `lib/limits.ts`, `package.json` and maybe `routes/test.ts`; the card says to append at the end.
+
+**Next steps, in order**
+1. **8b, land B8** when the lane reports (this session, if it comes back here).
+2. **8c, verify B8** (Opus · high), after 8c B5 has pushed, rebased onto the new `main`. After the deploy: open a page in a browser, read `report` in the container, then `reset-content --yes` for MS2's seeds **at the founder's word**. After MS3's deploy, the founder subscribes in two aggregators, and `record_feed` corrects the R2 parser (plan §5 B8, trap 1).
+
+**Owed by the founder:** V-7 (phone); F-7; F-2. Status column 8 is not this step's to change.
+
 ## 2026-10-17 · `lifecycle-trial/imnstr` (step 8b, B5 landed) · imnstr `main @ aa889cb`
 
 *Replaces the step-8a B5 block's lane table and its next step 1. The founder's decision and the card's calls there still stand. Run in the same session as 8a, because the report came back here. Log: `08b-B5-land.md`.*
