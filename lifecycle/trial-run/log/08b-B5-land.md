@@ -45,7 +45,7 @@ As at B4b: Opus, medium is enough (this ran at high). Inject the report file, `g
 - **Rule:** a card that cites owed items by number also names the file they live in. **Event:** B5's card cited S-4, S-5, S-9, S-11 and S-12, and the lane looked for them in the plan and didn't find them. It worked from the card's text, so nothing was lost but a search. **Scope:** `build-phase`. **Destination:** the card template. **urgent:** no.
 
 ## Cost
-*From the founder, after the session. This session ran 8a and 8b; the figures will be the whole session, including the Sonnet lane.*
+*From the founder, after the session.* The same session as 8a B5; its figures are in `08a-B5-launch.md`, *Cost* (whole session: $9.33, Sonnet 59%).
 
 ## Next
 8c, verify B5 (Opus · high), a fresh session on this machine. It makes the first CI deploy of a stage. 8a B8 (slot B) may run beside it.

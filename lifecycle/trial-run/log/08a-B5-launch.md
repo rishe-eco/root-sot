@@ -75,7 +75,10 @@ The skill's reference file should carry a "plan against plate" check for UI stag
 - **Rule:** before drafting a UI stage's card, read the plate the stage draws from and match each listed control to where the plate puts it. Ask the founder when they differ in which stage owns a control. **Event:** plan §5 B5 put Unpublish, Republish and Copy link on list rows, but plate 8 puts them in the editor's view (B6). Transcribed as-is, the lane would have built controls the design doesn't have, and B6 would have moved them. Caught here at the cost of one question. **Scope:** `build-plan`, `build-phase`. **Destination:** `build-phase` launch step 2; `build-plan`'s per-stage "screens" check. **urgent:** no.
 
 ## Cost
-*Founder fills in after the session.*
+*From the founder, after the session. This session ran 8a and 8b; the figures are the whole session, including the Sonnet lane:*
+- Cost: $9.33 · API 26m 25s · active 19m 13s, as reported.
+- Share: Sonnet (the lane) 59%, Opus 41%; cache hit 98%.
+- The harness gave the lane 336k tokens, 93 tool uses and about 26 min.
 
 ## Next
 8b, land B5, when the lane reports: in this session if it comes back here. Then 8c verify B5 (Opus · high). Its push to `main` is the first stage deployed by CI. 8a B8 (slot B) may run beside it.
