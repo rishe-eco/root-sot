@@ -2,6 +2,38 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-17 · `lifecycle-trial/imnstr` (step 8a, B6 launched) · imnstr `main @ b831fd3`
+
+*Replaces the 8c B8 block's next step 2. Its steps 3 and 4 stand. Log: `08a-B6-launch.md`.*
+
+**Founder, at this launch:**
+- **One lane, bare editor first.** The plan's "deploy the bare editor before the rest" is met inside the lane: its first commit is the editor working on its own. B6 is not split.
+- **No phone yet.** E1 (AC-15's M3 runs), typing on real phone keyboards in both languages, and PD-7's fallback decision are owed to the phone check (V-7). B6's verify can deploy B6, but it can't close M3.
+
+**Lanes in flight**
+
+| Stage | Branch | Worktree | Slot | Card | Status |
+|---|---|---|---|---|---|
+| B6 The editor (L) | `b6-editor` from local `main @ b831fd3`, no upstream | `E:\_root\imnstr\.claude\worktrees\b6-editor` | A: `4110`, `.tmp/e2e.db` | `briefs/B6.md` (`8a34543`) | background Sonnet lane, launched; report also to `<worktree>/.tmp/B6.report.md` |
+
+**What the card settled** (for verify to hold the lane to):
+- the ProseMirror packages from §6.6 only;
+- the schema imports `shared/doc.ts`'s rules, and highlight parses from `<mark>` only;
+- the editor sits behind one component, so PD-7's fallback could swap it;
+- bidi as `Decoration.inline` with `nodeName: 'bdi'`, and no `style` attribute (CSP);
+- the publish key is made at the first keystroke; after the first answer the client works by id;
+- only a tap retries;
+- a 401 doesn't unmount the editor: `api()` gains an opt-out of `whenSignedOut`, and **Sign in and publish** runs `signIn()`, not `reauthenticate()`, then reruns once;
+- S-9 and the bundle size are measured, not changed;
+- e2e at 360 × 400 and at 180 px.
+
+**Next steps, in order**
+1. **8b, land B6** when the lane reports: in this session if it comes back here.
+2. **8c, verify B6** (Opus · high). Push `main` to deploy. E1 and the phone typing go to V-7, and the record says so.
+3. **8a B7** after B6, as the 8c B8 block says.
+
+**Owed by the founder:** a phone, for V-7 and now E1 too. Also F-11, F-14, F-7 and F-2. Status column 8 stays `7/10`.
+
 ## 2026-10-17 · `lifecycle-trial/imnstr` (step 8c, B8 verified and deployed) · imnstr `main @ b831fd3`
 
 *Replaces the step-8b B8 block's lane table and its next step 1; its step 2 (R2 after MS3) is now V-8. The 8c B5 block's next steps 2 and 3 stand. Log: `08c-B8-verify.md`.*
