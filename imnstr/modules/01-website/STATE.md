@@ -2,6 +2,40 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-17 · `lifecycle-trial/imnstr` (step 8b, B7 landed) · imnstr `main @ 7d82cc0`
+
+*Replaces the 8a B7 block's lane table and its next step 1. The card's calls there still stand. Run in the same session as 8a B7, because the report came back here. Log: `08b-B7-land.md`.*
+
+**Lanes in flight:** none. B7 has reported and is waiting for verify.
+
+| Stage | Branch | Worktree | Report | Status |
+|---|---|---|---|---|
+| B7 Podcast (L) | `b7-podcast` @ `c0401f4` (two commits, founder identity), **local only**, based on `7d82cc0`; `main` hasn't moved | `E:\_root\imnstr\.claude\worktrees\b7-podcast` | `briefs/B7.report.md` | landed; 45 files, +5,291 / −300 (tests +2,418; about 280 of the rest is code moved out of `composer.tsx`); lane ~44 min wall, 539k tokens, 159 tool uses |
+
+**Commits:** `d1b9c92` is the podcast page and the episodes API; `c0401f4` is the admin form, the shared writer, generic buffers and the e2e.
+
+**What the lane says** (not reviewed):
+- `npm run check` clean. Vitest, 23 targeted files: 555 passed. Playwright, slot A, both schemes: `podcast` + `admin-podcast` 126 passed; `editor` + `admin-entries` 104 passed.
+- **S-9:** the largest episode request is 159,392 bytes, 15% of Nginx's `1m`. Pinned in `request-size.test.ts`; `imnstr.conf` untouched.
+- **Bundle:** `admin.js` 285 → 310 KB raw, 88 → 93 KB gzip. Still sent uncompressed until F-17.
+- **S-18:** `/podcast` now counts, with a test.
+- No stop file, migration, `.env` line or dependency in the diff.
+
+**For verify to decide** (report items 4–5):
+- **Tests that said "B7 isn't here yet" were edited:** `record.test.ts` (`/podcast` expected 404), `admin-entries.test.ts` (its unknown-path example was `/admin/api/episodes`), `admin-entries.spec.ts` (the shell's headings).
+- **Beyond the card:** the new-episode form **closes after Save draft**, where the entry's editor stays open; a third tag is `TAGS_ONE_OR_TWO` on any save; tag cap 100; a label with no URL is `LINK_NOT_HTTPS`; on `PUT`, an empty date keeps the episode's own; link positions use two bands (0 and 1000); the Podcast section opens itself when it has something to offer back; the confirmation copy where the plates have none; a "Persian" pill in the list.
+- **Microdata:** `name`, `description`, `datePublished`, `keywords`, `url` per link, `inLanguage`, `partOfSeries` (`PodcastSeries`). Hono hoists `<meta>`/`<link>` into `<head>`, so the series markup is an escaped string: check it, and run validator.schema.org on both pages.
+- **Show links** as `big-row` rows at title size; the intro is a locale string, not content; Persian `older` and `description` strings are the lane's placeholders (F-2).
+- `<input type="date">` is drawn in the browser's locale, not plate 11's "10 Oct 2026". `admin/tsconfig.json`'s comment and `check_admin_entries_unauthenticated`'s name are now stale.
+- **Unverified:** the validator, a real phone (keyboard, native date picker), screen readers, other browsers, a 159 KB request through the live Nginx.
+
+**Next steps, in order**
+1. **8c, verify B7** (Opus · high), a fresh session on this machine. Ask the founder's word before `git push origin HEAD:main` (it deploys). Run validator.schema.org on both pages; check S-18 live; the 180 px column check on every new screen.
+2. **MS3's suites** can run once B7 is live, but MS3 can't close until V-9 passes.
+3. **The founder:** F-17, then V-9 with V-7.
+
+**Owed by the founder:** F-17, V-9 (with V-7), F-11, F-14, F-7, F-2. Status column 8 is not this step's to change.
+
 ## 2026-10-17 · `lifecycle-trial/imnstr` (step 8a, B7 launched) · imnstr `main @ 7d82cc0`
 
 *Replaces the 8c B6 deployed block's next step 1. Its step 2 (the founder: F-17, then V-9 with V-7) stands. Log: `log/08a-B7-launch.md`.*
