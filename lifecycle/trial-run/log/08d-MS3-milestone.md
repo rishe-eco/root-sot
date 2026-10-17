@@ -1,7 +1,7 @@
 # 8d MS3 milestone — 2026-10-18
 
 ## Session
-Opus 5.5 (`claude-opus-5-5`), effort **high**, as the founder stated. Opening prompt: "On branch `lifecycle-trial/imnstr`, pull first, then read `lifecycle/trial-run/README.md`. You are step 8d milestone MS3. Model: Opus, effort: high." Step, model and effort all matched the table. Nothing ran beside it. The founder said the 8c B7 cost was "just committed"; it wasn't on the remote at either push (I fetched before each), so root-sot's push may need a rebase once it lands.
+Opus 5.5 (`claude-opus-5-5`), effort **high**, as the founder stated. Opening prompt: "On branch `lifecycle-trial/imnstr`, pull first, then read `lifecycle/trial-run/README.md`. You are step 8d milestone MS3. Model: Opus, effort: high." Step, model and effort all matched the table. Nothing ran beside it. The founder said the 8c B7 cost was "just committed"; it wasn't on the remote at imnstr's push; it landed (`e44e85e`) just before root-sot's, which rebased onto it cleanly.
 
 ## Read
 - `lifecycle/trial-run/README.md`, whole; `lifecycle/README.md` §0–§4; `skills-plan.md` §0, `handoff`, `verify`.
