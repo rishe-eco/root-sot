@@ -104,7 +104,9 @@ The founder answered in chat. On F-16: "first one do what makes sense, second on
 - This is a small follow-up to the verify, at the founder's word, not a new phase. Like the F-10 and F-8 follow-ups, it was done in the verify's own session.
 
 ## Cost
-*Founder fills in after the session.*
+From the founder's paste: **$8.49**; API time 26 m 46 s; active 41 m 32 s; +287 / −11 lines (as the app counts them); Opus 100%; cache hit 99%. The app's breakdown attributes 28% to a "general-purpose" subagent, 10% to the turn tools (`ccd_turn`) and 1% to the browser pane. This session launched no subagent, so that label is the app's own and isn't explained here.
+
+The total covers the whole session: the review, the deploy after the founder's word, and the F-15/F-16 follow-up with its deploy. For comparison, B8's verify (an M stage at high effort, with no UI pass) cost $4.57, and B5's (medium) cost $4.07. B6 is an L stage with a browser pass and two deploys, at about twice that.
 
 ## Next
 1. **The founder pushes `main`**, from `E:\_root\imnstr\.claude\worktrees\b6-editor`: `git push origin HEAD:main`. That is the deploy (CI run, then `deploy/checks.sh`). Then a session (this one if continued, or a short 8c follow-up) reads the run at `api.github.com/repos/rishe-eco/i-monster/actions/runs`, checks that `/admin` loads the new bundle with no CSP report and that the headers are right, fills in the record's deploy section in a commit of its own, removes the worktree and branch, and sets status column 8 to `8/10`.
