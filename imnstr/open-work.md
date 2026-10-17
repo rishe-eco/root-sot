@@ -2,7 +2,7 @@
 
 *Owed items from stage reviews and close-out: what a stage left for the founder or for later, and anything past the verification ceiling. Written by `verify` and `close-out` only (lifecycle README §4); created by `verify B1`, trial step 8c. Not Root's `team/open-work.md`: IMNSTR is outside Root (`lifecycle/projects/imnstr/config.md` §1). Items owed to a later stage are also listed in the code repo's `docs/development/README.md`.*
 
-**Version 0.13 · 2026-10-17 · Owner: founder**
+**Version 0.14 · 2026-10-17 · Owner: founder**
 
 ---
 
@@ -21,8 +21,8 @@
 | ~~F-9~~ | **Closed 2026-10-14:** build plan 0.5. ~~Build plan changelog for B4a: §5 B4a, §6.1 (`auth/*`), §6.2 (three codes).~~ | B4a record | — |
 | ~~F-10~~ | **Closed 2026-10-15:** config 0.4, review checklist 0.4, build plan 0.6, brief-common 0.3, change note 0.4. ~~Accept the canon CD1 made stale (CD1 record, *Flagged for close-out*): config 0.3 §7 (routine deploy = a push to `main`; who deploys; checks = `deploy/checks.sh`; the verify reads a run through the public API or a downloaded log, since the Actions log needs sign-in); review checklist 0.3 §6 (the deploy user per CI-4; no global prune; deploy checks go in `checks.sh`; before a push, check the diff for a stop file or a new `.env` line); build plan 0.5 B2 goal and *Not here*, §7 (what is on the box); `brief-common.md` (lanes never push: a push deploys). Also change note 04: the lock moved to `/run/imnstr-deploy.lock`, and an already-current run still builds and ups.~~ | CD1 record | — |
 | F-11 | Build plan changelog for B5 (B5 record, *Flagged for close-out*): §5 B5's per-row Unpublish, Republish and Copy link and the `republish` function are superseded by plate 8 (your call at launch) and by `publish` keeping the date. Also, if you want, the admin copy B5 wrote where plate 8 gives none: the empty state "Entries you write will be listed here.", the three refusals (`BODY_REQUIRED`, `DOC_INVALID`, `LANG_INVALID`), "Opening…", and the shared `NOT_FOUND` "That isn't there any more." | B5 record | next plan revision |
-| F-12 | Sign in at `https://imnstr.com/admin`, open Entries: the two MS2 seeds are listed, each with Edit, and Edit opens the read-only frame. The review couldn't sign in (no passkey) | B5 record | before B6 verify |
-| F-13 | At the server, in `/srv/imnstr` (`dc` is `sudo docker compose -f docker-compose.prod.yml`): `dc exec -T imnstr node --import tsx scripts/report.ts --from 2026-10`. It should list `fa` → `log` with at least 1 (the review's browser view, 2026-10-17 about 14:10 UTC); that proves the CLI runs in the image and the record counts in production. Then, **after F-12**, and only when you want MS2's seeds gone: a backup (`deploy/README.md`, *The CLIs*), `scripts/reset-content.ts` without `--yes` (row counts, changes nothing), then with `--yes`. Paste the outputs into the next session if anything looks off | B8 record | report: now; reset: before launch, at your word |
+| ~~F-12~~ | **Closed 2026-10-17:** the founder signed in, saw both MS2 seeds listed with Edit and the frame opening, and checked them as a viewer.** ~~Sign in at `https://imnstr.com/admin`, open Entries: the two MS2 seeds are listed, each with Edit, and Edit opens the read-only frame. The review couldn't sign in (no passkey)~~ | B5 record | — |
+| ~~F-13~~ | **Closed 2026-10-17:** `report --from 2026-10` ran in the container: en landing 3, log 1; fa log 3, landing 2; no entries, feeds or referrers. Then a backup (`/backups/imnstr-manual.db`), the dry run, and `--yes`: 2 entries and 4 view rows deleted, auth tables and settings kept. The live log and both feeds now show the empty state.** ~~At the server, in `/srv/imnstr` (`dc` is `sudo docker compose -f docker-compose.prod.yml`): `dc exec -T imnstr node --import tsx scripts/report.ts --from 2026-10`. It should list `fa` → `log` with at least 1 (the review's browser view, 2026-10-17 about 14:10 UTC); that proves the CLI runs in the image and the record counts in production. Then, **after F-12**, and only when you want MS2's seeds gone: a backup (`deploy/README.md`, *The CLIs*), `scripts/reset-content.ts` without `--yes` (row counts, changes nothing), then with `--yes`. Paste the outputs into the next session if anything looks off~~ | B8 record | — |
 | F-14 | Build plan changelog for B8 (B8 record, *Flagged for close-out*): §6.4 gains `recordKeysPerMonth` (500); §5 B8's `report(from, to)` is `report(db, from, to)`; the bot pattern also covers link-preview fetchers (Mastodon and the fediverse, WhatsApp, Bluesky, Iframely, Embedly, vkShare); R3 drops local names as well as IP literals | B8 record | next plan revision |
 
 ## Owed to later stages
@@ -63,6 +63,7 @@
 
 ## Changelog
 
+- **0.14 · 2026-10-17** — F-12 and F-13 closed by the founder, after `verify B8`: the production record counts, and MS2's seeds are cleared.
 - **0.13 · 2026-10-17** — From `verify B8`: F-13 (run `report` in the container; `reset-content` at the founder's word, after F-12), F-14 (plan changelog for B8), S-18 (the podcast counts, B7), V-8 (real aggregator formats, after MS3).
 - **0.12 · 2026-10-17** — From `verify B5`: S-11 done; S-4, S-5 and S-12 done for B5 and moved on; S-9 moved to B6; F-11, F-12 and S-17 added.
 - **0.11 · 2026-10-15** — F-10 closed by the founder's answer, in the 8c CD1 session.

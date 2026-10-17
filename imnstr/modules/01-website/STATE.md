@@ -19,12 +19,12 @@
 **Lanes in flight:** none.
 
 **Next steps, in order**
-1. **F-13 (founder, at the server):** `report --from 2026-10` in the container shows `fa` → `log` ≥ 1. Then, after F-12, a backup and `reset-content` (dry, then `--yes`) at the founder's word.
+1. ~~F-12, F-13~~ **done the same day by the founder:** the record counts in production (en landing 3, log 1; fa log 3, landing 2), then a backup, the dry run and `reset-content --yes` (2 entries, 4 view rows). The live log and feeds are empty. The development README's owed row for running `reset-content` is now stale: the next verify strikes it.
 2. **8a B6** (slot A). Its card takes S-17, the B5 lesson (e2e at 180 px), S-4/S-5 on the client, and S-9.
 3. **8a B7** after B6; its verify checks S-18 (the podcast counts).
 4. **V-8 after MS3's deploy:** two aggregator subscriptions, then correct R2's parser.
 
-**Owed by the founder:** F-11, F-12, F-13, F-14 (plan changelog for B8), V-7, F-7, F-2. open-work 0.13. Status column 8: `7/10`.
+**Owed by the founder:** F-11, F-14 (plan changelog for B8), V-7, F-7, F-2. open-work 0.14. Status column 8: `7/10`.
 
 ## 2026-10-17 · `lifecycle-trial/imnstr` (step 8b, B8 landed) · imnstr `main @ 13d82dd`
 

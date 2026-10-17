@@ -81,6 +81,8 @@ The stage record kept B5's headings: *Built* (with *The review changed*), *Decid
 ## Founder Q&A
 None asked during the session. The push to `main` followed config §7. `reset-content --yes` was not run: it needs the founder's word and F-12 first. It is asked in the closing message as F-13.
 
+After the wrap-up, the founder reported F-12 done (signed in and as a viewer) and ran F-13 at the server. Asked whether the outputs were needed, the review first checked the live log and feeds (empty, as expected after the reset), then asked only for the `report` output and the reset's lines; they were pasted and closed F-12 and F-13 (open-work 0.14). `report` showed en landing 3, log 1; fa log 3, landing 2: the record counts in production, and the CLI runs in the image.
+
 ## Skill shape
 Opus, high. The server-only M stage had a clean core, but its edges were in the domain: who fetches a page (fediverse previews) and what a test's list misses after a rebase. Reasoning found those, not running suites. Forked, with the report, stat, card, plan §5 and checklist injected. The skill should also inject `git log origin/main` against the lane's base, so a moved `main` is seen first. Its reference file should hold the stop-file list, reading a CI run through the API, and which checks belong to the founder: signed-in screens, server CLIs, destructive production commands.
 
