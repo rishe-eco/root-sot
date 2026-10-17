@@ -92,7 +92,7 @@ Opus, high. The server-only M stage had a clean core, but its edges were in the 
 3. **Rule:** write long or quote-heavy text (commit messages, multi-line files) with the Write tool or a quoted heredoc (`<<'EOF'`), never inline in a double-quoted Bash string. **Event:** the B8 lane's heredocs with apostrophes failed to parse; the review used quoted heredocs and Node scripts in the scratchpad without trouble. **Scope:** every session on this machine. **Destination:** the build-machine memory and `brief-common.md`.
 
 ## Cost
-*Founder fills in.*
+From the founder's paste: **$4.57**; API time 11 m 48 s; active 18 m 40 s; +258 / −22 lines (as the app counts them); Opus 100%; cache hit 99%. It covers the whole session, including the follow-up that closed F-12 and F-13. The B5 verify (medium) cost $4.07, so high effort cost about the same on an M stage with no UI pass.
 
 ## Next
 F-13 at the server (`report` now; `reset-content` after F-12, at the founder's word). Then 8a B6 (slot A), whose card takes S-17 and the B5 180 px lesson. Then B7, whose verify checks S-18. V-8 after MS3's deploy.
