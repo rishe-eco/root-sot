@@ -2,6 +2,37 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-17 · `lifecycle-trial/imnstr` (step 8a, B7 launched) · imnstr `main @ 7d82cc0`
+
+*Replaces the 8c B6 deployed block's next step 1. Its step 2 (the founder: F-17, then V-9 with V-7) stands. Log: `log/08a-B7-launch.md`.*
+
+**Founder, at this launch:** no question asked. B7's one check outside the suites (plan §8: validator.schema.org on both pages) is the verify's, and needs no device.
+
+**Lanes in flight**
+
+| Stage | Branch | Worktree | Slot | Card | Status |
+|---|---|---|---|---|---|
+| B7 Podcast (L) | `b7-podcast` from local `main @ 7d82cc0`, no upstream | `E:\_root\imnstr\.claude\worktrees\b7-podcast` | A: `4110`, `.tmp/e2e.db` | `briefs/B7.md` (`a3c0dfd`) | background Sonnet lane, launched; report also to `<worktree>/.tmp/B7.report.md` |
+
+**What the card settled** (for verify to hold the lane to):
+- **S-3:** `createOrGet` gains an optional step inside its transaction, after the insert and before the publish, where episodes insert their links. Entries pass nothing.
+- **Links travel whole in `PUT`**. The plan's `DELETE episodes/<id>/links/<n>` is **not built**: Remove is part of the edit, so Cancel undoes it. The server inserts new rows before deleting old ones, because `episode_last_link` fires otherwise. An empty list on a published episode is `LAST_LINK` (409). For the plan's changelog.
+- PD-23's refusals in order at publish. `LINK_NOT_HTTPS` on every save (`https:` scheme). A blank label is `REQUEST_INVALID`. The triggers' `RAISE` messages map to the same codes.
+- **New guards in `lib/limits.ts`** (name 1,000, description 10,000, label 100, URL 2,000, links 20), each `REQUEST_INVALID`, with `maxlength` to match. For the plan's §6.4.
+- **The date is a calendar date.** The server fills today in `SITE_TZ`. A formatter never converts a zone. `GET episodes` returns `today` and `now`.
+- **Order** `date DESC, id ASC`, public and admin. Cursors follow PD-25.
+- **The show links sit under the intro on every page.** Plate 4's desktop "Listen wherever you like" block is not built. Every pill is the same: no icons yet.
+- **S-19:** the shared writing pieces move out of `composer.tsx` unchanged; `buffers.ts` goes generic over what a buffer holds; `admin/episode-writes.ts` in `writes.ts`'s shape; the language fixed while a send is unanswered.
+- Signed-out copy per F-16 ("You were signed out. … Your episode stays right here.").
+- **S-9:** measured, not changed. `deploy/checks.sh` gains `/podcast`, `/fa/podcast` and the episodes 401. Every new screen is checked at 180 px against the column.
+
+**Next steps, in order**
+1. **8b, land B7** when the lane reports: in this session if it comes back here.
+2. **8c, verify B7** (Opus · high). Push `main` to deploy (ask the founder's word first). Run validator.schema.org on both pages; check S-18 (`/podcast` counts). With B7 deployed, MS3's suites can run, but MS3 can't close until V-9 passes.
+3. **The founder:** F-17, then V-9 with V-7, as the block below says.
+
+**Owed by the founder:** F-17, V-9 (with V-7), F-11, F-14, F-7, F-2. Status column 8 stays `8/10`.
+
 ## 2026-10-17 · `lifecycle-trial/imnstr` (8c B6 follow-up: F-15, F-16) · imnstr `main @ 7d82cc0`
 
 *Adds to the block below; its next steps stand. Log: `log/08c-B6-verify.md`, the addendum on F-15 and F-16.*
