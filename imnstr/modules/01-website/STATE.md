@@ -2,6 +2,25 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-17 · `lifecycle-trial/imnstr` (step 8c, B5 verified and deployed) · imnstr `main @ 13d82dd`
+
+*Replaces the step-8b B5 block's next step 1. Adds to the step-8a B8 block below, which ran beside this one; its lane table and its steps stand. Log: `08c-B5-verify.md`.*
+
+**B5 is on `main` and live.** The first stage deployed by CI.
+- Review fixes `0981ded`: the rows overflowed by 61 px at 200% zoom (180 px) and names vanished, so they now stack below `20em`. Untitled Persian rows are quoted «…». One Persian leading token. The regex holds escapes, not literal U+FFFE/U+FFFF.
+- Run [39023965380](https://github.com/rishe-eco/i-monster/actions/runs/39023965380): `check` and `deploy` green. The record commit `13d82dd` deployed as run 39024319296, green.
+- Live: `/admin/api/entries`, an unknown `/admin/api` path and `/admin/api/entries/x` answer 401 `UNAUTHENTICATED`, no cookie. `/`, `/fa/` and root-app answer 200. The shell names the new bundle.
+- Record: `docs/development/B5.md`. Worktree and branch removed. Local `main` fast-forwarded.
+
+**Lanes in flight:** B8, as in the block below. **B5 is now in `main`, so B8 rebases onto `13d82dd`** before its verify (shared: `lib/dates.ts`, `routes/test.ts`, maybe `lib/limits.ts`).
+
+**Next steps, in order**
+1. **8b / 8c B8**, as the block below says.
+2. **F-12 (founder), before B8's `reset-content`:** sign in at `/admin`, open Entries, and check that the two MS2 seeds are listed and that Edit opens the frame.
+3. **8a B6** (slot A) after B5. Its card takes S-17 (the clock-jump sign-in, `admin-support.ts`, `STATUS` stays put, Copy link and Save go in B5's frame), S-4/S-5 on the client, and S-9.
+
+**Owed by the founder:** F-11 (plan changelog for B5; optional copy review), F-12, V-7, F-7, F-2. open-work 0.12. Status column 8: `6/10`.
+
 ## 2026-10-17 · `lifecycle-trial/imnstr` (step 8a, B8 launched) · imnstr `main @ aa889cb`
 
 *Adds to the step-8b B5 block below; it replaces only that block's next step 2 (8a B8). Run beside the 8c B5 session, which may write its own block above or below this one. Log: `08a-B8-launch.md`.*
