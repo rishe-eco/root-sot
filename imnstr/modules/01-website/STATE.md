@@ -2,6 +2,35 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-18 · `lifecycle-trial/imnstr` (step 8b, B9 landed) · imnstr `main @ fdfda8b`
+
+*Replaces the 8a B9 block's lane table and its next step 1. The card's calls there still stand. Run in the same session as 8a B9, because the report came back here. Log: `log/08b-B9-land.md`.*
+
+**Lanes in flight:** none. The lane finished without a stop.
+
+| Stage | Branch | Worktree | Report |
+|---|---|---|---|
+| B9 Motion, wordmark, access sweep (M) | `b9-motion-access` @ `1869e15` (2 commits: `f9ed1a4` public, `1869e15` admin), from `fdfda8b`, **local only**, no upstream | `E:\_root\imnstr\.claude\worktrees\b9-motion-access` (kept for the verify) | `briefs/B9.report.md` |
+
+**What the lane says** (its report, not yet reviewed): +1,652 / −75 over 34 files, about a third in the two sweep specs. `npm run check` clean; Vitest 9 files / 289; `sweep.spec.ts` 76 and `admin-sweep.spec.ts` 40 green (about 6 min together, both schemes, one worker); the regression set 432 passed and 4 failed (`landing.spec.ts` pinned the hero's text), then `landing.spec.ts` alone 40 passed after the fix. New dev dependency `@axe-core/playwright ^4.14.0`. axe finds nothing at WCAG 2.2 AA once the lane's fixes are in.
+
+**For verify to look at first** (from report items 4 and 5):
+- **Real fault found and fixed:** at 200% text and 360 px, the admin's entries list ran 120 px off the edge on a row with a Persian pill; the rows now choose their layout by `@container (min-width: 17rem)`, **in rem, against `CLAUDE.md`'s em rule** for breakpoints.
+- **The hero is fitted by container units** (`--fit-wordmark`): 50 px at 360, but 17 px at 180 px (the old cap gave 34), and about 2 px at 180 px with 200% text.
+- Header wordmark 22/26 px (was 24) and nav gap 8 px on phones, to keep one row at 360; revealed, the nav wraps to a second row.
+- A mouse click or Enter on the hero does nothing (`preventDefault`); only touch or pen toggles.
+- Tap fixes: `padding-block` on inline links in running text, `min-inline-size` on the Persian Feed link; `.entry-page__date` counted as a 24 px date link.
+- The date input's year at 180 px was checked by screenshot only; the test guards the padding.
+- Canon drift for the founder: the design README's dark muted (7.9:1, not 8.3) and light field edge on the ground (3.4:1, not 3.6); plate 15's section rules (1 px soft) against the code's 1.5 px strong. `deploy/checks.sh` has no check for `wordmark.js`.
+- The 200% emulation leaves `em` media queries alone, so real browser text size is for step 9.
+
+**Next steps, in order**
+1. **8c, verify B9** (Opus · high), fresh session. Ask the founder's word before the deploy push; read `Content-Encoding` on the live assets; then status column 8 → `10/10`, worktree and branch removed.
+2. **8d MS4** (full suites and the sweep); MS3 and MS4 both wait on V-9 for E1.
+3. **The founder:** F-17, then V-9 with V-7; V-8 is due.
+
+**Owed by the founder:** F-17, V-9 (with V-7), V-8, F-11, F-14, F-7, F-2. Status column 8 stays `9/10`.
+
 ## 2026-10-18 · `lifecycle-trial/imnstr` (step 8a, B9 launched) · imnstr `main @ fdfda8b`
 
 *Replaces the 8d MS3 block's next step 1. Its steps 2–3 (the founder: F-17, then V-9 with V-7; V-8 due) stand. Log: `log/08a-B9-launch.md`.*
