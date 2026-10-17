@@ -2,6 +2,44 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-17 · `lifecycle-trial/imnstr` (step 8b, B5 landed) · imnstr `main @ aa889cb`
+
+*Replaces the step-8a B5 block's lane table and its next step 1. The founder's decision and the card's calls there still stand. Run in the same session as 8a, because the report came back here. Log: `08b-B5-land.md`.*
+
+**Lanes in flight:** none. B5 has reported and is waiting for verify.
+
+| Stage | Branch | Worktree | Report | Status |
+|---|---|---|---|---|
+| B5 Entries API, admin shell, list (M) | `b5-entries-admin` @ `e46ca71` (one commit, founder identity), **local only** | `E:\_root\imnstr\.claude\worktrees\b5-entries-admin` | `briefs/B5.report.md` | landed; 29 files, +2,634 / −33 (over M's ~1,500, under twice it); lane ~26 min wall, 336k tokens, 93 tool uses |
+
+**What the lane says** (not reviewed):
+- `npm run check` is clean.
+- Vitest: 19 targeted files, 524 tests passed.
+- e2e: `admin-entries.spec.ts` 54 passed over `--repeat-each=3`, after a fix to a race in its own year-turn test. `admin-auth.spec.ts` passed in the run before that fix and wasn't rerun.
+
+**For verify to decide** (report items 4–6):
+- **No `republish` route.** `publish` keeps the original date through `COALESCE`.
+- **An existing `publishKey`** answers 200 with the same bytes as a new row, and writes nothing, not even `last_language`.
+- **S-11:**
+  - a known path with the wrong method answers `NOT_FOUND`;
+  - an unknown `auth/*` path still gets the public HTML 404, signed in or out;
+  - an unknown list cursor is `NOT_FOUND`.
+- **Copy the lane wrote:** the empty state, three refusal messages, "Opening…". The `NOT_FOUND` message is now generic, so the passkeys screen changes too.
+- **Other changes:**
+  - `assets/css/tokens.css` gains `--leading-read-fa`;
+  - `siteTimeZone` moved to `admin/ui.tsx`;
+  - `lib/escape.ts` uses the new `stripXmlForbidden`, a public-side change; `log.spec.ts` and `entry.spec.ts` were not run.
+- **`deploy/checks.sh` gains two 401 checks.** It isn't a stop file. `shellcheck` didn't run here (not installed), only `bash -n`, but CI's `check` job runs it before any deploy.
+- Screenshots were looked at once, before the pill-stacking change, and not after.
+- **Test note:** a clock jump over an hour ends the e2e session. Tests sign in after each jump.
+
+**Next steps, in order**
+1. **8c, verify B5** (Opus · high), a fresh session on this machine. Before the push, check the diff for stop files and `.env` lines (none expected). The push to `main` is the **first stage deployed by CI**: read the run through the API, then check the list on the live site with the MS2 seeds.
+2. **8a B8** (slot B) may run beside 8c, or after it.
+3. The phone check (V-7), as in the MS2 block.
+
+**Owed by the founder:** V-7 (phone); F-7; F-2. Status column 8 stays `5/10`.
+
 ## 2026-10-17 · `lifecycle-trial/imnstr` (step 8a, B5 launched) · imnstr `main @ aa889cb`
 
 *Replaces next step 1 of the step-8d MS2 block and next step 2 of the step-8c CD1 block (8a B5). Log: `08a-B5-launch.md`.*
