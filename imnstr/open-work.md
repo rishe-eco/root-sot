@@ -2,7 +2,7 @@
 
 *Owed items from stage reviews and close-out: what a stage left for the founder or for later, and anything past the verification ceiling. Written by `verify` and `close-out` only (lifecycle README §4); created by `verify B1`, trial step 8c. Not Root's `team/open-work.md`: IMNSTR is outside Root (`lifecycle/projects/imnstr/config.md` §1). Items owed to a later stage are also listed in the code repo's `docs/development/README.md`.*
 
-**Version 0.12 · 2026-10-17 · Owner: founder**
+**Version 0.13 · 2026-10-17 · Owner: founder**
 
 ---
 
@@ -22,6 +22,8 @@
 | ~~F-10~~ | **Closed 2026-10-15:** config 0.4, review checklist 0.4, build plan 0.6, brief-common 0.3, change note 0.4. ~~Accept the canon CD1 made stale (CD1 record, *Flagged for close-out*): config 0.3 §7 (routine deploy = a push to `main`; who deploys; checks = `deploy/checks.sh`; the verify reads a run through the public API or a downloaded log, since the Actions log needs sign-in); review checklist 0.3 §6 (the deploy user per CI-4; no global prune; deploy checks go in `checks.sh`; before a push, check the diff for a stop file or a new `.env` line); build plan 0.5 B2 goal and *Not here*, §7 (what is on the box); `brief-common.md` (lanes never push: a push deploys). Also change note 04: the lock moved to `/run/imnstr-deploy.lock`, and an already-current run still builds and ups.~~ | CD1 record | — |
 | F-11 | Build plan changelog for B5 (B5 record, *Flagged for close-out*): §5 B5's per-row Unpublish, Republish and Copy link and the `republish` function are superseded by plate 8 (your call at launch) and by `publish` keeping the date. Also, if you want, the admin copy B5 wrote where plate 8 gives none: the empty state "Entries you write will be listed here.", the three refusals (`BODY_REQUIRED`, `DOC_INVALID`, `LANG_INVALID`), "Opening…", and the shared `NOT_FOUND` "That isn't there any more." | B5 record | next plan revision |
 | F-12 | Sign in at `https://imnstr.com/admin`, open Entries: the two MS2 seeds are listed, each with Edit, and Edit opens the read-only frame. The review couldn't sign in (no passkey) | B5 record | before B6 verify |
+| F-13 | At the server, in `/srv/imnstr` (`dc` is `sudo docker compose -f docker-compose.prod.yml`): `dc exec -T imnstr node --import tsx scripts/report.ts --from 2026-10`. It should list `fa` → `log` with at least 1 (the review's browser view, 2026-10-17 about 14:10 UTC); that proves the CLI runs in the image and the record counts in production. Then, **after F-12**, and only when you want MS2's seeds gone: a backup (`deploy/README.md`, *The CLIs*), `scripts/reset-content.ts` without `--yes` (row counts, changes nothing), then with `--yes`. Paste the outputs into the next session if anything looks off | B8 record | report: now; reset: before launch, at your word |
+| F-14 | Build plan changelog for B8 (B8 record, *Flagged for close-out*): §6.4 gains `recordKeysPerMonth` (500); §5 B8's `report(from, to)` is `report(db, from, to)`; the bot pattern also covers link-preview fetchers (Mastodon and the fediverse, WhatsApp, Bluesky, Iframely, Embedly, vkShare); R3 drops local names as well as IP literals | B8 record | next plan revision |
 
 ## Owed to later stages
 
@@ -44,6 +46,7 @@
 | S-14 | Correct the stale "B4a puts routes here" comment in `imnstr.conf` | next conf change | B4a |
 | S-17 | For B6's card: a test-clock jump over an hour ends the session (1 h idle), so tests sign in after each jump; `admin-support.ts` has a signed-in helper; `STATUS` stays in `routes/admin-api.ts` because `admin-copy.test.ts` parses it; Copy link and Save land in B5's edit-view frame | B6 | B5 |
 | S-16 | Prune old `imnstr` images on the box, filtered by label or repository, never a global prune (other tenants' images) | any deploy | CD1 |
+| S-18 | `/podcast` and `/fa/podcast` count in the reader record once they answer 200; `targetOf` already names them, so B7 changes nothing, and its verify checks it | B7 | B8 |
 
 ## Past the verification ceiling
 
@@ -56,9 +59,11 @@
 | V-5 | Feed readers (NetNewsWire or Feedly) with Persian RTL and `<bdi>` in content | MS4 |
 | V-6 | W3C Feed Validator by URL, now the site is up. By direct input at B3: both feeds valid | optional |
 | V-7 | Real passkeys on the founder's phone and laptop, hybrid sign-in and enrolment by code; AC-24, both passkeys independent. B4a ran only the software and Edge virtual authenticators. **Started 2026-10-15** at B4b's deploy: the founder's **Windows desktop** (Chrome, Google Password Manager) set up from a real setup token, then signed out and in (B4b's record first said "phone"; corrected at MS2). **At MS2, 2026-10-15:** the Ubuntu laptop (Chrome, Google Password Manager, a different Google account) enrolled by code from the desktop's link; each device signs in with its own passkey and marks it "this device"; `excludeCredentials` on Chrome with Google Password Manager shows the page's "This device already has a passkey for this site." after the manager's PIN, with no wording from Chrome. **Still owed, with a phone** (the founder had none at MS2): a phone passkey; hybrid (QR) sign-in, and S-15; the QR scanned by a camera; the phone's `excludeCredentials` wording; the on-screen keyboard at 360 px; **AC-24**, deferred by the founder to the phone check | when the founder has a phone; AC-24 again before launch |
+| V-8 | The aggregators' real user-agent formats (R2): subscribe to both feeds in two aggregators (Feedly and Inoreader, say), wait for a fetch, then read `record_feed` and correct `subscribersOf` and `aggregatorOf` in `lib/record.ts`. Every format in B8's tests is a guess (plan §5 B8, trap 1) | after MS3's deploy; MS4 at the latest |
 
 ## Changelog
 
+- **0.13 · 2026-10-17** — From `verify B8`: F-13 (run `report` in the container; `reset-content` at the founder's word, after F-12), F-14 (plan changelog for B8), S-18 (the podcast counts, B7), V-8 (real aggregator formats, after MS3).
 - **0.12 · 2026-10-17** — From `verify B5`: S-11 done; S-4, S-5 and S-12 done for B5 and moved on; S-9 moved to B6; F-11, F-12 and S-17 added.
 - **0.11 · 2026-10-15** — F-10 closed by the founder's answer, in the 8c CD1 session.
 - **0.10 · 2026-10-15** — From `verify --milestone MS2`: V-7 advanced (laptop, enrolment by code, Chrome's `excludeCredentials`; the first passkey corrected to the desktop); the phone parts, S-15 and AC-24 moved to the phone check.

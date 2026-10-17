@@ -2,6 +2,30 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-17 · `lifecycle-trial/imnstr` (step 8c, B8 verified and deployed) · imnstr `main @ b831fd3`
+
+*Replaces the step-8b B8 block's lane table and its next step 1; its step 2 (R2 after MS3) is now V-8. The 8c B5 block's next steps 2 and 3 stand. Log: `08c-B8-verify.md`.*
+
+**B8 is on `main` and live,** deployed by CI.
+- Rebased onto `13d82dd` (one import line in `tests/unit/dates.test.ts`), then review fixes `d6da7f6`:
+  - link-preview fetchers that don't say "bot" (Mastodon `http.rb`, Pleroma, Akkoma, Misskey, WhatsApp, Bluesky Cardyb, Iframely, Embedly, vkShare) are no longer views;
+  - R3 drops local names (single label, `.local`, `.lan`, `.internal`, `.localhost`, `.home.arpa`);
+  - AC-47's signed-in check enumerates every admin API `GET`, so B5's `settings` and `entries` reads are covered;
+  - `app.ts`'s D-8 comment.
+- Runs [39039416353](https://github.com/rishe-eco/i-monster/actions/runs/39039416353) (`d6da7f6`) and 39039616528 (record `b831fd3`): `check` and `deploy` green.
+- Live: pages, both feeds and a 404 with the CSP, noindex and no `Set-Cookie`; a feed `304` through Nginx; root-app 200. One counted view placed: `/fa/log`, ~14:10 UTC.
+- Record: `docs/development/B8.md`. Worktree and branch removed. Local `main` fast-forwarded.
+
+**Lanes in flight:** none.
+
+**Next steps, in order**
+1. **F-13 (founder, at the server):** `report --from 2026-10` in the container shows `fa` → `log` ≥ 1. Then, after F-12, a backup and `reset-content` (dry, then `--yes`) at the founder's word.
+2. **8a B6** (slot A). Its card takes S-17, the B5 lesson (e2e at 180 px), S-4/S-5 on the client, and S-9.
+3. **8a B7** after B6; its verify checks S-18 (the podcast counts).
+4. **V-8 after MS3's deploy:** two aggregator subscriptions, then correct R2's parser.
+
+**Owed by the founder:** F-11, F-12, F-13, F-14 (plan changelog for B8), V-7, F-7, F-2. open-work 0.13. Status column 8: `7/10`.
+
 ## 2026-10-17 · `lifecycle-trial/imnstr` (step 8b, B8 landed) · imnstr `main @ 13d82dd`
 
 *Replaces the step-8a B8 block's lane table and its next step 1. The card's calls there still stand. The 8c B5 block below stands as written. Run in the same session as 8a B8, because the report came back here. Log: `08b-B8-land.md`.*
