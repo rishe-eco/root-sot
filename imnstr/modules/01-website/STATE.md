@@ -2,6 +2,36 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-17 · `lifecycle-trial/imnstr` (step 8b, B6 landed) · imnstr `main @ b831fd3`
+
+*Replaces the 8a B6 block's lane table and its next step 1. The card's calls there still stand. Run in the same session as 8a B6, because the report came back here. Log: `08b-B6-land.md`.*
+
+**Lanes in flight:** none. B6 has reported and is waiting for verify.
+
+| Stage | Branch | Worktree | Report | Status |
+|---|---|---|---|---|
+| B6 The editor (L) | `b6-editor` @ `d77565a` (four commits, founder identity), **local only**, based on `b831fd3`; `main` hasn't moved | `E:\_root\imnstr\.claude\worktrees\b6-editor` | `briefs/B6.report.md` | landed; 24 files, +3,884 / −276 (over L's ~3,000; `editor.spec.ts` alone is 1,122); lane ~83 min wall, 492k tokens, 135 tool uses |
+
+**Commits:** `46b2628` is the bare editor on its own (deployable alone, per the founder's call); `899aa34` nothing lost; `9351c7b` its e2e; `d77565a` a toolbar selection flake.
+
+**What the lane says** (not reviewed):
+- `npm run check` clean. Vitest 10 targeted files, 230 passed (an earlier run of 15 files, 375). Playwright `editor`, `admin-entries`, `admin-auth`: 130 passed, light and dark.
+- **S-9:** a body at `bodyMaxBytes` with a link on every word is a 65,550-byte request, 6% of Nginx's `1m`; pinned in `request-size.test.ts`. `imnstr.conf` untouched.
+- **Bundle:** `admin.js` 17.6 KB → **87.7 KB gzipped** (284.7 KB raw), nearly all ProseMirror. E1's cold runs pay it.
+
+**For verify to decide** (report items 4–6):
+- **Rule changes to tests** (item 5): `house-rules.test.ts` and `assets.test.ts` banned `localStorage` outright (B4b); now it may be named only in `admin/browser-storage.ts`, with a key-shape test. `admin-copy.test.ts`'s "no count" regex no longer bans "left". ProseMirror's CSS rewritten with tokens and logical properties, the unreachable rules left out.
+- **Beyond the card** (item 4): a "Leave without saving?" confirm on Cancel or another Edit with unsaved changes; kept text is a stack; an opened page sets unsent text aside to kept at once; the unsent buffer carries the row's `id`; a retry follows a stale `POST` answer with `PUT` (and publish); key regenerated if the language changes before a row exists; the edit-buffer offer's wording; a storage-refused variant; a sticky "dock" for tools and actions; a composition guard on bidi decorations (60 ms after `compositionend`, untested).
+- **Plate 9's "after an hour idle"** against house rule 1; the title has no length cap (`readTitle`).
+- **Test support changed:** `signedInAdmin` can run twice; `globalSetup.ts` now watches `shared/`, `lib/bidi.ts`, `lib/i18n.ts`.
+- **Unverified:** real phone keyboards, the dock under an iOS keyboard, E1, a real clipboard prompt, screen readers, two tabs on one device.
+
+**Next steps, in order**
+1. **8c, verify B6** (Opus · high), a fresh session on this machine. Push `main` to deploy (new dependencies, no stop file). E1, the phone typing and PD-7's fallback go to V-7 (no phone yet), and the record says so.
+2. **8a B7** after B6.
+
+**Owed by the founder:** a phone (V-7, E1); F-11, F-14, F-7, F-2. Status column 8 is not this step's to change.
+
 ## 2026-10-17 · `lifecycle-trial/imnstr` (step 8a, B6 launched) · imnstr `main @ b831fd3`
 
 *Replaces the 8c B8 block's next step 2. Its steps 3 and 4 stand. Log: `08a-B6-launch.md`.*
