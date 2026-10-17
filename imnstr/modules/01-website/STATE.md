@@ -2,6 +2,21 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-18 · `lifecycle-trial/imnstr` (step 8d, MS3) · imnstr `main @ fdfda8b`
+
+*Adds to the 8c B7 block; replaces its next step 1. Log: `log/08d-MS3-milestone.md`.*
+
+**Lanes in flight:** none.
+
+**MS3 suites green on `ca1b2aa`:** `check` clean; Vitest 45 files, 948 passed; Playwright 445 passed, 9 skipped, one worker. Every feature checked live by `curl`. **MS3 is not closed:** E1 (V-9) needs the founder's phone, and they had none. Record: dev README, MS3 (`fdfda8b`, CI run 39074234512). Status column 8 stays `9/10`.
+
+**Next steps, in order**
+1. **8a B9**, the last stage; its card carries the 8c B7 block's three items.
+2. **The founder:** F-17, then the phone check (V-9 with V-7); MS3 closes when E1 passes, then `reset-content`.
+3. V-8 is due (two aggregators).
+
+**Owed by the founder:** F-17, V-9 (with V-7), V-8, F-11, F-14, F-7, F-2. open-work 0.19.
+
 ## 2026-10-17 · `lifecycle-trial/imnstr` (step 8c, B7 deployed) · imnstr `main @ ca1b2aa`
 
 *Replaces the 8c B7 block's lane table and its next step 1. Its steps 2–3 stand. Log: `log/08c-B7-verify.md`, addendum.*
