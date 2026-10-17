@@ -84,7 +84,10 @@ Opus, medium (this session ran high, at the founder's word). Drafting this card 
 - **Rule:** at launch, list the stage's checks outside the suites (plan §8). Ask the founder about any that needs a device or a person, before drafting. **Event:** B6's verify gates on E1, run on the founder's phone. MS2 had recorded "no phone" two days earlier, and neither the plan nor `STATE.md`'s next step raised it. Caught here at the cost of one question. Found at the verify, it would have blocked a finished stage. **Scope:** `build-phase`, `verify`. **Destination:** `build-phase` launch step 1 (the gate); `config.md`, a line on the founder's devices. **urgent:** no.
 
 ## Cost
-*Founder fills in after the session.*
+*From the founder, after the session. This session ran 8a and 8b. The figures cover the whole session, including the Sonnet lane:*
+- Cost: $12.35 · API 48m 51s · active 11m 58s · lines +4,371 / −13, as reported.
+- Share: Sonnet (the lane) 59%, Opus 41%; cache hit 96%.
+- The harness gave the lane 492k tokens, 135 tool uses and about 83 min. For comparison, B5 (M) cost $9.33 for its whole 8a+8b session, and its lane used 336k tokens in ~26 min.
 
 ## Next
 8b, land B6, when the lane reports: in this session if it comes back here. Then 8c verify B6 (Opus · high). Its push to `main` deploys. E1 and the phone typing are owed to V-7.

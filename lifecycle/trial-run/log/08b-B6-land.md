@@ -40,7 +40,7 @@ Sonnet, low would do, as at B8. Inject `git diff --shortstat <base>..<branch>`, 
 - **Rule:** when a card asks for something an earlier stage's test forbids, the card names that test and states the new rule, so the lane doesn't decide a house rule alone. **Event:** B6's buffers needed `localStorage`. `house-rules.test.ts` and `assets.test.ts` banned it (B4b), and the card didn't say so. The lane narrowed both tests itself and flagged it, so verify must now judge a rule change it would rather have seen planned. **Scope:** `build-phase` (launch). **Destination:** `build-phase` launch step 2, the "against the code" check. **urgent:** no.
 
 ## Cost
-*Founder fills in after the session; 8a and 8b ran in one session, with the lane.*
+The figures cover the whole 8a+8b session, including the lane, and are recorded in `08a-B6-launch.md`: $12.35, API 48m 51s, Sonnet 59% / Opus 41%. The land itself was a few minutes of active time.
 
 ## Next
 8c, verify B6 (Opus · high), in a fresh session. Push `main` to deploy (new dependencies, no stop file). E1, the phone typing and PD-7's fallback go to V-7.
