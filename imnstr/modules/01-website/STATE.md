@@ -2,6 +2,32 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-17 · `lifecycle-trial/imnstr` (step 8c, B6 verified, not yet deployed) · imnstr `main @ b831fd3`
+
+*Replaces the 8b B6 block's next step 1. Its step 2 (8a B7) stands, after the deploy. Log: `log/08c-B6-verify.md`.*
+
+**Where B6 is:** reviewed and fixed. It is `b6-editor` @ **`f4b67d0`** (the lane's four commits, then the review's), local only, in `E:_rootimnstr.claudeworktrees6-editor`. **Ready to fast-forward. Not deployed:** auto mode refused `git push origin HEAD:main` as a production deploy. The stage record `docs/development/B6.md` is on the branch. Its deploy section waits for the CI run.
+
+**The review fixed** (each with a test that fails on the lane's code):
+1. **A language switch after a lost answer published the same text twice** (a new key for the new language). Now the key stays, and the language is fixed while a send is unanswered.
+2. **Leave over unsaved changes skipped "Back to your unsent entry."** and its Discard. Leave now drops only the changes.
+3. **At 180 px, Highlight ran into the gutter.** The tools wrap. The test checks every control against the column, in the composer and in the frame.
+
+**Accepted:** the lane's `localStorage` rule change (one file, three key shapes) and the "left" regex. The rest of item 4 is in the record.
+
+**Suites at review:** `npm run check` clean; Vitest 15 files, 375 passed; Playwright `editor`, `admin-entries` and `admin-auth`: 134 passed, light and dark.
+
+**Next steps, in order**
+1. **The founder pushes `main`.** In `E:_rootimnstr.claudeworktrees6-editor`, run `git push origin HEAD:main`. The diff has no stop file and no `.env` line, only new npm dependencies. Then a session finishes 8c:
+   - read the run at `api.github.com/repos/rishe-eco/i-monster/actions/runs`;
+   - check that `/admin` serves the new bundle with no CSP report, the `curl -I` headers, and root-app's URL;
+   - write the record's deploy section in its own commit and push it (also a deploy);
+   - remove the worktree and the branch;
+   - set status column 8 to `8/10`.
+2. **8a B7.** Its card carries S-19 (reuse the buffers, and keep the language fixed while unanswered) and the 180 px column check (log lesson 1).
+
+**Owed by the founder:** the push (above); F-15 (plan changelog for B6); F-16 (signed-out copy; title length); V-9 with V-7 (E1, the phone keyboard, PD-7's fallback). M3 can't close without V-9. Also F-11, F-14, F-7 and F-2. Status column 8 stays `7/10` until B6 is live.
+
 ## 2026-10-17 · `lifecycle-trial/imnstr` (step 8b, B6 landed) · imnstr `main @ b831fd3`
 
 *Replaces the 8a B6 block's lane table and its next step 1. The card's calls there still stand. Run in the same session as 8a B6, because the report came back here. Log: `08b-B6-land.md`.*
