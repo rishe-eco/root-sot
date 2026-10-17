@@ -2,6 +2,35 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-18 · `lifecycle-trial/imnstr` (step 8a, B9 launched) · imnstr `main @ fdfda8b`
+
+*Replaces the 8d MS3 block's next step 1. Its steps 2–3 (the founder: F-17, then V-9 with V-7; V-8 due) stand. Log: `log/08a-B9-launch.md`.*
+
+**Founder, at this launch:** no question asked. B9's one check outside the suites (plan §8: the dark pairs' contrast) is measured in the sweep; screen readers and real zoom stay with step 9.
+
+**Lanes in flight**
+
+| Stage | Branch | Worktree | Slot | Card | Status |
+|---|---|---|---|---|---|
+| B9 Motion, wordmark, access sweep (M) | `b9-motion-access` from local `main @ fdfda8b`, no upstream | `E:\_root\imnstr\.claude\worktrees\b9-motion-access` | A: `4110`, `.tmp/e2e.db` | `briefs/B9.md` (`439a329`) | background Sonnet lane, launched; report also to `<worktree>/.tmp/B9.report.md` |
+
+**What the card settled** (for verify to hold the lane to):
+- **`assets/wordmark.js`**, plain JS, hashed by `lib/assets.ts`, `<script defer src>` in `views/layout.tsx` **and** the admin shell (`routes/admin.tsx`), so the sign-in's eyes follow too. Returns before binding under reduced motion. One `pointermove` on `window`, one update per frame, finds `[data-eye]` at move time. Pupils move through the CSSOM (CSP allows it), never a `style` attribute.
+- **Reveal:** hidden letters are `aria-hidden` spans; the name stays "iMNSTR". CSS reveals on `:focus-visible`, `:hover` within `(hover: hover)`, and `.is-revealed`. JS runs the intro (0.9 s on, 2.9 s off; only where the hero has `data-intro`) and toggles on tap **on the landing hero only**; header wordmarks stay plain links. Wordmark colour stays B1's `--monster`; revealed letters weight 500.
+- **Eyes placed** per the plates: every public header, the landing hero, the empty states of `/log`, `/fa/log`, `/podcast`, `/fa/podcast`, big on both 404s and the admin sign-in. All `aria-hidden`; B4b's sign-in slot loses `role="img"` and its label.
+- **CSS motion:** the draw-in (landing intro; podcast lede scoped, but B7's lede has no `<mark>` and no copy is added: F-2), the rows' 0.35 s sweep, the reveal's transition. `base.css`'s kill-switch stays.
+- **Carried:** `expectWithinColumn` into `tests/e2e/support.ts`; the date input's clip at 180 px (fix in CSS, or report); **V-2** as `tests/unit/contrast.test.ts` reading `tokens.css` (all pairs pass by the card's arithmetic; the README's dark muted "8.3:1" computes to 7.9).
+- **The sweep:** `@axe-core/playwright` (plan §6.6, new dev dependency); `sweep.spec.ts` and `admin-sweep.spec.ts`, one test per page or state running every check (axe WCAG 2.2 AA tags; 360 with wordmarks forced revealed; 180 with the column check; root 200% at 360 and 1280 via `page.evaluate`; forced colours incl. the editor's `<mark>`; reduced motion by counting `animationstart`/`transitionrun`; tap targets; no `securitypolicyviolation`). Intro tested with `page.clock`.
+- **Tests that change on purpose:** four tests that pin "no `<script` at all" on public pages narrow to "no inline script" and assert the one hashed `wordmark.js`; wordmark text checks become accessible-name checks.
+
+**Next steps, in order**
+1. **8b, land B9** when the lane reports: in this session if it comes back here.
+2. **8c, verify B9** (Opus · high). Push `main` to deploy (ask the founder's word first). Read `Content-Encoding` on the live assets. Then status column 8 → `10/10`.
+3. **8d MS4** (full suites and the sweep); MS3 and MS4 both wait on V-9 for E1.
+4. **The founder:** F-17, then V-9 with V-7; V-8 is due.
+
+**Owed by the founder:** F-17, V-9 (with V-7), V-8, F-11, F-14, F-7, F-2. Status column 8 stays `9/10`.
+
 ## 2026-10-18 · `lifecycle-trial/imnstr` (step 8d, MS3) · imnstr `main @ fdfda8b`
 
 *Adds to the 8c B7 block; replaces its next step 1. Log: `log/08d-MS3-milestone.md`.*
