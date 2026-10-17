@@ -2,7 +2,7 @@
 
 *Module `imnstr/modules/01-website/` · Track: Module · Phase 7 · `build-plan`. The order the code lands in and the shape it takes, to the level of tables, routes, refusal codes, screens and tests, so that each stage's phase card is a transcription and not a design exercise. Inputs: `02-spec.md` 0.4, `03-journeys.md` 0.3, `04-wireframes.html` (W1–W11), `04b-design/README.md` 0.2, `05-ux-review.md` pass 1, `06-eval-plan.md` 0.2, change notes 01–03; for the host, `root-app/deploy/`. Update the changelog; don't fork.*
 
-**Version 0.6 · Status: plan; B1, B2, B3, B4a, B4b and CD1 built and verified; MS1 live; a push to `main` deploys · 2026-10-15 · Owner: founder**
+**Version 0.7 · Status: plan; B1–B6, B8 and CD1 built and verified; MS1 live; a push to `main` deploys · 2026-10-17 · Owner: founder**
 
 **Where this file yields.** On *what* the site does, the spec wins. On what a person experiences, the journeys win. On how it looks, the design wins. On *what order the code lands in and what shape it takes*, this file wins. Where it settles something the spec left open, §2 says so.
 
@@ -173,6 +173,7 @@ IMNSTR has no code yet, so it has no house rules yet. These are the rules, writt
 - Publishing or saving a draft of new text sends the key. The server inserts the row, or returns the row that already holds that key.
 - Publishing an existing draft is a state change that does nothing if the row is already published. Republishing keeps `first_published_at` (AC-14).
 - Retries, double taps and reconnects therefore all land on one row.
+- A composition keeps its key until the server confirms a publish; nothing makes a new one. A known key answers with the row as it first was, whatever the request says now. So any field that `PUT` can't change (an entry's `lang`) is fixed while a send has gone unanswered (`NETWORK` or `UNEXPECTED`, no row known), until an answer comes. A new key for a new language would publish the same text twice if the first send had landed (found at B6's verify).
 
 **PD-12 · Three local buffers, and the server draft is a separate act.**
 - The admin keeps **unsent new text**, an **edit buffer** for the entry being edited, and **kept text**: the unsent text set aside when Edit is opened over it (AC-43). All three live in `localStorage`, scoped per kind (entry or episode).
@@ -697,13 +698,13 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
   - the bidi decorations (PD-8, AC-48);
   - real labels (HIG #7);
   - Save draft (secondary) and Publish (solid ink, can't be tapped twice; HIG #5).
-- **The buffers** (PD-12): the unsent text is written to `localStorage` on every change. "Kept on this phone" is the only draft signal (W7). Text is cleared only after the server confirms.
+- **The buffers** (PD-12): the unsent text is written to `localStorage` on every change, through one file (`admin/browser-storage.ts`), the only place the admin names it; nothing about a session is ever stored there (AC-10). "Kept on this phone" is the only draft signal (W7). Text is cleared only after the server confirms.
 - **Edit over unsent text** (AC-43): the unsent text moves to kept text, and the notice says so. It is offered back when the edit is done or cancelled. Discard asks twice.
 - **Failures** (W5: errors just above Publish):
   - **No network:** "Not published yet", the text kept, retry with the same `publishKey` (J3.1–J3.2, AC-16, AC-25).
-  - **Expired session:** a 401 opens the re-authentication dialog **in place over the editor** (W6, J3.4–J3.5). After signing in, the action reruns once, on the new session and its new CSRF token.
+  - **Expired session:** a 401 keeps the editor on screen (the editor's writes opt out of the app-wide sign-out) and offers **Sign in and publish** (or save) **in place over the editor** (W6, J3.4–J3.5). It runs the passkey sign-in, not re-authentication, which needs a live session and answers 401. After signing in, the action reruns once, on the new session and its new CSRF token.
   - **A closed tab:** the unsent text is offered back on reopening, "You left something here." (J3.3).
-- **Published:** the notice, Copy link ("Copied" for 2 s, change note 03), and View.
+- **Published:** the notice, Copy link ("Copied" for 2 s, change note 03), and Open (the plates' word).
 
 **Tests.**
 - e2e:
@@ -906,6 +907,7 @@ Each is asserted by an integration test in its stage.
 | Page size · feed size | 20 · 20 | AC-30, AC-3 |
 | "Copied" | 2 s | change note 03 |
 | Body size | 64 KB | proposal: a guard, not a rule; no message names it |
+| Title length | 1,000 UTF-16 code units, after trimming; the field's `maxlength` matches | **[F]** F-16, at B6's verify: a large guard |
 
 ### 6.5 · The language switch
 
@@ -1042,6 +1044,7 @@ The other PD-n are mechanics. Veto any one of them, and the stage it governs cha
 
 ## Changelog
 
+- **0.7 · 2026-10-17:** After B6's verify (`docs/development/B6.md`), by the founder's decisions (F-15, F-16). Corrections; no stage's scope changes. **PD-11:** a composition keeps its key; a field `PUT` can't change is fixed while a send is unanswered. **§5 B6:** a 401 signs in over the editor with the passkey sign-in, not the re-authentication dialog; "View" is Open; the buffers go through one file. **§6.4:** the title is capped at 1,000.
 - **0.6 · 2026-10-15:** After CD1's verify (`docs/development/CD1.md`), by the founder's decision (F-10). §5 B2: a push to `main` deploys, in the goal and *Not here*. §7: item 5, what CD1 put on the box. No stage's scope changes.
 - **0.5 · 2026-10-14:** After B4a's verify (stage record `docs/development/B4a.md` in the code repo), by the founder's decision (F-9). These are corrections, and change no stage's scope.
   - **§5 B4a:** `ORIGIN` and the RP ID from it; the browser timeout equals the challenge's 5 min (found at review); routes in `routes/admin-api.ts`; `GET session` answers 401 when signed out and carries `independenceNoteDismissed`; the ceremonies that check a session themselves; S-8 kept at `30r/m burst=10`; `tests/`, not `test/`.

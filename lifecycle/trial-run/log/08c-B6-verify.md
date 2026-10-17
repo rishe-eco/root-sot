@@ -95,6 +95,14 @@ After the wrap-up, the founder said: "you have my permission to push it yourself
 - **Lesson 3, corrected:** the classifier refuses a deploy push until the founder says so in chat. Ask for that word before the push, as part of the review's last question, rather than treating the refusal as final.
 - **Lesson 4:** a lane's bundle-size measurement should be what the server actually sends. Read `Content-Encoding` on the live asset at each verify, because the gzip figure assumed compression that wasn't there. **Destination:** review checklist §6 (after the deploy) and the B9 sweep.
 
+## Addendum: F-15 and F-16
+The founder answered in chat. On F-16: "first one do what makes sense, second one yes cap it but a large cap". Then: "F-15 corrections are accepted".
+- **(a), the signed-out copy:** "You were signed out. Sign in to finish. Your text stays right here." A 401 can't tell an idle timeout from the 24 h limit or a passkey removed elsewhere, so the copy gives no reason.
+- **(b), the title cap:** `limits.titleMaxChars` is 1,000 UTF-16 code units after trimming. Over it, the API answers `REQUEST_INVALID` (an integration test checks the body by bytes), and the field's `maxlength` stops at the same number (an e2e check).
+- The code went on branch `f16-title-cap` (worktree `.claude/worktrees/f16-title-cap`), commit `7d82cc0`. Check clean; Vitest `limits`, `admin-entries`, `admin-copy` and `house-rules`: 107 passed. e2e, the three affected editor tests in both schemes: 6 passed. The B6 record's items 6 and 7 now say what was decided.
+- **F-15:** build plan **0.7**, which also writes F-16's cap into §6.4. open-work 0.16.
+- This is a small follow-up to the verify, at the founder's word, not a new phase. Like the F-10 and F-8 follow-ups, it was done in the verify's own session.
+
 ## Cost
 *Founder fills in after the session.*
 

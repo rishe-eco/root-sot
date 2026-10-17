@@ -2,6 +2,14 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-17 · `lifecycle-trial/imnstr` (8c B6 follow-up: F-15, F-16) · imnstr `main @ e3d492a`
+
+*Adds to the block below; its next steps stand. Log: `log/08c-B6-verify.md`, the addendum on F-15 and F-16.*
+
+- **F-15 accepted:** build plan **0.7** (PD-11, §5 B6, §6.4).
+- **F-16 decided and built,** on branch `f16-title-cap` @ `7d82cc0`: the signed-out copy without a reason, and titles capped at 1,000. It is local only, in worktree `E:_rootimnstr.claudeworktrees16-title-cap`. **Push `HEAD:main` to deploy** (no stop file); then remove the worktree.
+- open-work 0.16.
+
 ## 2026-10-17 · `lifecycle-trial/imnstr` (step 8c, B6 deployed) · imnstr `main @ e3d492a`
 
 *Replaces the block below's next step 1. Same session: the founder gave the word to push. Log: `log/08c-B6-verify.md`, *Addendum*.*
