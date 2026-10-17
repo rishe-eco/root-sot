@@ -2,6 +2,43 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-17 · `lifecycle-trial/imnstr` (step 8b, B8 landed) · imnstr `main @ 13d82dd`
+
+*Replaces the step-8a B8 block's lane table and its next step 1. The card's calls there still stand. The 8c B5 block below stands as written. Run in the same session as 8a B8, because the report came back here. Log: `08b-B8-land.md`.*
+
+**Lanes in flight:** none. B8 has reported and is waiting for verify.
+
+| Stage | Branch | Worktree | Report | Status |
+|---|---|---|---|---|
+| B8 Reader record (M) | `b8-reader-record` @ `3b8cda2` (one commit, founder identity), **local only**, based on `aa889cb` | `E:\_root\imnstr\.claude\worktrees\b8-reader-record` | `briefs/B8.report.md` | landed; 14 files, +1,129 / −3 (under M); lane ~16 min wall, 154k tokens, 41 tool uses |
+
+**What the lane says** (not reviewed):
+- `npm run check` is clean.
+- Vitest: 13 targeted files, 329 tests passed. The new `record.test.ts` has 27 tests and `record-cli.test.ts` has 10.
+- No Playwright, as the card said.
+
+**For verify to decide** (report items 4–6):
+- **Rebase onto `main @ 13d82dd` first.** B5 also touched `lib/dates.ts`, `tests/unit/dates.test.ts` and `deploy/README.md`. Then rerun `dates`, the record tests and `house-rules`.
+- **R2:**
+  - `0 subscribers` counts nothing;
+  - the unknown-aggregator fallback skips `Mozilla` and `compatible`;
+  - BazQux, Miniflux and Tiny Tiny RSS have invented examples.
+- **Bot pattern:** the card's list plus `scan`, `probe`, `libwww`, `httpclient`, `pingdom`.
+- **The cap** applies to `record_feed` and `record_referrer` only, in one `INSERT … SELECT … ON CONFLICT`. `report` notes a month at 500 rows.
+- **Referrer:** a trailing dot is stripped; a `Referer` over 8,192 characters is skipped; hex and decimal IP spellings are caught after `URL` normalises them.
+- **AC-47's scan** allows the table names in `lib/record.ts`, the middleware, both CLIs, `migrations/` and `tests/`.
+- **House rule 8:** both languages only. The lane says the colour scheme has no server branch.
+- **The AC-46 column regex** would flag any future column with `ua` or `ip` inside a word.
+- **Unverified:** that `checks.sh`'s curl goes uncounted once deployed; the CLIs in the container.
+
+**Next steps, in order**
+1. **8c, verify B8** (Opus · high), a fresh session on this machine; B5's verify is done, so nothing runs beside it. After the CI deploy:
+   - open a page in a browser, then read `report` in the container;
+   - `reset-content --yes` for MS2's seeds, only at the founder's word.
+2. After MS3's deploy, the founder subscribes in two aggregators, and `record_feed` corrects the R2 parser (plan §5 B8, trap 1).
+
+**Owed by the founder:** V-7 (phone); F-7; F-2. Status column 8 is not this step's to change.
+
 ## 2026-10-17 · `lifecycle-trial/imnstr` (step 8c, B5 verified and deployed) · imnstr `main @ 13d82dd`
 
 *Replaces the step-8b B5 block's next step 1. Adds to the step-8a B8 block below, which ran beside this one; its lane table and its steps stand. Log: `08c-B5-verify.md`.*
