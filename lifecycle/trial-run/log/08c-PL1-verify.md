@@ -78,7 +78,9 @@ The record used B9's headings: Built (by commit, with "The review changed"), Dec
 3. **Rule:** a sweep or axe check on a page with timed motion runs on the page at rest: play the motion out on the page clock, then wait for CSS transitions. **Event:** B9's landing sweep passed at B9, B9's verify and MS4, then failed in two of PL1's three runs (a longer run hits the 0.9–2.9 s window more often). **Scope:** any test of a page with an intro or timed state. **Destination:** `sweep-support.ts` comment, review checklist §5.
 
 ## Cost
-*Founder fills in after the session.* Wall time about 2 h 45 m, most of it three full e2e runs (~29 min each) and one light-only run (~14 min).
+From the founder's paste, **for the whole session (this verify and CS1, `08f-CS1-change.md`): $21.93**; API time 41 m, wall 327 m; Opus 5.5 only; 418 input / 4.3k output tokens, 56.9M cache read, 1M cache write. The PL1 verify took about 2 h 45 m of the wall time, most of it three full e2e runs (~29 min each) and one light-only run (~14 min); CS1 the rest, with one more full run (~24 min).
+
+For comparison: B9's verify (M, high, one deploy) cost $6.43, and B7's (L) $9.51. Long wall time with little API time is the suites: a full e2e run is ~29 min of waiting at a cache-read cost each time the session wakes.
 
 ## Next
 1. **10b close-out** can now count PL1 as verified; it still waits for MS3 (V-9) and MS4 (V-5).

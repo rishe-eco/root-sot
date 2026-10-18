@@ -53,7 +53,7 @@ For a same-session small Change: Opus · high; no fork (the context was already 
 2. **Rule:** don't edit a test file while a full run is going; queue the fix and rerun that file after. **Event:** CS1's full run reported three failures already fixed, because Playwright had loaded the old files. **Scope:** every verify. **Destination:** `verify` skill step 5; `config.md` §6.
 
 ## Cost
-*Founder fills in after the session* (shared with the PL1 verify).
+Shared with the PL1 verify: **$21.93 for the whole session** (API 41 m, wall 327 m; see `08c-PL1-verify.md`, *Cost*). CS1's share was roughly the last 1 h 20 m of wall time, including one full e2e run (~24 min).
 
 ## Next
 As the PL1 log's *Next*, plus F-21 for the founder (the spec revise for note 06; sign in once on each device).
