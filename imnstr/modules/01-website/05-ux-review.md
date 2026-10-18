@@ -2,13 +2,23 @@
 
 *Module `imnstr/modules/01-website/` · Phase 5 · UX review (`ux-review`). Each journey walked as each selected persona and scored against `lifecycle/review-instrument.md`. Passes are appended, newest last. The live pass (step 9) uses the same instrument, so its scores compare with these.*
 
-**Version 0.1 · Status: review · 2026-10-10 · Owner: founder**
+**Version 0.2 · Status: review · 2026-10-18 · Owner: founder**
 
-**Grading.** Every finding and score in pass 1 is **simulated**: one reviewer walked a static design as C, D and E, with no real people and no running app. Every fix is **proposal**. Where a finding says a screen is missing, it was checked against the design's own captions and the 4b README first. AC-n and §n cite `02-spec.md` 0.2; J*n*.*n* cites `03-journeys.md`; "plate n" is a section of `04b-design/imnstr-design.html`; HIG #n is a finding in `04b-design/review/README.md`.
+**Grading.** Pass 2 (live) is graded in its own section. Every finding and score in pass 1 is **simulated**: one reviewer walked a static design as C, D and E, with no real people and no running app. Every fix is **proposal**. Where a finding says a screen is missing, it was checked against the design's own captions and the 4b README first. AC-n and §n cite `02-spec.md` 0.2; J*n*.*n* cites `03-journeys.md`; "plate n" is a section of `04b-design/imnstr-design.html`; HIG #n is a finding in `04b-design/review/README.md`.
 
 ---
 
 ## Summary
+
+**Pass 2, live (2026-10-18):**
+
+1. **The built site carries the journeys, and scores went up.** Of the 30 scores that compare, 10 rose, 1 fell (C·J3 M3, from behaviour a static design couldn't show), and 19 held. Every High and every Medium from pass 1 is fixed in the running app.
+2. **No High findings.** One Medium: the "You left something here" offer doesn't say which text it holds, and it can sit beside a second unsent text (pass 2 F1). Nothing was lost in any walk.
+3. **Persona F could be scored at last:** M6 is 4. The layout, type, dates, switch and feeds are right; the Persian copy is still placeholder and unread by a Persian reader (V-4).
+4. **What a desk can't reach** is listed under *Not checked*: the phone's keyboard, the passkey sheet, hybrid sign-in, screen readers, real feed readers. All of it is already owed to the founder (V-3, V-5, V-7, V-9).
+5. **Design system drift** is in `08-design-review.md`: most primary buttons still use the highlighter (HIG #5).
+
+**Pass 1, wireframes (2026-10-10):**
 
 1. **The design carries the journeys well.** Failure states always say "Not published yet" first and keep the text; nothing counts; G1–G9 are all drawn. Scores are mostly 4–5.
 2. **Two High findings, both about losing work or access.** Editing an old entry uses the same editor as unsent new text, and nothing says what happens to that text (F1). The enrolment-code path ends on an error that sends the founder to the server, which G1 exists to avoid (F2).
@@ -142,8 +152,121 @@ Questions for the founder, through `revise`:
 
 All of it is for the live pass (step 9) on the running app.
 
+## Pass 2 — 2026-10-18 · live mode, against the running app
+
+### What was reviewed
+
+- **The app:** imnstr `main @ b894598`, the code that is live. Two ways in:
+  - **Production** (`https://imnstr.com`), every public page in both languages, fetched with a bot user agent. That counts no views (B8's R1 skips bots). It holds two founder test entries, one English episode and no Persian content.
+  - **A local server on the same commit** (port 4130, its own database, the e2e fixture clock at 10 Oct 2026). Every state the journeys need was seeded through the e2e-only routes. Edge drove it through Playwright at 360 × 800, light, with a virtual authenticator for the passkey sheet. Also checked: 360 × 400 (the keyboard's height), 180 px (200% zoom), 1280 px, dark, and reduced motion. About 70 screenshots, plus DOM probes for the switch, the alternates, the feed, tap sizes and Tab order. The capture scripts were throwaway and are not in the repo.
+- **Against:** spec 0.4 §4 and §6; journeys 0.3, J1–J6; personas C, D, E and F; `lifecycle/review-instrument.md` 0.1, unchanged since pass 1.
+- **Grading.** What the app did is **as-built**: seen on the running app. The scores are still one reviewer's reading as each persona, so they are **simulated**, as in pass 1, and compare with it. Every fix is **proposal**. "Pass 2 F*n*" is this pass's numbering.
+- **Independence:** pass 1 was read before this pass, as the file it appends to. The stage records and open-work were read for owed items only, so that nothing already owed is found again.
+
+### Coverage
+
+**Acceptance criteria, reached on the running app:**
+
+| Status | ACs |
+|---|---|
+| **Seen working** | AC-1, 2, 4, 5, 6 (labels; the Schema.org check ran at B7), 12, 13, 14, 16, 17, 18, 22, 23, 26–31, 34, 35, 36, 37 (`<mark>`), 38, 39, 41, 42, 43, 44 (one device), 48; AC-9 and AC-20 by setup token and by code |
+| **Seen in part** | AC-7: no cookie, no third-party host in the HTML; the network panel is the suites'. AC-15: 360 × 400 stands in for the keyboard, and the caret stays above the dock; the timing is V-9's. AC-19: Tab order and focus ring; no screen reader (V-3). AC-32: dark seen on the landing page, the admin's failure state and the Persian 404; the rest is in the suites' sweep. AC-33: pills carry ↗; `target` and `rel` are the suites'. AC-40: no fallback glyph seen; the CDP font check is the suites'. AC-3: both feeds read as XML; real readers are V-5 |
+| **Not walked; held by the suites** | AC-8, 10, 11, 21, 25, 45; AC-20's cross-device route (needs two real devices) |
+| **Owed to the founder** | AC-24 (V-7); AC-15's timing (V-9); AC-3 in real readers (V-5) |
+| **No screen** | AC-46; AC-47's report command |
+
+**States.** Every journey state in journeys §3 was reached, in English, and the public ones in Persian too. That covers the empty, not-enough-data and error states, the notices, and admin setup. "Loading" was seen only as button labels; it is too quick to catch locally.
+
+**Pass 1's findings, live:** every High and every Medium is fixed. F1, F3, F5, F6, F7, F8, F10, F11, F12, F14, F17, F18 and F19 were seen fixed. F2, F9, F13, F15 and F16 are fixed in the suites but weren't walked here. F4 needs two real devices.
+
+### Scores
+
+1–5 per the instrument. **Pass 1 in brackets** where it differs.
+
+| Persona · journey | M1 Purpose | M2 Use | M3 Data | M4 Feedback | M5 Recovery | M6 Parity |
+|---|---|---|---|---|---|---|
+| C · J1 first day | 5 | 4 | 5 | 5 | 5 (4) | n/s |
+| C · J2 return, loop | 5 | 4 (3) | 4 (3) | 5 | 5 (4) | n/s |
+| C · J3 errors | 5 | 5 (4) | 4 (5) | 5 | 5 (3) | n/s |
+| C · J5 podcast form | 5 | 4 | 5 (4) | 5 | 5 (3) | n/s |
+| D · J4 follower | 5 (4) | 5 (4) | 5 | 5 | 4 | n/s |
+| E · J5 listener | 5 | 5 | 5 | 4 | 5 | n/s |
+| F · J6 Persian follower *(new)* | 5 | 5 | 5 | 5 | 5 | 4 |
+
+**M6** is scored for F alone, as the instrument says: C, D and E don't read Persian.
+
+**What drives the scores:**
+- **The rises** come from fixes to pass 1:
+  - recovery now has an answer everywhere: "Not published yet" with Try again, Sign in and publish, and one message for a used or expired code;
+  - edit over unsent text keeps it (AC-43);
+  - drafts and "was live" are labelled;
+  - the 404, the entry page and the footer name the owner and lead on.
+- **C·J1, M2 (4):** the setup page names this device "computer" and uses the highlighter button. The first-day passkey list carries a long independence note. Both are fine, but they make C read.
+- **C·J2, M3 and C·J3, M3 (4):** text waiting to be offered back names nothing about itself (pass 2 F1). C·J2, M2 also loses a point for the locked language of a saved draft (pass 2 F2).
+- **C·J5, M2 (4):** the form is long on a phone, and "Links › Link › Label" is three headings for one field (design review).
+- **D·J4, M5 (4):** past "Older", nothing leads back to newer entries but the nav (pass 2 F4).
+- **E·J5, M4 (4):** platform labels have no icons (4b gap 3, unchanged). On production, an episode is dated three days ahead (pass 2 F3).
+- **F·J6, M6 (4):** the mirrored layout, Estedad and Vazirmatn, Solar Hijri dates with Persian digits, `<bdi>` runs, the «» quotes, the switch, the Persian feed (`xml:lang="fa"`, `dir="rtl"` content), the empty Persian log and podcast, and the Persian 404 for an English id all hold. It isn't 5 because every Persian string is still placeholder, and no Persian reader has read it (F-2, V-4). Also, at 200% the "more learnings" row breaks inside a word (design review).
+
+### Findings
+
+Ordered by severity. Routes as in pass 1.
+
+| # | Where | Persona | Breaks | Sev. | Finding (*as-built*) | Fix (*proposal*) | Route |
+|---|---|---|---|---|---|---|---|
+| **F1** | J3.3, J2.6a · `/admin` | C | M3, H6 | **Medium** | "You left something here. Unsent text from earlier on this phone." names nothing. In the walk it sat above a second unsent entry while that entry was typed, failed offline, was signed in over and published. It was still there afterwards. Nothing was lost: Put it back restored the newest text, and the older one was offered next, as AC-43 asks. But C can't tell which text is waiting without putting it back. | The offer shows the kept text's title or opening words, as the entries list does ("“Coming back is the habit…”"). | `design` |
+| **F2** | J2.11 · editor after Save draft; a draft opened from the list | C | M2, H3 | Low | Once a draft is saved, the language control is disabled (`composer.tsx` locks it when a row exists), with no reason given. An opened draft has no language control at all. A draft saved in the wrong language can only be fixed by copying its text into a new entry. AC-42 says a language is given "before it is published", and is silent on changing it. | Decide. Proposal: a never-published draft may change language; a published or "was live" one may not. | `question` |
+| **F3** | J5.4, J5.6 · production `/podcast` | E | M4 | Low | On 18 Oct, production lists an episode dated **21 Oct 2026**. The form takes any date, and the page shows a future date like any other. | Decide: refuse a date after today (the server knows `today`), or allow it on purpose. | `question` |
+| **F4** | J4, AC-30 · `/log?before=…` | D | H3 | Low | The second page still says "Things I figured out. Newest on top." It has no link back to newer entries, only the nav's Learnings. AC-30 asks only for "Older". | Optional: a plain "Newer" link beside "Older" past the first page. Still no numbers. | `design` |
+| **F5** | J2.8, J2.11 · `/admin` | C | H1, H4 | Low | "Published." and "Saved." sit at the top of the page. "Draft saved." and "Unpublished. It's in your entries as a draft." sit under the actions. On a phone with the keyboard up, the second pair can fall below what is in view. | One place for success notices. Plate 9's pattern puts errors above the action; a success can sit there too. | `design` |
+
+**Also seen this pass, already owed:**
+- Persian strings are placeholder (F-2, V-4).
+- Platform icons are missing (4b gap 3).
+- The admin bundle is uncompressed (F-17).
+- The hero at 180 px is 17 px (F-19 c). It reads fine; the eyes stay beside it.
+
+### Heuristics, in brief
+
+| | Holds | Breaks |
+|---|---|---|
+| H1 Status | "Kept on this phone"; "Publishing…"; "Saved" on the button; the published notice with its URL | F5 |
+| H2 Real world | "Something ate this page."; "was live"; the dates as people write them, in each calendar | none |
+| H3 Control | Cancel and Leave on an edit; Keep it live; Discard asks twice; Put it back | F2, F4 |
+| H4 Consistency | the same header, footer, switch and owner line on every public page, in both languages | F5; the primary-button split (design review D1) |
+| H5 Error prevention | the language is fixed while a send is unanswered; the last passkey and an episode's last link offer no Remove | none |
+| H6 Recognition | list rows by date, title or «opening words», with language and state pills | F1 |
+| H7 Efficiency | the editor is first; one tap publishes; YouTube and Castbox fill a link's label | none |
+| H8 Minimalism | no counts anywhere, admin or public; sections collapsed | the 404's repeated joke and the form's stacked labels (design review) |
+| H9 Errors | "Not published yet." first, then why, then the one action, with the text kept; the https refusal is built from what was typed | none |
+| H10 Help | the passkey rules said in one line under the list; the independence note | none |
+
+### For `revise`
+
+Nothing in this pass changes the spec. For the founder: **F2** (a draft's language) and **F3** (future episode dates).
+
+### Carried
+
+- **To a design and build follow-up:** F1, F4, F5, and the design review's findings. These are small UI changes, a Change track (`spec change`, then a stage) if the founder wants them before launch.
+- **Unchanged and still owed:** V-3, V-4, V-5, V-7, V-9 (below).
+
+### Worth keeping
+
+- **Nothing was lost in any walk.** The walks covered an offline publish, an expired session over unsent text, an edit over unsent text, and a reload with two texts kept.
+- **Failure copy reads in one breath** and puts the action inside the notice. Sign in and publish signs in over the text, without leaving it.
+- **The Persian pages are equal in build:** mirrored, set in their own faces, in Solar Hijri. The 404 for an English id is the Persian 404, with no hint of the other stream.
+- **The return after a gap is silent** in the admin and on `/log`, as in the design.
+
+### Not checked
+
+- **The phone itself:** the on-screen keyboard, autocorrect and composition in both languages; the real passkey sheet; hybrid sign-in and the QR scanned by a camera; Copy link's clipboard prompt; the hero tap on a touch screen. All are V-7 and V-9.
+- **Assistive technology:** screen readers, real browser text size at 200%, forced colours in Windows High Contrast, and other browsers. All are V-3. Only Edge ran.
+- **Real feed readers** (V-5) and the founder's own M1 judgement (spec §3).
+- **The admin in Persian on production,** and any public page with a counted view: the walk placed none.
+
 ## Changelog
 
+- **0.2 · 2026-10-18** — Pass 2, live mode, on imnstr `main @ b894598`: production read as a bot, and a local server on the same commit driven in Edge (trial step 9). It adds persona F's scores, which M6 needed. Same instrument, 0.1.
 - **0.1 · 2026-10-10** — Pass 1, wireframes mode, against the 4b design and spec 0.2 (trial step 5). Instrument stub `lifecycle/review-instrument.md` 0.1 written alongside.
 
 ## References
@@ -152,3 +275,4 @@ All of it is for the live pass (step 9) on the running app.
 - `04b-design/imnstr-design.html`, `04b-design/README.md`; `04b-design/review/README.md`, read after scoring.
 - `changes/01-journeys-design-bilingual.md` ("Carried to the build, not `STALE`").
 - `lifecycle/review-instrument.md` 0.1; `tracker/canon/05-reviews/00-persona-review-method.md` §3–§4.
+- Pass 2: `02-spec.md` 0.4 §4, §6; `03-journeys.md` 0.3; `lifecycle/personas.md` 0.2 (C, D, E, F); `imnstr/open-work.md` 0.21 (owed items, so as not to find them again); imnstr `main @ b894598` (`admin/composer.tsx` for F2; `lib/episodes.ts` for F3).

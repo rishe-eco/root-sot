@@ -2,6 +2,37 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-18 · `lifecycle-trial/imnstr` (step 9, live review) · imnstr `main @ b894598`
+
+*Replaces the 8d MS4 block's next step 1. Its steps 2–3 stand. Log: `log/09-live-review.md`.*
+
+**Lanes in flight:** none. **Status column 9 is `done`.** Column 8 stays `10/10`.
+
+**How it was walked:** production's public pages read as a bot (`curl`; the reader record counts no bots and no HEAD, so no views were placed). Every journey state, and the admin, on a local server on `b894598` (port 4130, its own database, the fixture clock), in Edge through throwaway Playwright scripts with a virtual authenticator. The scripts are deleted; imnstr's tree is clean.
+
+**UX, pass 2** (`05-ux-review.md` 0.2): of the 30 scores that compare with pass 1, 10 rose, 1 fell and 19 held. Persona F scored for the first time, M6 4 (Persian copy still placeholder). Every High and Medium from pass 1 is fixed. **No High.** Five new findings:
+- **F1, Medium:** the "You left something here" offer doesn't say which text it holds.
+- **F2, Low, question:** a saved draft's language is locked.
+- **F3, Low, question:** future episode dates; production shows one dated 21 Oct.
+- **F4, Low:** no "Newer" link past "Older".
+- **F5, Low:** success notices sit in two places.
+
+Nothing changes the spec.
+
+**Design review** (`08-design-review.md` 0.1, against the 4b README):
+- **D1:** HIG #5 reached Publish only. Save, Sign in, Create a passkey, New episode and the in-notice actions still use the highlighter fill.
+- **D2:** confirm dialogs open mid-screen, not pinned to the bottom on phones.
+- **P1–P4:** the 404's joke twice; a Persian heading split at a ZWNJ at 200%; Links › Link › Label; no skip link.
+
+No blockers.
+
+**Next steps, in order**
+1. **The founder:** decide pass 2 F2 and F3. Decide whether one polish Change (UX F1, F4, F5; design D1, D2, P1–P4) goes in before launch. If yes, run `spec change`, then 8a/8c for its one stage.
+2. **The founder,** as before: a Persian entry on production, then V-5 with V-8; F-17 before V-9's cold runs; V-9 with V-7; F-19. V-3 (screen readers, real 200%, other browsers) is still owed: step 9 couldn't reach it.
+3. **Trial step 10a** (`learned --consolidate`, Opus · high) can start now. **10b close-out** waits for MS3 and MS4 to close (V-9, V-5).
+
+**Owed by the founder:** pass 2 F2 and F3, the polish-Change call, V-5 with V-8, F-17, V-9 (with V-7), V-3, V-4, F-19, F-11, F-14, F-7, F-2.
+
 ## 2026-10-18 · `lifecycle-trial/imnstr` (step 8d, MS4 suites green) · imnstr `main @ b894598`
 
 *Replaces the 8c B9 block's next step 1. Its steps 2–3 stand, with step 3 now open. Log: `log/08d-MS4-milestone.md`.*
