@@ -97,6 +97,8 @@ Required: Summary, Findings, Access gates. Right to left is required when the pr
 ## Founder Q&A
 None asked: nothing blocked the review. Two questions are left in the file for the founder: pass 2 F2 (can a saved draft change language?) and F3 (future episode dates).
 
+**After the push:** asked whether the polish Change (UX F1, F4, F5; design D1, D2, P1–P4) goes in before launch. **Answer:** "Yes, run the polish Change before launch. Start with a spec change session." F2 and F3 go to that session to decide.
+
 ## Skill shape
 - **Model:** Opus · high. The judgement as personas is the work.
 - **Not forked, or forked with Bash and Playwright.** It needs a running server, Edge and the image Read.
