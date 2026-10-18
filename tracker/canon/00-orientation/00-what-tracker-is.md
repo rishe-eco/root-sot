@@ -2,7 +2,7 @@
 
 *Source of truth. The one-page picture. Read this first, then the glossary. Update the changelog; don't fork.*
 
-**Version 0.2 · Status: as-built · 2026-08-01 · Owner: _root**
+**Version 0.3 · Status: as-built · 2026-10-18 · Owner: _root**
 
 ---
 
@@ -20,11 +20,13 @@ Three things distinguish it from a task manager:
 
 ## 3. Where it sits in Root
 
+**Tracker is Journey's child version (2026-10-18).** Root now builds Journey loop-first: a thin version of the whole loop — need → reflect → batteries → goal → capacity → the one thing to learn, then free movement — is built here before any pillar is deep, and each pillar deepens inside it (Root decision log, 2026-10-18; D-61 here). What follows in this section still holds underneath that: residents may still migrate out to a standalone app if one fits, and location in this repo still does not decide pillar ownership. The child version's specs are Root's `../../../ecosystem/working/journey-build/`.
+
 Tracker is a **personal app and staging ground** for Root's product ideas; today its most-developed resident is the **as-built prototype of Root's `Organize` pillar**. Root canon (`../../../ecosystem/canon`) is the concept layer; this app is the working artifact underneath it. Tracker is not *itself* the Organize pillar — residents are built and felt here, then may move to their own standalone app or be retired (decision log, 2026-08-01); location in this repo does not make a thing Organize. Read Root's `../../../ecosystem/canon/02-pillars/organize.md` for the pillar's intended shape — its four outcomes (recognize goals, understand loopholes, track pursuit, set new goals), its mindset-first frame, its failure-handling. Tracker today delivers overwhelmingly the **track/execute** outcome; the refactor gap is documented in `04-roadmap/02-refactor-toward-root.md`.
 
 Tracker also carries seeds of adjacent Root layers that were grafted in as the app moved toward the brand:
 
-- **Journaling** — a seed of *Journey/ماجرا* (Root's integration layer), including shareable journals.
+- **Journaling** — a seed of *Journey/ماجرا*, including shareable journals.
 - **Onboarding & concepts surfaces** — the first-run slideshow, per-module intros, and a concepts page.
 - **The Clarity Check** — the same object that, pointed at the team's own work, becomes the engine's stage-gate model in Root canon `03-engine/`.
 
@@ -48,5 +50,6 @@ Not yet built: file attachments; a full zero-to-goal setup wizard; focus mode; t
 
 ## Changelog
 
+- **0.3 · 2026-10-18** — §3 opens with Tracker's new role: **Journey's child version**, where the whole loop is built thin and first (Root decision log 2026-10-18; D-61). The staging-ground rules below it still hold. Headline inventory unchanged (still pre-Noticing in §4; refreshing it is owed).
 - **0.2 · 2026-08-01** — §3 reframed: Tracker is a **staging ground**, not itself the Organize pillar, and now hosts a **Grow (Learn) Skills Engine** prototype (decision log, 2026-08-01). Headline inventory unchanged.
 - **0.1 · 2026-07-22** — Initial orientation. As-built headline verified against the repo; Root relationship drawn from Root canon `organize.md`.

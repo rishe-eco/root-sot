@@ -7,7 +7,7 @@ The division of labour between the two canons matters:
 - **Root canon is concept-first.** It defines the brand, the philosophy, the five pillars, the engine. It is the *why*. It changes slowly and is graded by evidence.
 - **Tracker canon is build-first.** It describes a functional tool that exists today — its domain model, architecture, API, and state of completion. It is the *what* and the *how*. It is graded by the code.
 
-**Where Tracker sits in Root:** Tracker is the **as-built implementation of Root's `Organize` pillar** (see Root canon `../../ecosystem/canon/02-pillars/organize.md`), already mid-transformation toward Root and carrying seeds of other layers — journaling (a seed of *Journey/ماجرا*), onboarding, a concepts surface. When this canon and Root's `organize.md` appear to disagree, distinguish the question: on **what Tracker should become**, Root wins; on **what Tracker currently is**, this canon wins, because it is checked against the running code.
+**Where Tracker sits in Root:** *(2026-10-18: Tracker is now **Journey's child version** — the thin whole loop is built here first; see `00-orientation/00-what-tracker-is.md` §3 and D-61. The sentence below predates that and the 2026-08-01 staging-ground reframe.)* Tracker is the **as-built implementation of Root's `Organize` pillar** (see Root canon `../../ecosystem/canon/02-pillars/organize.md`), already mid-transformation toward Root and carrying seeds of other layers — journaling (a seed of *Journey/ماجرا*), onboarding, a concepts surface. When this canon and Root's `organize.md` appear to disagree, distinguish the question: on **what Tracker should become**, Root wins; on **what Tracker currently is**, this canon wins, because it is checked against the running code.
 
 ## House rules
 
