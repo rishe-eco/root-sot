@@ -2,6 +2,28 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-18 · `lifecycle-trial/imnstr` (step 8a PL1, launch) · imnstr `main @ b894598`
+
+*Replaces the step-9b block's next step 1. Its steps 2–3 and its owed list stand. Log: `log/08a-PL1-launch.md`. Card: `briefs/PL1.md` (`5d283d1`).*
+
+**Lanes in flight:**
+| Stage | Branch | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| PL1 Live-review polish (M) | `pl1-live-polish` from `b894598`, no upstream | A: `4110`, `.tmp/e2e.db` | `E:\_root\imnstr\.claude\worktrees\pl1-live-polish` | `briefs/PL1.md` | background Sonnet lane running; report also to `<worktree>/.tmp/PL1.report.md` |
+
+`E:\_root\root-sot-imnstr` (read-only, detached) moved to `5d283d1` for the lane. Column 8 stays `10/10`: a Change has no column.
+
+**Calls the card made beyond the note** (for the verify):
+- **The full run is the verify's, not the lane's.** Note 05's *Tests* says "the full run before the report"; `brief-common` forbids it. The lane runs targeted files per commit (the card lists them); the verify runs `check`, Vitest and e2e for PL-12.
+- **Tests that change on purpose:** `editor.spec.ts:399` (lock after Save draft, ended by PL-8), `editor.spec.ts:194` and `admin-entries.spec.ts:296` (`btn--solid`), `sweep.spec.ts:104` (two Tabs).
+- **Tests that must pass unchanged:** the two "lost answer, then another language" tests (`editor.spec.ts` ~669, `admin-podcast.spec.ts` ~514). `log.test.ts:199` and `entry.spec.ts:60` ban "newer" on the entry page only.
+- Stop only at a commit boundary; F5's URL line may drop at 360 × 400 (as the note allows); the Persian placeholders listed in report item 4 for F-2.
+
+**Next steps, in order**
+1. **8b, land PL1**, when the lane reports (this session if it returns here).
+2. **8c, verify PL1** (Opus · high, fresh session): the full run (PL-12); ask the founder's word before the push to `main`, which is the deploy; read the run, `deploy/checks.sh`; add the new Persian keys to F-2; mark UX F1–F5 and design D1, D2, P1–P4 fixed in the stage record.
+3. As step 9b's block: the founder's owed items; 10a can run beside the lane; 10b waits for MS3, MS4 and PL1.
+
 ## 2026-10-18 · `lifecycle-trial/imnstr` (step 9b, spec change: live-review polish) · imnstr `main @ b894598`
 
 *Replaces the step-9 block's next step 1. Its steps 2–3 stand. Log: `log/09b-polish-change.md`. Note: `changes/05-live-review-polish.md` 0.1.*
