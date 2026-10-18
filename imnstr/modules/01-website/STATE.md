@@ -2,6 +2,28 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-18 · `lifecycle-trial/imnstr` (step 8f CS1, change: copy and sessions) · imnstr `main @ 3554035`
+
+*Adds to the 8c PL1 block, whose next steps stand. Log: `log/08f-CS1-change.md`. Note: `changes/06-copy-and-sessions.md` 0.1. Record: imnstr `docs/development/CS1.md`.*
+
+**Lanes in flight:** none. **CS1 is built, verified and deployed** in the PL1 session, at the founder's request. That breaks the one-phase rule, and the log says so. Runs 39159994468 and 39160222148 green. No status cell.
+
+**What changed:**
+- **Sessions:** 7 days idle, 30 days at most, the founder's choice. The session cookie carries a 30-day `Max-Age`, so closing the browser no longer ends it.
+- **User verification stays required.** The PIN prompt still comes at each sign-in, but sign-ins are rare now.
+- **The copy, both languages:**
+  - "understand the world";
+  - "Monster wrote" on the landing and the log;
+  - "خوردشون";
+  - the Tracker line without "on me first";
+  - the Persian podcast name تجربه زیسته یک هیولا.
+
+**Owed** (`imnstr/open-work.md` 0.23):
+- **F-21:** the spec revise for note 06 (§4.3, AC-10, the risk table, the plan, checklist §4);
+- **sign in once on each device**, since old sessions' cookies end with the browser.
+
+**Next steps:** as the 8c PL1 block.
+
 ## 2026-10-18 · `lifecycle-trial/imnstr` (step 8c PL1, verify) · imnstr `main @ d886160`
 
 *Replaces the 8b PL1 block's next step 1. Its step 2 stands. Log: `log/08c-PL1-verify.md`. Record: imnstr `docs/development/PL1.md`.*
