@@ -71,7 +71,11 @@ Opus, medium. Not forked; it holds the lane. On the Change track with a note thi
 - **Rule:** when a change note supplies the stage's tests, check them against `brief-common`'s test rules before drafting the card; where they disagree, the card follows `brief-common` and names the verify as owner. **Event:** note 05 told the lane to run the full suites, which `brief-common` forbids (one heavy runner at a time on this machine); caught at drafting, no cost. **Scope:** `spec` (`change` mode), `build-phase` launch. **Destination:** `skills-plan.md` `spec` change mode. **urgent:** no.
 
 ## Cost
-*Founder fills in after the session.*
+*From the founder, after the session. This session ran 8a and 8b:*
+- Opus 5.5: 72 in / 1.8k out / 4.2M cache read / 210k cache write.
+- Cost: $11.54 · API 30m · wall 7m, as reported.
+- The harness gave the lane 461k tokens, 143 tool uses and about 79 min.
+- For comparison, B9 (M) cost $12.94 for its 8a+8b session, B5 (M) $9.33.
 
 ## Next
 8b, land PL1, when the lane reports: in this session if it comes back here. Then 8c, verify PL1 (Opus · high, fresh session): full run; the founder's word before the deploy push.

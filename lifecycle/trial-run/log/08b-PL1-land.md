@@ -41,7 +41,7 @@ As B9's land: Opus, medium, in the launch session; a mechanical step (save, meas
 - **Rule:** before drafting a card for a stage that starts reading a request field or refusing a value, grep `tests/` for request bodies that already send that field and fixtures that already use such values, and list them as tests that change on purpose. **Event:** PL1's lane met two AC-13 tests sending `lang` to a published row and a `2028-02-29` leap-day test, neither in the card; it fixed them unprompted, at no cost, but a less careful lane could have weakened the new rule instead. **Scope:** `build-phase` launch step 2. **Destination:** `build-phase`'s card checklist (with B9's absence grep). **urgent:** no.
 
 ## Cost
-*From the founder, after the session. This session ran 8a and 8b.* The harness gave the lane 461k tokens, 143 tool uses and about 79 min.
+*From the founder, after the session. This session ran 8a and 8b.* Opus 5.5: 72 in / 1.8k out / 4.2M cache read / 210k cache write; $11.54 · API 30m · wall 7m, as reported (one figure for both steps; also in `08a-PL1-launch.md`). The harness gave the lane 461k tokens, 143 tool uses and about 79 min.
 
 ## Next
 8c, verify PL1 (Opus · high, fresh session): the full run for PL-12; the founder's word before the push to `main`, which is the deploy.
