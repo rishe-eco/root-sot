@@ -2,6 +2,26 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-19 · `lifecycle-trial/imnstr` (step 10b, close-out) · imnstr `main @ 3554035`
+
+*Replaces next step 2 of the 8c PL1 block ("10b waits for MS3 and MS4"). Its step 1, the founder's items, stands. Log: `log/10b-close-out.md`. Output: `09-close-out.md` 0.1.*
+
+**Closed by the founder's override.** The gate failed: MS3 (E1, V-9) and MS4 (V-5) have green suites, but neither is closed. The founder chose to close anyway. The status row's column 10 reads `closed · eval due`.
+
+**E1 has no reading.** Eval plan §4.1 hasn't been run, so the site isn't shown launch-ready on M3. **E2 dates** count from launch, the first real entry on production, which hasn't happened: the first-fortnight note at +2 weeks, the checks at +3 and +6 months, then every 6 months.
+
+**Cost:** $246.83 over 50 sessions with figures, plus two Claude Design sessions; 12 lanes, about 3.8M tokens.
+
+**Next steps, in order**
+1. **The founder:**
+   - F-17, then V-9 with V-7. E1's result goes in eval plan §5, and MS3 closes in the dev README.
+   - Publish a Persian entry, then V-5 with V-8. MS4 closes.
+   - `reset-content`, then F-2 and F-7, then launch. On launch day, write E2's four dates in the calendar and in eval plan §5.
+2. **A `revise` session** (Opus · medium) for F-20 and F-21 together (spec 0.5). F-11, F-14 and F-19 ride along.
+3. **10c trial wrap-up** (Opus · high): every log, `founder-notes.md`, and 10a's *Accepted items*.
+
+**Carry-over:** E1 failing after launch-readiness goes to the Change track (eval plan §4.1). It doesn't reopen this close-out.
+
 ## 2026-10-18 · `lifecycle-trial/imnstr` (step 8f CS1, change: copy and sessions) · imnstr `main @ 3554035`
 
 *Adds to the 8c PL1 block, whose next steps stand. Log: `log/08f-CS1-change.md`. Note: `changes/06-copy-and-sessions.md` 0.1. Record: imnstr `docs/development/CS1.md`.*
