@@ -2,6 +2,25 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-18 · `lifecycle-trial/imnstr` (step 8c, B9 verified and deployed) · imnstr `main @ e8a7b90`
+
+*Replaces the 8b B9 block's lane table and its next step 1. Its steps 2–3 stand. Log: `log/08c-B9-verify.md`.*
+
+**Lanes in flight:** none. **Every stage is verified and deployed: status column 8 is `10/10`.** The B9 worktree and branch are removed (an empty folder `E:\_root\imnstr\.claude\worktrees\b9-motion-access` stayed, held open by a process; delete it when free).
+
+**B9 at review:** one fix, `fc5a46d`: a tap on the landing hero did nothing on an iPhone (the lane read `pointerType` from the click, which Safari omits before 18.2 and calls "mouse" after, WebKit bug 282988); it now comes from `pointerdown`, with a test that fails on the lane's code. Record `docs/development/B9.md`. Rerun at review: `check` clean; Vitest 9 files / 289; Playwright (both sweeps, `landing`, `not-found`, `entry`, `admin-auth`) 249 passed, 1 flaky (`admin-sweep`'s English composer in dark found no `<mark>`; 24/24 on repeat). Driven in Edge by screenshots, both languages and schemes, 360/180/1280 and the sign-in: nothing to fix.
+
+**Deployed:** pushed with the founder's word; run 39083276917 green (record runs 39083476001, 39083502670 green). Live: CSP, noindex, no cookie on every page; root-app 200; `wordmark.ee17e9ae4b.js` served with the fix. **`Content-Encoding`: HTML gzip; JS and CSS none** (F-17 still open).
+
+**Founder at this verify:** push yes; **F-19 left in open-work** (CLAUDE.md container queries in rem; the colour table's 7.9 and 3.4; two design calls). open-work **0.20**: F-19, S-20 (deploy check for `wordmark.js`), V-2 closed, V-3 and V-9 widened.
+
+**Next steps, in order**
+1. **8d MS4** (Opus · high): the milestone script on `main @ e8a7b90`, one heavy runner at a time; watch `admin-sweep`'s composer flake. MS4 (and MS3) still wait on V-9 for E1.
+2. **The founder:** F-17 (before V-9's cold runs), then V-9 with V-7 (now also a real tap on the hero); V-8 is due; F-19.
+3. **Step 9** (live review) can start after MS4's suites.
+
+**Owed by the founder:** F-17, V-9 (with V-7), V-8, F-19, F-11, F-14, F-7, F-2.
+
 ## 2026-10-18 · `lifecycle-trial/imnstr` (step 8b, B9 landed) · imnstr `main @ fdfda8b`
 
 *Replaces the 8a B9 block's lane table and its next step 1. The card's calls there still stand. Run in the same session as 8a B9, because the report came back here. Log: `log/08b-B9-land.md`.*
