@@ -59,7 +59,7 @@ The same as MS3: green suites make this mechanical, and Sonnet · medium would d
 1. **Rule:** before a milestone, list every by-hand item that names it, in config, plan §8 and open-work alike, and check that production holds the content each one needs. **Event:** V-5 sat in plan §8 and open-work but not in config's MS4 row, and needs a Persian entry production no longer has. Found during the run, so it cost nothing beyond an open milestone. **Scope:** milestone verifies. **Destination:** `verify` reference file; IMNSTR config §6 (add V-5 to MS4's row). urgent: no.
 
 ## Cost
-*Founder fills in after the session.*
+From the founder's paste of the session panel: **$2.36**, API 13 m, wall 34 m; Opus 5.5 only: 98 in / 1.5k out / 5.7M cache read / 97.3k cache write. The wall time is mostly the e2e run (22.9 min, in the background). MS3 cost $2.56 at 11 m wall: the cost holds while the suite time grows, because waiting on a background run costs almost nothing.
 
 ## Next
 1. **Step 9, the live review** (Opus · high): `ux-review` (`live`), then `design-review`, against production. Production has two English test entries, one episode and no Persian entry. A reviewer who needs Persian content should ask the founder for one (it can be V-5's entry). Don't create content on production yourself.
