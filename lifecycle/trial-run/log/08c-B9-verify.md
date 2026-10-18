@@ -83,7 +83,9 @@ The record used B7's headings: Built (with "The review changed"), Decided (with 
 3. **Rule:** never pass Markdown through a double-quoted shell string; write prose files with Edit/Write. **Event:** the B9 record's deploy section shipped to `main` with its code spans stripped, and needed a second deploy to repair. **Scope:** every session on this machine. **Destination:** `brief-common.md` and the verify skill. `urgent: yes`.
 
 ## Cost
-*Founder fills in after the session.*
+From the founder's paste: **$6.43**; API time 24 m, wall 47 m; Opus 5.5 only; 200 input / 2.1k output tokens, 18.5M cache read, 201.6k cache write. The total covers the review, about 9 min of e2e rerun, the deploy, and two extra pushes for the record (one of them repairing the quoting slip).
+
+For comparison: B7's verify (L, high, browser pass, validator run, one deploy) cost $9.51; B8's (M, high) $4.57. B9 is an M stage, landing between them.
 
 ## Next
 1. **8d MS4** (Opus · high) on `main @ e8a7b90`: the milestone script; watch the `admin-sweep` composer flake. MS3 and MS4 both wait on V-9 for E1.
