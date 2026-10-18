@@ -2,6 +2,29 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-18 · `lifecycle-trial/imnstr` (step 10a, consolidate) · imnstr `main @ b894598`
+
+*Adds to the 8a PL1 block, which stands in full: PL1's lane is still in flight. Log: `log/10a-consolidate.md`. Proposal and decisions: `log/10a-consolidate-proposal.md` 0.2.*
+
+**Lanes in flight:** PL1, as in the 8a PL1 block. 10a launched nothing. **No status cell:** 10a has no column.
+
+**What 10a did:** clustered 129 lesson notes from every log, plus `founder-notes.md` 1–2, into 33 clusters to integrate, one scope-growth cluster, 18 holds and 18 discards. **Nothing is applied:** 10c applies.
+
+**The founder decided:**
+- **L1–L33 accepted** as drafted (the destinations are in the log's *Output*).
+- **Scope growth:** Z-a (a founder answer that adds, contradicts or questions back becomes a sized `revise` item), Z-b (a scope ledger in the spec header) and Z-c (an item adding a capability leaves `revise` for `spec change`) accepted. Z-d not chosen.
+- **The 18 holds** are seeds for 10c's reference files. **The 8 product notes** are kept: 10c proposes a cross-project web engineering checklist.
+
+**Next steps, in order**
+1. **PL1** goes on as the 8a PL1 block says: 8b land, then 8c verify.
+2. **The founder,** as before: V-5 with V-8, F-17, V-9 with V-7, V-3, F-19.
+3. **10b close-out** waits for MS3, MS4 and PL1's verify.
+4. **10c trial wrap-up** reads every log and `founder-notes.md`, and also takes `log/10a-consolidate.md`'s *Accepted items* (with the proposal's §3 holds and §4 product notes) as edits to draft. The trial table's 10c row doesn't list them.
+
+**Carry-over (urgent, from 10a's *Lessons*):** whatever the founder needs in order to answer goes in the question's options or the closing message, never in text above a question box (memory `founder-commands-in-closing-message`, widened today).
+
+**Owed by the founder:** unchanged from the 8a PL1 block.
+
 ## 2026-10-18 · `lifecycle-trial/imnstr` (step 8a PL1, launch) · imnstr `main @ b894598`
 
 *Replaces the step-9b block's next step 1. Its steps 2–3 and its owed list stand. Log: `log/08a-PL1-launch.md`. Card: `briefs/PL1.md` (`5d283d1`).*

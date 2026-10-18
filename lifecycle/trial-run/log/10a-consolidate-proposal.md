@@ -2,7 +2,7 @@
 
 *Step 10a of the trial, acting as `learned --consolidate`: every lesson the run's logs captured, clustered and counted, with a decision proposed for each and the edit drafted. The founder decides each item. Nothing here is applied: accepted edits to the method, templates and project config are applied at 10c. The decisions are recorded at the bottom and in `10a-consolidate.md`.*
 
-**Version 0.1 · Status: proposal, awaiting the founder · 2026-10-18 · Owner: _root**
+**Version 0.2 · Status: decided by the founder; to be applied at 10c · 2026-10-18 · Owner: _root**
 
 ---
 
@@ -270,8 +270,24 @@ Seen once, at low cost. In a real inbox they'd wait for the next batch.
 
 ## Decisions
 
-*Filled in after the founder answers; also listed in `10a-consolidate.md`.*
+*The founder's answers, 2026-10-18, by group. Also listed in `10a-consolidate.md`. Nothing is applied yet: 10c drafts the edits at each destination.*
+
+| Item | Decision |
+|---|---|
+| L1–L6, every session | **Accepted** as drafted |
+| L7–L13, design phases | **Accepted** as drafted |
+| L14–L20, build plan and cards | **Accepted** as drafted |
+| L21–L29, lanes, landing, verifying | **Accepted** as drafted |
+| L30–L33, this machine | **Accepted**, all four, after a plain explanation (the first two times they were asked, the question wasn't clear) |
+| Z-a, the rule | **Accepted** |
+| Z-b, the scope ledger | **Accepted** |
+| Z-c, a size limit on `revise` | **Accepted** |
+| Z-d, reopen the options | **Not chosen** |
+| §3, the 18 holds | **Seeds for 10c's reference files**, not integrated lessons |
+| §4, the 8 product notes | **Kept:** 10c proposes a cross-project web engineering checklist, seeded with these 8 |
+| §4, the 10 already integrated | Not asked separately; discarded as proposed |
 
 ## Changelog
 
+- **0.2 · 2026-10-18** — The founder's decisions: L1–L33, Z-a, Z-b and Z-c accepted; Z-d not chosen; holds as 10c seeds; product notes kept for a new engineering checklist.
 - **0.1 · 2026-10-18** — The proposal, from 129 notes and two founder notes.
