@@ -2,6 +2,28 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-18 · `lifecycle-trial/imnstr` (step 8b PL1, land) · imnstr `main @ b894598`
+
+*Replaces the 8a PL1 block's lane row and next step 1. Log: `log/08b-PL1-land.md`. Report: `briefs/PL1.report.md`.*
+
+**Lanes in flight:** none. PL1 is on `pl1-live-polish` @ `29d92c7` (three commits: `d0778c2` public pages, `49344a8` admin look, `29d92c7` admin rules and words), local only, no upstream, based on `b894598` (`main` unmoved). +1,679 / −214 over 48 files; no stop file, migration, `.env` line or package change. Worktree kept: `E:\_root\imnstr\.claude\worktrees\pl1-live-polish`.
+
+**What the lane says:** PL-1 to PL-11 built, no stop. Targeted runs only, all green at the end; the full run (PL-12) is the verify's. Sweeps: public 126 tests in 4 min 27 s, admin 42 in 3 min 01 s.
+
+**For verify to look at first:**
+- **Tests changed beyond the card's list:** the two AC-13 integration tests no longer send `lang: 'fa'` to a published row (it would now be `LANG_FIXED`); a leap-day test moved from `2028-02-29` to `2024-02-29` (PL-9); `log`/`podcast` last-page checks now assert no `rel="next"` instead of no `.older`.
+- **F5:** the URL line inside the dock is dropped at every width (`.dock .published__where { display: none }`), not only at 360 × 400; the "two lines" check measures space above the dock. `PodcastSection` scrolls New episode into view when a notice appears there.
+- **F5's success rule:** a success notice shows only while idle and with no failure showing (a render rule, not cleared state).
+- **F1:** `guessLang` (script count) names an old buffer's offer; resuming still uses the row's language.
+- **P2:** the fit also applies to `.big-row--small` (the entry page's "More learnings"), which the note didn't name; `--fit-row-title` assumes 5.25 em for the widest word.
+- **D1:** the note's "row hover" keeps the highlighter, but no admin row uses it; the sweep allows only the pressed tool.
+- Not rerun after commit 3: `landing`, `log`, `entry`, `podcast`, `not-found` specs. The bottom sheet was measured, never looked at.
+- Persian placeholders for F-2: `skip`, `log.newer`, `podcast.newer`, `notFound.ownerLine` (report item 4).
+
+**Next steps, in order**
+1. **8c, verify PL1** (Opus · high, fresh session): full run (`check`, Vitest, e2e one worker, one heavy runner at a time) for PL-12; review against note 05 and the checklist, at 360 and 180; ask the founder's word before `git push origin HEAD:main` (the deploy); read the run and `deploy/checks.sh`; stage record marks UX F1–F5 and design D1, D2, P1–P4 fixed; F-2 gets the four keys.
+2. As step 9b's block: the founder's owed items; 10a can run now; 10b waits for MS3, MS4 and PL1.
+
 ## 2026-10-18 · `lifecycle-trial/imnstr` (step 10a, consolidate) · imnstr `main @ b894598`
 
 *Adds to the 8a PL1 block, which stands in full: PL1's lane is still in flight. Log: `log/10a-consolidate.md`. Proposal and decisions: `log/10a-consolidate-proposal.md` 0.2.*
