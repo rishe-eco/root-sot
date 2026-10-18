@@ -2,7 +2,7 @@
 
 *Owed items from stage reviews and close-out: what a stage left for the founder or for later, and anything past the verification ceiling. Written by `verify` and `close-out` only (lifecycle README §4); created by `verify B1`, trial step 8c. Not Root's `team/open-work.md`: IMNSTR is outside Root (`lifecycle/projects/imnstr/config.md` §1). Items owed to a later stage are also listed in the code repo's `docs/development/README.md`.*
 
-**Version 0.21 · 2026-10-18 · Owner: founder**
+**Version 0.22 · 2026-10-18 · Owner: founder**
 
 ---
 
@@ -11,7 +11,7 @@
 | # | What | From | Needed by |
 |---|---|---|---|
 | ~~F-1~~ | ~~Confirm the site timezone.~~ **Closed 2026-10-11:** `Asia/Tehran`, confirmed. | B1 | — |
-| F-2 | Real landing content (`content/site.{en,fa}.ts`) and show links; real Persian strings (`locales/fa.ts`). Both are placeholders (P0-6). | B1 | before launch |
+| F-2 | Real landing content (`content/site.{en,fa}.ts`) and show links; real Persian strings (`locales/fa.ts`). Both are placeholders (P0-6). **From PL1,** four new placeholder keys: `skip` (پرش به محتوا), `log.newer` (نوشته‌های تازه‌تر), `podcast.newer` (قسمت‌های تازه‌تر), `notFound.ownerLine` (این سایت {owner} است.) | B1, PL1 | before launch |
 | ~~F-3~~ | ~~HSTS `includeSubDomains` and preload.~~ **Closed 2026-10-11:** both stay off for now. | B1 | — |
 | ~~F-4~~ | ~~Build plan changelog.~~ **Closed 2026-10-11:** build plan 0.2 and review checklist 0.2. | B1 record | — |
 | ~~F-5~~ | **Closed 2026-10-11:** brief-common 0.2 and config 0.2. ~~Project config: `brief-common.md` and `config.md` §6 (the milestone script) should install with `--ignore-scripts`. better-sqlite3 has a `binding.gyp`, so npm calls `node-gyp`, which fails on this machine. `CLAUDE.md` already says so.~~ | B3 | — |
@@ -29,6 +29,7 @@
 | F-17 | **Compress the admin bundle.** Nginx gzips HTML only (its default `gzip_types`), so `admin.js` goes out at 285 KB rather than about 88 KB, and so do the CSS and the feeds. That weighs on E1's cold runs (V-9). Add one line to `deploy/nginx/imnstr.conf`'s server block: `gzip_types text/css text/javascript application/javascript application/atom+xml image/svg+xml;`. It is a stop file, so: edit it in the repo, then `sudo cp` to `sites-available`, `sudo nginx -t`, `sudo systemctl reload nginx`, then push (deploy README). A session can write the change and its conf test, for you to run the server steps | B6 record (deploy) | before V-9's cold runs |
 | ~~F-18~~ | **Closed 2026-10-18:** accepted by the founder; build plan 0.8. ~~Build plan changelog for B7 (B7 record, *Flagged for close-out*): §5 B7 and §6.1 drop `DELETE episodes/<id>/links/<n>` (links travel whole in `PUT`; Remove is part of the edit, Cancel undoes it); §6.4 gains the episode guards (name 1,000, description 10,000, tag 100, label 100, address 2,000, links 20); §5 B7 notes `createOrGet`'s `afterInsert` step (S-3); and plate 11's date reads as the browser draws `<input type="date">`, not "10 Oct 2026"~~ | B7 record | — |
 | F-19 | **Accept the canon B9 made stale** (B9 record, *Decided* and *Flagged for close-out*). (a) `CLAUDE.md` code style: "Breakpoints are in `em`" becomes "Media-query breakpoints are in `em`; container queries in `rem`" (the admin rows now choose their layout by `@container (min-width: 17rem)`, which follows text size as the rule intends). (b) The design README's colour table: dark muted `#aab4ad` is 7.9:1 on the ground, not 8.3; the light field edge `#7d837f` is 3.4:1 on the ground, 3.6 on the field fill. Both still pass; `tests/unit/contrast.test.ts` pins the computed values. (c) Two small design calls, if you want them otherwise: the podcast empty state's eyes sit above the line (plate 4 draws them beside it); at 180 px the hero wordmark is 17 px so the revealed word and its eyes fit (step 9 can weigh letting the eyes wrap below instead) | B9 record | next canon revision |
+| F-20 | **The spec revise change note 05 left for later** (its *What this makes stale*; PL1 record, *Flagged for close-out*), once PL1 is live. Spec 0.4: AC-42 (a never-published draft may change language; a published or was-live one may not, `LANG_FIXED`); §4.4's Episode row (date not after today; an edit may keep the date it has, `DATE_FUTURE`); AC-30 (a Newer link past the first page). Build plan §6.2: `LANG_FIXED` (409) and `DATE_FUTURE` (400). Design README *Components*: the admin's primary is solid ink, dialogs are bottom sheets below 48em, the skip link. And PL-1's "row hover" names a place the admin doesn't have | PL1 record | next canon revision |
 
 ## Owed to later stages
 
@@ -61,7 +62,7 @@
 |---|---|---|
 | ~~V-1~~ | ~~Headers through Nginx and TLS, by `curl -I`~~ **Done 2026-10-14** at B2 verify; TLS renewal dry-run and one restore too (MS1). | B2 verify |
 | ~~V-2~~ | ~~Contrast of the dark colour pairs, measured~~ **Done 2026-10-18 in B9:** `tests/unit/contrast.test.ts`, 20 role pairs in both schemes, all pass (dark muted 7.9:1, light field edge 3.4:1 on the ground: F-19) | B9 |
-| V-3 | Real zoom and screen readers on a device; B1 checked 200% only as a 180 px viewport in Edge. **From B9:** how VoiceOver and TalkBack read the labelled wordmark link (the hidden letters must not be announced); real browser text size at 200% (the sweep sets the root font through the page, which leaves `em` media queries alone); Edge, Chrome, Safari and Firefox (only Edge ran: container units, `:focus-visible` on the wordmark, the date control); forced colours in real Windows High Contrast | step 9 |
+| V-3 | Real zoom and screen readers on a device; B1 checked 200% only as a 180 px viewport in Edge. **From B9:** how VoiceOver and TalkBack read the labelled wordmark link (the hidden letters must not be announced); real browser text size at 200% (the sweep sets the root font through the page, which leaves `em` media queries alone); Edge, Chrome, Safari and Firefox (only Edge ran: container units, `:focus-visible` on the wordmark, the date control); forced colours in real Windows High Contrast. **From PL1:** the skip link with VoiceOver and TalkBack (it lands on `main`, which draws no ring); the bottom-sheet dialogs on a real phone (browser bar, notch; `env(safe-area-inset-bottom)` is 0 without `viewport-fit=cover`); the named offers read aloud in the text's own language; and a design call: revealed (intro, hover, focus, tap) the wordmark shows i-MoNSTeR but is named iMNSTR, which axe flags as `label-content-name-mismatch` (WCAG 2.5.3), so the sweep checks it at rest | step 9, phone check (V-7) |
 | V-4 | Persian copy read by a Persian reader, including B3's new log and entry strings. **From B7:** a Persian name with `C++` or `.NET` in the admin's plain `<input>` draws `++C` / `NET.` (an input holds no `<bdi>`; the entry title too); the public page is right. B7's `podcast.older` and `podcast.description` are the lane's placeholders | before launch |
 | V-5 | Feed readers (NetNewsWire or Feedly) with Persian RTL and `<bdi>` in content. **MS4, 2026-10-18:** the suites are green on `e8a7b90`, and **MS4 stays open until this passes** (dev README, MS4). Production has no Persian entry yet, so first publish one from the admin with a Latin run in it (`C++`, say), then subscribe to `/fa/log/feed.xml` and `/log/feed.xml`. The same subscriptions serve V-8. `reset-content` clears the entry afterwards | MS4 (now) |
 | V-6 | W3C Feed Validator by URL, now the site is up. By direct input at B3: both feeds valid | optional |
@@ -71,6 +72,7 @@
 
 ## Changelog
 
+- **0.22 · 2026-10-18** — From `verify PL1`: F-2 gains PL1's four Persian keys; F-20 (the spec revise note 05 left for later); V-3 gains the skip link, the bottom sheets and the named offers.
 - **0.21 · 2026-10-18** — From `verify --milestone MS4`: V-5 now holds MS4 open, and needs a Persian entry on production first; V-8 is done with it.
 - **0.20 · 2026-10-18** — From `verify B9`: F-19 (CLAUDE.md container queries; the colour table's two ratios; two design calls), S-20 (a deploy check for `wordmark.js`); V-2 closed; V-3 and V-9 gain B9's items.
 - **0.19 · 2026-10-18** — From `verify --milestone MS3`: V-9 now also holds MS3 open; V-8 is due (MS3's suites done).

@@ -2,6 +2,46 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-18 · `lifecycle-trial/imnstr` (step 8c PL1, verify) · imnstr `main @ d886160`
+
+*Replaces the 8b PL1 block's next step 1. Its step 2 stands. Log: `log/08c-PL1-verify.md`. Record: imnstr `docs/development/PL1.md`.*
+
+**Lanes in flight:** none. **PL1 is verified and deployed:** `b894598..f1eae8b` pushed with the founder's word, run 39130183020 green; the record's deploy section `d886160`, run 39130411433 green. Worktree and branch removed. **No status cell:** a Change has no column, so column 8 stays `10/10`.
+
+**What the review did:**
+- **Six fixes**, in `2512cfe` and `ce31487`:
+  - after the skip link, `main` drew a focus ring round the whole page (found in the screenshots);
+  - `guessLang` moved into `lib/bidi.ts` (house rule 4);
+  - one `EpisodeName`;
+  - two comments corrected;
+  - B9's landing sweep test flaked: axe ran inside the intro's window, where the hero shows i-MoNSTeR but is named iMNSTR. It now runs on the page at rest.
+- **The suites** (PL-12): three full runs, ~29 min each.
+  - Vitest: 1,013 passed.
+  - e2e: the last full run gave 682 passed, 1 failed (that flake); after the fix, the sweep file passed 126 of 126.
+  - Two earlier one-off failures passed on repeat and are recorded as flakes. No single full run was green from start to finish; the founder was told before the push.
+- **Marked fixed in the record:** UX F1–F5 and design D1, D2, P1–P4. `05-ux-review.md` and `08-design-review.md` stay as written.
+
+**Owed** (`imnstr/open-work.md` 0.22):
+- **F-2:** four more Persian keys.
+- **F-20, new:** the spec revise note 05 left for later (AC-42, §4.4, AC-30; plan §6.2's two codes; design README *Components*).
+- **V-3** gains:
+  - the skip link with screen readers;
+  - the sheets on a real phone;
+  - the named offers read aloud;
+  - the wordmark's revealed name (`label-content-name-mismatch`, a design call).
+
+**Next steps, in order**
+1. **The founder**, in any order:
+   - V-5 with V-8: a Persian entry on production first;
+   - F-17, then V-9 with V-7;
+   - V-3;
+   - F-19 and F-20;
+   - F-2.
+2. **10b close-out** waits for MS3 (V-9) and MS4 (V-5). PL1 no longer holds it.
+3. **10c** takes this log's spec gaps with the rest: a full run at a Change's verify, whole output to a file, a rule for flakes, the page clock against CSS transitions.
+
+**Carry-over (urgent, from the log's *Lessons*):** never pipe a full suite through `tail`. Write the whole output to a file and grep it after. A cut error cost a 15-minute rerun here.
+
 ## 2026-10-18 · `lifecycle-trial/imnstr` (step 8b PL1, land) · imnstr `main @ b894598`
 
 *Replaces the 8a PL1 block's lane row and next step 1. Log: `log/08b-PL1-land.md`. Report: `briefs/PL1.report.md`.*
