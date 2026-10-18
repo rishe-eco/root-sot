@@ -10,7 +10,7 @@
 
 **The founder decided** (one batch):
 - **Pass 2 F2:** a never-published draft may change language; a published or "was live" one may not (PL-8).
-- **F3:** an episode date after today is refused (PL-9). The note adds one exception, a **proposal** the founder can overturn at 8a: an edit that sends the date the episode already has passes. That keeps the 21 Oct episode on production editable and the seeded fixtures working.
+- **F3:** an episode date after today is refused (PL-9). The note adds one exception, **accepted by the founder** (note 0.2): an edit that sends the date the episode already has passes. That keeps the 21 Oct episode on production editable and the seeded fixtures working.
 - **The spec stays 0.4.** AC-42, §4.4's Episode row and AC-30 are listed in the note as stale after PL1, for a later `revise`.
 
 **The Change:**
@@ -30,7 +30,7 @@
 2. **The founder,** as before: a Persian entry on production, then V-5 with V-8; F-17 before V-9's cold runs; V-9 with V-7; F-19. V-3 is still owed. PL1 changes none of these, and MS3/MS4 stay open on them.
 3. **Trial step 10a** (`learned --consolidate`) can run beside the PL1 lane. It reads logs only. **10b** waits for MS3, MS4 and PL1.
 
-**Owed by the founder:** the F3 exception (accept or overturn at 8a); V-5 with V-8, F-17, V-9 (with V-7), V-3, V-4, F-19, F-11, F-14, F-7, F-2 (now also the new Persian strings: skip link, Newer).
+**Owed by the founder:** V-5 with V-8, F-17, V-9 (with V-7), V-3, V-4, F-19, F-11, F-14, F-7, F-2 (now also the new Persian strings: skip link, Newer).
 
 ## 2026-10-18 · `lifecycle-trial/imnstr` (step 9, live review) · imnstr `main @ b894598`
 

@@ -97,6 +97,7 @@ Required (future `required-headings.txt`, change note): *What changes and why*, 
 Asked in one batch:
 1. *Pass 2 F2: may a never-published draft (entry or episode) change language?* **"Yes, until 1st publish"** (recommended). PL-8.
 2. *Pass 2 F3: refuse episode dates after today, or allow on purpose?* **"Refuse after today"** (recommended). PL-9, with the exception for an unchanged date, as a proposal (*Spec gaps*).
+4. *(After the report, same session.)* The F3 exception: **"you got my ok"**. Accepted; note 0.2.
 3. *If an answer changes behaviour, amend the spec too, or only the change note?* **"Note only"** (recommended). The spec stays 0.4; the note's *What this makes stale* lists AC-42, §4.4's Episode row and AC-30.
 
 ## Skill shape
@@ -126,6 +127,6 @@ The reference file should hold:
 - **8a PL1** (Opus · medium): `build-phase changes/05-live-review-polish.md#PL1`, slot A.
   - Draft the card from the note's PL1 section. Re-read it against `git log b894598..origin/main` first.
   - Check `git config --local user.email` in the new worktree.
-  - **Ask the founder to accept or overturn the F3 exception** before the card goes out.
+  - The F3 exception is accepted (note 0.2): nothing to ask before the card.
   - The card should carry PL1's *Order and commits* as the stop rule. It names the traps on the skip link's box, P2's fit, `excerpt` in `shared/`, and the four places for a refusal code.
 - 10a can run beside the lane.

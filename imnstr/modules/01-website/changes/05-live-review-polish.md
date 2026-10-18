@@ -21,7 +21,7 @@
 - **F3: refuse a date after today** (the recommended answer). Scheduled publishing stays out of scope (spec §6).
 - **The spec is not amended.** The note carries both criteria (PL-8, PL-9). They are listed under *What this makes stale* for a later `revise`.
 
-**One call this note makes beyond the founder's answer** *(proposal; the founder can overturn it at 8a)*. An edit that sends the date the episode **already has** is accepted, even if that date is after today. Without this:
+**One call this note made beyond the founder's answer, then accepted by the founder** *(2026-10-18, same session; 0.2)*. An edit that sends the date the episode **already has** is accepted, even if that date is after today. Without this:
 - the 21 Oct episode on production couldn't take a typo fix until its date passed;
 - seeded fixtures dated after the fixture clock would break every admin save of them (*Traps*).
 
@@ -253,4 +253,5 @@ The founder chose to leave the spec at 0.4 (*Founder Q&A*). These lines are behi
 
 ## Changelog
 
+- **0.2 · 2026-10-18** — The founder accepted PL-9's exception: an edit that sends the date the episode already has passes. It is no longer a proposal.
 - **0.1 · 2026-10-18** — First version (trial step 9b). Founder: F2 yes until first publish; F3 refuse future dates; spec not amended. One stage, PL1 (M), on imnstr `main @ b894598`.
