@@ -121,7 +121,7 @@ The reference file should hold:
 - **Rule:** a review finding's fix is a hypothesis until the code is read. Size from the code, not from the finding. **Event:** P2's proposed fix ("wrap only between words") can't work. The word itself is wider than the column at 180 px, and the break comes from `overflow-wrap: break-word`, not from the ZWNJ. A lane given the review's fix would have failed AC-19 or chased the ZWNJ. **Scope:** `spec change`, `build-phase`. **Destination:** `spec`'s reference file; `design-review`'s Fix column marked *proposal* already says this. **urgent:** no.
 
 ## Cost
-*Founder fills in after the session.*
+From the founder's paste of the session panel: **$4.44**, API 17 m, wall 33 m; Opus 5.5 only: 138 in / 1.6k out / 10.3M cache read / 169.8k cache write. It covers the whole session: the note, and the later follow-up recording the founder's OK on the F3 exception. Most of it went on checking the code for each finding (*Skill shape*). Wall time includes the founder's answer to the question batch. For comparison, 08e cost $4.79 over 15 min 45 s of active time.
 
 ## Next
 - **8a PL1** (Opus · medium): `build-phase changes/05-live-review-polish.md#PL1`, slot A.
