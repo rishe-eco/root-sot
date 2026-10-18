@@ -2,6 +2,27 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-18 · `lifecycle-trial/imnstr` (step 8d, MS4 suites green) · imnstr `main @ b894598`
+
+*Replaces the 8c B9 block's next step 1. Its steps 2–3 stand, with step 3 now open. Log: `log/08d-MS4-milestone.md`.*
+
+**Lanes in flight:** none. Status column 8 stays `10/10`: a milestone verifies no stage.
+
+**Suites, on `main @ e8a7b90`, one heavy runner at a time, all green on the first run:** `npm ci --ignore-scripts` 207 packages, 0 vulnerabilities; `check` clean; Vitest **46 files / 982**; e2e **563 passed, 9 skipped** (`auth.spec.ts`'s dark runs, by design), one worker, 22.9 min, no retry. **The access sweep passes:** `sweep.spec.ts` 78 and `admin-sweep.spec.ts` 40, inside that run; the B9 composer flake did not recur.
+
+**Live, by `curl`** (bot agent; feeds by `HEAD`): every §6.1 page `200` with noindex, both `404`s, signed-out APIs `401`, `/__test/clock` `404`, B9's `wordmark.js` served. JS and CSS still uncompressed (F-17). **Production has no Persian entry.**
+
+**Recorded:** an MS4 section in `docs/development/README.md`, imnstr **`b894598`**, pushed with the founder's word; run 39086241435 green (check, deploy). open-work **0.21**: V-5 holds MS4 open (needs a Persian entry first); V-8 rides along with it.
+
+**MS4 is not closed:** V-5 (feed readers, plan §8 "MS4") is owed; the launch gate also needs MS3 closed (E1, V-9). The founder had no phone.
+
+**Next steps, in order**
+1. **Step 9, the live review** (Opus · high), `ux-review` (`live`) then `design-review`: it can start now.
+2. **The founder:** publish one Persian entry with a Latin run in it, then V-5 and V-8 together (subscribe to both feeds in two aggregators, look at the Persian by eye, then read `record_feed`); F-17 before V-9's cold runs; V-9 with V-7; F-19.
+3. After E1 and V-5: `reset-content` at the founder's word; MS3 and MS4 closed in the dev README.
+
+**Owed by the founder:** V-5 with V-8, F-17, V-9 (with V-7), F-19, F-11, F-14, F-7, F-2. The empty `b9-motion-access` worktree folder is still held by a process.
+
 ## 2026-10-18 · `lifecycle-trial/imnstr` (step 8c, B9 verified and deployed) · imnstr `main @ e8a7b90`
 
 *Replaces the 8b B9 block's lane table and its next step 1. Its steps 2–3 stand. Log: `log/08c-B9-verify.md`.*
