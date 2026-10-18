@@ -130,7 +130,7 @@ None asked: nothing blocked the review. Two questions are left in the file for t
 3. **Rule:** before reporting lost text, follow the text through every step: reload, put back, publish, and what is offered next. **Event:** two unsent texts and one "You left something here" offer looked like a loss. Following them showed AC-43's queue, so the finding became a Medium clarity item (pass 2 F1), not a High. **Cost:** five minutes; a wrong High would have sent a build stage chasing nothing. **Scope:** `ux-review` live. **Destination:** an example under instrument §5's "verify below the UI". `urgent: no`.
 
 ## Cost
-*Founder fills in after the session.*
+From the founder's paste of the session panel: **$7.03**, API 32 m, wall 41 m; Opus 5.5 only: 164 in / 1.1k out / 17.2M cache read / 254.9k cache write. The figure also covers starting step 9b's session and reading its result. Most of the cost was viewing about 45 screenshots: more than twice MS4's $2.36, and about the same as two verifies.
 
 ## Next
 - **The founder decides:**
