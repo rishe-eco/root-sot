@@ -2,6 +2,24 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-19 · `lifecycle-trial/imnstr` (step 10b4, journeys gap) · imnstr `main @ 6828da3`
+
+*Adds to the 10b2 and 10b3 blocks. It does the `journeys` (`gap`) half of the 10b2 block's step 4, so that step is now done. Steps 1–3 stand. Log: `log/10b4-journeys-gap.md`. Output: `03-journeys.md` 0.4.*
+
+**Column 3 is `done` again.** Journeys 0.4 reads from spec 0.5's 7-day sessions:
+- **J2.9:** C is still signed in the next day. A sign-in comes about once a month, at the 30-day limit.
+- **J3.4:** the refusal comes after eight days idle in an open tab, not 70 minutes. The 30-day limit is the other trigger. The case is rare now, and AC-16 still covers it.
+- **J2's opening line:** the daily loop is steps 2–4.
+- **Coverage:** AC-10 is also walked at J2.9.
+
+Changed text is marked **[0.4]**. No steps were added or renumbered, so the wireframes', design's and reviews' citations stay valid.
+
+**Founder decisions:** fix J2's opening line too (yes). AC-48 and AC-49 are not in Coverage, and AC-30's cell doesn't name the Newer link. These are left for a later gap run, by the founder's choice. They are not `STALE`: no output contradicts them.
+
+**No `STALE` cells remain.** The row stays `closed · eval due`.
+
+**Next steps, in order:** as in the 10b2 block, steps 1–3.
+
 ## 2026-10-19 · `lifecycle-trial/imnstr` (step 10b3, eval-plan touch-up) · imnstr `main @ 6828da3`
 
 *Adds to the 10b2 block. It does its next step 4's eval-plan half; steps 1–3 and step 4's `journeys` (`gap`) half stand. Log: `log/10b3-eval-plan-touch-up.md`. Output: `06-eval-plan.md` 0.3.*

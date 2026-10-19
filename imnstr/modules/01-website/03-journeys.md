@@ -1,10 +1,10 @@
 # IMNSTR.com — journeys
 
-*Module `imnstr/modules/01-website/` · Phase 3 · Journeys (`journeys new`). The paths the four selected personas take through the site, step by step, with what must be true at each step. Input: `02-spec.md` 0.3 (§2, §4, §6); amended at 0.3 (`journeys gap`, step 05d) from change notes `changes/01-…` and `changes/02-…`. Wireframes (`04-wireframes.html`) draw every step and every state named here; this file doesn't decide layout. Update the changelog; don't fork.*
+*Module `imnstr/modules/01-website/` · Phase 3 · Journeys (`journeys new`). The paths the four selected personas take through the site, step by step, with what must be true at each step. Input: `02-spec.md` 0.3 (§2, §4, §6); amended at 0.3 (`journeys gap`, step 05d) from change notes `changes/01-…` and `changes/02-…`; amended at 0.4 (`journeys gap`, step 10b4) for spec 0.5's sessions, from change note `changes/07-…`. Wireframes (`04-wireframes.html`) draw every step and every state named here; this file doesn't decide layout. Update the changelog; don't fork.*
 
-**Version 0.3 · Status: journeys · 2026-10-10 · Owner: founder**
+**Version 0.4 · Status: journeys · 2026-10-19 · Owner: founder**
 
-**Grading.** Every journey is **proposal**: none of this is built, and C, D, E and F are **hypothesis** personas (`lifecycle/personas.md`). Items marked **[F]** were decided by the founder (§1 below). Bare section numbers and AC-n (§4.2, AC-15) cite `02-spec.md`; G1–G16 are this file's gaps. Text marked **[0.3]** was added or changed at 0.3; steps added at 0.3 take a letter (J1.5a) or the next number, so citations of 0.2 steps in the wireframes, design and review stay valid. Where a journey needs something the spec doesn't require, the step says **Suggested** and the item is listed in §4 below for `revise`; nothing marked Suggested is a requirement yet.
+**Grading.** Every journey is **proposal**: none of this is built, and C, D, E and F are **hypothesis** personas (`lifecycle/personas.md`). Items marked **[F]** were decided by the founder (§1 below). Bare section numbers and AC-n (§4.2, AC-15) cite `02-spec.md`; G1–G16 are this file's gaps. Text marked **[0.3]** was added or changed at 0.3; steps added at 0.3 take a letter (J1.5a) or the next number, so citations of 0.2 steps in the wireframes, design and review stay valid. Text marked **[0.4]** was changed at 0.4, for spec 0.5's 7-day sessions (§4.3, AC-10); no steps were added or renumbered. Where a journey needs something the spec doesn't require, the step says **Suggested** and the item is listed in §4 below for `revise`; nothing marked Suggested is a requirement yet.
 
 ---
 
@@ -65,7 +65,7 @@ Six journeys, each ~10 steps. A step's *Must be true* cell is its acceptance che
 
 ### J2 — Return after a gap, and the normal loop *(C)*
 
-**Starts:** nine entries over the first two weeks, then 23 days without one. C is on the phone; the session expired long ago. **Ends:** a new entry live, an old one quietly fixed, another unpublished and later restored. **Covers:** AC-5, AC-13, AC-14, M3; **[0.3]** AC-34, AC-43, AC-44, AC-47. The normal daily loop is steps 1, 3 and 4; it must be as short as J1 steps 6–9.
+**Starts:** nine entries over the first two weeks, then 23 days without one. C is on the phone; the session expired long ago. **Ends:** a new entry live, an old one quietly fixed, another unpublished and later restored. **Covers:** AC-5, AC-13, AC-14, M3; **[0.3]** AC-34, AC-43, AC-44, AC-47; **[0.4]** AC-10. **[0.4]** The normal daily loop is steps 2–4, with step 1 only when a sign-in is due (J2.9); it must be as short as J1 steps 6–9.
 
 | # | Step | Where | Must be true |
 |---|---|---|---|
@@ -78,7 +78,7 @@ Six journeys, each ~10 steps. A step's *Must be true* cell is its acceptance che
 | 6a | **[0.3]** Variant: C had started a new entry and not sent it, then opens the old one to fix the link. | `/admin`, editor | The unsent text is kept; the admin says so and offers it back when the edit is done or cancelled. Nothing unsent is discarded unless C chooses Discard (AC-43). |
 | 7 | C fixes the link and saves. | editor | The text changes on `/log`, at its URL and in the feed; the URL and date stay; nothing marks it edited (AC-13). |
 | 8 | C decides an older entry was wrong and unpublishes it. | `/admin`, entries | It leaves `/log` and the feed; its URL returns the ordinary 404; it stays in the admin as a draft (AC-14). Unpublishing asks for no reason and leaves no trace on the public site. |
-| 9 | Next day, the normal loop: open, sign in if idle over 1 h, write, publish. | `/admin` | Same path and overhead as steps 1–4. |
+| 9 | **[0.4]** Next day, the normal loop: open, write, publish. No sign-in: the session from step 1 is still live. | `/admin` | **[0.4]** Same path and overhead as steps 2–4. The bookmark opens on the editor, signed in, though the phone's browser has been closed since: a session lasts 7 days idle and 30 days absolute, and quitting the browser doesn't end it (§4.3, AC-10). Daily writing never reaches the idle limit. The absolute one doesn't slide, so about once a month the open starts with step 1's one passkey prompt and lands back on the editor. |
 | 10 | A week later, C rewrites the unpublished entry and republishes it. | editor | It returns at its **original** date, not on top (AC-14). **[0.3]** On republishing, the admin says it returns at its original date and names that date (AC-34). |
 | 11 | **[0.3]** On the phone, on a bus, C starts an entry, isn't ready to publish, and taps Save draft. | editor | Saved on the server and listed in the admin as a draft; on no public page or feed (AC-44). Save draft is optional: Publish never needs it (§4.2). |
 | 12 | **[0.3]** At home, on the laptop, C opens the draft, finishes it and publishes. | laptop `/admin` | The draft is in the laptop's list and opens there (AC-44). It publishes as J1.8–9, dated at this first publish. |
@@ -99,7 +99,7 @@ Six journeys, each ~10 steps. A step's *Must be true* cell is its acceptance che
 
 | # | Step | Where | Must be true |
 |---|---|---|---|
-| 4 | C starts an entry, is interrupted for 70 minutes, comes back, finishes and taps publish. The server refuses: the 1 h idle limit has passed (AC-10). | editor | The text stays in the editor. C is asked to sign in, without leaving or losing the entry (AC-16). Typing alone doesn't keep the session alive, so this is a normal case, not an edge. |
+| 4 | **[0.4]** C starts an entry on the phone, is called away with the tab left open, and comes back to it eight days later, finishes and taps publish. The server refuses: the 7-day idle limit has passed (AC-10). | editor | The text stays in the editor. C is asked to sign in, without leaving or losing the entry (AC-16). Typing alone doesn't keep the session alive. **[0.4]** The same refusal comes when the 30-day absolute limit passes mid-entry, however busy the session has been. Rarer than at 1 h idle, but still the case AC-16 exists for, not an edge to skip. |
 | 5 | C signs in with the passkey. | sign-in → editor | C is back in the editor with the text, and the publish completes once, on a fresh session and CSRF token (AC-10, AC-11, AC-16). |
 
 **3c. The phone is lost**
@@ -188,7 +188,7 @@ Six journeys, each ~10 steps. A step's *Must be true* cell is its acceptance che
 | AC-7 | J4.1, J6.3 | AC-31 | J1.10, J4.1, J6.3 |
 | AC-8 | not walked: no journey reaches the admin unsigned except through sign-in; tested route by route | AC-32 | all; not one step |
 | AC-9 | J1.3, J1.4, J3.6 | AC-33 | J5.6 |
-| AC-10 | J3.4, J3.5 | AC-34 | J2.10 |
+| AC-10 | J2.9, J3.4, J3.5 | AC-34 | J2.10 |
 | AC-11 | J1.5, J3.5, J3.7, J3.8, J3.11 | AC-35 | all; not one step |
 | AC-12 | J1.8 | AC-36 | J6.4; all |
 | AC-13 | J2.7 | AC-37 | J1.7 |
@@ -241,6 +241,7 @@ None of these is a requirement until the founder accepts it through `revise` on 
 
 ## Changelog
 
+- **0.4 · 2026-10-19** — Step 10b4, `journeys gap`, for spec 0.5's sessions (7 days idle, 30 days absolute; change note `changes/07-…`, *STALE*). J2.9: C is still signed in the next day, and signs in about once a month, at the 30-day limit (was "sign in if idle over 1 h"). J3.4: the refusal comes after eight days idle in an open tab (was 70 minutes), with the 30-day limit as the other trigger, and it is now rare. J2's opening line names the daily loop as steps 2–4. AC-10 is also walked at J2.9. Marked **[0.4]**; no steps added or renumbered. By the founder's choice, nothing else was checked against spec 0.5: AC-48 and AC-49 are still not in Coverage, and AC-30's cell doesn't name the Newer link.
 - **0.3 · 2026-10-10** — Step 05d, `journeys gap`, against spec 0.3: J6 for persona F (Persian follower, with C writing in Persian); steps amended or added in J1–J5 for AC-20 to AC-47 (J1.5a, J2.6a, J2.11–12, J3.11, J5.5a, J5.8a), marked **[0.3]**, with 0.2 step numbers kept; four founder decisions (§1, 4–7); Coverage rewritten for AC-1 to AC-47, with AC-46 and the report command of AC-47 marked no screen; new states for the design pass; G1–G9 marked accepted, G10–G16 Suggested.
 - **0.2 · 2026-10-10** — Step 3b, `journeys new`: five journeys (J1–J5), three founder decisions (§1), AC coverage and the states the wireframes must draw (§3), nine Suggested gaps for `revise` (§4).
 - **0.1 · 2026-10-10** — Step 3a: personas C, D and E selected.
@@ -249,5 +250,5 @@ None of these is a requirement until the founder accepts it through `revise` on 
 
 - `02-spec.md` §2 (decisions), §3 (metrics), §4 (interface), §5 (risks), §6 (acceptance criteria), §7 (out of scope).
 - `lifecycle/personas.md`, entries C, D, E, F; `lifecycle/decision-log.md` L-1, L-4.
-- `changes/01-journeys-design-bilingual.md`, `changes/02-ux-review-eval-plan.md`: what changed in the spec since 0.2 of this file.
+- `changes/01-journeys-design-bilingual.md`, `changes/02-ux-review-eval-plan.md`: what changed in the spec since 0.2 of this file. **[0.4]** `changes/07-spec-catch-up-05-06.md`, *STALE*: the two steps amended at 0.4.
 - Format of the step tables follows the flows in `ecosystem/working/impact-build/01-noticing-spec.md` §4 (the source the skill spec names for `new` mode).
