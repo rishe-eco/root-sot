@@ -104,7 +104,7 @@ Opus 5.5; effort medium, stated by the founder. Opening prompt: "On branch `life
 - **Rule:** before changing a number in the spec, grep every downstream output for it, and set `STALE` where the spec now contradicts the output. **Event:** F-21's own list named the plan, checklist and plates, but not the journeys or the eval plan. The grep found eval plan §4.1's cold-run rationale, which matters for V-9. **Cost:** small here; missed, E1 would have been read on a stale premise. **Scope:** `revise`. **Destination:** `skills-plan.md` `revise`. urgent: no.
 
 ## Cost
-*Founder fills in.*
+Opus 5.5: 98 in / 563 out / 5.3M cache read / 112.2k cache write. **$2.68.** API 14 min, wall 27 min.
 
 ## Next
 - **The founder:** check that the deploy run for imnstr `6828da3` is green (docs-only, same code). Then the 10b block's step 1.
