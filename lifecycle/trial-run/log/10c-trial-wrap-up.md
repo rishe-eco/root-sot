@@ -78,7 +78,9 @@ After the first commit, the founder asked to be walked through the decisions gro
 3. **Rule:** don't ask the founder to decide a batch of method edits from summaries packed into question text. For each group, give a few plain sentences: what changes in how a session works, the event that caused it, and what it costs. Better still, show the actual edit when applying it, and let the founder refuse it there. **Event:** the 10c walk-through. Four groups were accepted unread, and the founder then accepted the rest on Claude's judgement. 10a needed two extra rounds for the same reason. **Cost:** decisions that are recorded but not real. The apply session has to carry the review. **Scope:** `learned --consolidate`, `revise --method`, any batch decision. **Destination:** `skills-plan.md` §0 (S0-5), and the memory. `urgent: yes`.
 
 ## Cost
-*Founder fills in after the session.*
+From the founder's paste: **$4.86**; API 23 m, wall 27 m; Opus 5.5 only. Tokens: 70 input, 451 output (as pasted), 5.6M cache read, 213.2k cache write.
+
+The figure covers both halves of the session: the findings and the decision walk-through. Most of the output went on `findings.md` (12,800 words), drafted from one 22,700-word extraction, so reading 72 logs cost little.
 
 ## Next
 - **Decided:** all groups accepted on Claude's judgement, unread (*Founder Q&A*).
