@@ -2,7 +2,7 @@
 
 *Step 10c of the trial, acting as `revise` on the method. It covers every* Spec gaps *and* Missing foundation *item from the run's 69 session logs and 3 archived logs, plus 10a's accepted lessons and `founder-notes.md`. Items are grouped by the skill or file they change, each with a drafted edit. Nothing here is applied. The founder decides each item, and accepted edits are applied in a later session.*
 
-**Version 0.1 · Status: proposal, for the founder's decision · 2026-10-19 · Owner: _root**
+**Version 0.2 · Status: accepted by the founder, on Claude's judgement; to be applied · 2026-10-19 · Owner: _root**
 
 ---
 
@@ -834,26 +834,32 @@ Each log's *Spec gaps* items are listed by position, then its *Missing foundatio
 
 ## Decisions
 
-*For the founder. Mark each group or item* accept, edit *or* refuse. *Accepted edits are applied in a later session, through `revise` on the method, with one `lifecycle/decision-log.md` entry per group.*
+*The founder's answers, 2026-10-19. Groups 1–4 were accepted through the question tool. The founder then said they had been accepting without reading, because the summaries were hard to follow without context, and accepted all 15 groups on Claude's judgement. **So every group is accepted, but none has been reviewed by the founder.** The apply session shows each group's actual edit (the diff), so the founder can read the change itself rather than a summary, and refuse any of it then.*
+
+*Three accepted items have lasting effects beyond wording. The apply session raises them on their own:*
+- *DR-2 moves L-2, L-3, L-5 and L-6 out of `lifecycle/decision-log.md` into an IMNSTR decisions file.*
+- *M-2 makes the 'small Change', with build, verify and deploy in one session, an allowed exception to one phase per session.*
+- *LE-2 adds a consolidation session at each milestone of a build.*
 
 | Group | Findings | Decision |
 |---|---|---|
-| Method `README.md` | M-1 to M-8 | |
-| Shared mechanics | S0-1 to S0-10 | |
-| Every-session skills | ST-1, HO-1 to HO-4, DR-1, DR-2, LE-1 to LE-9 | |
-| `ideate`, `research`, `personas` | ID-1 to ID-3, RE-1 to RE-5, PE-1 to PE-6 | |
-| `spec` | SP-1 to SP-11 | |
-| `journeys`, `wireframes` | JO-1 to JO-9, WF-1 to WF-6 | |
-| The design step | DS-1 to DS-8 | |
-| `eval-plan`, `build-plan` | EV-1 to EV-4, BP-1 to BP-7 | |
-| Project config | PC-1 to PC-9 | |
-| `build-phase`, `debug` | BF-1 to BF-11, BL-1 to BL-3, DB-1 | |
-| `verify` | VE-1 to VE-14, VM-1 to VM-5 | |
-| Reviews | UX-1 to UX-11, RI-1 to RI-5, DE-1 | |
-| `revise`, `close-out` | RV-1 to RV-11, CO-1 to CO-5 | |
-| Trial brief | TR-1 to TR-5 | |
-| Foundation list | F-1 to F-18 | |
+| Method `README.md` | M-1 to M-8 | **Accepted**, on Claude's judgement (not read) |
+| Shared mechanics | S0-1 to S0-10 | **Accepted**, on Claude's judgement (not read) |
+| Every-session skills | ST-1, HO-1 to HO-4, DR-1, DR-2, LE-1 to LE-9 | **Accepted**, on Claude's judgement (not read) |
+| `ideate`, `research`, `personas` | ID-1 to ID-3, RE-1 to RE-5, PE-1 to PE-6 | **Accepted**, on Claude's judgement (not read) |
+| `spec` | SP-1 to SP-11 | **Accepted**, on Claude's judgement (not read) |
+| `journeys`, `wireframes` | JO-1 to JO-9, WF-1 to WF-6 | **Accepted**, on Claude's judgement (not read) |
+| The design step | DS-1 to DS-8 | **Accepted**, on Claude's judgement (not read) |
+| `eval-plan`, `build-plan` | EV-1 to EV-4, BP-1 to BP-7 | **Accepted**, on Claude's judgement (not read) |
+| Project config | PC-1 to PC-9 | **Accepted**, on Claude's judgement (not read) |
+| `build-phase`, `debug` | BF-1 to BF-11, BL-1 to BL-3, DB-1 | **Accepted**, on Claude's judgement (not read) |
+| `verify` | VE-1 to VE-14, VM-1 to VM-5 | **Accepted**, on Claude's judgement (not read) |
+| Reviews | UX-1 to UX-11, RI-1 to RI-5, DE-1 | **Accepted**, on Claude's judgement (not read) |
+| `revise`, `close-out` | RV-1 to RV-11, CO-1 to CO-5 | **Accepted**, on Claude's judgement (not read) |
+| Trial brief | TR-1 to TR-5 | **Accepted**, on Claude's judgement (not read) |
+| Foundation list | F-1 to F-18 | **Accepted**, on Claude's judgement (not read) |
 
 ## Changelog
 
+- **0.2 · 2026-10-19** — The founder's decisions: all groups accepted. All 15 were accepted on Claude's judgement, without the founder reading them. Three items are flagged for the apply session.
 - **0.1 · 2026-10-19** — First version, from 76 logs, 10a's decisions and `founder-notes.md`.

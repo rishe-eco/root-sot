@@ -53,7 +53,13 @@ Required: *Summary*, *How to read it*, the per-skill sections, *Missing foundati
 None new. The gaps the run already listed (`bin/gate`, templates, the inbox) are F-1 to F-3 in `findings.md`.
 
 ## Founder Q&A
-None asked. The row says the founder decides from the output (*Spec gaps* 4).
+After the first commit, the founder asked to be walked through the decisions group by group.
+1. *Groups 1–4* (method, shared mechanics, every-session skills, ideate/research/personas), each summarised in the question → "Accept all", four times.
+2. *Groups 5–8*, same form → dismissed. The founder then said: "I'm hitting accept without reading; it's tough to understand and read without any context. I'm going with your judgment for now, accept all."
+
+**Recorded as:** all 15 groups accepted, on Claude's judgement, none reviewed by the founder (`findings.md` 0.2, *Decisions*). Three items with lasting effects are flagged for the apply session: DR-2, M-2 and LE-2.
+
+**Why the walk failed** (*Lessons* 3): each question packed 6–10 edits into one paragraph of finding-level shorthand. 10a hit the same wall with L30–L33.
 
 ## Skill shape
 - **`revise --method`**, Opus, high for a batch this size. It isn't forked: the founder decides in a later round.
@@ -69,10 +75,12 @@ None asked. The row says the founder decides from the output (*Spec gaps* 4).
 1. **Rule:** in a wrap-up or consolidation, compute every count with a script from the extraction before writing it. Never draft with estimated figures. **Event:** the first draft of `findings.md` gave 412 gap items, 128 foundation lines and several foundation-row counts that a later count corrected (396, 143, and four rows). **Cost:** one correction pass. The figures would have reached the founder wrong. **Scope:** `learned --consolidate`, `revise --method`, `close-out`. **Destination:** their reference files. `urgent: no`.
 2. **Rule:** number each log's *Spec gaps* items, so later sessions can cite and check them. **Event:** 396 items cited by position across 72 logs, with nested bullets in some. **Scope:** the log template, which becomes `learned`'s capture template (LE-1). **Destination:** trial README §4, and LE-1. `urgent: no`.
 
+3. **Rule:** don't ask the founder to decide a batch of method edits from summaries packed into question text. For each group, give a few plain sentences: what changes in how a session works, the event that caused it, and what it costs. Better still, show the actual edit when applying it, and let the founder refuse it there. **Event:** the 10c walk-through. Four groups were accepted unread, and the founder then accepted the rest on Claude's judgement. 10a needed two extra rounds for the same reason. **Cost:** decisions that are recorded but not real. The apply session has to carry the review. **Scope:** `learned --consolidate`, `revise --method`, any batch decision. **Destination:** `skills-plan.md` §0 (S0-5), and the memory. `urgent: yes`.
+
 ## Cost
 *Founder fills in after the session.*
 
 ## Next
-- **The founder** decides `findings.md`'s groups (its *Decisions* table): in the file, or in a session that asks group by group.
-- **Then a session applies the accepted groups:** `revise` on the method (Opus · medium, or high for the whole batch). It edits `README.md`, `skills-plan.md` and the trial README, drafts the templates F-2 lists, and writes one `lifecycle/decision-log.md` entry per group. Edits to founder-owned config and memory (PC-*, L30–L33) are made on the founder's word.
+- **Decided:** all groups accepted on Claude's judgement, unread (*Founder Q&A*).
+- **The apply session** shows each group's actual diff before committing it, and raises DR-2, M-2 and LE-2 on their own. It is `revise` on the method (Opus · medium, or high for the whole batch). It edits `README.md`, `skills-plan.md` and the trial README, drafts the templates F-2 lists, and writes one `lifecycle/decision-log.md` entry per group. Edits to founder-owned config and memory (PC-*, L30–L33) are made on the founder's word.
 - **The 10b2 block's step 1** (the founder's items: F-17, V-9 with V-7, a Persian entry and V-5 with V-8, `reset-content`, launch, E2's dates) stands. The trial's last phase is done. IMNSTR's open items are the founder's.

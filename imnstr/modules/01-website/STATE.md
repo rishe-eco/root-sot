@@ -13,11 +13,11 @@
 - **Nothing is applied.** No status cell (10c has none).
 
 **Next steps, in order**
-1. **The founder:** decide `findings.md` by group (its *Decisions* table), in the file or in a session that asks group by group.
-2. **An apply session:** `revise` on the method (Opus · medium; high for the whole batch). It applies the accepted groups to `lifecycle/README.md`, `skills-plan.md` and the trial README, and drafts the templates in F-2. It writes one `lifecycle/decision-log.md` entry per group. Project config and memory edits (PC-*, L30–L33) are made on the founder's word.
+1. **Decided (2026-10-19):** all 15 groups accepted, on Claude's judgement. The founder didn't read them: the summaries were hard to follow without context.
+2. **An apply session** shows each group's actual diff and lets the founder refuse it there. It raises DR-2 (moving L-2, L-3, L-5 and L-6 out of the method's log), M-2 (the one-session small Change) and LE-2 (a consolidation at each milestone) on their own. It is `revise` on the method (Opus · medium; high for the whole batch). It applies the accepted groups to `lifecycle/README.md`, `skills-plan.md` and the trial README, and drafts the templates in F-2. It writes one `lifecycle/decision-log.md` entry per group. Project config and memory edits (PC-*, L30–L33) are made on the founder's word.
 3. **IMNSTR:** the 10b2 block's steps 1 and 2, unchanged.
 
-**Questions for the founder:** none open. Three places disagreed on whether 10c applies the edits: the trial README says no; 10a's log and `09-close-out.md` §4 say yes. I followed the README. TR-2 proposes stating it in the brief.
+**Questions for the founder:** none open, beyond the apply session's diffs. Three places disagreed on whether 10c applies the edits: the trial README says no; 10a's log and `09-close-out.md` §4 say yes. I followed the README. TR-2 proposes stating it in the brief.
 
 ## 2026-10-19 · `lifecycle-trial/imnstr` (step 10b4, journeys gap) · imnstr `main @ 6828da3`
 
