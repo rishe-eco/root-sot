@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.17 · 2026-10-19**
+**Version 0.18 · 2026-10-19**
 
 ---
 
@@ -180,3 +180,16 @@
 **Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
 
 **Revisit.** After the next build's first two verifies, against how long the exercise-first step takes.
+
+## L-18 · 2026-10-19 · Review instrument 0.2 and the review skills
+
+**Decision.** Apply findings UX-1 to UX-11, RI-1 to RI-5 and DE-1 of `lifecycle/trial-run/findings.md` 0.2 to `lifecycle/skills-plan.md` §3, `README.md` §2 and `lifecycle/review-instrument.md`, now 0.2:
+- `ux-review`'s first mode is renamed `design` and reads the latest design; it scores per persona per journey, gets owed items injected, asks nothing, and writes a *Status* column and *For `revise`*; live mode reads production as a bot and walks states locally;
+- `design-review` takes its rubric from the project's design system, not Root's brand by default;
+- the instrument adds reflow at 200% and tap targets to coverage, pass-scoped ids, one severity scale, two grades, a status field and rules for observing.
+
+**Why.** The step 5 and step 9 reviews read a design the skill didn't know about, nearly reported two states as missing that the captions drew, and found a 61 px overflow only by screenshot. IMNSTR's design review had to swap Root's brand for its own design system by hand.
+
+**Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
+
+**Revisit.** At the next module's live pass, whether `design`-mode and live scores compare on 0.2.

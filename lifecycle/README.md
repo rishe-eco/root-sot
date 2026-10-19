@@ -50,7 +50,7 @@ The design is drawn from what already worked in this repo — the journeys build
 | 3 | Journeys | `journeys` (+ `personas`) | `03-journeys.md` | spec; personas selected |
 | 4 | Wireframes | `wireframes` | `04-wireframes.html` | journeys |
 | 4b | Design | the founder, in a design tool; then an import session | `04b-design/`: self-contained HTML exports, `source/`, a README | wireframes |
-| 5 | UX review | `ux-review` (wireframes mode) | `05-ux-review.md` | the latest design (4b where it exists, else wireframes), journeys |
+| 5 | UX review | `ux-review` (`design` mode) | `05-ux-review.md` | the latest design (4b where it exists, else wireframes), journeys |
 | 6 | Eval plan | `eval-plan` | `06-eval-plan.md` | spec |
 | 7 | Build plan | `build-plan` | `07-build-plan.md` | 2–6; UX findings, journeys' *Suggested*, the design's *Beyond the spec* and wireframes' *Calls made here*: each accepted, refused or carried |
 | 7b | Project config | `project-config` | `lifecycle/projects/<project>/` | build plan; runs once per project, before the first build for a project with no config |
@@ -188,7 +188,7 @@ Each stage ends by checking usage against the baseline.
 
 ## Changelog
 
-- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Method:* where an outside project's modules live; Change during a build, and the small Change; phases 4b and 7b, and launch as an event; gates for phases 5, 7, 9 and 10; §4 one file pattern per row, with the build plan, project configs and open-work's writers; `status.md` values; the founder's supplies; `MS<n>`, criterion prefixes and pass-scoped findings. *Every-session skills:* a module's `decisions.md`; the kind in a change file's name; `engineering-checklist.md`; consolidation at each milestone. *Design and build plan:* a size's units. *Build:* card length counted by body.
+- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Method:* where an outside project's modules live; Change during a build, and the small Change; phases 4b and 7b, and launch as an event; gates for phases 5, 7, 9 and 10; §4 one file pattern per row, with the build plan, project configs and open-work's writers; `status.md` values; the founder's supplies; `MS<n>`, criterion prefixes and pass-scoped findings. *Every-session skills:* a module's `decisions.md`; the kind in a change file's name; `engineering-checklist.md`; consolidation at each milestone. *Design and build plan:* a size's units. *Build:* card length counted by body. *Reviews:* `ux-review`'s first mode is `design`.
 - **0.4 · 2026-10-06** — Change track builds from its change note: the note carries a Stages section and `build-phase` accepts it in place of a build plan.
 - **0.3 · 2026-10-06** — Consistency pass against `skills-plan.md`: lane report is seven-part; every `STATE.md`, inbox and decision-log writer listed; state-of-the-build file is per project; founder-owned files also change through accepted consolidations; close-out gate requires a consolidated inbox; `n/a` phases pass the gate; models for `learned` and `debug`; `projects/tracker/` in stage 1.
 - **0.2 · 2026-10-05** — Learnings: captured per session as inbox notes, consolidated in batches; session rule 7; files and owners added.
