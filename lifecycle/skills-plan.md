@@ -159,25 +159,32 @@ Personas are *hypothesis* until a review pass or real-user data grounds them. A 
 ### `ideate`
 **Does:** turns an idea into a one-page intake and opens the module.
 **Model:** Sonnet, medium.
-**Asks:** problem; pillar; place on the opportunity tree (`ecosystem/ost.md`); who it is for; smallest version worth trying; what would make us drop it.
-**Writes:** the module folder, `00-intake.md` (one page, no sources), `STATE.md`, the `status.md` row.
+**Asks:** problem; pillar and place on the opportunity tree (`ecosystem/ost.md`), for Root work, or "n/a, outside Root" with a reason; who it is for; smallest version worth trying; what would make us drop it. The drop rule is recorded verbatim. If it isn't testable, the intake says so and passes it to `spec` and `eval-plan`.
+**Writes:** the module folder, `00-intake.md` (one page, no sources), `STATE.md`, the `status.md` row. The intake ends with *Decisions at intake*: the track, research or a waiver line, the code repo, which phases apply (UI or not), and the project.
 **Gate:** none.
 **From:** Spec Kit's idea-assessment intake.
 
 ### `research`
 **Does:** a research brief, checked against what Root already knows.
 **Model:** Opus, high.
-**Reads:** the intake; `ecosystem/canon/04-research/00-evidence-summary.md` first, so known evidence is not re-researched; the code it concerns, by section.
-**Writes:** `01-research.md` — five-line summary on top; claims graded evidence / as-built / proposal; sources; capped at ~2,500 words.
+**Reads:** the intake; `ecosystem/canon/04-research/00-evidence-summary.md` first, so known evidence is not re-researched; the code it concerns, if any, by section.
+**Writes:** `01-research.md` — five-line summary on top; claims graded as §0's *Grades*; sources; capped at ~2,500 words, sources excluded. A required section, *For the next phases*, holds the options named by noun (letters, if any, only as aliases) and the questions for `spec`.
+**Reference holds:**
+- **Review against the inputs** before committing: every evidence-summary section accounted for; every proposal checked against each intake line; the outcome the drop rule names researched, not only the technology.
+- **Reaching sources.** A 403 from a script isn't "unreachable". Try, in order: fetch; the browser; the source's own repository or another copy (an abstract, Crossref); a search summary, graded *summary only* and never quoted. Unreachable sources go under *Not researched*. Headline numbers keep their caveats. Security claims need a primary or standards source, or are graded *thin*.
+- **How much searching.** At least two independent sources per load-bearing claim. Stop after three searches that add nothing. Mark what wasn't reached.
 **Gate:** intake.
 **From:** the grading blocks in the journeys documents and the lifecycle spec.
 
 ### `personas`
 **Does:** selects which registered personas a module serves; rarely, proposes a new one.
 **Model:** Sonnet, medium.
-**Reads:** `personas.md`; the intake.
-**Writes:** the selection into the module's `03-journeys.md` header (creating the file; `journeys` fills it); a proposed persona into `personas.md` marked *hypothesis*, with a decision-log entry in `decision-record`'s format.
-**Rule:** never redefines an existing persona — the persona review's score history depends on them being fixed.
+**Modes:** select (before journeys) · `add` (adds a row after journeys exist, when a language or audience is added).
+**Reads:** `personas.md`; the intake; the spec's interface section, when proposing.
+**Does:** selects from the registry. The selection may be empty. When no persona fits, it proposes one per intake audience, defined by behaviour. Whenever it proposes a persona, it asks the founder to accept before writing the registry.
+**Writes:** the selection into the module's `03-journeys.md` header (creating the file; `journeys` fills it): a title block plus `## Personas`, a table of persona, serves, why and anchors. `personas` owns `## Personas`, and `journeys` never edits it; the journeys version is bumped by the next `journeys` run. A proposed persona goes into `personas.md` marked *hypothesis*, with a decision-log entry in `decision-record`'s format.
+**Rules:** never redefines an existing persona — the persona review's score history depends on them being fixed. A module's owner may be a persona; their real judgement stays the founder's, not the persona's score.
+**Template** (the registry record): ID, name, serves, grounding, grade (*hypothesis* or *grounded*), arrives how, device, knows entering (including the languages read), probes. Demographics are optional and never invented.
 **From:** `tracker/canon/05-reviews/00-persona-review-method.md` §2.
 
 ### `spec`
@@ -374,7 +381,7 @@ Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `bui
 
 ## Changelog
 
-- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Shared mechanics:* the gate fetches, takes an override and reads HTML, the personas table and criterion coverage; the step comes from the files; model and effort stated, not assumed; injected repo paths; what forking can't do; parallel sessions; redoing a phase; references by committed path and copied id; grades; asking the founder; outward-facing and destructive actions. *Every-session skills:* *Reference holds*; `lifecycle-status` shows the inbox's age and the founder's rows; `handoff`'s block format; `decision-record`'s format, and module decisions in `<module>/decisions.md`; `learned`'s note fields, consolidation at milestones, recurrence by session, reading what is integrated and the founder's notes, asking in fours, holds as seeds, and the engineering checklist.
+- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Shared mechanics:* the gate fetches, takes an override and reads HTML, the personas table and criterion coverage; the step comes from the files; model and effort stated, not assumed; injected repo paths; what forking can't do; parallel sessions; redoing a phase; references by committed path and copied id; grades; asking the founder; outward-facing and destructive actions. *Design, first phases:* `ideate` answers "n/a" outside Root, keeps the drop rule verbatim and ends with its decisions; `research` reviews itself against its inputs, reaches sources in order, has a search budget and a *For the next phases* section; `personas` may select none, proposes by behaviour with acceptance, gains an `add` mode, owns the journeys' `## Personas`, and has a record template. *Every-session skills:* *Reference holds*; `lifecycle-status` shows the inbox's age and the founder's rows; `handoff`'s block format; `decision-record`'s format, and module decisions in `<module>/decisions.md`; `learned`'s note fields, consolidation at milestones, recurrence by session, reading what is integrated and the founder's notes, asking in fours, holds as seeds, and the engineering checklist.
 - **0.4 · 2026-10-06** — Change track: `spec change` writes a Stages section into the change note; `build-phase` gates on and drafts cards from it; `verify` reads it in place of the plan's §5.
 - **0.3 · 2026-10-06** — Consistency pass against `README.md`: gate always exits 0 (a failing injected command aborts the skill) and passes `n/a`; decision-log entries from `personas`, `revise` and `learned` use `decision-record`'s format; `revise` gains a method mode; `close-out` gains a gate line; `build-plan`'s gate matches the README; canon flags go in the stage record; state-of-the-build file is per project; source paths completed.
 - **0.2 · 2026-10-05** — `learned` added: capture to an inbox, consolidate in batches; lane report gains item 7; `verify`, `handoff`, `lifecycle-status` and `close-out` wired to it.

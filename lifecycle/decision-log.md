@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.9 · 2026-10-19**
+**Version 0.10 · 2026-10-19**
 
 ---
 
@@ -71,3 +71,16 @@
 **Decided by.** Founder, reading the diff in the apply session. Accepted unread at 10c on Claude's judgement first.
 
 **Revisit.** After the next build's first milestone, if consolidating there costs more than it saves.
+
+## L-10 · 2026-10-19 · Skills plan 0.5: `ideate`, `research` and `personas`
+
+**Decision.** Apply findings ID-1 to ID-3, RE-1 to RE-5 and PE-1 to PE-6 of `lifecycle/trial-run/findings.md` 0.2 to `lifecycle/skills-plan.md` §2:
+- `ideate` answers Root-only questions "n/a" outside Root, records the drop rule verbatim, and ends the intake with its decisions;
+- `research` reviews itself against its inputs, reaches sources in a set order, stops searching on a budget, and ends with *For the next phases*;
+- `personas` may select none and propose by behaviour, asks before writing the registry, gains an `add` mode, owns `## Personas` in the journeys file, and has a record template.
+
+**Why.** IMNSTR was the first project outside Root: intake's pillar question had no answer, research ran three passes before it checked itself against the intake, and no registered persona fitted, so 3a and 05c invented the proposing and adding steps.
+
+**Decided by.** Founder, reading the diff in the apply session. Accepted unread at 10c on Claude's judgement first.
+
+**Revisit.** At the next module's research, if the source order or the search budget proves wrong.
