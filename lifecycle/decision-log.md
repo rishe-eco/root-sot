@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.14 · 2026-10-19**
+**Version 0.15 · 2026-10-19**
 
 ---
 
@@ -134,3 +134,17 @@
 **Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
 
 **Revisit.** Recalibrate sizes once a second module's stage records exist; review the 400–600-word stage bound then too.
+
+## L-15 · 2026-10-19 · Skills plan 0.5: project configuration and a `project-config` skill
+
+**Decision.** Apply findings PC-1 to PC-9 of `lifecycle/trial-run/findings.md` 0.2 to `lifecycle/skills-plan.md`:
+- §0 lists what each project config file holds, and `config.md` in full: paths per machine, files, suites, lanes and branches, environment, review scripts;
+- a project with no code has a planned config that the first verify reconciles;
+- a new skill, `project-config` (Opus, medium), creates the folder once per project; the plan now specifies twenty skills;
+- the recovered journeys `brief-common.md` is committed as `lifecycle/templates/brief-common.example.md`.
+
+**Why.** Step 7b wrote IMNSTR's config with no spec for it and found the source brief only by searching `~/.claude`. Sixteen logs then met a config piece that wasn't there, and eight verify logs and both UX reviews wrote throwaway review scripts.
+
+**Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
+
+**Revisit.** When a second project is configured. IMNSTR's own config isn't changed here; it already holds what its build needed.

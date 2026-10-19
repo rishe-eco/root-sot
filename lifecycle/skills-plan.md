@@ -1,6 +1,6 @@
 # Lifecycle — the skills, specified
 
-*Each of the nineteen lifecycle skills: what it does, how it is invoked, which model runs it, exactly what it reads and writes, its gate, and where its shape comes from. The method these skills implement is `README.md`.*
+*Each of the twenty lifecycle skills, and the design step: what it does, how it is invoked, which model runs it, exactly what it reads and writes, its gate, and where its shape comes from. The method these skills implement is `README.md`.*
 
 **Version 0.5 · Status: plan — nothing here is built yet · 2026-10-19 · Owner: _root**
 
@@ -8,13 +8,13 @@
 
 ## Summary
 
-Nineteen skills in four groups — every session, design, build, closing the loop — sharing one gate script, one set of templates and one configuration folder per project. Most are invoked by name only, so they cost nothing per turn until used. Reviews run forked, in a fresh context. Lanes are launched by `build-phase` with the project's common brief plus a committed phase card, and return a seven-part report that `verify` reads before the diff. What sessions learn about working is captured as notes and integrated in batches, never edited in place. Each spec below names its source in this repo, so the skill is a transcription of what already worked, not an invention.
+Twenty skills in four groups — every session, design, build, closing the loop — sharing one gate script, one set of templates and one configuration folder per project. Most are invoked by name only, so they cost nothing per turn until used. Reviews run forked, in a fresh context. Lanes are launched by `build-phase` with the project's common brief plus a committed phase card, and return a seven-part report that `verify` reads before the diff. What sessions learn about working is captured as notes and integrated in batches, never edited in place. Each spec below names its source in this repo, so the skill is a transcription of what already worked, not an invention.
 
 **Grading.** Mechanics claimed for Claude Code skills (frontmatter fields, forking, injection, skill discovery) are **documented** — read from the Claude Code skills documentation on 2026-10-05. Anything marked **verify in stage N** is a reading of that documentation not yet tried here.
 
 ## 0. Shared mechanics
 
-**Invocation.** Every skill is `disable-model-invocation: true` — invoked by name, invisible in context until then — except `debug`, which Claude may pick up on its own when a test fails. This keeps nineteen skills from adding nineteen descriptions to every turn.
+**Invocation.** Every skill is `disable-model-invocation: true` — invoked by name, invisible in context until then — except `debug`, which Claude may pick up on its own when a test fails. This keeps twenty skills from adding twenty descriptions to every turn.
 
 **Model and effort** are set in each skill's frontmatter (`model`, `effort`) and apply to the turn that invokes it. The session can see its model but not its effort. Every skill's first message states the model from its frontmatter. Where the prompt states a different effort, the skill says so and continues. A session on the wrong model stops before any work. A step run outside Claude Code (a design tool) has no model row: its log names the tool, and its cost is estimated (see `close-out`).
 
@@ -74,14 +74,23 @@ Personas are *hypothesis* until a review pass or real-user data grounds them. A 
 
 **Outward-facing and destructive actions.** Pushing to a repo whose `main` deploys, pushing a branch to a public remote, posting content to an outside service, and any destructive step on production need the founder's yes in this session. A skill never runs a destructive production step: it lists it for the founder. If the permission layer blocks an approved push, the skill ends with "push pending: founder" and doesn't look for another route.
 
-**Per-project configuration** — `lifecycle/projects/<project>/`:
+**Per-project configuration** — `lifecycle/projects/<project>/`, created by `project-config` (§2):
 
 | File | Holds | Source for root-app |
 |---|---|---|
-| `brief-common.md` | What every lane gets: role, read order, environment, git rules, style, budget and stop rules, the lane report | the recovered journeys `brief-common.md`, generalised |
-| `review-checklist.md` | What every review checks: what must not break, house rules, done means, the verification ceiling | the journeys plan §0.2, §0.3, §8; the development README's done means |
-| `config.md` | Paths, suite commands, milestone script, lane resource pattern (branch, test database, ports), where stage records go | the development README; the build-machine memory |
+| `brief-common.md` | What every lane gets: role, read order, environment, git rules, style, budget and stop rules, the lane report (the full list is under `build-phase`). It names checkouts by the names `config.md` gives them, never by one machine's absolute path | the recovered journeys brief, committed as `templates/brief-common.example.md` |
+| `review-checklist.md` | What every review checks: what must not break, house rules, done means, the verification ceiling, the probe list (`verify`), the reflow rule (`review-instrument.md` §3), the flake rule (`verify`) | the journeys plan §0.2, §0.3, §8; the development README's done means |
+| `config.md` | See below | the development README; the build-machine memory |
 
+**`config.md` holds:**
+- **Paths, per machine:** the code repo; the root-sot checkout lanes read, and the step that moves it to the card's commit; the checkout each kind of session writes in, and how it commits (`HEAD:<branch>` from a detached worktree).
+- **Files:** the open-work file and the state-of-the-build file (`none` is valid for the second); the design system, which `design-review` reads; the project's canon, which `close-out` keeps in sync.
+- **Suites and the milestone script.** The script writes the whole output to a file, then greps it; a background suite script judges each suite's exit code, never a last line that can't fail.
+- **Lanes:** a lane-slot table (branch, test database, ports), whatever the stack; a branch rule for Change stages, `<two letters><n>-<slug>`, taking the free slot; a review port and seed route.
+- **Environment:** Docker policy ("only when your card says so"); a free-disk check before image builds; the founder's devices and accounts; a heavy-runner lock file that the milestone script and heavy lanes take; a server runbook (sudo user, versions, other tenants); where CI status and logs are read.
+- **Review and check scripts,** kept in the code repo in a git-ignored or dedicated folder (`tests/review/`): capture every state at 360 and 1100 px, at 180 px, in both colour schemes and with forced colours; drive passkey screens with a virtual authenticator; an image smoke test; validator posts with seed content; a full-run summary of what failed and why; for design-side reviews, serve and capture a bundled design.
+
+**A project with no code yet** has its config written as planned. The first stage's `verify` reconciles it, with the founder's yes, and any verify that receives founder facts folds them into `config.md` the same way.
 ---
 
 ## 1. Every session
@@ -317,6 +326,14 @@ Personas are *hypothesis* until a review pass or real-user data grounds them. A 
 **Rule:** this session ends once the plan is committed and pushed. The build starts fresh.
 **From:** `ecosystem/working/root-studio-journeys-build-plan.md` on branch `journeys-build`, not yet on `main`.
 
+### `project-config`
+**Does:** creates a project's configuration folder.
+**Invocation:** by name, once per project, after its first build plan, when `projects/<project>/` doesn't exist · **Model:** Opus, medium.
+**Reads:** the build plan (§0.3 is the source of house rules, §4 the founder's facts); the latest retrospective; `templates/brief-common.example.md`; anything the founder supplies.
+**Writes:** `brief-common.md`, `review-checklist.md` and `config.md`, as §0 lists their contents. The founder accepts before commit.
+**Gate:** build plan.
+**From:** the IMNSTR trial's step 7b.
+
 ## 3. Build
 
 ### `build-phase`
@@ -470,7 +487,7 @@ Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `bui
 
 ## Changelog
 
-- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Shared mechanics:* the gate fetches, takes an override and reads HTML, the personas table and criterion coverage; the step comes from the files; model and effort stated, not assumed; injected repo paths; what forking can't do; parallel sessions; redoing a phase; references by committed path and copied id; grades; asking the founder; outward-facing and destructive actions. *`spec`:* the template and scope ledger; metrics versus the eval plan; the platform left to the build plan; change notes carry `main @`, a criterion prefix with an *Item* column, the fuller Stages shape and *What this makes stale*; change mode's gate against lanes in flight; one numbering in `changes/` with the kind in the name. *Design, first phases:* `ideate` answers "n/a" outside Root, keeps the drop rule verbatim and ends with its decisions; `research` reviews itself against its inputs, reaches sources in order, has a search budget and a *For the next phases* section; `personas` may select none, proposes by behaviour with acceptance, gains an `add` mode, owns the journeys' `## Personas`, and has a record template. *Every-session skills:* *Reference holds*; `lifecycle-status` shows the inbox's age and the founder's rows; `handoff`'s block format; `decision-record`'s format, and module decisions in `<module>/decisions.md`; `learned`'s note fields, consolidation at milestones, recurrence by session, reading what is integrated and the founder's notes, asking in fours, holds as seeds, and the engineering checklist. *`journeys` and `wireframes`:* journeys asks in every mode, keeps Suggested through to acceptance, cites `J<n>.<step>` checks, a required Coverage and a states table, amends without breaking ids, and gains `update` and scoped runs; wireframes has steps, coverage by step, marked Suggested items, *Calls made here*, and a definition of low fidelity. *The design step:* a new section: opening form, inputs for first and second passes, how much to draw, the README template with a plate index, the handoff folder, the import and its checklist, an optional accessibility pass. *`eval-plan` and `build-plan`:* eval plan's steps and asks, close-out versus later checks, instrument preconditions, a touch-up mode; build plan's foundation batch, a wider defect pass, sizes, a fuller stage section, a self-check, a template and the phase-7 gate.
+- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Shared mechanics:* the gate fetches, takes an override and reads HTML, the personas table and criterion coverage; the step comes from the files; model and effort stated, not assumed; injected repo paths; what forking can't do; parallel sessions; redoing a phase; references by committed path and copied id; grades; asking the founder; outward-facing and destructive actions. *`spec`:* the template and scope ledger; metrics versus the eval plan; the platform left to the build plan; change notes carry `main @`, a criterion prefix with an *Item* column, the fuller Stages shape and *What this makes stale*; change mode's gate against lanes in flight; one numbering in `changes/` with the kind in the name. *Design, first phases:* `ideate` answers "n/a" outside Root, keeps the drop rule verbatim and ends with its decisions; `research` reviews itself against its inputs, reaches sources in order, has a search budget and a *For the next phases* section; `personas` may select none, proposes by behaviour with acceptance, gains an `add` mode, owns the journeys' `## Personas`, and has a record template. *Every-session skills:* *Reference holds*; `lifecycle-status` shows the inbox's age and the founder's rows; `handoff`'s block format; `decision-record`'s format, and module decisions in `<module>/decisions.md`; `learned`'s note fields, consolidation at milestones, recurrence by session, reading what is integrated and the founder's notes, asking in fours, holds as seeds, and the engineering checklist. *`journeys` and `wireframes`:* journeys asks in every mode, keeps Suggested through to acceptance, cites `J<n>.<step>` checks, a required Coverage and a states table, amends without breaking ids, and gains `update` and scoped runs; wireframes has steps, coverage by step, marked Suggested items, *Calls made here*, and a definition of low fidelity. *The design step:* a new section: opening form, inputs for first and second passes, how much to draw, the README template with a plate index, the handoff folder, the import and its checklist, an optional accessibility pass. *`eval-plan` and `build-plan`:* eval plan's steps and asks, close-out versus later checks, instrument preconditions, a touch-up mode; build plan's foundation batch, a wider defect pass, sizes, a fuller stage section, a self-check, a template and the phase-7 gate. *Project config:* what each file holds, `config.md` in full, a `project-config` skill (twenty skills), and the journeys brief committed as an example.
 - **0.4 · 2026-10-06** — Change track: `spec change` writes a Stages section into the change note; `build-phase` gates on and drafts cards from it; `verify` reads it in place of the plan's §5.
 - **0.3 · 2026-10-06** — Consistency pass against `README.md`: gate always exits 0 (a failing injected command aborts the skill) and passes `n/a`; decision-log entries from `personas`, `revise` and `learned` use `decision-record`'s format; `revise` gains a method mode; `close-out` gains a gate line; `build-plan`'s gate matches the README; canon flags go in the stage record; state-of-the-build file is per project; source paths completed.
 - **0.2 · 2026-10-05** — `learned` added: capture to an inbox, consolidate in batches; lane report gains item 7; `verify`, `handoff`, `lifecycle-status` and `close-out` wired to it.
