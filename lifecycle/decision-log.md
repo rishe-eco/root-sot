@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.16 · 2026-10-19**
+**Version 0.17 · 2026-10-19**
 
 ---
 
@@ -164,3 +164,19 @@
 **Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
 
 **Revisit.** After the next build: whether the test grep and the 1,000-word signal hold, and whether launch and land in one session should become a named shape.
+
+## L-17 · 2026-10-19 · Skills plan 0.5: `verify` and its milestone mode
+
+**Decision.** Apply findings VE-1 to VE-14 and VM-1 to VM-5 of `lifecycle/trial-run/findings.md` 0.2 to `lifecycle/skills-plan.md` §3:
+- verify fetches first, exercises the artifact before reading the diff, and defines what counts as driving a browser;
+- the reviewer's fixes are bounded; tests it adds fail first; flakes are repeated and recorded;
+- rerun scope widens for shared helpers, and a Change's verify runs the full suites when its note asks;
+- it may make correction-only edits to the plan and config with the founder's yes;
+- a deploy order for projects whose `main` deploys, ending at 'push pending' if blocked;
+- milestones have a by-hand list from open-work, two states (*suites green*, *closed*), a rule for red suites, a push limit and a route walk on production.
+
+**Why.** Fourteen verify sessions and three milestones in the trial worked these out; the costliest misses (a 61 px overflow, a test that passed on unfixed code, a record shipped with its code spans stripped) came from steps the spec didn't have.
+
+**Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
+
+**Revisit.** After the next build's first two verifies, against how long the exercise-first step takes.
