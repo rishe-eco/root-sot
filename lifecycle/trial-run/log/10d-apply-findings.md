@@ -74,5 +74,6 @@ Not a phase output. Each method file kept its own headings. The decision-log ent
 *Founder fills in after the session.*
 
 ## Next
-- **The founder's items** (below, and in the `STATE.md` block): whether to draft the templates now or in stage 1; the build machine's memory edits; F-17's test helpers in IMNSTR's open-work.
+- **Templates:** the founder chose rollout stage 1, together with `bin/gate`.
+- **The founder's items** (in the `STATE.md` block): the build machine's memory edits; F-17's test helpers in IMNSTR's open-work.
 - **The trial is complete.** The 10b2 block's IMNSTR items (launch, E2's dates, V-5 to V-9) stand.

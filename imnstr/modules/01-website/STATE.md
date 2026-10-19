@@ -12,7 +12,7 @@
 - **For this module:** `decisions.md` now holds L-2, L-3, L-5 and L-6, with their ids kept, and indexes all seven change notes.
 
 **Next steps, in order**
-1. **The founder decides:** draft the eighteen templates now, in a session of their own, or in rollout stage 1 together with `bin/gate`.
+1. **Decided (2026-10-19):** the eighteen templates are drafted in rollout stage 1, together with `bin/gate`, not in a session of their own now.
 2. **The founder, on the Windows build machine:** add L30, L31 and L33 to the `root-app-dev-machine` memory (`log/10a-consolidate-proposal.md` §1).
 3. **IMNSTR:** F-17's shared test helpers go in its open-work file. Then the 10b2 block's steps 1 and 2, unchanged.
 
