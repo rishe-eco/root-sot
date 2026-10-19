@@ -1,8 +1,8 @@
 # IMNSTR.com — eval plan
 
-*Module `imnstr/modules/01-website/` · Track: Module · Phase 6. How we will know the site works for the people it is for. It sets out the failures that look alike in the data, the instruments, and the decision rules, written before any data so that an ambiguous result can't be read as a pass. Input: `02-spec.md` 0.3 (§3 Metrics, §3.1 the reader record, §5 Risks, AC-15), with the research sections that §3 cites. Update the changelog; don't fork.*
+*Module `imnstr/modules/01-website/` · Track: Module · Phase 6. How we will know the site works for the people it is for. It sets out the failures that look alike in the data, the instruments, and the decision rules, written before any data so that an ambiguous result can't be read as a pass. Input: `02-spec.md` 0.5 (§3 Metrics, §3.1 the reader record, §4.3 sessions, §5 Risks, AC-10, AC-15), with the research sections that §3 cites. Update the changelog; don't fork.*
 
-**Version 0.2 · Status: evaluation design · 2026-10-10 · Owner: founder**
+**Version 0.3 · Status: evaluation design · 2026-10-19 · Owner: founder**
 
 **Grading.** Everything here is a **proposal**: nothing is built, and no data exists. Research findings keep their grade from `01-research.md` and are cited by section. Items marked **[F]** were decided by the founder at step 6 (log `06-eval-plan.md`, Founder Q&A) or at the 0.2 touch-up (log `06b-eval-plan-touch-up.md`).
 
@@ -52,7 +52,8 @@ So no fact the site holds can decide the outcome. The founder's answers decide i
 - **Timing:** record the phone's screen and read the start and stop times from the video. This beats a stopwatch held in the other hand.
 - **Runs:** five warm and five cold per language, 20 in all.
   - **Warm** is M3 as the spec defines it: already signed in.
-  - **Cold** starts signed out, so it includes the passkey sign-in. *Proposal:* with a 1 h idle limit (AC-10) and roughly daily writing, almost every real publish starts signed out. Cold is timed and reported, not gated (spec §3, AC-15).
+  - **Cold** starts signed out, so it includes the passkey sign-in. Begin each cold run by signing out in the admin: the cookie lasts 30 days, so quitting the browser doesn't sign out (spec §4.3).
+  - *Proposal:* sessions last 7 days idle and 30 days absolute (AC-10). With roughly daily writing, most real publishes start signed in. So warm is the common case, and it is the one the gate judges. Cold is now the rare case: the first publish after a week away, after the 30-day limit, or on a device whose passkey was removed (AC-22, AC-45). It is still reported, because that is the return after a gap, when a slow sign-in costs the most. Cold is timed and reported, not gated (spec §3, AC-15).
 - **Test data.** Runs happen on a staging instance, or on production before launch, followed by a database reset that also clears the reader record, since checking `/log` after each run counts as a view. Anything published where a feed reader can see it may be kept after it is unpublished (spec §5, "Unpublish is not erasure").
 
 ### B. The first fortnight
@@ -156,12 +157,14 @@ That is about an hour and a half before launch, and about 20 minutes a year afte
 
 ## Changelog
 
+- **0.3 · 2026-10-19**: touch-up to spec 0.5 (step 10b3; change note `changes/07-spec-catch-up-05-06.md`, *STALE*, column 6). §3.A's case for cold runs now reasons from 7-day sessions (AC-10): warm is the common case, and cold, now rare, is still reported as the return after a gap. Cold runs begin with a sign-out, since quitting the browser no longer ends a session. The decision rules (§4.1, §4.2) are unchanged. No founder decisions.
 - **0.2 · 2026-10-10**: touch-up to spec 0.3 (step 06b). The reader record replaces the "if analytics" branch in §3.D and is read at the check's new step 9, after M2. The "not measured" line, F4 and §8 now match spec §3.1. §6's five items are marked settled. Two founder decisions **[F]**: §4.1's cold-ambiguous row is dropped, because cold is report-only, and Summary 5 goes with it; a conflict between the record and Q5 is resolved in a second line. §4.2 is unchanged.
 - **0.1 · 2026-10-10**: first eval plan. Four failures with the same data; two evaluations, E1 before launch and E2 after; the M3 protocol (warm and cold, both languages, screen-recorded, off production); the check's fixed order of questions; recall for the reader sign, with analytics as a `revise` item; decision rules with the ambiguous outcomes named; five items for `revise`.
 
 ## References
 
-- `02-spec.md` 0.3: Summary, §2.2 (decisions 25–28), §3, §3.1, §4.3, §4.5, §5, AC-5, AC-7, AC-10, AC-15, AC-16, AC-42, AC-46, AC-47, §7.
+- `02-spec.md` 0.5: Summary, §2.2 (decisions 25–28), §2.4 (decision 44), §3, §3.1, §4.3, §4.5, §5, AC-5, AC-7, AC-10, AC-15, AC-16, AC-22, AC-42, AC-45, AC-46, AC-47, §7.
+- `changes/07-spec-catch-up-05-06.md`: *STALE*, column 6.
 - `changes/02-ux-review-eval-plan.md`: items 9–13 and Open.
 - `01-research.md` §1, §2.3, §2.4, §6 (sources listed there). `00-intake.md` §4–§6.
 - `ecosystem/working/impact-build/03-spine-evaluation.md`: the shape (failures with identical data, a rule written before the data, the ambiguous outcome named) and the IMI pressure/tension construct.

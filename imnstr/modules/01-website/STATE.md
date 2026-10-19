@@ -2,6 +2,18 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-19 · `lifecycle-trial/imnstr` (step 10b3, eval-plan touch-up) · imnstr `main @ 6828da3`
+
+*Adds to the 10b2 block. It does its next step 4's eval-plan half; steps 1–3 and step 4's `journeys` (`gap`) half stand. Log: `log/10b3-eval-plan-touch-up.md`. Output: `06-eval-plan.md` 0.3.*
+
+**Column 6 is `done` again.** Eval plan 0.3 reasons from spec 0.5's 7-day sessions. Warm is the common case, and it is the one gated. Cold is rare now, and still reported as the return after a gap. The sentence was in §3.A, not §4.1 as note 07 says. §4.1 and §4.2, the decision rules, are unchanged. No founder decisions.
+
+**For V-9's runs:** begin each cold run by signing out in the admin. Quitting the browser no longer signs out (30-day cookie).
+
+**Still `STALE`: column 3** (J2.9, J3.4), waiting for an optional `journeys` (`gap`) run.
+
+**Next steps, in order:** as in the 10b2 block, steps 1–3; then, optionally, `journeys` (`gap`) for column 3.
+
 ## 2026-10-19 · `lifecycle-trial/imnstr` (step 10b2, revise) · imnstr `main @ 6828da3`
 
 *Replaces next step 2 of the 10b block (the `revise` session). Its steps 1 (the founder's items) and 3 (10c) stand. Log: `log/10b2-revise-spec.md`. Change note: `changes/07-spec-catch-up-05-06.md`.*
