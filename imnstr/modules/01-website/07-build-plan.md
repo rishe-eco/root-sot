@@ -1,8 +1,8 @@
 # IMNSTR.com — build plan
 
-*Module `imnstr/modules/01-website/` · Track: Module · Phase 7 · `build-plan`. The order the code lands in and the shape it takes, to the level of tables, routes, refusal codes, screens and tests, so that each stage's phase card is a transcription and not a design exercise. Inputs: `02-spec.md` 0.4, `03-journeys.md` 0.3, `04-wireframes.html` (W1–W11), `04b-design/README.md` 0.2, `05-ux-review.md` pass 1, `06-eval-plan.md` 0.2, change notes 01–03; for the host, `root-app/deploy/`. Update the changelog; don't fork.*
+*Module `imnstr/modules/01-website/` · Track: Module · Phase 7 · `build-plan`. The order the code lands in and the shape it takes, to the level of tables, routes, refusal codes, screens and tests, so that each stage's phase card is a transcription and not a design exercise. Inputs: `02-spec.md` 0.4 (0.5 from this plan's 0.9), `03-journeys.md` 0.3, `04-wireframes.html` (W1–W11), `04b-design/README.md` 0.2, `05-ux-review.md` pass 1, `06-eval-plan.md` 0.2, change notes 01–03; for the host, `root-app/deploy/`. Update the changelog; don't fork.*
 
-**Version 0.8 · Status: plan; B1–B8 and CD1 built and verified; MS1 live; a push to `main` deploys · 2026-10-18 · Owner: founder**
+**Version 0.9 · Status: plan; B1–B9, CD1, PL1 and CS1 built and verified; MS1 live; a push to `main` deploys · 2026-10-19 · Owner: founder**
 
 **Where this file yields.** On *what* the site does, the spec wins. On what a person experiences, the journeys win. On how it looks, the design wins. On *what order the code lands in and what shape it takes*, this file wins. Where it settles something the spec left open, §2 says so.
 
@@ -225,11 +225,11 @@ IMNSTR has no code yet, so it has no house rules yet. These are the rules, writt
 What is counted:
 - **R1:** each GET of a public page or entry that returns 200 adds one to `(month in SITE_TZ, lang, page)`. `page` is `landing`, `log`, `podcast` or an entry id.
 - **R2:** a feed GET whose user agent reports `N subscribers` (Feedly, Inoreader, NewsBlur and others, to be confirmed in B8) keeps the month's highest N per aggregator and language.
-- **R3:** the host name of a `Referer` that isn't `imnstr.com` adds one to `(month, lang, domain)`.
+- **R3:** the host name of a `Referer` that isn't `imnstr.com` adds one to `(month, lang, domain)`. IP literals and local names (a single label such as `localhost`, or a `.local`, `.lan`, `.internal`, `.localhost` or `.home.arpa` host) are dropped: they describe a reader's own network (B8).
 
 What is skipped:
 - HEAD requests, anything that isn't a 200, `/admin`, `/assets`;
-- user agents matching a bot pattern;
+- user agents matching a bot pattern, which also covers link-preview fetchers that don't say "bot" (Mastodon and the fediverse, WhatsApp, Bluesky, Iframely, Embedly, vkShare; B8), and an empty user agent;
 - **any request carrying the session cookie**, so the founder's own views aren't counted.
 
 The user agent and the referrer are read in memory and never stored. Two CLIs go with it: `report --from YYYY-MM --to YYYY-MM` prints the totals (AC-47). `reset-content` clears entries, episodes and the record but keeps passkeys and settings: it is the eval plan §3.A reset after the M3 runs.
@@ -533,7 +533,7 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
   - Sign-in is discoverable, with an empty `allowCredentials`.
   - Challenges are kept in memory for 5 min, single use, and the options tell the browser the same 5 min (`timeout`; the library default of 60 s is short for a hybrid sign-in). They are lost on restart, which only means retrying.
   - The sign count and the backup flags (BE/BS) are stored.
-- `lib/sessions.ts`: `create(openedBy)`, `touch`, `validate` (1 h idle, 24 h absolute, server-side), `reauth` (rotates the id, sets `auth_at`), `isFresh` (5 min), `destroy`. PD-13 covers the columns.
+- `lib/sessions.ts`: `create(openedBy)`, `touch`, `validate` (7 days idle, 30 days absolute, server-side; spec 0.5, change note 06), `reauth` (rotates the id, sets `auth_at`), `isFresh` (5 min), `destroy`. PD-13 covers the columns.
 - `lib/codes.ts`:
   - `issueSetupToken()`, used only by the CLI;
   - `issueEnrolmentCode(session)`, which requires a fresh session;
@@ -561,7 +561,7 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
 - Integration:
   - **AC-8:** the route enumeration from house rule 7.
   - **AC-9:** the setup token works once.
-  - **AC-10:** the cookie's attributes; the id changes at sign-in; the clock moved 61 min idle, and 24 h + 1 min absolute, gives 401; sign-out invalidates the session on the server.
+  - **AC-10:** the cookie's attributes; the id changes at sign-in; the cookie's `Max-Age` is 30 days; the clock moved 7 days idle, and 30 days absolute, gives 401, and a minute short of each doesn't; sign-out invalidates the session on the server.
   - **AC-11:** no CSRF token gives 403; a foreign Origin gives 403; failures slow down past the 4th and a success resets; the freshness window at 4:59 and at 5:01.
   - **AC-20, AC-21:** the 10- and 30-min limits; reuse; an unknown value; all of them give the identical body.
   - **AC-22:** deleting a credential, then that session's next request gets 401.
@@ -576,7 +576,7 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
 
 **Traps.**
 - **Hold the line on "not more than the spec".**
-  - No "remember me".
+  - No "remember me" to choose: every session's cookie lasts the 30 days (change note 06).
   - No sliding of the absolute limit.
   - No heartbeat, which J3.4 counts on.
   - No session middleware on public routes (D-8).
@@ -633,7 +633,7 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
 **Goal.** The server side of writing, and the admin's frame around it. The editor is B6.
 
 **Logic**
-- `lib/publish.ts` (PD-11): `createOrGet(kind, publishKey, fields)`, `publish(kind, id)` (does nothing when already published), `unpublish`, `republish`. Episodes use the same file in B7.
+- `lib/publish.ts` (PD-11): `createOrGet(kind, publishKey, fields)`, `publish(kind, id)` (does nothing when already published; it also republishes, keeping the original date by `COALESCE`), `unpublish`. No `republish` function or route (B5's review). Episodes use the same file in B7.
 - `lib/entries.ts` (write side): `saveDraft`, `update` (title and body; never the date or the id), `listForAdmin()` with drafts, "was live" and published, sorted for the admin, and without totals.
 - `setting.last_language` is written on every save or publish (PD-10).
 
@@ -644,7 +644,7 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
 - `PUT entries/<id>`.
 - `POST entries/<id>/publish`, `POST entries/<id>/unpublish`. Republishing returns `firstPublishedAt`, for AC-34's notice.
 - `GET settings`: `lastLanguage`, `independenceNoteDismissed`.
-- Refusals: `BODY_REQUIRED` (AC-18), `DOC_INVALID`, `LANG_INVALID`, `NOT_FOUND`.
+- Refusals: `BODY_REQUIRED` (AC-18), `DOC_INVALID`, `LANG_INVALID`, `NOT_FOUND`; from PL1, `LANG_FIXED` (§6.2). Their copy, where plate 8 gives none (B5's): "There's nothing to save yet. Write something first."; "That text can't be saved. Check it for odd characters or a link that isn't a web or email address, then try again."; "Choose a language, English or Persian."; and the shared `NOT_FOUND`, "That isn't there any more."
 
 **Screens**
 - **The admin shell in W1's order:**
@@ -657,8 +657,9 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
   - title or opening words;
   - the date, Gregorian, with the year only when it isn't this year (AC-31);
   - pills: "draft" dashed, "was live" dashed with its date, "Persian" solid;
-  - per row: Edit, Unpublish or Republish, Copy link;
+  - per row: Edit only, as plate 8 draws it (the founder's call at B5's launch). Unpublish with its confirm, Publish and the republish notice live in the edit view;
   - no count anywhere, including the section header (W2).
+- **The empty state:** "Entries you write will be listed here." Opening an entry shows "Opening…" (plate 8 gives neither; B5's copy).
 - **The unpublish confirm** uses the secondary style (F19). Republish names the date the entry returns to (AC-34).
 
 **Tests**
@@ -670,7 +671,7 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
   - AC-44: save draft, then a second session lists and publishes it.
   - The last language follows the last save.
   - No list response holds a count.
-- e2e: the list states (empty, draft, was live, published, Persian), the year rule around 1 January, and Copy link.
+- e2e: the list states (empty, draft, was live, published, Persian), the year rule around 1 January, and Copy link in the edit view's published notice.
 
 **Acceptance.** AC-12 to AC-14, AC-25 (entries), AC-31 (admin), AC-34, AC-42 (the default), AC-44, with B6 for the screens.
 
@@ -778,7 +779,7 @@ Each stage gives: **goal · schema · logic · routes and API · screens · test
 
 **Goal.** Spec §3.1, exactly as PD-20, invisible everywhere except the CLI.
 
-**Logic.** `lib/record.ts`: `countView`, `countFeed`, `countReferrer`, and `report(from, to)`. It is a middleware mounted after the response is decided, so it counts only 200s. Writes are cheap upserts.
+**Logic.** `lib/record.ts`: `countView`, `countFeed`, `countReferrer`, and `report(db, from, to)`. Each record table keeps at most `recordKeysPerMonth` keys per month and language (§6.4). It is a middleware mounted after the response is decided, so it counts only 200s. Writes are cheap upserts.
 
 **CLI.** `report --from 2026-11 --to 2027-01` prints per language: views per page and entry, the highest subscribers per aggregator, and the referring domains. `reset-content` (PD-20).
 
@@ -872,6 +873,8 @@ Each is asserted by an integration test in its stage.
 | `BODY_REQUIRED` · `DOC_INVALID` · `LANG_INVALID` | 400 | B5 |
 | `NAME_REQUIRED` · `DESCRIPTION_REQUIRED` · `TAGS_ONE_OR_TWO` · `LINK_REQUIRED` · `LINK_NOT_HTTPS` | 400 | B7; `NAME_REQUIRED` from B4a, for a blank passkey name |
 | `LAST_LINK` | 409 | B7 (AC-17) |
+| `LANG_FIXED` | 409 | PL1 (AC-42): a language change on a published or "was live" item |
+| `DATE_FUTURE` | 400 | PL1 (AC-49): an episode date after today, unless an edit keeps the date it has |
 | `NOT_FOUND` | 404 | admin reads |
 
 ### 6.3 · Tables (B1, `001_init.sql`)
@@ -899,7 +902,7 @@ Each is asserted by an integration test in its stage.
 
 | | Value | Source |
 |---|---|---|
-| Session idle · absolute | 1 h · 24 h | AC-10 |
+| Session idle · absolute · cookie `Max-Age` | 7 days · 30 days · 30 days | AC-10 **[F]** (spec 0.5, change note 06) |
 | Fresh sign-in | 5 min | AC-11 **[F]** |
 | Setup token · enrolment code | 30 min · 10 min | AC-21, AC-20 |
 | WebAuthn challenge | 5 min | PD-17 |
@@ -910,6 +913,7 @@ Each is asserted by an integration test in its stage.
 | Title length | 1,000 UTF-16 code units, after trimming; the field's `maxlength` matches | **[F]** F-16, at B6's verify: a large guard |
 | Episode name · description · tag · link label · link address | 1,000 · 10,000 · 100 · 100 · 2,000 UTF-16 code units, after trimming; each `REQUEST_INVALID`, each field's `maxlength` matches | **[F]** F-18, at B7's verify: guards, not rules |
 | Links per episode | 20 | **[F]** F-18, at B7's verify |
+| Record keys per month and language (`recordKeysPerMonth`) | 500 | B8: a client chooses its own Referer and user agent; past the cap a new key is dropped, old ones count on |
 
 ### 6.5 · The language switch
 
@@ -1046,6 +1050,7 @@ The other PD-n are mechanics. Veto any one of them, and the stage it governs cha
 
 ## Changelog
 
+- **0.9 · 2026-10-19:** At the spec's 0.5 revise (change note `changes/07-spec-catch-up-05-06.md`), by the founder's decisions (F-11, F-14, F-20, F-21). Catches the plan up to what was built; no stage's scope changes. **§5 B4a:** sessions 7 days idle and 30 absolute, the 30-day cookie, and AC-10's test line (CS1). **§5 B5:** rows carry Edit only and the edit view holds Unpublish and Publish (plate 8); no `republish`, since `publish` keeps the date; B5's copy where plate 8 gives none. **§5 B8 and PD-20:** `report(db, from, to)`; the key cap; the bot pattern covers link-preview fetchers; R3 drops local names. **§6.2:** `LANG_FIXED`, `DATE_FUTURE` (PL1). **§6.4:** the session row; `recordKeysPerMonth`.
 - **0.8 · 2026-10-18:** After B7's verify (`docs/development/B7.md`), by the founder's decision (F-18). Corrections; no stage's scope changes. **§5 B7:** no `DELETE episodes/<id>/links/<n>` (links travel whole in `PUT`); `createOrGet`'s `afterInsert` step publishes new text in one request (S-3); the date is the browser's own input. **§6.4:** the episode guards.
 - **0.7 · 2026-10-17:** After B6's verify (`docs/development/B6.md`), by the founder's decisions (F-15, F-16). Corrections; no stage's scope changes. **PD-11:** a composition keeps its key; a field `PUT` can't change is fixed while a send is unanswered. **§5 B6:** a 401 signs in over the editor with the passkey sign-in, not the re-authentication dialog; "View" is Open; the buffers go through one file. **§6.4:** the title is capped at 1,000.
 - **0.6 · 2026-10-15:** After CD1's verify (`docs/development/CD1.md`), by the founder's decision (F-10). §5 B2: a push to `main` deploys, in the goal and *Not here*. §7: item 5, what CD1 put on the box. No stage's scope changes.

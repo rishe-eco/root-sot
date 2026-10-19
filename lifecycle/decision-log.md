@@ -2,7 +2,7 @@
 
 *Decisions about the method itself. Written in `decision-record`'s format.*
 
-**Version 0.5 · 2026-10-10**
+**Version 0.6 · 2026-10-19**
 
 ---
 
@@ -77,3 +77,18 @@ No downstream phase is marked `STALE`: the journeys proposed these items and the
 **Decided by.** Founder, at trial step 05f, all as recommended.
 
 **Revisit.** At step 9, if F finds the switch or mixed-direction text still fails in the running site.
+
+## L-6 · 2026-10-19 · IMNSTR spec 0.5: catching up to PL1 and CS1, and the canon the build left stale
+
+**Decision.** Revise `imnstr/modules/01-website/02-spec.md` to version 0.5, as set out in its change note `changes/07-spec-catch-up-05-06.md`:
+- from change note 05 (PL1): a never-published draft may change language, a published or "was live" one may not (AC-42); an episode date after today is refused, an edit may keep its date (new AC-49); a "Newer" link past the first page (AC-30); PL-1 read without "row hover";
+- from change note 06 (CS1): sessions 7 days idle and 30 days absolute, with a 30-day cookie, below NIST AAL2 by the founder's choice (§4.3, AC-10, §5);
+- riding along: build plan 0.9 (F-11, F-14, F-20, F-21), review checklist 0.5, design README 0.3 (F-19 b and c, F-20, F-21), and the code repo's `CLAUDE.md` (F-19 a).
+
+Journeys (column 3) and the eval plan (column 6) are marked `STALE`: both reason from the 1 h idle limit, and neither proposed the change.
+
+**Why.** Both Changes were built, verified and deployed with the spec held at 0.4 by the founder's choice. E1's runs and any later Change read the spec, so it has to say what the site does.
+
+**Decided by.** Founder, at trial step 10b2, all as recommended.
+
+**Revisit.** If E1 fails after launch (eval plan §4.1), or if a lost or stolen device shows 30-day sessions are too long.

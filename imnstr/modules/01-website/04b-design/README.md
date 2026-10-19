@@ -2,7 +2,7 @@
 
 *Module `imnstr/modules/01-website/` · Phase 4b, second pass at step 05e · Claude Design output. Inputs: `02-spec.md` 0.3, `03-journeys.md` 0.3, `04-wireframes.html` (plates 1–13, W1–W11), `05-ux-review.md`, change notes 01–02, `review/README.md`. Every frame is **proposal**.*
 
-**Version 0.2 · Status: design · 2026-10-10 · Owner: founder**
+**Version 0.3 · Status: design; built (the exports are not redrawn: *As built* below says where the site now differs) · 2026-10-19 · Owner: founder**
 
 ## What's here
 
@@ -32,7 +32,7 @@
   - Letter-spacing −0.02 to −0.035em at display sizes.
 - **Newsreader** is for reading: body text, entries and descriptions.
 - **Scale (px):**
-  - Wordmark: 156 desktop hero, 50 phone hero (fits 360 px revealed, with its eyes; HIG #2), 22–26 in headers.
+  - Wordmark: 156 desktop hero, 50 phone hero (fits 360 px revealed, with its eyes; HIG #2), 22–26 in headers. At 180 px (360 px at 200% zoom) the hero is 17 px, so the revealed word and its eyes fit (B9, kept by the founder at 0.3).
   - Page titles: 80 desktop, 46–48 phone.
   - Calls to action: 56 / 34. Titles: 30 / 23.
   - Body: 28 desktop intro, 19–20 desktop reading, 18 phone. Meta: 13–14.
@@ -55,17 +55,17 @@
 | Ground | `#eff0ea` | `#112019` (greener, HIG #11) |
 | Ink | `#1b211d` | `#e4e8e3` |
 | Body 2 (descriptions) | `#3a443e` | `#c9d0cb` |
-| Muted (meta, footers) | `#56605a` (5.7:1) | `#aab4ad` (8.3:1) |
+| Muted (meta, footers) | `#56605a` (5.7:1) | `#aab4ad` (7.9:1) |
 | Link / green text | `#2f5442` (7.4:1) | `#7fd36b` |
 | Monster green (wordmark letters, current-page underline, focus ring) | `#3f8f3a` (large text and lines only) | `#7fd36b` |
 | Highlighter | `#bfe8ad`, ink on top | `#7fd36b`, `#112019` on top |
 | Success | `#dcebd7` fill, `#3f8f3a` border | `#1c3a27` fill, `#7fd36b` border |
 | Error | `#f6e1d9` fill, `#b0492f` border, `#5e2414` text | `#3b1d16` fill, `#e8876a` border, `#f8d9cd` text |
-| Input | `#f7f8f3` fill, `#7d837f` border (3.6:1, HIG #3), placeholder `#5c6660` | `#182b22` fill, `#7f9187` border, placeholder `#9aa69f` |
+| Input | `#f7f8f3` fill, `#7d837f` border (3.4:1 on the ground, 3.6:1 on the field fill; HIG #3), placeholder `#5c6660` | `#182b22` fill, `#7f9187` border, placeholder `#9aa69f` |
 | Primary button | `#1b211d` fill, `#eff0ea` text (HIG #5) | `#e4e8e3` fill, `#112019` text |
 | Rules | 1.5px ink (structural); 1px rgba(ink, .18) (between rows) | same, in light ink |
 
-Dark states are drawn at 05e (plate 15). *Contrast for the new dark pairs is computed by eye from the hex values, not measured: proposal.*
+Dark states are drawn at 05e (plate 15). *Contrast for the new dark pairs was computed by eye at 05e. B9 computed every pair: the two corrected above still pass, and `tests/unit/contrast.test.ts` in the code repo pins the values (**as-built**).*
 
 **Spacing and shape.**
 
@@ -93,13 +93,14 @@ Dark states are drawn at 05e (plate 15). *Contrast for the new dark pairs is com
 - **Language field (admin).** A two-option segmented control above the title, starting at the last language used. Persian turns title and body right-to-left.
 - **Platform pill.** 1.5px ink border, 44 px tall, label then ↗, `target="_blank"`. Unknown labels use the same pill.
 - **Buttons.**
-  - Primary: solid ink, paper text. The highlighter is now only emphasis and row hover (HIG #5).
+  - Primary: solid ink, paper text, for **every** primary action in the admin, not only Publish (HIG #5; PL1, D1). In the admin the highlighter's fill is only emphasis (`<mark>`) and a pressed Highlight tool. The admin has no row hover; the hover sweep belongs to the public big ruled rows.
   - Unpublish is never the filled primary (F19).
   - Secondary: rgba-ink border.
   - Disabled: 45% opacity.
 - **Notices.** Success, error and neutral, each a bordered box with a radius of 14. Errors sit above the action (W5).
 - **Fields.** Label above, filled input, 1.5px border; ink border on focus; error border `#b0492f`.
-- **Dialog / confirm.** Ground surface, 1.5px ink border, radius 18, pinned to the bottom on phones.
+- **Dialog / confirm.** Ground surface, 1.5px ink border, radius 18. Below `48em`, a bottom sheet: full width, its bottom on the viewport's bottom edge. From `48em`, centred, at most `26rem` wide (PL1, D2). Every confirm and the re-authentication prompt.
+- **Skip link.** First on every public page, in both languages: "Skip to content" / "پرش به محتوا" (placeholder Persian). Out of view until focused; while focused, in view and at least 44 px tall. It moves focus to `<main id="main">` (PL1, P4).
 - **Collapsed admin sections.** Entries, Podcast and Passkeys rows at 48 px, with +/−. No counts.
 - **Tags in admin lists.** Dashed pills: "draft" (never published), "was live" (unpublished; keeps its date). Solid pill: "Persian".
 - **Tap areas.** Text links keep their size but get 44 px tap areas; inline date links get 24 px (HIG #1).
@@ -141,6 +142,15 @@ Every wireframe plate (1–11) has a designed counterpart. 05e added plates 12�
 
 **Suggested, drawn and flagged:** G10 (the switch's label), G12 (mixed-direction text), and, as journeys decisions already taken, G14 (Persian show links) and G16 (wrong-language 404). G11 and G15 have no screen of their own.
 
+## As built, where the site differs from the plates (0.3)
+
+*The exports and `source/` are not redrawn; this list is the reference. **As-built**, from the stage records in the code repo.*
+
+- **Copy, plates 1, 2 and 13** (landing, learnings, Persian pages): the founder's copy from change note 06, CS-3 to CS-7 (the landing line and meta descriptions, the learnings lines, the Persian footer, the Tracker line, the Persian podcast name "تجربه زیسته یک هیولا"). The note holds the exact strings.
+- **Components** above: every admin primary in solid ink, bottom-sheet dialogs below `48em`, the skip link (PL1).
+- **The podcast's empty state:** the eyes sit above the line, where plate 4 draws them beside it (B9, kept by the founder at 0.3).
+- **The 180 px hero wordmark** at 17 px (B9, kept; *Type* above).
+
 ## Beyond the spec (route through `revise` or the build plan)
 
 - **Admin vs site styling:** the admin uses the site's type and colour. Its primary action is now solid ink, not the highlighter.
@@ -176,5 +186,6 @@ Every wireframe plate (1–11) has a designed counterpart. 05e added plates 12�
 
 ## Changelog
 
+- **0.3 · 2026-10-19** — At the spec's 0.5 revise (change note `changes/07-spec-catch-up-05-06.md`), by the founder (F-19 (b, c), F-20, F-21). Catches the README up to the build; nothing redrawn. Colour: dark muted 7.9:1, the light field edge 3.4:1 on the ground (B9). Components: solid ink for every admin primary, and no admin row hover; bottom-sheet dialogs below `48em`; the skip link (PL1). New *As built* section: the founder's copy on plates 1, 2 and 13 (CS1), and two B9 calls kept.
 - **0.2 · 2026-10-10** — Step 05e, second design pass: the HIG review's fixes and the UX review's design findings applied to plates 1–11; plates 12–15 (admin states from spec 0.3, Persian public pages, writing in Persian, the admin in dark); Persian type (Estedad, Vazirmatn); dark state tokens; the language switch and field. Design system kept.
 - **0.1 · 2026-10-10** — Step 4b: plates 1–11, direction 8a, the design system.

@@ -2,7 +2,7 @@
 
 *What every `verify` of an IMNSTR stage checks, after the lane report and the diff stat and before the stage record. Items are short so a review can tick them; each cites where it comes from. The plan's §5 section for the stage adds that stage's own acceptance and traps on top. Sources: build plan 0.1 §0.2, §0.3, §0.4, §8 and §9; spec 0.4 §4.3; the journeys build's review pass (retro §2).*
 
-**Version 0.4 · Status: in use · 2026-10-15 · Owner: founder**
+**Version 0.5 · Status: in use · 2026-10-19 · Owner: founder**
 
 ---
 
@@ -59,7 +59,7 @@ Any stage that touches `/admin/api`, sessions, codes or passkeys. B4a must tick 
 - [ ] **Timing.** `redeem` does the same lookup and hash comparison whether or not the value exists; `crypto.timingSafeEqual` on equal-length hashes.
 - [ ] **The cookie:** `__Host-` prefix, `Secure`, `HttpOnly`, `SameSite=Strict`, `Path=/`. The id has 128 bits from a CSPRNG, changes at sign-in and at re-authentication, and only a one-way hash is stored.
 - [ ] **No tokens in `localStorage` or `sessionStorage`.**
-- [ ] **Expiry on the server:** 1 h idle, 24 h absolute; no sliding of the absolute limit, no "remember me", no heartbeat. Sign-out ends the session on the server.
+- [ ] **Expiry on the server:** 7 days idle, 30 days absolute, both read from `lib/limits.ts`; the cookie's `Max-Age` is the 30 days (spec 0.5); no sliding of the absolute limit, no "remember me", no heartbeat. Sign-out ends the session on the server.
 - [ ] **CSRF token** on every state-changing request, and an Origin check (PD-14). SameSite is not the defence.
 - [ ] **Back-off** per account from the 4th failure, capped at 30 s, reset by a success (PD-15, D-3). It counts code redemptions too.
 - [ ] **Re-authentication** before adding or removing a passkey or issuing an enrolment code. Fresh means within 5 min: test 4:59 and 5:01.
@@ -134,6 +134,7 @@ These can't be proven by a lane or a suite. Each goes to the stage record's *ver
 
 ## Changelog
 
+- **0.5 · 2026-10-19** — §4: sessions 7 days idle and 30 days absolute, with a 30-day cookie. From CS1 (change note 06), accepted by the founder at the spec's 0.5 revise (F-21).
 - **0.4 · 2026-10-15** — §6: a push to `main` deploys, with the before and after checks; deploy checks go in `checks.sh`; the deploy user stays narrow; no global prune. From CD1's verify, accepted by the founder (F-10).
 - **0.3 · 2026-10-14** — §6: the conf is a copy and certbot runs `certonly`; no listen-level flags; server commands for a sudo user. From B2's verify, accepted by the founder (F-8).
 - **0.2 · 2026-10-11** — §3: routes mount in `app.ts`, not `server.ts`; found at B1's verify and accepted by the founder.

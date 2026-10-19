@@ -2,6 +2,22 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-19 · `lifecycle-trial/imnstr` (step 10b2, revise) · imnstr `main @ 6828da3`
+
+*Replaces next step 2 of the 10b block (the `revise` session). Its steps 1 (the founder's items) and 3 (10c) stand. Log: `log/10b2-revise-spec.md`. Change note: `changes/07-spec-catch-up-05-06.md`.*
+
+**Spec 0.5.** It now says what PL1 and CS1 built: a never-published draft may change language (AC-42), no future episode dates (new AC-49), a Newer link (AC-30), and sessions of 7 days idle and 30 absolute with a 30-day cookie (§4.3, AC-10). All five items were accepted: F-20, F-21, F-11, F-14, F-19.
+
+**Also updated:** build plan 0.9, review checklist 0.5, design README 0.3, and imnstr `CLAUDE.md` (`6828da3`, pushed to `main`, which triggers a deploy of unchanged code).
+
+**`STALE`: columns 3 and 6.** J2.9 and J3.4 reason from the 1 h idle limit. So does eval plan §4.1's case for reporting cold runs: with 7-day sessions, most real publishes start signed in. The decision rule doesn't change. **Read §4.1 before V-9's runs.**
+
+**Next steps, in order**
+1. **The founder:** check that the deploy run for `6828da3` is green. Then the 10b block's step 1, unchanged.
+2. **The next `verify` or `close-out` session** strikes F-11, F-14, F-19, F-20 and F-21 through in `imnstr/open-work.md`, citing change note 07. F-21's "sign in once on each device" stays with the founder until it's done.
+3. **10c trial wrap-up** (Opus · high), as in the 10b block.
+4. **Optional, before V-9:** an `eval-plan` touch-up for §4.1 (Opus · medium, like 06b), and a `journeys` (`gap`) run for J2.9 and J3.4. Either clears its `STALE` cell.
+
 ## 2026-10-19 · `lifecycle-trial/imnstr` (step 10b, close-out) · imnstr `main @ 3554035`
 
 *Replaces next step 2 of the 8c PL1 block ("10b waits for MS3 and MS4"). Its step 1, the founder's items, stands. Log: `log/10b-close-out.md`. Output: `09-close-out.md` 0.1.*
