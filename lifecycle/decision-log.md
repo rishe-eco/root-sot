@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.15 · 2026-10-19**
+**Version 0.16 · 2026-10-19**
 
 ---
 
@@ -148,3 +148,19 @@
 **Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
 
 **Revisit.** When a second project is configured. IMNSTR's own config isn't changed here; it already holds what its build needed.
+
+## L-16 · 2026-10-19 · Skills plan 0.5: `build-phase` (launch and land) and `debug`
+
+**Decision.** Apply findings BF-1 to BF-11, BL-1 to BL-3 and DB-1 of `lifecycle/trial-run/findings.md` 0.2 to `lifecycle/skills-plan.md` §3 and `README.md` §6 rule 3:
+- launch asks the founder's facts and preconditions first, checks the plan and the tests against the code, makes the worktree by hand and launches by path;
+- card length is counted by body, and an overlong card is a sign the plan is underspecified;
+- the card template gains *Decided here*, *Tests that change on purpose* and *What the verify deploys*;
+- land reads the report file, checks commit authors, measures from the lane's base, records real time and tokens, and lists what verify must decide; it doesn't push;
+- `brief-common.md` gains the identity check, the 180 px rule and the build machine's environment pitfalls;
+- `debug` doesn't edit a test a running suite has loaded.
+
+**Why.** Twelve launches and twelve lands in the trial improvised these steps. Cards ran over their limit ten times, one lane changed a house rule alone because a test pinned the stage's absence, and one report nearly lost with its session.
+
+**Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
+
+**Revisit.** After the next build: whether the test grep and the 1,000-word signal hold, and whether launch and land in one session should become a named shape.

@@ -342,22 +342,41 @@ Personas are *hypothesis* until a review pass or real-user data grounds them. A 
 **Gate:** the build plan, or a change note with a Stages section.
 **Model:** Opus, medium (it drafts the card; the lane is Sonnet).
 **Launch:**
-1. Run the gate. Check `STATE.md`: at most two lanes in flight, no other lane touching shared schema.
-2. Draft the phase card from the plan's §5 section — or the change note's stage — and the code as it is now: 500–700 words, naming exactly which plan sections, journeys sections and earlier stage records to read. Commit it as `briefs/<stage>.md`.
-3. Assign lane resources from `config.md`: branch, test database, ports.
-4. Launch a background Sonnet subagent in its own worktree with `brief-common.md` + the card.
+1. Run the gate. Check `STATE.md`: at most two lanes in flight, no other lane touching shared schema. Check that the code repo checkout exists, and clone it if not.
+   **Facts and preconditions first:** read the P0 items the stage needs from the plan's §4, marked done or open. Ask the open ones in one question generated from that list, together with environment preconditions (Docker running, the devices the founder has today). List every by-hand check that names the stage. For an infrastructure stage, draft the card only after the facts arrive.
+2. **Check the plan against what it touches:** diff the stage's file list against the tree; compare its screens with the plate; read the migration for each table it writes; re-read a change note against `main` since its `main @`. **Grep the tests** for the stage's routes, tables and page names, every literal it changes, every request field a route starts reading, every value class a new refusal covers, and every helper that does the same job (found by behaviour, not one name: all clock setters). Each mismatch goes in the card, flagged for verify.
+   Then draft the phase card from the plan's §5 section — or the change note's stage — and the code as it is now: **500–700 words of body** (the header, lane table and pasted facts don't count), naming exactly which plan sections, journeys sections and earlier stage records to read. Over that, the card cites the design's plate index rather than quoting copy, and records the plan's open decisions in *Decided here*. If the body still runs over 1,000 words, the plan section is underspecified: say so in the log. On the Change track, when the note's stage names files, tests and traps, the card defers to it and adds the code check and the lane rules. Commit it as `briefs/<stage>.md`.
+3. Assign lane resources from `config.md`: branch, test database, ports. Make the worktree with `git worktree add` from local `main` after a pull, with no upstream (the Agent tool's isolation can't target another repo). The card tells the lane its working directory.
+4. Launch a background Sonnet subagent with the paths of `brief-common.md` and the card; the lane reads them.
 5. Record the lane in `STATE.md`.
 
-**Land:** save the lane's report as `briefs/<stage>.report.md`, commit it, update `STATE.md`, name the next step (`verify <stage>`).
+**The card** (template) has, beside the plan's content:
+- *Decided here*: what the plan left open, including development dependencies added and how e2e gets its data;
+- *Tests that change on purpose*: every test the grep found that asserts the stage's absence or forbids what it adds, with the new rule. The lane changes those and no others;
+- from the first deploy on, *What the verify deploys*. Each deploy check is one that fails when what it guards is broken. The card doesn't assert a computed outcome it hasn't tried.
+
+**Carry-overs:** a carry-over a review marks "for every card", or an environment problem that cost a lane time, is proposed for `brief-common.md` at that verify, not repeated in each card.
+
+**Land:** reads `.tmp/<stage>.report.md`, so it can run in a later session than the launch.
+1. Check that the lane's commit exists and that its authors are right.
+2. Measure the diff from the lane's recorded base, not `main`, and list the files a newer `main` also touches.
+3. Record lines (app, tests, moved) and the harness's time and tokens against the size. The lane's own estimate is ignored.
+4. Save the report as `briefs/<stage>.report.md`, with a one-line header (stage, branch, base), and commit it.
+5. Update `STATE.md`. The block lists, *for verify to decide*: the lane's calls; the card's *Decided here*; card checks not done, and why; changes to what the deploy runs; departures from the note or plan.
+6. Name the next step (`verify <stage>`).
+
+Land doesn't push the branch. `verify` runs on the machine that holds it; if it must move machines, the founder pushes it (§0, outward-facing actions).
 **From:** the journeys orchestration: `brief-common.md`, `brief-j*.md`, the lane registry in the state log.
 
 **What `brief-common.md` must contain**, from the recovered one:
 - role and reviewer;
 - read order, with "the plan wins on *what*, the repository on *what the code is*; if they disagree, follow the code and say so";
 - the environment block;
-- git rules: own branch; no merge, push, rebase or stage record;
+- git rules: own branch; no merge, push, rebase or stage record; check `git config user.email` before the first commit;
 - style;
-- **new:** the lane budget and stop rules, the debug rules, and "no full suites — targeted only";
+- **new:** the lane budget and stop rules (stop at the last commit boundary, if the card defines them), the debug rules, and "no full suites — targeted only";
+- tests: every UI stage's e2e runs at 180 px as well as 360 px, checks each control against the content column, and measures after `document.fonts.ready`;
+- environment pitfalls the project has met, for IMNSTR's build machine: prose and quote-heavy text go through Write or a quoted heredoc, never a double-quoted shell string; Write and Edit turn `\uXXXX` into the character, and the Bash tool strips a doubled backslash, so regexes go in a file; Git Bash isn't Linux (resolve it explicitly from Node; stub `flock` and `runuser`, written executable); check free disk before an image build;
 - **the lane report:**
   1. branch and commit hashes;
   2. each file changed, one line on why;
@@ -366,6 +385,8 @@ Personas are *hypothesis* until a review pass or real-user data grounds them. A 
   5. where the plan or brief was wrong, vague or incomplete against the code;
   6. what could not be verified;
   7. one thing that would have made this stage faster, or "nothing".
+
+  The lane writes the report to `.tmp/<stage>.report.md` as well as returning it.
 
 ### `debug`
 **Does:** bounded debugging.
@@ -377,6 +398,7 @@ Personas are *hypothesis* until a review pass or real-user data grounds them. A 
 - Never debug through the full e2e suite.
 - If the cause is environmental (rate limit, clock, database, ports), fix the test setup instead of rerunning.
 - After fixing a shared rule, rerun every test file that asserts it.
+- Don't edit a test file while a full run has it loaded. Fix it, then rerun that file after the run. App source may change mid-run if the server loads once at the start.
 
 **From:** the J1 lane (retrospective finding 2); Superpowers' systematic-debugging; the state log's lesson after J13.
 
@@ -487,7 +509,7 @@ Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `bui
 
 ## Changelog
 
-- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Shared mechanics:* the gate fetches, takes an override and reads HTML, the personas table and criterion coverage; the step comes from the files; model and effort stated, not assumed; injected repo paths; what forking can't do; parallel sessions; redoing a phase; references by committed path and copied id; grades; asking the founder; outward-facing and destructive actions. *`spec`:* the template and scope ledger; metrics versus the eval plan; the platform left to the build plan; change notes carry `main @`, a criterion prefix with an *Item* column, the fuller Stages shape and *What this makes stale*; change mode's gate against lanes in flight; one numbering in `changes/` with the kind in the name. *Design, first phases:* `ideate` answers "n/a" outside Root, keeps the drop rule verbatim and ends with its decisions; `research` reviews itself against its inputs, reaches sources in order, has a search budget and a *For the next phases* section; `personas` may select none, proposes by behaviour with acceptance, gains an `add` mode, owns the journeys' `## Personas`, and has a record template. *Every-session skills:* *Reference holds*; `lifecycle-status` shows the inbox's age and the founder's rows; `handoff`'s block format; `decision-record`'s format, and module decisions in `<module>/decisions.md`; `learned`'s note fields, consolidation at milestones, recurrence by session, reading what is integrated and the founder's notes, asking in fours, holds as seeds, and the engineering checklist. *`journeys` and `wireframes`:* journeys asks in every mode, keeps Suggested through to acceptance, cites `J<n>.<step>` checks, a required Coverage and a states table, amends without breaking ids, and gains `update` and scoped runs; wireframes has steps, coverage by step, marked Suggested items, *Calls made here*, and a definition of low fidelity. *The design step:* a new section: opening form, inputs for first and second passes, how much to draw, the README template with a plate index, the handoff folder, the import and its checklist, an optional accessibility pass. *`eval-plan` and `build-plan`:* eval plan's steps and asks, close-out versus later checks, instrument preconditions, a touch-up mode; build plan's foundation batch, a wider defect pass, sizes, a fuller stage section, a self-check, a template and the phase-7 gate. *Project config:* what each file holds, `config.md` in full, a `project-config` skill (twenty skills), and the journeys brief committed as an example.
+- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Shared mechanics:* the gate fetches, takes an override and reads HTML, the personas table and criterion coverage; the step comes from the files; model and effort stated, not assumed; injected repo paths; what forking can't do; parallel sessions; redoing a phase; references by committed path and copied id; grades; asking the founder; outward-facing and destructive actions. *`spec`:* the template and scope ledger; metrics versus the eval plan; the platform left to the build plan; change notes carry `main @`, a criterion prefix with an *Item* column, the fuller Stages shape and *What this makes stale*; change mode's gate against lanes in flight; one numbering in `changes/` with the kind in the name. *Design, first phases:* `ideate` answers "n/a" outside Root, keeps the drop rule verbatim and ends with its decisions; `research` reviews itself against its inputs, reaches sources in order, has a search budget and a *For the next phases* section; `personas` may select none, proposes by behaviour with acceptance, gains an `add` mode, owns the journeys' `## Personas`, and has a record template. *Every-session skills:* *Reference holds*; `lifecycle-status` shows the inbox's age and the founder's rows; `handoff`'s block format; `decision-record`'s format, and module decisions in `<module>/decisions.md`; `learned`'s note fields, consolidation at milestones, recurrence by session, reading what is integrated and the founder's notes, asking in fours, holds as seeds, and the engineering checklist. *`journeys` and `wireframes`:* journeys asks in every mode, keeps Suggested through to acceptance, cites `J<n>.<step>` checks, a required Coverage and a states table, amends without breaking ids, and gains `update` and scoped runs; wireframes has steps, coverage by step, marked Suggested items, *Calls made here*, and a definition of low fidelity. *The design step:* a new section: opening form, inputs for first and second passes, how much to draw, the README template with a plate index, the handoff folder, the import and its checklist, an optional accessibility pass. *`eval-plan` and `build-plan`:* eval plan's steps and asks, close-out versus later checks, instrument preconditions, a touch-up mode; build plan's foundation batch, a wider defect pass, sizes, a fuller stage section, a self-check, a template and the phase-7 gate. *Project config:* what each file holds, `config.md` in full, a `project-config` skill (twenty skills), and the journeys brief committed as an example. *`build-phase` and `debug`:* launch asks facts first, checks the plan and greps the tests against the code, counts card length by body, makes the worktree by hand, launches by path; the card's *Decided here*, *Tests that change on purpose* and *What the verify deploys*; carry-overs move to `brief-common.md`; land reads the report file, checks authors, measures from the base and lists what verify decides; land doesn't push; `brief-common.md` gains identity, reflow and environment lines; `debug` leaves loaded tests alone.
 - **0.4 · 2026-10-06** — Change track: `spec change` writes a Stages section into the change note; `build-phase` gates on and drafts cards from it; `verify` reads it in place of the plan's §5.
 - **0.3 · 2026-10-06** — Consistency pass against `README.md`: gate always exits 0 (a failing injected command aborts the skill) and passes `n/a`; decision-log entries from `personas`, `revise` and `learned` use `decision-record`'s format; `revise` gains a method mode; `close-out` gains a gate line; `build-plan`'s gate matches the README; canon flags go in the stage record; state-of-the-build file is per project; source paths completed.
 - **0.2 · 2026-10-05** — `learned` added: capture to an inbox, consolidate in batches; lane report gains item 7; `verify`, `handoff`, `lifecycle-status` and `close-out` wired to it.
