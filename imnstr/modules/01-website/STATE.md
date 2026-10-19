@@ -2,6 +2,20 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-19 · `lifecycle-trial/imnstr` (step 10d, apply findings) · imnstr `main @ 6828da3`
+
+*Completes the 10c block's step 2. Steps 1 (decided) and 3 (IMNSTR's items) stand. Log: `log/10d-apply-findings.md`.*
+
+**`findings.md` is applied,** in 15 commits, `d59daec` to `d7ff20b`, with decision-log entries L-7 to L-21. The method is at `README.md` 0.5, `skills-plan.md` 0.5 (twenty skills), `review-instrument.md` 0.2 and trial brief 0.6.
+- **Groups 1–4:** the founder read each diff. They accepted the small Change, moving IMNSTR's decisions out of the method's log, and consolidating at each milestone.
+- **Groups 5–15:** committed without a diff review, at the founder's instruction.
+- **For this module:** `decisions.md` now holds L-2, L-3, L-5 and L-6, with their ids kept, and indexes all seven change notes.
+
+**Next steps, in order**
+1. **The founder decides:** draft the eighteen templates now, in a session of their own, or in rollout stage 1 together with `bin/gate`.
+2. **The founder, on the Windows build machine:** add L30, L31 and L33 to the `root-app-dev-machine` memory (`log/10a-consolidate-proposal.md` §1).
+3. **IMNSTR:** F-17's shared test helpers go in its open-work file. Then the 10b2 block's steps 1 and 2, unchanged.
+
 ## 2026-10-19 · `lifecycle-trial/imnstr` (step 10c, trial wrap-up) · imnstr `main @ 6828da3`
 
 *Does the 10b2 block's step 3. Its steps 1 (the founder's items) and 2 (striking F-11, F-14, F-19–F-21 in open-work) stand. Log: `log/10c-trial-wrap-up.md`. Output: `lifecycle/trial-run/findings.md` 0.1.*

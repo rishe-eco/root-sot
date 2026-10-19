@@ -2,7 +2,7 @@
 
 *Step 10c of the trial, acting as `revise` on the method. It covers every* Spec gaps *and* Missing foundation *item from the run's 69 session logs and 3 archived logs, plus 10a's accepted lessons and `founder-notes.md`. Items are grouped by the skill or file they change, each with a drafted edit. Nothing here is applied. The founder decides each item, and accepted edits are applied in a later session.*
 
-**Version 0.2 · Status: accepted by the founder, on Claude's judgement; to be applied · 2026-10-19 · Owner: _root**
+**Version 0.3 · Status: applied (10d) · 2026-10-19 · Owner: _root**
 
 ---
 
@@ -861,5 +861,6 @@ Each log's *Spec gaps* items are listed by position, then its *Missing foundatio
 
 ## Changelog
 
+- **0.3 · 2026-10-19** — Applied at 10d, one commit and one `lifecycle/decision-log.md` entry per group (L-7 to L-21; `log/10d-apply-findings.md`). The founder read the diffs of groups 1–4, accepting DR-2, M-2 and LE-2 on their own. Groups 5–15 were committed without a diff review, at the founder's instruction. Not applied: the templates and `bin/gate` themselves (stage 1), the build machine's memory edits, and F-17 (IMNSTR's product work).
 - **0.2 · 2026-10-19** — The founder's decisions: all groups accepted. All 15 were accepted on Claude's judgement, without the founder reading them. Three items are flagged for the apply session.
 - **0.1 · 2026-10-19** — First version, from 76 logs, 10a's decisions and `founder-notes.md`.
