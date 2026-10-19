@@ -130,7 +130,9 @@ Required: *Summary*, *Integrate*, *Hold*, *Discard*, *Decisions*.
 3. **Rule:** before proposing a lesson, check the destination's changelog and the memory for it; count recurrence by session. **Event:** 10 of 129 notes were already integrated, found only by grepping five files. **Scope:** `learned --consolidate`. **Destination:** its reference file. `urgent: no`.
 
 ## Cost
-*Founder fills in after the session.*
+From the founder's paste: **$3.05**; API 12 m, wall 21 m; Opus 5.5 only. Tokens: 64 input, 56.6k output, 4.4M cache read, 129k cache write.
+
+The wall time includes four rounds of founder questions, two of them for L30–L33 (*Lessons* 1). Most of the output went on the proposal (277 lines), from one 8,400-word extraction of the lessons, so reading 63 logs cost almost nothing.
 
 ## Next
 - **10b close-out** waits for MS3 (E1, V-9), MS4 (V-5) and PL1's verify, as the 9b and 8a PL1 blocks say.
