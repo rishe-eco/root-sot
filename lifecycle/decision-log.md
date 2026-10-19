@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.20 · 2026-10-19**
+**Version 0.21 · 2026-10-19**
 
 ---
 
@@ -216,3 +216,13 @@
 **Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
 
 **Revisit.** At the next trial, if one runs.
+
+## L-21 · 2026-10-19 · Skills plan 0.5: stage 1's foundation list
+
+**Decision.** Apply findings F-1 to F-18 of `lifecycle/trial-run/findings.md` 0.2 to `lifecycle/skills-plan.md` §5 and `README.md` §8. Most rows point at findings already applied in L-7 to L-20; this makes stage 1's list concrete: every template by name, `bin/gate`'s checks, the learnings inbox with its note fields, and the founder's machine setup. Not done here: building the templates and `bin/gate` (stage 1's own work); the memory edits for the build machine (L30, L31, L33); and F-17's shared test helpers, which are IMNSTR product work for its open-work file.
+
+**Why.** The trial's largest gap was foundation never built: 32 logs gated by hand and 22 had no template.
+
+**Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
+
+**Revisit.** When stage 1 starts.
