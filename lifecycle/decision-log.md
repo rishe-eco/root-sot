@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.12 · 2026-10-19**
+**Version 0.13 · 2026-10-19**
 
 ---
 
@@ -112,3 +112,13 @@
 **Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
 
 **Revisit.** At the next module's journeys, if the Coverage table and the step checks together cost more than they catch.
+
+## L-13 · 2026-10-19 · Skills plan 0.5: the design step and its import
+
+**Decision.** Apply findings DS-1 to DS-8 of `lifecycle/trial-run/findings.md` 0.2: a new section in `lifecycle/skills-plan.md` §2 for phase 4b, run by the founder in a design tool, with an import session. It sets the opening form, the inputs for a first and second pass, how much to draw, the README template (with a plate index, plate markers, *Disagreements* and measured contrast), the handoff folder, the import checklist, and an optional accessibility pass that only proposes.
+
+**Why.** The method had no design phase. In the trial, six directions were rejected before references were asked for, and five build launches had to slice a 1.5 MB export because the README had no plate index.
+
+**Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
+
+**Revisit.** When a second project uses a design tool, or if a design skill replaces the founder's tool session.

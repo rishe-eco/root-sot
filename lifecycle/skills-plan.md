@@ -250,6 +250,34 @@ Personas are *hypothesis* until a review pass or real-user data grounds them. A 
 **Gate:** journeys.
 **From:** the existing `*-wireframes.html` files in `tracker/canon/06-specs/`.
 
+### The design step (4b), and its import
+**Does:** turns the wireframes into a designed, self-contained site the build draws from. The founder runs it in a design tool; an import session brings it into the repo.
+**Opening form,** before the first direction: references, the feel wanted, and whether an attached design system binds.
+**Inputs:** spec §4 and §6; the journeys' steps and states table; the wireframes' coverage plate. A second pass also reads the change notes' *Carried to design* lists (each item linked to its source), any earlier design review folder, and the spec sections those notes cite. Before editing in the tool, re-read the repo's latest source.
+**How much to draw:** phone for every screen and state. Desktop is required for public pages and the main editor. Gaps are listed in the README. Build plate by plate: large single writes time out.
+**Output:** `04b-design/`: self-contained HTML exports plus `source/`, edited in place (git keeps the history), and a README.
+**The README** (template):
+- the design system it settles (type, colour, spacing, components);
+- *Beyond the spec*, with *scope* and *ends when* columns;
+- a plate index: plate, caption anchor, journey steps, criteria, states and copy;
+- every plate carries its `Wireframe plate N.` marker;
+- *Disagreements*: where phone and desktop frames differ;
+- contrast figures measured by a script, never by eye;
+- *What didn't survive* the move from the tool.
+
+**The handoff.** A design tool that can't push leaves files at their repo paths in `../repo-handoff-<step>/`, beside the repo.
+**The import** (Opus, medium) has its own log and `STATE.md` block, and may edit `04b-design/README.md`. It diffs `STATE.md` and merges by block, never by overwriting. Its checklist (`templates/design-import-checklist.md`):
+- serve locally and confirm zero external requests;
+- reduced motion may be checked in the source;
+- every revealed or animated state is drawn at the narrowest width;
+- check against the README's list while the founder compares with the tool's preview;
+- name at least one frame per new plate to look at by eye;
+- keep what was lost in the move apart from what is missing in the design.
+
+**Optional review at the end of 4b:** an accessibility and HIG pass that writes proposals only, for `revise`. Scores are left to the UX review.
+**Status:** no column of its own; it shares column 4. An owed pass is written `done · owed 4b` there.
+**From:** the IMNSTR trial's steps 4b, 05e and their imports.
+
 ### `eval-plan`
 **Does:** how we will know the module works for people, with the decision rule written before any data and the ambiguous outcome named.
 **Model:** Opus, high.
@@ -419,7 +447,7 @@ Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `bui
 
 ## Changelog
 
-- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Shared mechanics:* the gate fetches, takes an override and reads HTML, the personas table and criterion coverage; the step comes from the files; model and effort stated, not assumed; injected repo paths; what forking can't do; parallel sessions; redoing a phase; references by committed path and copied id; grades; asking the founder; outward-facing and destructive actions. *`spec`:* the template and scope ledger; metrics versus the eval plan; the platform left to the build plan; change notes carry `main @`, a criterion prefix with an *Item* column, the fuller Stages shape and *What this makes stale*; change mode's gate against lanes in flight; one numbering in `changes/` with the kind in the name. *Design, first phases:* `ideate` answers "n/a" outside Root, keeps the drop rule verbatim and ends with its decisions; `research` reviews itself against its inputs, reaches sources in order, has a search budget and a *For the next phases* section; `personas` may select none, proposes by behaviour with acceptance, gains an `add` mode, owns the journeys' `## Personas`, and has a record template. *Every-session skills:* *Reference holds*; `lifecycle-status` shows the inbox's age and the founder's rows; `handoff`'s block format; `decision-record`'s format, and module decisions in `<module>/decisions.md`; `learned`'s note fields, consolidation at milestones, recurrence by session, reading what is integrated and the founder's notes, asking in fours, holds as seeds, and the engineering checklist. *`journeys` and `wireframes`:* journeys asks in every mode, keeps Suggested through to acceptance, cites `J<n>.<step>` checks, a required Coverage and a states table, amends without breaking ids, and gains `update` and scoped runs; wireframes has steps, coverage by step, marked Suggested items, *Calls made here*, and a definition of low fidelity.
+- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Shared mechanics:* the gate fetches, takes an override and reads HTML, the personas table and criterion coverage; the step comes from the files; model and effort stated, not assumed; injected repo paths; what forking can't do; parallel sessions; redoing a phase; references by committed path and copied id; grades; asking the founder; outward-facing and destructive actions. *`spec`:* the template and scope ledger; metrics versus the eval plan; the platform left to the build plan; change notes carry `main @`, a criterion prefix with an *Item* column, the fuller Stages shape and *What this makes stale*; change mode's gate against lanes in flight; one numbering in `changes/` with the kind in the name. *Design, first phases:* `ideate` answers "n/a" outside Root, keeps the drop rule verbatim and ends with its decisions; `research` reviews itself against its inputs, reaches sources in order, has a search budget and a *For the next phases* section; `personas` may select none, proposes by behaviour with acceptance, gains an `add` mode, owns the journeys' `## Personas`, and has a record template. *Every-session skills:* *Reference holds*; `lifecycle-status` shows the inbox's age and the founder's rows; `handoff`'s block format; `decision-record`'s format, and module decisions in `<module>/decisions.md`; `learned`'s note fields, consolidation at milestones, recurrence by session, reading what is integrated and the founder's notes, asking in fours, holds as seeds, and the engineering checklist. *`journeys` and `wireframes`:* journeys asks in every mode, keeps Suggested through to acceptance, cites `J<n>.<step>` checks, a required Coverage and a states table, amends without breaking ids, and gains `update` and scoped runs; wireframes has steps, coverage by step, marked Suggested items, *Calls made here*, and a definition of low fidelity. *The design step:* a new section: opening form, inputs for first and second passes, how much to draw, the README template with a plate index, the handoff folder, the import and its checklist, an optional accessibility pass.
 - **0.4 · 2026-10-06** — Change track: `spec change` writes a Stages section into the change note; `build-phase` gates on and drafts cards from it; `verify` reads it in place of the plan's §5.
 - **0.3 · 2026-10-06** — Consistency pass against `README.md`: gate always exits 0 (a failing injected command aborts the skill) and passes `n/a`; decision-log entries from `personas`, `revise` and `learned` use `decision-record`'s format; `revise` gains a method mode; `close-out` gains a gate line; `build-plan`'s gate matches the README; canon flags go in the stage record; state-of-the-build file is per project; source paths completed.
 - **0.2 · 2026-10-05** — `learned` added: capture to an inbox, consolidate in batches; lane report gains item 7; `verify`, `handoff`, `lifecycle-status` and `close-out` wired to it.
