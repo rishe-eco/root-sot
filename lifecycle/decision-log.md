@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.13 · 2026-10-19**
+**Version 0.14 · 2026-10-19**
 
 ---
 
@@ -122,3 +122,15 @@
 **Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
 
 **Revisit.** When a second project uses a design tool, or if a design skill replaces the founder's tool session.
+
+## L-14 · 2026-10-19 · Skills plan 0.5: `eval-plan` and `build-plan`
+
+**Decision.** Apply findings EV-1 to EV-4 and BP-1 to BP-7 of `lifecycle/trial-run/findings.md` 0.2 to `lifecycle/skills-plan.md` §2 and `README.md` §6 rule 5:
+- `eval-plan` has steps and asks about consequences; it separates what close-out can judge from later checks counted from launch; instruments name their preconditions; a `--touch-up` mode;
+- `build-plan` asks the founder's facts in one batch first, widens its defect pass, defines a size, says more per stage, checks itself before commit, gains a template, and gates on every upstream suggestion.
+
+**Why.** In the trial the eval plan had no steps and would have left close-out nothing to judge; the build plan's open decisions pushed ten of twelve cards over their length, and stages ran far over their line estimates while finishing far under in time.
+
+**Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
+
+**Revisit.** Recalibrate sizes once a second module's stage records exist; review the 400–600-word stage bound then too.
