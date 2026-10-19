@@ -191,10 +191,24 @@ Personas are *hypothesis* until a review pass or real-user data grounds them. A 
 **Does:** the spec, or a change note against an existing one.
 **Modes:** `full` (Module) · `change` (Change track: a note in the module's `changes/`, or a new folder for a module that predates this system).
 **Model:** Opus, high.
-**Asks first:** up to eight clarifying questions in one batch.
-**Writes:** `02-spec.md` in the house template — what it is, metrics, interface requirements, risks, acceptance criteria, changelog; references the journeys file rather than restating it.
-**Writes, in `change` mode:** `changes/NN-slug.md` — what changes and why, acceptance criteria, what must not break, and a **Stages** section: one or more stages in the build plan's §5 shape, each with a size (S/M/L) and its traps. This section is what `build-phase` and `verify` read in place of a build plan; a change too large to stage here is a Module.
-**Gate:** research, or a waiver line in the intake (`full`); none (`change`).
+**Asks first:** up to eight clarifying questions in one batch (two calls of four, §0).
+**Writes:** `02-spec.md` in the house template. Journey-level criteria belong to `03-journeys.md`, written after the spec; the spec doesn't anticipate them.
+- **Metrics:** the spec defines measures. The eval plan owns instruments and rules, and may refine a measure. A refinement goes to `revise` as an item, and the plan proceeds on its refinement.
+- **The platform:** the spec names a stack implication as a risk. `build-plan`'s foundation batch decides it.
+- **Scope ledger:** the header carries the acceptance criteria counted by area at each version, against the intake, so growth since intake is visible (`revise` reads it).
+
+**Writes, in `change` mode:** `changes/NN-change-<slug>.md` — what changes and why, acceptance criteria, what must not break, and a **Stages** section: one or more stages in the build plan's §5 shape, each with a size (S/M/L) and its traps. This section is what `build-phase` and `verify` read in place of a build plan; a change too large to stage here is a Module.
+- **Header:** the kind (*change*), and `main @ <hash>` of the code it was written against.
+- **Criteria:** the note owns a two-letter prefix (`README.md` §0). The criteria table has an *Item* column naming the review finding each criterion closes. A review's findings routed `question` join the note's first batch of questions.
+- **Each stage** also has: an *Image and deploy* line; optional *At the verify* (a server runbook) and *Stop points* (commit boundaries). Lanes run targeted tests; the full suites are the verify's. It is sized with the test harness counted, as `build-plan` does. For any infrastructure change, it answers "what does this change about how later stages are built, verified or deployed?"
+- **It ends with *What this makes stale*:** each file, its owner, and the step that catches it up. A note that defers the spec adds a `revise` line to its `STATE.md` block's next steps, and `close-out`'s gate fails while one is pending.
+
+`changes/` has one numbering for both kinds: `NN-change-<slug>.md` from `spec change`, `NN-req-<slug>.md` from `revise`.
+**Gate:** research, or a waiver line in the intake (`full`). In `change` mode: `STATE.md`'s top block and the lanes in flight are injected, and the skill refuses while a lane touches the same files. `build-phase` re-reads the note against `main`'s log since its `main @` before drafting a card.
+**Template:** Summary, What it is, Decisions taken at spec, Metrics, Interface requirements, Risks, Acceptance criteria, Out of scope, Changelog, References; the scope ledger in the header.
+**Reference holds:**
+- Cite every as-built fact a step depends on, with its file. Read the code an option's consequence depends on before asking (change mode).
+- Where a gesture sits on a link or control, say which one wins.
 **From:** `tracker/canon/06-specs/04-verification-lab.md`; Superpowers' brainstorming questions.
 
 ### `journeys`
@@ -232,7 +246,7 @@ Personas are *hypothesis* until a review pass or real-user data grounds them. A 
 
 ### `build-phase`
 **Does:** launches a stage as a lane, or lands one.
-**Invocation:** `build-phase <stage>` to launch · `build-phase <stage> --land` after the lane reports. On the Change track, `<stage>` names a stage in a change note (`changes/NN-slug.md#<stage>`).
+**Invocation:** `build-phase <stage>` to launch · `build-phase <stage> --land` after the lane reports. On the Change track, `<stage>` names a stage in a change note (`changes/NN-change-<slug>.md#<stage>`).
 **Gate:** the build plan, or a change note with a Stages section.
 **Model:** Opus, medium (it drafts the card; the lane is Sonnet).
 **Launch:**
@@ -342,7 +356,7 @@ Nothing else until the diff points somewhere.
 **Model:** Opus, medium.
 **Input:** a change request — from a lane report's item 5, a review, or a live UX finding; or a change to the method itself.
 **Writes,** for a module:
-- `changes/NN-slug.md`;
+- `changes/NN-req-<slug>.md`;
 - the spec's version bump and changelog line;
 - `STALE` in `status.md` on every downstream phase the change invalidates;
 - a line in the module's `decisions.md`, pointing at the change note.
@@ -381,7 +395,7 @@ Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `bui
 
 ## Changelog
 
-- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Shared mechanics:* the gate fetches, takes an override and reads HTML, the personas table and criterion coverage; the step comes from the files; model and effort stated, not assumed; injected repo paths; what forking can't do; parallel sessions; redoing a phase; references by committed path and copied id; grades; asking the founder; outward-facing and destructive actions. *Design, first phases:* `ideate` answers "n/a" outside Root, keeps the drop rule verbatim and ends with its decisions; `research` reviews itself against its inputs, reaches sources in order, has a search budget and a *For the next phases* section; `personas` may select none, proposes by behaviour with acceptance, gains an `add` mode, owns the journeys' `## Personas`, and has a record template. *Every-session skills:* *Reference holds*; `lifecycle-status` shows the inbox's age and the founder's rows; `handoff`'s block format; `decision-record`'s format, and module decisions in `<module>/decisions.md`; `learned`'s note fields, consolidation at milestones, recurrence by session, reading what is integrated and the founder's notes, asking in fours, holds as seeds, and the engineering checklist.
+- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Shared mechanics:* the gate fetches, takes an override and reads HTML, the personas table and criterion coverage; the step comes from the files; model and effort stated, not assumed; injected repo paths; what forking can't do; parallel sessions; redoing a phase; references by committed path and copied id; grades; asking the founder; outward-facing and destructive actions. *`spec`:* the template and scope ledger; metrics versus the eval plan; the platform left to the build plan; change notes carry `main @`, a criterion prefix with an *Item* column, the fuller Stages shape and *What this makes stale*; change mode's gate against lanes in flight; one numbering in `changes/` with the kind in the name. *Design, first phases:* `ideate` answers "n/a" outside Root, keeps the drop rule verbatim and ends with its decisions; `research` reviews itself against its inputs, reaches sources in order, has a search budget and a *For the next phases* section; `personas` may select none, proposes by behaviour with acceptance, gains an `add` mode, owns the journeys' `## Personas`, and has a record template. *Every-session skills:* *Reference holds*; `lifecycle-status` shows the inbox's age and the founder's rows; `handoff`'s block format; `decision-record`'s format, and module decisions in `<module>/decisions.md`; `learned`'s note fields, consolidation at milestones, recurrence by session, reading what is integrated and the founder's notes, asking in fours, holds as seeds, and the engineering checklist.
 - **0.4 · 2026-10-06** — Change track: `spec change` writes a Stages section into the change note; `build-phase` gates on and drafts cards from it; `verify` reads it in place of the plan's §5.
 - **0.3 · 2026-10-06** — Consistency pass against `README.md`: gate always exits 0 (a failing injected command aborts the skill) and passes `n/a`; decision-log entries from `personas`, `revise` and `learned` use `decision-record`'s format; `revise` gains a method mode; `close-out` gains a gate line; `build-plan`'s gate matches the README; canon flags go in the stage record; state-of-the-build file is per project; source paths completed.
 - **0.2 · 2026-10-05** — `learned` added: capture to an inbox, consolidate in batches; lane report gains item 7; `verify`, `handoff`, `lifecycle-status` and `close-out` wired to it.

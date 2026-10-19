@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.10 · 2026-10-19**
+**Version 0.11 · 2026-10-19**
 
 ---
 
@@ -84,3 +84,17 @@
 **Decided by.** Founder, reading the diff in the apply session. Accepted unread at 10c on Claude's judgement first.
 
 **Revisit.** At the next module's research, if the source order or the search budget proves wrong.
+
+## L-11 · 2026-10-19 · Skills plan 0.5: `spec`, both modes
+
+**Decision.** Apply findings SP-1 to SP-11 of `lifecycle/trial-run/findings.md` 0.2 to `lifecycle/skills-plan.md` §2 and `README.md` §3:
+- the spec's template, with a scope ledger in its header counting criteria by area against intake;
+- journey-level criteria left to journeys; measures in the spec, instruments in the eval plan; the platform decided by the build plan;
+- in `change` mode: a gate against lanes in flight, `main @` in the header, a criterion prefix with an *Item* column, a fuller Stages shape, and *What this makes stale*;
+- one numbering in `changes/`, with the kind in the file name.
+
+**Why.** Three Changes were written during and after IMNSTR's build with a mode specified in one paragraph, and the spec grew from 19 to 48 criteria with nothing counting it (founder note 1).
+
+**Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review: partway through the apply session the founder asked for the remaining groups to be committed straight on, stopping only for what needs their attention.
+
+**Revisit.** IMNSTR's seven existing change files keep their names; if the next module's mixed `changes/` folder is still hard to read, rename on the next `revise --catch-up`.
