@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.18 · 2026-10-19**
+**Version 0.19 · 2026-10-19**
 
 ---
 
@@ -193,3 +193,16 @@
 **Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
 
 **Revisit.** At the next module's live pass, whether `design`-mode and live scores compare on 0.2.
+
+## L-19 · 2026-10-19 · Skills plan 0.5: `revise` and `close-out`
+
+**Decision.** Apply findings RV-1 to RV-11, CO-1 to CO-5 and JO-9 of `lifecycle/trial-run/findings.md` 0.2 to `lifecycle/skills-plan.md` §4 and `README.md` §1–§2:
+- `revise` reads every block since the last revise, asks per item first, and keeps the spec's scope ledger: it asks "still the smallest version?" when an area doubles or passes a quarter of the criteria, and sends a new capability to `spec change`;
+- six outcomes per item; `STALE` only for contradiction, quoting the sentence; a change-request template; named touch-ups; a rule for a new language; a `--catch-up` mode after a build; settled open-work rows struck;
+- `close-out` records an override, separates closed, launch-ready and evaluated, schedules later checks from launch, gains `--eval`, measures cost in dollars, updates design documents' grading, and finds an outside project's canon in its config.
+
+**Why.** `revise` had no step for asking, and was the only gate every scope addition passed through without a running total (founder notes 1 and 2). Close-out reached a module with its evaluation still months away and no state for it.
+
+**Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
+
+**Revisit.** At the next module's first `revise`: whether the ledger's thresholds (double, a quarter) trip at the right time.

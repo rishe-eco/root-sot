@@ -38,7 +38,7 @@ The design is drawn from what already worked in this repo — the journeys build
 | ↳ *small* | IMNSTR's session lengths (CS1) | size S, one stage, no schema change: note, build, verify and deploy in one session, with the same note and stage record. The founder chooses it, and the log says so |
 | **Fix** | B-15, status always "Backlog" | debug → verify → decision record |
 
-`lifecycle-status` sorts incoming work into a track. When in doubt between Change and Module: if it needs new journeys or new screens, it is a Module.
+`lifecycle-status` sorts incoming work into a track. When in doubt between Change and Module: if it needs new journeys or new screens, it is a Module. A `revise` item that adds a capability (new stored data, a new screen family, or anything the intake put out of scope) leaves `revise` for `spec change`, with research or a waiver line in the note.
 
 ## 2. The Module phases
 
@@ -59,6 +59,8 @@ The design is drawn from what already worked in this repo — the journeys build
 | 10 | Close-out | `close-out` | `09-close-out.md` | every stage verified, milestones green, learnings inbox consolidated, and no change note defers a spec `revise`. The founder may override with a reason, recorded in the close-out's header |
 
 Phases 3, 4, 4b, 5 and 9 apply only to modules with UI. Back-end-only modules mark them `n/a`, and the gate passes an `n/a` phase. 4b and 7b have no status column: 4b shares column 4, and 7b belongs to the project, not the module.
+
+**A new language or audience** added by `revise` runs `personas add`, then `journeys update`, before any design pass or review.
 
 **Launch** is an event, not a phase: the first real use in production. `close-out` records its date, or "not yet", and the eval plan's later checks count from it.
 
@@ -188,7 +190,7 @@ Each stage ends by checking usage against the baseline.
 
 ## Changelog
 
-- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Method:* where an outside project's modules live; Change during a build, and the small Change; phases 4b and 7b, and launch as an event; gates for phases 5, 7, 9 and 10; §4 one file pattern per row, with the build plan, project configs and open-work's writers; `status.md` values; the founder's supplies; `MS<n>`, criterion prefixes and pass-scoped findings. *Every-session skills:* a module's `decisions.md`; the kind in a change file's name; `engineering-checklist.md`; consolidation at each milestone. *Design and build plan:* a size's units. *Build:* card length counted by body. *Reviews:* `ux-review`'s first mode is `design`.
+- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Method:* where an outside project's modules live; Change during a build, and the small Change; phases 4b and 7b, and launch as an event; gates for phases 5, 7, 9 and 10; §4 one file pattern per row, with the build plan, project configs and open-work's writers; `status.md` values; the founder's supplies; `MS<n>`, criterion prefixes and pass-scoped findings. *Every-session skills:* a module's `decisions.md`; the kind in a change file's name; `engineering-checklist.md`; consolidation at each milestone. *Design and build plan:* a size's units. *Build:* card length counted by body. *Reviews:* `ux-review`'s first mode is `design`. *Closing the loop:* a capability leaves `revise` for `spec change`; a new language or audience runs personas, then journeys.
 - **0.4 · 2026-10-06** — Change track builds from its change note: the note carries a Stages section and `build-phase` accepts it in place of a build plan.
 - **0.3 · 2026-10-06** — Consistency pass against `skills-plan.md`: lane report is seven-part; every `STATE.md`, inbox and decision-log writer listed; state-of-the-build file is per project; founder-owned files also change through accepted consolidations; close-out gate requires a consolidated inbox; `n/a` phases pass the gate; models for `learned` and `debug`; `projects/tracker/` in stage 1.
 - **0.2 · 2026-10-05** — Learnings: captured per session as inbox notes, consolidated in batches; session rule 7; files and owners added.
