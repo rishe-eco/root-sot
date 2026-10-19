@@ -37,6 +37,8 @@ Nineteen skills in four groups — every session, design, build, closing the loo
 
 **Skills do not call skills.** Skill-to-skill invocation is not documented. Where one skill needs another's checklist, both load the same reference file; where a sequence is needed, the skill ends by naming the next one.
 
+**Reference holds.** Where a skill's section ends with *Reference holds*, those lines are seeds for its reference file, which doesn't exist yet. The file's first author places them.
+
 **Parallel sessions.** Two sessions running at once on one branch or one machine:
 - commit by path (`git commit --only <paths>`), or from their own checkout;
 - fetch and rebase right before pushing;
@@ -87,9 +89,9 @@ Personas are *hypothesis* until a review pass or real-user data grounds them. A 
 ### `lifecycle-status`
 **Does:** shows where things stand and what comes next; sorts new work into a track.
 **Invocation:** by name, optional module or a one-line description of new work · **Model:** Sonnet, low.
-**Reads (injected):** `status.md`; `git status -sb`; the top block of the module's `STATE.md` if a module is named; the count and age of notes in `lifecycle/learnings/inbox/`.
+**Reads (injected):** `status.md`; `git status -sb`; the top block of the module's `STATE.md` if a module is named; the count and age of notes in `lifecycle/learnings/inbox/`; the *From the founder* rows of the project's open-work file.
 **Writes:** nothing.
-**Output:** in chat, under 15 lines: the track; the module's phase; what is missing or stale; the next skill to run and the model it will use; "inbox over cap — run `learned --consolidate`" when it is.
+**Output:** in chat, under 15 lines: the track; the module's phase, read with the status values in `README.md` §3; what is missing or stale; the next skill to run and the model it will use; the founder's rows due within the next step; "inbox over cap: N notes, oldest <date> — run `learned --consolidate`" when it is, which is also checked at each milestone.
 **From:** the table in this conversation's first review of the repos; Spec Kit's phase order.
 
 ### `handoff`
@@ -97,7 +99,14 @@ Personas are *hypothesis* until a review pass or real-user data grounds them. A 
 **Invocation:** by name, at the end of a session · **Model:** Sonnet, low.
 **Reads:** the session's own work; `git log` since the last state block.
 **Writes:** a new block at the top of the module's `STATE.md` (or `lifecycle/STATE.md`), committed. Blocks older than the last five are deleted — stage records hold the history.
-**Block format** (≤40 lines): date and `main @ <hash>`; lanes in flight (stage, branch, database, ports, card, status); next steps in order; carry-overs; questions for the founder; owed.
+**Block format** (≤40 lines):
+- **header:** date · `<root-sot branch> @ <hash>` · `<code repo> main @ <hash>`, where there is a code repo;
+- **first line:** which earlier blocks this one *replaces*, *adds to* or *partly completes*, naming their steps. A block that touches a stage named in another live block cross-references it;
+- **lanes in flight:** stage, branch, database, ports, card, status;
+- **next steps, in order:** each written as the line the founder pastes, with skill, model, effort, branch and the checkout it writes in (with skills, that line is the invocation). Live next steps are copied forward in full, never "as in the earlier block";
+- **carry-overs:** decisions and pointers to sections, not findings. A session acting on an item reads the cited section, not this summary of it;
+- **questions for the founder:** phrased ready to ask, each with *owed by*, the step that needs the answer. Options are named by noun; letters, at most, are aliases;
+- **owed.**
 **Ends with:** "Run `/learned`, then `/clear`."
 **From:** the journeys orchestrator's state log (`root-app-lifecycle-build` memory), which carried the build across three compactions — moved from private memory into git.
 
@@ -106,6 +115,8 @@ Personas are *hypothesis* until a review pass or real-user data grounds them. A 
 **Invocation:** by name, any phase · **Model:** Sonnet, low.
 **Reads (injected):** the last three entry headers of the target log (`grep`), for the next ID and the format. Never the whole log.
 **Writes:** one entry; the log's version line.
+**Which log:** `lifecycle/decision-log.md` holds decisions about the method only. A module's product decisions live in its change notes, with one line each in `<module>/decisions.md`.
+**Reference holds:** the entry format, `## <letter>-<n> · <date> · <title>`, then *Decision*, *Why*, *Decided by*, *Revisit*; the id rule, one letter per log (`L-` for the method), numbered in sequence.
 **From:** `tracker/decisions/decision-log.md`, `ecosystem/decisions/`.
 
 ### `learned`
@@ -115,17 +126,17 @@ Personas are *hypothesis* until a review pass or real-user data grounds them. A 
 **Invocation:** by name, at the end of a session, after `handoff` · **Model:** the session's own, low effort. **Never forked** — the session it reviews exists only in this context.
 **Reads:** nothing beyond the session itself. Capture does not deduplicate; a lesson recurring across notes is the evidence consolidation needs.
 **Writes:** one file, `lifecycle/learnings/inbox/<date>-<slug>.md`, holding **zero to three** notes. Zero is a valid result; filler is not.
-**Each note** (≤6 lines): the lesson as a rule; the evidence — the specific event in this session, with its cost if known; the scope (repo, project, method, a named skill, model behaviour); a suggested destination; `urgent: yes` if waiting for consolidation would repeat a costly mistake.
+**Each note** (≤6 lines) has fixed bold fields, so consolidation extracts them with one `awk`: **Rule** (the lesson); **Event** (the specific event in this session); **Cost** (if known); **Scope** (repo, project, method, a named skill, model behaviour); **Destination** (suggested); **Urgent** (`yes` if waiting for consolidation would repeat a costly mistake).
 **Urgent notes** are also copied into `STATE.md` as a carry-over, so the next session reads them without any instruction file being touched.
 **Rejects** notes that cite no specific event, that would not change a future action, or that could not be checked later.
 
 **`learned --consolidate`**
-**Invocation:** by name, when `lifecycle-status` reports the inbox over cap — **15 notes or 14 days**, whichever first — and before any `close-out` · **Model:** Opus, high, in a session of its own.
-**Reads:** every note in the inbox; `lifecycle/learnings/index.md`; the line count and headings of each candidate destination.
+**Invocation:** by name, when `lifecycle-status` reports the inbox over cap — **15 notes or 14 days**, whichever first — at each milestone during a build, and before any `close-out` · **Model:** Opus, high, in a session of its own.
+**Reads:** every note in the inbox; `lifecycle/learnings/index.md`; the line count and headings of each candidate destination. Injected: each candidate destination's `## Changelog` lines and the memory index, to find what is already integrated. `founder-notes.md`, where the module has one: each note is a cluster of its own, with mechanisms offered as options.
 **Does:**
-1. Cluster the notes by lesson; count recurrences.
-2. Decide each cluster: **integrate** (seen twice or more, or once at high cost) · **hold** (seen once, cheap — stays in the inbox for the next batch) · **discard** (already integrated, obsolete, or not specific).
-3. For each integration, draft the exact edit at its destination:
+1. Cluster the notes by lesson; count recurrences by session.
+2. Decide each cluster: **integrate** (seen in two or more sessions, or once at high cost) · **hold** (seen once, cheap — stays in the inbox for the next batch) · **discard** (already integrated, obsolete, or not specific).
+3. For each integration, draft the exact edit at its destination. If the destination doesn't exist, draft the rule and name the destination; the file's first author places it:
 
 | Kind of lesson | Destination |
 |---|---|
@@ -134,9 +145,11 @@ Personas are *hypothesis* until a review pass or real-user data grounds them. A 
 | How a phase should be done | that skill's reference file |
 | What reviews should check | `projects/<project>/review-checklist.md` |
 | A change to the method | this plan or `README.md`, through `revise` |
+| A fact about building software, true beyond this project | `lifecycle/engineering-checklist.md` |
 
-4. Present the batch as one proposal; the founder accepts, edits or rejects each item.
+4. Present the batch as one proposal, then ask in groups of at most four: one plain sentence per item, with its event, inside the question; longer explanations in the closing message. The founder accepts, edits or rejects each item.
 5. Apply the accepted edits; write one entry per integration in `lifecycle/decision-log.md`, in `decision-record`'s format; add each to `index.md`; delete the processed notes (git keeps them); commit.
+6. At a module's last consolidation, holds become seeds for their destination's reference file, listed by destination.
 
 **Owns:** the inbox and `index.md` (`verify` also drops one capture note per review into the inbox). Edits to founder-owned files (templates, project configs, this plan) happen only through step 4's acceptance.
 **From:** the journeys build's state log, whose lessons ("rerun every test asserting a changed shared rule", "background Bash ignores a leading `cd`") were its most valuable lines and lived only on one machine.
@@ -325,7 +338,7 @@ Nothing else until the diff points somewhere.
 - `changes/NN-slug.md`;
 - the spec's version bump and changelog line;
 - `STALE` in `status.md` on every downstream phase the change invalidates;
-- a decision-log entry in `decision-record`'s format.
+- a line in the module's `decisions.md`, pointing at the change note.
 
 **For the method** (`lifecycle/` files): the edit, the file's version and changelog line, and an entry in `lifecycle/decision-log.md`. No status cells.
 
@@ -361,7 +374,7 @@ Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `bui
 
 ## Changelog
 
-- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Shared mechanics:* the gate fetches, takes an override and reads HTML, the personas table and criterion coverage; the step comes from the files; model and effort stated, not assumed; injected repo paths; what forking can't do; parallel sessions; redoing a phase; references by committed path and copied id; grades; asking the founder; outward-facing and destructive actions.
+- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Shared mechanics:* the gate fetches, takes an override and reads HTML, the personas table and criterion coverage; the step comes from the files; model and effort stated, not assumed; injected repo paths; what forking can't do; parallel sessions; redoing a phase; references by committed path and copied id; grades; asking the founder; outward-facing and destructive actions. *Every-session skills:* *Reference holds*; `lifecycle-status` shows the inbox's age and the founder's rows; `handoff`'s block format; `decision-record`'s format, and module decisions in `<module>/decisions.md`; `learned`'s note fields, consolidation at milestones, recurrence by session, reading what is integrated and the founder's notes, asking in fours, holds as seeds, and the engineering checklist.
 - **0.4 · 2026-10-06** — Change track: `spec change` writes a Stages section into the change note; `build-phase` gates on and drafts cards from it; `verify` reads it in place of the plan's §5.
 - **0.3 · 2026-10-06** — Consistency pass against `README.md`: gate always exits 0 (a failing injected command aborts the skill) and passes `n/a`; decision-log entries from `personas`, `revise` and `learned` use `decision-record`'s format; `revise` gains a method mode; `close-out` gains a gate line; `build-plan`'s gate matches the README; canon flags go in the stage record; state-of-the-build file is per project; source paths completed.
 - **0.2 · 2026-10-05** — `learned` added: capture to an inbox, consolidate in batches; lane report gains item 7; `verify`, `handoff`, `lifecycle-status` and `close-out` wired to it.

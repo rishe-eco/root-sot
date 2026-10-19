@@ -72,6 +72,7 @@ NN-slug/
   00-intake.md … 07-build-plan.md, 08-design-review.md, 09-close-out.md
   briefs/                phase cards (<stage>.md) and lane reports (<stage>.report.md) — committed
   changes/               numbered change notes from `spec change` and change requests from `revise`
+  decisions.md           one line per product decision, pointing at its change note
 ```
 
 **Next to the code**, in the code repo: stage records (`docs/development/<stage>.md`) and the development README's stage list — as the journeys build did. The code repo keeps a one-line pointer to the module folder.
@@ -90,7 +91,8 @@ NN-slug/
 | `retros/` | Build retrospectives |
 | `learnings/inbox/` | Capture notes from `learned`, one file per session — nothing in them is acted on until consolidated |
 | `learnings/index.md` | Every integrated lesson, where it now lives, and how often it recurred |
-| `decision-log.md` | Decisions about the method itself, including each integrated lesson |
+| `decision-log.md` | Decisions about the method itself, including each integrated lesson. Only those: a module's decisions go in its `decisions.md` |
+| `engineering-checklist.md` | Facts about building software that hold beyond one project |
 
 Modules that predate this system stay where they are; `status.md` points at their current paths.
 
@@ -111,7 +113,10 @@ Modules that predate this system stay where they are; `status.md` points at thei
 | `STATE.md` (module or shared) | `handoff`; `ideate` creates it; `build-phase` when it launches or lands a lane; `debug` when it stops after three failed hypotheses; `learned` for urgent carry-overs |
 | `learnings/inbox/` | `learned` (capture writes notes); `verify` adds one capture note per review |
 | `learnings/index.md` | `learned --consolidate`, which also writes the destinations once accepted |
-| `lifecycle/decision-log.md`, decision logs | `decision-record`; also the entries `personas`, `revise` and `learned --consolidate` cause, written in `decision-record`'s format from its shared reference file |
+| `lifecycle/decision-log.md` | `decision-record`; also the entries `personas`, `revise` on the method and `learned --consolidate` cause, written in `decision-record`'s format from its shared reference file |
+| An area's decision log (`<area>/decisions/`) | `decision-record` |
+| `<module>/decisions.md` | `revise` and `spec change`, one line per change note; `decision-record` for any other module decision |
+| `engineering-checklist.md` | `learned --consolidate`, once accepted |
 | `07-build-plan.md` | `build-plan`. Afterwards, `verify` writes correction-only changelog lines with the founder's yes. A change to scope goes through `revise` |
 | Stage records | `verify` |
 | Development README stage list | `verify` |
@@ -137,7 +142,7 @@ Rules 1–6 from the retrospective's findings 1, 3 and 6; rule 7 from `learned`:
 4. **Reviews and live UX reviews run forked** — a fresh context holding only their declared inputs.
 5. **Everything a later session needs is committed**: state, phase cards, lane reports. Nothing load-bearing lives in session memory or a scratchpad.
 6. **Durable environment knowledge goes in the repo's CLAUDE.md**, not in one machine's memory.
-7. **Every session ends `handoff` → `learned` → `/clear`.** Lessons are captured as notes and never edited into instructions mid-flight; `learned --consolidate` integrates them in batches (15 notes or 14 days), with the founder accepting each change.
+7. **Every session ends `handoff` → `learned` → `/clear`.** Lessons are captured as notes and never edited into instructions mid-flight; `learned --consolidate` integrates them in batches (15 notes or 14 days, and at each milestone during a build), with the founder accepting each change.
 
 ## 6. Build rules
 
@@ -183,7 +188,7 @@ Each stage ends by checking usage against the baseline.
 
 ## Changelog
 
-- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Method:* where an outside project's modules live; Change during a build, and the small Change; phases 4b and 7b, and launch as an event; gates for phases 5, 7, 9 and 10; §4 one file pattern per row, with the build plan, project configs and open-work's writers; `status.md` values; the founder's supplies; `MS<n>`, criterion prefixes and pass-scoped findings.
+- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Method:* where an outside project's modules live; Change during a build, and the small Change; phases 4b and 7b, and launch as an event; gates for phases 5, 7, 9 and 10; §4 one file pattern per row, with the build plan, project configs and open-work's writers; `status.md` values; the founder's supplies; `MS<n>`, criterion prefixes and pass-scoped findings. *Every-session skills:* a module's `decisions.md`; `engineering-checklist.md`; consolidation at each milestone.
 - **0.4 · 2026-10-06** — Change track builds from its change note: the note carries a Stages section and `build-phase` accepts it in place of a build plan.
 - **0.3 · 2026-10-06** — Consistency pass against `skills-plan.md`: lane report is seven-part; every `STATE.md`, inbox and decision-log writer listed; state-of-the-build file is per project; founder-owned files also change through accepted consolidations; close-out gate requires a consolidated inbox; `n/a` phases pass the gate; models for `learned` and `debug`; `projects/tracker/` in stage 1.
 - **0.2 · 2026-10-05** — Learnings: captured per session as inbox notes, consolidated in batches; session rule 7; files and owners added.
