@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.19 · 2026-10-19**
+**Version 0.20 · 2026-10-19**
 
 ---
 
@@ -206,3 +206,13 @@
 **Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
 
 **Revisit.** At the next module's first `revise`: whether the ledger's thresholds (double, a quarter) trip at the right time.
+
+## L-20 · 2026-10-19 · Trial brief 0.6
+
+**Decision.** Apply findings TR-1 to TR-5 of `lifecycle/trial-run/findings.md` 0.2 to `lifecycle/trial-run/README.md`, now 0.6: the opening prompt names the skill; one style of step name; rows for the design imports, a Change during the build (8x) and this apply session (10d); every step without a column listed; 10a and 10c say the edits are applied at 10d; rule 4 covers the code repo's files; a log's *Output* may say "this commit". TR-5 needed no edit.
+
+**Why.** Three places disagreed on who applies the findings, and steps the trial added (imports, Changes, 10a) had no row. These change the next trial's brief, not the method.
+
+**Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
+
+**Revisit.** At the next trial, if one runs.
