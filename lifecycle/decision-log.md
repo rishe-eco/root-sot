@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.11 · 2026-10-19**
+**Version 0.12 · 2026-10-19**
 
 ---
 
@@ -98,3 +98,17 @@
 **Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review: partway through the apply session the founder asked for the remaining groups to be committed straight on, stopping only for what needs their attention.
 
 **Revisit.** IMNSTR's seven existing change files keep their names; if the next module's mixed `changes/` folder is still hard to read, rename on the next `revise --catch-up`.
+
+## L-12 · 2026-10-19 · Skills plan 0.5: `journeys` and `wireframes`
+
+**Decision.** Apply findings JO-1 to JO-9 (JO-9 lands with `close-out`) and WF-1 to WF-6 of `lifecycle/trial-run/findings.md` 0.2 to `lifecycle/skills-plan.md` §2:
+- `journeys` asks one batch in every mode, keeps Suggested items apart until `revise` accepts them, ends each step with a check citing criteria, and requires a Coverage table and a states table;
+- an `update` mode, and scoped runs of `gap` and `update`;
+- amended journeys keep their step ids;
+- `wireframes` has seven steps, coverage by step, Suggested items drawn as marked options, a required *Calls made here*, and a definition of low fidelity.
+
+**Why.** Both skills were one or two lines. The trial's 3b, 04, 05d and 10b4 sessions invented these steps, and the Suggested items they found had no route to the spec until step 4c was added.
+
+**Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
+
+**Revisit.** At the next module's journeys, if the Coverage table and the step checks together cost more than they catch.

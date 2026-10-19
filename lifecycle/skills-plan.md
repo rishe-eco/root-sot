@@ -213,16 +213,40 @@ Personas are *hypothesis* until a review pass or real-user data grounds them. A 
 
 ### `journeys`
 **Does:** the paths people take.
-**Modes:** `new` — 3–5 journeys (first day, normal loop, return after a gap, not enough data, error) of ~10 steps each · `gap` — each scenario checked against the code as *have / partly / missing*, suggestions kept apart and marked **Suggested**, decisions asked and answered in their own section.
+**Modes:**
+- `new` — 3–5 journeys (first day, normal loop, return after a gap, not enough data, error) of ~10 steps each. Scenarios may share a journey, error journeys may be branches, and a journey with two actors adds a *Who* column. About 3,000–4,000 words, a guide, not a limit.
+- `gap` — each scenario checked against the code as *have / partly / missing*.
+- `update` — brings journeys up to a newer spec and new personas, from the change notes since its version.
+
+`gap` and `update` may be scoped (`--steps J2.9,J3.4` or `--from-note 07`): the changelog then says what wasn't checked, and the status cell stays `done`.
 **Model:** Opus, high.
-**Writes:** `03-journeys.md`.
-**Gate:** spec; personas selected.
+**Asks:** in every mode, one batch, recorded in *Decisions taken at journeys*. A founder decision the spec lacks is also listed as Suggested, for `revise`.
+**Writes:** `03-journeys.md`, below the `## Personas` section that `personas` owns.
+- **Each step's last cell, *Must be true*,** is a check citing criteria. Steps are cited `J<n>.<step>`.
+- **`## Coverage`** (required): each acceptance criterion to its step, as `step`, `no screen` or `all steps`.
+- **Suggested,** in every mode: requirements the spec lacks, kept apart in a section `revise` reads. Once accepted, the next `journeys` run marks each "accepted at spec x.y", pointing at its criterion.
+- **A states table** at the end (empty, error, loading, not enough data, notices), which `wireframes` reads.
+- **Amending:** keep step numbers, give inserted steps a letter suffix, and mark changed text **[x.y]**, so citations downstream still hold.
+
+**Gate:** spec; personas selected (the `## Personas` table).
+**Reference holds:** failure journeys walk every security requirement; each walk's additions are Suggested, so they land on the spec's scope ledger where the founder sees them.
 **From:** `ecosystem/working/root-studio-user-journeys.md` on branch `journeys-build`, not yet on `main` (the `gap` mode); the Impact spec's flows, `ecosystem/working/impact-build/01-noticing-spec.md` (the `new` mode); bug B-14 as the case it exists to catch.
 
 ### `wireframes`
 **Does:** low-fidelity HTML for every journey step, including empty, error, loading and not-enough-data states.
 **Model:** Opus, medium.
-**Writes:** `04-wireframes.html`.
+**Steps:**
+1. Run the gate.
+2. List the steps and states from the journeys' steps and states table.
+3. Group them by screen.
+4. Draw, by screen.
+5. Write *Calls made here*.
+6. Write the coverage plate: a step-to-plate table, so every journey step is traceable to a frame. A step with no screen of ours is marked "not ours, drawn as context" or "no screen", with a note.
+7. Render at 1200 and 375 px, and look.
+
+**Low fidelity** means neutral tokens; real copy only where the words are the requirement; placeholder bars elsewhere; no brand. The frame kit is `templates/wireframes.html`.
+**Suggested items** are drawn as visibly marked options, never as plain UI, and the ones drawn are listed.
+**Writes:** `04-wireframes.html`, with a required section *Calls made here*: behaviour the wireframes decided, each graded *proposal*. `ux-review` and `build-plan`'s gate read it.
 **Gate:** journeys.
 **From:** the existing `*-wireframes.html` files in `tracker/canon/06-specs/`.
 
@@ -395,7 +419,7 @@ Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `bui
 
 ## Changelog
 
-- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Shared mechanics:* the gate fetches, takes an override and reads HTML, the personas table and criterion coverage; the step comes from the files; model and effort stated, not assumed; injected repo paths; what forking can't do; parallel sessions; redoing a phase; references by committed path and copied id; grades; asking the founder; outward-facing and destructive actions. *`spec`:* the template and scope ledger; metrics versus the eval plan; the platform left to the build plan; change notes carry `main @`, a criterion prefix with an *Item* column, the fuller Stages shape and *What this makes stale*; change mode's gate against lanes in flight; one numbering in `changes/` with the kind in the name. *Design, first phases:* `ideate` answers "n/a" outside Root, keeps the drop rule verbatim and ends with its decisions; `research` reviews itself against its inputs, reaches sources in order, has a search budget and a *For the next phases* section; `personas` may select none, proposes by behaviour with acceptance, gains an `add` mode, owns the journeys' `## Personas`, and has a record template. *Every-session skills:* *Reference holds*; `lifecycle-status` shows the inbox's age and the founder's rows; `handoff`'s block format; `decision-record`'s format, and module decisions in `<module>/decisions.md`; `learned`'s note fields, consolidation at milestones, recurrence by session, reading what is integrated and the founder's notes, asking in fours, holds as seeds, and the engineering checklist.
+- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Shared mechanics:* the gate fetches, takes an override and reads HTML, the personas table and criterion coverage; the step comes from the files; model and effort stated, not assumed; injected repo paths; what forking can't do; parallel sessions; redoing a phase; references by committed path and copied id; grades; asking the founder; outward-facing and destructive actions. *`spec`:* the template and scope ledger; metrics versus the eval plan; the platform left to the build plan; change notes carry `main @`, a criterion prefix with an *Item* column, the fuller Stages shape and *What this makes stale*; change mode's gate against lanes in flight; one numbering in `changes/` with the kind in the name. *Design, first phases:* `ideate` answers "n/a" outside Root, keeps the drop rule verbatim and ends with its decisions; `research` reviews itself against its inputs, reaches sources in order, has a search budget and a *For the next phases* section; `personas` may select none, proposes by behaviour with acceptance, gains an `add` mode, owns the journeys' `## Personas`, and has a record template. *Every-session skills:* *Reference holds*; `lifecycle-status` shows the inbox's age and the founder's rows; `handoff`'s block format; `decision-record`'s format, and module decisions in `<module>/decisions.md`; `learned`'s note fields, consolidation at milestones, recurrence by session, reading what is integrated and the founder's notes, asking in fours, holds as seeds, and the engineering checklist. *`journeys` and `wireframes`:* journeys asks in every mode, keeps Suggested through to acceptance, cites `J<n>.<step>` checks, a required Coverage and a states table, amends without breaking ids, and gains `update` and scoped runs; wireframes has steps, coverage by step, marked Suggested items, *Calls made here*, and a definition of low fidelity.
 - **0.4 · 2026-10-06** — Change track: `spec change` writes a Stages section into the change note; `build-phase` gates on and drafts cards from it; `verify` reads it in place of the plan's §5.
 - **0.3 · 2026-10-06** — Consistency pass against `README.md`: gate always exits 0 (a failing injected command aborts the skill) and passes `n/a`; decision-log entries from `personas`, `revise` and `learned` use `decision-record`'s format; `revise` gains a method mode; `close-out` gains a gate line; `build-plan`'s gate matches the README; canon flags go in the stage record; state-of-the-build file is per project; source paths completed.
 - **0.2 · 2026-10-05** — `learned` added: capture to an inbox, consolidate in batches; lane report gains item 7; `verify`, `handoff`, `lifecycle-status` and `close-out` wired to it.
