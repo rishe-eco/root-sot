@@ -75,7 +75,7 @@ None. The gate was checked by hand.
 - **Rule:** a scoped `gap` run writes, in its changelog line, what it didn't check. **Event:** clearing `STALE` for two steps would otherwise read as "journeys match spec 0.5", while AC-48 and AC-49 are unwalked. **Scope:** any partial pass that clears a status cell. **Destination:** the `journeys` skill; `status.md`'s legend, if `done` should ever distinguish "not contradicted" from "covered". **urgent:** no.
 
 ## Cost
-*Founder fills in after the session.*
+Opus 5.5: 36 in / 209 out / 1.5M cache read / 67k cache write. $1.13; API 12 min; wall 17 min. Plan: session 17%, weekly 3%.
 
 ## Next
 As in the 10b2 block: the founder's items, the open-work strike-through by the next `verify` or `close-out`, then 10c. 10c should see two things in the spec gaps above: the scoped-run form, and the unwalked AC-48, AC-49 and AC-30 Newer link.
