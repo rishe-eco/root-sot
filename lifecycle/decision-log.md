@@ -2,7 +2,7 @@
 
 *Decisions about the method itself. Written in `decision-record`'s format.*
 
-**Version 0.7 · 2026-10-19**
+**Version 0.8 · 2026-10-19**
 
 ---
 
@@ -108,3 +108,18 @@ Journeys (column 3) and the eval plan (column 6) are marked `STALE`: both reason
 **Decided by.** Founder, reading the diff in the apply session. Accepted unread at 10c on Claude's judgement first.
 
 **Revisit.** When the next module runs, if a small Change runs over one session or a gate blocks work it shouldn't.
+
+## L-8 · 2026-10-19 · Skills plan 0.5: the trial's findings on shared mechanics
+
+**Decision.** Apply findings S0-1 to S0-10 of `lifecycle/trial-run/findings.md` 0.2 to `lifecycle/skills-plan.md` §0, now 0.5:
+- the gate fetches first, takes a recorded override, and checks HTML headings, the personas table and criterion coverage;
+- each skill works out its step from the files and stops on a mismatch;
+- model stated in the first message, effort as the prompt says; a wrong model stops the session;
+- code repo paths injected; forked skills end before anything that waits on the founder;
+- new paragraphs: parallel sessions, redoing a phase, references, grades, asking the founder, and outward-facing and destructive actions.
+
+**Why.** Each was improvised or learned at a cost in the IMNSTR trial: 32 logs gated by hand, two manual merges between parallel sessions, three research passes with no redo rule, and scope that grew through answers the method didn't treat as new items.
+
+**Decided by.** Founder, reading the diff in the apply session. Accepted unread at 10c on Claude's judgement first.
+
+**Revisit.** When `bin/gate` is built (stage 1), against what it can actually check; and after the next module, if the four-question batch proves too small.
