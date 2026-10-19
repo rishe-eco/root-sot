@@ -88,7 +88,9 @@ Required: Summary, Evaluation, What the plan didn't know, Cost, Retrospective.
 2. **Rule:** a session opened without the trial's standard prompt still pulls first, and states its model and the missing effort. **Event:** this checkout was 86 commits behind. Before pulling, it showed B2 unverified and the step as impossible. **Scope:** every phase skill (10a's L4, L5). **Destination:** `skills-plan.md` §0, *The gate*. `urgent: no`.
 
 ## Cost
-*Founder fills in after the session.*
+From the founder's paste: **$1.88**; API 7 m, wall 12 m; Opus 5.5 only. Tokens: 64 input, 280 output, 3M cache read, 106.9k cache write.
+
+The wall time includes one founder question (the gate override). The cheapest Opus · high step in the build: the inputs were read by `awk` and `grep` extracts, not whole files, and the code repo was out of reach, so no stage record was read.
 
 ## Next
 - **The founder:** F-17, V-9 with V-7, V-5 with V-8, then launch (F-2, F-7, `reset-content`). On launch day, E2's dates go in eval plan §5.

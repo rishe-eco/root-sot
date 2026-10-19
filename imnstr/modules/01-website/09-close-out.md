@@ -94,7 +94,7 @@ Together they would take the spec to 0.5. **Not applied here** (trial rule 4). *
 
 **Not in the total:**
 - **Claude Design**, for 4b and 05e: about 13–18% and about 30% of a session limit, the founder's estimates. It shows no dollar figure.
-- **10a** (its *Cost* isn't filled in) and **this session**.
+- **10a** ($3.05) and **10b** ($1.88), recorded after this page was written. With them, the run comes to **$251.76 over 52 sessions**.
 
 **Lanes:** 12, all Sonnet, about 3.83M tokens and about 452 minutes, by the harness. The smallest was B2 (90k tokens, 4 min); the largest were B7 (539k) and B6 (83 min). Where the split was recorded, the lane was 26–76% of its 8a/8b session.
 
