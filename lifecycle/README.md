@@ -2,7 +2,7 @@
 
 *The method behind the lifecycle skills: the three tracks of work, the phases and their gates, where every file lives and who writes it, the session and build rules that keep usage down, and how lessons are kept. The skills themselves are specified in `skills-plan.md`.*
 
-**Version 0.4 · Status: plan — nothing here is built yet · 2026-10-06 · Owner: _root**
+**Version 0.5 · Status: plan — nothing here is built yet · 2026-10-19 · Owner: _root**
 
 ---
 
@@ -19,11 +19,13 @@ The design is drawn from what already worked in this repo — the journeys build
 | **Track** | The kind of work: Module, Change, Fix | — |
 | **Phase** | A step of the Module track: intake … close-out | a build stage |
 | **Stage** | One unit of the build plan (J1, S2, …), sized to fit one lane | a phase |
-| **Milestone** | A group of stages after which the full suites run (M1 …) | — |
+| **Milestone** | A group of stages after which the full suites run (MS1 …) | — |
 | **Lane** | A Sonnet subagent building one stage in its own worktree, test database and ports | a track |
 | **Phase card** | The 500–700-word brief a lane gets for its stage, naming exactly what to read | the plan |
 | **Lane report** | The seven-part final message a lane returns; the reviewer reads it before the diff | the stage record |
 | **Stage record** | The reviewed, committed account of a stage, next to the code (`docs/development/<stage>.md`) | the lane report |
+| **Acceptance criterion** | A testable line in the spec or a change note. Each document that numbers criteria owns a prefix: the spec `AC-n`, each change note its own two letters (`CI-n`, `PL-n`) | a journey step's check |
+| **Finding** | One observation from a review, numbered within its pass (`P<pass>-F<n>`) | — |
 | **Gate** | A mechanical check a skill runs before starting: files exist, required sections present, nothing stale | a sign-off (there is none) |
 
 ## 1. The tracks
@@ -32,6 +34,8 @@ The design is drawn from what already worked in this repo — the journeys build
 |---|---|---|
 | **Module** | Loophole Lens; a new lab; the journeys build | every phase below |
 | **Change** | Inline tag creation (D-58) | change note (with its stages) → `build-phase` → verify → decision record |
+| ↳ *during a build* | IMNSTR's CI and deploy (CD1); its polish after the live review (PL1) | from the founder, or from review findings the founder accepted. `spec change` writes a note against the spec and the build's state, then `build-phase` → `verify` run against it. It doesn't stop the build |
+| ↳ *small* | IMNSTR's session lengths (CS1) | size S, one stage, no schema change: note, build, verify and deploy in one session, with the same note and stage record. The founder chooses it, and the log says so |
 | **Fix** | B-15, status always "Backlog" | debug → verify → decision record |
 
 `lifecycle-status` sorts incoming work into a track. When in doubt between Change and Module: if it needs new journeys or new screens, it is a Module.
@@ -45,18 +49,22 @@ The design is drawn from what already worked in this repo — the journeys build
 | 2 | Spec | `spec` | `02-spec.md` | research, or a waiver line in the intake |
 | 3 | Journeys | `journeys` (+ `personas`) | `03-journeys.md` | spec; personas selected |
 | 4 | Wireframes | `wireframes` | `04-wireframes.html` | journeys |
-| 5 | UX review | `ux-review` (wireframes mode) | `05-ux-review.md` | wireframes, journeys |
+| 4b | Design | the founder, in a design tool; then an import session | `04b-design/`: self-contained HTML exports, `source/`, a README | wireframes |
+| 5 | UX review | `ux-review` (wireframes mode) | `05-ux-review.md` | the latest design (4b where it exists, else wireframes), journeys |
 | 6 | Eval plan | `eval-plan` | `06-eval-plan.md` | spec |
-| 7 | Build plan | `build-plan` | `07-build-plan.md` | 2–6, UX findings closed or carried |
+| 7 | Build plan | `build-plan` | `07-build-plan.md` | 2–6; UX findings, journeys' *Suggested*, the design's *Beyond the spec* and wireframes' *Calls made here*: each accepted, refused or carried |
+| 7b | Project config | `project-config` | `lifecycle/projects/<project>/` | build plan; runs once per project, before the first build for a project with no config |
 | 8 | Build | `build-phase` → `verify` per stage | phase cards in `briefs/`; stage records in the code repo | build plan (Change track: a change note with a Stages section) |
-| 9 | Live review | `ux-review` (live), `design-review` | appended to `05-…`; `08-design-review.md` | UI stages verified |
-| 10 | Close-out | `close-out` | `09-close-out.md` | every stage verified, milestones green, learnings inbox consolidated |
+| 9 | Live review | `ux-review` (live), `design-review` | appended to `05-…`; `08-design-review.md` | UI stages verified. Open by-hand device checks don't block it, and are listed under *Not checked* |
+| 10 | Close-out | `close-out` | `09-close-out.md` | every stage verified, milestones green, learnings inbox consolidated, and no change note defers a spec `revise`. The founder may override with a reason, recorded in the close-out's header |
 
-Phases 3, 4, 5 and 9 apply only to modules with UI. Back-end-only modules mark them `n/a`, and the gate passes an `n/a` phase.
+Phases 3, 4, 4b, 5 and 9 apply only to modules with UI. Back-end-only modules mark them `n/a`, and the gate passes an `n/a` phase. 4b and 7b have no status column: 4b shares column 4, and 7b belongs to the project, not the module.
+
+**Launch** is an event, not a phase: the first real use in production. `close-out` records its date, or "not yet", and the eval plan's later checks count from it.
 
 ## 3. Where things live
 
-**A module folder** in `root-sot`, under the area that owns the product (`tracker/modules/`, and `ecosystem/modules/` for root-app work until a studio area exists):
+**A module folder** in `root-sot`, under the area that owns the product (`tracker/modules/`, and `ecosystem/modules/` for root-app work until a studio area exists). A project outside Root's areas keeps its modules in `<project>/modules/NN-slug/`, and `status.md` links to it:
 
 ```
 NN-slug/
@@ -86,20 +94,38 @@ NN-slug/
 
 Modules that predate this system stay where they are; `status.md` points at their current paths.
 
+**`status.md`** has one row per module and one column per phase, 0 to 10. Links are relative to `lifecycle/`. A cell is blank (not started), `done`, `n/a` or `STALE`, and also:
+- **column 8** reads `done/total` during a build. Total is the plan's stages plus any Change stages, and a split stage counts once per part (B4a, B4b). Milestones don't write column 8;
+- **column 10** may read `closed · eval <date>` or `closed · eval due` until the eval plan's last check;
+- **a pass owed on a phase without a column** (4b, 7b) is written in its parent column as `done · owed <step>`. `STALE` is reserved for contradiction;
+- **after close-out,** `STALE` means "read with the change note beside it". It is cleared only if the phase is rerun or the module reopens;
+- **a scoped run** writes `done`, and its changelog line says what it didn't check.
+
+**What the founder supplies.** The project's open-work file keeps a *From the founder* table for copy, marks, channel links, devices and production content that a check needs. Each row has *needed by*, a step or milestone. `lifecycle-status` lists the rows due within the next step.
+
 ## 4. One writer per file
 
 | File | Only writer |
 |---|---|
 | `status.md` | each phase skill, **its own cell only**; `ideate` adds the row; `revise` sets `STALE`; `close-out` closes the row |
 | `STATE.md` (module or shared) | `handoff`; `ideate` creates it; `build-phase` when it launches or lands a lane; `debug` when it stops after three failed hypotheses; `learned` for urgent carry-overs |
-| `learnings/inbox/`, `learnings/index.md` | `learned` (capture writes notes; consolidate writes the index and, once accepted, the destinations); `verify` adds one capture note per review |
+| `learnings/inbox/` | `learned` (capture writes notes); `verify` adds one capture note per review |
+| `learnings/index.md` | `learned --consolidate`, which also writes the destinations once accepted |
 | `lifecycle/decision-log.md`, decision logs | `decision-record`; also the entries `personas`, `revise` and `learned --consolidate` cause, written in `decision-record`'s format from its shared reference file |
-| Stage records, development README stage list | `verify` |
+| `07-build-plan.md` | `build-plan`. Afterwards, `verify` writes correction-only changelog lines with the founder's yes. A change to scope goes through `revise` |
+| Stage records | `verify` |
+| Development README stage list | `verify` |
 | The project's state-of-the-build file (named in `config.md`; for Tracker, `tracker/canon/04-roadmap/00-state-of-the-build.md`) | `verify` |
 | As-built canon (data model, API, glossary) | `close-out`, from `verify`'s flags |
-| `team/open-work.md` | `verify`, `close-out` |
+| The project's open-work file (named in `config.md`; for Root, `team/open-work.md`) | `verify`, `close-out`; `revise` strikes rows it settles, citing its change note |
 | `personas.md` | `personas` |
-| Templates, project configs, `review-instrument.md`, this file, `skills-plan.md` | the founder, through `revise` on the method itself, or by accepting a `learned --consolidate` proposal |
+| `projects/<project>/` | `project-config` creates it. Afterwards, the founder through `revise` or an accepted consolidation, or `verify` with the founder's yes, logged in the stage record |
+| `templates/` | the founder, through `revise` on the method itself, or by accepting a `learned --consolidate` proposal |
+| `review-instrument.md` | the founder, as for `templates/` |
+| `README.md` (this file) | the founder, as for `templates/` |
+| `skills-plan.md` | the founder, as for `templates/` |
+
+One file pattern per row, so a skill can grep its own rights.
 
 ## 5. Session rules
 
@@ -157,6 +183,7 @@ Each stage ends by checking usage against the baseline.
 
 ## Changelog
 
+- **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Method:* where an outside project's modules live; Change during a build, and the small Change; phases 4b and 7b, and launch as an event; gates for phases 5, 7, 9 and 10; §4 one file pattern per row, with the build plan, project configs and open-work's writers; `status.md` values; the founder's supplies; `MS<n>`, criterion prefixes and pass-scoped findings.
 - **0.4 · 2026-10-06** — Change track builds from its change note: the note carries a Stages section and `build-phase` accepts it in place of a build plan.
 - **0.3 · 2026-10-06** — Consistency pass against `skills-plan.md`: lane report is seven-part; every `STATE.md`, inbox and decision-log writer listed; state-of-the-build file is per project; founder-owned files also change through accepted consolidations; close-out gate requires a consolidated inbox; `n/a` phases pass the gate; models for `learned` and `debug`; `projects/tracker/` in stage 1.
 - **0.2 · 2026-10-05** — Learnings: captured per session as inbox notes, consolidated in batches; session rule 7; files and owners added.

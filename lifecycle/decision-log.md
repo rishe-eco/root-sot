@@ -2,7 +2,7 @@
 
 *Decisions about the method itself. Written in `decision-record`'s format.*
 
-**Version 0.6 · 2026-10-19**
+**Version 0.7 · 2026-10-19**
 
 ---
 
@@ -92,3 +92,19 @@ Journeys (column 3) and the eval plan (column 6) are marked `STALE`: both reason
 **Decided by.** Founder, at trial step 10b2, all as recommended.
 
 **Revisit.** If E1 fails after launch (eval plan §4.1), or if a lost or stolen device shows 30-day sessions are too long.
+
+## L-7 · 2026-10-19 · Method README 0.5: the trial's findings on tracks, phases, files and status
+
+**Decision.** Apply findings M-1 to M-8 of `lifecycle/trial-run/findings.md` 0.2 to `lifecycle/README.md`, now 0.5:
+- an outside project's modules live in `<project>/modules/NN-slug/`;
+- two kinds of Change: one that arrives during a build, and a small Change built, verified and deployed in one session when the founder chooses it;
+- phases 4b (design) and 7b (project config), and launch as an event that later checks count from;
+- the gates of phases 5, 7, 9 and 10 as the trial ran them;
+- §4 has one file pattern per row, and names the writers of the build plan, project configs and the open-work file;
+- `status.md`'s values, the founder's supplies, and the names `MS<n>`, `AC-n` and `P<pass>-F<n>`.
+
+**Why.** The IMNSTR trial had to improvise each of these. The logs cited in each finding record where.
+
+**Decided by.** Founder, reading the diff in the apply session. Accepted unread at 10c on Claude's judgement first.
+
+**Revisit.** When the next module runs, if a small Change runs over one session or a gate blocks work it shouldn't.
