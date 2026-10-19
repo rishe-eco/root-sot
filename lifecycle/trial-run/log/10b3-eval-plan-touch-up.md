@@ -78,7 +78,7 @@ None. The fix touched no rule, and the brief was specific.
 - **Rule:** when a spec change alters how a state arises (here, a session ending), check the eval instruments that depend on producing that state. **Event:** under 7-day sessions a "cold" run no longer happens by waiting or by closing the browser. Without the added sign-out step, V-9's cold runs could be warm runs mislabelled. **Scope:** `eval-plan` touch-ups; `revise`'s *STALE* pass. **Destination:** the `eval-plan` reference file. **urgent:** no. V-9's runner sees it in the `STATE.md` block.
 
 ## Cost
-*Founder fills in after the session.*
+Opus 5.5: 24 in / 742 out / 844.4k cache read / 50k cache write. $0.75; API 4 min; wall 5 min.
 
 ## Next
 As in the 10b2 block: the founder's items, the open-work strike-through by the next `verify` or `close-out`, then 10c. Optionally, `journeys` (`gap`) for column 3. Whoever runs V-9 reads §3.A's cold bullet first: cold runs begin by signing out.
