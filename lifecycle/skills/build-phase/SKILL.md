@@ -43,7 +43,9 @@ LIFECYCLE_ARGS
    - diff the stage's file list against the tree;
    - compare its screens with the design's plates;
    - read the migration for each table it writes;
-   - on the Change track, re-read the note against the base branch since its `main @`.
+   - on the Change track, re-read the note against the base branch since its `main @`;
+   - `git fetch`, and check `config.md`'s branch and deploy rows against the remote (`origin/<base>`'s log, `.github/workflows/`). A row that is wrong is corrected first, with the founder's yes;
+   - read the script behind every targeted command the card will name, and check it passes its arguments on. If it doesn't, fix it first or give the card the form that works.
 
    Then **grep the tests** for:
    - the stage's routes, tables and page names;

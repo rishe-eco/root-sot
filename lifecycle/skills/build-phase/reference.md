@@ -2,7 +2,7 @@
 
 *Seeds for this skill's reference file and template, moved unchanged out of `skills-plan.md` 0.5 at 0.6. They bind as the plan does. The skill's first author places them, in stage 2 or later.*
 
-**Version 0.2 · Status: placed — `SKILL.md` binds · 2026-10-20 · Owner: _root**
+**Version 0.3 · Status: placed — `SKILL.md` binds · 2026-10-21 · Owner: _root**
 
 ---
 
@@ -38,5 +38,6 @@ The shared lookups (root-sot, the gate, a module's project, config and checkout)
 
 ## Changelog
 
+- **0.3 · 2026-10-21** — `SKILL.md` Launch step 3: check `config.md`'s branch and deploy rows against the remote, and that each targeted command reads its arguments. From `learned --consolidate`, the first (L-43).
 - **0.2 · 2026-10-20** — Placed in `SKILL.md` 0.1. This file keeps the seeds as moved and a record of what placing added.
 - **0.1 · 2026-10-20** — Seeds, moved unchanged out of `skills-plan.md` 0.5 at 0.6.
