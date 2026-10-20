@@ -2,7 +2,7 @@
 
 *Each of the twenty lifecycle skills, and the design step: what it does, how it is invoked, which model runs it, exactly what it reads and writes, its gate, and where its shape comes from. The method these skills implement is `README.md`.*
 
-**Version 0.6 · Status: plan — nothing here is built yet · 2026-10-20 · Owner: _root**
+**Version 0.7 · Status: plan — nothing here is built yet · 2026-10-20 · Owner: _root**
 
 ---
 
@@ -14,75 +14,51 @@ Twenty skills in four groups — every session, design, build, closing the loop 
 
 ## 0. Shared mechanics
 
-**Invocation.** Every skill is `disable-model-invocation: true` — invoked by name, invisible in context until then — except `debug`, which Claude may pick up on its own when a test fails. This keeps twenty skills from adding twenty descriptions to every turn.
+**Invocation.** Every skill is `disable-model-invocation: true`, invoked by name and invisible in context until then, except `debug`, which Claude may pick up when a test fails.
 
-**Model and effort** are set in each skill's frontmatter (`model`, `effort`) and apply to the turn that invokes it. The session can see its model but not its effort. Every skill's first message states the model from its frontmatter. Where the prompt states a different effort, the skill says so and continues. A session on the wrong model stops before any work. A step run outside Claude Code (a design tool) has no model row: its log names the tool, and its cost is estimated (see `close-out`).
+**Model and effort** are set in each skill's frontmatter (`model`, `effort`). A session sees its model but not its effort, so every skill's first message states the model from its frontmatter. On the wrong model, the skill stops before any work. If the prompt states a different effort, the skill says so and continues.
 
-**Forking.** `verify`, `ux-review` and `design-review` use `context: fork` with `background: false`: they run in an isolated subagent that sees only the skill's content and its injected inputs, with the full tool set, and return a short summary. This is retrospective finding 1 built into the mechanism. *Verify in stage 2* that a forked skill with `background: false` can edit, commit and run suites as the journeys reviews did. A forked skill can't wait on the founder: `verify` forks for review and fixes and ends at "ready to deploy", and the deploy runs in the main session. A forked review gets the change notes' *carried* lists and the open-work file's rows injected, so owed items aren't counted as defects.
+**Forking.** `verify`, `ux-review` and `design-review` use `context: fork` with `background: false`: an isolated subagent that sees only the skill and its injected inputs, with the full tool set, and returns a short summary. *Verify in stage 2* that such a fork can edit, commit and run suites. A fork can't wait on the founder, so `verify` ends at "ready to deploy" and the deploy runs in the main session. A forked review gets the change notes' *carried* lists and the open-work file's rows injected, so owed items aren't counted as defects.
 
-**Injection.** Skills pull their inputs with `!` commands at invocation — the gate result, the status row, the top of `STATE.md`, a diff stat — so the model does not spend turns fetching them. A skill that touches a code repo also injects that repo's path on this machine, from `config.md`, and a `git -C <path> rev-parse HEAD` line, so it knows at once whether the repo is reachable. If it isn't, the skill names its fallback (the plan's changelog and the open-work file) or asks.
+**Injection.** Skills pull their inputs with `!` commands at invocation (the gate result, the status row, the top of `STATE.md`, a diff stat), so the model doesn't spend turns fetching them. A skill that touches a code repo injects its path from `config.md` and a `git -C <path> rev-parse HEAD` line. If the repo isn't reachable, the skill names its fallback (the plan's changelog and the open-work file) or asks.
 
-**The gate.** `lifecycle/bin/gate <module> <phase>` checks that the phase's inputs exist, contain the headings listed in `templates/required-headings.txt`, and are not marked `STALE` in `status.md`; a phase marked `n/a` passes. It prints `GATE OK`, or `GATE FAIL` and what is missing, and the skill stops and says so. It **always exits 0**: an injected `!` command that exits non-zero aborts the whole skill invocation before Claude sees it (documented), so a failing gate could not be reported. Skills call it by a path relative to their own directory (`${CLAUDE_SKILL_DIR}`), since injected commands run in the session's current directory, which may be a code repo. A script runs without entering context; only its output does. The gate also:
-- runs `git fetch` first, and reports a branch behind its upstream as `GATE FAIL`;
-- passes a config value of `none`;
-- checks `<h2>` text for HTML outputs;
-- for column 3, reads the `## Personas` table in `03-journeys.md`, not the file's existence;
-- for journeys and change notes, diffs the spec's criterion ids against the *Coverage* table.
+**The gate.** `lifecycle/bin/gate <module> <phase>` fetches first, then checks that the phase's inputs exist, hold the headings in `templates/required-headings.txt` (`<h2>` text for HTML), and aren't marked `STALE` in `status.md`. It prints `GATE OK` or `GATE FAIL` with what is missing, and the skill stops and says so. A branch behind its upstream fails; `n/a` and a config value of `none` pass. For column 3 it reads the `## Personas` table in `03-journeys.md`; for journeys and change notes it diffs the spec's criterion ids against the *Coverage* table. It **always exits 0**, because a failing injected command aborts the skill before Claude sees it (documented). Skills call it through `${CLAUDE_SKILL_DIR}`, since injected commands run in the current directory, which may be a code repo. `--override "<reason>"` prints `GATE OVERRIDDEN`, and the skill writes the reason into its output's header.
 
-`bin/gate --override "<reason>"` prints `GATE OVERRIDDEN`, and the skill writes the reason into its output's header.
+**The step comes from the files** (`briefs/<stage>.md`, `<stage>.report.md`, the status row, `STATE.md`'s next step), not from the prompt. If the prompt names another or an unknown step, the skill says so, lists near matches and stops.
 
-**The step comes from the files.** Each phase skill works out its step from the files (`briefs/<stage>.md`, `<stage>.report.md`, the status row, `STATE.md`'s next step), not from the verb or step number in the prompt. If the prompt names another step, or an unknown one, the skill says so, lists near matches and stops.
+**Where the skills live until the plugin (stage 6):** `root-sot/.claude/skills/`. A session in a code repo adds `root-sot` with `--add-dir` or `/add-dir`, which loads its skills (documented). *Verify in stage 1* how cloud sessions with several repositories expose them; if they don't, copy the build-side skills into each code repo until stage 6.
 
-**Where the skills live until the plugin (stage 6).** All in `root-sot/.claude/skills/`. A session in a code repo loads them by adding `root-sot` as an additional directory (`--add-dir ../root-sot`, or `/add-dir`) — documented: added directories' `.claude/skills/` are loaded and watched. *Verify in stage 1* how cloud sessions with several repositories expose additional-directory skills; if they do not, copy the build-side skills into each code repo until stage 6.
+**Skills don't call skills** (not documented). Two skills that need one checklist load the same reference file; a skill that needs a sequence ends by naming the next one.
 
-**Skills do not call skills.** Skill-to-skill invocation is not documented. Where one skill needs another's checklist, both load the same reference file; where a sequence is needed, the skill ends by naming the next one.
+**Reference seeds.** Where a skill's section names `skills/<skill>/reference.md`, that file holds seeds for the skill's reference file and template. They bind as this plan does. The skill's first author places them. Rules every skill shares but rarely needs, such as redoing a phase, are in `skills/shared/reference.md`.
 
-**Reference seeds.** Where a skill's section names `skills/<skill>/reference.md`, that file holds seeds for the skill's reference file and template: rules and contents the trial found. They bind as this plan does. The skill's first author places them.
+**Parallel sessions** on one branch or one machine commit by path (`git commit --only <paths>`) or from their own checkout; fetch and rebase right before pushing; merge `STATE.md` by block, newest first, never by copying over it; and take the heavy-runner lock named in `config.md` before running a suite.
 
-**Parallel sessions.** Two sessions running at once on one branch or one machine:
-- commit by path (`git commit --only <paths>`), or from their own checkout;
-- fetch and rebase right before pushing;
-- merge `STATE.md` by block, newest first, never by copying a file over it;
-- on one machine, read the heavy-runner lock named in `config.md` before running a suite;
-- a session whose code repo's local `main` is held by another session pushes `HEAD:main` from its stage worktree, and tells that session to rebase.
-
-**Redoing a phase,** only when the founder asks:
-- the earlier output and log move, unread, to `<module>/archive/<phase>/passN-<model>/` with `git mv`;
-- the new output's header carries a *Supersedes* line;
-- the status cell is unchanged;
-- a pass is independent only if it couldn't see the earlier one's findings. An independent redo doesn't read `STATE.md` blocks written after the earlier pass's gate. A cumulative redo reads them and says so;
-- merging passes is its own session, `<phase>-integration`.
-
-**References.** Anything named for another session (an owed item, a review that changes a design, a handoff folder, a method file's source) is named by its committed path relative to the repo. Never by number alone, and never by a machine path. Journey steps, criteria and findings are cited by the id copied from the file (`J3.4`, not "J2 step 4"). An open-work number is cited with its file. A design item routed to `revise` carries its scope and its end condition.
+**References.** Anything named for another session is named by its committed path relative to the repo: never by number alone, never by a machine path. Journey steps, criteria and findings are cited by the id copied from the file (`J3.4`, not "J2 step 4"). An open-work number is cited with its file.
 
 **Grades.** Every claim in an output is graded:
-- *evidence*: from a source or an observed event, with a strength: *strong*, *moderate*, *thin*, or *summary only* (came through a search summary, and is never quoted);
+- *evidence*: from a source or an observed event, with a strength: *strong*, *moderate*, *thin*, or *summary only* (from a search summary, never quoted);
 - *as-built*: true of what exists now, citing the file;
 - *proposal*: Claude's suggestion;
-- **decision**: the founder's, with a date, written [F].
-
-Personas are *hypothesis* until a review pass or real-user data grounds them. A review grades the observation (*as-built* on the running app, *simulated* on a static design) apart from the score, which is *simulated*: one reviewer's judgement.
+- **decision**: the founder's, dated, written [F].
 
 **Asking the founder.** Every skill that asks:
-1. Asks in one batch, at most four questions per call. Two calls in one turn still count as one batch. Facts the founder must look up go in a pre-flight list, not the batch.
-2. Reads enough of the code and files to word each option truthfully before asking.
-3. Puts whatever the founder needs to answer inside the question, or in the closing message, never in text just before the question box. Commands for the founder go in the closing message.
-4. Treats an answer that adds a requirement, contradicts the spec or answers with a question as a new item. It sizes it, proposes a bounded definition graded *proposal* with what it excludes, and asks again. Such an answer is never written downstream as accepted.
-5. When the founder defers to a skill or rubric, applies that rule and names it in the output.
-6. Treats *explain more* as an outcome: the item stays pending for a second round.
-7. Ends by asking acceptance of its open assumptions, listed, if it asked at the start.
+1. Asks in one batch, at most four questions per call; two calls in one turn are one batch. Facts the founder must look up go in a pre-flight list, not the batch.
+2. Reads enough of the code and files to word each option truthfully first.
+3. Puts what the founder needs to answer inside the question or the closing message, never in text just above the question box. Commands for the founder go in the closing message.
+4. Treats an answer that adds a requirement, contradicts the spec or is itself a question as a new item: sizes it, proposes a bounded definition graded *proposal* with what it excludes, and asks again. It is never written downstream as accepted.
+5. When the founder defers to a skill or rubric, applies it and names it in the output. *Explain more* leaves the item pending for a second round.
+6. Ends by asking acceptance of its open assumptions, if it asked at the start.
 
-**Outward-facing and destructive actions.** Pushing to a repo whose `main` deploys, pushing a branch to a public remote, posting content to an outside service, and any destructive step on production need the founder's yes in this session. A skill never runs a destructive production step: it lists it for the founder. If the permission layer blocks an approved push, the skill ends with "push pending: founder" and doesn't look for another route.
+**Outward-facing and destructive actions.** Pushing to a repo whose `main` deploys, pushing a branch to a public remote, posting to an outside service, and any destructive step on production need the founder's yes in this session. A skill never runs a destructive production step: it lists it for the founder. If the permission layer blocks an approved push, the skill ends with "push pending: founder" and doesn't look for another route.
 
-**Per-project configuration** — `lifecycle/projects/<project>/`, created by `project-config` (§2):
+**Per-project configuration** lives in `lifecycle/projects/<project>/`, written by `project-config` (§2); `skills/project-config/reference.md` lists each file's contents:
+- `brief-common.md`: what every lane gets, naming checkouts by `config.md`'s names, never one machine's path;
+- `review-checklist.md`: what every review checks;
+- `config.md`: paths, files, suites, lanes, environment and review scripts.
 
-| File | Holds | Source for root-app |
-|---|---|---|
-| `brief-common.md` | What every lane gets: role, read order, environment, git rules, style, budget and stop rules, the lane report (the full list is in `skills/project-config/reference.md`). It names checkouts by the names `config.md` gives them, never by one machine's absolute path | the recovered journeys brief, committed as `templates/brief-common.example.md` |
-| `review-checklist.md` | What every review checks: what must not break, house rules, done means, the verification ceiling, the probe list (`verify`), the reflow rule (`review-instrument.md` §3), the flake rule (`verify`) | the journeys plan §0.2, §0.3, §8; the development README's done means |
-| `config.md` | Paths, files, suites, lanes, environment and review scripts, listed in `skills/project-config/reference.md` | the development README; the build-machine memory |
+A project with no code yet has its config written as planned. The first stage's `verify` reconciles it with the founder's yes, and any verify that receives founder facts folds them into `config.md`.
 
-**A project with no code yet** has its config written as planned. The first stage's `verify` reconciles it, with the founder's yes, and any verify that receives founder facts folds them into `config.md` the same way.
 ---
 
 ## 1. Every session
@@ -492,6 +468,7 @@ Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `bui
 
 ## Changelog
 
+- **0.7 · 2026-10-20** — Cut back, step 2, §0 (L-23, awaiting the founder's review): the same rules in tighter wording; redoing a phase, grades in reviews, design items routed to `revise` and steps outside Claude Code move to `skills/shared/reference.md`; the config table's sources move to `skills/project-config/reference.md`; two provenance sentences, one obvious line and one bullet duplicated in `verify`'s seeds are cut.
 - **0.6 · 2026-10-20** — Cut back, step 1 (L-22): each skill's *Reference holds* and template contents, and the contents of `config.md` and `brief-common.md`, move unchanged to `skills/<skill>/reference.md`; each section points there. The 0.5 entry points at the decision log.
 - **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied in fourteen groups. What each group changed is its entry in `decision-log.md`, L-8 to L-21 (L-20 is the trial brief's).
 - **0.4 · 2026-10-06** — Change track: `spec change` writes a Stages section into the change note; `build-phase` gates on and drafts cards from it; `verify` reads it in place of the plan's §5.

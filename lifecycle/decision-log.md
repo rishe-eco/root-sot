@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.22 · 2026-10-20**
+**Version 0.23 · 2026-10-20**
 
 ---
 
@@ -236,3 +236,13 @@
 **Decided by.** Founder, 2026-10-20, approving the plan to cut back in three steps.
 
 **Revisit.** In stage 2, when each skill's author places its seeds: whether `skills/` folds into `.claude/skills/<skill>/`.
+
+## L-23 · 2026-10-20 · Skills plan 0.7: cut back, step 2, shared mechanics
+
+**Decision.** Rewrite `lifecycle/skills-plan.md` §0 in tighter wording, from about 1,490 words to about 1,030, keeping every rule that prevents an ordinary mistake. Four rarely needed rules (redoing a phase, grades in reviews and personas, a design item routed to `revise`, a step run outside Claude Code) move to `lifecycle/skills/shared/reference.md`. The configuration table's root-app sources move to `skills/project-config/reference.md`. Cut outright: two sentences of provenance, "a script runs without entering context", and a parallel-sessions bullet already in `verify`'s seeds.
+
+**Why.** The test for each rule: does it prevent a mistake the skill would make in an ordinary session? Rules from one incident go to a reference file; provenance lives in this log.
+
+**Decided by.** Committed before the founder's review, so the work isn't lost with the session's container. Awaiting the founder's review; any line they want back is restored in a follow-up commit.
+
+**Revisit.** When the founder reviews §0.

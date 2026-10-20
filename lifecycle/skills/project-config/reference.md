@@ -35,3 +35,9 @@
   7. one thing that would have made this stage faster, or "nothing".
 
   The lane writes the report to `.tmp/<stage>.report.md` as well as returning it.
+
+## Sources for root-app's configuration
+
+- `brief-common.md`: the recovered journeys brief, committed as `templates/brief-common.example.md`.
+- `review-checklist.md`: the journeys plan §0.2, §0.3 and §8; the development README's done means. It holds what must not break, house rules, done means, the verification ceiling, the probe list (`verify`), the reflow rule (`review-instrument.md` §3) and the flake rule (`verify`).
+- `config.md`: the development README; the build-machine memory.
