@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Focus Periods — wireframes</title>
+<style>
+:root{
+  --surface-2:#ffffff; --surface-1:#f6f5f0; --surface-0:#efece4;
+  --text-primary:#2c2c2a; --text-secondary:#5f5e5a; --text-muted:#8a8981;
+  --border:#e3e1d9; --border-strong:#ceccc3;
+  --accent-bg:#e6f1fb; --accent-text:#185fa5; --accent-border:#85b7eb;
+  --warn-bg:#fbf0e6; --warn-text:#9a5a12; --warn-border:#e6b887;
+  --good-bg:#e9f2e8; --good-text:#3d6b39; --good-border:#a8c8a4;
+  --sugg:#7a4fa3;
+  --radius:8px; --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --surface-2:#2b2b29; --surface-1:#232321; --surface-0:#1b1b19;
+    --text-primary:#e9e7e0; --text-secondary:#b5b3aa; --text-muted:#8a8981;
+    --border:#3a3a37; --border-strong:#4b4b47;
+    --accent-bg:#0c447c; --accent-text:#b5d4f4; --accent-border:#185fa5;
+    --warn-bg:#4a2f10; --warn-text:#e8c39a; --warn-border:#9a5a12;
+    --good-bg:#25381f; --good-text:#b8d4b0; --good-border:#3d6b39;
+    --sugg:#c9a6ea;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-0);color:var(--text-primary);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:2rem 1rem 4rem}
+h1{font-size:22px;font-weight:500;margin:0 0 4px}
+.sub{font-size:13px;color:var(--text-muted);margin:0 0 1rem;max-width:80ch}
+h2{font-size:16px;font-weight:500;margin:2.5rem 0 .3rem;padding-bottom:.5rem;border-bottom:.5px solid var(--border)}
+h2 .n{color:var(--text-muted);font-variant-numeric:tabular-nums;margin-right:.5rem}
+.lead{font-size:12px;color:var(--text-secondary);margin:0 0 .9rem;max-width:86ch}
+/* plates and frames */
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;align-items:start}
+.board.wide{grid-template-columns:1fr}
+.frame{margin:0;display:flex;flex-direction:column;gap:8px}
+.phone,.desk,.panel{background:var(--surface-2);border:.5px solid var(--border);border-radius:14px;padding:12px;display:flex;flex-direction:column;overflow:hidden;font-size:12px}
+.phone{min-height:440px}
+.desk{min-height:360px;border-radius:10px}
+.panel{min-height:180px}
+.shell{background:#1f1f1d;color:#d8d6cf;font-family:var(--mono);font-size:11px;border-radius:10px;padding:12px;min-height:180px;white-space:pre-wrap}
+.url{font-family:var(--mono);font-size:10px;color:var(--text-muted);background:var(--surface-1);border-radius:6px;padding:3px 8px;margin-bottom:8px;text-align:center}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-bottom:6px;border-bottom:.5px solid var(--border);font-size:11px;color:var(--text-muted)}
+.bar b{color:var(--text-primary);font-weight:500}
+.foot{margin-top:auto;padding-top:8px;border-top:.5px solid var(--border);font-size:10.5px;color:var(--text-muted);display:flex;gap:10px;flex-wrap:wrap}
+/* content */
+.h{font-size:15px;font-weight:500;margin:10px 0 4px}
+.ttl{font-size:13px;font-weight:500;margin:2px 0}
+.p{font-size:11.5px;color:var(--text-secondary);margin:4px 0 8px}
+.body{font-size:11.5px;color:var(--text-secondary);line-height:1.5}
+.line{height:7px;background:var(--border);border-radius:3px;margin:5px 0}
+.line.s{width:60%}.line.m{width:82%}
+.entry{padding:10px 0;border-bottom:.5px dashed var(--border)}
+.entry:last-child{border-bottom:0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 0;border-bottom:.5px solid var(--border);font-size:11.5px}
+.row .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lnk{color:var(--accent-text);text-decoration:underline}
+.mut{color:var(--text-muted)}
+.note{font-size:10.5px;color:var(--text-muted);line-height:1.45}
+.date{font-size:10.5px;color:var(--text-muted);font-family:var(--mono)}
+.chip{font-size:9.5px;font-family:var(--mono);padding:1px 6px;border-radius:9px;border:.5px solid var(--border-strong);color:var(--text-muted)}
+/* controls */
+.btn{display:inline-block;padding:7px 14px;border:.5px solid var(--border-strong);border-radius:var(--radius);font-size:12px;color:var(--text-primary);background:var(--surface-1);text-align:center}
+.btn.pri{border-color:var(--accent-border);color:var(--accent-text);background:var(--accent-bg)}
+.btn.full{display:block;width:100%}
+.btn.sm{padding:3px 9px;font-size:10.5px}
+.btn.dis{color:var(--text-muted);border-style:dashed;background:transparent}
+.lbl{font-size:10.5px;color:var(--text-muted);margin-top:6px}
+.field{border:.5px solid var(--border-strong);border-radius:var(--radius);padding:7px 9px;font-size:11.5px;background:var(--surface-1);min-height:30px;margin:4px 0}
+.field.ph{color:var(--text-muted)}
+.field.area{min-height:110px}
+.field.bad{border-color:var(--warn-border)}
+.disc{border:.5px solid var(--border);border-radius:8px;padding:7px 9px;margin:6px 0;font-size:11.5px;display:flex;justify-content:space-between}
+.disc::after{content:"▸";color:var(--text-muted)}
+.disc.open::after{content:"▾"}
+.kb{margin-top:auto;background:var(--surface-1);border-top:.5px solid var(--border);height:118px;display:grid;grid-template-columns:repeat(10,1fr);gap:3px;padding:6px;margin:0 -12px -12px}
+.kb span{background:var(--border);border-radius:3px}
+.sheet{margin-top:auto;background:var(--surface-1);border:.5px solid var(--border-strong);border-radius:12px 12px 0 0;padding:12px;margin:0 -12px -12px;text-align:center;font-size:11.5px}
+/* states and notices */
+.card{border-radius:8px;padding:8px 10px;font-size:11px;line-height:1.45;margin:6px 0;background:var(--accent-bg);color:var(--accent-text)}
+.card.w{background:var(--warn-bg);color:var(--warn-text)}
+.card.g{background:var(--good-bg);color:var(--good-text)}
+.toast{border-radius:8px;padding:8px 10px;font-size:11px;margin:6px 0;border:.5px solid var(--border-strong);background:var(--surface-1)}
+.dim{opacity:.4}
+.spin{display:inline-block;width:10px;height:10px;border:2px solid var(--accent-border);border-top-color:transparent;border-radius:50%;vertical-align:-1px;margin-right:5px}
+/* Suggested items: an option, never plain UI. data-g names the item (G3). */
+.sugg{border:1px dashed var(--sugg);border-radius:8px;padding:6px 8px;margin:6px 0;font-size:11px;color:var(--text-secondary)}
+.sugg::before{content:attr(data-g);display:block;font-family:var(--mono);font-size:9.5px;color:var(--sugg);margin-bottom:2px}
+/* captions */
+.cap{font-size:11.5px;color:var(--text-secondary);padding:0 4px;line-height:1.45}
+.cap .p{color:var(--accent-text);font-family:var(--mono);font-size:10.5px;margin:0}
+.cap .x{color:var(--warn-text)}
+.cap .s{color:var(--sugg)}
+/* tables, legend */
+table{border-collapse:collapse;font-size:11.5px;width:100%;margin:.4rem 0 1rem;background:var(--surface-2)}
+th,td{border:.5px solid var(--border);padding:5px 8px;text-align:left;vertical-align:top}
+th{font-weight:500;background:var(--surface-1)}
+code{font-family:var(--mono);font-size:10.5px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11px;color:var(--text-secondary);margin:.6rem 0 0}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:22px;height:12px;border-radius:3px;display:inline-block}
+/* Focus Periods additions */
+.cb{display:inline-block;width:12px;height:12px;border:1px solid var(--border-strong);border-radius:3px;flex:none}
+.cb.on{background:var(--good-bg);border-color:var(--good-border)}
+.prog{height:6px;background:var(--surface-0);border-radius:3px;overflow:hidden;margin:4px 0 6px}
+.prog i{display:block;height:100%;background:var(--accent-border)}
+.gcard{border:.5px solid var(--border-strong);border-radius:8px;padding:8px 10px;margin:8px 0;background:var(--surface-2)}
+.gtop{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.gtop .ttl{flex:1;min-width:0}
+.ctx{font-size:10px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+.dots{color:var(--text-muted);font-size:13px;line-height:1;padding:0 2px}
+.nr{display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:.5px dashed var(--border);font-size:11px}
+.nr:last-of-type{border-bottom:0}
+.nr .t{flex:1;min-width:0}
+.nr .t u{text-decoration:none;color:var(--text-primary)}
+.proj{display:block;font-size:9.5px;color:var(--text-muted)}
+.day{font-size:10px;font-family:var(--mono);border:.5px solid var(--border-strong);border-radius:6px;padding:1px 6px;color:var(--text-secondary);white-space:nowrap}
+.more{font-size:10.5px;display:flex;justify-content:space-between;margin-top:4px}
+.badge{font-size:9.5px;padding:1px 7px;border-radius:9px;background:var(--surface-1);border:.5px solid var(--border-strong);color:var(--text-secondary)}
+.badge.g{background:var(--good-bg);color:var(--good-text);border-color:var(--good-border)}
+.navb{margin:auto -12px -12px;border-top:.5px solid var(--border);display:grid;grid-template-columns:repeat(6,1fr);padding:6px 2px;background:var(--surface-1);font-size:8.5px;text-align:center;color:var(--text-muted)}
+.navb span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.navb .on{color:var(--accent-text);font-weight:500}
+.navb i{display:block;width:14px;height:14px;margin:0 auto 2px;border-radius:4px;background:var(--border-strong)}
+.navb .on i{background:var(--accent-border)}
+.deskgrid{display:grid;grid-template-columns:140px 1fr;gap:14px;flex:1}
+.side{border-right:.5px solid var(--border);padding-right:10px;font-size:11.5px}
+.side div{padding:5px 8px;border-radius:6px;color:var(--text-secondary)}
+.side .on{background:var(--accent-bg);color:var(--accent-text)}
+.cols{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.cols .gcard{margin:0}
+.pop{border:.5px solid var(--border-strong);border-radius:8px;padding:8px;background:var(--surface-1);margin:2px 0 6px 18px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.hdr{margin:8px 0 4px}
+.hdr .meta{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;color:var(--text-secondary)}
+.mini-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin:4px 0}
+.mini-cal span{height:13px;background:var(--surface-0);border-radius:2px}
+.mini-cal .sel{background:var(--accent-border)}
+.pick{display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:.5px solid var(--border);font-size:11.5px}
+.pick .t{flex:1;min-width:0}
+.two{display:flex;gap:6px}.two>*{flex:1}
+.sec{font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;margin:10px 0 2px}
+[dir=rtl]{text-align:right}
+[dir=rtl] .pop{margin:2px 18px 6px 0}
+[dir=rtl] .side{border-right:0;border-left:.5px solid var(--border);padding-right:0;padding-left:10px}
+.board .frame{min-width:0}
+@media (max-width:640px){.deskgrid{grid-template-columns:1fr}.side{display:none}.cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Focus Periods — wireframes · draft 2</h1>
+<p class="sub">Module <code>tracker/modules/01-focus-periods/</code> · Phase 4 · drawn by hand (the <code>wireframes</code> skill isn't built yet). Low fidelity: layout, content and states only. No brand, type or colour decisions. There is no <code>03-journeys.md</code> for this module, so frames cite spec sections and acceptance criteria only.</p>
+<p class="sub"><b>Grading.</b> Every frame is <b>proposal</b>. Captions cite <code>02-spec.md</code> 0.3: sections (§4.3) and criteria (AC-14). Anything drawn dashed in purple is a Suggested item (G-n): an option, not a requirement. Example data: today is <b>Tue 20 Oct</b>; the active period runs <b>5–31 Oct</b>, so 12 days are left, counting today. <b>Draft 2 follows the 0.3 change from goals to projects.</b></p>
+<div class="legend">
+  <span><i class="sw" style="background:var(--accent-bg)"></i>neutral notice</span>
+  <span><i class="sw" style="background:var(--good-bg)"></i>success</span>
+  <span><i class="sw" style="background:var(--warn-bg)"></i>error</span>
+  <span><i class="sw" style="border:1px dashed var(--sugg)"></i>Suggested (G-n), option only</span>
+  <span><i class="sw" style="background:var(--border)"></i>placeholder text</span>
+</div>
+
+<!-- ───────────── 1 ───────────── -->
+<h2><span class="n">1</span>Focus tab — active period</h2>
+<p class="lead">The whole page is the header plus one card per project, in the order you added them. The header gives dates and days left and nothing else: no tally, no colour that shifts near the end. Each card answers two questions: <i>where is this project?</i> (actions done) and <i>what do I do next?</i> (3 actions).</p>
+<div class="board">
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/focus</div>
+      <div class="hdr">
+        <div class="h" style="margin:0">Autumn push</div>
+        <div class="meta"><span>5 Oct – 31 Oct · 12 days left</span><span class="btn sm">Edit</span></div>
+      </div>
+      <div class="gcard">
+        <div class="gtop"><span class="ttl lnk">Beta launch</span><span class="dots">⋯</span></div>
+        <div class="ctx">Ship Tracker v1 › Beta with 5 users</div>
+        <div class="body">5 of 8 actions done</div>
+        <div class="prog"><i style="width:62%"></i></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>Write onboarding copy</u></span><span class="day">Mon 19 Oct</span></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>Fix login redirect</u></span><span class="day">Thu 22 Oct</span></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>Draft beta invite</u></span><span class="day">No day</span></div>
+        <div class="more"><span class="lnk">+ Action</span><span class="lnk">+2 more</span></div>
+      </div>
+      <div class="gcard">
+        <div class="gtop"><span class="ttl lnk">Training block 2</span><span class="dots">⋯</span></div>
+        <div class="ctx">Run a half marathon</div>
+        <div class="body">3 of 10 actions done</div>
+        <div class="prog"><i style="width:30%"></i></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>Long run 14 km</u></span><span class="day">Sat 24 Oct</span></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>Book a physio check</u></span><span class="day">No day</span></div>
+        <div class="more"><span class="lnk">+ Action</span></div>
+      </div>
+      <div class="navb"><span><i></i>Today</span><span><i></i>Calendar</span><span class="on"><i></i>Focus</span><span><i></i>Tools</span><span><i></i>Activities</span><span><i></i>Settings</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">§4.2 · §4.3 · AC-8 · AC-11 · AC-14 · AC-15 · AC-30 · AC-32 · active, top of page</p>Each card shows where the project sits (goal › milestone), its actions done out of total, and its next 3. "Mon 19 Oct" is overdue but is drawn exactly like the others. "+2 more" opens the project's page.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/focus (scrolled)</div>
+      <div class="gcard">
+        <div class="gtop"><span class="ttl lnk">Design reading list</span><span class="dots">⋯</span></div>
+        <div class="ctx">Read 4 books on design</div>
+        <div class="body"><span class="badge g">Done</span></div>
+      </div>
+      <div class="gcard">
+        <div class="gtop"><span class="ttl lnk">Balcony plan</span><span class="dots">⋯</span></div>
+        <div class="ctx">Renovate the balcony › Plan and budget</div>
+        <div class="p mut" style="margin:4px 0 2px">No actions yet</div>
+        <div class="more"><span class="lnk">+ Action</span></div>
+      </div>
+      <div class="gcard">
+        <div class="gtop"><span class="ttl lnk">Tax return</span><span class="dots">⋯</span></div>
+        <div class="ctx">No goal</div>
+        <div class="body">1 of 4 actions done</div>
+        <div class="prog"><i style="width:25%"></i></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>Collect receipts</u></span><span class="day">Fri 23 Oct</span></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>Book accountant</u></span><span class="day">No day</span></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>File online</u></span><span class="day">No day</span></div>
+        <div class="more"><span class="lnk">+ Action</span></div>
+      </div>
+      <div class="navb"><span><i></i>Today</span><span><i></i>Calendar</span><span class="on"><i></i>Focus</span><span><i></i>Tools</span><span><i></i>Activities</span><span><i></i>Settings</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">§4.3 · AC-12 · AC-13 · AC-32 · active, the edge cards</p>A finished project collapses to "Done" with no actions. A project with no actions says so and offers "+ Action" right there. A standalone project's context line reads "No goal".</figcaption>
+  </figure>
+</div>
+<div class="board wide" style="margin-top:16px">
+  <figure class="frame">
+    <div class="desk">
+      <div class="url">/focus · desktop</div>
+      <div class="deskgrid">
+        <div class="side"><div>Today</div><div>Calendar</div><div class="on">Focus</div><div>Tools</div><div>Activities</div><div>Concepts</div><div>Settings</div></div>
+        <div>
+          <div class="hdr" style="margin-top:0">
+            <div class="h" style="margin:0">Autumn push</div>
+            <div class="meta"><span>5 Oct – 31 Oct · 12 days left</span><span class="btn sm">Edit</span></div>
+          </div>
+          <div class="cols">
+            <div class="gcard">
+              <div class="gtop"><span class="ttl lnk">Beta launch</span><span class="dots">⋯</span></div>
+              <div class="ctx">Ship Tracker v1 › Beta with 5 users</div>
+              <div class="body">5 of 8 actions done</div>
+              <div class="prog"><i style="width:62%"></i></div>
+              <div class="nr"><i class="cb"></i><span class="t"><u>Write onboarding copy</u></span><span class="day">Mon 19 Oct</span></div>
+              <div class="nr"><i class="cb"></i><span class="t"><u>Fix login redirect</u></span><span class="day">Thu 22 Oct</span></div>
+              <div class="nr"><i class="cb"></i><span class="t"><u>Draft beta invite</u></span><span class="day">No day</span></div>
+              <div class="more"><span class="lnk">+ Action</span><span class="lnk">+2 more</span></div>
+            </div>
+            <div class="gcard">
+              <div class="gtop"><span class="ttl lnk">Training block 2</span><span class="dots">⋯</span></div>
+              <div class="ctx">Run a half marathon</div>
+              <div class="body">3 of 10 actions done</div>
+              <div class="prog"><i style="width:30%"></i></div>
+              <div class="nr"><i class="cb"></i><span class="t"><u>Long run 14 km</u></span><span class="day">Sat 24 Oct</span></div>
+              <div class="nr"><i class="cb"></i><span class="t"><u>Book a physio check</u></span><span class="day">No day</span></div>
+              <div class="more"><span class="lnk">+ Action</span></div>
+            </div>
+            <div class="gcard">
+              <div class="gtop"><span class="ttl lnk">Design reading list</span><span class="dots">⋯</span></div>
+              <div class="ctx">Read 4 books on design</div>
+              <div class="body"><span class="badge g">Done</span></div>
+            </div>
+            <div class="gcard">
+              <div class="gtop"><span class="ttl lnk">Balcony plan</span><span class="dots">⋯</span></div>
+              <div class="ctx">Renovate the balcony › Plan and budget</div>
+              <div class="p mut" style="margin:4px 0 2px">No actions yet</div>
+              <div class="more"><span class="lnk">+ Action</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <figcaption class="cap"><p class="p">§4.6 · AC-26 · desktop</p>Focus sits between Calendar and Tools in the sidebar. Cards flow into two columns, still in the order added.</figcaption>
+  </figure>
+</div>
+
+<!-- ───────────── 2 ───────────── -->
+<h2><span class="n">2</span>Project card — complete, reschedule, add, remove</h2>
+<p class="lead">Every management action happens inside the card it belongs to, with one control per effect: the checkbox completes, the day button reschedules, the title navigates. Nothing opens a new page except the titles.</p>
+<div class="board">
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/focus</div>
+      <div class="gcard">
+        <div class="gtop"><span class="ttl lnk">Beta launch</span><span class="dots">⋯</span></div>
+        <div class="ctx">Ship Tracker v1 › Beta with 5 users</div>
+        <div class="body">6 of 8 actions done</div>
+        <div class="prog"><i style="width:75%"></i></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>Fix login redirect</u></span><span class="day">Thu 22 Oct</span></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>Draft beta invite</u></span><span class="day">No day</span></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>Pick 5 beta users</u></span><span class="day">No day</span></div>
+        <div class="more"><span class="lnk">+ Action</span><span class="lnk">+1 more</span></div>
+      </div>
+      <div class="toast" style="margin-top:auto;display:flex;justify-content:space-between">Done: Write onboarding copy <span class="lnk">Undo</span></div>
+      <div class="navb" style="margin-top:6px"><span><i></i>Today</span><span><i></i>Calendar</span><span class="on"><i></i>Focus</span><span><i></i>Tools</span><span><i></i>Activities</span><span><i></i>Settings</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">§4.4 · AC-16 · AC-17 · after completing</p>"Write onboarding copy" was ticked. It left the list, the next action moved up, the count went from 5 to 6 of 8, and "+2 more" became "+1 more". The toast offers Undo for about 5 seconds.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/focus</div>
+      <div class="gcard">
+        <div class="gtop"><span class="ttl lnk">Beta launch</span><span class="dots">⋯</span></div>
+        <div class="ctx">Ship Tracker v1 › Beta with 5 users</div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>Fix login redirect</u></span><span class="day">Thu 22 Oct</span></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>Draft beta invite</u></span><span class="day" style="border-color:var(--accent-border);color:var(--accent-text)">No day</span></div>
+        <div class="pop">
+          <div class="lbl" style="margin-top:0">Day</div>
+          <div class="mini-cal"><span></span><span></span><span class="sel"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="lbl">Minutes <span class="mut">— needed to schedule</span></div>
+          <div class="field ph">e.g. 30</div>
+          <div class="two"><span class="btn sm">Clear day</span><span class="btn sm pri">Save</span></div>
+        </div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>Pick 5 beta users</u></span><span class="day">No day</span></div>
+      </div>
+      <div class="navb"><span><i></i>Today</span><span><i></i>Calendar</span><span class="on"><i></i>Focus</span><span><i></i>Tools</span><span><i></i>Activities</span><span><i></i>Settings</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">§4.4 · AC-18 · reschedule popover</p>Tapping the day button opens this right under the row. This action has no estimate, so Minutes is asked here; Tracker refuses a scheduled day without one. An action that already has an estimate shows only the calendar and buttons.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/focus</div>
+      <div class="gcard">
+        <div class="gtop"><span class="ttl lnk">Training block 2</span><span class="dots">⋯</span></div>
+        <div class="ctx">Run a half marathon</div>
+        <div class="body">3 of 10 actions done</div>
+        <div class="prog"><i style="width:30%"></i></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>Long run 14 km</u></span><span class="day">Sat 24 Oct</span></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>Book a physio check</u></span><span class="day">No day</span></div>
+        <div class="lbl">New action</div>
+        <div class="field">Buy race shoes</div>
+        <div class="two"><div><div class="lbl">Day (optional)</div><div class="field">Wed 21 Oct</div></div><div><div class="lbl">Minutes</div><div class="field ph">30</div></div></div>
+        <div class="two" style="margin-top:4px"><span class="btn sm">Cancel</span><span class="btn sm pri">Add</span></div>
+      </div>
+      <div class="navb"><span><i></i>Today</span><span><i></i>Calendar</span><span class="on"><i></i>Focus</span><span><i></i>Tools</span><span><i></i>Activities</span><span><i></i>Settings</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">§4.4 · AC-19 · add action, inline</p>"+ Action" expands into this form inside the card. There's no project field: the action goes to this card's project. Minutes appears only once a day is picked. After adding, the count reads 3 of 11.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/focus</div>
+      <div class="gcard">
+        <div class="gtop"><span class="ttl lnk">Training block 2</span><span class="dots" style="color:var(--accent-text)">⋯</span></div>
+        <div class="pop" style="margin-left:auto;width:70%">
+          <div class="row" style="padding:4px 0">Open project</div>
+          <div class="row" style="padding:4px 0;border-bottom:0">Remove from period</div>
+        </div>
+        <div class="line m"></div><div class="line s"></div>
+      </div>
+      <div class="sheet">
+        <div class="ttl">Remove "Training block 2" from Autumn push?</div>
+        <div class="p">The project and its actions stay exactly as they are.</div>
+        <div class="two"><span class="btn sm">Cancel</span><span class="btn sm pri">Remove</span></div>
+      </div>
+    </div>
+    <figcaption class="cap"><p class="p">§4.4 · AC-5 · AC-21 · card menu</p>The ⋯ menu holds only two items. Removing asks once and says plainly that nothing else changes.</figcaption>
+  </figure>
+</div>
+
+<!-- ───────────── 3 ───────────── -->
+<h2><span class="n">3</span>Focus tab — no period (with the project picker), upcoming, overlap error, loading</h2>
+<p class="lead">The tab is never blank. With no period it explains itself in one line and offers the form. The picker puts projects that already have work scheduled in the chosen dates first, so "the projects tbd in this period" are the first thing you see; you still tick each one yourself.</p>
+<div class="board">
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/focus</div>
+      <div class="h">Focus</div>
+      <div class="card">Pick a stretch of days and the projects you want to move in it. This page keeps just those projects and their next actions in view.</div>
+      <div class="lbl">Name</div><div class="field ph">e.g. Autumn push</div>
+      <div class="two"><div><div class="lbl">Start</div><div class="field">Tue 20 Oct</div></div><div><div class="lbl">End</div><div class="field">Sat 31 Oct</div></div></div>
+      <div class="lbl">Projects</div>
+      <div class="field ph">Search projects</div>
+      <div class="sec">Scheduled in these dates</div>
+      <div class="pick"><i class="cb on"></i><span class="t">Beta launch<span class="proj">Ship Tracker v1 · 12 Oct – 28 Oct</span></span></div>
+      <div class="pick"><i class="cb"></i><span class="t">Training block 2<span class="proj">Run a half marathon · 1 Oct – 15 Nov</span></span></div>
+      <div class="sec">Other projects</div>
+      <div class="pick"><i class="cb"></i><span class="t">Balcony plan<span class="proj">Renovate the balcony · No dates</span></span></div>
+      <div class="pick"><i class="cb"></i><span class="t">Tax return<span class="proj">No goal · 2 Nov – 20 Nov</span></span></div>
+      <div class="note" style="margin:4px 0 8px">Finished projects aren't listed.</div>
+      <span class="btn pri full">Start focus period</span>
+    </div>
+    <figcaption class="cap"><p class="p">§4.1 · §4.4 · AC-3 · AC-7 · AC-33 · empty, with picker</p>The start date defaults to today. The two groups re-sort as you change the dates. Each row shows the project's goal and its inferred dates, so you can tell "Beta launch" from a same-named project elsewhere.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/focus</div>
+      <div class="hdr">
+        <div class="h" style="margin:0">Winter base</div>
+        <div class="meta"><span>1 Nov – 30 Nov · Starts in 12 days</span><span class="btn sm">Edit</span></div>
+      </div>
+      <div class="gcard">
+        <div class="gtop"><span class="ttl lnk">Training block 2</span><span class="dots">⋯</span></div>
+        <div class="ctx">Run a half marathon</div>
+        <div class="body">3 of 10 actions done</div>
+        <div class="prog"><i style="width:30%"></i></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>Long run 14 km</u></span><span class="day">Sat 24 Oct</span></div>
+        <div class="more"><span class="lnk">+ Action</span></div>
+      </div>
+      <div class="gcard"><div class="gtop"><span class="ttl lnk">Tax return</span><span class="dots">⋯</span></div><div class="line m"></div><div class="line s"></div></div>
+      <div class="navb"><span><i></i>Today</span><span><i></i>Calendar</span><span class="on"><i></i>Focus</span><span><i></i>Tools</span><span><i></i>Activities</span><span><i></i>Settings</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">§4.1 · AC-9 · upcoming, none active</p>The same cards as an active period, so you can get the projects ready before day one. Only the header line differs.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/focus</div>
+      <div class="h">Focus</div>
+      <div class="lbl">Name</div><div class="field">Winter base</div>
+      <div class="two"><div><div class="lbl">Start</div><div class="field bad">Wed 28 Oct</div></div><div><div class="lbl">End</div><div class="field">Mon 30 Nov</div></div></div>
+      <div class="card w">These days overlap <b>Autumn push</b> (5 Oct – 31 Oct). Start on 1 Nov or later, or shorten Autumn push first.</div>
+      <div class="lbl">Projects</div>
+      <div class="pick"><i class="cb on"></i><span class="t">Training block 2<span class="proj">Run a half marathon · 1 Oct – 15 Nov</span></span></div>
+      <span class="btn pri full">Start focus period</span>
+      <div class="navb"><span><i></i>Today</span><span><i></i>Calendar</span><span class="on"><i></i>Focus</span><span><i></i>Tools</span><span><i></i>Activities</span><span><i></i>Settings</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">§1 · AC-2 · error: overlap</p>The error names the period in the way and its dates, and gives both ways out. Nothing you've typed is lost.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/focus</div>
+      <div class="hdr"><div class="line s" style="height:12px"></div><div class="line m"></div></div>
+      <div class="gcard"><div class="line m"></div><div class="line"></div><div class="line s"></div></div>
+      <div class="gcard"><div class="line m"></div><div class="line"></div><div class="line s"></div></div>
+      <div class="p mut"><i class="spin"></i>Loading focus period…</div>
+      <div class="navb"><span><i></i>Today</span><span><i></i>Calendar</span><span class="on"><i></i>Focus</span><span><i></i>Tools</span><span><i></i>Activities</span><span><i></i>Settings</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">AC-4 · loading</p>One query fills the whole page, so one loading state covers it.</figcaption>
+  </figure>
+</div>
+
+<!-- ───────────── 4 ───────────── -->
+<h2><span class="n">4</span>Edit period</h2>
+<p class="lead">One sheet for everything about the period itself. Projects are ticked in and out here; their own details are never edited from this page.</p>
+<div class="board">
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/focus · Edit</div>
+      <div class="bar"><span>Cancel</span><b>Edit focus period</b><span class="lnk">Save</span></div>
+      <div class="lbl">Name</div><div class="field">Autumn push</div>
+      <div class="two"><div><div class="lbl">Start</div><div class="field">Mon 5 Oct</div></div><div><div class="lbl">End</div><div class="field">Sat 31 Oct</div></div></div>
+      <div class="sec">In this period</div>
+      <div class="pick"><i class="cb on"></i><span class="t">Beta launch</span></div>
+      <div class="pick"><i class="cb on"></i><span class="t">Training block 2</span></div>
+      <div class="pick"><i class="cb on"></i><span class="t">Design reading list</span><span class="badge g">Done</span></div>
+      <div class="pick"><i class="cb on"></i><span class="t">Balcony plan</span></div>
+      <div class="pick"><i class="cb on"></i><span class="t">Tax return</span></div>
+      <span class="btn sm" style="margin:8px 0">+ Add projects</span>
+      <div class="note" style="margin:0 0 10px">A project that finished during this period stays in it.</div>
+      <span class="btn full" style="color:var(--warn-text);border-color:var(--warn-border)">Delete focus period</span>
+    </div>
+    <figcaption class="cap"><p class="p">§4.2 · AC-2 · AC-21 · edit</p>Projects already in the period stay listed even once finished, so you can untick them. "+ Add projects" opens the same picker as plate 3. The date fields run the same overlap check.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/focus · Edit</div>
+      <div class="dim"><div class="line m"></div><div class="line"></div><div class="line s"></div><div class="line m"></div><div class="line"></div></div>
+      <div class="sheet">
+        <div class="ttl">Delete Autumn push?</div>
+        <div class="p">Only the focus period goes. Your projects and actions stay exactly as they are.</div>
+        <div class="two"><span class="btn sm">Cancel</span><span class="btn sm" style="color:var(--warn-text);border-color:var(--warn-border)">Delete</span></div>
+      </div>
+    </div>
+    <figcaption class="cap"><p class="p">§4.2 · AC-5 · delete confirm</p>The confirm's whole job is to say that the projects are safe.</figcaption>
+  </figure>
+</div>
+
+<!-- ───────────── 5 ───────────── -->
+<h2><span class="n">5</span>Look-back — the period has ended</h2>
+<p class="lead">Two lists and one optional question. No grade, score, percent or "you finished 2 of 5". The lists are the whole report. The question is the drop rule's measure.</p>
+<div class="board">
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/focus</div>
+      <div class="h">Summer finish has ended</div>
+      <div class="p">1 Sep – 30 Sep</div>
+      <div class="sec">Finished</div>
+      <div class="pick">Design reading list</div>
+      <div class="pick">Flat move</div>
+      <div class="sec">Not finished</div>
+      <div class="pick" style="display:block">Beta launch<div class="note">5 of 8 actions done</div></div>
+      <div class="pick" style="display:block">Training block 2<div class="note">3 of 10 actions done</div></div>
+      <div class="sec">Over this period, the days-left count made me feel…</div>
+      <div class="two" style="margin:4px 0 2px"><span class="btn sm">oriented</span><span class="btn sm">behind</span></div>
+      <div class="note">Optional.</div>
+      <span class="btn pri full" style="margin-top:10px">Start a new period with these</span>
+      <span class="btn full" style="margin-top:6px">Done</span>
+    </div>
+    <figcaption class="cap"><p class="p">§4.5 · AC-10 · AC-22 · AC-23 · look-back</p>Shown once, the first time the tab opens after the period ends. Neither answer is pre-selected, and Done works without one. Unfinished projects show their progress the same way the cards do.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/focus · new</div>
+      <div class="bar"><span>Back</span><b>New focus period</b><span></span></div>
+      <div class="lbl">Name</div><div class="field ph">e.g. Autumn push</div>
+      <div class="two"><div><div class="lbl">Start</div><div class="field">Tue 20 Oct</div></div><div><div class="lbl">End</div><div class="field ph">Pick a day</div></div></div>
+      <div class="sec">Projects</div>
+      <div class="pick"><i class="cb on"></i><span class="t">Beta launch</span><span class="chip">carried over</span></div>
+      <div class="pick"><i class="cb on"></i><span class="t">Training block 2</span><span class="chip">carried over</span></div>
+      <span class="btn sm" style="margin:8px 0">+ Add projects</span>
+      <span class="btn pri full" style="margin-top:6px">Start focus period</span>
+    </div>
+    <figcaption class="cap"><p class="p">§4.5 · AC-24 · AC-25 · carry-over</p>The unfinished projects come pre-ticked and can be unticked. The old period ended 30 Sep and 1 Oct has passed, so the start defaults to today.</figcaption>
+  </figure>
+</div>
+
+<!-- ───────────── 6 ───────────── -->
+<h2><span class="n">6</span>Persian (فشرده), right to left, at 375 px</h2>
+<p class="lead">The same active period in Persian. Everything mirrors: the checkbox sits on the right, day buttons on the left, the bar fills right to left. Dates are Jalali via <code>useAppDate</code>. The bottom bar carries six items; this plate is the check that Persian labels still fit.</p>
+<div class="board">
+  <figure class="frame">
+    <div class="phone" dir="rtl" lang="fa">
+      <div class="url" dir="ltr">/focus · fa</div>
+      <div class="hdr">
+        <div class="h" style="margin:0">تمرکز پاییز</div>
+        <div class="meta"><span>۱۳ مهر – ۹ آبان · ۱۲ روز مانده</span><span class="btn sm">ویرایش</span></div>
+      </div>
+      <div class="gcard">
+        <div class="gtop"><span class="ttl lnk">راه‌اندازی بتا</span><span class="dots">⋯</span></div>
+        <div class="ctx">انتشار نسخه ۱ ترکر › بتا با ۵ کاربر</div>
+        <div class="body">۵ از ۸ کار انجام شده</div>
+        <div class="prog" style="direction:rtl"><i style="width:62%"></i></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>نوشتن متن خوش‌آمد</u></span><span class="day">۲۷ مهر</span></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>رفع مشکل ورود</u></span><span class="day">۳۰ مهر</span></div>
+        <div class="nr"><i class="cb"></i><span class="t"><u>پیش‌نویس دعوت‌نامه بتا</u></span><span class="day">بدون روز</span></div>
+        <div class="more"><span class="lnk">+ افزودن کار</span><span class="lnk">+۲ مورد دیگر</span></div>
+      </div>
+      <div class="gcard">
+        <div class="gtop"><span class="ttl lnk">برنامه بالکن</span><span class="dots">⋯</span></div>
+        <div class="ctx">بازسازی بالکن › برنامه و بودجه</div>
+        <div class="p mut" style="margin:4px 0 2px">هنوز کاری ندارد</div>
+        <div class="more"><span class="lnk">+ افزودن کار</span></div>
+      </div>
+      <div class="navb"><span><i></i>امروز</span><span><i></i>تقویم</span><span class="on"><i></i>فشرده</span><span><i></i>ابزارها</span><span><i></i>فعالیت‌ها</span><span><i></i>تنظیمات</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">§4.6 · AC-27 · AC-28 · fa, active</p>The tab and the object are both فشرده. The Persian copy here is draft, for layout only; the native-language pass owns the wording.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">375 px · bottom bar, en</div>
+      <div class="line m"></div><div class="line"></div><div class="line s"></div>
+      <div class="sugg" data-g="G1 · Suggested">If six labelled items don't fit at 360 px, drop the labels on the bottom bar and keep the icons. The build checks this in both languages.</div>
+      <div class="navb"><span><i></i>Today</span><span><i></i>Calendar</span><span class="on"><i></i>Focus</span><span><i></i>Tools</span><span><i></i>Activities</span><span><i></i>Settings</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">§4.6 · R4 · AC-28 · bottom bar</p>Focus goes third, right after Today and Calendar, matching the sidebar. G1 is the fallback if it gets cramped.</figcaption>
+  </figure>
+</div>
+
+<h2>Calls made here</h2>
+<p class="lead">Behaviour these wireframes decided that the spec left open, each <b>proposal</b>. Each one is accepted, refused or carried before the build plan. Numbers are never reused; retired calls stay listed.</p>
+<table>
+  <tr><th>#</th><th>Call</th><th>Why</th><th>Where</th></tr>
+  <tr><td>W1</td><td>"12 days left" is plain text in the date line, the same size as the dates. No big number.</td><td>A large countdown is the most likely way for the marker to become the motive (R3).</td><td>plates 1, 6</td></tr>
+  <tr><td>W2</td><td>The context line (goal › milestone) is one muted line under the title, cut short with "…" if long.</td><td>It gives context without competing with the project's own name. The spec decided it should exist (#13); this decides how it looks.</td><td>plate 1</td></tr>
+  <tr><td>W3</td><td>Finished projects stay where they are in the card order, collapsed to "Done".</td><td>Moving them to the bottom turns the order into a scoreboard.</td><td>plate 1</td></tr>
+  <tr><td>W4</td><td><i>Retired in draft 2.</i> The "no undone actions, not done" card.</td><td>A project can't be in that state: with no actions it's "No actions yet", and with all actions done it's "Done".</td><td>—</td></tr>
+  <tr><td>W5</td><td>In the add form, Minutes appears only once a day is picked.</td><td>The server only needs an estimate for a scheduled action; asking always adds a field most adds don't need.</td><td>plate 2</td></tr>
+  <tr><td>W6</td><td>The ⋯ menu holds exactly two items: Open project, Remove from period. Removing asks once.</td><td>The page edits the period, not the project.</td><td>plate 2</td></tr>
+  <tr><td>W7</td><td>The picker splits into "Scheduled in these dates" and "Other projects", re-sorts live as the dates change, has a search field, and notes that finished projects aren't listed.</td><td>It makes "projects tbd in that period" visible without pulling them in automatically (#11).</td><td>plate 3</td></tr>
+  <tr><td>W8</td><td>The overlap error names the conflicting period and its dates, and offers both ways out.</td><td>"Dates overlap" alone leaves you guessing which period.</td><td>plate 3</td></tr>
+  <tr><td>W9</td><td>An upcoming period shows full cards, with working actions, before it starts.</td><td>Lets you get projects ready before day one; costs nothing extra.</td><td>plate 3</td></tr>
+  <tr><td>W10</td><td>Carried-over projects in the new-period form are marked "carried over".</td><td>Shows why they're pre-ticked.</td><td>plate 5</td></tr>
+  <tr><td>W11</td><td>Desktop lays cards out in two columns.</td><td>One column wastes most of a desktop width.</td><td>plate 1</td></tr>
+  <tr><td>W12</td><td>Edit lists the period's projects as ticked rows, with "+ Add projects" opening the full picker, instead of showing the whole picker inline.</td><td>The edit sheet stays short. The full project list can be long.</td><td>plates 4, 5</td></tr>
+</table>
+
+<h2>Coverage</h2>
+<p class="lead">There are no journeys for this module, so coverage is by acceptance criterion and by state. Criteria with no visual surface are listed as such.</p>
+<table>
+  <tr><th>Criteria</th><th>Plate</th><th>Note</th></tr>
+  <tr><td>AC-1, AC-4, AC-6</td><td>no screen</td><td>Data and API; AC-4 is visible only as the single loading state (plate 3).</td></tr>
+  <tr><td>AC-2, AC-3, AC-33</td><td>3, 4</td><td>Overlap error; picker groups and note.</td></tr>
+  <tr><td>AC-5</td><td>2, 4</td><td>Remove and delete confirms.</td></tr>
+  <tr><td>AC-7 – AC-10</td><td>3, 1, 3, 5</td><td>Empty, active, upcoming, look-back.</td></tr>
+  <tr><td>AC-11 – AC-16, AC-32</td><td>1, 2</td><td></td></tr>
+  <tr><td>AC-17 – AC-19, AC-21</td><td>2, 4</td><td>AC-20 is retired.</td></tr>
+  <tr><td>AC-22 – AC-25</td><td>5</td><td></td></tr>
+  <tr><td>AC-26 – AC-28</td><td>1, 6</td><td></td></tr>
+  <tr><td>AC-29 – AC-31</td><td>all</td><td>Guards: nothing drawn anywhere shows a tally, an urgency colour, a status badge or a reminder. AC-31 (nothing on Today) has no screen of its own.</td></tr>
+</table>
+<table>
+  <tr><th>State</th><th>Plates</th></tr>
+  <tr><td>Empty (no period)</td><td>3</td></tr>
+  <tr><td>Not enough data (project with no actions)</td><td>1</td></tr>
+  <tr><td>Error (overlap)</td><td>3</td></tr>
+  <tr><td>Loading</td><td>3</td></tr>
+  <tr><td>Notices (Undo toast, confirms)</td><td>2, 4</td></tr>
+</table>
+<table>
+  <tr><th>Suggested</th><th>Drawn</th><th>Where</th></tr>
+  <tr><td>G1 · icon-only bottom bar as fallback</td><td>yes</td><td>plate 6</td></tr>
+</table>
+
+<h2>Changelog</h2>
+<ul class="lead">
+  <li><b>draft 2 · 2026-10-20</b> — From <code>02-spec.md</code> 0.3: projects instead of goals. Cards show actions done and a goal › milestone context line, with no status badge. "+ Action" has no project field. The picker groups projects scheduled in the period first (W7). W2 redefined, W4 retired, W12 added. The founder accepted the draft 1 layout as it was.</li>
+  <li><b>draft 1 · 2026-10-20</b> — From <code>02-spec.md</code> 0.2 (no journeys). Drawn by hand ahead of the <code>wireframes</code> skill. Rendered at 1200 and 375 px and checked.</li>
+</ul>
+
+<h2>References</h2>
+<ul class="lead">
+  <li><code>00-intake.md</code>; <code>02-spec.md</code> 0.3</li>
+  <li>Frame kit: <code>lifecycle/templates/wireframes.html</code> 0.1</li>
+</ul>
+
+</div>
+</body>
+</html>

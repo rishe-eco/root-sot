@@ -2,7 +2,7 @@
 
 *Source of truth. The bug catalogue and hygiene items. Status must be re-verified — read the grounding note. Update the changelog; don't fork.*
 
-**Version 0.8 · Status: mixed (see per-item grounding) · 2026-09-21 · Owner: _root**
+**Version 0.9 · Status: mixed (see per-item grounding) · 2026-10-21 · Owner: _root**
 
 ---
 
@@ -80,6 +80,8 @@ Also confirmed open, not new: `04-conventions.md` §7d is not upheld in the cont
 
 ## Open — UX / smaller
 
+- **B-16 — `updateAction` accepts a day without an estimate.** Convention 4 says `estimatedTimeMinutes` is required with `tbd`, and `addAction` enforces it, but `updateAction` only validates the estimate when one is sent (`mutations.ts:152-155`), so setting a day on an action with no estimate succeeds. Focus Periods' reschedule popover enforces it client-side. **Fix:** validate against the effective estimate (sent or existing) whenever the effective `tbd` is set. *(Found 2026-10-20, D-61.)*
+- **B-17 — The shared `Progress` bar fills left to right in Persian.** Every bar in the app (project pages, Focus cards) ignores `dir="rtl"`. **Fix:** flip the indicator's transform under RTL in `components/ui/progress.tsx`. *(Found in the Focus Periods live pass, 2026-10-21.)*
 - **B-7 — Project start/end dates not editable.** Fields exist and drive status, but no UI/mutation args to set them → projects stuck in "Backlog." **Fix:** add date args to `updateProject` + pickers. *(Verify — may have been addressed alongside status work.)*
 - **B-6 — Goals dropdowns show only root goals.** `IntervalForm`/`ProjectForm` reuse the default `goals` query (root-level only), so child goals can't be linked. **Fix:** pass an `includeAll` flag in those dropdowns.
 - **B-4 — Milestone prediction date locked after first edit.** Once set, it's read-only with no way to change/clear. **Fix:** add a "Change"/"Clear" affordance.
@@ -101,6 +103,7 @@ Before working a bug, re-read the cited file(s), confirm the issue still reprodu
 
 ## Changelog
 
+- **0.9 · 2026-10-21** — B-16 (`updateAction`'s estimate gap) and B-17 (the progress bar in RTL) added, both found building Focus Periods (D-61).
 - **0.8 · 2026-09-21** — The **dead-session redirect** bug recorded as fixed (D-60), and the token-in-console leak struck from Hygiene. Both are noted as *never having been on this list*: the first was masked by per-page error handling, the second by nobody reading the console on a page that worked.
 - **0.7 · 2026-08-25** — The review ladder never expanded, in any of the six labs, since the engine's first version: nothing wrote `reviewIntervalIndex` and neither review-outcome function was ever called. Fixed and recorded as closed (D-52). Found by diffing an unmerged branch, not by a review pass — no walkthrough would have caught it, since the symptom is a review date that is only wrong relative to what it should have been several reviews later.
 - **0.6 · 2026-08-25** — S-12 → S-22 opened from persona review pass 4. Three of them (S-12, S-14b, S-21) are consequences of the pass-3 remediation, which is the pass's central finding: the digit fold was applied at the site where the blocker was found rather than shared, so the same defect is still live in a second detector. Records that `04-conventions.md` §7d is not upheld in four of six content packs.

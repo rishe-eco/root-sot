@@ -2,7 +2,7 @@
 
 *Source of truth. What exists and what doesn't, verified. The most time-sensitive file in the canon — trust the date. Update the changelog; don't fork.*
 
-**Version 0.32 · Status: as-built · 2026-09-21 · Owner: _root**
+**Version 0.33 · Status: as-built · 2026-10-21 · Owner: _root**
 
 ---
 
@@ -20,6 +20,8 @@
 - Auth (register/login, JWT, bcrypt) with `requireAuth` + `ensureOwned`.
 - P/S/O/B priority.
 - **Tags & Time Themes** — one shared tag vocabulary (first-class `Tag`, colour) across projects/intervals/routines/actions/themes; **Time Themes**, recurring tag-bearing time spans that *softly surface* matching actions (never block). Tag inheritance: gathered actions locked, project actions seeded-editable. Band on the Calendar; banner + match marker on Today/Pre-day. *(built, verified, and **merged to `main`** — en/fa, `add_time_themes`, first m2m. See D-54.)*
+
+- **Focus Periods** — a dated, hand-picked set of projects with its own top-level **Focus** tab (`/focus`): dates and days left (no tally), one card per project with actions done, goal › milestone context and the next 3 actions, inline complete (Undo) / reschedule / add / remove, and a one-time look-back with carry-over. en/fa (Persian **فشرده**, draft). *(migration `add_focus_periods`; built and verified on `feat/focus-periods` — D-61.)* The first module built on the lifecycle method.
 
 **Root-aligned features** (grafted toward the brand)
 - **DoD Clarity Check** (F-1) — 5-dimension wizard, non-gating green/amber, persisted on `Goal`. *(migration `add_dod_clarity_to_goal`)*
@@ -75,6 +77,7 @@ An **Impact** prototype now lives here as well — **Noticing**, Act 1 of that p
 
 ## Changelog
 
+- **0.33 · 2026-10-21** — **Focus Periods** built and verified (D-61): API 64 files / 1,123 tests, client 27 / 270, live en/fa pass at 360 px. On `feat/focus-periods`.
 - **0.32 · 2026-09-21** — **Noticing** (Impact Act 1) added to Built & working (D-59): the first Impact-pillar surface here, phases 1–7 merged to `main`, with phase 8 and Gate A still unrun and human — recorded that way so “built” is not read as “works.” The “Other pillars” section corrected in two places: the fifth pillar is **Impact**, not the working name *Others*, and it is no longer absent from Tracker. Added the **expired-session fix** (D-60) to Recent fixes — an app-wide auth bug that surfaced only because a new tool was opened on an old session.
 - **0.31 · 2026-09-15** — Two recurrence/concurrency fixes merged to `main`: the **weekly/monthly/yearly recurrence bug** (D-56) where a custom day-selection interval fired only on its creation weekday/day-of-month (also fixed Time Themes), and the **concurrent sitting-open flake** (D-57), fixed by generalizing the per-user gather lock into `withUserLock`. The Recent-fixes note that called the recurrence bug "still-open" is now corrected.
 - **0.30 · 2026-09-15** — **Time Themes** added to Built & working (D-54): first-class tags shared across five entities and recurring, soft time themes. Built, verified (api + client suites, i18n + tsc clean, live en/fa), and merged to `main` alongside the duplicate-gather race fix (D-55). First m2m in the schema (`add_time_themes`).

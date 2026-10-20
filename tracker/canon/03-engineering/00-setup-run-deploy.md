@@ -2,7 +2,7 @@
 
 *Source of truth. How to get it running — locally and on a VPS. Update the changelog; don't fork.*
 
-**Version 0.1 · Status: as-built · 2026-07-22 · Owner: _root**
+**Version 0.2 · Status: as-built · 2026-10-21 · Owner: _root**
 
 ---
 
@@ -47,24 +47,21 @@ Scripts: `dev`, `build` (`vite build`), `preview`, `typecheck` (`react-router ty
 
 ## 3. Deployment (Linux VPS)
 
-Full walkthrough: `03-engineering/` inherits the deploy runbook (also kept at `../../DEPLOY-VPS.md`). Summary:
+The runbook is the code repo's `deploy/README.md`; the summary and the one-time setup are in `../../DEPLOY-VPS.md`. In short:
 
-1. **VPS:** Node 20; optionally nginx + certbot.
-2. **Backend:** `npm ci`; `.env` with `DATABASE_URL="file:./prisma/dev.db"`, `PORT=4000`, and a **strong random `JWT_SECRET` (≥32 chars)**; `npx prisma generate`; `npx prisma db push`; build and run (`npm run build && npm start` — the `build`/`start` scripts now exist).
-3. **Frontend:** set `VITE_API_URL` (e.g. `https://yourdomain.com/graphql`) **before** building — Vite bakes it in; `npm ci && npm run build` → static files in `dist/`.
-4. **Nginx:** serve `client/dist` and reverse-proxy `/graphql` → `http://127.0.0.1:4000`; HTTPS via `certbot --nginx`.
-5. **Process manager:** run the API under PM2 (`pm2 start dist/index.js --name tracker-api`; `pm2 save`; `pm2 startup`).
-
-> **Doc-drift note (corrected here):** the standalone `DEPLOY-VPS.md` was written when the API had no `build`/`start` scripts and suggested a ts-node invocation. Both scripts now exist (`build: tsc`, `start: node dist/index.js`) — prefer `npm run build && npm start`. A frontend Dockerfile exists but expects alignment with Vite's `dist` output; the nginx path above is the supported route.
+1. **The box** has no Node. The checkout is `/opt/stacks/tracker` (root-owned, on `main`). The API runs in Docker from `api/docker-compose.yml` (container `api-api-1`, `127.0.0.1:4000`), and the container runs `prisma migrate deploy` at every start. The SQLite database is `api/data/prod.db`. Secrets are in `api/.env` on the box only.
+2. **The web** is built off the box (`client/.env.production` sets `VITE_API_URL="/graphql"`, same origin). Host Nginx serves `/opt/stacks/tracker/current`, a link to the live release, and proxies `/graphql` to the container.
+3. **A push to `main` deploys** once the setup is done. CI (`.github/workflows/ci.yml`) runs on every pull request. `deploy.yml` runs it again on `main`, then sends the runner's client build to the box over one locked SSH key. The box's script backs up the database before a migration, rebuilds the container and swaps the web release.
 
 ## 4. Common pitfalls
 
 - **Frontend can't reach the API:** `VITE_API_URL` must be set *before* `npm run build`, and nginx must proxy the same path it names.
-- **502 Bad Gateway:** the API process isn't running / wrong port — check `pm2 status` and `curl http://127.0.0.1:4000/graphql`.
+- **502 Bad Gateway:** the API container isn't running or is still migrating — `sudo docker compose logs api` in `/opt/stacks/tracker/api`, and `curl -X POST -H 'Content-Type: application/json' --data '{"query":"{ __typename }"}' http://127.0.0.1:4000/graphql` on the box.
 - **CORS:** same-domain (nginx proxy) avoids it; cross-domain needs Express CORS config in `api`.
 
 ---
 
 ## Changelog
 
+- **0.2 · 2026-10-21** — §3 rewritten for what runs (Docker at `/opt/stacks/tracker`, no Node on the box) and for CD1 (CI on pull requests, a push to `main` deploys); the PM2 pitfall replaced.
 - **0.1 · 2026-07-22** — Initial. Local commands verified against both `package.json` files; deploy summarized from `DEPLOY-VPS.md` with the stale build/start caveat corrected.
