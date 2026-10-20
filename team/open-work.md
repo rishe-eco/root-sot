@@ -209,8 +209,10 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 
 | Project | Item | Needed by | From |
 |---|---|---|---|
-| root-app | Run the full e2e suite with TK1's changed `e2eFetch` (`apps/web/e2e/helpers.ts`, now also retrying `UND_ERR_SOCKET`): all 28 specs import it, and the review ran 4 | the next full e2e run: the next milestone, or before a deploy | `docs/development/TK1.md` in `rishe-eco/root-app` |
+| root-app | ~~Run the full e2e suite with TK1's changed `e2eFetch` (`apps/web/e2e/helpers.ts`, now also retrying `UND_ERR_SOCKET`): all 28 specs import it, and the review ran 4~~ Done at `verify NR1`, 2026-10-21: 136 of 137 passed, and the one failure (a timezone bug in `expireMockupGrants`) wasn't `e2eFetch`'s | the next full e2e run: the next milestone, or before a deploy | `docs/development/TK1.md` in `rishe-eco/root-app` |
 | root-app | The portal scrolls sideways at 180 px (264 px of content): the shared topbar's language switch and sign-out don't reflow. It fails the reflow rule on every portal page. TK1 didn't cause it | not assigned: the next portal layout stage | `docs/development/TK1.md` in `rishe-eco/root-app` |
+| root-app | The desk scrolls sideways at 360 px, on every desk page: below 720 px `desk.css` lays `.desk-nav` out as a row whose links don't wrap (879 px wide in Persian, 1027 px in English). It fails the 360 px rule for the whole desk. NR1 didn't cause it | not assigned: the next desk layout stage | `docs/development/NR1.md` in `rishe-eco/root-app` |
+| root-app | `j9a`'s "a chunked upload past the cap…" heap bound (32 MB) failed once under the full integration suite (40 MB grew), and passed 3 of 3 with the file alone. The bound is process-wide, so other files' garbage counts against it | the next full integration run: if it fails again, make the measurement independent of GC timing | `docs/development/NR1.md` in `rishe-eco/root-app` |
 
 ---
 
@@ -222,11 +224,13 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 |---|---|---|---|---|
 | Tracker | After B-15's deploy, sign in on the live site, open a goal group's manage page, and check that it shows "Goal group" and not "Ignored" | founder | the deploy after `fix/b-15-goal-group-status` merges | `docs/development/fix-B-15.md` in `rishe-eco/tracker` |
 | root-app | After TK1's deploy, sign in on the live site as a customer and open Support with a ticket in the list. Switch to another tab or app while staff answer that ticket from the desk, then come back to the Support tab: the answer shows with no reload | founder | the deploy after `tk1-ticket-refresh` reaches `main` | `docs/development/TK1.md` in `rishe-eco/root-app` |
+| root-app | After NR1's deploy, sign in on the live desk as sales and open Overview: the "Waiting on Root" tile equals the number of rows in the Needs Root box (both 0 when the box is empty; the tile larger only if the box is at its 20-row limit) | founder | the deploy after `nr1-needs-root-tile` reaches `main` | `docs/development/NR1.md` in `rishe-eco/root-app` |
 
 ---
 
 ## Changelog
 
+- **0.10 · 2026-10-21** — From `verify NR1` (root-app): TK1's full-e2e row struck (done by NR1's full run). Two rows added to *Owed*: the desk's sideways scroll at 360 px, and `j9a`'s heap-bound flake. A ceiling row for NR1's live-desk check.
 - **0.9 · 2026-10-20** — *Owed to later stages* added, with two rows from `verify TK1` (root-app): the full e2e run with the changed `e2eFetch`, and the portal's sideways scroll at 180 px. A ceiling row for TK1's real-focus check on the live site.
 - **0.8 · 2026-10-20** — *Past the verification ceiling* added, with its first row: the live-site check for Tracker's B-15 fix, from `verify --fix B-15`.
 - **0.7 · 2026-08-23** — Monitoring's human-work items (key verification + the answer-variant review, Persian review) promoted from the anticipated table to live items 12–13, the same day its build reached the end of its pass's full scope (phases 1–6) — the sixth and last specced skill tool to do so — and Phase 5 confirmed live that all 27 probe items are `key-unverified`. No rater-pass item exists here either, same reason as Delegation's. **The anticipated section is now empty** — every specced skill tool has code — renumbered §13 → §15 to note that rather than leave a stale table. Decided item renumbered 12 → 14.
