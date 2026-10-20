@@ -2,7 +2,7 @@
 
 *What every `verify` of a Tracker stage checks, after the lane report and the diff stat and before the stage record. Items are short so a review can tick them; each cites where it comes from. The plan's §5 section for the stage, or the change note's Stages, adds that stage's own acceptance and traps on top. Sources: `tracker/canon/02-architecture/04-conventions.md` 0.6, `03-engineering/01-testing.md` 0.3, `04-roadmap/01-known-issues-and-debt.md`.*
 
-**Version 0.1 · Status: planned · 2026-10-20 · Owner: founder**
+**Version 0.2 · Status: planned · 2026-10-21 · Owner: founder**
 
 ---
 
@@ -70,7 +70,7 @@ These can't be proven by a lane or a suite. Each goes to the stage record's *ver
 
 | Can't be checked here | Fallback | Condition | Goes to |
 |---|---|---|---|
-| e2e on the Linux machine | e2e on the Windows build machine (Edge) | until the browser channel is read from the environment | open-work |
+| The e2e suite on the Linux machine (one spec runs there, `config.md` §2) | the suite on the Windows build machine (Edge) | until the browser channel is read from the environment | open-work |
 | Two lanes' e2e at once | one e2e lane per machine | until the ports and the e2e database are movable (`config.md` §4) | open-work |
 | Persian copy quality, every new string | the glossary and the `i18n` checks | the founder or a Persian reader | open-work, founder |
 | Content packs' human review (every pack is `key-unverified`) | the content-invariant tests | the six labs' content review | `team/open-work.md` |
@@ -81,4 +81,5 @@ These can't be proven by a lane or a suite. Each goes to the stage record's *ver
 
 ## Changelog
 
+- **0.2 · 2026-10-21** — §7: the Linux ceiling row covers the suite only; one spec runs there (`config.md` §2). From `learned --consolidate`, the first (L-44).
 - **0.1 · 2026-10-20** — Planned, at rollout stage 1, from the conventions 0.6, testing 0.3 and the known issues. Not written by `project-config`, which doesn't exist yet.
