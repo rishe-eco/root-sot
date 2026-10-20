@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.42 · 2026-10-21**
+**Version 0.43 · 2026-10-21**
 
 ---
 
@@ -573,3 +573,13 @@ Four facts found on the way are written into the files as they are, not as the m
 **Decided by.** Founder, 2026-10-21: accepted on Claude's judgement, without a line-by-line review ("you decide on all - you know the rules"). Claude put the first four of the eight items to the founder as questions; the founder closed them and handed all eight to Claude. The wording is Claude's, from the inbox notes cited. Run on Opus at `learned --consolidate`.
 
 **Revisit.** When `project-config` exists and keeps `config.md` checked against the code, the first check may move there.
+
+## L-44 · 2026-10-21 · Tracker: one e2e spec runs on the Linux machine
+
+**Decision.** `lifecycle/projects/tracker/config.md` 0.3 §2 and §3: a scratch config in the ignored `client/.tmp/`, spreading `playwright.config.ts` with `use.channel: "chrome"`, and a scratch SQLite database pushed with `prisma db push`, run one spec on Linux. `review-checklist.md` 0.2 §7: the Linux ceiling row covers the full suite only.
+
+**Why.** `verify --fix B-15` spent about 15 minutes working this out, and `goals.spec.ts` passed 4/4 (`inbox/2026-10-20-verify-fix-B-15.md`). Once, but at a cost every Linux review would pay again, and it narrows a ceiling row.
+
+**Decided by.** Founder, 2026-10-21: accepted on Claude's judgement, without a line-by-line review ("you decide on all - you know the rules"). Claude put the first four of the eight items to the founder as questions; the founder closed them and handed all eight to Claude. The wording is Claude's, from the inbox notes cited. Run on Opus at `learned --consolidate`.
+
+**Revisit.** When `playwright.config.ts` reads the channel from the environment (`config.md` §4, owed), the workaround goes.
