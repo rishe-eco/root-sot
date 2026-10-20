@@ -2,6 +2,29 @@
 
 *Newest block first. Written by `handoff`, and by `build-phase` when it launches or lands a lane.*
 
+## 2026-10-20 · Rollout stage 2, session D: TK1 built, verified and deployed · lifecycle/stage-2d-journeys-change @ 46791ac · rishe-eco/root-app main @ 1ddf5d0
+
+*Completes the blocks below (8a launch TK1, 8b land TK1): TK1 is verified, merged and live. Change note 01 has no other stage.*
+
+**What was done**
+- `verify TK1` found and fixed two defects on the lane's branch: a failed refetch wiped the ticket list, and one after a create invited a duplicate. It added a test for the close alone, and fixed the e2e helper's missed retry (`UND_ERR_SOCKET`), which was the cause of `25-home`'s red test. The record is `docs/development/TK1.md` in `rishe-eco/root-app`. Column 8 is 19/19 (`6ac395e`), with open-work rows (`da872cf`) and a capture note (`ccdb03d`).
+- At the founder's word, Claude fast-forwarded root-app's `main` to `1ddf5d0` and pushed it. The `deploy` run succeeded and ended `DEPLOYED 1ddf5d0` (run 39472536519). The worktree and branch are removed, and the scratch logs and screenshots are in root-app's ignored `.tmp/TK1/`.
+- `lifecycle/projects/root-app/config.md` is 0.4 and `brief-common.md` 0.2, as the founder accepted (`46791ac`). Before them: config 0.3 (`73a859f`) and the gate's `ecosystem/modules/` fix, 76 of 76 cases (`f16784f`).
+
+**Next steps, in order**
+1. Read the top block of `lifecycle/STATE.md`. Then run `/decision-record` for rollout stage 2, session D (Opus, at the founder's word): L-33's five calls stand (`background: false` kept after the founder asked what it does); the new module folder `ecosystem/modules/01-root-studio-journeys/`; the gate's fix for `ecosystem/`; config 0.3 and 0.4, brief-common 0.2; the full e2e suite skipped at the founder's word; and `verify` run as a fork, with its first real use. Then `/handoff` to `lifecycle/STATE.md`, then `/learned`.
+
+**Carry-overs**
+- Everything after the deploy waits on the founder: `team/open-work.md` has the live-site check of TK1 (*Past the verification ceiling*) and two owed rows. Wp-dashboards #1, #2, #3 and #4–#8 have no change note yet.
+- `docs/development/TK1.md` doesn't hold the deploy run's URL, since adding it deploys again. Add it with the next root-app commit.
+- The 180 px topbar scrolls sideways (not TK1's) and is unassigned.
+
+**Questions for the founder**
+- Should `lifecycle/stage-2a-skills`, `stage-2b-skills`, `stage-2e-verify-fix` and `stage-2d-journeys-change` be merged into root-sot's `main` and pushed? Owed by: the end of session D.
+
+**Owed**
+- The full e2e suite hasn't run since the shared helper changed. Owed by: the next root-app deploy.
+
 ## 2026-10-20 · 8b land TK1 · lifecycle/stage-2d-journeys-change @ 0f5fd57 · rishe-eco/root-app tk1-ticket-refresh @ 99738c2
 
 *Replaces the lane row of the block below (8a launch TK1). Its next steps 2 and 3 are carried forward here.*
