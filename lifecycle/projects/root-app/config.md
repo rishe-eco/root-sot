@@ -2,7 +2,7 @@
 
 *Where things are for root-app work, how its suites run, and which resources each lane gets. Read by `build-phase` (lane resources, the card's paths), `verify` (suites, stage records, the milestone script, the deploy), `design-review` (the design system) and `close-out` (the canon). The rules a lane follows are in `brief-common.md`; what a review checks is in `review-checklist.md`.*
 
-**Version 0.1 · Status: planned · 2026-10-20 · Owner: founder**
+**Version 0.2 · Status: planned · 2026-10-20 · Owner: founder**
 
 **Grading.** Facts about the code are **as-built**, read from `rishe-eco/root-app` on 2026-10-20: `docs/development/README.md` on `wp-dashboards` @ `873c70b`, and `deploy/README.md` on `main` @ `46eeabf`. Facts about the Windows build machine are **as recovered**: the journeys brief (`templates/brief-common.example.md`) and the retrospective's finding 6. The build machine's memory files are not on this machine and weren't read again. **Planned:** the lane slots in §4 and the milestone script in §6, which the first stage's `verify` confirms or corrects. No module has run on the lifecycle here yet: the first is the journeys build's owed items, on the Change track (`README.md` §8, stage 2).
 
@@ -34,7 +34,7 @@
 - **Build machine:** Windows 10, Git Bash through the Bash tool; npm runs scripts through **cmd.exe**, so no `VAR=value` prefixes inside `package.json` scripts.
 - **Browser:** Edge, not Chrome. Export `E2E_BROWSER_CHANNEL=msedge`. Playwright's browser download is geo-blocked; nothing needs downloading.
 - **Setup per worktree:** `npm install`, then `npx prisma generate --schema apps/api/prisma/schema.prisma` after **every** install. If `npm install` strips `"dev": true` from `fsevents` in `package-lock.json`, revert it: `git checkout package-lock.json`.
-- **Docker:** Postgres 16 runs in Docker at `localhost:5432` (`root`/`root`), shared by every checkout. **Start Docker Desktop before a lane launches.** Never stop the container; never `prisma migrate reset` or `migrate dev` against any database but your own test database. Check free disk before an image build.
+- **Postgres:** on the build machine, Postgres 16 runs in Docker at `localhost:5432` (`root`/`root`), shared by every checkout. **Start Docker Desktop before a lane launches,** and never stop the container. On the Linux machine there is no Docker: a native Postgres 14 serves the same address, and its `root` role can create databases (granted 2026-10-20). Nothing in root-app needs 15 or later. Either way, never `prisma migrate reset` or `migrate dev` against any database but your own test database. Check free disk before an image build.
 - **Background Bash ignores a leading `cd`:** wrap as `bash -c 'cd <worktree> && …'`.
 - **Founder's devices and accounts:** the commit identity is the founder's (`markRice`); the founder pushes from more than one machine, so `git fetch` before reading or branching. Phones and test accounts for live checks: not recorded yet; the open-work file's *From the founder* table holds them when a check needs them.
 - **Heavy-runner lock:** none yet; one heavy suite at a time, by agreement, because the shared Postgres starves otherwise.
@@ -121,4 +121,5 @@ Not built yet. The first stage that needs one adds it under `tests/review/`, and
 
 ## Changelog
 
+- **0.2 · 2026-10-20** — §2: the Linux machine runs root-app's tests on a native Postgres 14, without Docker.
 - **0.1 · 2026-10-20** — Planned, at rollout stage 1, from the development README, the deploy runbook, the journeys plan §0.2–§0.3 and §8, the recovered brief and the retrospective. Not written by `project-config`, which doesn't exist yet; its first run on a root-app module reviews this file.
