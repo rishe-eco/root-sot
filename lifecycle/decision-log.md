@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.33 · 2026-10-20**
+**Version 0.34 · 2026-10-20**
 
 ---
 
@@ -409,3 +409,31 @@ Four facts found on the way are written into the files as they are, not as the m
 **Decided by.** Founder, 2026-10-20, choosing the first of the three options as Claude presented them ("Fix mode in verify", marked as recommended). The details of the mode (which files stand in for the card and report, the record's path, no column 8) are Claude's proposal as worded in that option. The founder chose it, but hasn't reviewed it beyond that. This entry was written on Opus, not the Sonnet that `decision-record`'s frontmatter sets, at the founder's word ("proceed").
 
 **Revisit.** When the fix mode is built: whether the fix commit's message is enough of a report, or a Fix needs a short report file of its own. Also whether known-issues entries that turn out stale, as B-15's did, should be corrected by `verify` or left to `close-out`. B-15's entry describes "Backlog" on the goals list, which was already fixed before the method; the defect was a goal group's manage page showing "Ignored".
+
+## L-35 · 2026-10-20 · Rollout stage 2, session E: `verify`'s fix mode is built, and B-15 is verified and merged
+
+**Decision.**
+- **The fix mode L-34 decided is built** (`438ce2b`, branch `lifecycle/stage-2e-verify-fix`, stacked on `lifecycle/stage-2b-skills`):
+  - `lifecycle/skills/verify/SKILL.md` and `context.sh` take `verify --fix <id> <branch> [<project>]`. The injected context gives the known-issues entry in place of a card, and the fix branch's commit messages in place of a lane report. The record is `docs/development/fix-<id>.md` in the code repo, with the stage record's sections plus **Cause**. A Fix writes no column 8 and no stage-list line, and runs no full suites.
+  - `lifecycle/bin/gate` gains `gate <project> fix <id> <branch>`. It checks the project's config, the issue's entry, the branch in this machine's checkout, a test file the branch adds or changes, and a commit naming the id whose message has a body.
+  - `lifecycle/skills/shared/build.sh` holds the new lookups (`base_of`, `known_issues`, `issue_line`, `issue_entry`, `is_test`). The gate sources it in a subshell.
+  - `lifecycle/bin/gate-test` passes 75 of 75 cases, 22 of them new. Shellcheck is clean. `bin/install-skills --check` is clean after `verify` was reinstalled.
+- **Claude's calls inside L-34, not reviewed by the founder line by line** (also listed in `lifecycle/skills/verify/reference.md` 0.3):
+  - the gate's "reproducing test" check is mechanical: a changed file that looks like a test. Proving that the test fails without the fix is `verify`'s step 1. It reverts the branch's other changed files to the merge base and reruns the tests. A failure caused only by a missing export doesn't count;
+  - the base branch is `main`, else `master`, because no config row names it;
+  - the project is found from the id's entry in a `*known-issues*.md` file, or named as a third argument;
+  - `verify` flags a stale known-issues entry and doesn't correct it, which keeps L-34's *Revisit* question open.
+- **B-15 used the mode.** `/verify --fix B-15 fix/b-15-goal-group-status` returned "ready to fast-forward", with 0 fixes. The manage-page test failed against the merge base `e90ceda` on the "Ignored" badge. Its record is `docs/development/fix-B-15.md` (`rishe-eco/tracker` `94d2e63`). It added an open-work row for the live-site check (`4a05a0d`) and a capture note (`f48c6f4`). Claude fast-forwarded Tracker's `main` to `94d2e63`, pushed it, and deleted the fix branch.
+
+**Why.** L-34 left B-15 unverified until the fix mode existed. The first run answers one part of L-34's *Revisit*: the commit message was enough of a report. `verify` checked its cause against the code and confirmed it, and needed no report file of its own.
+
+**Decided by.** The founder, 2026-10-20, asked for the build in the session prompt, as L-34 laid it out. The mode's details above are Claude's, accepted on Claude's judgement, without a line-by-line review. The founder ran `/verify --fix B-15 …`. They then told Claude "you can merge into tracker main btw", and after that, "push tracker, and delete the branch". This entry was written on Opus, not the Sonnet that `decision-record`'s frontmatter sets, at the founder's word ("proceed on opus").
+
+**Revisit.**
+- **B-15's stale entry:** who corrects `tracker/canon/04-roadmap/01-known-issues-and-debt.md` line 27, and the grounding note in `tracker/canon/01-product/00-concepts-and-hierarchy.md` §5. It is still open from L-34, and it waits on the founder.
+- **Tracker's config, raised by the review, each needing the founder's yes:**
+  - `config.md` §3 should name `npx tsc --noEmit` in place of `npm run typecheck`;
+  - the "both colour schemes" item in `review-checklist.md` §4, since Tracker has no dark scheme;
+  - whether Chrome with a scratch database is the Linux fallback for targeted e2e.
+- **The base branch:** if a project's base isn't `main`, give `config.md` a row for it, and have `base_of` read it.
+- **The deploy:** B-15 isn't live until the founder deploys. The live-site check is in `team/open-work.md`.
