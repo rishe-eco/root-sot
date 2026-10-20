@@ -65,7 +65,7 @@ Don't ask the founder anything mid-draw. A choice the files leave open is a call
 
 ## How it ends
 
-At most ten lines: the plates and the frames on each, the calls made, the steps with no screen, what the render showed, the gate's line and the commit, ending with "not pushed". The next step is the design step (4b, the founder's, in a design tool) when it is planned, then `ux-review` (`design` mode). Without a design step, it is `ux-review` on these wireframes. Until `ux-review` is built (rollout stage 4), name it as the founder's step. End exactly like this (`README.md` §5 rule 8):
+At most ten lines: the plates and the frames on each, the calls made, the steps with no screen, what the render showed, the gate's line and the commit, ending with "not pushed". The next step is the design step (4b, the founder's, in a design tool) when it is planned, then `ux-review` (`design` mode). Without a design step, it is `ux-review` on these wireframes. End exactly like this (`README.md` §5 rule 8):
 
 Run `/handoff`, then `/learned`, then `/clear`, then paste:
 ```

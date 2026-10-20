@@ -77,7 +77,7 @@ LIFECYCLE_ARGS
 
 ## How it ends
 
-At most twelve lines: the stages with their sizes and milestones, the defects found, the items accepted, refused and carried, the planning decisions for the founder to veto, the facts owed, the gate's line, the commit and whether it was pushed. The next step is `project-config <project>` when the project has no config (until that skill is built, name it as the founder's step), otherwise `/build-phase <first stage>` (Opus, medium) from the code checkout. End exactly like this (`README.md` §5 rule 8):
+At most twelve lines: the stages with their sizes and milestones, the defects found, the items accepted, refused and carried, the planning decisions for the founder to veto, the facts owed, the gate's line, the commit and whether it was pushed. The next step is `project-config <project>` when the project has no config, otherwise `/build-phase <first stage>` (Opus, medium) from the code checkout. End exactly like this (`README.md` §5 rule 8):
 
 Run `/handoff`, then `/learned`, then `/clear`, then paste:
 ```
