@@ -2,7 +2,7 @@
 
 *Facts about building software that hold beyond the project that taught them. `learned --consolidate` adds to it, with the founder accepting each line; `build-plan`'s defect pass and every `verify` may read it. Each line is a rule, then where it was learned. Lessons about how to work (the method, a machine, a skill) go elsewhere: see `skills-plan.md`, `learned`.*
 
-**Version 0.1 · Status: seeded from the IMNSTR trial · 2026-10-19 · Owner: _root**
+**Version 0.2 · Status: seeded from the IMNSTR trial · 2026-10-21 · Owner: _root**
 
 **Grading.** Each line is *evidence* from one event in one project (IMNSTR, 2026-10), cited by log, unless it says otherwise. A second project that meets it again raises it to *strong*.
 
@@ -36,6 +36,11 @@
 
 - **A test clock moves scripts' timers, not CSS transitions.** After running the clock past a class change, wait for the CSS to settle too. *Seen:* `08c-PL1-verify`, *Spec gaps* 4.
 
+## Shell scripts
+
+- **No apostrophe in the word of `${var:-…}` or `${var:+…}` inside a double-quoted string.** Bash reads it as an opening quote: the script fails at EOF, or the word expands to nothing. Write that message in an `if`/`else`. `bash -n` catches the first; shellcheck missed the second, which only running the branch showed. *Seen:* root-sot, `lifecycle/skills/verify/context.sh`, twice (rollout stage 2, sessions B and E).
+
 ## Changelog
 
+- **0.2 · 2026-10-21** — *Shell scripts*: no apostrophe inside `${var:-…}` or `${var:+…}` in double quotes. From `learned --consolidate`, the first (L-38).
 - **0.1 · 2026-10-19** — Seeded from the IMNSTR trial: 10a's eight product notes and five lines from the build logs (`trial-run/findings.md`, LE-7).
