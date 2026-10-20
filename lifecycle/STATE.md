@@ -2,6 +2,36 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-20 · Rollout stage 2, session D: the Change track's first run (TK1) · lifecycle/stage-2d-journeys-change @ 6646ac7 · rishe-eco/root-app main @ 1ddf5d0
+
+*Completes session E's next step 1 (session D). Carries forward session E's carry-overs and questions, apart from the one on L-33's five calls, which L-36 closes. The module's own state is in `ecosystem/modules/01-root-studio-journeys/STATE.md`.*
+
+**What was done**
+- Change note 01 (TK1: the portal's Support page refreshes tickets) was written by hand, built by a Sonnet lane, reviewed by `verify` and deployed: root-app's `main` is `1ddf5d0`, and the `deploy` run ended `DEPLOYED 1ddf5d0`. The module folder `ecosystem/modules/01-root-studio-journeys/` is new, and `lifecycle/status.md` links to it (column 8 is 19/19).
+- Method changes: the gate reads `ecosystem/modules/` as root-app's (`f16784f`, `gate-test` 76 of 76); `lifecycle/projects/root-app/config.md` 0.4 and `brief-common.md` 0.2 (`73a859f`, `46791ac`).
+- L-36 records it, with L-33's five calls confirmed (`6646ac7`). `decision-record` and both handoffs ran on Opus or Sonnet as the founder directed.
+- **Branches:** `lifecycle/stage-2d-journeys-change` is stacked on `lifecycle/stage-2e-verify-fix`, then `2b`, then `2a`. None is merged into `main` or pushed.
+
+**Next steps, in order**
+1. Read the top block of `lifecycle/STATE.md`, then L-36 in `lifecycle/decision-log.md` and `ecosystem/modules/01-root-studio-journeys/STATE.md`. Ask the founder the first question below. Then pick the next owed item with them: a second Change note for the journeys module (wp-dashboards #1, #2 or #3, in `docs/development/wp-dashboards.md` in `rishe-eco/root-app`), written by hand from `lifecycle/templates/change-note.md` until `spec change` exists (stage 3), then `/build-phase <stage>`, `--land` and `/verify <stage>`. Start the session from the root-app checkout. Model: Opus, medium effort for the card, high for verify. root-sot stays on `lifecycle/stage-2d-journeys-change` unless it has been merged, because the installed skills read their files from that checkout.
+
+**Carry-overs**
+- A push to root-app's `main` deploys (`config.md` §7). Run the full e2e suite first; it is owed since `apps/web/e2e/helpers.ts` changed (L-36 *Revisit*).
+- Only the founder can run `decision-record`, `handoff`, `learned`, `verify`, `build-phase` and `lifecycle-status`. `/debug` reads the folder the session started in.
+- `skills-plan.md` §0 still says skills live in `root-sot/.claude/skills/`, which L-31 replaced. That file is the founder's to change.
+- IMNSTR's checkout isn't on the Linux machine. `skill-creator`'s eval loop wasn't run for session B's skills or the fix mode.
+
+**Questions for the founder**
+- Should `lifecycle/stage-2a-skills`, `stage-2b-skills`, `stage-2e-verify-fix` and `stage-2d-journeys-change` be merged into root-sot's `main` and pushed? Owed by: the next session's start.
+- Who corrects B-15's stale entry at line 27 of `tracker/canon/04-roadmap/01-known-issues-and-debt.md`, and the grounding note in §5 of `tracker/canon/01-product/00-concepts-and-hierarchy.md`? Owed by: the next Tracker Fix.
+- Should `lifecycle/projects/tracker/config.md` §3 name `cd client && npx tsc --noEmit` in place of `npm run typecheck`? Owed by: the next Tracker session.
+- Tracker has no dark scheme: drop the "both colour schemes" item in `lifecycle/projects/tracker/review-checklist.md` §4 for Tracker, or make the missing scheme a known issue? Owed by: the next Tracker review.
+- Should Tracker's `config.md` record Chrome with a scratch database as the Linux fallback for targeted e2e? Owed by: the next Tracker review that needs e2e.
+
+**Owed**
+- The live-site checks of B-15 (Tracker) and TK1 (root-app) are rows in `team/open-work.md`, and wait on the founder.
+- The deploy run's URL goes into `docs/development/TK1.md` with the next root-app commit.
+
 ## 2026-10-20 · Rollout stage 2, session E: verify's fix mode, and B-15 verified · lifecycle/stage-2e-verify-fix @ 5068f79 · rishe-eco/tracker main @ 94d2e63
 
 *Completes session C's next step 1 (B-15) and session B's. Carries forward session D, the carry-overs and the questions still open.*
