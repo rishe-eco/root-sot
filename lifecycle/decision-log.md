@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.39 · 2026-10-21**
+**Version 0.40 · 2026-10-21**
 
 ---
 
@@ -543,3 +543,13 @@ Four facts found on the way are written into the files as they are, not as the m
 **Decided by.** Founder, 2026-10-21: accepted on Claude's judgement, without a line-by-line review ("you decide on all - you know the rules"). Claude put the first four of the eight items to the founder as questions; the founder closed them and handed all eight to Claude. The wording is Claude's, from the inbox notes cited. Run on Opus at `learned --consolidate`.
 
 **Revisit.** If a way to switch the model per skill is found and works, restore the stop.
+
+## L-41 · 2026-10-21 · Root `CLAUDE.md`: scope searches, and run commands that can wait for input on their own
+
+**Decision.** The root `CLAUDE.md` gains a *Shell* section: scope file searches to the repo or its parent folder, never `find /`; and run anything that can wait for input (`psql`, `ssh`, a push with no key) in a Bash call of its own, never after commits or a `git worktree add` in the same call.
+
+**Why.** Two sessions lost a Bash call to the 120 s timeout: session B's `find /` (`inbox/2026-10-20-stage-2-session-b.md`), and session D's `psql` waiting for a password after a commit and a worktree add, whose results went unseen in the background (`inbox/2026-10-20-stage-2-session-d.md`). About 5 minutes in all. `CLAUDE.md` is now about 45 lines.
+
+**Decided by.** Founder, 2026-10-21: accepted on Claude's judgement, without a line-by-line review ("you decide on all - you know the rules"). Claude put the first four of the eight items to the founder as questions; the founder closed them and handed all eight to Claude. The wording is Claude's, from the inbox notes cited. Run on Opus at `learned --consolidate`.
+
+**Revisit.** None.
