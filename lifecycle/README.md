@@ -2,7 +2,7 @@
 
 *The method behind the lifecycle skills: the three tracks of work, the phases and their gates, where every file lives and who writes it, the session and build rules that keep usage down, and how lessons are kept. The skills themselves are specified in `skills-plan.md`.*
 
-**Version 0.7 · Status: plan — nothing here is built yet · 2026-10-20 · Owner: _root**
+**Version 0.8 · Status: plan — nothing here is built yet · 2026-10-21 · Owner: _root**
 
 ---
 
@@ -139,7 +139,7 @@ One file pattern per row, so a skill can grep its own rights.
 
 ## 5. Session rules
 
-Rules 1–6 from the retrospective's findings 1, 3 and 6; rule 7 from `learned`; rule 8 from the founder:
+Rules 1–6 from the retrospective's findings 1, 3 and 6; rules 7 and 9 from `learned`; rule 8 from the founder:
 
 1. **One session per milestone at most** for orchestration. Planning is its own session, which ends once the plan is committed and pushed.
 2. **`/clear`, not `/compact`**, once `handoff` has written `STATE.md`. `/compact` reads the whole context it summarises; `/clear` is free.
@@ -149,6 +149,7 @@ Rules 1–6 from the retrospective's findings 1, 3 and 6; rule 7 from `learned`;
 6. **Durable environment knowledge goes in the repo's CLAUDE.md**, not in one machine's memory.
 7. **Every session ends `handoff` → `learned` → `/clear`.** Lessons are captured as notes and never edited into instructions mid-flight; `learned --consolidate` integrates them in batches (15 notes or 14 days, and at each milestone during a build), with the founder accepting each change.
 8. **Every session's last message is the next session's prompt**, in a fenced block the founder pastes after `/clear`. It is the first next step of the `STATE.md` block just written, copied word for word: which block to read, then the skill or task, with module, model, effort, branch and checkout. A session with no next step says so. With the skills, `handoff` prints it and `learned` prints it again last; before them, the session writes it itself.
+9. **A session checks the ground before its first step.** The previous session's work landed: its branch is where the prompt says, merged or not, and the `STATE.md` block and decision-log entry it names exist. If not, stop and ask before branching. And `bin/install-skills --check` lists nothing; if it lists a skill, reinstall before using it.
 
 ## 6. Build rules
 
@@ -194,6 +195,7 @@ Each stage ends by checking usage against the baseline.
 
 ## Changelog
 
+- **0.8 · 2026-10-21** — §5 rule 9: a session checks that the previous session's work landed and that the installed skills match the checkout. From `learned --consolidate`, the first (L-39).
 - **0.7 · 2026-10-20** — §3: skills live in `skills/<skill>/SKILL.md` until the plugin, installed by `bin/install-skills`. §5 rule 8: every session ends with the next session's prompt. §8: the baseline is the journeys build's total and the IMNSTR trial's per-phase costs.
 - **0.6 · 2026-10-20** — §3 and §4 list `skills/<skill>/reference.md`, the seeds moved out of `skills-plan.md` in its cut back (L-22 to L-27).
 - **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Method:* where an outside project's modules live; Change during a build, and the small Change; phases 4b and 7b, and launch as an event; gates for phases 5, 7, 9 and 10; §4 one file pattern per row, with the build plan, project configs and open-work's writers; `status.md` values; the founder's supplies; `MS<n>`, criterion prefixes and pass-scoped findings. *Every-session skills:* a module's `decisions.md`; the kind in a change file's name; `engineering-checklist.md`; consolidation at each milestone. *Design and build plan:* a size's units. *Build:* card length counted by body. *Reviews:* `ux-review`'s first mode is `design`. *Closing the loop:* a capability leaves `revise` for `spec change`; a new language or audience runs personas, then journeys. *Foundation:* stage 1 points at the full list.
