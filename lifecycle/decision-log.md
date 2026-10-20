@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.41 · 2026-10-21**
+**Version 0.42 · 2026-10-21**
 
 ---
 
@@ -563,3 +563,13 @@ Four facts found on the way are written into the files as they are, not as the m
 **Decided by.** Founder, 2026-10-21: accepted on Claude's judgement, without a line-by-line review ("you decide on all - you know the rules"). Claude put the first four of the eight items to the founder as questions; the founder closed them and handed all eight to Claude. The wording is Claude's, from the inbox notes cited. Run on Opus at `learned --consolidate`.
 
 **Revisit.** None.
+
+## L-43 · 2026-10-21 · `build-phase` checks `config.md`'s facts and the card's commands against the code before drafting
+
+**Decision.** `skills/build-phase/SKILL.md` Launch step 3 gains two checks: `git fetch` and compare `config.md`'s branch and deploy rows with the remote, correcting a wrong row with the founder's yes first; and read the script behind each targeted command the card will name, checking that it passes its arguments on. `skills/build-phase/reference.md` goes to 0.3.
+
+**Why.** At TK1, root-app's `config.md` said nothing was merged and nothing deployed on push, while `origin/main` was 183 commits ahead and `deploy.yml` deployed on push (`inbox/2026-10-20-stage-2-session-d.md`). At NR1 the card named `npm run test:integration -- <file>`, whose runner ignored its arguments: the lane started the full suite, killed it, and a leftover run turned its next run red (`inbox/2026-10-20-verify-NR1.md`; fixed in `rishe-eco/root-app` `a38c8c9`). Two sessions, both a card trusting a written fact.
+
+**Decided by.** Founder, 2026-10-21: accepted on Claude's judgement, without a line-by-line review ("you decide on all - you know the rules"). Claude put the first four of the eight items to the founder as questions; the founder closed them and handed all eight to Claude. The wording is Claude's, from the inbox notes cited. Run on Opus at `learned --consolidate`.
+
+**Revisit.** When `project-config` exists and keeps `config.md` checked against the code, the first check may move there.
