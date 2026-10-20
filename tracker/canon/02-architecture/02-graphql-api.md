@@ -2,7 +2,7 @@
 
 *Source of truth. The API contract: queries, mutations, types, validation. Update the changelog; don't fork.*
 
-**Version 0.1 · Status: as-built (core) / verify (journal & onboarding ops, marked) · 2026-07-22 · Owner: _root**
+**Version 0.2 · Status: as-built (core) / verify (journal & onboarding ops, marked) · 2026-10-21 · Owner: _root**
 
 ---
 
@@ -45,6 +45,8 @@ Single endpoint: **`POST /graphql`**. Every operation except `register` / `login
 | `preDayStatus` | `date` | `PreDayStatus!` |
 | `notDoneActionsForDate` | `date` | `NotDoneActionsForDate!` |
 | `me` | — | `User` |
+| `focusOverview` | `dateKey` (the client's today) | `FocusOverview!` — `lookback` (latest ended, only if unseen), `active` (contains `dateKey`), `upcoming` (earliest after it); each nullable, projects in added order with actions, goal and milestone→goal |
+| `focusPeriodRanges` | — | `[FocusPeriodRange!]!` — id, title, dates; for the form's overlap message |
 
 > Note: the default `goals` query returns only root-level goals (`parentGoalId` and `parentMilestoneId` null). Dropdowns needing all goals pass an `includeAll`-style flag — see bug **B-6**.
 
@@ -57,6 +59,8 @@ Single endpoint: **`POST /graphql`**. Every operation except `register` / `login
 **Goals:** `addGoal`(title!, dod) · `updateGoal`(id!, title, dod, startDate, endDate) · `deleteGoal`(id!)
 
 **Milestones:** `addMilestone`(goalId!, title!, doa, predictionDate) · `updateMilestone`(id!, title, doa, predictionDate) · `deleteMilestone`(id!)
+
+**Focus Periods:** `createFocusPeriod`(input!: FocusPeriodInput) · `updateFocusPeriod`(id!, input!) — full replace of title, dates and `projectIds`; only newly added projects are checked (owned, not done) · `deleteFocusPeriod`(id!): Boolean · `recordFocusLookback`(id!, answer: "oriented"|"behind"|null, dateKey!) — only after the period has ended. Rejects end before start, any shared day with another period, and more than 30 projects. `FocusPeriodInput` = `{ title!, startDate!, endDate!, projectIds! }`.
 
 **Intervals:** `addInterval`(title!, estimatedTimeMinutes!, status, endTime, repeatValue, repeatUnit, customRepeatDates, customRepeatRule, steps, goalId, milestoneId, projectId) · `updateInterval`(id!, …) · `deleteInterval`(id!)
 
@@ -87,4 +91,5 @@ Later additions (present in the schema, exposed via these approximate operations
 
 ## Changelog
 
+- **0.2 · 2026-10-21** — Focus Periods: `focusOverview`, `focusPeriodRanges`, and four mutations (D-61). `Milestone.goal` now resolves (it had no type resolver behind a non-null field).
 - **0.1 · 2026-07-22** — Initial. Core surface from the API doc, cross-checked to the schema; later journal/notes/onboarding ops listed from memory and flagged verify-in-code.

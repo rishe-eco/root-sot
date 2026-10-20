@@ -2,7 +2,7 @@
 
 *Source of truth. The domain vocabulary. Read before touching code — these words have precise meanings here. Update the changelog; don't fork.*
 
-**Version 0.2 · Status: as-built · 2026-09-15 · Owner: _root**
+**Version 0.3 · Status: as-built · 2026-10-21 · Owner: _root**
 
 ---
 
@@ -45,6 +45,11 @@ Terms are grouped. Where a term maps to a model field, the field is named so you
 - **Surfacing (soft filter)** — the only thing a Time Theme does to actions: re-rank matching ones to the top and draw a coloured band. It changes **order, never membership** — any action can still go anywhere. Match rule: an action's tags overlap the theme's tags.
 - **Tag inheritance** — how tags reach an action. **Gathered** actions inherit the source interval/routine's tags, **locked** (snapshot at gather; edit the template to change). **Project-linked** actions are seeded from the project's tags, then **editable**. **Standalone** actions start untagged.
 
+## Focus Periods
+
+- **Focus Period** — a one-off, **inclusive** stretch of days pointing at a few hand-picked **projects**: a lens, not a container (removing a project or deleting the period never touches the project). One at a time — no two share a day. Its page shows days left but **no tally**. Persian: **فشرده** *(draft — pending a native pass; chosen to avoid بازه, which is Interval)*. Model: `FocusPeriod`.
+- **Look-back** — the one screen shown after a focus period ends: finished and unfinished projects, carry-over into a new period, and one optional question (*oriented* or *behind*). No grade or score.
+
 ## The daily cycle
 
 - **DayState** — one record per user per `dateKey` tracking the day's lifecycle. Model: `DayState`.
@@ -78,5 +83,6 @@ An **action fate** is the terminal disposition written to `Action.actionFate` wh
 
 ## Changelog
 
+- **0.3 · 2026-10-21** — Added the **Focus Periods** group (Focus Period, Look-back) — D-61. Persian فشرده, draft.
 - **0.2 · 2026-09-15** — Added the **Tags & Time Themes** group (Tag, Time Theme, Surfacing/soft-filter, Tag inheritance) — Time Themes, D-54. Records the two Persian terms (برچسب; حال‌وهوا, draft, distinct from بازه/Interval).
 - **0.1 · 2026-07-22** — Initial glossary. Terms reconciled against the live schema and the June-10 platform doc.

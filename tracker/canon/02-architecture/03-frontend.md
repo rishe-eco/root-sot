@@ -2,7 +2,7 @@
 
 *Source of truth. How the React client is put together and the patterns it repeats. Update the changelog; don't fork.*
 
-**Version 0.1 · Status: as-built · 2026-07-22 · Owner: _root**
+**Version 0.2 · Status: as-built · 2026-10-21 · Owner: _root**
 
 ---
 
@@ -27,10 +27,11 @@ All server communication goes through a single, disciplined layer:
 - **`app/protectedRoutes.tsx`** — the route table and auth gating.
 - **`app/root.tsx`** — the app shell, including `ProtectedAppLayout`, where the first-login `OnboardingSlideshow` mounts on top of whatever route is active.
 - **`app/layout/`** — reusable layouts (`InternalPageLayout`, etc.).
+- **Top-level tabs** come from `app/layout/navigationItems.tsx` (sidebar and bottom bar), and a tab only shows the bottom bar if its path is in `BOTTOM_NAV_PATHS` (`app/layout/pathUtils.ts`). Focus (`/focus`) is the sixth bottom-bar item.
 
 ## 4. Component organization
 
-One folder per module under `app/components/<module>/` (goals, projects, actions, intervals, today, calendar, journals, notes, onboarding, concepts, tools, settings, activities, auth, milestones). Shared primitives live in `app/components/ui/` (Radix-based, Tailwind-styled). Empty reserved folders: `insights/`, `habits/`.
+One folder per module under `app/components/<module>/` (goals, projects, actions, intervals, today, calendar, journals, notes, onboarding, concepts, tools, settings, activities, auth, milestones). `focus/` holds Focus Periods: pure rules in `focusLogic.ts` (they reuse `getProjectStatus`, never re-derive it), the page, the card and its row actions, the form with the project picker, and the look-back. Shared primitives live in `app/components/ui/` (Radix-based, Tailwind-styled). Empty reserved folders: `insights/`, `habits/`.
 
 ## 5. The wizard pattern
 
@@ -59,4 +60,5 @@ Vitest + React Testing Library for components (setup in `app/test/`), Playwright
 
 ## Changelog
 
+- **0.2 · 2026-10-21** — Top-level tabs and `BOTTOM_NAV_PATHS` noted; `components/focus/` added (Focus Periods, D-61).
 - **0.1 · 2026-07-22** — Initial. Verified against package.json and the app tree; `useApi` / `queries.ts` seam and wizard pattern confirmed in code.

@@ -2,7 +2,7 @@
 
 *Source of truth. The Prisma schema, as-built. If the schema changes, update this file in the same change. Update the changelog; don't fork.*
 
-**Version 0.12 · Status: as-built · 2026-09-21 · Owner: _root**
+**Version 0.13 · Status: as-built · 2026-10-21 · Owner: _root**
 
 ---
 
@@ -81,6 +81,18 @@ A recurring, tag-bearing **span of time with a nature** — neither a project no
 
 > **Tag inheritance onto actions** (the rule behind the locked/editable split): a **gathered** action snapshot-copies its source interval/routine's tags at gather time and they are **locked** (server rejects `setActionTags` when `sourceType != null` — the nature belongs to the template). A **project-linked** action is *seeded* from the project's tags at create, then **editable** (it is not generated). A **standalone** action starts empty, editable. Snapshots are copies, not live links; retagging a template affects only future gathers. Tags are **not** part of gathered-action dedup identity (`gatheredActionKey`), so re-gathering stays idempotent.
 
+## Focus Periods
+
+A dated, hand-picked set of **projects** — a lens, not a container (decision **D-61**). The join is an **explicit model**, not Prisma's implicit m2m like the tags above, because it has to keep the order the projects were added in.
+
+### FocusPeriod
+`id` (uuid) · `title` (trimmed, 1–120) · `startDate: DateTime` · `endDate: DateTime` (both **UTC midnight of a `YYYY-MM-DD`, inclusive**; returned on the wire as date keys) · `lookbackAnswer: String?` (`"oriented"` | `"behind"`) · `lookbackSeenAt: DateTime?` · `projects: FocusPeriodProject[]` · `userId` → User (Cascade) · `createdAt/updatedAt` · `@@index([userId, startDate])`
+
+> **No two of a user's periods share a day.** Enforced in `services/focusPeriods.ts`, not by a constraint: a range overlap isn't expressible as a unique key. The state (upcoming / active / ended) is **derived** from the client's date key and never stored; the server never decides "today". At most **30** projects. A **finished project can't be added**, but one that finishes while in the period stays (only newly added ids are checked).
+
+### FocusPeriodProject
+`focusPeriodId` → FocusPeriod (Cascade) · `projectId` → Project (Cascade) · `addedAt: DateTime` (the card order) · `@@id([focusPeriodId, projectId])`
+
 ## Cross-cutting models
 
 ### Note
@@ -134,6 +146,7 @@ The as-built tables for the **Noticing** tool — the first **Impact**-pillar su
 - **Tag** → user; m2m to Project, Interval, Routine, Action, TimeTheme (the shared vocabulary).
 - **NoticingSitting** → user; entries. **NoticingEntry** → sitting only — it points at no person, no place entity and nothing else in the schema, which is the whole design.
 - **TimeTheme** → user; tags (m2m). No scope link, no steps, no estimate — only a time-of-day span + Interval-shaped recurrence.
+- **FocusPeriod** → user; projects through `FocusPeriodProject` (Cascade from either side). Deleting a period or a project removes only the join rows; nothing else points at a period.
 
 ## The JSON-string fields (SQLite)
 
@@ -143,6 +156,7 @@ SQLite has no array type. These fields are **JSON strings** in the DB and are pa
 
 ## Changelog
 
+- **0.13 · 2026-10-21** — Added **Focus Periods** (`FocusPeriod`, `FocusPeriodProject`; migration `add_focus_periods`) — D-61. Records why the join is explicit (it keeps `addedAt`, the card order), that "no overlap" is a service rule rather than a constraint, and that dates are inclusive UTC-midnight date keys with the period's state derived from the client's day.
 - **0.12 · 2026-09-21** — Added the **Noticing** tables (NoticingFrame, NoticingSitting, NoticingEntry, NoticingState; migrations `add_noticing` and `noticing_frame_completed_at_nullable`) for Impact Act 1 — D-59. Records the three absences that are enforced as a test rather than trusted to review (no counter field, no `Person`, no index on `person`), and the two places this module deliberately departs from Feelings & Needs’ shape: its own needs palette, and `lastCatchAt` kept rather than derived. Also records the second migration as a **corrected defect**, not a refinement — a non-nullable `completedAt` on a row that commits as it goes marks everyone who abandons as finished.
 - **0.11 · 2026-09-15** — Added **`Tag`** and **`TimeTheme`** and the schema's **first m2m relations** (`tags Tag[]` on Project/Interval/Routine/Action/TimeTheme; migration `add_time_themes`) — Time Themes, D-54. Records the value-list-vs-relation distinction (tags are a relation, so not a JSON string — the one place §JSON-string fields does *not* extend), the locked-vs-editable tag-inheritance rule, and that `TimeTheme`'s recurrence fields mirror `Interval`'s so `intervalOccursOnDate` is reused verbatim.
 - **0.10 · 2026-08-23** — `SkillKey` gained `monitoring` — Monitoring Lab Phase 1 (`06-specs/06b-monitoring-lab-build-plan.md`). No other schema change: `responseStructure` holds predictions/ratings/explanations/step-selections/influence-marks, and this tool needs no `rung` column and no new tables. SQLite has no enum type, so only `prisma generate` ran, same as Delegation's 0.9 entry.

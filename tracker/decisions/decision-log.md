@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.37 · Status: living · 2026-09-21 · Owner: _root**
+**Version 0.38 · Status: living · 2026-10-21 · Owner: _root**
 
 ---
 
@@ -30,8 +30,31 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-09-15 | **add_time_themes** | `Tag` and `TimeTheme` models + the schema's **first m2m relations** (`tags` on Project/Interval/Routine/Action/TimeTheme). First code for **Time Themes** — a core feature, not a skill tool. See D-54. |
 | 2026-09-20 | **add_noticing** | `NoticingFrame`, `NoticingSitting`, `NoticingEntry`, `NoticingState` — the **Noticing** tool, Act 1 of the **Impact** pillar and the first Impact-pillar surface here. Deliberately: no `Person` model, no index on `person`, no counter field anywhere. See D-59. |
 | 2026-09-20 | **noticing_frame_completed_at_nullable** | Makes `NoticingFrame.completedAt` nullable. Not a refinement — a corrected defect: the frame commits step by step, so a value written at row creation meant the row was born complete and anyone who abandoned mid-frame was counted as having finished. See D-59. |
+| 2026-10-20 | **add_focus_periods** | `FocusPeriod` and the explicit join `FocusPeriodProject` (with `addedAt`) — **Focus Periods**, a dated lens over a few projects. The first module built on the lifecycle method. See D-61. |
 
 ## 2. Key decisions
+
+### D-61 · Focus Periods: a lens over a few projects, with no tally — 2026-10-21
+
+**What.** A **Focus Period** (Persian **فشرده**, draft) is a name, an inclusive start and end date, and a hand-picked set of **projects** to move in that time. It gets its own top-level **Focus** tab: a header with the dates and days left, and one card per project — actions done out of total, the goal › milestone it sits under, its 3 soonest undone actions, and inline complete (with Undo), reschedule, add and remove. When a period ends, a one-time **look-back** lists finished and unfinished projects, offers carry-over into a new period, and asks one optional question: did the days-left count leave you *oriented* or *behind*. Module folder: `tracker/modules/01-focus-periods/` (intake, spec 0.3, wireframes draft 2, build plan 0.1, phase cards).
+
+**Why it isn't a breach of the progress refusal.** The ecosystem decision of 2026-07-29 already says a bar reporting where work stands is information; what's refused is a marker that becomes the motive. So the design keeps the information and drops every lever: **no "N of M done" tally anywhere, no urgency styling as the end nears, no reminder, nothing on Today**, and no status badge on the cards (Tracker's yellow "Ignored" would read as a nag here). The founder's drop rule is the policy test, verbatim — *"drop if the days-left header makes you feel behind rather than oriented"* — and the look-back's answer (`lookbackAnswer`) is its measure.
+
+**Projects, not goals** — the founder's call after the first spec and wireframes, which were built around goals and milestone counts. It simplified everything downstream: a project can always take an action (actions attach to projects only), and progress is a count Tracker already shows.
+
+**Shape decisions worth keeping.**
+- **The join is explicit** (`FocusPeriodProject.addedAt`), because an implicit m2m can't keep the order projects were added in. The spec's AC-1 said "implicit"; that was the defect.
+- **The client sends its own date key** to `focusOverview` and `recordFocusLookback`, as `timeThemesForDate` does. No overlap check, overview or days-left ever reads the server's clock.
+- **The "project is done" rule exists twice, deliberately narrowly.** Everything a person sees uses the client's `getProjectStatus`; the server's one-line mirror (`isProjectDone`, commented as such) is used only to refuse *adding* a finished project. Checking every id on save would have made Edit fail the moment a project in the period finished.
+- **No overlap, enforced in the service.** A range overlap isn't a unique key, and SQLite serialises writers, so the check-then-write race was accepted.
+
+**Defects found by building it, outside the feature.**
+- **`Milestone.goal` had no type resolver** while the schema declares it `Goal!`. Any query reaching a project's milestone's goal returned null on a non-null field — a GraphQL error. Fixed (`parent.goal ?? findUnique`). `Project.milestone` also now reuses an already-loaded milestone, as `Interval.milestone` does.
+- **`updateAction` doesn't enforce the estimate on a new day unless one is sent** (`mutations.ts:152-155`), against Convention 4. The Focus reschedule popover enforces it client-side; the server gap is recorded as **B-16**, not fixed here.
+
+**How it was built — the method's first Tracker module.** Intake → spec → wireframes → build plan, written by hand ahead of the lifecycle skills. **B1 (data and API) and B3 (row actions and look-back) were built by Sonnet lanes** from hand-written phase cards in their own worktrees; **B2 (the page) by Opus**; every lane diff reviewed before merge. Verified on the merged branch: **API 64 files / 1,123 tests, client 27 / 270, `tsc` and both i18n checks clean**, and a live pass in `en` and `fa` at 360 px (every card state, edit with an overlap and a finished project, complete/Undo, reschedule without an estimate, add, remove, look-back with carry-over). Built on `feat/focus-periods`.
+
+**Owed.** The Persian strings, the term فشرده and especially the look-back's two answers are draft (open-work item 16). The drop rule can only be judged over a real period, by the founder. A Playwright spec for `/focus` was waived for this build.
 
 ### D-60 · A dead session is decided in one place, not politely handled in twenty — 2026-09-21
 
@@ -646,6 +669,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.38 · 2026-10-21** — D-61 added, and the migration timeline extended with `add_focus_periods`. **Focus Periods**: a dated lens over a few projects with its own tab and a no-tally look-back, the first Tracker module built on the lifecycle method (Sonnet lanes for B1 and B3, Opus for B2). Records the explicit join, the client-sent date key, the narrow server copy of the done rule, and two defects found outside the feature (`Milestone.goal`, fixed; the `updateAction` estimate gap, B-16).
 - **0.37 · 2026-09-21** — D-59 and D-60 added, and the migration timeline extended with `add_noticing` and `noticing_frame_completed_at_nullable`. **D-59: Noticing is built and merged** — the Impact pillar’s first surface here, sharing nothing with Feelings & Needs (least of all the needs palette, reversed on scope the day it was decided), the source of §12’s permission for a rehearsal to break house style, and the origin of fences-as-tests. Phase 8 and Gate A remain unrun and human. **D-60: a dead session is decided in one place** — `isAuthenticated` was presence rather than validity, and per-page error handling is what let an app-wide break pass for a series of local ones for weeks.
 - **0.36 · 2026-09-21** — D-58 added: **TagPicker is never a dead end.** An empty tag vocabulary made every form's tag picker a label above an empty void (the "+ tag" control only rendered when unselected tags existed), with no in-form path to create the first tag. The picker now always offers an inline create-and-attach field + empty-state hint + a link to the manager; `useTagVocabulary` shares the load/create logic across all four forms. Client-only, no migration. 215/215 client · tsc + i18n clean.
 - **0.35 · 2026-09-15** — D-57 added: the per-user gather lock (D-55) **generalized** into `withUserLock` (`services/userLock.ts`) and applied to `startSitting`, fixing the `feelingsNeeds` "survives concurrent opens" test that flaked under full-suite contention. Namespace-keyed so unrelated ops for one user don't block each other; the sitting-open converge-and-clean pass stays as multi-instance defense-in-depth. No migration.

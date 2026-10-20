@@ -2,7 +2,7 @@
 
 *The queue. Work that engineering cannot finish because it needs human judgement, a native speaker, or a decision. Each item states its blocker and what it unblocks. Delete items when done — the decision logs are the permanent record.*
 
-**Version 0.9 · Status: living · 2026-10-20 · Owner: _root**
+**Version 0.10 · Status: living · 2026-10-21 · Owner: _root**
 
 ---
 
@@ -24,6 +24,7 @@
 | 12 | Verify 27 Monitoring probe items' keys + the answer-variant review | anyone careful | 5–8 h | Monitoring scored baseline |
 | 13 | Persian native review of the Monitoring pack, `s4` re-authored | Persian reviewer | 6–9 h | Monitoring Persian off `draft` |
 | ~~14~~ | ~~Decide whether Clarity ships permanently reader-less~~ | founder | — | **Decided 2026-08-01 — see below** |
+| 16 | Persian native review of the Focus Periods strings, the term فشرده and the look-back's two answers | Persian reviewer | 30–45 min | Focus Persian off draft |
 
 Items 1–13 are independent of each other. **All six specced skill tools now have code** — there is no longer an anticipated section, and §15 below records that rather than continuing to project a cost for something that no longer applies.
 
@@ -201,6 +202,12 @@ What this leaves outstanding is a dependency, not a question: **Clarity Lab's me
 
 If a seventh skill tool is ever specced, its anticipated cost belongs here again, in the same shape: a key-verification estimate, a Persian estimate, and whether a rater pass applies. That last one isn't about whether a judge exists yet — Decomposition's and Verification's rater passes (items 6, 9) run with no judge built, establishing whether two humans even agree on the rubric. It's about whether the rubric has any criterion an interpretive call rather than an authored key or arithmetic can decide — Delegation's and Monitoring's don't (spec §4, §12 for both), so neither has a rater-pass item at all.
 
+## 16 · Persian native review of the Focus Periods strings
+
+**What.** The `focus.*` keys and `nav.focus` in `client/app/locales/fa/common.json` (about 75 strings), written in the informal register with کار for action. Three need a native ear first: the term **فشرده** itself (chosen to avoid بازه, which is Interval), and the look-back's two answers, **مسیرم روشن است** (*oriented*) and **عقب افتاده‌ام** (*behind*) — they are the drop rule's measure, so a Persian reader must find them equally easy to pick.
+
+**Blocks.** Persian Focus Periods being equal-quality rather than present. Nothing is gated on it.
+
 ---
 
 ## Owed to later stages
@@ -220,6 +227,7 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 
 | Project | Item | Who | Needed by | From |
 |---|---|---|---|---|
+| Tracker | Judge the Focus Periods drop rule over one real period: did the days-left header leave you *oriented* or *behind*? Answer it on the look-back | founder | the first period's end | `tracker/modules/01-focus-periods/02-spec.md` §3 M1 |
 | Tracker | After B-15's deploy, sign in on the live site, open a goal group's manage page, and check that it shows "Goal group" and not "Ignored" | founder | the deploy after `fix/b-15-goal-group-status` merges | `docs/development/fix-B-15.md` in `rishe-eco/tracker` |
 | root-app | After TK1's deploy, sign in on the live site as a customer and open Support with a ticket in the list. Switch to another tab or app while staff answer that ticket from the desk, then come back to the Support tab: the answer shows with no reload | founder | the deploy after `tk1-ticket-refresh` reaches `main` | `docs/development/TK1.md` in `rishe-eco/root-app` |
 
@@ -227,6 +235,7 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 
 ## Changelog
 
+- **0.10 · 2026-10-21** — Item 16 (Persian review of the Focus Periods strings) and a ceiling row for Focus Periods' drop rule, from its build (D-61).
 - **0.9 · 2026-10-20** — *Owed to later stages* added, with two rows from `verify TK1` (root-app): the full e2e run with the changed `e2eFetch`, and the portal's sideways scroll at 180 px. A ceiling row for TK1's real-focus check on the live site.
 - **0.8 · 2026-10-20** — *Past the verification ceiling* added, with its first row: the live-site check for Tracker's B-15 fix, from `verify --fix B-15`.
 - **0.7 · 2026-08-23** — Monitoring's human-work items (key verification + the answer-variant review, Persian review) promoted from the anticipated table to live items 12–13, the same day its build reached the end of its pass's full scope (phases 1–6) — the sixth and last specced skill tool to do so — and Phase 5 confirmed live that all 27 probe items are `key-unverified`. No rater-pass item exists here either, same reason as Delegation's. **The anticipated section is now empty** — every specced skill tool has code — renumbered §13 → §15 to note that rather than leave a stale table. Decided item renumbered 12 → 14.
