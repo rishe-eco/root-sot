@@ -2,7 +2,7 @@
 
 *Each of the twenty lifecycle skills, and the design step: what it does, how it is invoked, which model runs it, exactly what it reads and writes, its gate, and where its shape comes from. The method these skills implement is `README.md`.*
 
-**Version 0.7 · Status: plan — nothing here is built yet · 2026-10-20 · Owner: _root**
+**Version 0.8 · Status: plan — nothing here is built yet · 2026-10-20 · Owner: _root**
 
 ---
 
@@ -68,24 +68,16 @@ A project with no code yet has its config written as planned. The first stage's 
 **Invocation:** by name, optional module or a one-line description of new work · **Model:** Sonnet, low.
 **Reads (injected):** `status.md`; `git status -sb`; the top block of the module's `STATE.md` if a module is named; the count and age of notes in `lifecycle/learnings/inbox/`; the *From the founder* rows of the project's open-work file.
 **Writes:** nothing.
-**Output:** in chat, under 15 lines: the track; the module's phase, read with the status values in `README.md` §3; what is missing or stale; the next skill to run and the model it will use; the founder's rows due within the next step; "inbox over cap: N notes, oldest <date> — run `learned --consolidate`" when it is, which is also checked at each milestone.
-**From:** the table in this conversation's first review of the repos; Spec Kit's phase order.
+**Output:** in chat, under 15 lines: the track; the module's phase, read with the status values in `README.md` §3; what is missing or stale; the next skill and its model; the founder's rows due within the next step; "inbox over cap: N notes, oldest <date> — run `learned --consolidate`" when it is.
+**From:** Spec Kit's phase order.
 
 ### `handoff`
 **Does:** ends a session by writing state a fresh session can start from.
 **Invocation:** by name, at the end of a session · **Model:** Sonnet, low.
 **Reads:** the session's own work; `git log` since the last state block.
-**Writes:** a new block at the top of the module's `STATE.md` (or `lifecycle/STATE.md`), committed. Blocks older than the last five are deleted — stage records hold the history.
-**Block format** (≤40 lines):
-- **header:** date · `<root-sot branch> @ <hash>` · `<code repo> main @ <hash>`, where there is a code repo;
-- **first line:** which earlier blocks this one *replaces*, *adds to* or *partly completes*, naming their steps. A block that touches a stage named in another live block cross-references it;
-- **lanes in flight:** stage, branch, database, ports, card, status;
-- **next steps, in order:** each written as the line the founder pastes, with skill, model, effort, branch and the checkout it writes in (with skills, that line is the invocation). Live next steps are copied forward in full, never "as in the earlier block";
-- **carry-overs:** decisions and pointers to sections, not findings. A session acting on an item reads the cited section, not this summary of it;
-- **questions for the founder:** phrased ready to ask, each with *owed by*, the step that needs the answer. Options are named by noun; letters, at most, are aliases;
-- **owed.**
+**Writes:** a new block, at most 40 lines, at the top of the module's `STATE.md` (or `lifecycle/STATE.md`), committed, in the format in `skills/handoff/reference.md`. Live next steps are copied forward in full, each as the line the founder pastes. Blocks older than the last five are deleted; stage records hold the history.
 **Ends with:** "Run `/learned`, then `/clear`."
-**From:** the journeys orchestrator's state log (`root-app-lifecycle-build` memory), which carried the build across three compactions — moved from private memory into git.
+**From:** the journeys orchestrator's state log, which carried the build across three compactions.
 
 ### `decision-record`
 **Does:** adds a decision to the right decision log in house format.
@@ -97,39 +89,25 @@ A project with no code yet has its config written as planned. The first stage's 
 **From:** `tracker/decisions/decision-log.md`, `ecosystem/decisions/`.
 
 ### `learned`
-**Does:** captures what a session learned about *working* — the environment, the method, a skill, a model's habits; not the product, which belongs in stage records and specs. Two modes; only the second changes anything.
+**Does:** captures what a session learned about *working* (the environment, the method, a skill, a model's habits), not the product, which belongs in stage records and specs. Only `--consolidate` changes anything.
 
-**`learned` (capture)**
-**Invocation:** by name, at the end of a session, after `handoff` · **Model:** the session's own, low effort. **Never forked** — the session it reviews exists only in this context.
-**Reads:** nothing beyond the session itself. Capture does not deduplicate; a lesson recurring across notes is the evidence consolidation needs.
-**Writes:** one file, `lifecycle/learnings/inbox/<date>-<slug>.md`, holding **zero to three** notes. Zero is a valid result; filler is not.
-**Each note** (≤6 lines) has fixed bold fields, so consolidation extracts them with one `awk`: **Rule** (the lesson); **Event** (the specific event in this session); **Cost** (if known); **Scope** (repo, project, method, a named skill, model behaviour); **Destination** (suggested); **Urgent** (`yes` if waiting for consolidation would repeat a costly mistake).
-**Urgent notes** are also copied into `STATE.md` as a carry-over, so the next session reads them without any instruction file being touched.
-**Rejects** notes that cite no specific event, that would not change a future action, or that could not be checked later.
+**Capture.** By name, at the end of a session, after `handoff` · **Model:** the session's own, low effort · **never forked**, since the session it reviews exists only in this context.
+- **Writes** one file, `lifecycle/learnings/inbox/<date>-<slug>.md`, holding **zero to three** notes in the fixed fields of `skills/learned/reference.md`. Zero is a valid result; filler is not. It doesn't deduplicate: a lesson recurring across notes is the evidence consolidation needs.
+- **Rejects** notes that cite no specific event, wouldn't change a future action, or couldn't be checked later.
+- **Urgent notes** are also copied into `STATE.md` as a carry-over, so the next session reads them.
 
-**`learned --consolidate`**
-**Invocation:** by name, when `lifecycle-status` reports the inbox over cap — **15 notes or 14 days**, whichever first — at each milestone during a build, and before any `close-out` · **Model:** Opus, high, in a session of its own.
-**Reads:** every note in the inbox; `lifecycle/learnings/index.md`; the line count and headings of each candidate destination. Injected: each candidate destination's `## Changelog` lines and the memory index, to find what is already integrated. `founder-notes.md`, where the module has one: each note is a cluster of its own, with mechanisms offered as options.
+**`--consolidate`.** When the inbox passes **15 notes or 14 days**, at each milestone during a build, and before any `close-out` · **Model:** Opus, high, in a session of its own.
+**Reads:** every inbox note; `lifecycle/learnings/index.md`; each candidate destination's line count and headings. Injected: each destination's `## Changelog` lines and the memory index, to find what is already integrated. A module's `founder-notes.md`: each note is a cluster of its own, with mechanisms offered as options.
 **Does:**
 1. Cluster the notes by lesson; count recurrences by session.
-2. Decide each cluster: **integrate** (seen in two or more sessions, or once at high cost) · **hold** (seen once, cheap — stays in the inbox for the next batch) · **discard** (already integrated, obsolete, or not specific).
-3. For each integration, draft the exact edit at its destination. If the destination doesn't exist, draft the rule and name the destination; the file's first author places it:
+2. Decide each cluster: **integrate** (two or more sessions, or once at high cost) · **hold** (once, cheap; stays in the inbox) · **discard** (already integrated, obsolete, or not specific).
+3. Draft each integration's exact edit at its destination, from the table in `skills/learned/reference.md`. A destination that doesn't exist yet gets the rule and its name.
+4. Present the batch as one proposal, then ask in groups of at most four: one plain sentence per item, with its event, inside the question. The founder accepts, edits or rejects each.
+5. Apply the accepted edits; one `decision-log.md` entry per integration; add each to `index.md`; delete the processed notes; commit.
+6. At a module's last consolidation, holds become seeds for their destination's reference file.
 
-| Kind of lesson | Destination |
-|---|---|
-| Repo or environment gotcha | that repo's CLAUDE.md (kept under 200 lines — over it, propose what moves out) |
-| How lanes should work | `projects/<project>/brief-common.md` |
-| How a phase should be done | that skill's reference file |
-| What reviews should check | `projects/<project>/review-checklist.md` |
-| A change to the method | this plan or `README.md`, through `revise` |
-| A fact about building software, true beyond this project | `lifecycle/engineering-checklist.md` |
-
-4. Present the batch as one proposal, then ask in groups of at most four: one plain sentence per item, with its event, inside the question; longer explanations in the closing message. The founder accepts, edits or rejects each item.
-5. Apply the accepted edits; write one entry per integration in `lifecycle/decision-log.md`, in `decision-record`'s format; add each to `index.md`; delete the processed notes (git keeps them); commit.
-6. At a module's last consolidation, holds become seeds for their destination's reference file, listed by destination.
-
-**Owns:** the inbox and `index.md` (`verify` also drops one capture note per review into the inbox). Edits to founder-owned files (templates, project configs, this plan) happen only through step 4's acceptance.
-**From:** the journeys build's state log, whose lessons ("rerun every test asserting a changed shared rule", "background Bash ignores a leading `cd`") were its most valuable lines and lived only on one machine.
+**Owns:** the inbox and `index.md`. Founder-owned files (templates, project configs, this plan) change only through step 4's acceptance.
+**From:** the journeys build's state log, whose lessons were its most valuable lines and lived on one machine.
 
 ## 2. Design
 
@@ -468,6 +446,7 @@ Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `bui
 
 ## Changelog
 
+- **0.8 · 2026-10-20** — Cut back, step 3, §1 (L-24, awaiting the founder's review): `handoff`'s block format, `learned`'s note fields and its destination table move to `skills/<skill>/reference.md`; the rest in tighter wording; lines that repeat §0 or `verify` are cut.
 - **0.7 · 2026-10-20** — Cut back, step 2, §0 (L-23, awaiting the founder's review): the same rules in tighter wording; redoing a phase, grades in reviews, design items routed to `revise` and steps outside Claude Code move to `skills/shared/reference.md`; the config table's sources move to `skills/project-config/reference.md`; two provenance sentences, one obvious line and one bullet duplicated in `verify`'s seeds are cut.
 - **0.6 · 2026-10-20** — Cut back, step 1 (L-22): each skill's *Reference holds* and template contents, and the contents of `config.md` and `brief-common.md`, move unchanged to `skills/<skill>/reference.md`; each section points there. The 0.5 entry points at the decision log.
 - **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied in fourteen groups. What each group changed is its entry in `decision-log.md`, L-8 to L-21 (L-20 is the trial brief's).

@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.23 · 2026-10-20**
+**Version 0.24 · 2026-10-20**
 
 ---
 
@@ -243,6 +243,16 @@
 
 **Why.** The test for each rule: does it prevent a mistake the skill would make in an ordinary session? Rules from one incident go to a reference file; provenance lives in this log.
 
+**Decided by.** Founder, 2026-10-20, after reviewing the diff ("keep it"). Committed just before that review, so the work wasn't lost with the session's container.
+
+**Revisit.** In stage 2, when the first skills are written from §0.
+
+## L-24 · 2026-10-20 · Skills plan 0.8: cut back, step 3, every-session skills
+
+**Decision.** Rewrite `lifecycle/skills-plan.md` §1 in tighter wording, from about 1,080 words to about 700. `handoff`'s block format moves to `lifecycle/skills/handoff/reference.md`; `learned`'s note fields and its destination table move to `lifecycle/skills/learned/reference.md`. Cut outright: lines that repeat §0 (explanations go in the closing message) or `verify` (it drops a capture note per review); "also checked at each milestone", which consolidation's own trigger covers; "reads nothing beyond the session itself"; and "this conversation's first review" in `lifecycle-status`'s source.
+
+**Why.** As L-23: templates go to reference files, and a rule stays only if it prevents a mistake in an ordinary session.
+
 **Decided by.** Committed before the founder's review, so the work isn't lost with the session's container. Awaiting the founder's review; any line they want back is restored in a follow-up commit.
 
-**Revisit.** When the founder reviews §0.
+**Revisit.** When the founder reviews §1.
