@@ -2,6 +2,37 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-20 · Rollout stage 2, session E: verify's fix mode, and B-15 verified · lifecycle/stage-2e-verify-fix @ 5068f79 · rishe-eco/tracker main @ 94d2e63
+
+*Completes session C's next step 1 (B-15) and session B's. Carries forward session D, the carry-overs and the questions still open.*
+
+**What was done**
+- `verify --fix <id> <branch>` and its gate check, `gate <project> fix <id> <branch>`, as L-34 decided (`438ce2b`): `lifecycle/skills/verify/`, `lifecycle/bin/gate`, `lifecycle/skills/shared/build.sh`. `bin/gate-test` passes 75 of 75 cases, shellcheck is clean, and `bin/install-skills --check` is clean. Claude's calls inside the mode are in `lifecycle/skills/verify/reference.md` 0.3.
+- The founder ran `/verify --fix B-15 fix/b-15-goal-group-status`. It returned "ready to fast-forward", with 0 fixes. The record is `docs/development/fix-B-15.md` in `rishe-eco/tracker`, with an open-work row (`4a05a0d`) and a capture note (`f48c6f4`). Tracker's `main` was fast-forwarded to `94d2e63` and pushed, and the fix branch was deleted, at the founder's word.
+- L-35 records it all (`5068f79`). `decision-record` and `handoff` ran on Opus, at the founder's word.
+- **Branches:** `lifecycle/stage-2e-verify-fix` is stacked on `lifecycle/stage-2b-skills`, which is stacked on `lifecycle/stage-2a-skills`. None of them is merged into `main` or pushed.
+
+**Next steps, in order**
+1. Read the top block of `lifecycle/STATE.md`, then L-33 and L-35 in `lifecycle/decision-log.md`. This is rollout stage 2, session D: the journeys build's owed items, on the Change track, in root-app (`lifecycle/projects/root-app/config.md` names its checkout and suites). Start the session from the root-app checkout. root-sot stays on `lifecycle/stage-2e-verify-fix` unless the founder has merged it, because the installed skills read their files from that checkout. `spec change` isn't built yet (stage 3), so write the change note and its Stages section by hand from `lifecycle/templates/change-note.md`, in the module folder that holds the journeys build. Then `/build-phase <stage>`, `/build-phase <stage> --land`, and `/verify <stage>`. Model: Opus, medium effort for the card, high for verify. Before the first `build-phase`, ask the founder whether L-33's five calls stand. End with `/decision-record`, `/handoff` and `/learned`.
+
+**Carry-overs**
+- `verify`'s injected context finds the code checkout through `config.md`, so it runs from any folder. `/debug`'s context reads the folder the session started in, so start a debugging session from the code checkout.
+- `decision-record`, `handoff`, `learned`, `verify`, `build-phase` and `lifecycle-status` have `disable-model-invocation`: only the founder can run them.
+- `skills-plan.md` §0 still says skills live in `root-sot/.claude/skills/`, which L-31 replaced. That file is the founder's to change.
+- IMNSTR's checkout (`rishe-eco/i-monster`) isn't on the Linux machine.
+
+**Questions for the founder**
+- Should `lifecycle/stage-2a-skills`, `lifecycle/stage-2b-skills` and `lifecycle/stage-2e-verify-fix` be merged into `main` and pushed? Until they are, root-sot's checkout has to stay on `lifecycle/stage-2e-verify-fix`. Owed by: session D.
+- Do the five calls listed in L-33 stand: the build-phase block replacing the handoff, `git worktree add` instead of the Agent tool's isolation, devices passed in the milestone argument, Change stages counted in column 8, and `background: false`? Owed by: session D's first `build-phase`.
+- Who corrects B-15's stale entry, at line 27 of `tracker/canon/04-roadmap/01-known-issues-and-debt.md`, and the grounding note in §5 of `tracker/canon/01-product/00-concepts-and-hierarchy.md`? `verify` only flags it; `close-out` owns canon, but a Fix has no close-out. The fix record's *Flagged for close-out* has the wording. Owed by: the next Tracker Fix.
+- Should `lifecycle/projects/tracker/config.md` §3 name `cd client && npx tsc --noEmit` in place of `npm run typecheck`, which fails until `app/routes.ts` exists? Owed by: the next Tracker session.
+- Tracker has no dark scheme. Should the "both colour schemes" item in `lifecycle/projects/tracker/review-checklist.md` §4 be dropped for Tracker, or should the missing dark scheme become a known issue? Owed by: the next Tracker review.
+- Should `config.md` record Chrome with a scratch database as the Linux fallback for targeted e2e (the capture note in `f48c6f4`)? Owed by: the next Tracker review that needs e2e.
+
+**Owed**
+- B-15 isn't live until the founder deploys Tracker. The live-site check is a row in `team/open-work.md`.
+- `skill-creator`'s eval loop and description tuning weren't run for session B's skills or the fix mode (L-33).
+
 ## 2026-10-20 · Rollout stage 2, session C: B-15 on the Fix track · lifecycle/stage-2b-skills @ 92a46bb · rishe-eco/tracker fix/b-15-goal-group-status @ 2143e39
 
 *Partly completes session B's next step 1 (B-15): fixed, not verified. Carries forward its next step 2 (session D), its carry-overs and its questions.*
