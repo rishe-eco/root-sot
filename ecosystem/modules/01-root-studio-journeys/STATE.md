@@ -2,6 +2,27 @@
 
 *Newest block first. Written by `handoff`, and by `build-phase` when it launches or lands a lane.*
 
+## 2026-10-20 · 8a launch NR1 · lifecycle/stage-2f-needs-root-tile @ ace74ff · rishe-eco/root-app main @ 1ddf5d0
+
+*Adds to session D's block below (TK1). That block's next step, `/decision-record` for session D, already ran: L-36 records it.*
+
+**What was done**
+- Change note 02 (`changes/02-change-needs-root-tile.md`, `ace74ff`) is staged as one stage, NR1. Its card is `briefs/NR1.md` (`ed7dca5`). The code check at `main @ 1ddf5d0` agreed with the note. The card adds `queriesSchema.test.ts` to the targeted runs, and asks the lane to report whether the seed's `RC-2026-021` (status `WAITING_ON_ROOT`) owes Root anything after a reset.
+- The fetch failed (no network), so the base is local `main @ 1ddf5d0`, which matched `origin/main` when last fetched.
+- The lane runs on Sonnet in the background, in slot A.
+
+**Lanes in flight**
+| Stage | Branch | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| NR1 (S) | `nr1-needs-root-tile` from `main @ 1ddf5d0` | A: `root_wt_a_test`, API 4201, web 4273 | `<checkout>/.claude/worktrees/nr1-needs-root-tile` | `briefs/NR1.md` | running |
+
+**Next steps, in order**
+1. Read the top block of `ecosystem/modules/01-root-studio-journeys/STATE.md` in root-sot (`lifecycle/stage-2f-needs-root-tile`), then run `/build-phase NR1 --land` from the root-app checkout (Opus, medium effort). It reads the lane's report from `<checkout>/.claude/worktrees/nr1-needs-root-tile/.tmp/NR1.report.md`, saves it as `briefs/NR1.report.md` and hands NR1 to `/verify NR1`.
+
+**Carry-overs**
+- A push to root-app's `main` deploys (`config.md` §7). The full e2e suite is owed before the next deploy (L-36 *Revisit*), and must run before the founder is asked to push.
+- The TK1 deploy run (`https://github.com/rishe-eco/root-app/actions/runs/39472536519`, `DEPLOYED 1ddf5d0`) goes into root-app `docs/development/TK1.md` with the next root-app commit: `verify NR1`'s.
+
 ## 2026-10-20 · Rollout stage 2, session D: TK1 built, verified and deployed · lifecycle/stage-2d-journeys-change @ 46791ac · rishe-eco/root-app main @ 1ddf5d0
 
 *Completes the blocks below (8a launch TK1, 8b land TK1): TK1 is verified, merged and live. Change note 01 has no other stage.*
