@@ -283,6 +283,6 @@
 
 **Why.** As L-23. The founder set about 5,800 words as the finish line: below that, the cut would remove steps that prevent real mistakes.
 
-**Decided by.** Committed before the founder's review, so the work isn't lost with the session's container. Awaiting the founder's review; any line they want back is restored in a follow-up commit.
+**Decided by.** Founder, 2026-10-20, after reviewing the diff ("keep it"). Committed just before that review, so the work wasn't lost with the session's container.
 
 **Revisit.** In stage 2, when the first skills are written from the plan and their seed files: whether `skills/` folds into `.claude/skills/<skill>/`.
