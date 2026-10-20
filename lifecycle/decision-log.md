@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.37 · 2026-10-21**
+**Version 0.38 · 2026-10-21**
 
 ---
 
@@ -522,3 +522,13 @@ Four facts found on the way are written into the files as they are, not as the m
 **Decided by.** Founder, 2026-10-21: accepted on Claude's judgement, without a line-by-line review ("you decide on all - you know the rules"). Claude put the first four of the eight items to the founder as questions; the founder closed them and handed all eight to Claude. The wording is Claude's, from the inbox notes cited. Run on Opus at `learned --consolidate`.
 
 **Revisit.** When a second project meets it, which raises its grade to *strong*.
+
+## L-39 · 2026-10-21 · A session checks that the previous session's work landed and that the installed skills are current
+
+**Decision.** `lifecycle/README.md` 0.8 §5 rule 9: before its first step, a session checks that the previous session's branch is where the prompt says and that the `STATE.md` block and decision-log entry it names exist, stopping to ask if not; and that `bin/install-skills --check` lists nothing, reinstalling if it does.
+
+**Why.** Session B started from a prompt naming a merge and an L-32 that didn't exist, so L-32 was rebuilt from commit messages (`inbox/2026-10-20-stage-2-session-b.md`). Session F ran with an installed `verify` older than the checkout (`inbox/2026-10-21-stage-2f-close.md`). Both are a session trusting its starting state; two sessions.
+
+**Decided by.** Founder, 2026-10-21: accepted on Claude's judgement, without a line-by-line review ("you decide on all - you know the rules"). Claude put the first four of the eight items to the founder as questions; the founder closed them and handed all eight to Claude. The wording is Claude's, from the inbox notes cited. Run on Opus at `learned --consolidate`.
+
+**Revisit.** If `handoff` or a session-start skill comes to run these checks itself, the rule moves there.
