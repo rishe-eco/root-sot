@@ -28,7 +28,7 @@ Injected when the skill started: the format, which log, and each log's newest he
 
 2. **Pick the log** with *Which log* above. If the decision fits two (a Tracker change that constrains Root, for instance), the wider log holds it and the narrower one links up to it. If you can't tell, ask, with the two logs named and what each would mean.
 
-3. **Find the id.** It is the next number after the newest id shown for that log. For a module's `decisions.md`, use the letter its rows already use. An ADR takes the next four-digit number.
+3. **Find the id.** It is the next number after the newest id shown for that log. For a module's `decisions.md`, use the letter of its own rows. Ids moved in from another log keep their old letter, and don't count. If every row is a moved id, as in IMNSTR's, ask the founder for a letter no other log uses. An ADR takes the next four-digit number.
 
 4. **Write the entry.**
    - In `lifecycle/decision-log.md`, use the entry format, appended at the foot.

@@ -84,8 +84,9 @@ fi
 
 echo
 echo "## Founder notes in modules (each is a cluster of its own)"
-found=$(find "$root" -name founder-notes.md -not -path '*/.git/*' 2>/dev/null | sed "s|^$root/||")
-echo "${found:-none}"
+found=""
+for f in "$root"/*/modules/*/founder-notes.md; do [ -f "$f" ] && found="$found${f#"$root"/}"$'\n'; done
+printf '%s\n' "${found:-none}" | grep -v '^$'
 
 echo
 echo "## Already integrated (lifecycle/learnings/index.md, Integrated)"
@@ -97,12 +98,15 @@ section "$lc/learnings/index.md" "Where an integrated lesson goes" | grep '^|'
 
 echo
 echo "## Destinations: size, headings and newest changelog lines"
+# headings <file>: its h2 headings on one line, outside code fences.
+headings() {
+	awk '/^[ \t]*(```|~~~)/ { fence = !fence } !fence && /^## / { printf "%s ", $0 } END { print "" }' "$1" | cut -c1-400
+}
 dest() {
 	local f="$1" label="${1#"$root"/}"
 	if [ ! -f "$f" ]; then echo "### $label — not on this machine"; return; fi
 	echo "### $label — $(wc -l <"$f" | tr -d ' ') lines"
-	grep '^## ' "$f" | tr '\n' ' ' | cut -c1-400
-	echo
+	headings "$f"
 	changelog "$f"
 }
 for f in "$lc/README.md" "$lc/skills-plan.md" "$lc/engineering-checklist.md" "$root/CLAUDE.md" \
@@ -112,9 +116,10 @@ done
 parent=$(dirname "$root")
 for repo in root-app tracker; do
 	if [ -f "$parent/$repo/CLAUDE.md" ]; then
-		echo "### $repo/CLAUDE.md (sibling checkout) — $(wc -l <"$parent/$repo/CLAUDE.md" | tr -d ' ') lines"
-		grep '^## ' "$parent/$repo/CLAUDE.md" | tr '\n' ' ' | cut -c1-400
-		echo
+		echo "### $repo/CLAUDE.md (sibling checkout, $(git -C "$parent/$repo" branch --show-current 2>/dev/null)) — $(wc -l <"$parent/$repo/CLAUDE.md" | tr -d ' ') lines"
+		headings "$parent/$repo/CLAUDE.md"
+	elif [ -d "$parent/$repo/.git" ]; then
+		echo "### $repo/CLAUDE.md — the sibling checkout at ../$repo is on $(git -C "$parent/$repo" branch --show-current 2>/dev/null), which has none; read the branch that does"
 	else
 		echo "### $repo/CLAUDE.md — no sibling checkout at ../$repo; read it in that repo"
 	fi

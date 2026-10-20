@@ -71,8 +71,9 @@ fi
 echo
 echo "### File header (above the first block)"
 awk '/^## /{ exit } { print }' "$file"
-echo "### Blocks, newest first"
-grep -n '^## ' "$file"
+n=$(grep -c '^## ' "$file")
+echo "### Blocks, newest first: $n in all (the newest seven, with line numbers)"
+grep -n '^## ' "$file" | head -n 7
 echo "### Top block, in full"
 awk '/^## /{ if (on) exit; on = 1 } on' "$file"
 

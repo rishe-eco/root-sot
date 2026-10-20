@@ -49,7 +49,19 @@ if [ -n "$arg" ]; then
 	echo "## Module: $arg"
 	matches=$(grep '^| \[' "$lc/status.md" 2>/dev/null | grep -iF -- "$arg" || true)
 	if [ -z "$matches" ]; then
-		echo "No status row matches \"$arg\": treat it as new work to sort into a track."
+		echo "No status row contains \"$arg\"."
+		near=""
+		for w in $(printf '%s' "$arg" | tr -c '[:alnum:]' ' ' | tr '[:upper:]' '[:lower:]'); do
+			[ ${#w} -ge 5 ] || continue
+			near="$near$(sed -n 's/^| \[\([^]]*\)\].*/\1/p' "$lc/status.md" | grep -iF -- "$w")"$'\n'
+		done
+		near=$(printf '%s' "$near" | grep -v '^$' | sort -u)
+		if [ -n "$near" ]; then
+			echo "Near matches, whose name shares a word with it (name one to see its STATE.md):"
+			printf '%s\n' "$near" | sed 's/^/- /'
+		else
+			echo "No row shares a word with it either: treat it as new work to sort into a track."
+		fi
 	else
 		printf '%s\n' "$matches" | while IFS= read -r row; do
 			label=$(printf '%s' "$row" | sed -n 's/^| \[\([^]]*\)\].*/\1/p')

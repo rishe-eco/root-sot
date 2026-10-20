@@ -30,6 +30,7 @@ LIFECYCLE_ARGS
 
 **Which case this is.**
 - **A module matched.** Its row in the status table and its top `STATE.md` block are above. Report on it.
+- **Only near matches.** The argument may mean one of them, and the founder rarely types a row's exact name. If one near match plainly fits, say which one you took it to mean, then rerun `bash "${CLAUDE_SKILL_DIR}/context.sh" <its name>` to get its `STATE.md` and report on it. If several could fit, list them and stop (`skills-plan.md` §0: the step comes from the files, not from a guess).
 - **Nothing matched.** The argument is new work. Sort it into a track with the *Tracks* table above, including its rule for Change against Module: new journeys or new screens make it a Module. A Fix is a defect in something that exists. Name the first step of that track's path. If the line is too vague to sort, say what one fact would decide it. Don't ask more than that.
 - **No argument.** Give the whole picture: which rows have work in flight (column 8 part done, a `STALE` cell, a `done · owed` cell), and the top block of `lifecycle/STATE.md` if there is one.
 
