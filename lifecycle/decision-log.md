@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.24 · 2026-10-20**
+**Version 0.25 · 2026-10-20**
 
 ---
 
@@ -253,6 +253,16 @@
 
 **Why.** As L-23: templates go to reference files, and a rule stays only if it prevents a mistake in an ordinary session.
 
+**Decided by.** Founder, 2026-10-20, after reviewing the diff ("keep it"). Committed just before that review, so the work wasn't lost with the session's container.
+
+**Revisit.** In stage 2, when the every-session skills are written.
+
+## L-25 · 2026-10-20 · Skills plan 0.9: cut back, step 3, design skills
+
+**Decision.** Rewrite `lifecycle/skills-plan.md` §2 in tighter wording, from about 2,300 words to about 1,430. Each skill keeps what it does, reads, writes and gates on, and the parts of its output other skills read. Moved, word for word, to `lifecycle/skills/<skill>/reference.md`: the change note's shape (`spec`); the journeys file's shape, its *Must be true* cells and amending rules (`journeys`); the build plan's §0–§10 and stage-section lists, the size evidence and the gate's detail (`build-plan`); the design step's opening form, handoff, import and optional review (`design-step`); the eval plan's touch-up detail (`eval-plan`); and the details of `research`, `personas` and `wireframes` (a new seed file). Two source lines no longer say "not yet on `main`": both journeys files are on `main`.
+
+**Why.** As L-23: templates and shapes go to reference files, and a rule stays only if it prevents a mistake in an ordinary session.
+
 **Decided by.** Committed before the founder's review, so the work isn't lost with the session's container. Awaiting the founder's review; any line they want back is restored in a follow-up commit.
 
-**Revisit.** When the founder reviews §1.
+**Revisit.** When the founder reviews §2.

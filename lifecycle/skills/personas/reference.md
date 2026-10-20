@@ -9,3 +9,7 @@
 ## Template: the registry record
 
 ID, name, serves, grounding, grade (*hypothesis* or *grounded*), arrives how, device, knows entering (including the languages read), probes. Demographics are optional and never invented.
+
+## Moved from the plan at 0.9
+
+**Writes:** the selection into the module's `03-journeys.md` header (creating the file; `journeys` fills it): a title block plus `## Personas`, a table of persona, serves, why and anchors. `personas` owns `## Personas`, and `journeys` never edits it; the journeys version is bumped by the next `journeys` run. A proposed persona goes into `personas.md` marked *hypothesis*, with a decision-log entry in `decision-record`'s format.

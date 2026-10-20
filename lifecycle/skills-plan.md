@@ -2,7 +2,7 @@
 
 *Each of the twenty lifecycle skills, and the design step: what it does, how it is invoked, which model runs it, exactly what it reads and writes, its gate, and where its shape comes from. The method these skills implement is `README.md`.*
 
-**Version 0.8 · Status: plan — nothing here is built yet · 2026-10-20 · Owner: _root**
+**Version 0.9 · Status: plan — nothing here is built yet · 2026-10-20 · Owner: _root**
 
 ---
 
@@ -114,7 +114,7 @@ A project with no code yet has its config written as planned. The first stage's 
 ### `ideate`
 **Does:** turns an idea into a one-page intake and opens the module.
 **Model:** Sonnet, medium.
-**Asks:** problem; pillar and place on the opportunity tree (`ecosystem/ost.md`), for Root work, or "n/a, outside Root" with a reason; who it is for; smallest version worth trying; what would make us drop it. The drop rule is recorded verbatim. If it isn't testable, the intake says so and passes it to `spec` and `eval-plan`.
+**Asks:** problem; pillar and place on the opportunity tree (`ecosystem/ost.md`), or "n/a, outside Root" with a reason; who it is for; smallest version worth trying; what would make us drop it. The drop rule is recorded verbatim; if it isn't testable, the intake says so for `spec` and `eval-plan`.
 **Writes:** the module folder, `00-intake.md` (one page, no sources), `STATE.md`, the `status.md` row. The intake ends with *Decisions at intake*: the track, research or a waiver line, the code repo, which phases apply (UI or not), and the project.
 **Gate:** none.
 **From:** Spec Kit's idea-assessment intake.
@@ -122,8 +122,8 @@ A project with no code yet has its config written as planned. The first stage's 
 ### `research`
 **Does:** a research brief, checked against what Root already knows.
 **Model:** Opus, high.
-**Reads:** the intake; `ecosystem/canon/04-research/00-evidence-summary.md` first, so known evidence is not re-researched; the code it concerns, if any, by section.
-**Writes:** `01-research.md` — five-line summary on top; claims graded as §0's *Grades*; sources; capped at ~2,500 words, sources excluded. A required section, *For the next phases*, holds the options named by noun (letters, if any, only as aliases) and the questions for `spec`.
+**Reads:** the intake; `ecosystem/canon/04-research/00-evidence-summary.md` first, so known evidence isn't re-researched; the code it concerns, by section.
+**Writes:** `01-research.md`: a five-line summary on top; graded claims; sources; at most ~2,500 words before sources. A required *For the next phases* names the options by noun and lists the questions for `spec`.
 **Reference:** `skills/research/reference.md`.
 **Gate:** intake.
 **From:** the grading blocks in the journeys documents and the lifecycle spec.
@@ -131,11 +131,11 @@ A project with no code yet has its config written as planned. The first stage's 
 ### `personas`
 **Does:** selects which registered personas a module serves; rarely, proposes a new one.
 **Model:** Sonnet, medium.
-**Modes:** select (before journeys) · `add` (adds a row after journeys exist, when a language or audience is added).
+**Modes:** select (before journeys) · `add` (after journeys exist, when a language or audience is added).
 **Reads:** `personas.md`; the intake; the spec's interface section, when proposing.
-**Does:** selects from the registry. The selection may be empty. When no persona fits, it proposes one per intake audience, defined by behaviour. Whenever it proposes a persona, it asks the founder to accept before writing the registry.
-**Writes:** the selection into the module's `03-journeys.md` header (creating the file; `journeys` fills it): a title block plus `## Personas`, a table of persona, serves, why and anchors. `personas` owns `## Personas`, and `journeys` never edits it; the journeys version is bumped by the next `journeys` run. A proposed persona goes into `personas.md` marked *hypothesis*, with a decision-log entry in `decision-record`'s format.
-**Rules:** never redefines an existing persona — the persona review's score history depends on them being fixed. A module's owner may be a persona; their real judgement stays the founder's, not the persona's score.
+**Does:** selects from the registry; the selection may be empty. When none fits, it proposes one per intake audience, defined by behaviour, and asks the founder to accept before writing the registry. A proposed persona goes into `personas.md` marked *hypothesis*, with a decision-log entry.
+**Writes:** the selection as `## Personas` (persona, serves, why, anchors) in the module's `03-journeys.md`, creating the file. `personas` owns that section; `journeys` never edits it.
+**Rules:** never redefines an existing persona, since review scores depend on them being fixed. A module's owner may be a persona; their real judgement stays the founder's.
 **Reference:** `skills/personas/reference.md`.
 **From:** `tracker/canon/05-reviews/00-persona-review-method.md` §2.
 
@@ -143,76 +143,54 @@ A project with no code yet has its config written as planned. The first stage's 
 **Does:** the spec, or a change note against an existing one.
 **Modes:** `full` (Module) · `change` (Change track: a note in the module's `changes/`, or a new folder for a module that predates this system).
 **Model:** Opus, high.
-**Asks first:** up to eight clarifying questions in one batch (two calls of four, §0).
-**Writes:** `02-spec.md` in the house template. Journey-level criteria belong to `03-journeys.md`, written after the spec; the spec doesn't anticipate them.
-- **Metrics:** the spec defines measures. The eval plan owns instruments and rules, and may refine a measure. A refinement goes to `revise` as an item, and the plan proceeds on its refinement.
-- **The platform:** the spec names a stack implication as a risk. `build-plan`'s foundation batch decides it.
-- **Scope ledger:** the header carries the acceptance criteria counted by area at each version, against the intake, so growth since intake is visible (`revise` reads it).
+**Asks first:** up to eight clarifying questions in one batch (§0).
+**Writes:** `02-spec.md` in the house template. Journey-level criteria belong to `03-journeys.md`.
+- **Metrics:** the spec defines measures; the eval plan owns instruments and rules. A refinement there goes to `revise` as an item.
+- **The platform:** a stack implication is named as a risk; `build-plan`'s foundation batch decides it.
+- **Scope ledger:** the header counts acceptance criteria by area at each version, against the intake, so growth is visible (`revise` reads it).
 
-**Writes, in `change` mode:** `changes/NN-change-<slug>.md` — what changes and why, acceptance criteria, what must not break, and a **Stages** section: one or more stages in the build plan's §5 shape, each with a size (S/M/L) and its traps. This section is what `build-phase` and `verify` read in place of a build plan; a change too large to stage here is a Module.
-- **Header:** the kind (*change*), and `main @ <hash>` of the code it was written against.
-- **Criteria:** the note owns a two-letter prefix (`README.md` §0). The criteria table has an *Item* column naming the review finding each criterion closes. A review's findings routed `question` join the note's first batch of questions.
-- **Each stage** also has: an *Image and deploy* line; optional *At the verify* (a server runbook) and *Stop points* (commit boundaries). Lanes run targeted tests; the full suites are the verify's. It is sized with the test harness counted, as `build-plan` does. For any infrastructure change, it answers "what does this change about how later stages are built, verified or deployed?"
-- **It ends with *What this makes stale*:** each file, its owner, and the step that catches it up. A note that defers the spec adds a `revise` line to its `STATE.md` block's next steps, and `close-out`'s gate fails while one is pending.
-
-`changes/` has one numbering for both kinds: `NN-change-<slug>.md` from `spec change`, `NN-req-<slug>.md` from `revise`.
-**Gate:** research, or a waiver line in the intake (`full`). In `change` mode: `STATE.md`'s top block and the lanes in flight are injected, and the skill refuses while a lane touches the same files. `build-phase` re-reads the note against `main`'s log since its `main @` before drafting a card.
+**In `change` mode:** `changes/NN-change-<slug>.md`, in the shape in `skills/spec/reference.md`: what changes and why, criteria, what must not break, and a **Stages** section that `build-phase` and `verify` read in place of a build plan. A change too large to stage there is a Module. It ends with *What this makes stale*. `changes/` has one numbering for both kinds: `NN-change-` from `spec change`, `NN-req-` from `revise`.
+**Gate:** research, or a waiver line in the intake (`full`). In `change` mode, the lanes in flight are injected, and the skill refuses while a lane touches the same files.
 **Reference:** `skills/spec/reference.md`.
 **From:** `tracker/canon/06-specs/04-verification-lab.md`; Superpowers' brainstorming questions.
 
 ### `journeys`
 **Does:** the paths people take.
 **Modes:**
-- `new` — 3–5 journeys (first day, normal loop, return after a gap, not enough data, error) of ~10 steps each. Scenarios may share a journey, error journeys may be branches, and a journey with two actors adds a *Who* column. About 3,000–4,000 words, a guide, not a limit.
-- `gap` — each scenario checked against the code as *have / partly / missing*.
-- `update` — brings journeys up to a newer spec and new personas, from the change notes since its version.
+- `new`: 3–5 journeys (first day, normal loop, return after a gap, not enough data, error) of ~10 steps each, about 3,000–4,000 words as a guide;
+- `gap`: each scenario checked against the code as *have / partly / missing*;
+- `update`: brought up to a newer spec and new personas, from the change notes since its version.
 
-`gap` and `update` may be scoped (`--steps J2.9,J3.4` or `--from-note 07`): the changelog then says what wasn't checked, and the status cell stays `done`.
+`gap` and `update` may be scoped (`--steps J2.9,J3.4` or `--from-note 07`); the changelog says what wasn't checked.
 **Model:** Opus, high.
-**Asks:** in every mode, one batch, recorded in *Decisions taken at journeys*. A founder decision the spec lacks is also listed as Suggested, for `revise`.
-**Writes:** `03-journeys.md`, below the `## Personas` section that `personas` owns.
-- **Each step's last cell, *Must be true*,** is a check citing criteria. Steps are cited `J<n>.<step>`.
-- **`## Coverage`** (required): each acceptance criterion to its step, as `step`, `no screen` or `all steps`.
-- **Suggested,** in every mode: requirements the spec lacks, kept apart in a section `revise` reads. Once accepted, the next `journeys` run marks each "accepted at spec x.y", pointing at its criterion.
-- **A states table** at the end (empty, error, loading, not enough data, notices), which `wireframes` reads.
-- **Amending:** keep step numbers, give inserted steps a letter suffix, and mark changed text **[x.y]**, so citations downstream still hold.
+**Asks:** in every mode, one batch, recorded in *Decisions taken at journeys*.
+**Writes:** `03-journeys.md`, below `## Personas`, in the shape in `skills/journeys/reference.md`. Three parts other skills read:
+- **`## Coverage`** (required): each acceptance criterion to its step, `no screen` or `all steps`;
+- **Suggested:** requirements the spec lacks, including founder decisions made here, for `revise`;
+- **a states table** (empty, error, loading, not enough data, notices), for `wireframes`.
 
-**Gate:** spec; personas selected (the `## Personas` table).
+Amending keeps step numbers, so citations downstream still hold.
+**Gate:** spec; the `## Personas` table.
 **Reference:** `skills/journeys/reference.md`.
-**From:** `ecosystem/working/root-studio-user-journeys.md` on branch `journeys-build`, not yet on `main` (the `gap` mode); the Impact spec's flows, `ecosystem/working/impact-build/01-noticing-spec.md` (the `new` mode); bug B-14 as the case it exists to catch.
+**From:** `ecosystem/working/root-studio-user-journeys.md` (the `gap` mode); `ecosystem/working/impact-build/01-noticing-spec.md` (the `new` mode); bug B-14 as the case it exists to catch.
 
 ### `wireframes`
-**Does:** low-fidelity HTML for every journey step, including empty, error, loading and not-enough-data states.
+**Does:** low-fidelity HTML for every journey step and state.
 **Model:** Opus, medium.
-**Steps:**
-1. Run the gate.
-2. List the steps and states from the journeys' steps and states table.
-3. Group them by screen.
-4. Draw, by screen.
-5. Write *Calls made here*.
-6. Write the coverage plate: a step-to-plate table, so every journey step is traceable to a frame. A step with no screen of ours is marked "not ours, drawn as context" or "no screen", with a note.
-7. Render at 1200 and 375 px, and look.
-
-**Low fidelity** means neutral tokens; real copy only where the words are the requirement; placeholder bars elsewhere; no brand. The frame kit is `templates/wireframes.html`.
-**Suggested items** are drawn as visibly marked options, never as plain UI, and the ones drawn are listed.
-**Writes:** `04-wireframes.html`, with a required section *Calls made here*: behaviour the wireframes decided, each graded *proposal*. `ux-review` and `build-plan`'s gate read it.
+**Steps:** gate; list the steps and states from the journeys; group them by screen; draw by screen; write *Calls made here*; write the coverage plate (every journey step to its frame, or "no screen" with a note); render at 1200 and 375 px, and look.
+**Low fidelity:** neutral tokens, real copy only where the words are the requirement, no brand; the frame kit is `templates/wireframes.html`. Suggested items are drawn as visibly marked options, never as plain UI.
+**Writes:** `04-wireframes.html`, with a required *Calls made here*: behaviour the wireframes decided, graded *proposal*, which `ux-review` and `build-plan`'s gate read.
 **Gate:** journeys.
-**From:** the existing `*-wireframes.html` files in `tracker/canon/06-specs/`.
+**From:** the `*-wireframes.html` files in `tracker/canon/06-specs/`.
 
 ### The design step (4b), and its import
 **Does:** turns the wireframes into a designed, self-contained site the build draws from. The founder runs it in a design tool; an import session brings it into the repo.
-**Opening form,** before the first direction: references, the feel wanted, and whether an attached design system binds.
-**Inputs:** spec §4 and §6; the journeys' steps and states table; the wireframes' coverage plate. A second pass also reads the change notes' *Carried to design* lists (each item linked to its source), any earlier design review folder, and the spec sections those notes cite. Before editing in the tool, re-read the repo's latest source.
-**How much to draw:** phone for every screen and state. Desktop is required for public pages and the main editor. Gaps are listed in the README. Build plate by plate: large single writes time out.
-**Output:** `04b-design/`: self-contained HTML exports plus `source/`, edited in place (git keeps the history), and a README.
-**The README** follows its template in `skills/design-step/reference.md`.
-
-
-**The handoff.** A design tool that can't push leaves files at their repo paths in `../repo-handoff-<step>/`, beside the repo.
-**The import** (Opus, medium) has its own log and `STATE.md` block, and may edit `04b-design/README.md`. It diffs `STATE.md` and merges by block, never by overwriting. Its checklist is in `skills/design-step/reference.md`.
-
-**Optional review at the end of 4b:** an accessibility and HIG pass that writes proposals only, for `revise`. Scores are left to the UX review.
-**Status:** no column of its own; it shares column 4. An owed pass is written `done · owed 4b` there.
+**Inputs:** spec §4 and §6; the journeys' states table; the wireframes' coverage plate. A second pass also reads the change notes' *Carried to design* lists and any earlier design review.
+**How much to draw:** phone for every screen and state; desktop for public pages and the main editor. Gaps are listed in the README.
+**Output:** `04b-design/`: self-contained HTML exports plus `source/`, edited in place, and a README in the template in `skills/design-step/reference.md`.
+**The import** (Opus, medium) copies the files from `../repo-handoff-<step>/`, where a design tool that can't push leaves them, at their repo paths. It has its own log and `STATE.md` block, merges `STATE.md` by block, and works through the checklist in the reference file.
+**Status:** shares column 4. An owed pass is written `done · owed 4b`.
+**Reference:** `skills/design-step/reference.md`.
 **From:** the IMNSTR trial's steps 4b, 05e and their imports.
 
 ### `eval-plan`
@@ -221,41 +199,28 @@ A project with no code yet has its config written as planned. The first stage's 
 **Model:** Opus, high.
 **Steps:** the failures that look alike; the instruments; the rule, before any data; cost; limits.
 **Asks:** the founder about consequences: what "drop" means, and what happens after the last check.
-**Writes:** `06-eval-plan.md`.
-- It separates what `close-out` can judge from what matures after it, and names who runs the later checks and where they are reminded. Later checks count from launch (`README.md` §2). Results go in the plan's §5 *Results* table.
-- Each instrument names its preconditions (a device, the domain, real data), which `build-plan` places in the stage order.
-
-**Gate:** spec.
-**Touch-up:** its gate is a spec newer than the plan's input version. It reads the note's items and the sections they cite. It fixes what contradicts the spec, and what the change makes wrong in an instrument, and logs both. Decision rules stay unchanged unless the founder decides otherwise. A rule whose *action* cites a question the spec has since settled goes to the founder.
+**Writes:** `06-eval-plan.md`. It separates what `close-out` can judge from what matures after it, counted from launch, and names who runs the later checks. Each instrument names its preconditions (a device, the domain, real data), which `build-plan` places in the stage order.
+**Gate:** spec; for a touch-up, a spec newer than the plan's input version.
+**Touch-up:** fixes what the change note makes contradict the spec or makes wrong in an instrument. Decision rules change only on the founder's word.
 **From:** `ecosystem/working/impact-build/03-spine-evaluation.md`.
 
 ### `build-plan`
 **Does:** the plan a build is run from.
 **Model:** Opus, high.
-**Reads:** spec, journeys, wireframes, UX review, eval plan; `projects/<project>/`; the defect pass: the code and infrastructure the build will touch or share, read before planning. For a project with no code, the inputs, for contradictions and leaks. Injected: `README.md` §6–§7.
-**Step 1, the foundation batch:** when `projects/<project>/` doesn't exist, ask the founder's facts in one batch before drafting: repo, host, stack, domain, server facts, the devices they have. Answers go in the plan's §4, marked as answered. For a new project, the plan's §0.3 is the source of the project's house rules, which `project-config` transcribes.
-**Writes:** `07-build-plan.md` in the journeys plan's shape — §0 what was read, what must not break, house rules, defects found and assigned · §1 the shape at the end · §2 planning decisions (PD-n), each vetoable · §3 stage order, milestones, parallel lanes allowed (never two touching shared schema) · §4 pre-flight unknowns · §5 one section per stage, to the level of models, mutations, refusal codes, screens and tests, with a **size (S/M/L)** and its **traps** · §6 cross-cutting catalogues · §7 what changes in built code · §8 verification and its ceiling · §9 where this goes wrong · §10 for the founder.
-**Each stage section** also says, beside size and traps:
-- **Image and deploy:** new environment variables with production defaults, and toolchain changes;
-- **constraints from earlier stages** its writes must work through (triggers, unique keys);
-- **the plate it draws from,** and which stage owns each control on it. A frame-first split is planned explicitly;
-- **the API from the screens' save boundaries,** not one route per verb;
-- **a guard for every destructive CLI;**
-- **deploy-sequencing traps as stages** (B6a, B6b), never as an instruction one lane can't carry out;
-- **for a server-filled field,** what the screen shows for each verb.
-
-**Sizes:** a size is lane hours and lines of new app code, with tests and moved code counted apart. *Evidence* (IMNSTR): stages overran their line estimates (B4a +3,875 against L's ~3,000; B5 +2,634 against M's ~1,500; B7 +5,291) while running far under in time (B4a about 23 min against 4–6 h). Recalibrate from the stage records once a second module exists.
-**Last step, before commit:** each §6 catalogue row agrees with its §5 section; planning decisions don't contradict each other or the house rules; every "open" call is listed in §10 as left to the card.
+**Reads:** spec, journeys, wireframes, UX review, eval plan; `projects/<project>/`; injected: `README.md` §6–§7. Then **the defect pass**: the code and infrastructure the build will touch or share, read before planning; for a project with no code, the inputs, for contradictions and leaks.
+**Step 1, the foundation batch:** when `projects/<project>/` doesn't exist, ask the founder's facts in one batch before drafting (repo, host, stack, domain, server, devices). Answers go in the plan's §4.
+**Writes:** `07-build-plan.md`, §0–§10 as in the template in `skills/build-plan/reference.md`. Each stage in §5 has a **size (S/M/L)** and its **traps**. Never two parallel lanes on shared schema.
+**Last step, before commit:** each §6 catalogue row agrees with its §5 section; planning decisions don't contradict each other or the house rules; every open call is listed in §10 as left to the card.
+**Gate:** as `README.md` §2, phase 7.
+**Rule:** the session ends once the plan is pushed. The build starts fresh.
 **Reference:** `skills/build-plan/reference.md`.
-**Gate:** as `README.md` §2, phase 7: phases 2–6; UX findings, journeys' *Suggested*, the design's *Beyond the spec* and wireframes' *Calls made here* each accepted, refused or carried; `revise`'s *Open* items.
-**Rule:** this session ends once the plan is committed and pushed. The build starts fresh.
-**From:** `ecosystem/working/root-studio-journeys-build-plan.md` on branch `journeys-build`, not yet on `main`.
+**From:** `ecosystem/working/root-studio-journeys-build-plan.md`.
 
 ### `project-config`
 **Does:** creates a project's configuration folder.
-**Invocation:** by name, once per project, after its first build plan, when `projects/<project>/` doesn't exist · **Model:** Opus, medium.
-**Reads:** the build plan (§0.3 is the source of house rules, §4 the founder's facts); the latest retrospective; `templates/brief-common.example.md`; anything the founder supplies.
-**Writes:** `brief-common.md`, `review-checklist.md` and `config.md`, with the contents `skills/project-config/reference.md` lists. The founder accepts before commit.
+**Invocation:** by name, once per project, after its first build plan · **Model:** Opus, medium.
+**Reads:** the build plan (§0.3 for house rules, §4 for the founder's facts); the latest retrospective; `templates/brief-common.example.md`; anything the founder supplies.
+**Writes:** `brief-common.md`, `review-checklist.md` and `config.md`, as `skills/project-config/reference.md` lists. The founder accepts before commit.
 **Gate:** build plan.
 **From:** the IMNSTR trial's step 7b.
 
@@ -446,6 +411,7 @@ Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `bui
 
 ## Changelog
 
+- **0.9 · 2026-10-20** — Cut back, step 3, §2 (L-25, awaiting the founder's review): the change note's shape, the journeys file's shape, the build plan's §0–§10 and stage-section lists, the design step's opening form and handoff details, and the eval plan's touch-up details move to `skills/<skill>/reference.md`; the rest in tighter wording; two sources no longer called "not yet on `main`".
 - **0.8 · 2026-10-20** — Cut back, step 3, §1 (L-24, awaiting the founder's review): `handoff`'s block format, `learned`'s note fields and its destination table move to `skills/<skill>/reference.md`; the rest in tighter wording; lines that repeat §0 or `verify` are cut.
 - **0.7 · 2026-10-20** — Cut back, step 2, §0 (L-23, awaiting the founder's review): the same rules in tighter wording; redoing a phase, grades in reviews, design items routed to `revise` and steps outside Claude Code move to `skills/shared/reference.md`; the config table's sources move to `skills/project-config/reference.md`; two provenance sentences, one obvious line and one bullet duplicated in `verify`'s seeds are cut.
 - **0.6 · 2026-10-20** — Cut back, step 1 (L-22): each skill's *Reference holds* and template contents, and the contents of `config.md` and `brief-common.md`, move unchanged to `skills/<skill>/reference.md`; each section points there. The 0.5 entry points at the decision log.
