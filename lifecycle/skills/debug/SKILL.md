@@ -24,7 +24,7 @@ LIFECYCLE_ARGS
 
 ## The rules
 
-1. **Reproduce it with the smallest test.** Use one file, and one test in it (`-g <name>`, `-t <name>`), with quiet output. If the failure appeared in a full run, find the single test that shows it and run that alone. Use the suite commands and the slot's variables above, exported in the same command.
+1. **Reproduce it with the smallest test.** Use one file, and one test in it (`-g <name>`, `-t <name>`), with quiet output. If the failure appeared in a full run, find the single test that shows it and run that alone. Use the suite commands and the slot's variables above, exported in the same command. **Reproduce it on the surface the user saw.** A known-issues entry may describe a path that was fixed already: grep every caller of the function it names before writing the test. When the fix will move logic into a new helper, the reproducing test renders the component, because a test of the new helper can only fail on a missing export at the merge base.
 
 2. **One hypothesis at a time.** Before each run, write the hypothesis in one line and say what result would confirm or refute it. Then make one targeted run, and read its result against that line. Don't change two things between runs, or you won't know which one mattered.
 

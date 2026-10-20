@@ -2,7 +2,7 @@
 
 *Seeds for this skill's reference file and template, moved unchanged out of `skills-plan.md` at 0.10. They bind as the plan does. The skill's first author places them.*
 
-**Version 0.2 · Status: placed — `SKILL.md` binds · 2026-10-20 · Owner: _root**
+**Version 0.3 · Status: placed — `SKILL.md` binds · 2026-10-21 · Owner: _root**
 
 ---
 
@@ -25,5 +25,6 @@ It is the one build skill Claude may invoke on its own. Its description names ro
 
 ## Changelog
 
+- **0.3 · 2026-10-21** — `SKILL.md` rule 1: reproduce on the surface the user saw (grep the callers; render the component, not a new helper). From `learned --consolidate`, the first (L-42).
 - **0.2 · 2026-10-20** — Placed in `SKILL.md` 0.1. This file keeps the seed as moved and a record of what placing added.
 - **0.1 · 2026-10-20** — Seed, moved unchanged out of `skills-plan.md` at 0.10.
