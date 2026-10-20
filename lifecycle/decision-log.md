@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.29 · 2026-10-20**
+**Version 0.30 · 2026-10-20**
 
 ---
 
@@ -335,3 +335,17 @@ Four facts found on the way are written into the files as they are, not as the m
 - Tracker: whether to schedule an e2e prep stage (movable ports, API URL, browser channel and database) or waive it, and its checkout path on the Windows build machine, which the founder supplies.
 - root-app: which branch is the base until `journeys-build` and `wp-dashboards` are merged, and whether a fixed test clock replaces `onDay`.
 - Still open from stage 1: the founder's machine setup (Docker isn't on the Linux machine), Learn Module 1's column 8, and the baseline's `/usage` and `/insights`.
+
+## L-31 · 2026-10-20 · Stage 2 prep: every session ends with the next prompt; skills in `lifecycle/skills/` until the plugin; the baseline
+
+**Decision.**
+- **Session rule 8** (`README.md` 0.7 §5): every session's last message is the next session's prompt, in a fenced block the founder pastes after `/clear`, copied from the first next step of the `STATE.md` block just written. `handoff` prints it and `learned` prints it again last (`skills-plan.md` 0.12); before the skills exist, the session writes it itself. The root `CLAUDE.md` carries the rule, so it applies from the next session. The handoff template's first next step is a whole prompt for a cold session (`skills/handoff/reference.md` 0.2).
+- **Where skills live:** `lifecycle/skills/<skill>/SKILL.md`, beside their seeds, until the plugin (stage 6). Stage 2 starts with `bin/install-skills`, which copies them into `~/.claude/skills/` so sessions in all three repos find them. Copies, not symlinks, which are unreliable in Git Bash on Windows. This settles L-27's *Revisit*.
+- **The baseline** (`README.md` §8 stage 0): the journeys build's total, about $521, read by the founder from the usage dashboard, plus the IMNSTR trial's cost per phase in each log's *Cost*. The $521 covers the one session that ran the base project, the journeys and their development, so it overstates the journeys build alone. The retrospective's `/usage` and `/insights` item is closed: its 7-day window had passed (retrospective 0.5).
+- **A coordinator is deferred.** The founder proposed one or more coordinators to remove the cost of switching sessions between skills. Rule 8 takes its place for now.
+
+**Why.** Switching sessions between skills is the founder's main friction, but the session breaks are the retrospective's fix: one orchestrating session at 500–760k tokens was most of the journeys build's cost. A coordinator that stays one long session would bring that back. A thin one that sends each phase to a fresh sub-agent could work, but sub-agents can't ask the founder anything, which most design phases need, and probably can't launch the lanes `build-phase` launches (not yet verified here). Rule 8 removes the cheap part of the friction, knowing what to paste next, at no cost. Skills stay beside their seeds so one folder holds each skill until the plugin. The dashboard's total replaces a breakdown that can no longer be read.
+
+**Decided by.** Founder, 2026-10-20: proposed rule 8 in place of a coordinator, chose `lifecycle/skills/` and gave the $521 figure. `bin/install-skills` and the rule's exact wording are Claude's, accepted on the diff ("keep it").
+
+**Revisit.** At the end of stage 2, after the build skills are tried on the journeys owed items and B-15: a build-side coordinator (build → verify → debug within one milestone), judged by how often those sessions stopped for the founder and against the IMNSTR per-phase costs. Also whether a sub-agent can launch sub-agents, and whether the $521 can be split between the base project and the journeys.
