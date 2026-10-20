@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.26 · 2026-10-20**
+**Version 0.27 · 2026-10-20**
 
 ---
 
@@ -273,6 +273,16 @@
 
 **Why.** As L-23. §3 cut less than §2 because most of it is steps a session follows in order, which stay.
 
+**Decided by.** Founder, 2026-10-20, after reviewing the diff ("keep it"), accepting about 5,800 words as the finish line rather than 5,000. Committed just before that review, so the work wasn't lost with the session's container.
+
+**Revisit.** When the build skills are written (rollout stage 2).
+
+## L-27 · 2026-10-20 · Skills plan 0.11: cut back, step 3, closing the loop; the cut finished
+
+**Decision.** Rewrite `lifecycle/skills-plan.md` §4 in tighter wording, from about 800 words to about 540. `revise` keeps its scope ledger, outcomes and `STALE` rule in full; its change-request contents and `--catch-up` detail move to `lifecycle/skills/revise/reference.md`. `close-out`'s cost and canon-sync detail move to `lifecycle/skills/close-out/reference.md`. Both are new seed files. The changelog entries for 0.6 to 0.11 fold into one line. §5 points at the seed files for templates and note fields, and `README.md` 0.6 lists `skills/` in §3 and §4. The plan ends at about 5,900 words, from about 10,200.
+
+**Why.** As L-23. The founder set about 5,800 words as the finish line: below that, the cut would remove steps that prevent real mistakes.
+
 **Decided by.** Committed before the founder's review, so the work isn't lost with the session's container. Awaiting the founder's review; any line they want back is restored in a follow-up commit.
 
-**Revisit.** When the founder reviews §3.
+**Revisit.** In stage 2, when the first skills are written from the plan and their seed files: whether `skills/` folds into `.claude/skills/<skill>/`.

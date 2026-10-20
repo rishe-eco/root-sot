@@ -2,7 +2,7 @@
 
 *The method behind the lifecycle skills: the three tracks of work, the phases and their gates, where every file lives and who writes it, the session and build rules that keep usage down, and how lessons are kept. The skills themselves are specified in `skills-plan.md`.*
 
-**Version 0.5 · Status: plan — nothing here is built yet · 2026-10-19 · Owner: _root**
+**Version 0.6 · Status: plan — nothing here is built yet · 2026-10-20 · Owner: _root**
 
 ---
 
@@ -88,6 +88,7 @@ NN-slug/
 | `personas.md` | Persona registry, each with its grounding |
 | `review-instrument.md` | The six metrics, from `tracker/canon/05-reviews/00-persona-review-method.md`, plus the heuristic and coverage checklists |
 | `templates/` | One per output, plus `required-headings.txt` that the gate reads |
+| `skills/<skill>/reference.md` | Seeds for each skill's reference file and template, moved out of `skills-plan.md`; they bind as the plan does until the skill is written |
 | `projects/<project>/` | Per-project configuration: `brief-common.md`, `review-checklist.md`, `config.md` (paths, suites, milestone script, lane resources) |
 | `bin/gate` | The mechanical gate check every phase skill runs |
 | `retros/` | Build retrospectives |
@@ -131,6 +132,7 @@ Modules that predate this system stay where they are; `status.md` points at thei
 | `review-instrument.md` | the founder, as for `templates/` |
 | `README.md` (this file) | the founder, as for `templates/` |
 | `skills-plan.md` | the founder, as for `templates/` |
+| `skills/` | the founder, as for `templates/`; each skill's first author places its seeds |
 
 One file pattern per row, so a skill can grep its own rights.
 
@@ -190,6 +192,7 @@ Each stage ends by checking usage against the baseline.
 
 ## Changelog
 
+- **0.6 · 2026-10-20** — §3 and §4 list `skills/<skill>/reference.md`, the seeds moved out of `skills-plan.md` in its cut back (L-22 to L-27).
 - **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied group by group. *Method:* where an outside project's modules live; Change during a build, and the small Change; phases 4b and 7b, and launch as an event; gates for phases 5, 7, 9 and 10; §4 one file pattern per row, with the build plan, project configs and open-work's writers; `status.md` values; the founder's supplies; `MS<n>`, criterion prefixes and pass-scoped findings. *Every-session skills:* a module's `decisions.md`; the kind in a change file's name; `engineering-checklist.md`; consolidation at each milestone. *Design and build plan:* a size's units. *Build:* card length counted by body. *Reviews:* `ux-review`'s first mode is `design`. *Closing the loop:* a capability leaves `revise` for `spec change`; a new language or audience runs personas, then journeys. *Foundation:* stage 1 points at the full list.
 - **0.4 · 2026-10-06** — Change track builds from its change note: the note carries a Stages section and `build-phase` accepts it in place of a build plan.
 - **0.3 · 2026-10-06** — Consistency pass against `skills-plan.md`: lane report is seven-part; every `STATE.md`, inbox and decision-log writer listed; state-of-the-build file is per project; founder-owned files also change through accepted consolidations; close-out gate requires a consolidated inbox; `n/a` phases pass the gate; models for `learned` and `debug`; `projects/tracker/` in stage 1.

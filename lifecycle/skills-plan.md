@@ -2,7 +2,7 @@
 
 *Each of the twenty lifecycle skills, and the design step: what it does, how it is invoked, which model runs it, exactly what it reads and writes, its gate, and where its shape comes from. The method these skills implement is `README.md`.*
 
-**Version 0.10 · Status: plan — nothing here is built yet · 2026-10-20 · Owner: _root**
+**Version 0.11 · Status: plan — nothing here is built yet · 2026-10-20 · Owner: _root**
 
 ---
 
@@ -324,45 +324,32 @@ Land doesn't push the branch. If verify must run on another machine, the founder
 **Does:** carries a change back upstream.
 **Model:** Opus, medium.
 **Modes:** for a module · `--catch-up <notes>` · for the method.
-**Input:** a change request — from a lane report's item 5, a review, or a live UX finding; or a change to the method itself.
-**Reads:** every `STATE.md` block since the last `revise`, and the sections their items cite. Items come from the cited sections, not from `STATE.md`'s summary of them. The spec header's scope ledger.
-**Asks:** the founder per item, in one batch, before writing (§0, asking the founder).
-- An [F] decision from an earlier phase is accepted by default, but still scanned for an open sub-question. A spec assumption confirmed downstream is written into the spec.
-- **Scope.** An answer that adds a requirement, contradicts the spec or answers with a question is a new item (§0, rule 4). Each version updates the ledger; when an area has doubled since intake, or passes about a quarter of all criteria, `revise` asks "still the smallest version worth trying?" before accepting more. An item that adds a capability (new stored data, a new screen family, or anything intake put out of scope) leaves `revise` for `spec change`, with research or a waiver line.
-
-**Outcomes:** each item is *accepted*, *refused*, *carried to <step or skill>*, *left to the build plan* (listed under *Open*, which `build-plan`'s gate reads), *deferred to <rubric>*, or *pending explanation*.
-**`STALE`:** set only where a downstream output contradicts the change. Where it is silent, the item is carried with an owner; where it already provided for the outcome, it is carried, not stale. Each `STALE` item quotes the sentence it marks, and `revise` greps the output for every line relying on the changed fact, not only the cited step.
-**Writes,** for a module:
-- `changes/NN-req-<slug>.md` (template `templates/change-request.md`): header (kind, `main @`, spec version from and to); *Items*, each with its outcome; *Changes to the spec*; *Carried to design*, each item linked to its source; *STALE*, with quoted sentences; *Open*; *Owed by other skills*, naming each touch-up (`eval-plan --touch-up`, `journeys update`, the design step) and its order in `STATE.md`'s next steps. Accepted Suggested items are noted as owed to the next `journeys` run;
-- the spec's version bump, changelog line and ledger;
-- `STALE` in `status.md` where the rule above says so;
-- a line in the module's `decisions.md`, pointing at the change note;
-- struck open-work rows it settled, citing its change note.
-
-**A new language or audience:** next steps are `personas add`, then `journeys update`, before any design pass or review.
-**`--catch-up <notes>`,** after a build: its writes are the files the notes' *What this makes stale* names (spec, plan, config, design README, the code repo's `CLAUDE.md`), each with the founder's acceptance and listed in its note. Pushing a repo whose `main` deploys asks first (§0).
-
-**For the method** (`lifecycle/` files): the edit, the file's version and changelog line, and an entry in `lifecycle/decision-log.md`. No status cells.
-
+**Input:** a change request: a lane report's item 5, a review, a live UX finding, or a change to the method.
+**Reads:** every `STATE.md` block since the last `revise`, and the sections their items cite (items come from those sections, not from the summary); the spec header's scope ledger.
+**Asks:** the founder per item, in one batch, before writing (§0). An earlier [F] decision is accepted by default, but scanned for an open sub-question.
+**Scope.** Each version updates the ledger. When an area has doubled since intake, or passes about a quarter of all criteria, `revise` asks "still the smallest version worth trying?" before accepting more. An item that adds a capability (new stored data, a new screen family, anything intake put out of scope) leaves `revise` for `spec change`, with research or a waiver line.
+**Outcomes:** each item is *accepted*, *refused*, *carried to <step>*, *left to the build plan* (under *Open*, which `build-plan`'s gate reads), *deferred to <rubric>*, or *pending explanation*.
+**`STALE`:** only where a downstream output contradicts the change, quoting the sentence it marks; `revise` greps the output for every line relying on the changed fact. Where the output is silent, or already provided for the outcome, the item is carried with an owner, not marked stale.
+**Writes,** for a module: `changes/NN-req-<slug>.md` in the template in `skills/revise/reference.md`, naming the touch-ups owed (`eval-plan --touch-up`, `journeys update`, the design step) and their order in `STATE.md`'s next steps; the spec's version, changelog line and ledger; `STALE` cells; a line in `<module>/decisions.md`; the open-work rows it settled, struck.
+**A new language or audience:** `personas add`, then `journeys update`, before any design pass or review.
+**`--catch-up <notes>`,** after a build, writes the files the notes' *What this makes stale* names, each with the founder's acceptance.
+**For the method** (`lifecycle/` files): the edit, the file's version and changelog line, and a `decision-log.md` entry. No status cells.
 **From:** the journeys build's mid-plan changes (J9 split, J13's "signed" rule).
 
 ### `close-out`
 **Does:** finishes a module.
 **Model:** Opus, high.
-**Modes:** full · `--eval`, when an evaluation that matured later is read: it appends the result and clears the cell.
-**Gate:** as `README.md` §2, phase 10. An override (`bin/gate --override`) is recorded with its reason in `09-close-out.md`'s header.
+**Modes:** full · `--eval`, when a later evaluation matures: it appends the result and clears the cell.
+**Gate:** as `README.md` §2, phase 10. An override is recorded with its reason in `09-close-out.md`'s header.
 **Reads:** the eval plan and its results; every stage record's *decided* and *owed* sections, injected; `STATE.md`; the canon-sync flags. If the code repo isn't reachable, the plan's changelog and the open-work file, saying so.
 **Writes:**
-- `09-close-out.md`: the evaluation result against the rule written beforehand; what the plan did not know, aggregated; the module's cost; a short retrospective, including the lessons consolidated during the module.
-- **Closed, launch-ready and evaluated are separate.** It records launch's date, or "not yet"; writes the later checks' dates, counted from launch; and creates their reminders (a `/schedule` task, with the founder's yes). The row reads `closed · eval <date>` until the last check.
-- **Cost** in dollars from `/usage`, plus the session-limit share where it is shown. Each log's *Cost* says whether its figure is exact or estimated, and which log carries a shared session's figure. Steps run outside Claude Code read the limit percentage at start and end.
-- Updates the *Grading* line of each design document to say what is now as-built, citing the stage records.
-- Moves documents from `working/` or `drafts/` into canon, per the area's conventions.
-- Applies the canon-sync flags to the as-built canon: the canon `config.md` names (for IMNSTR: the spec, plan, design README and `CLAUDE.md`), through `revise --catch-up` when the files are design-side.
-- Updates the roadmap.
-- Closes the `status.md` row as done, parked or killed.
+- `09-close-out.md`: the evaluation against the rule written beforehand; what the plan didn't know; the module's cost in dollars from `/usage`; a short retrospective.
+- **Closed, launch-ready and evaluated are separate:** launch's date or "not yet", the later checks' dates counted from launch, and their reminders, with the founder's yes. The row reads `closed · eval <date>` until the last check.
+- the canon-sync flags applied to the canon `config.md` names, through `revise --catch-up` for design-side files; documents moved from `working/` into canon; design documents' *Grading* lines updated; the roadmap;
+- the `status.md` row closed as done, parked or killed.
 
-**From:** the canon/working convention in `ecosystem/README.md`; this retrospective, which `close-out` completes for the journeys build.
+**Reference:** `skills/close-out/reference.md`.
+**From:** the canon/working convention in `ecosystem/README.md`; the journeys build's retrospective.
 
 ---
 
@@ -370,12 +357,12 @@ Land doesn't push the branch. If verify must run on another machine, the founder
 
 Stage 1 (foundation) is files, not skills. The IMNSTR trial counted what its 72 logs missed (`trial-run/findings.md` §10): `bin/gate` in 32, a template in 22.
 - `status.md` backfilled for existing modules, with the values in `README.md` §3;
-- `templates/` and `required-headings.txt`, one per output: intake, research, spec, persona record, journeys, wireframe frame kit (`wireframes.html`), change request, change note, eval plan, build plan, phase card, lane report, design README, design-import checklist, review, close-out, and the project config's three files. Their headings are in each skill's section above, and in each trial log's *Template sample*. `brief-common.example.md` is already there;
+- `templates/` and `required-headings.txt`, one per output: intake, research, spec, persona record, journeys, wireframe frame kit (`wireframes.html`), change request, change note, eval plan, build plan, phase card, lane report, design README, design-import checklist, review, close-out, and the project config's three files. Their headings are in each skill's section and its `skills/<skill>/reference.md`, and in each trial log's *Template sample*. `brief-common.example.md` is already there;
 - `bin/gate`, as §0 specifies: fetch, step check, override, HTML headings, the personas table, criterion coverage;
-- `learnings/inbox/` and `index.md`, with `learned`'s note fields;
+- `learnings/inbox/` and `index.md`, with `learned`'s note fields (`skills/learned/reference.md`);
 - `projects/root-app/` from the recovered brief and the plan's §0.2–0.3 and §8;
 - `projects/tracker/` from `tracker/canon/02-architecture/04-conventions.md` and `03-engineering/01-testing.md`;
-- CLAUDE.md in all three repos — `root-app`'s carrying the environment knowledge from the build machine's memory.
+- CLAUDE.md in all three repos, `root-app`'s carrying the environment knowledge from the build machine's memory.
 - **The founder's machine setup:** reduced-motion emulation, an image zoom tool, shellcheck, Docker running, `gh` signed in, and a network allowlist for reference hosts (w3.org, owasp.org, PubMed, university repositories).
 
 Already in place from the trial: `engineering-checklist.md`, `projects/imnstr/`, and IMNSTR's `decisions.md`.
@@ -384,11 +371,7 @@ Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `bui
 
 ## Changelog
 
-- **0.10 · 2026-10-20** — Cut back, step 3, §3 (L-26, awaiting the founder's review): the test-grep list, the card's length details and the worktree's reason (`build-phase`), the probes, browser grading, flake rule and route walk (`verify`), Root's design-system paths (`design-review`) and live mode's details (`ux-review`) move to `skills/<skill>/reference.md`; the rest in tighter wording.
-- **0.9 · 2026-10-20** — Cut back, step 3, §2 (L-25, awaiting the founder's review): the change note's shape, the journeys file's shape, the build plan's §0–§10 and stage-section lists, the design step's opening form and handoff details, and the eval plan's touch-up details move to `skills/<skill>/reference.md`; the rest in tighter wording; two sources no longer called "not yet on `main`".
-- **0.8 · 2026-10-20** — Cut back, step 3, §1 (L-24, awaiting the founder's review): `handoff`'s block format, `learned`'s note fields and its destination table move to `skills/<skill>/reference.md`; the rest in tighter wording; lines that repeat §0 or `verify` are cut.
-- **0.7 · 2026-10-20** — Cut back, step 2, §0 (L-23, awaiting the founder's review): the same rules in tighter wording; redoing a phase, grades in reviews, design items routed to `revise` and steps outside Claude Code move to `skills/shared/reference.md`; the config table's sources move to `skills/project-config/reference.md`; two provenance sentences, one obvious line and one bullet duplicated in `verify`'s seeds are cut.
-- **0.6 · 2026-10-20** — Cut back, step 1 (L-22): each skill's *Reference holds* and template contents, and the contents of `config.md` and `brief-common.md`, move unchanged to `skills/<skill>/reference.md`; each section points there. The 0.5 entry points at the decision log.
+- **0.6–0.11 · 2026-10-20** — Cut back from about 10,200 words to about 5,800, one section per commit, each reviewed by the founder (L-22 to L-27). Every skill keeps what it does, reads, writes and gates on. Templates, output shapes, *Reference holds* and one-incident rules moved word for word to `skills/<skill>/reference.md`, and rarely needed shared rules to `skills/shared/reference.md`; provenance and lines repeated elsewhere were cut.
 - **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied in fourteen groups. What each group changed is its entry in `decision-log.md`, L-8 to L-21 (L-20 is the trial brief's).
 - **0.4 · 2026-10-06** — Change track: `spec change` writes a Stages section into the change note; `build-phase` gates on and drafts cards from it; `verify` reads it in place of the plan's §5.
 - **0.3 · 2026-10-06** — Consistency pass against `README.md`: gate always exits 0 (a failing injected command aborts the skill) and passes `n/a`; decision-log entries from `personas`, `revise` and `learned` use `decision-record`'s format; `revise` gains a method mode; `close-out` gains a gate line; `build-plan`'s gate matches the README; canon flags go in the stage record; state-of-the-build file is per project; source paths completed.
