@@ -71,7 +71,7 @@ Not a phase output. Each method file kept its own headings. The decision-log ent
 1. **Rule:** when applying a batch of edits, write a small helper for the repeated mechanics (exact-match replace that fails on zero or two matches, the changelog line, the next decision-log id) before the first group. **Event:** groups 1–4 repeated the same boilerplate, and one group failed partway on a string that didn't match. The assert stopped it before it wrote a partial file. **Cost:** one rerun. **Scope:** `revise --method`, `learned --consolidate`. **Destination:** their reference files. **Urgent:** no.
 
 ## Cost
-*Founder fills in after the session.*
+From the founder's paste: **$6.00**; API 34 m, wall 36 m; Opus 5.5 only. Tokens: 106 input, 95.7k output, 10.4M cache read, 227.1k cache write. The figure is exact, and covers the whole session: 15 groups, the session record, and the templates decision. Most of the output went on the drafted edits, about 8,000 words added to the method files.
 
 ## Next
 - **Templates:** the founder chose rollout stage 1, together with `bin/gate`.
