@@ -27,6 +27,7 @@ cp "$src/lifecycle/bin/gate" "$work/lifecycle/bin/"
 cp "$src/lifecycle/templates/required-headings.txt" "$work/lifecycle/templates/"
 cp "$src/lifecycle/status.md" "$work/lifecycle/"
 cp -R "$src/lifecycle/projects/imnstr" "$work/lifecycle/projects/"
+cp -R "$src/lifecycle/projects/root-app" "$work/lifecycle/projects/"
 touch "$work/lifecycle/learnings/inbox/.gitkeep"
 cp -R "$src/$M" "$work/$M"
 # For the installed-skill cases: the installer and the skills that call the gate.
@@ -166,6 +167,13 @@ reset
 drop 02-spec.md "- **0.5 · 2026-10-19**"
 expect "a change note that leaves the spec behind" "GATE FAIL" "changes/05-live-review-polish.md leaves the spec behind" "$M" 10
 expect "… and the second one" "GATE FAIL" "changes/06-copy-and-sessions.md leaves the spec behind" "$M" 10
+reset
+
+echo "== A module in Root's own area"
+# ecosystem/modules/ is root-app's (README.md §3), though no project folder is named ecosystem.
+mkdir -p "$work/ecosystem/modules" && cp -R "$work/$M" "$work/ecosystem/modules/01-studio"
+sed "s|(../$M/)|(../ecosystem/modules/01-studio/)|" "$work/lifecycle/status.md" >"$tmp/s" && mv "$tmp/s" "$work/lifecycle/status.md"
+expect "ecosystem/modules reads root-app's project folder" "GATE OK" "lifecycle/projects/root-app/config.md:" ecosystem/modules/01-studio 8 PL1 --verify
 reset
 
 echo "== Arguments"

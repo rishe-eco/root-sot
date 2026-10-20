@@ -420,10 +420,14 @@ stage_complete() {
 	fi
 }
 
+# area_project: the project a module's top folder stands for, when its intake names none. Root's own
+# areas (`ecosystem/`) are root-app's, as `project_of` in `skills/shared/build.sh` has it.
+area_project() { case ${rel%%/*} in ecosystem) echo root-app ;; *) echo "${rel%%/*}" ;; esac; }
+
 project_config() {
 	local project f
 	project=$(section "$mdir/00-intake.md" "decisions" 2>/dev/null | sed -n 's/.*\*\*Project[:*]*[[:space:]`]*\([A-Za-z0-9_-]*\).*/\1/p' | head -n 1)
-	[ -n "$project" ] || project=${rel%%/*}
+	[ -n "$project" ] || project=$(area_project)
 	for f in brief-common review-checklist config; do
 		if [ -f "$lifecycle/projects/$project/$f.md" ]; then
 			headings "$lifecycle/projects/$project/$f.md" "lifecycle/projects/$project/$f.md"
@@ -730,7 +734,7 @@ if [ "$own" = n/a ]; then
 fi
 if [ "$phase" = 7b ]; then
 	project=$(sed -n 's/.*\*\*Project[:*]*[[:space:]`]*\([A-Za-z0-9_-]*\).*/\1/p' "$mdir/00-intake.md" 2>/dev/null | head -n 1)
-	[ -f "$lifecycle/projects/${project:-${rel%%/*}}/config.md" ] && strict=0
+	[ -f "$lifecycle/projects/${project:-$(area_project)}/config.md" ] && strict=0
 elif is_done "$own"; then
 	strict=0
 fi
