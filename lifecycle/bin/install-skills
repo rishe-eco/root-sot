@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+# install-skills — copies every lifecycle skill into Claude Code's personal skills folder, so sessions in
+# root-sot, root-app and Tracker all find them. Rerun it after any skill changes.
+#
+# Specified in `lifecycle/README.md` §3 and decision L-31: skills live in `lifecycle/skills/<skill>/SKILL.md`
+# until the plugin (stage 6), and are installed as copies, not symlinks, which are unreliable in Git Bash
+# on Windows. A folder under `lifecycle/skills/` is a skill once it holds a SKILL.md; seed-only folders
+# (`shared/`, and skills not written yet) are left alone.
+#
+# Usage: install-skills [--check] [--dest <dir>]
+#   --check   change nothing; list the skills whose installed copy is missing or differs, and exit 1 if any do
+#   --dest    install somewhere else (default: ${CLAUDE_CONFIG_DIR:-~/.claude}/skills)
+#
+# Each installed copy holds the skill folder as it is here, plus a `.root-sot` file naming this checkout's
+# absolute path. A skill's scripts read that file to find root-sot from any repo, so the committed files
+# never carry one machine's path. The file also marks the copy as ours: a folder of the same name without
+# it is someone else's skill, and is never overwritten. A copy whose skill no longer exists here is removed,
+# but only if it was installed from this checkout.
+
+set -u
+export LC_ALL=C
+
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)
+root=$(cd "$here/../.." && pwd -P)
+src="$root/lifecycle/skills"
+dest="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/skills"
+check=0
+
+while (($#)); do
+	case "$1" in
+	--check) check=1 ;;
+	--dest)
+		[ $# -ge 2 ] || { echo "install-skills: --dest needs a directory" >&2; exit 2; }
+		dest="$2"
+		shift
+		;;
+	-h | --help) sed -n '2,/^$/s/^# \{0,1\}//p' "${BASH_SOURCE[0]}"; exit 0 ;;
+	*) echo "install-skills: unknown argument '$1' (try --help)" >&2; exit 2 ;;
+	esac
+	shift
+done
+
+# same <a> <b>: the two folders hold the same files, ignoring the installed copy's `.root-sot`.
+same() { diff -rq -x .root-sot "$1" "$2" >/dev/null 2>&1; }
+
+skills=()
+for f in "$src"/*/SKILL.md; do
+	[ -f "$f" ] && skills+=("$(basename "$(dirname "$f")")")
+done
+stale=0 installed=() unchanged=() skipped=() removed=()
+((${#skills[@]})) || skipped+=("no skills here yet (no lifecycle/skills/*/SKILL.md)")
+[ "$check" = 1 ] || mkdir -p "$dest"
+
+for s in "${skills[@]}"; do
+	to="$dest/$s"
+	if [ -e "$to" ] && [ ! -f "$to/.root-sot" ]; then
+		skipped+=("$s: $to exists and wasn't installed by this script; move it, then rerun")
+		continue
+	fi
+	if [ -d "$to" ] && same "$src/$s" "$to" && [ "$(cat "$to/.root-sot")" = "$root" ]; then
+		unchanged+=("$s")
+		continue
+	fi
+	if [ "$check" = 1 ]; then
+		stale=1
+		if [ -d "$to" ]; then installed+=("$s (differs)"); else installed+=("$s (not installed)"); fi
+		continue
+	fi
+	rm -rf "$to"
+	cp -R "$src/$s" "$to"
+	printf '%s\n' "$root" >"$to/.root-sot"
+	installed+=("$s")
+done
+
+# Copies of skills that no longer exist here.
+for marker in "$dest"/*/.root-sot; do
+	[ -f "$marker" ] || continue
+	[ "$(cat "$marker")" = "$root" ] || continue
+	to=$(dirname "$marker") s=$(basename "$(dirname "$marker")")
+	[ -f "$src/$s/SKILL.md" ] && continue
+	if [ "$check" = 1 ]; then
+		stale=1
+		removed+=("$s (would be removed)")
+	else
+		rm -rf "$to"
+		removed+=("$s")
+	fi
+done
+
+if [ "$check" = 1 ]; then echo "install-skills --check · $dest"; else echo "install-skills · $root → $dest"; fi
+((${#installed[@]})) && echo "  $([ "$check" = 1 ] && echo "out of date" || echo installed): ${installed[*]}"
+((${#unchanged[@]})) && echo "  unchanged: ${unchanged[*]}"
+((${#removed[@]})) && echo "  removed: ${removed[*]}"
+for line in "${skipped[@]}"; do echo "  skipped: $line"; done
+[ "$check" = 1 ] && exit "$stale"
+exit 0
