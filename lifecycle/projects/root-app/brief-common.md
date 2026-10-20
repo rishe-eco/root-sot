@@ -2,7 +2,7 @@
 
 *What every Sonnet lane building a root-app stage gets, ahead of its phase card. `build-phase` sends this file and then the card. Paths, ports and suite commands are in `config.md` beside this file. From the journeys build's brief (`templates/brief-common.example.md`), with the lane budget, the debug rules and a seventh part of the report added, as `skills-plan.md` §0 and `build-phase` ask.*
 
-**Version 0.1 · Status: planned · 2026-10-20 · Owner: founder**
+**Version 0.2 · Status: planned · 2026-10-20 · Owner: founder**
 
 ---
 
@@ -27,6 +27,8 @@ You work in a **git worktree** of the root-app checkout, which is your current d
 **Who wins.** On *what* to build, the spec wins. On the order and shape of the code, the plan wins. On **what the code is now**, the repository wins: if the plan and the code disagree, follow the code and say so in report item 5.
 
 ## Environment
+
+**Which machine you are on decides the details below.** This section describes the Windows build machine. On any other machine, `config.md` §2 beside this file says what differs (the Linux machine: Chrome, so no `E2E_BROWSER_CHANNEL`; a native Postgres, not Docker; no cmd.exe), and §2 wins.
 
 Windows 10. The Bash tool runs Git Bash; npm runs package scripts through **cmd.exe**.
 - **Setup, once, at the worktree root:** `npm install`, then `npx prisma generate --schema apps/api/prisma/schema.prisma`. Run `prisma generate` again after **every** `npm install`. If the install only strips `"dev": true` from `fsevents` in `package-lock.json`, revert it with `git checkout package-lock.json`; don't commit it.
@@ -96,4 +98,5 @@ A stopped lane is not a failure. A fresh lane continues from your branch and you
 
 ## Changelog
 
+- **0.2 · 2026-10-20** — At the founder's word, from `verify TK1`: *Environment* opens with a per-machine rule that sends lanes to `config.md` §2. The TK1 lane, the first to use this file, ran on the Linux machine.
 - **0.1 · 2026-10-20** — Planned, at rollout stage 1, from the journeys build's brief, the development README and the retrospective's findings 2, 5 and 6. Not yet used by a lane.

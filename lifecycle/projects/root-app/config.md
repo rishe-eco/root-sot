@@ -2,7 +2,7 @@
 
 *Where things are for root-app work, how its suites run, and which resources each lane gets. Read by `build-phase` (lane resources, the card's paths), `verify` (suites, stage records, the milestone script, the deploy), `design-review` (the design system) and `close-out` (the canon). The rules a lane follows are in `brief-common.md`; what a review checks is in `review-checklist.md`.*
 
-**Version 0.3 · Status: planned · 2026-10-20 · Owner: founder**
+**Version 0.4 · Status: planned · 2026-10-20 · Owner: founder**
 
 **Grading.** Facts about the code are **as-built**, read from `rishe-eco/root-app` on 2026-10-20: `docs/development/README.md` on `wp-dashboards` @ `873c70b`, and `deploy/README.md` and `.github/workflows/deploy.yml` on `main` @ `66c5698`. Facts about the Windows build machine are **as recovered**: the journeys brief (`templates/brief-common.example.md`) and the retrospective's finding 6. The build machine's memory files are not on this machine and weren't read again. **Planned:** the lane slots in §4 and the milestone script in §6, which the first stage's `verify` confirms or corrects. No module has run on the lifecycle here yet: the first is the journeys build's owed items, on the Change track (`README.md` §8, stage 2).
 
@@ -34,7 +34,7 @@
 - **Build machine:** Windows 10, Git Bash through the Bash tool; npm runs scripts through **cmd.exe**, so no `VAR=value` prefixes inside `package.json` scripts.
 - **Browser:** on the build machine, Edge, not Chrome: export `E2E_BROWSER_CHANNEL=msedge`. On the Linux machine, Chrome is installed and is Playwright's default channel, so leave the variable unset. Playwright's browser download is geo-blocked; nothing needs downloading.
 - **Setup per worktree:** `npm install`, then `npx prisma generate --schema apps/api/prisma/schema.prisma` after **every** install. If `npm install` strips `"dev": true` from `fsevents` in `package-lock.json`, revert it: `git checkout package-lock.json`.
-- **Postgres:** on the build machine, Postgres 16 runs in Docker at `localhost:5432` (`root`/`root`), shared by every checkout. **Start Docker Desktop before a lane launches,** and never stop the container. On the Linux machine there is no Docker: a native Postgres 14 serves the same address, and its `root` role can create databases (granted 2026-10-20). Nothing in root-app needs 15 or later. Either way, never `prisma migrate reset` or `migrate dev` against any database but your own test database. Check free disk before an image build.
+- **Postgres:** on the build machine, Postgres 16 runs in Docker at `localhost:5432` (`root`/`root`), shared by every checkout. **Start Docker Desktop before a lane launches,** and never stop the container. On the Linux machine there is no Docker: a native Postgres 14 serves the same address, and its `root` role can create databases (granted 2026-10-20). `psql` by hand needs `PGPASSWORD=root`, or it waits for a password. Nothing in root-app needs 15 or later. Either way, never `prisma migrate reset` or `migrate dev` against any database but your own test database. Check free disk before an image build.
 - **Background Bash ignores a leading `cd`:** wrap as `bash -c 'cd <worktree> && …'`.
 - **Founder's devices and accounts:** the commit identity is the founder's (`markRice`); the founder pushes from more than one machine, so `git fetch` before reading or branching. Phones and test accounts for live checks: not recorded yet; the open-work file's *From the founder* table holds them when a check needs them.
 - **Heavy-runner lock:** none yet; one heavy suite at a time, by agreement, because the shared Postgres starves otherwise.
@@ -47,8 +47,10 @@
 | `npm run typecheck` | both workspaces | lanes before their last commit; reviews |
 | `npm test --workspace=apps/api -- <files>` and `--workspace=apps/web -- <files>` | unit, pure functions, no database | lanes and reviews, targeted |
 | `npm run test:integration -- <files>` | resolvers against the lane's own `*_test` database, created and migrated if missing (`apps/api/prisma/test-db.ts`) | lanes and reviews, targeted |
-| `npm run e2e -- <spec> -g <name> --workers=1` | one e2e test, against the built app | lanes and reviews, targeted |
+| `npm run e2e -- -- <spec> -g <name> --workers=1` | one e2e test, against the built app. **Two `--`:** with one, npm reads `-g` as "global" and drops `--workers=1` | lanes and reviews, targeted |
 | `npm test`, `npm run test:integration`, `npm run e2e` | the full suites (≈8 min for integration) | the orchestrator, at milestones and before a deploy |
+
+**Before any e2e run, check the slot's ports are free** (`ss -ltnp | grep -E ':<api>|:<web>'`). A preview server left behind by an interrupted run is reused, and the run then tests an old build.
 
 **Heavy runners:** `npm run test:integration` and `npm run e2e`. Never two at once on one machine, across all checkouts. The integration runner refuses any `DATABASE_URL` that doesn't name a `*_test` database: it truncates every table.
 
@@ -121,6 +123,7 @@ Not built yet. The first stage that needs one adds it under `tests/review/`, and
 
 ## Changelog
 
+- **0.4 · 2026-10-20** — At the founder's word, from `verify TK1`: §3 a single e2e test takes two `--`, and the slot's ports are checked free before any e2e run; §2 `psql` on the Linux machine needs `PGPASSWORD=root`.
 - **0.3 · 2026-10-20** — At the founder's word, before session D's first card: §1 Branches (everything is merged into `main` @ `66c5698`) and Lane worktrees (`git worktree add`, L-33); §2 the Linux machine's browser is Chrome, and CI exists; §4 the Linux lanes drop `msedge`; §7 a push to `main` deploys.
 - **0.2 · 2026-10-20** — §2: the Linux machine runs root-app's tests on a native Postgres 14, without Docker.
 - **0.1 · 2026-10-20** — Planned, at rollout stage 1, from the development README, the deploy runbook, the journeys plan §0.2–§0.3 and §8, the recovered brief and the retrospective. Not written by `project-config`, which doesn't exist yet; its first run on a root-app module reviews this file.
