@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.31 · 2026-10-20**
+**Version 0.32 · 2026-10-20**
 
 ---
 
@@ -366,4 +366,30 @@ Four facts found on the way are written into the files as they are, not as the m
 **Decided by.** Reconstructed by Claude in session B, 2026-10-20, from session A's six commit messages (`601bf20` to `8cb190d`), at the founder's request. Session A left no `STATE.md` block and no entry here. Whether the founder reviewed its diffs isn't recorded, so read this as a record of what was built, not as a reviewed decision.
 
 **Revisit.** Session A's branch, `lifecycle/stage-2a-skills`, isn't merged into `main` or pushed; session B is stacked on it (L-33). None of the four skills has run on real work yet.
+
+## L-33 · 2026-10-20 · Rollout stage 2, session B: `build-phase`, `verify` and `debug`; the gate's call path for installed skills
+
+**Decision.**
+- **Three skills,** in the pattern of L-32's four: a `SKILL.md`, and a `context.sh` that takes the argument through a quoted heredoc and always exits 0. Each placed its seeds and keeps them in `reference.md` 0.2 with a record of what placing added.
+  - `build-phase`: Opus, medium. Launch drafts and commits the card, makes the worktree with `git worktree add` from the local base, and starts a background Sonnet lane. Land saves the report with a *Measured at land* line.
+  - `verify`: Opus, high, forked. It ends at "ready to fast-forward", and hands everything that needs the founder's yes back to the main session with its command.
+  - `debug`: the session's model, high effort, and the one build skill Claude may invoke on its own. It stops after three refuted hypotheses, with a `STATE.md` block.
+- **`lifecycle/skills/shared/build.sh`** holds the lookups the three share: root-sot, the gate, a stage's module, its project, config and code checkout. Installed skills reach it through `.root-sot`.
+- **The gate's call path.** `bin/gate`'s header told skills to call it as `${CLAUDE_SKILL_DIR}/../../../lifecycle/bin/gate`. From an installed copy that path is the home folder, so the command would fail and abort the skill unseen. Skills now call the gate from `context.sh`, by the path in `.root-sot`. `gate-test` has 53 cases, seven of them for installed skills, and all pass. Shellcheck is clean.
+- **Claude's calls, not yet reviewed by the founder:**
+  - a `build-phase` launch or land writes a `STATE.md` block in `handoff`'s format, and that block is the session's handoff, so `/handoff` isn't run as well;
+  - the lane's worktree is made with `git worktree add`, as the plan says, not the Agent tool's isolation that the three `config.md` files name;
+  - `verify --milestone` takes the founder's devices in its argument, because a fork can't ask for them;
+  - `verify` writes column 8 and counts Change stages in it, as `README.md` §3 says. The IMNSTR trial left them out;
+  - `verify`'s frontmatter carries `background: false` as the plan specifies. Whether Claude Code reads that field isn't verified.
+
+**Why.** `README.md` §8 stage 2 and `skills-plan.md` §3. These are the last three stage 2 skills, and the gate fix makes the installed copies usable from root-app and Tracker.
+
+**Decided by.** Founder, 2026-10-20: asked for the three skills, written with `skill-creator`, and for the gate fix. Chose to stack this session's branch, `lifecycle/stage-2b-skills`, on session A's, because `main` lacked it, and asked for L-32 to be reconstructed. The skills' contents and the calls above are Claude's, not reviewed line by line. `skill-creator`'s eval loop wasn't run: each skill's injected context was rendered on IMNSTR's PL1, B3 and B9 and on the root-app and Tracker checkouts instead, as session A did.
+
+**Revisit.** At the first real use, on the journeys build's owed items (Change track) and B-15 (Fix track):
+- whether a fork can edit, commit and run suites (the second line of `verify`'s return);
+- the Fix track: `README.md` §1 runs a Fix as debug → verify → decision record, but a Fix has no stage, card or report, so `verify`'s gate can't pass one. The trial on B-15 decides what `verify` reads for a Fix;
+- whether `build-phase`'s block standing in for the handoff holds up;
+- `skills-plan.md` §0 still says skills live in `root-sot/.claude/skills/`, which L-31 replaced. That file is the founder's to change.
 
