@@ -2,7 +2,7 @@
 
 *Every lesson about working that has been integrated: what it says, where it now lives, and how often it recurred before it was. Written only by `learned --consolidate`, once the founder accepts each integration; each row also has its `decision-log.md` entry. Capture notes wait in `inbox/` until then, and nothing in them is acted on. Method: `README.md` §5 rule 7; skill: `skills-plan.md` §1 `learned`.*
 
-**Version 0.1 · Status: empty — no consolidation has run since the inbox was created · 2026-10-20 · Owner: _root**
+**Version 0.2 · Status: in use — one consolidation run · 2026-10-21 · Owner: _root**
 
 ---
 
@@ -46,9 +46,18 @@ When the inbox passes **15 notes or 14 days**, at each milestone during a build,
 
 | # | Lesson | Destination | Recurred | Integrated | Decision |
 |---|---|---|---|---|---|
+| 8 | Tracker's UI review checks the light scheme only, until the app sets `.dark` | `projects/tracker/review-checklist.md` §4 | 1 session (2026-10-20) | 2026-10-21 | L-45 |
+| 7 | One Tracker e2e spec runs on the Linux machine from a scratch Chrome config and database | `projects/tracker/config.md` §2, §3; `review-checklist.md` §7 | 1 session (2026-10-20), about 15 min | 2026-10-21 | L-44 |
+| 6 | Before the card, check `config.md`'s branch and deploy rows against the remote, and that each targeted command reads its arguments | `skills/build-phase/SKILL.md` Launch step 3 | 2 sessions (2026-10-20) | 2026-10-21 | L-43 |
+| 5 | Reproduce a bug on the surface the user saw: grep the callers, render the component | `skills/debug/SKILL.md` rule 1 | 2 sessions (2026-10-20) | 2026-10-21 | L-42 |
+| 4 | Scope searches; run commands that can wait for input in a Bash call of their own | root `CLAUDE.md` *Shell* | 2 sessions (2026-10-20) | 2026-10-21 | L-41 |
+| 3 | `handoff` and `decision-record` name a wrong model and carry on; prompts write founder-only skills as founder steps | both `SKILL.md`s; `skills-plan.md` §0 | 3 sessions (2026-10-20) | 2026-10-21 | L-40 |
+| 2 | A session checks the previous session landed and the installed skills are current | `README.md` §5 rule 9 | 2 sessions (2026-10-20 to 2026-10-21) | 2026-10-21 | L-39 |
+| 1 | No apostrophe inside `${var:-…}` or `${var:+…}` in a double-quoted string | `engineering-checklist.md` *Shell scripts* | 2 sessions (2026-10-20) | 2026-10-21 | L-38 |
 
-*None yet.* The IMNSTR trial's lessons were consolidated before this index existed (trial step 10a, `trial-run/log/10a-consolidate.md`). Where each accepted item was placed is in `trial-run/findings.md` §11, and they are not listed again here.
+The IMNSTR trial's lessons were consolidated before this index existed (trial step 10a, `trial-run/log/10a-consolidate.md`). Where each accepted item was placed is in `trial-run/findings.md` §11, and they are not listed again here.
 
 ## Changelog
 
+- **0.2 · 2026-10-21** — The first consolidation: eight integrations (L-38 to L-45), accepted by the founder on Claude's judgement. Dropped as already in `projects/root-app/config.md` 0.4: the slot's ports checked free, and the two `--` for one e2e test. Five notes held in the inbox.
 - **0.1 · 2026-10-20** — Created in rollout stage 1 (`skills-plan.md` §5), with the capture fields from `skills/learned/reference.md`.
