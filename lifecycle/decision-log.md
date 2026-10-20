@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.27 · 2026-10-20**
+**Version 0.28 · 2026-10-20**
 
 ---
 
@@ -286,3 +286,13 @@
 **Decided by.** Founder, 2026-10-20, after reviewing the diff ("keep it"). Committed just before that review, so the work wasn't lost with the session's container.
 
 **Revisit.** In stage 2, when the first skills are written from the plan and their seed files: whether `skills/` folds into `.claude/skills/<skill>/`.
+
+## L-28 · 2026-10-20 · Rollout stage 1, session A: templates, required headings, learnings inbox, status backfill
+
+**Decision.** Add the 19 templates listed in `skills-plan.md` §5 to `lifecycle/templates/`, each built from its skill's section, its `skills/<skill>/reference.md` and the trial logs' *Template sample*, beside the existing `brief-common.example.md`. Add `templates/required-headings.txt`, with the grammar `bin/gate` will read. Two calls in it: lane reports are checked by section number (1–7), not wording, because the 13 IMNSTR reports phrase the seven parts about 30 ways; and outputs already `done` in `status.md` aren't re-gated. Create `lifecycle/learnings/inbox/` and `learnings/index.md`, which holds `learned`'s capture-note fields. Backfill `status.md` with 14 modules that predate the method, read from their own documents, with sources and open questions below the table. "Review" in §5 is read as both reviews, `05-ux-review.md` and `08-design-review.md`.
+
+**Why.** Stage 1 of the rollout (`README.md` §8). The IMNSTR trial's logs named a missing template in 22 of 72 (`trial-run/findings.md` §10, F-2), and an inbox was F-3. Backfilling the status table is the first audit.
+
+**Decided by.** Founder, 2026-10-20: approved the template list before it was written, then asked for this entry and the merge into `main`.
+
+**Revisit.** When `bin/gate` is built (stage 1, session B): whether the grammar in `required-headings.txt` holds as written. Also Learn Module 1's column 8, which the founder must supply, and the two status lines the audit found out of date (the Time Themes spec, the project-lifecycle spec).
