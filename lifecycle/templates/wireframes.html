@@ -1,0 +1,203 @@
+<!doctype html>
+<!-- Frame kit and page skeleton for `<module>/04-wireframes.html`, written by `wireframes` (Opus, medium). Template 0.1 · 2026-10-20. Sources: `skills-plan.md` §2 `wireframes`; `skills/wireframes/reference.md`; finding WF-6; trial log `04-wireframes`; the kit is lifted from `imnstr/modules/01-website/04-wireframes.html` draft 1. The gate checks the <h2> headings listed for this file in `required-headings.txt`: keep their words.
+Low fidelity: neutral tokens only; real copy only where the words are the requirement, placeholder bars elsewhere; no brand, type or colour decisions (those are step 4b). Suggested items are drawn only inside `.sugg`, visibly marked, never as plain UI. One plate (<h2>) per screen; each frame's caption cites journey steps, criteria, spec § and state. Last step: render at 1200 and 375 px, and look. Delete this comment in the output. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><Module> — wireframes</title>
+<style>
+:root{
+  --surface-2:#ffffff; --surface-1:#f6f5f0; --surface-0:#efece4;
+  --text-primary:#2c2c2a; --text-secondary:#5f5e5a; --text-muted:#8a8981;
+  --border:#e3e1d9; --border-strong:#ceccc3;
+  --accent-bg:#e6f1fb; --accent-text:#185fa5; --accent-border:#85b7eb;
+  --warn-bg:#fbf0e6; --warn-text:#9a5a12; --warn-border:#e6b887;
+  --good-bg:#e9f2e8; --good-text:#3d6b39; --good-border:#a8c8a4;
+  --sugg:#7a4fa3;
+  --radius:8px; --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --surface-2:#2b2b29; --surface-1:#232321; --surface-0:#1b1b19;
+    --text-primary:#e9e7e0; --text-secondary:#b5b3aa; --text-muted:#8a8981;
+    --border:#3a3a37; --border-strong:#4b4b47;
+    --accent-bg:#0c447c; --accent-text:#b5d4f4; --accent-border:#185fa5;
+    --warn-bg:#4a2f10; --warn-text:#e8c39a; --warn-border:#9a5a12;
+    --good-bg:#25381f; --good-text:#b8d4b0; --good-border:#3d6b39;
+    --sugg:#c9a6ea;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-0);color:var(--text-primary);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:2rem 1rem 4rem}
+h1{font-size:22px;font-weight:500;margin:0 0 4px}
+.sub{font-size:13px;color:var(--text-muted);margin:0 0 1rem;max-width:80ch}
+h2{font-size:16px;font-weight:500;margin:2.5rem 0 .3rem;padding-bottom:.5rem;border-bottom:.5px solid var(--border)}
+h2 .n{color:var(--text-muted);font-variant-numeric:tabular-nums;margin-right:.5rem}
+.lead{font-size:12px;color:var(--text-secondary);margin:0 0 .9rem;max-width:86ch}
+/* plates and frames */
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;align-items:start}
+.board.wide{grid-template-columns:1fr}
+.frame{margin:0;display:flex;flex-direction:column;gap:8px}
+.phone,.desk,.panel{background:var(--surface-2);border:.5px solid var(--border);border-radius:14px;padding:12px;display:flex;flex-direction:column;overflow:hidden;font-size:12px}
+.phone{min-height:440px}
+.desk{min-height:360px;border-radius:10px}
+.panel{min-height:180px}
+.shell{background:#1f1f1d;color:#d8d6cf;font-family:var(--mono);font-size:11px;border-radius:10px;padding:12px;min-height:180px;white-space:pre-wrap}
+.url{font-family:var(--mono);font-size:10px;color:var(--text-muted);background:var(--surface-1);border-radius:6px;padding:3px 8px;margin-bottom:8px;text-align:center}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-bottom:6px;border-bottom:.5px solid var(--border);font-size:11px;color:var(--text-muted)}
+.bar b{color:var(--text-primary);font-weight:500}
+.foot{margin-top:auto;padding-top:8px;border-top:.5px solid var(--border);font-size:10.5px;color:var(--text-muted);display:flex;gap:10px;flex-wrap:wrap}
+/* content */
+.h{font-size:15px;font-weight:500;margin:10px 0 4px}
+.ttl{font-size:13px;font-weight:500;margin:2px 0}
+.p{font-size:11.5px;color:var(--text-secondary);margin:4px 0 8px}
+.body{font-size:11.5px;color:var(--text-secondary);line-height:1.5}
+.line{height:7px;background:var(--border);border-radius:3px;margin:5px 0}
+.line.s{width:60%}.line.m{width:82%}
+.entry{padding:10px 0;border-bottom:.5px dashed var(--border)}
+.entry:last-child{border-bottom:0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 0;border-bottom:.5px solid var(--border);font-size:11.5px}
+.row .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lnk{color:var(--accent-text);text-decoration:underline}
+.mut{color:var(--text-muted)}
+.note{font-size:10.5px;color:var(--text-muted);line-height:1.45}
+.date{font-size:10.5px;color:var(--text-muted);font-family:var(--mono)}
+.chip{font-size:9.5px;font-family:var(--mono);padding:1px 6px;border-radius:9px;border:.5px solid var(--border-strong);color:var(--text-muted)}
+/* controls */
+.btn{display:inline-block;padding:7px 14px;border:.5px solid var(--border-strong);border-radius:var(--radius);font-size:12px;color:var(--text-primary);background:var(--surface-1);text-align:center}
+.btn.pri{border-color:var(--accent-border);color:var(--accent-text);background:var(--accent-bg)}
+.btn.full{display:block;width:100%}
+.btn.sm{padding:3px 9px;font-size:10.5px}
+.btn.dis{color:var(--text-muted);border-style:dashed;background:transparent}
+.lbl{font-size:10.5px;color:var(--text-muted);margin-top:6px}
+.field{border:.5px solid var(--border-strong);border-radius:var(--radius);padding:7px 9px;font-size:11.5px;background:var(--surface-1);min-height:30px;margin:4px 0}
+.field.ph{color:var(--text-muted)}
+.field.area{min-height:110px}
+.field.bad{border-color:var(--warn-border)}
+.disc{border:.5px solid var(--border);border-radius:8px;padding:7px 9px;margin:6px 0;font-size:11.5px;display:flex;justify-content:space-between}
+.disc::after{content:"▸";color:var(--text-muted)}
+.disc.open::after{content:"▾"}
+.kb{margin-top:auto;background:var(--surface-1);border-top:.5px solid var(--border);height:118px;display:grid;grid-template-columns:repeat(10,1fr);gap:3px;padding:6px;margin:0 -12px -12px}
+.kb span{background:var(--border);border-radius:3px}
+.sheet{margin-top:auto;background:var(--surface-1);border:.5px solid var(--border-strong);border-radius:12px 12px 0 0;padding:12px;margin:0 -12px -12px;text-align:center;font-size:11.5px}
+/* states and notices */
+.card{border-radius:8px;padding:8px 10px;font-size:11px;line-height:1.45;margin:6px 0;background:var(--accent-bg);color:var(--accent-text)}
+.card.w{background:var(--warn-bg);color:var(--warn-text)}
+.card.g{background:var(--good-bg);color:var(--good-text)}
+.toast{border-radius:8px;padding:8px 10px;font-size:11px;margin:6px 0;border:.5px solid var(--border-strong);background:var(--surface-1)}
+.dim{opacity:.4}
+.spin{display:inline-block;width:10px;height:10px;border:2px solid var(--accent-border);border-top-color:transparent;border-radius:50%;vertical-align:-1px;margin-right:5px}
+/* Suggested items: an option, never plain UI. data-g names the item (G3). */
+.sugg{border:1px dashed var(--sugg);border-radius:8px;padding:6px 8px;margin:6px 0;font-size:11px;color:var(--text-secondary)}
+.sugg::before{content:attr(data-g);display:block;font-family:var(--mono);font-size:9.5px;color:var(--sugg);margin-bottom:2px}
+/* captions */
+.cap{font-size:11.5px;color:var(--text-secondary);padding:0 4px;line-height:1.45}
+.cap .p{color:var(--accent-text);font-family:var(--mono);font-size:10.5px;margin:0}
+.cap .x{color:var(--warn-text)}
+.cap .s{color:var(--sugg)}
+/* tables, legend */
+table{border-collapse:collapse;font-size:11.5px;width:100%;margin:.4rem 0 1rem;background:var(--surface-2)}
+th,td{border:.5px solid var(--border);padding:5px 8px;text-align:left;vertical-align:top}
+th{font-weight:500;background:var(--surface-1)}
+code{font-family:var(--mono);font-size:10.5px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11px;color:var(--text-secondary);margin:.6rem 0 0}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:22px;height:12px;border-radius:3px;display:inline-block}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1><Module> — wireframes · draft 1</h1>
+<p class="sub">Module <code>&lt;area&gt;/modules/NN-slug/</code> · Phase 4 · <code>wireframes</code>. Low fidelity: layout, content and states only. No brand, type or colour decisions; those are step 4b. Every step of <code>03-journeys.md</code> &lt;version&gt; is drawn here or listed in Coverage as having no screen.</p>
+<p class="sub"><b>Grading.</b> Every frame is <b>proposal</b>. Captions cite journey steps (<code>J1.7</code>), spec sections (§4.2) and acceptance criteria (AC-15) from <code>02-spec.md</code> &lt;version&gt;. Anything drawn dashed in purple is a Suggested item (G-n): an option for <code>revise</code>, not a requirement.</p>
+<div class="legend">
+  <span><i class="sw" style="background:var(--accent-bg)"></i>neutral notice</span>
+  <span><i class="sw" style="background:var(--good-bg)"></i>success</span>
+  <span><i class="sw" style="background:var(--warn-bg)"></i>error / not done</span>
+  <span><i class="sw" style="border:1px dashed var(--sugg)"></i>Suggested (G-n), option only</span>
+  <span><i class="sw" style="background:var(--border)"></i>placeholder text</span>
+</div>
+
+<!-- ───────────── one plate per screen: copy this block ───────────── -->
+<h2><span class="n">1</span>&lt;Screen&gt; — &lt;the states drawn&gt;</h2>
+<p class="lead">&lt;The decision this screen embodies, in one or two sentences.&gt;</p>
+<div class="board">
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">example.com/&lt;path&gt;</div>
+      <div class="h">&lt;Heading&gt;</div>
+      <div class="line m"></div><div class="line"></div><div class="line s"></div>
+      <div class="lbl">&lt;Label&gt;</div>
+      <div class="field ph">&lt;placeholder&gt;</div>
+      <span class="btn pri full">&lt;Action&gt;</span>
+      <div class="sugg" data-g="G1 · Suggested">&lt;The suggested element, drawn as an option.&gt;</div>
+      <div class="foot"><span>&lt;footer&gt;</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J1.1 · AC-1 · §4.1 · default</p>&lt;What the frame shows and why.&gt;</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">example.com/&lt;path&gt;</div>
+      <div class="h">&lt;Heading&gt;</div>
+      <div class="card">&lt;The empty state's words, where the words are the requirement.&gt;</div>
+      <div class="foot"><span>&lt;footer&gt;</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J4.2 · AC-4 · empty</p>&lt;…&gt;</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">example.com/&lt;path&gt;</div>
+      <div class="card w">&lt;The error and the way out.&gt;</div>
+      <div class="foot"><span>&lt;footer&gt;</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J3.4 · AC-9 · error</p>&lt;…&gt;</figcaption>
+  </figure>
+</div>
+<!-- Desktop, where the spec or journeys call for it:
+<div class="board wide"><figure class="frame"><div class="desk">…</div><figcaption class="cap"><p class="p">J1.1 · desktop</p>…</figcaption></figure></div>
+-->
+
+<h2>Calls made here</h2>
+<p class="lead">Behaviour these wireframes decided that the spec and journeys left open, each <b>proposal</b>. <code>ux-review</code> and <code>build-plan</code>'s gate read this table: each call is accepted, refused or carried before the build plan.</p>
+<table>
+  <tr><th>#</th><th>Call</th><th>Why</th><th>Where</th></tr>
+  <tr><td>W1</td><td>&lt;…&gt;</td><td>&lt;…&gt;</td><td>plate 1</td></tr>
+</table>
+
+<h2>Coverage</h2>
+<p class="lead">Every journey step to its plate, or "no screen" / "not ours, drawn as context" with a note. Every state in the journeys' states table to its plate. Suggested items drawn and not drawn.</p>
+<table>
+  <tr><th>Step</th><th>Plate</th><th>Note</th></tr>
+  <tr><td>J1.1</td><td>1</td><td></td></tr>
+  <tr><td>J1.2</td><td>no screen</td><td>&lt;why&gt;</td></tr>
+</table>
+<table>
+  <tr><th>State</th><th>Plates</th></tr>
+  <tr><td>Empty</td><td>1</td></tr>
+  <tr><td>Not enough data</td><td></td></tr>
+  <tr><td>Error</td><td>1</td></tr>
+  <tr><td>Loading</td><td></td></tr>
+  <tr><td>Notices</td><td></td></tr>
+</table>
+<table>
+  <tr><th>Suggested</th><th>Drawn</th><th>Where</th></tr>
+  <tr><td>G1</td><td>yes</td><td>plate 1</td></tr>
+</table>
+
+<h2>Changelog</h2>
+<ul class="lead">
+  <li><b>draft 1 · &lt;YYYY-MM-DD&gt;</b> — From <code>03-journeys.md</code> &lt;version&gt; and <code>02-spec.md</code> &lt;version&gt;. Rendered at 1200 and 375 px and looked at.</li>
+</ul>
+
+<h2>References</h2>
+<ul class="lead">
+  <li><code>02-spec.md</code>; <code>03-journeys.md</code></li>
+</ul>
+
+</div>
+</body>
+</html>

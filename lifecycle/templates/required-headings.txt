@@ -1,0 +1,206 @@
+# required-headings.txt — the headings `bin/gate` checks in each phase output.
+# Version 0.1 · 2026-10-20 · Owner: founder (changes through `revise` on the method, or an accepted consolidation).
+# Sources: each template in this folder; `skills-plan.md` §0 *The gate* and §5; each skill's `skills/<skill>/reference.md`;
+# the *Template sample* section of each IMNSTR trial log (`trial-run/log/`), and `trial-run/findings.md` §10 (F-2).
+#
+# FORMAT
+#   # ...                 a comment; blank lines are ignored.
+#   [<pattern>]           starts a block for the files matching <pattern>. Relative to the module folder,
+#                         unless it starts with `lifecycle/`. `*` matches within one path segment.
+#                         `!<pattern>` on the same line excludes files.
+#   h2 <text>             the file has a level-2 heading (`## ` in Markdown, `<h2>` in HTML) whose text
+#                         contains <text>.
+#   h3 <text>             the same, for level 3.
+#   <a> | <b>             either one satisfies the line.
+#   in h2 <s>: h3 <t>     the h2 section matching <s> contains an h3 matching <t>.
+#   h2 #<n>               the file has a level-2 heading numbered <n> ("## 3. …"), whatever its words.
+#   in h2 <s>: cell <t>   the h2 section matching <s> holds a line, list item or table cell whose text,
+#                         with Markdown marks stripped, starts with <t>.
+#   in h2 <s>: item <n>   the h2 section matching <s> holds a numbered list item <n> ("7. …").
+#   in h2 <s>: each h3 has bold <A>, <B>
+#                         every h3 inside that section holds a line starting `**<A>` (and `**<B>`).
+#   each h2 <s>: h3 <A>, <B>
+#                         every h2 matching <s> is followed, before the next h2, by h3s matching <A> and <B>.
+#
+# MATCHING
+#   - Case-insensitive. Before comparing, a heading loses its leading section number ("1.", "6.7 ·", "B1 ·"),
+#     Markdown marks (` * _) and HTML tags inside it; runs of spaces become one.
+#   - "contains": the required text may sit anywhere in the heading, so "## 4. Suggested — gaps in the spec,
+#     for `revise`" satisfies `h2 Suggested`.
+#   - Lines are matched in order, each taking the first heading not already taken: each line must be
+#     satisfied by a different heading. `h2 Journeys` is not met by
+#     "Decisions taken at journeys" when that heading already met `h2 Decisions taken at journeys`.
+#   - Lines marked "# when ..." are conditional: the gate checks them only when the condition is stated
+#     in the file's header or the project config, and otherwise reports them as "not checked".
+#
+# Outputs written before these templates (IMNSTR's, and modules that predate the method) are not re-gated
+# for phases already `done` in `status.md`; the gate reads this file only for the phase it is opening.
+
+[00-intake.md]
+h2 Problem
+h2 Pillar
+h2 Place on the opportunity tree
+h2 Who it is for
+h2 Smallest version worth trying
+h2 What would make us drop it
+h2 Decisions made at intake
+
+[01-research.md]
+h2 Summary
+h2 What Root already knows
+h2 For the next phases
+h2 Not researched
+h2 Sources
+
+[02-spec.md]
+h2 Summary
+h2 Metrics
+h2 Interface requirements
+h2 Risks
+h2 Acceptance criteria
+h2 Changelog
+# when the founder was asked questions at spec (the usual case):
+h2 Decisions taken at spec
+# The scope ledger is a table in the header, not a heading; `revise` reads it.
+
+[03-journeys.md]
+# Written by `personas` (title block and Personas) and then `journeys` (the rest).
+# The gate also reads the Personas table for column 3, and diffs the spec's criterion ids
+# against the Coverage table.
+h2 Personas
+h2 Summary
+h2 Decisions taken at journeys
+h2 Journeys
+h2 Coverage
+h2 Suggested
+h2 Changelog
+
+[04-wireframes.html]
+h2 Calls made here
+h2 Coverage
+
+[04b-design/README.md]
+h2 What's here
+h2 The design system it settles
+h2 Plate index
+h2 Coverage
+h2 Beyond the spec
+h2 What didn't survive
+h2 Changelog
+in h2 What didn't survive: cell Verdict
+in h2 What didn't survive: cell Not checked
+
+[05-ux-review.md]
+h2 Summary
+h2 Changelog
+each h2 Pass: h3 What was reviewed, h3 Coverage, h3 Scores, h3 Findings, h3 For revise, h3 Not checked
+
+[06-eval-plan.md]
+h2 Summary
+h2 The failures
+h2 What is evaluated, and when
+h2 The instruments
+h2 The decision rules (written before the data)
+h2 Results
+h2 For revise
+h2 Cost
+h2 What this can't do
+h2 Changelog
+in h2 The decision rules: cell Ambiguous
+
+[07-build-plan.md]
+h2 What this plan is written against
+h2 Planning decisions
+h2 Stage order
+h2 P0
+h2 The stages
+h2 Cross-cutting catalogues
+h2 Verification
+h2 For the founder
+h2 Changelog
+in h2 Cross-cutting catalogues: h3 Every acceptance criterion, by stage
+in h2 The stages: each h3 has bold Goal, bold Acceptance, bold Size, bold Traps
+
+[08-design-review.md]
+h2 Summary
+h2 Findings
+h2 Access gates
+# when the project has a right-to-left language:
+h2 Right to left
+
+[09-close-out.md]
+h2 Summary
+h2 Evaluation against the rule
+h2 What the plan didn't know
+h2 Cost
+h2 Retrospective
+
+[changes/*-req-*.md]
+h2 What changes and why
+h2 Items and outcomes
+h2 STALE
+h2 What must not break
+h2 Open
+h2 Owed by other skills
+
+[changes/*-change-*.md]
+h2 What changes and why
+h2 Acceptance criteria
+h2 What must not break
+h2 Stage
+h2 What this makes stale
+h2 Changelog
+in h2 Stage: each h3 has bold Size, bold Traps
+# when the change touches a server:
+h2 Founder pre-flight
+
+[briefs/*.md] !briefs/*.report.md
+h2 Your lane
+h2 Read, in this order
+h2 What to build | What this card settles
+h2 Decided here
+h2 Done for
+h2 Not here
+# from the project's first deploy on:
+h2 What the verify deploys
+
+[briefs/*.report.md]
+# By number: the lane words its own headings. The header line above the rule (stage, branch, base)
+# is checked by `verify`, not here.
+h2 #1
+h2 #2
+h2 #3
+h2 #4
+h2 #5
+h2 #6
+h2 #7
+
+[lifecycle/projects/*/brief-common.md]
+h2 Read first
+h2 Environment
+h2 Git
+h2 Budget and stopping
+h2 Debugging
+h2 Your report
+in h2 Your report: item 1
+in h2 Your report: item 7
+
+[lifecycle/projects/*/review-checklist.md]
+h2 What must not break
+h2 House rules
+h2 Done means
+h2 The verification ceiling
+
+[lifecycle/projects/*/config.md]
+h2 Paths
+h2 Suites
+h2 Lane resources
+h2 Milestones
+in h2 Paths: cell Stage records
+in h2 Paths: cell Development README
+in h2 Paths: cell State of the build
+in h2 Paths: cell Open-work file | Owed items (open work)
+
+# Not gated: `lifecycle/personas.md` entries (`templates/persona-record.md` is a field list, checked by
+# `personas` itself); `templates/design-import-checklist.md` (a checklist the import ticks, recorded in the
+# design README's What didn't survive, which is gated above).
