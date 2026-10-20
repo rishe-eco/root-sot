@@ -12,8 +12,12 @@
 #             Without a flag the stage is being launched; --land and --verify name the other two steps.
 #
 # Prints GATE OK, GATE FAIL or GATE OVERRIDDEN on its first line and what it found below. It always
-# exits 0, because a failing injected command aborts the skill before Claude sees it. Skills call it
-# as `bash "${CLAUDE_SKILL_DIR}/../../../lifecycle/bin/gate" …`, from any directory.
+# exits 0, because a failing injected command aborts the skill before Claude sees it.
+#
+# Skills call it from their `context.sh`, by root-sot's real path, from any directory. An installed copy
+# of a skill (`~/.claude/skills/<skill>`, from `bin/install-skills`) reads that path from its `.root-sot`
+# file, since `${CLAUDE_SKILL_DIR}/../../..` from there is the home folder. A skill run from its own
+# folder in root-sot is three levels down. `lifecycle/skills/shared/build.sh` holds both lookups.
 
 set -u
 export LC_ALL=C GIT_TERMINAL_PROMPT=0

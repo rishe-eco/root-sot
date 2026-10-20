@@ -29,6 +29,10 @@ cp "$src/lifecycle/status.md" "$work/lifecycle/"
 cp -R "$src/lifecycle/projects/imnstr" "$work/lifecycle/projects/"
 touch "$work/lifecycle/learnings/inbox/.gitkeep"
 cp -R "$src/$M" "$work/$M"
+# For the installed-skill cases: the installer and the skills that call the gate.
+mkdir -p "$work/lifecycle/skills"
+cp "$src/lifecycle/bin/install-skills" "$work/lifecycle/bin/"
+for s in shared build-phase verify; do cp -R "$src/lifecycle/skills/$s" "$work/lifecycle/skills/"; done
 git init -q "$work"
 g symbolic-ref HEAD refs/heads/main
 g add -A
@@ -165,6 +169,37 @@ expect "an unknown phase" "GATE FAIL usage" "unknown phase \"12\"" "$M" 12
 expect "a stage outside phase 8" "GATE FAIL usage" "only phase 8 takes a stage" "$M" 4 B3
 expect "a module that doesn't exist" "GATE FAIL" "missing folder: imnstr/modules/99-none" imnstr/modules/99-none 3
 expect "intake for a module not yet created" "GATE OK" "ideate creates imnstr/modules/99-none" imnstr/modules/99-none 0
+
+echo "== Installed skills reach the gate (bin/install-skills, .root-sot)"
+# expect_skill <case> <a line starts with> <a line contains, or -> <context.sh> <its argument line>:
+# runs a skill's context.sh as an injected command does, from outside root-sot, with the argument on
+# stdin. Checks its exit code (always 0) and two lines of what it printed.
+expect_skill() {
+	local name=$1 want=$2 pat=$3 script=$4 out code
+	out=$(cd "$tmp" && printf '%s\n' "$5" | bash "$script")
+	code=$?
+	if [ "$code" -eq 0 ] && grep -q -- "^$want" <<<"$out" && { [ "$pat" = - ] || grep -qF -- "$pat" <<<"$out"; }; then
+		passed=$((passed + 1))
+		echo "ok    $name"
+	else
+		failed=$((failed + 1))
+		echo "FAIL  $name (exit $code; wanted a line starting \"$want\" and \"$pat\")"
+		echo "        $(head -n 12 <<<"$out" | sed 's/^/        /')"
+	fi
+}
+bash "$work/lifecycle/bin/install-skills" --dest "$tmp/skills" >/dev/null
+if bash "$work/lifecycle/bin/install-skills" --dest "$tmp/skills" --check >/dev/null && [ "$(cat "$tmp/skills/verify/.root-sot")" = "$work" ]; then
+	passed=$((passed + 1)); echo "ok    install-skills writes .root-sot, and --check finds nothing out of date"
+else
+	failed=$((failed + 1)); echo "FAIL  install-skills: .root-sot or --check"
+fi
+expect_skill "installed verify runs the gate" "GATE OK · $M · phase 8 (build) · PL1 --verify" "module: $M · project: imnstr" "$tmp/skills/verify/context.sh" "PL1"
+expect_skill "installed build-phase runs the gate" "GATE FAIL · $M · phase 8 (build) · PL1" "step: PL1 has landed" "$tmp/skills/build-phase/context.sh" "changes/05-live-review-polish.md#PL1"
+expect_skill "installed build-phase passes --land and --override" "GATE OVERRIDDEN · $M · phase 8 (build) · B3 --land" 'reason: "relanding it"' "$tmp/skills/build-phase/context.sh" "B3 --land --override \"relanding it\""
+expect_skill "a skill run from its own folder in root-sot" "GATE OK · $M · phase 8 (build) · B3 --verify" - "$work/lifecycle/skills/verify/context.sh" "B3"
+mkdir -p "$tmp/bare/skills" && cp -R "$work/lifecycle/skills/verify" "$tmp/bare/skills/"
+expect_skill "a copy with no .root-sot says so" "ROOT-SOT NOT FOUND" "Rerun bin/install-skills" "$tmp/bare/skills/verify/context.sh" "PL1"
+expect_skill "an unknown stage lists each module's stages" "No module's build plan" "- $M: B1 B2 B3" "$tmp/skills/verify/context.sh" "Q9"
 
 echo
 echo "$passed passed, $failed failed"
