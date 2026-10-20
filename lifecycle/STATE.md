@@ -14,7 +14,9 @@
 - At the founder's word ("Merge after decision-record"), this branch is merged into root-sot's `main` and pushed after this block is committed.
 
 **Next steps, in order**
-1. Read the top block of `lifecycle/STATE.md`, then L-37 in `lifecycle/decision-log.md` and `ecosystem/modules/01-root-studio-journeys/STATE.md`. Run `lifecycle/bin/install-skills --check` first. Then pick the next owed item with the founder: a third Change note for the journeys module, written by hand from `lifecycle/templates/change-note.md` until `spec change` exists (stage 3). The candidates: wp-dashboards #1 (one login factor; decided, size M, touches auth in the API and the web app; recommended), #3 (tiles open the filtered contracts list; its note must settle that the "Waiting on Root" tile now counts what Root owes, which the list's status filter can't show), the desk's sideways scroll at 360 px, or the portal's at 180 px (both in `team/open-work.md`). Then `/build-phase <stage>`, `--land` and `/verify <stage>`. Start the session from the root-app checkout (`~/Desktop/Root/root-app`). Model: Opus, medium effort for the card, high for verify.
+1. Run `/learned --consolidate` in a session of its own (Opus, high effort). The inbox has 21 notes in 8 files, past the cap of 15 (`lifecycle/learnings/index.md`). Start from root-sot (`~/Desktop/Root/Root`, `main`). Present the batch to the founder item by item.
+2. Rollout stage 3, the design side (`lifecycle/README.md` §8), starting with `spec`, whose `change` mode both Change notes so far had to do by hand. Read the top block of `lifecycle/STATE.md`, then `lifecycle/skills-plan.md` §2 `spec` and §0, `lifecycle/skills/spec/reference.md`, `lifecycle/templates/change-note.md` and `lifecycle/templates/required-headings.txt`, and the two hand-written notes in `ecosystem/modules/01-root-studio-journeys/changes/` as the worked examples. Build `spec` with `skill-creator` as `lifecycle/skills/spec/SKILL.md` (Opus, high effort; work in root-sot on a new branch from `main`), then `lifecycle/bin/install-skills`. Try `spec change` on real work: the journeys module's next owed item, wp-dashboards #1 (one login factor; decided) in `docs/development/wp-dashboards.md` in `rishe-eco/root-app`, then `/build-phase` and `/verify` from the root-app checkout. The other design-side skills (`ideate`, `research`, `personas`, `journeys`, `wireframes`, `eval-plan`, `build-plan`) follow in `skills-plan.md` order and are proved on the next new module.
+3. At the end of stage 3, check usage against the baseline (`lifecycle/README.md` §8).
 
 **Carry-overs**
 - A push to root-app's `main` deploys (`config.md` §7). The full e2e suite ran at `verify NR1` (136 of 137, then fixed by `d425139`).
@@ -26,10 +28,10 @@
 
 **Questions for the founder**
 - Push root-app's `02e7f6e` (docs only) now, which deploys, or let it ride with the next change? Owed by: the next root-app push.
-- Which item is the third Change note? Owed by: the next session's start.
+- Is wp-dashboards #1 the right first real use of `spec change`, or should it be #3 or one of the scroll bugs? Owed by: step 2.
 
 **Owed**
-- `/learned --consolidate` is due: the inbox has 21 notes in 8 files, past the cap of 15. Run it in a session of its own on Opus, high effort, before the next build.
+- Wp-dashboards #1, #3 and #4 to #8, and the desk and portal scroll bugs, have no change note. They wait for `spec change`.
 
 ## 2026-10-20 · Rollout stage 2, session D: the Change track's first run (TK1) · lifecycle/stage-2d-journeys-change @ 6646ac7 · rishe-eco/root-app main @ 1ddf5d0
 
