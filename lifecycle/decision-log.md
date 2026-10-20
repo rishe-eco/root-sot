@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.25 · 2026-10-20**
+**Version 0.26 · 2026-10-20**
 
 ---
 
@@ -263,6 +263,16 @@
 
 **Why.** As L-23: templates and shapes go to reference files, and a rule stays only if it prevents a mistake in an ordinary session.
 
+**Decided by.** Founder, 2026-10-20, after reviewing the diff ("keep it"). Committed just before that review, so the work wasn't lost with the session's container.
+
+**Revisit.** When the design skills are written (rollout stage 3).
+
+## L-26 · 2026-10-20 · Skills plan 0.10: cut back, step 3, build skills
+
+**Decision.** Rewrite `lifecycle/skills-plan.md` §3 in tighter wording, from about 1,990 words to about 1,530. Every step of `build-phase`'s launch and land, `debug`'s rules, `verify`'s twelve steps and milestone mode, and both reviews' reads, checks and writes stay. Moved, word for word, to `lifecycle/skills/<skill>/reference.md`: the full test-grep list, the card's length and Change-track details, and why the worktree is made by hand (`build-phase`); the exercise probes, what "driven in a browser" means, the flake and rerun details and the "every feature present" walk (`verify`); Root's design-system paths (`design-review`, a new seed file); `debug`'s mid-run note; and `ux-review`'s live-mode and status-column details.
+
+**Why.** As L-23. §3 cut less than §2 because most of it is steps a session follows in order, which stay.
+
 **Decided by.** Committed before the founder's review, so the work isn't lost with the session's container. Awaiting the founder's review; any line they want back is restored in a follow-up commit.
 
-**Revisit.** When the founder reviews §2.
+**Revisit.** When the founder reviews §3.

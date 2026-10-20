@@ -2,7 +2,7 @@
 
 *Each of the twenty lifecycle skills, and the design step: what it does, how it is invoked, which model runs it, exactly what it reads and writes, its gate, and where its shape comes from. The method these skills implement is `README.md`.*
 
-**Version 0.9 · Status: plan — nothing here is built yet · 2026-10-20 · Owner: _root**
+**Version 0.10 · Status: plan — nothing here is built yet · 2026-10-20 · Owner: _root**
 
 ---
 
@@ -228,120 +228,93 @@ Amending keeps step numbers, so citations downstream still hold.
 
 ### `build-phase`
 **Does:** launches a stage as a lane, or lands one.
-**Invocation:** `build-phase <stage>` to launch · `build-phase <stage> --land` after the lane reports. On the Change track, `<stage>` names a stage in a change note (`changes/NN-change-<slug>.md#<stage>`).
+**Invocation:** `build-phase <stage>` to launch · `build-phase <stage> --land` after the lane reports. On the Change track, `<stage>` names a change note's stage (`changes/NN-change-<slug>.md#<stage>`).
 **Gate:** the build plan, or a change note with a Stages section.
 **Model:** Opus, medium (it drafts the card; the lane is Sonnet).
 **Launch:**
-1. Run the gate. Check `STATE.md`: at most two lanes in flight, no other lane touching shared schema. Check that the code repo checkout exists, and clone it if not.
-   **Facts and preconditions first:** read the P0 items the stage needs from the plan's §4, marked done or open. Ask the open ones in one question generated from that list, together with environment preconditions (Docker running, the devices the founder has today). List every by-hand check that names the stage. For an infrastructure stage, draft the card only after the facts arrive.
-2. **Check the plan against what it touches:** diff the stage's file list against the tree; compare its screens with the plate; read the migration for each table it writes; re-read a change note against `main` since its `main @`. **Grep the tests** for the stage's routes, tables and page names, every literal it changes, every request field a route starts reading, every value class a new refusal covers, and every helper that does the same job (found by behaviour, not one name: all clock setters). Each mismatch goes in the card, flagged for verify.
-   Then draft the phase card from the plan's §5 section — or the change note's stage — and the code as it is now: **500–700 words of body** (the header, lane table and pasted facts don't count), naming exactly which plan sections, journeys sections and earlier stage records to read. Over that, the card cites the design's plate index rather than quoting copy, and records the plan's open decisions in *Decided here*. If the body still runs over 1,000 words, the plan section is underspecified: say so in the log. On the Change track, when the note's stage names files, tests and traps, the card defers to it and adds the code check and the lane rules. Commit it as `briefs/<stage>.md`.
-3. Assign lane resources from `config.md`: branch, test database, ports. Make the worktree with `git worktree add` from local `main` after a pull, with no upstream (the Agent tool's isolation can't target another repo). The card tells the lane its working directory.
-4. Launch a background Sonnet subagent with the paths of `brief-common.md` and the card; the lane reads them.
-5. Record the lane in `STATE.md`.
+1. Run the gate. Check `STATE.md`: at most two lanes in flight, none other on shared schema. Check the code checkout exists; clone it if not.
+2. **Facts first:** the plan's §4 items the stage needs, done or open. Ask the open ones in one question, with the environment preconditions (Docker, the founder's devices today), and list every by-hand check that names the stage. An infrastructure stage's card waits for the answers.
+3. **Check the plan against the code:** the stage's files against the tree, its screens against the plate, the migration for each table it writes, a change note against `main` since its `main @`. **Grep the tests** for everything the stage changes or adds (the list is in `skills/build-phase/reference.md`). Each mismatch goes in the card, flagged for verify.
+4. Draft the phase card from the plan's §5 section or the note's stage and the code as it is now: **500–700 words of body**, naming exactly which sections and stage records to read, with the plan's open decisions in *Decided here*. Over 1,000 words means the plan section is underspecified: say so in the log. Commit it as `briefs/<stage>.md`, in its template in the reference file.
+5. Assign the lane's branch, test database and ports from `config.md`. Make the worktree with `git worktree add` from a freshly pulled local `main`, with no upstream, and tell the lane its working directory.
+6. Launch a background Sonnet subagent with the paths of `brief-common.md` and the card. Record the lane in `STATE.md`.
 
-**The card** follows its template in `skills/build-phase/reference.md`.
+**Carry-overs:** one a review marks "for every card", or an environment problem that cost a lane time, is proposed for `brief-common.md` at that verify, not repeated in each card.
 
+**Land:** reads `.tmp/<stage>.report.md`, so it can run in a later session.
+1. Check the lane's commit exists and its authors are right.
+2. Measure the diff from the lane's recorded base, not `main`; list the files a newer `main` also touches.
+3. Record lines (app, tests, moved) and the harness's time and tokens against the size, ignoring the lane's own estimate.
+4. Save the report as `briefs/<stage>.report.md` with a one-line header (stage, branch, base); commit.
+5. Update `STATE.md` with what verify must decide: the lane's calls, the card's *Decided here*, card checks not done, changes to what the deploy runs, departures from the note or plan. Name `verify <stage>` as next.
 
-**Carry-overs:** a carry-over a review marks "for every card", or an environment problem that cost a lane time, is proposed for `brief-common.md` at that verify, not repeated in each card.
-
-**Land:** reads `.tmp/<stage>.report.md`, so it can run in a later session than the launch.
-1. Check that the lane's commit exists and that its authors are right.
-2. Measure the diff from the lane's recorded base, not `main`, and list the files a newer `main` also touches.
-3. Record lines (app, tests, moved) and the harness's time and tokens against the size. The lane's own estimate is ignored.
-4. Save the report as `briefs/<stage>.report.md`, with a one-line header (stage, branch, base), and commit it.
-5. Update `STATE.md`. The block lists, *for verify to decide*: the lane's calls; the card's *Decided here*; card checks not done, and why; changes to what the deploy runs; departures from the note or plan.
-6. Name the next step (`verify <stage>`).
-
-Land doesn't push the branch. `verify` runs on the machine that holds it; if it must move machines, the founder pushes it (§0, outward-facing actions).
+Land doesn't push the branch. If verify must run on another machine, the founder pushes it (§0).
+**Reference:** `skills/build-phase/reference.md`.
 **From:** the journeys orchestration: `brief-common.md`, `brief-j*.md`, the lane registry in the state log.
 
 ### `debug`
 **Does:** bounded debugging.
-**Invocation:** by name, or by Claude when a test fails unexpectedly · **Model:** inherits the session's, high effort.
+**Invocation:** by name, or by Claude when a test fails unexpectedly · **Model:** the session's, high effort.
 **Rules:**
-- Reproduce with the smallest test.
-- One hypothesis at a time, each tested by one targeted run with quiet output.
+- Reproduce with the smallest test; one hypothesis at a time, each tested by one targeted run with quiet output.
 - After three failed hypotheses, stop and write up what is known in `STATE.md`.
 - Never debug through the full e2e suite.
-- If the cause is environmental (rate limit, clock, database, ports), fix the test setup instead of rerunning.
+- An environmental cause (rate limit, clock, database, ports) is fixed in the test setup, not rerun.
 - After fixing a shared rule, rerun every test file that asserts it.
-- Don't edit a test file while a full run has it loaded. Fix it, then rerun that file after the run. App source may change mid-run if the server loads once at the start.
+- Don't edit a test file a running full suite has loaded; fix it and rerun it after.
 
 **From:** the J1 lane (retrospective finding 2); Superpowers' systematic-debugging; the state log's lesson after J13.
 
 ### `verify`
 **Does:** reviews a landed stage, fixes it, records it. Or, with `--milestone`, runs the full suites.
 **Invocation:** `verify <stage>` · `verify --milestone <M>` · **Model:** Opus, high · **Forked**, `background: false`.
-**Reads (injected):**
-- the lane report;
-- `git diff --stat main...<branch>`;
-- the phase card and the plan's §5 section for the stage, or the change note's stage;
-- `review-checklist.md`;
-- for UI stages, `design-review`'s reference checklist;
-- `config.md` §1 and §3; the planning decisions and defect rows the card names; the open-work file's rows for the stage.
-
-Nothing else until the diff points somewhere.
+**Reads (injected):** the lane report; `git diff --stat main...<branch>`; the card and the plan's §5 section or the note's stage; `review-checklist.md`; for UI stages, `design-review`'s checklist; `config.md` §1 and §3; the decisions and defect rows the card names; the open-work file's rows for the stage. Nothing else until the diff points somewhere.
 **Does, in order:**
 0. Fetch. If `main` moved since the lane's base, rebase or merge first, so the review reads what will ship.
-1. **Exercise first:** before reading further, run what can be run. Build and run the image; probe each new one-rule file with inputs its tests don't hold; send raw, un-normalised paths at a path guard on the running server; check that each deploy check fails when what it guards is broken. The lane report's item 6 is the first work list. Then read the stat and the core files.
-2. Check against the review checklist. "Driven in a browser" means a scripted real browser plus screenshots that were looked at, graded "screenshots, not a window"; the preview pane counts for look, and DOM measurement for layout.
-3. Fix on the branch. A fix that changes no rendered pixel at the designed sizes, or only corrects a defect, is the reviewer's; anything else goes back to a lane or to the founder. A test added by the review is run against the unfixed code and seen to fail first (stop or exhaust a page's timers before). A failure with a cause found is fixed in the test or the page; one without is repeated five times alone, recorded as a flake in the record, and named in the push question.
+1. **Exercise first:** run what can be run before reading further: build and run the image, probe new code with inputs its tests don't hold, and check each deploy check fails when what it guards is broken. The lane report's item 6 is the first work list.
+2. Check against the review checklist.
+3. Fix on the branch. A fix that changes no rendered pixel at the designed sizes, or only corrects a defect, is the reviewer's; anything else goes back to a lane or to the founder. A test the review adds is first seen to fail on the unfixed code. A failure with no cause found is repeated five times alone and recorded as a flake.
 4. Merge `main` in.
-5. Rerun the affected test files, and every file asserting a changed shared rule. A fix to a shared helper or a one-rule file reruns every spec that imports or renders through it. When a change note's criteria ask for the full suites, run them, and budget for them in the first message (about 30 min per e2e run on IMNSTR).
-6. Write the stage record in the code repo (shape of `J12.md`: built · decided · owed · verification). Fetch again before writing it.
-7. Move owed items and anything past the verification ceiling to the project's open-work file.
-8. Flag canon files the stage made stale, in the stage record, where `close-out` collects them.
-9. Update the stage list and the project's state-of-the-build file (from `config.md`) where they apply.
-10. Submit the lane report's item 7, and any lesson from the review itself, to the learnings inbox as a capture note.
+5. Rerun the affected test files, and every file asserting a changed shared rule or importing a changed helper. Run the full suites when a change note asks for them, and budget for them in the first message.
+6. Fetch again, then write the stage record in the code repo (shape of `J12.md`: built · decided · owed · verification).
+7. Move owed items, and anything past the verification ceiling, to the project's open-work file.
+8. Flag canon the stage made stale, in the stage record, for `close-out`.
+9. Update the stage list and the state-of-the-build file (from `config.md`) where they apply.
+10. Send the lane report's item 7, and any lesson from the review, to the learnings inbox as a capture note.
 11. Report "ready to fast-forward" or what blocks it.
 
-**May write,** with the founder's yes in this session: correction-only edits to the build plan and the project config, logged in the stage record. A change to scope goes to `revise`.
-**For a project whose `main` deploys:** review, fixes, rebase on `origin/<base>`, *before the push* (stop files, `.env` lines), push on the founder's word, read the run, then record the run's URL. The forked part ends at "ready to deploy" (§0, forking). If blocked, end with "push pending: founder".
-**Checks only the founder can make:** a signed-in check on production, a server CLI's output, and any destructive production step are founder items in the open-work file. Cards don't promise them of the reviewer.
-**Reference:** `skills/verify/reference.md`.
-
-**Milestone mode:** run the project's milestone script, one heavy runner at a time; record the counts in the development README.
-- **Before the run,** list the by-hand items: the open-work file's verification rows whose *needed by* names this milestone (`config.md`'s milestone row points there). Ask which devices the founder has today, and check that production holds the content each item needs.
-- **Two states:** *suites green*, and *closed* once the by-hand items it lists as blocking are done.
-- **A red suite:** a milestone may fix test infrastructure on `main`. A failing app test makes the milestone red and goes to `debug`.
+**May write,** with the founder's yes in this session: correction-only edits to the build plan and the project config, logged in the stage record. Scope goes to `revise`.
+**Where `main` deploys:** review and fix, rebase on `origin/<base>`, check before the push (stop files, `.env` lines), push on the founder's word, read the run, record its URL. The forked part ends at "ready to deploy"; if blocked, "push pending: founder".
+**Founder-only checks:** a signed-in check on production, a server CLI's output, and any destructive production step go to the open-work file as founder items. Cards don't promise them of the reviewer.
+**Milestone mode:** run the project's milestone script, one heavy runner at a time, and record the counts in the development README.
+- **Before the run,** list the by-hand items whose *needed by* names this milestone, ask which devices the founder has today, and check production holds the content each needs.
+- **Two states:** *suites green*, and *closed* once its blocking by-hand items are done.
+- **A red suite:** test infrastructure may be fixed on `main`; a failing app test makes the milestone red and goes to `debug`.
 - **It pushes** only docs and test infrastructure, after reading the stop-file list.
-- **"Every feature present":** walk the plan's route catalogue on production in each language, and confirm the signed-out API refuses, with requests the product won't count.
+
 **Returns:** at most 15 lines.
+**Reference:** `skills/verify/reference.md`.
 **From:** the journeys reviews (retrospective §2); `J12.md`; the development README's done means.
 
 ### `design-review`
-**Does:** checks built UI against the brand, the tokens and accessibility.
+**Does:** checks built UI against the project's design system and accessibility.
 **Invocation:** by name, on a stage or a screen · **Model:** Opus, high · **Forked.**
-**Reads:**
-- the design system named in `config.md` §1. For Root's products that row points at: the summary sections of `ecosystem/canon/01-philosophy/01-brand-definition.md`; the code repo's `apps/web/src/styles/tokens.css`; the type and spacing rules from `ecosystem/working/root-website-requirements_2.md`. Root's brand and tokens apply only when the row points at them;
-- its own reference checklist: accessibility gates (contrast, touch targets, text scaling, keyboard, screen reader); hierarchy, feedback and consistency; right-to-left rules.
-
-**Writes:** findings to `08-design-review.md`, each as What / Why (citing a source) / Fix, on the module's one severity scale (`review-instrument.md` §4).
-**Rule:** the project's design system is the rubric. General principles fill gaps; Apple's visual language does not apply.
-**From:** the review format and accessibility gates of `dickwu/apple-design-skill`, borrowed, not installed; its lookup-table loading, kept small.
+**Reads:** the design system named in `config.md` §1 (Root's brand and tokens only where that row points at them); its own checklist: accessibility gates (contrast, touch targets, text scaling, keyboard, screen reader), hierarchy, feedback, consistency, right-to-left rules.
+**Writes:** findings to `08-design-review.md`, each What / Why (citing a source) / Fix, on the module's severity scale (`review-instrument.md` §4).
+**Rule:** the project's design system is the rubric; general principles fill gaps; Apple's visual language doesn't apply.
+**Reference:** `skills/design-review/reference.md`.
+**From:** the review format and accessibility gates of `dickwu/apple-design-skill`, borrowed, not installed.
 
 ### `ux-review`
 **Does:** walks each journey as each selected persona and scores it.
-**Modes:** `design` (before build, on the latest design: 4b where it exists, else `04-wireframes.html`; observations graded *simulated*) · `live` (after UI stages).
+**Modes:** `design` (before the build, on 4b where it exists, else the wireframes) · `live` (after UI stages, against the running app).
 **Model:** Opus, high · **Forked.**
-**Reads:**
-- `03-journeys.md`;
-- the latest design, or the running app;
-- the spec's interface and acceptance sections only;
-- the selected personas;
-- `review-instrument.md`;
-- injected: the change notes' *carried* lists and the open-work file's verification and founder rows, so owed items aren't counted as defects; the serve-and-capture script (`config.md`), to render a bundled design.
-
-**Checks:**
-- the six metrics, scored per persona, per journey;
-- coverage: every acceptance criterion has a screen, and every screen has its empty, error and loading states;
-- Nielsen's ten heuristics.
-
-**Live mode** reads production read-only, as a bot (`HEAD` or a bot agent) wherever the project counts readers. It walks every state, and anything behind sign-in, on a local server built from the deployed commit, with the review seed route and a virtual authenticator.
-**Asks nothing.** Decisions found are routed `question`, for `revise` or the next change note's batch.
-**Writes:** a dated pass appended to `05-ux-review.md`, with one short summary per pass at the top of the file, newest first. A required *For `revise`* heading lists the findings that change the spec. The findings table has a *Status* column (`open`, `closed in <file>`, `carried to <step>`), which `revise`, the design import and change notes update; `build-plan`'s gate greps it for `open`. After the build, UI fixes go to `spec change` as one proposed Change.
-**Gate:** the latest design and journeys (`design` mode) · `live` mode: UI stages verified; open by-hand device checks don't block it, and are listed under *Not checked*.
+**Reads:** `03-journeys.md`; the latest design or the running app; the spec's interface and acceptance sections only; the selected personas; `review-instrument.md`. §0's injected owed items, so they aren't counted as defects.
+**Checks:** the six metrics per persona, per journey; coverage (every criterion has a screen, every screen its empty, error and loading states); Nielsen's ten heuristics.
+**Live mode** reads production read-only, with requests it won't count as readers, and walks signed-in states on a local server built from the deployed commit.
+**Asks nothing.** Decisions found are routed `question`, for `revise` or the next change note.
+**Writes:** a dated pass appended to `05-ux-review.md`, a short summary per pass at the top. A required *For `revise`* lists the findings that change the spec. Each finding has a *Status* (`open`, `closed in <file>`, `carried to <step>`); `build-plan`'s gate greps for `open`. After the build, UI fixes go to `spec change` as one Change.
+**Gate:** the latest design and journeys · `live`: UI stages verified; open device checks don't block it and are listed under *Not checked*.
 **Reference:** `skills/ux-review/reference.md`.
 **From:** `tracker/canon/05-reviews/00-persona-review-method.md`, the same instrument at both points so scores compare.
 
@@ -411,6 +384,7 @@ Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `bui
 
 ## Changelog
 
+- **0.10 · 2026-10-20** — Cut back, step 3, §3 (L-26, awaiting the founder's review): the test-grep list, the card's length details and the worktree's reason (`build-phase`), the probes, browser grading, flake rule and route walk (`verify`), Root's design-system paths (`design-review`) and live mode's details (`ux-review`) move to `skills/<skill>/reference.md`; the rest in tighter wording.
 - **0.9 · 2026-10-20** — Cut back, step 3, §2 (L-25, awaiting the founder's review): the change note's shape, the journeys file's shape, the build plan's §0–§10 and stage-section lists, the design step's opening form and handoff details, and the eval plan's touch-up details move to `skills/<skill>/reference.md`; the rest in tighter wording; two sources no longer called "not yet on `main`".
 - **0.8 · 2026-10-20** — Cut back, step 3, §1 (L-24, awaiting the founder's review): `handoff`'s block format, `learned`'s note fields and its destination table move to `skills/<skill>/reference.md`; the rest in tighter wording; lines that repeat §0 or `verify` are cut.
 - **0.7 · 2026-10-20** — Cut back, step 2, §0 (L-23, awaiting the founder's review): the same rules in tighter wording; redoing a phase, grades in reviews, design items routed to `revise` and steps outside Claude Code move to `skills/shared/reference.md`; the config table's sources move to `skills/project-config/reference.md`; two provenance sentences, one obvious line and one bullet duplicated in `verify`'s seeds are cut.
