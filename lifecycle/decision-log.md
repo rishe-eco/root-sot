@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.32 · 2026-10-20**
+**Version 0.33 · 2026-10-20**
 
 ---
 
@@ -393,3 +393,19 @@ Four facts found on the way are written into the files as they are, not as the m
 - whether `build-phase`'s block standing in for the handoff holds up;
 - `skills-plan.md` §0 still says skills live in `root-sot/.claude/skills/`, which L-31 replaced. That file is the founder's to change.
 
+
+## L-34 · 2026-10-20 · Rollout stage 2, session C: `verify` gets a fix mode for the Fix track
+
+**Decision.**
+- `verify` gets a fix mode, `verify --fix <id> <branch>`, for work on the Fix track (`lifecycle/README.md` §1: debug → verify → decision record).
+  - In place of a phase card, it reads the issue's entry in the project's known-issues file (for Tracker, `tracker/canon/04-roadmap/01-known-issues-and-debt.md`).
+  - In place of a lane report, it reads the debug summary in the fix commit's message.
+  - The gate checks that the branch carries a test that reproduces the failure.
+  - The record goes to `docs/development/fix-<id>.md` in the code repo. A Fix writes no column 8 in `lifecycle/status.md`, because it isn't a module stage.
+- Building it takes a lifecycle session: `lifecycle/bin/gate`, `lifecycle/bin/gate-test` and `lifecycle/skills/verify/`. Until then, B-15's fix (`rishe-eco/tracker` branch `fix/b-15-goal-group-status` @ `2143e39`, not pushed) waits unverified.
+
+**Why.** L-33 *Revisit* left open what `verify` reads for a Fix. On B-15 the gate confirmed the gap: `bash lifecycle/bin/gate B-15 8 fix-b-15 --verify` prints `GATE FAIL` with `missing folder: B-15`. With `--override` it passes, but `verify` then finds no card, no lane report, no stage-record path and no column-8 cell. Three options were put to the founder: this fix mode; running `verify` with `--override` for now; or no `verify` for a Fix, with the main session reviewing by hand. The fix mode keeps a fresh-context review for Fixes without making an override routine.
+
+**Decided by.** Founder, 2026-10-20, choosing the first of the three options as Claude presented them ("Fix mode in verify", marked as recommended). The details of the mode (which files stand in for the card and report, the record's path, no column 8) are Claude's proposal as worded in that option. The founder chose it, but hasn't reviewed it beyond that. This entry was written on Opus, not the Sonnet that `decision-record`'s frontmatter sets, at the founder's word ("proceed").
+
+**Revisit.** When the fix mode is built: whether the fix commit's message is enough of a report, or a Fix needs a short report file of its own. Also whether known-issues entries that turn out stale, as B-15's did, should be corrected by `verify` or left to `close-out`. B-15's entry describes "Backlog" on the goals list, which was already fixed before the method; the defect was a goal group's manage page showing "Ignored".
