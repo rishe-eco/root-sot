@@ -2,7 +2,7 @@
 
 *The queue. Work that engineering cannot finish because it needs human judgement, a native speaker, or a decision. Each item states its blocker and what it unblocks. Delete items when done — the decision logs are the permanent record.*
 
-**Version 0.8 · Status: living · 2026-10-20 · Owner: _root**
+**Version 0.9 · Status: living · 2026-10-20 · Owner: _root**
 
 ---
 
@@ -203,6 +203,17 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 
 ---
 
+## Owed to later stages
+
+*Work a review found and left for a later stage or run. `verify` adds a row, and the row is struck when it's done.*
+
+| Project | Item | Needed by | From |
+|---|---|---|---|
+| root-app | Run the full e2e suite with TK1's changed `e2eFetch` (`apps/web/e2e/helpers.ts`, now also retrying `UND_ERR_SOCKET`): all 28 specs import it, and the review ran 4 | the next full e2e run: the next milestone, or before a deploy | `docs/development/TK1.md` in `rishe-eco/root-app` |
+| root-app | The portal scrolls sideways at 180 px (264 px of content): the shared topbar's language switch and sign-out don't reflow. It fails the reflow rule on every portal page. TK1 didn't cause it | not assigned: the next portal layout stage | `docs/development/TK1.md` in `rishe-eco/root-app` |
+
+---
+
 ## Past the verification ceiling
 
 *Checks a review couldn't make. `verify` adds a row, and the row is struck when the check is done.*
@@ -210,11 +221,13 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 | Project | Item | Who | Needed by | From |
 |---|---|---|---|---|
 | Tracker | After B-15's deploy, sign in on the live site, open a goal group's manage page, and check that it shows "Goal group" and not "Ignored" | founder | the deploy after `fix/b-15-goal-group-status` merges | `docs/development/fix-B-15.md` in `rishe-eco/tracker` |
+| root-app | After TK1's deploy, sign in on the live site as a customer and open Support with a ticket in the list. Switch to another tab or app while staff answer that ticket from the desk, then come back to the Support tab: the answer shows with no reload | founder | the deploy after `tk1-ticket-refresh` reaches `main` | `docs/development/TK1.md` in `rishe-eco/root-app` |
 
 ---
 
 ## Changelog
 
+- **0.9 · 2026-10-20** — *Owed to later stages* added, with two rows from `verify TK1` (root-app): the full e2e run with the changed `e2eFetch`, and the portal's sideways scroll at 180 px. A ceiling row for TK1's real-focus check on the live site.
 - **0.8 · 2026-10-20** — *Past the verification ceiling* added, with its first row: the live-site check for Tracker's B-15 fix, from `verify --fix B-15`.
 - **0.7 · 2026-08-23** — Monitoring's human-work items (key verification + the answer-variant review, Persian review) promoted from the anticipated table to live items 12–13, the same day its build reached the end of its pass's full scope (phases 1–6) — the sixth and last specced skill tool to do so — and Phase 5 confirmed live that all 27 probe items are `key-unverified`. No rater-pass item exists here either, same reason as Delegation's. **The anticipated section is now empty** — every specced skill tool has code — renumbered §13 → §15 to note that rather than leave a stale table. Decided item renumbered 12 → 14.
 - **0.6 · 2026-08-23** — Delegation's human-work items (key verification, Persian review) promoted from the anticipated table to live items 10–11, the same day its build reached the end of its pass's full scope (phases 1–6) and Phase 5 confirmed live that all 21 probe items are `key-unverified`. No rater-pass item exists for Delegation — nothing here resolves through a judge. The anticipated section now covers only Monitoring (#6), renumbered §11 → §13 to make room. Decided item renumbered 10 → 12. Caught and fixed a numbering collision before committing: the anticipated section's own header was left at §11 after items 10–11 were added, colliding with the new live item 11.
