@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.43 · 2026-10-21**
+**Version 0.44 · 2026-10-21**
 
 ---
 
@@ -583,3 +583,13 @@ Four facts found on the way are written into the files as they are, not as the m
 **Decided by.** Founder, 2026-10-21: accepted on Claude's judgement, without a line-by-line review ("you decide on all - you know the rules"). Claude put the first four of the eight items to the founder as questions; the founder closed them and handed all eight to Claude. The wording is Claude's, from the inbox notes cited. Run on Opus at `learned --consolidate`.
 
 **Revisit.** When `playwright.config.ts` reads the channel from the environment (`config.md` §4, owed), the workaround goes.
+
+## L-45 · 2026-10-21 · Tracker's UI review checks the light scheme only until the app can show dark
+
+**Decision.** `lifecycle/projects/tracker/review-checklist.md` 0.3 §4: the browser drive checks the light scheme; dark is checked once something sets the `.dark` class.
+
+**Why.** Under dark emulation every manage-page screenshot rendered light (`inbox/2026-10-20-verify-fix-B-15.md`). Checked on `rishe-eco/tracker` `main` @ `94d2e63`: 21 files under `client/app` carry `dark:` styles, but nothing sets `.dark`, so the item couldn't pass honestly. It would cost every Tracker UI review the same wasted pass. Whether Tracker should have a working dark scheme is a product question for its known issues, not settled here.
+
+**Decided by.** Founder, 2026-10-21: accepted on Claude's judgement, without a line-by-line review ("you decide on all - you know the rules"). Claude put the first four of the eight items to the founder as questions; the founder closed them and handed all eight to Claude. The wording is Claude's, from the inbox notes cited. Run on Opus at `learned --consolidate`.
+
+**Revisit.** When the app sets `.dark`, restore "both colour schemes".
