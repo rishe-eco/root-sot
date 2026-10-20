@@ -1,5 +1,8 @@
 # required-headings.txt — the headings `bin/gate` checks in each phase output.
-# Version 0.1 · 2026-10-20 · Owner: founder (changes through `revise` on the method, or an accepted consolidation).
+# Version 0.2 · 2026-10-20 · Owner: founder (changes through `revise` on the method, or an accepted consolidation).
+# 0.2: fixes found while building `bin/gate`, each accepted by the founder: conditional lines written `when …:`
+#   and never failed; done phases warn instead of fail (STRICT OR WARNED, replacing the "not re-gated" note);
+#   the Personas and Coverage checks spelled out; `in`/`each` lookups, list splitting and sections made exact.
 # Sources: each template in this folder; `skills-plan.md` §0 *The gate* and §5; each skill's `skills/<skill>/reference.md`;
 # the *Template sample* section of each IMNSTR trial log (`trial-run/log/`), and `trial-run/findings.md` §10 (F-2).
 #
@@ -17,10 +20,14 @@
 #   in h2 <s>: cell <t>   the h2 section matching <s> holds a line, list item or table cell whose text,
 #                         with Markdown marks stripped, starts with <t>.
 #   in h2 <s>: item <n>   the h2 section matching <s> holds a numbered list item <n> ("7. …").
-#   in h2 <s>: each h3 has bold <A>, <B>
+#   in h2 <s>: each h3 has bold <A>, bold <B>
 #                         every h3 inside that section holds a line starting `**<A>` (and `**<B>`).
-#   each h2 <s>: h3 <A>, <B>
+#   each h2 <s>: h3 <A>, h3 <B>
 #                         every h2 matching <s> is followed, before the next h2, by h3s matching <A> and <B>.
+#                         At least one h2 must match <s>.
+#   when <condition>: <line>
+#                         a conditional line. The gate can't judge the condition, so it checks <line> and,
+#                         when <line> isn't met, reports it as "not checked (<condition>)", never as missing.
 #
 # MATCHING
 #   - Case-insensitive. Before comparing, a heading loses its leading section number ("1.", "6.7 ·", "B1 ·"),
@@ -30,11 +37,25 @@
 #   - Lines are matched in order, each taking the first heading not already taken: each line must be
 #     satisfied by a different heading. `h2 Journeys` is not met by
 #     "Decisions taken at journeys" when that heading already met `h2 Decisions taken at journeys`.
-#   - Lines marked "# when ..." are conditional: the gate checks them only when the condition is stated
-#     in the file's header or the project config, and otherwise reports them as "not checked".
+#   - `in` and `each` lines look a heading up without taking it, so a later line may still take it.
+#   - `each` and `each h3 has` lists are split on ", h3 " and ", bold ", since heading words may hold commas.
+#   - A section runs to the next heading of the same level or higher. Headings inside code fences
+#     (``` or ~~~) don't count, and HTML tags inside a heading count as spaces.
 #
-# Outputs written before these templates (IMNSTR's, and modules that predate the method) are not re-gated
-# for phases already `done` in `status.md`; the gate reads this file only for the phase it is opening.
+# STRICT OR WARNED
+#   The gate checks the headings of every input to the phase it is asked about. When that phase's own
+#   cell in `status.md` is already `done` (or `closed`, or column 8 at n/n), it is not being opened, so a
+#   missing heading, a criterion missing from a Coverage table and an empty Personas table are warnings.
+#   When the cell is blank, `STALE` or in progress, they fail. A missing file, a `STALE` input and a
+#   branch behind its upstream always fail. (Outputs written before these templates, such as IMNSTR's,
+#   then pass their done phases with their gaps listed as warnings.)
+#
+# BEYOND HEADINGS (bin/gate, not this file)
+#   - Personas: the `## Personas` table in `03-journeys.md` needs at least one row. A deliberately
+#     empty selection is written as one row, `none — <why>`.
+#   - Coverage: every `AC-n` in the spec's *Acceptance criteria* appears in a row of the journeys'
+#     *Coverage* table. In a change note, every criterion id in its *Acceptance criteria* appears in
+#     some stage's **Acceptance** line; ranges such as "CI-1 to CI-11" count every id in them.
 
 [00-intake.md]
 h2 Problem
@@ -59,8 +80,7 @@ h2 Interface requirements
 h2 Risks
 h2 Acceptance criteria
 h2 Changelog
-# when the founder was asked questions at spec (the usual case):
-h2 Decisions taken at spec
+when the founder was asked questions at spec (the usual case): h2 Decisions taken at spec
 # The scope ledger is a table in the header, not a heading; `revise` reads it.
 
 [03-journeys.md]
@@ -125,8 +145,7 @@ in h2 The stages: each h3 has bold Goal, bold Acceptance, bold Size, bold Traps
 h2 Summary
 h2 Findings
 h2 Access gates
-# when the project has a right-to-left language:
-h2 Right to left
+when the project has a right-to-left language: h2 Right to left
 
 [09-close-out.md]
 h2 Summary
@@ -151,8 +170,7 @@ h2 Stage
 h2 What this makes stale
 h2 Changelog
 in h2 Stage: each h3 has bold Size, bold Traps
-# when the change touches a server:
-h2 Founder pre-flight
+when the change touches a server: h2 Founder pre-flight
 
 [briefs/*.md] !briefs/*.report.md
 h2 Your lane
@@ -161,8 +179,7 @@ h2 What to build | What this card settles
 h2 Decided here
 h2 Done for
 h2 Not here
-# from the project's first deploy on:
-h2 What the verify deploys
+when the project has deployed once: h2 What the verify deploys
 
 [briefs/*.report.md]
 # By number: the lane words its own headings. The header line above the rule (stage, branch, base)

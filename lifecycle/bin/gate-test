@@ -1,0 +1,171 @@
+#!/usr/bin/env bash
+# gate-test — proves `bin/gate` on a copy of imnstr/modules/01-website.
+#
+# The copy lives in a throwaway repo with its own upstream, under a temporary folder, so neither this
+# repo nor its remote is touched. Every case runs the gate from outside that repo, as a skill would
+# from a code repo. Each case checks the gate's exit code (always 0), its first line, and one line of
+# what it found.
+#
+# Usage: bash lifecycle/bin/gate-test      Exits 1 if any case fails.
+
+set -u
+export LC_ALL=C
+
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)
+src=$(dirname "$(dirname "$here")")
+M=imnstr/modules/01-website
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+work="$tmp/root-sot"
+passed=0 failed=0
+
+g() { git -C "$work" -c user.name=gate-test -c user.email=gate-test@example.invalid "$@"; }
+
+# The sandbox: the gate, what it reads, and the module.
+mkdir -p "$work/lifecycle/bin" "$work/lifecycle/templates" "$work/lifecycle/projects" "$work/lifecycle/learnings/inbox" "$work/${M%/*}"
+cp "$src/lifecycle/bin/gate" "$work/lifecycle/bin/"
+cp "$src/lifecycle/templates/required-headings.txt" "$work/lifecycle/templates/"
+cp "$src/lifecycle/status.md" "$work/lifecycle/"
+cp -R "$src/lifecycle/projects/imnstr" "$work/lifecycle/projects/"
+touch "$work/lifecycle/learnings/inbox/.gitkeep"
+cp -R "$src/$M" "$work/$M"
+git init -q "$work"
+g symbolic-ref HEAD refs/heads/main
+g add -A
+g commit -qm "sandbox"
+git init -q --bare "$tmp/upstream.git"
+git --git-dir="$tmp/upstream.git" symbolic-ref HEAD refs/heads/main
+g remote add origin "$tmp/upstream.git"
+g push -q -u origin main 2>/dev/null
+
+# expect <case> <first line starts with> <a line of the output contains, or -> <gate arguments…>
+expect() {
+	local name=$1 want=$2 pat=$3 out code
+	shift 3
+	out=$(cd "$tmp" && bash "$work/lifecycle/bin/gate" "$@")
+	code=$?
+	if [ "$code" -eq 0 ] && [[ $(head -n 1 <<<"$out") == "$want"* ]] && { [ "$pat" = - ] || grep -qF -- "$pat" <<<"$out"; }; then
+		passed=$((passed + 1))
+		echo "ok    $name"
+	else
+		failed=$((failed + 1))
+		echo "FAIL  $name (exit $code; wanted \"$want\" and \"$pat\")"
+		echo "        ${out//$'\n'/$'\n'        }"
+	fi
+}
+
+# Put the sandbox back as committed.
+reset() { g checkout -q -- . && g clean -qfd; }
+
+# set_cell <column> <value>: IMNSTR's cell in status.md.
+set_cell() {
+	awk -F'|' -v OFS='|' -v c="$1" -v v="$2" 'index($2, "imnstr/modules/01-website") { $(c + 4) = " " v " " } { print }' \
+		"$work/lifecycle/status.md" >"$tmp/status" && mv "$tmp/status" "$work/lifecycle/status.md"
+}
+
+# drop <file in the module> <text>: removes every line containing <text>.
+drop() { grep -vF -- "$2" "$work/$M/$1" >"$tmp/edit"; mv "$tmp/edit" "$work/$M/$1"; }
+
+echo "== Each phase IMNSTR has done passes"
+for p in 0 1 2 3 4 4b 5 6 7 7b 9 10; do
+	expect "phase $p" "GATE OK" - "$M" "$p"
+done
+expect "phase 8, B3 --verify" "GATE OK" "briefs/B3.report.md: 7 of 7" "$M" 8 B3 --verify
+expect "phase 8, PL1 --verify (a change note's stage)" "GATE OK" "all 12 criteria of changes/05-live-review-polish.md" "$M" 8 PL1 --verify
+expect "phase 8, CD1 --verify (a change note's stage)" "GATE OK" "all 11 criteria of changes/04-ci-deploy.md" "$M" 8 CD1 --verify
+expect "a done phase lists its gaps as warnings" "GATE OK" "warning: coverage: 03-journeys.md's Coverage table lacks AC-48, AC-49" "$M" 4
+expect "an absolute module path" "GATE OK" "03-journeys.md: 7 of 7" "$work/$M" 4
+expect "a phase by name" "GATE OK" "phase 4 (wireframes)" "$M" wireframes
+sed 's/$/\r/' "$work/$M/03-journeys.md" >"$tmp/crlf" && mv "$tmp/crlf" "$work/$M/03-journeys.md"
+expect "Windows line endings" "GATE OK" "03-journeys.md: 7 of 7" "$M" 4
+reset
+
+echo "== A missing heading"
+set_cell 4 ""
+drop 03-journeys.md "## 4. Suggested"
+expect "Markdown, phase being opened" "GATE FAIL" "missing: 03-journeys.md: h2 Suggested" "$M" 4
+set_cell 4 "done"
+expect "Markdown, phase already done" "GATE OK" "warning: missing: 03-journeys.md: h2 Suggested" "$M" 4
+reset
+set_cell 4 ""
+drop 04-wireframes.html "Calls made here, for 4b"
+expect "HTML <h2>" "GATE FAIL" "missing: 04-wireframes.html: h2 Calls made here" "$M" 4b
+reset
+rm -r "$work/lifecycle/projects/imnstr"
+drop 07-build-plan.md "**Traps.**"
+expect "a bold line in every stage" "GATE FAIL" "has no **traps" "$M" 7b
+reset
+
+echo "== A STALE cell"
+set_cell 3 STALE
+expect "an input marked STALE" "GATE FAIL" "stale: column 3 (03-journeys.md)" "$M" 4
+expect "--override" "GATE OVERRIDDEN" "reason: \"the founder accepts the stale journeys\"" "$M" 4 --override "the founder accepts the stale journeys"
+reset
+
+echo "== A branch behind its upstream"
+git clone -q "$tmp/upstream.git" "$tmp/other"
+echo "elsewhere" >"$tmp/other/elsewhere.md"
+git -C "$tmp/other" add elsewhere.md
+git -C "$tmp/other" -c user.name=gate-test -c user.email=gate-test@example.invalid commit -qm "elsewhere"
+git -C "$tmp/other" push -q origin main 2>/dev/null
+expect "one commit behind" "GATE FAIL" "branch: main is 1 commit(s) behind origin/main. Pull first." "$M" 1
+g pull -q --ff-only 2>/dev/null
+expect "after a pull" "GATE OK" "branch: main is not behind origin/main" "$M" 1
+g remote set-url origin "$tmp/nowhere.git"
+expect "a fetch that fails is reported, not failed" "GATE OK" "not checked: branch: fetching origin failed" "$M" 1
+g remote set-url origin "$tmp/upstream.git"
+
+echo "== n/a"
+set_cell 5 n/a
+expect "the phase itself is n/a" "GATE OK" "phase 5 is n/a in status.md, which passes" "$M" 5
+reset
+for c in 3 4 5 9; do set_cell "$c" n/a; done
+set_cell 7 ""
+expect "its inputs are n/a (a module with no UI)" "GATE OK" "03-journeys.md: column 3 is n/a, so not needed" "$M" 7
+reset
+
+echo "== A criterion missing from Coverage"
+set_cell 4 ""
+awk '{ print } /^- \*\*AC-49\*\*/ { print "- **AC-50** A criterion the journeys never saw." }' "$work/$M/02-spec.md" >"$tmp/spec" && mv "$tmp/spec" "$work/$M/02-spec.md"
+expect "spec criterion not in the journeys' Coverage" "GATE FAIL" "coverage: 03-journeys.md's Coverage table lacks AC-48, AC-49, AC-50" "$M" 4
+reset
+set_cell 8 9/10
+drop changes/04-ci-deploy.md "**Acceptance.** CI-1 to CI-11."
+expect "change-note criterion in no stage's Acceptance" "GATE FAIL" "no stage in changes/04-ci-deploy.md lists CI-1, CI-2, CI-3" "$M" 8 CD1 --verify
+reset
+
+echo "== An empty Personas table"
+set_cell 3 ""
+drop 03-journeys.md "| **"
+expect "no rows" "GATE FAIL" "personas: the ## Personas table in 03-journeys.md has no rows" "$M" 3
+awk '{ print } /^\|---\|---\|---\|---\|$/ && !done { print "| none — no registered persona fits | — | — | — |"; done = 1 }' "$work/$M/03-journeys.md" >"$tmp/j" && mv "$tmp/j" "$work/$M/03-journeys.md"
+expect "an empty selection written as \"none\"" "GATE OK" "personas: 1 in the ## Personas table" "$M" 3
+reset
+
+echo "== The step check (phase 8)"
+expect "an unknown stage lists near matches" "GATE FAIL" "Near: B4a, B4b" "$M" 8 B4
+expect "launching a stage that has landed" "GATE FAIL" "step: B3 has landed" "$M" 8 B3
+expect "landing a stage that has landed" "GATE FAIL" "step: B4a has landed already" "$M" 8 b4a --land
+
+echo "== Close-out and the live review"
+set_cell 8 9/10
+expect "live review before every stage is verified" "GATE FAIL" "build: column 8 reads \"9/10\"" "$M" 9
+reset
+echo "note" >"$work/lifecycle/learnings/inbox/2026-10-20-note.md"
+expect "an unconsolidated inbox" "GATE FAIL" "learnings: 1 note(s) in lifecycle/learnings/inbox/" "$M" 10
+reset
+drop 02-spec.md "- **0.5 · 2026-10-19**"
+expect "a change note that leaves the spec behind" "GATE FAIL" "changes/05-live-review-polish.md leaves the spec behind" "$M" 10
+expect "… and the second one" "GATE FAIL" "changes/06-copy-and-sessions.md leaves the spec behind" "$M" 10
+reset
+
+echo "== Arguments"
+expect "no arguments" "GATE FAIL usage" "a module and a phase are needed"
+expect "an unknown phase" "GATE FAIL usage" "unknown phase \"12\"" "$M" 12
+expect "a stage outside phase 8" "GATE FAIL usage" "only phase 8 takes a stage" "$M" 4 B3
+expect "a module that doesn't exist" "GATE FAIL" "missing folder: imnstr/modules/99-none" imnstr/modules/99-none 3
+expect "intake for a module not yet created" "GATE OK" "ideate creates imnstr/modules/99-none" imnstr/modules/99-none 0
+
+echo
+echo "$passed passed, $failed failed"
+[ "$failed" -eq 0 ]

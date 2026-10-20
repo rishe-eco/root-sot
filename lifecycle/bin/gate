@@ -1,0 +1,663 @@
+#!/usr/bin/env bash
+# gate — the mechanical check every lifecycle phase skill runs before it starts.
+#
+# Specified in `lifecycle/skills-plan.md` §0 *The gate* and §5. Phase inputs are `README.md` §2,
+# status values §3; the headings, and the grammar for reading them, are `templates/required-headings.txt`.
+#
+# Usage: gate <module> <phase> [<stage>] [--land | --verify] [--override "<reason>"]
+#   <module>  the module folder, relative to root-sot (imnstr/modules/01-website) or absolute
+#   <phase>   0–10, 4b, 7b, or a phase name: intake, research, spec, journeys, wireframes, design,
+#             ux-review, eval-plan, build-plan, project-config, build, live-review, close-out
+#   <stage>   phase 8 only: a stage of the build plan's §5 or of a change note's Stages (B3, PL1).
+#             Without a flag the stage is being launched; --land and --verify name the other two steps.
+#
+# Prints GATE OK, GATE FAIL or GATE OVERRIDDEN on its first line and what it found below. It always
+# exits 0, because a failing injected command aborts the skill before Claude sees it. Skills call it
+# as `bash "${CLAUDE_SKILL_DIR}/../../../lifecycle/bin/gate" …`, from any directory.
+
+set -u
+export LC_ALL=C GIT_TERMINAL_PROMPT=0
+
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)
+lifecycle=$(dirname "$here")
+root=$(dirname "$lifecycle")
+rules="$lifecycle/templates/required-headings.txt"
+
+fails=() warns=() skips=() oks=() notes=()
+module="" rel="" mdir="" phase="" name="" stage="" mode=launch override="" strict=1
+declare -A cell=()
+
+fail() { fails+=("$1"); }
+# A gap in an output's content (a heading, a Coverage row, the Personas table) fails a phase being
+# opened and warns on one already done (`required-headings.txt`, STRICT OR WARNED).
+content() { if [ "$strict" = 1 ]; then fails+=("$1"); else warns+=("warning: $1"); fi; }
+
+usage() {
+	echo "GATE FAIL usage: gate <module> <phase> [<stage>] [--land | --verify] [--override \"<reason>\"]${1:+ — $1}"
+	exit 0
+}
+
+finish() {
+	local head="$rel · phase $phase ($name)${stage:+ · $stage}" line
+	[ "$phase" = 8 ] && [ "$mode" != launch ] && head="$head --$mode"
+	if ((${#fails[@]})) && [ -n "$override" ]; then
+		echo "GATE OVERRIDDEN · $head · reason: \"$override\""
+		for line in "${fails[@]}"; do echo "  overridden: $line"; done
+	elif ((${#fails[@]})); then
+		echo "GATE FAIL · $head"
+		for line in "${fails[@]}"; do echo "  $line"; done
+	else
+		echo "GATE OK · $head${override:+ (override not needed)}"
+	fi
+	for line in "${notes[@]}"; do echo "  $line"; done
+	for line in "${warns[@]}"; do echo "  $line"; done
+	for line in "${skips[@]}"; do echo "  not checked: $line"; done
+	for line in "${oks[@]}"; do echo "  ok: $line"; done
+	exit 0
+}
+
+# ---------------------------------------------------------------------------------------------
+# Reading Markdown
+
+# section <file> <text>: the lines of the first h2 whose text contains <text>, up to the next h1 or h2.
+section() {
+	awk -v want="$2" '
+		{ sub(/\r$/, "") }
+		/^[ \t]*(```|~~~)/ { fence = !fence }
+		!fence && /^##?[ \t]/ {
+			if (on) exit
+			t = tolower($0); gsub(/[`*_]/, "", t)
+			if ($0 ~ /^##[ \t]/ && index(t, tolower(want))) { on = 1; next }
+		}
+		on { print }
+	' "$1"
+}
+
+# ids [<prefix>]: criterion ids (AC-12, CI-3) in the input, one per line. With a prefix, only those;
+# without, any two capitals but AC. "CI-1 to CI-11" and "CI-1–CI-11" count every id in the range.
+ids() {
+	awk -v pre="${1:-}" '
+		function want(p) { return pre != "" ? p == pre : p != "AC" }
+		function emit(p, a, b,   k) { if (want(p)) for (k = a; k <= b; k++) print p "-" k }
+		{
+			s = " " $0
+			while (match(s, /[^A-Za-z][A-Z][A-Z]-[0-9]+/)) {
+				tok = substr(s, RSTART + 1, RLENGTH - 1); s = substr(s, RSTART + RLENGTH)
+				p = substr(tok, 1, 2); a = substr(tok, 4) + 0; b = a
+				if (match(s, /^ *(to|–|—|-) *[A-Z][A-Z]-[0-9]+/)) {
+					r = substr(s, 1, RLENGTH); sub(/.*[A-Z][A-Z]-/, "", r)
+					if (substr(s, RLENGTH - length(r) - 2, 2) == p && r + 0 > a) { b = r + 0; s = substr(s, RLENGTH + 1) }
+				}
+				emit(p, a, b)
+			}
+		}
+	'
+}
+
+sort_ids() { sort -u | sort -t- -k1,1 -k2,2n; }
+join_ids() { paste -sd, - | sed 's/,/, /g'; }
+
+# check_headings <file> <path the rules match>: prints OK, MISSING, NOTCHECKED or BADRULE lines,
+# or NOBLOCK when no block in required-headings.txt names the file.
+check_headings() {
+	awk -v rules="$rules" -v path="$2" '
+		function trim(s) { sub(/^[ \t\r]+/, "", s); sub(/[ \t\r]+$/, "", s); return s }
+		function marks(s) { gsub(/<[^>]*>/, " ", s); gsub(/[`*_]/, "", s); s = tolower(s); gsub(/[ \t\r]+/, " ", s); return trim(s) }
+		function unnumber(s) {
+			if (match(s, /^[a-z]?[0-9]+(\.[0-9]+)*\.?/)) { s = trim(substr(s, RLENGTH + 1)); sub(/^(·|—|–|-|:)/, "", s); s = trim(s) }
+			return s
+		}
+		function glob(p,   r, i, c) {
+			r = "^"
+			for (i = 1; i <= length(p); i++) {
+				c = substr(p, i, 1)
+				if (c == "*") r = r "[^/]*"
+				else if (index(".+?()[]{}^$|\\", c)) r = r "\\" c
+				else r = r c
+			}
+			return r "$"
+		}
+		function cut(s, o, c,   low, out, i, j) {
+			out = ""; low = tolower(s)
+			while ((i = index(low, o)) > 0) {
+				out = out substr(s, 1, i - 1)
+				j = index(substr(low, i + length(o)), c)
+				if (!j) return out
+				s = substr(s, i + length(o) + j - 1 + length(c)); low = substr(low, i + length(o) + j - 1 + length(c))
+			}
+			return out s
+		}
+		function heading(lv, txt) { n++; LV[n] = lv; txt = marks(txt); NUM[n] = match(txt, /^[0-9]+/) ? substr(txt, 1, RLENGTH) : ""; HT[n] = unnumber(txt); RAW[n] = "" }
+		function md_lines(   i, s, fence) {
+			for (i = 1; i <= nt; i++) {
+				s = T[i]
+				if (s ~ /^[ \t]*(```|~~~)/) { fence = !fence; n++; LV[n] = 0; RAW[n] = ""; continue }
+				if (!fence && match(s, /^#+[ \t]/)) { heading(RLENGTH - 1, substr(s, RLENGTH + 1)); continue }
+				n++; LV[n] = 0; RAW[n] = fence ? "" : s
+			}
+		}
+		function html_lines(   buf, i, m, L, s) {
+			buf = ""
+			for (i = 1; i <= nt; i++) buf = buf T[i] "\n"
+			buf = cut(cut(cut(buf, "<!--", "-->"), "<script", "</script>"), "<style", "</style>")
+			for (i = 1; i <= 6; i++) {
+				gsub("<[hH]" i "[^>]*>", "\n\001H" i " ", buf)
+				gsub("</[hH]" i ">", "\n", buf)
+			}
+			m = split(buf, L, "\n")
+			for (i = 1; i <= m; i++) {
+				s = L[i]
+				if (substr(s, 1, 2) == "\001H") heading(substr(s, 3, 1) + 0, substr(s, 5))
+				else { n++; LV[n] = 0; s = s; gsub(/<[^>]*>/, " ", s); RAW[n] = s }
+			}
+		}
+		function hmatch(i, spec,   A, na, k, a) {
+			na = split(spec, A, /[ ]*[|][ ]*/)
+			for (k = 1; k <= na; k++) {
+				a = trim(A[k])
+				if (a ~ /^#[0-9]+$/) { if (NUM[i] == substr(a, 2)) return 1 }
+				else if (a != "" && index(HT[i], a)) return 1
+			}
+			return 0
+		}
+		function findh(lv, spec, from, to, take,   i) {
+			for (i = from; i <= to; i++)
+				if (LV[i] == lv && !(take && TAKEN[i]) && hmatch(i, spec)) { if (take) TAKEN[i] = 1; return i }
+			return 0
+		}
+		function send(i,   j) { for (j = i + 1; j <= n; j++) if (LV[j] && LV[j] <= LV[i]) return j - 1; return n }
+		function splitlist(q, word, A,   P, m, k, c) {
+			m = split(", " tolower(q), P, ", *" word " +"); c = 0
+			for (k = 2; k <= m; k++) A[++c] = marks(P[k])
+			return c
+		}
+		function startswith(s, t,   A, na, k) {
+			na = split(t, A, /[ ]*[|][ ]*/)
+			for (k = 1; k <= na; k++) if (A[k] != "" && index(s, A[k]) == 1) return 1
+			return 0
+		}
+		function cell(t, from, to,   l, s, C, m, k) {
+			for (l = from; l <= to; l++) {
+				if (LV[l]) continue
+				s = RAW[l]
+				if (s ~ /^[ \t]*[|]/) {
+					m = split(s, C, "|")
+					for (k = 1; k <= m; k++) if (startswith(marks(C[k]), t)) return 1
+				} else {
+					sub(/^[ \t]*([-*+]|[0-9]+[.)])[ \t]+/, "", s)
+					if (startswith(marks(s), t)) return 1
+				}
+			}
+			return 0
+		}
+		function item(k, from, to,   l) {
+			for (l = from; l <= to; l++) if (!LV[l] && RAW[l] ~ ("^[ \t]*" k "[.)][ \t]")) return 1
+			return 0
+		}
+		function eachbold(q, from, to,   A, na, i, e, k, l, found, h) {
+			na = splitlist(q, "bold", A); h = 0
+			for (i = from; i <= to; i++) {
+				if (LV[i] != 3) continue
+				h++; e = send(i)
+				for (k = 1; k <= na; k++) {
+					found = 0
+					for (l = i + 1; l <= e; l++) if (!LV[l] && index(tolower(trim(RAW[l])), "**" A[k]) == 1) { found = 1; break }
+					if (!found) { DETAIL = "\"" HT[i] "\" has no **" A[k]; return 0 }
+				}
+			}
+			if (!h) DETAIL = "no h3 in that section"
+			return h > 0
+		}
+		function check(b,   lb, lq, k, s, q, i, e, j, A, na, m) {
+			lb = tolower(b)
+			if (lb ~ /^h[23] /) return findh(substr(lb, 2, 1) + 0, marks(substr(b, 4)), 1, n, 1) > 0
+			if (lb ~ /^in h2 / && (k = index(b, ": "))) {
+				s = marks(substr(b, 7, k - 7)); q = trim(substr(b, k + 2)); lq = tolower(q)
+				if (!(i = findh(2, s, 1, n, 0))) { DETAIL = "no h2 \"" s "\""; return 0 }
+				e = send(i)
+				if (lq ~ /^h3 /) return findh(3, marks(substr(q, 4)), i + 1, e, 0) > 0
+				if (lq ~ /^cell /) return cell(marks(substr(q, 6)), i + 1, e)
+				if (lq ~ /^item /) return item(trim(substr(q, 6)), i + 1, e)
+				if (lq ~ /^each h3 has /) return eachbold(substr(q, 13), i + 1, e)
+			}
+			if (lb ~ /^each h2 / && (k = index(b, ": "))) {
+				s = marks(substr(b, 9, k - 9)); na = splitlist(substr(b, k + 2), "h3", A); m = 0
+				for (i = 1; i <= n; i++) {
+					if (LV[i] != 2 || !hmatch(i, s)) continue
+					m++; e = send(i)
+					for (j = 1; j <= na; j++) if (!findh(3, A[j], i + 1, e, 0)) { DETAIL = "\"" HT[i] "\" has no h3 " A[j]; return 0 }
+				}
+				if (!m) DETAIL = "no h2 \"" s "\""
+				return m > 0
+			}
+			BAD = 1
+			return 0
+		}
+		{ sub(/\r$/, "") }
+		FILENAME == rules {
+			if ($0 ~ /^[ \t]*(#|$)/) next
+			if ($0 ~ /^\[/) {
+				p = substr($0, 2); q = index(p, "]"); ex = trim(substr(p, q + 1)); p = substr(p, 1, q - 1)
+				ex = ex ~ /^!/ ? substr(ex, 2) : ""
+				inblock = path ~ glob(p) && !(ex != "" && path ~ glob(ex))
+				if (inblock) matched = 1
+				next
+			}
+			if (inblock) R[++nr] = trim($0)
+			next
+		}
+		{ T[++nt] = $0 }
+		END {
+			if (!matched) { print "NOBLOCK"; exit }
+			if (path ~ /\.html?$/) html_lines(); else md_lines()
+			for (r = 1; r <= nr; r++) {
+				b = R[r]; cond = ""; DETAIL = ""; BAD = 0
+				if (tolower(substr(b, 1, 5)) == "when " && (k = index(b, ": "))) { cond = substr(b, 6, k - 6); b = substr(b, k + 2) }
+				if (check(b)) print "OK\t" b
+				else if (BAD) print "BADRULE\t" b
+				else if (cond != "") print "NOTCHECKED\t" b "\t" cond
+				else print "MISSING\t" b (DETAIL != "" ? " (" DETAIL ")" : "")
+			}
+		}
+	' "$rules" "$1"
+}
+
+# headings <file> <path the rules match>: reports what check_headings found.
+headings() {
+	local kind text cond count=0 total=0 out
+	out=$(check_headings "$1" "$2")
+	while IFS=$'\t' read -r kind text cond; do
+		total=$((total + 1))
+		case $kind in
+			OK) count=$((count + 1)) ;;
+			MISSING) content "missing: $2: $text" ;;
+			NOTCHECKED) skips+=("$2: $text (only when $cond)") ;;
+			BADRULE) fail "required-headings.txt: can't read the line \"$text\"" ;;
+			NOBLOCK) oks+=("$2: present (required-headings.txt lists no headings for it)"); return ;;
+		esac
+	done <<<"$out"
+	oks+=("$2: $count of $total heading lines met")
+}
+
+# ---------------------------------------------------------------------------------------------
+# status.md, and the branch
+
+read_status() {
+	local k v
+	while IFS='=' read -r k v; do cell[$k]=$v; done < <(awk -F'|' -v rel="$rel" '
+		function trim(s) { sub(/^[ \t\r]+/, "", s); sub(/[ \t\r]+$/, "", s); return s }
+		/^\|[ ]*Module[ ]*\|/ { for (i = 2; i < NF; i++) col[i] = trim($i); next }
+		/^\|/ && match($2, /\]\([^)]*\)/) {
+			t = substr($2, RSTART + 2, RLENGTH - 3); sub(/\/+$/, "", t)
+			if (t ~ /^\.\.\//) t = substr(t, 4); else t = "lifecycle/" t
+			if (t != rel) next
+			print "row=1"
+			for (i = 4; i < NF; i++) print col[i] "=" trim($i)
+			exit
+		}
+	' "$lifecycle/status.md")
+}
+
+is_done() {
+	case $1 in done* | closed*) return 0 ;; esac
+	[[ $1 =~ ^([0-9]+)/([0-9]+)$ ]] && [ "${BASH_REMATCH[1]}" = "${BASH_REMATCH[2]}" ]
+}
+
+check_branch() {
+	local branch upstream remote out behind
+	if ! branch=$(git -C "$root" symbolic-ref --quiet --short HEAD 2>/dev/null); then
+		skips+=("branch: HEAD is detached, so there is no upstream to compare")
+		return
+	fi
+	if ! upstream=$(git -C "$root" rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2>/dev/null); then
+		oks+=("branch: $branch has no upstream")
+		return
+	fi
+	remote=$(git -C "$root" config "branch.$branch.remote")
+	if command -v timeout >/dev/null 2>&1; then
+		out=$(timeout 60 git -C "$root" fetch --quiet "$remote" 2>&1)
+	else
+		out=$(git -C "$root" fetch --quiet "$remote" 2>&1)
+	fi || skips+=("branch: fetching $remote failed (${out%%$'\n'*}), so $upstream is as of the last fetch")
+	behind=$(git -C "$root" rev-list --count "HEAD..@{u}" 2>/dev/null || echo 0)
+	if [ "$behind" -gt 0 ]; then
+		fail "branch: $branch is $behind commit(s) behind $upstream. Pull first."
+	else
+		oks+=("branch: $branch is not behind $upstream")
+	fi
+}
+
+# ---------------------------------------------------------------------------------------------
+# Inputs
+
+# input <file in the module> <status column, or ""> — 0 when the file is there to read further.
+input() {
+	local f=$1 col=$2 c=""
+	[ -n "$col" ] && c=${cell[$col]:-}
+	if [ "$c" = n/a ]; then
+		oks+=("$f: column $col is n/a, so not needed")
+		return 1
+	fi
+	case $c in *STALE*) fail "stale: column $col ($f) reads \"$c\"" ;; esac
+	if [ ! -f "$mdir/$f" ]; then
+		fail "missing file: $f"
+		return 1
+	fi
+	headings "$mdir/$f" "$f"
+}
+
+# The spec's AC ids against the journeys' Coverage table.
+journeys_coverage() {
+	local want have missing
+	if [ ! -f "$mdir/02-spec.md" ]; then
+		skips+=("coverage: there is no 02-spec.md to compare 03-journeys.md with")
+		return
+	fi
+	want=$(section "$mdir/02-spec.md" "acceptance criteria" | ids AC | sort_ids)
+	have=$(section "$mdir/03-journeys.md" "coverage" | grep '^[[:space:]]*|' | ids AC | sort_ids)
+	if [ -z "$want" ]; then
+		skips+=("coverage: 02-spec.md's Acceptance criteria hold no AC ids")
+		return
+	fi
+	missing=$(comm -23 <(sort <<<"$want") <(sort <<<"$have") | sort_ids | join_ids)
+	if [ -n "$missing" ]; then
+		content "coverage: 03-journeys.md's Coverage table lacks $missing"
+	else
+		oks+=("coverage: all $(wc -l <<<"$want" | tr -d ' ') spec criteria are in 03-journeys.md's Coverage")
+	fi
+}
+
+# A change note's criterion ids against its stages' **Acceptance** lines.
+note_coverage() {
+	local f=$1 want have missing
+	want=$(section "$mdir/$f" "acceptance criteria" | grep '^[[:space:]]*|' | awk -F'|' '{print $2}' | ids | sort_ids)
+	[ -n "$want" ] || want=$(section "$mdir/$f" "acceptance criteria" | ids | sort_ids)
+	have=$(section "$mdir/$f" "stage" | grep -i '^[[:space:]]*\*\*acceptance' | ids | sort_ids)
+	if [ -z "$want" ]; then
+		skips+=("coverage: $f's Acceptance criteria hold no criterion ids")
+		return
+	fi
+	missing=$(comm -23 <(sort <<<"$want") <(sort <<<"$have") | sort_ids | join_ids)
+	if [ -n "$missing" ]; then
+		content "coverage: no stage in $f lists $missing under **Acceptance**"
+	else
+		oks+=("coverage: all $(wc -l <<<"$want" | tr -d ' ') criteria of $f are in a stage's Acceptance")
+	fi
+}
+
+personas_table() {
+	local rows
+	if [ ! -f "$mdir/03-journeys.md" ]; then
+		fail "missing file: 03-journeys.md (personas writes it, with its ## Personas table, before journeys)"
+		return
+	fi
+	rows=$(section "$mdir/03-journeys.md" "personas" | awk '/^[ \t]*\|/ && !/^[ \t]*\|[ \t:|-]*$/ { n++ } END { print (n > 0 ? n - 1 : 0) }')
+	if [ "$rows" -gt 0 ]; then
+		oks+=("personas: $rows in the ## Personas table")
+	else
+		content "personas: the ## Personas table in 03-journeys.md has no rows (an empty selection is one row, \"none — <why>\")"
+	fi
+}
+
+stage_complete() {
+	local c=${cell[8]:-}
+	if [ "$c" = n/a ] || is_done "$c"; then
+		oks+=("column 8 reads \"$c\": every stage is verified")
+	else
+		fail "build: column 8 reads \"${c:-blank}\", and every stage must be verified first"
+	fi
+}
+
+project_config() {
+	local project f
+	project=$(section "$mdir/00-intake.md" "decisions" 2>/dev/null | sed -n 's/.*\*\*Project[:*]*[[:space:]`]*\([A-Za-z0-9_-]*\).*/\1/p' | head -n 1)
+	[ -n "$project" ] || project=${rel%%/*}
+	for f in brief-common review-checklist config; do
+		if [ -f "$lifecycle/projects/$project/$f.md" ]; then
+			headings "$lifecycle/projects/$project/$f.md" "lifecycle/projects/$project/$f.md"
+		else
+			fail "missing file: lifecycle/projects/$project/$f.md (project-config writes it)"
+		fi
+	done
+}
+
+# Phase 8: the stage must be in the plan's §5 or a change note's Stages, and the files must agree
+# with the step asked for.
+step_check() {
+	local list id src near f
+	list=$(
+		[ -f "$mdir/07-build-plan.md" ] && section "$mdir/07-build-plan.md" "the stages" | awk '/^###[ \t]/ { gsub(/[`*_]/, "", $2); print $2 "\t07-build-plan.md" }'
+		for f in "$mdir"/changes/*.md; do
+			[ -f "$f" ] && section "$f" "stage" | awk -v f="changes/${f##*/}" '/^###[ \t]/ { gsub(/[`*_]/, "", $2); print $2 "\t" f }'
+		done
+	)
+	IFS=$'\t' read -r id src < <(awk -F'\t' -v s="$stage" 'tolower($1) == tolower(s) { print; exit }' <<<"$list")
+	if [ -z "${id:-}" ]; then
+		near=$(awk -F'\t' -v s="$stage" '
+			{ a = tolower($1); b = tolower(s) }
+			$1 != "" && (index(a, b) == 1 || index(b, a) == 1) { print $1 }
+		' <<<"$list" | join_ids)
+		[ -n "$near" ] || near=$(cut -f1 <<<"$list" | grep . | join_ids)
+		fail "step: no stage \"$stage\" in 07-build-plan.md §5 or a change note's Stages. Near: ${near:-none}"
+		return
+	fi
+	stage=$id
+	if [ "$src" = 07-build-plan.md ]; then
+		input 07-build-plan.md 7
+	else
+		input "$src" "" && note_coverage "$src"
+	fi
+	project_config
+	local card="briefs/$stage.md" report="briefs/$stage.report.md"
+	case $mode in
+		launch)
+			[ -f "$mdir/$report" ] && fail "step: $stage has landed ($report exists). Its next step is --verify, or a later stage."
+			[ -f "$mdir/$card" ] && notes+=("step: $card exists already; launch redrafts or reuses it")
+			;;
+		land)
+			if [ -f "$mdir/$card" ]; then headings "$mdir/$card" "$card"; else fail "step: $stage has no card ($card), so it hasn't launched"; fi
+			[ -f "$mdir/$report" ] && fail "step: $stage has landed already ($report exists)"
+			;;
+		verify)
+			if [ -f "$mdir/$card" ]; then headings "$mdir/$card" "$card"; else fail "step: $stage has no card ($card)"; fi
+			if [ -f "$mdir/$report" ]; then headings "$mdir/$report" "$report"; else fail "step: $stage hasn't landed ($report is missing)"; fi
+			;;
+	esac
+	if [ -f "$mdir/STATE.md" ]; then
+		local next
+		next=$(awk '
+			{ sub(/\r$/, "") }
+			/^## / { if (++blocks > 1) exit }
+			/^\*\*Next steps/ { on = 1; next }
+			on && /^[ \t]*[0-9]+\./ { print; exit }
+		' "$mdir/STATE.md" | sed 's/^[[:space:]]*//' | cut -c1-200)
+		[ -n "$next" ] && notes+=("state: STATE.md's next step reads \"$next\"")
+	fi
+}
+
+open_ux_findings() {
+	local open
+	[ -f "$mdir/05-ux-review.md" ] || return
+	open=$(awk -F'|' '
+		function m(s) { gsub(/[`*_ \t\r]/, "", s); return tolower(s) }
+		/^[ \t]*\|/ { for (i = 2; i < NF; i++) if (m($i) == "open") { f = $2; gsub(/[*` \t]/, "", f); print f; next } }
+		tolower($0) ~ /status:?\**:? *open([^a-z]|$)/ { print "a finding" }
+	' "$mdir/05-ux-review.md" | join_ids)
+	if [ -n "$open" ]; then
+		content "ux-review: findings still open in 05-ux-review.md: $open"
+	else
+		oks+=("ux-review: no finding in 05-ux-review.md has Status open")
+	fi
+}
+
+# Phase 10: a change note that leaves the spec behind is settled once the spec's changelog names it.
+spec_deferrals() {
+	local f nn
+	for f in "$mdir"/changes/*.md; do
+		[ -f "$f" ] || continue
+		section "$f" "what this makes stale" | grep -qiE 'spec [0-9]|02-spec' || continue
+		nn=$(basename "$f" | sed -n 's/^\([0-9][0-9]*\)-.*/\1/p')
+		[ -n "$nn" ] || continue
+		if [ -f "$mdir/02-spec.md" ] && section "$mdir/02-spec.md" "changelog" |
+			grep -iE "changes/$nn-|notes? +([0-9]+ *(,|and|&) *)*$nn([^0-9-]|\$)" >/dev/null; then
+			oks+=("close-out: changes/${f##*/} left the spec behind, and the spec's changelog names it")
+		else
+			fail "close-out: changes/${f##*/} leaves the spec behind, and 02-spec.md's changelog doesn't name it yet (revise --catch-up $nn)"
+		fi
+	done
+}
+
+inbox_empty() {
+	local count
+	count=$(find "$lifecycle/learnings/inbox" -type f ! -name .gitkeep 2>/dev/null | wc -l | tr -d ' ')
+	if [ "$count" -gt 0 ]; then
+		fail "learnings: $count note(s) in lifecycle/learnings/inbox/; run learned --consolidate first"
+	else
+		oks+=("learnings: the inbox is consolidated")
+	fi
+}
+
+# ---------------------------------------------------------------------------------------------
+# Arguments
+
+while (($#)); do
+	case $1 in
+		--override)
+			if [ $# -lt 2 ] || [ -z "$2" ]; then usage "--override needs a reason"; fi
+			override=$2
+			shift 2
+			;;
+		--override=*) override=${1#*=}; [ -n "$override" ] || usage "--override needs a reason"; shift ;;
+		--land) mode=land; shift ;;
+		--verify) mode=verify; shift ;;
+		-h | --help) usage ;;
+		-*) usage "unknown option $1" ;;
+		*)
+			if [ -z "$module" ]; then module=$1
+			elif [ -z "$phase" ]; then phase=$1
+			elif [ -z "$stage" ]; then stage=$1
+			else usage "too many arguments"; fi
+			shift
+			;;
+	esac
+done
+if [ -z "$module" ] || [ -z "$phase" ]; then usage "a module and a phase are needed"; fi
+
+case $(tr '[:upper:]' '[:lower:]' <<<"$phase") in
+	0 | intake | ideate) phase=0 name=intake ;;
+	1 | research) phase=1 name=research ;;
+	2 | spec) phase=2 name=spec ;;
+	3 | journeys) phase=3 name=journeys ;;
+	4 | wireframes) phase=4 name=wireframes ;;
+	4b | design) phase=4b name=design ;;
+	5 | ux-review) phase=5 name=ux-review ;;
+	6 | eval-plan) phase=6 name=eval-plan ;;
+	7 | build-plan) phase=7 name=build-plan ;;
+	7b | project-config) phase=7b name=project-config ;;
+	8 | build | build-phase) phase=8 name=build ;;
+	9 | live-review) phase=9 name=live-review ;;
+	10 | close-out) phase=10 name=close-out ;;
+	*) usage "unknown phase \"$phase\"" ;;
+esac
+if [ "$phase" = 8 ]; then
+	[ -n "$stage" ] || usage "phase 8 needs a stage"
+else
+	[ -z "$stage" ] || usage "only phase 8 takes a stage"
+	[ "$mode" = launch ] || usage "--land and --verify are for phase 8"
+fi
+
+module=${module//\\//}
+if [ -d "$root/$module" ]; then
+	mdir=$(cd "$root/$module" && pwd -P)
+elif [ -d "$module" ]; then
+	mdir=$(cd "$module" && pwd -P)
+fi
+if [ -n "$mdir" ]; then
+	case $mdir in
+		"$root"/*) rel=${mdir#"$root"/} ;;
+		*) rel=$module; usage "$module is not inside root-sot ($root)" ;;
+	esac
+else
+	rel=${module#./}
+	rel=${rel%/}
+fi
+
+# ---------------------------------------------------------------------------------------------
+# The checks
+
+check_branch
+
+if [ -z "$mdir" ]; then
+	if [ "$phase" = 0 ]; then
+		oks+=("intake has no inputs; ideate creates $rel")
+	else
+		fail "missing folder: $rel"
+	fi
+	finish
+fi
+
+read_status
+if [ -z "${cell[row]:-}" ]; then
+	if [ "$phase" = 0 ]; then oks+=("intake has no inputs; ideate adds the status.md row"); else fail "status: no row in lifecycle/status.md links to $rel"; fi
+	finish
+fi
+
+own=""
+case $phase in
+	4b) own=${cell[4]:-} ;;
+	7b) own="" ;;
+	*) own=${cell[$phase]:-} ;;
+esac
+if [ "$own" = n/a ]; then
+	oks+=("phase $phase is n/a in status.md, which passes")
+	finish
+fi
+if [ "$phase" = 7b ]; then
+	project=$(sed -n 's/.*\*\*Project[:*]*[[:space:]`]*\([A-Za-z0-9_-]*\).*/\1/p' "$mdir/00-intake.md" 2>/dev/null | head -n 1)
+	[ -f "$lifecycle/projects/${project:-${rel%%/*}}/config.md" ] && strict=0
+elif is_done "$own"; then
+	strict=0
+fi
+[ "$strict" = 0 ] && notes+=("phase $phase is already done (\"${own:-project config exists}\"), so content gaps are warnings")
+
+case $phase in
+	0) oks+=("intake has no inputs") ;;
+	1) input 00-intake.md 0 ;;
+	2)
+		if [ -f "$mdir/00-intake.md" ] && section "$mdir/00-intake.md" "decisions" | grep -i 'research' | grep -iv 'not waived' | grep -qi 'waive'; then
+			oks+=("research is waived in the intake")
+			input 00-intake.md 0
+		else
+			input 01-research.md 1
+		fi
+		;;
+	3) input 02-spec.md 2; personas_table ;;
+	4) input 03-journeys.md 3 && journeys_coverage ;;
+	4b) input 04-wireframes.html 4 ;;
+	5)
+		if [ -f "$mdir/04b-design/README.md" ]; then input 04b-design/README.md 4; else input 04-wireframes.html 4; fi
+		input 03-journeys.md 3 && journeys_coverage
+		;;
+	6) input 02-spec.md 2 ;;
+	7)
+		input 02-spec.md 2
+		input 03-journeys.md 3 && journeys_coverage
+		input 04-wireframes.html 4
+		[ -d "$mdir/04b-design" ] && input 04b-design/README.md 4
+		input 05-ux-review.md 5 && open_ux_findings
+		input 06-eval-plan.md 6
+		skips+=("whether each of the journeys' Suggested, the design's Beyond the spec, the wireframes' Calls made here and each change request's Open was accepted, refused or carried: build-plan judges it")
+		;;
+	7b) input 07-build-plan.md 7 ;;
+	8) step_check ;;
+	9) stage_complete; input 03-journeys.md 3 && journeys_coverage ;;
+	10)
+		stage_complete
+		input 06-eval-plan.md 6
+		inbox_empty
+		spec_deferrals
+		skips+=("milestones green: the code repo's development README records them, and the gate doesn't read it")
+		;;
+esac
+
+finish

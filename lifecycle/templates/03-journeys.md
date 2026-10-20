@@ -1,4 +1,4 @@
-<!-- Template for `<module>/03-journeys.md`. `personas` writes the title block and `## Personas`, creating the file; `journeys` (Opus, high) writes everything below it and never edits `## Personas`. Template 0.1 · 2026-10-20. Sources: `skills-plan.md` §2 `personas`, `journeys`; `skills/journeys/reference.md`; findings JO-3 to JO-5, PE-5; trial logs `03a-personas`, `03b-journeys`, `05d-journeys-gap`, `10b4-journeys-gap`; `imnstr/modules/01-website/03-journeys.md`. The gate checks the headings listed for this file in `required-headings.txt`: keep their words. Delete every comment in the output. -->
+<!-- Template for `<module>/03-journeys.md`. `personas` writes the title block and `## Personas`, creating the file; `journeys` (Opus, high) writes everything below it and never edits `## Personas`. Template 0.2 · 2026-10-20. Sources: `skills-plan.md` §2 `personas`, `journeys`; `skills/journeys/reference.md`; findings JO-3 to JO-5, PE-5; trial logs `03a-personas`, `03b-journeys`, `05d-journeys-gap`, `10b4-journeys-gap`; `imnstr/modules/01-website/03-journeys.md`. The gate checks the headings listed for this file in `required-headings.txt`: keep their words. Delete every comment in the output. -->
 # <Module name> — journeys
 
 *Module `<area>/modules/NN-slug/` · Phase 3 · Journeys (`journeys <mode>`). The paths the selected personas take, step by step, with what must be true at each step. Input: `02-spec.md` <version> (§<n>). Wireframes draw every step and state named here; this file doesn't decide layout. Update the changelog; don't fork.*
@@ -15,7 +15,7 @@
 
 ## Personas
 
-<!-- Owned by `personas`. The selection may be empty. -->
+<!-- Owned by `personas`. The table needs at least one row: an empty selection is written as one row, `none — <why>`, or `bin/gate` fails. -->
 
 | Persona | Serves | Why selected | Journeys it should anchor |
 |---|---|---|---|
