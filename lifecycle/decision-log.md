@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.40 · 2026-10-21**
+**Version 0.41 · 2026-10-21**
 
 ---
 
@@ -549,6 +549,16 @@ Four facts found on the way are written into the files as they are, not as the m
 **Decision.** The root `CLAUDE.md` gains a *Shell* section: scope file searches to the repo or its parent folder, never `find /`; and run anything that can wait for input (`psql`, `ssh`, a push with no key) in a Bash call of its own, never after commits or a `git worktree add` in the same call.
 
 **Why.** Two sessions lost a Bash call to the 120 s timeout: session B's `find /` (`inbox/2026-10-20-stage-2-session-b.md`), and session D's `psql` waiting for a password after a commit and a worktree add, whose results went unseen in the background (`inbox/2026-10-20-stage-2-session-d.md`). About 5 minutes in all. `CLAUDE.md` is now about 45 lines.
+
+**Decided by.** Founder, 2026-10-21: accepted on Claude's judgement, without a line-by-line review ("you decide on all - you know the rules"). Claude put the first four of the eight items to the founder as questions; the founder closed them and handed all eight to Claude. The wording is Claude's, from the inbox notes cited. Run on Opus at `learned --consolidate`.
+
+**Revisit.** None.
+
+## L-42 · 2026-10-21 · `debug` reproduces a bug on the surface the user saw
+
+**Decision.** `skills/debug/SKILL.md` rule 1: grep every caller of the function a known-issues entry names before writing the test, since the path it describes may be fixed already; and when the fix will move logic into a new helper, the reproducing test renders the component. `skills/debug/reference.md` goes to 0.3.
+
+**Why.** Both came from B-15, in two sessions. Session C found the entry's path already fixed and the live defect in `ManageGoal.tsx`, by grepping three callers (`inbox/2026-10-20-stage-2-session-c.md`). `verify --fix B-15` found the helper's own tests could only fail on a missing export at the merge base; only the component test reproduced the defect (`inbox/2026-10-20-verify-fix-B-15.md`). Neither cost anything this time; either would have let a wrong test close the issue.
 
 **Decided by.** Founder, 2026-10-21: accepted on Claude's judgement, without a line-by-line review ("you decide on all - you know the rules"). Claude put the first four of the eight items to the founder as questions; the founder closed them and handed all eight to Claude. The wording is Claude's, from the inbox notes cited. Run on Opus at `learned --consolidate`.
 
