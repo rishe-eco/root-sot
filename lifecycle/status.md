@@ -14,7 +14,7 @@
 | [Root website · v3 app](../ecosystem/working/root-website-v3-overview.md) | Module | | | done | | | | | | | | |
 | [Root website · versioning, Library, Review Room](../ecosystem/working/root-website-build-plan.md) | Module | | | done | | | | | done | 13/14 | | |
 | [Root Studio · project lifecycle](../ecosystem/working/root-studio-lifecycle-build-plan.md) | Module | | | done | | | | | done | 7/8 | | |
-| [Root Studio · customer journeys](../ecosystem/modules/01-root-studio-journeys/) | Module | | | | done | | | | done | 18/18 | | |
+| [Root Studio · customer journeys](../ecosystem/modules/01-root-studio-journeys/) | Module | | | | done | | | | done | 19/19 | | |
 
 ## Backfill, 2026-10-20
 
