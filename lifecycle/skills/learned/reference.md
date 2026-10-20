@@ -2,25 +2,21 @@
 
 *Seeds for this skill's reference file and template, moved unchanged out of `skills-plan.md` at 0.8. They bind as the plan does. The skill's first author places them.*
 
-**Version 0.1 · Status: seeds · 2026-10-20 · Owner: _root**
+**Version 0.2 · Status: placed — `learnings/index.md` and `SKILL.md` bind · 2026-10-20 · Owner: _root**
 
 ---
 
-## Template: a capture note
+## Placed
 
-**Each note** (≤6 lines) has fixed bold fields, so consolidation extracts them with one `awk`: **Rule** (the lesson); **Event** (the specific event in this session); **Cost** (if known); **Scope** (repo, project, method, a named skill, model behaviour); **Destination** (suggested); **Urgent** (`yes` if waiting for consolidation would repeat a costly mistake).
+Both seeds were already in `lifecycle/learnings/index.md` 0.1, placed there in rollout stage 1: the capture-note template under *Capture notes*, and the destination table under *Where an integrated lesson goes*. `SKILL.md` 0.1 (rollout stage 2, session A) injects both from that file, so they live in one place. Change them there.
 
-## Where a consolidated lesson goes
-
-| Kind of lesson | Destination |
-|---|---|
-| Repo or environment gotcha | that repo's CLAUDE.md (kept under 200 lines — over it, propose what moves out) |
-| How lanes should work | `projects/<project>/brief-common.md` |
-| How a phase should be done | that skill's reference file |
-| What reviews should check | `projects/<project>/review-checklist.md` |
-| A change to the method | this plan or `README.md`, through `revise` |
-| A fact about building software, true beyond this project | `lifecycle/engineering-checklist.md` |
+Placing the skill settled one gap in the destination table: for a written skill, "that skill's reference file" is its `SKILL.md`, or the `reference.md` it keeps, as `decision-record` does.
 
 ## Source
 
 The journeys build's state log, whose lessons ("rerun every test asserting a changed shared rule", "background Bash ignores a leading `cd`") were its most valuable lines and lived only on one machine.
+
+## Changelog
+
+- **0.2 · 2026-10-20** — Placed: the seeds live in `learnings/index.md`, and `SKILL.md` 0.1 reads them from there.
+- **0.1 · 2026-10-20** — Seeds, moved unchanged out of `skills-plan.md` at 0.8.
