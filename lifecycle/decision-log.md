@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.35 · 2026-10-20**
+**Version 0.36 · 2026-10-21**
 
 ---
 
@@ -485,3 +485,30 @@ Four facts found on the way are written into the files as they are, not as the m
 - **The run's URL:** `docs/development/TK1.md` doesn't hold the deploy run's URL, because adding it deploys again. It goes in with the next root-app commit.
 - **`verify`'s effort:** it reported "effort may be below high (not confirmed)". Check whether a forked skill gets its `effort` frontmatter.
 - **The other owed items:** wp-dashboards #1, #2, #3 and #4–#8 have no change note yet.
+
+## L-37 · 2026-10-21 · Rollout stage 2, session F: the second Change (NR1), and the Overview tile follows attention
+
+**Decision.**
+- **Change note 02,** `ecosystem/modules/01-root-studio-journeys/changes/02-change-needs-root-tile.md`, is written by hand from `lifecycle/templates/change-note.md`, because `spec change` is stage 3. Its one stage is NR1, wp-dashboards #2: the desk Overview's "Waiting on Root" tile counts what Root owes by the attention module, as the Needs Root box does (D2 of `docs/development/wp-dashboards.md` in `rishe-eco/root-app`).
+- **A new staff query, `needsRootCount: Int!`,** shares one load-and-filter with `needsRootQueue`. It is not the queue's length, which the queue's limit caps, and `allContractStatusCounts` is not changed, because a test pins that its counts add up to the number of contracts. The tile keeps its label.
+- **NR1 ran the Change track end to end.** A Sonnet lane built it (+52 app lines, +62 test lines, size S, about 103k tokens). `verify` reviewed it and added root-app commits: the API test runners now run only the files named (`a38c8c9`), the V4 Overview e2e resets before it reads the tiles (`085aa1a`), and `expireMockupGrants` writes UTC (`d425139`, the one failure of the full e2e, 136 of 137). The stage record is `docs/development/NR1.md` in `rishe-eco/root-app`.
+- **The full e2e suite** owed since L-36 was run at this verify.
+- **Deployed:** root-app's `main` @ `a94c339` was pushed and the `deploy` run succeeded. The journeys column of `lifecycle/status.md` is 20/20.
+- **The docs-only commit `02e7f6e`** (the deploy run's URL, in `docs/development/NR1.md`) is held back in root-app, so it rides with the next real push.
+
+**Why.** `ecosystem/working/root-studio-v1-readiness.md` §3.2 lists #2 as decided and buildable, and the suggested order in `docs/development/wp-dashboards.md` puts it next. The tile and the box could disagree, and on the e2e data they did. `needsRootCount` is the smallest change that makes them one rule. `verify`'s fixes are in `docs/development/NR1.md` (Decided #7 to #9).
+
+**Decided by.**
+- **The item:** the founder, 2026-10-20, picking "#2 tile vs box (Recommended)" from the options Claude gave.
+- **The note's content:** Claude's, not reviewed line by line. That includes the new query, the unchanged label, the criteria and the stage's size. The founder was told these two calls could be refused on the diff, and didn't.
+- **`verify`'s three fixes and its other calls:** Opus's, in the review. The founder hasn't read them line by line.
+- **The push and deploy of `a94c339`:** the founder's, 2026-10-21.
+- **Holding back `02e7f6e`:** the founder, 2026-10-21, picking "Hold it (Recommended)".
+- **Merging root-sot's branch:** the founder, 2026-10-21, picking "Merge after decision-record (Recommended)". It comes after this entry, `/handoff` and `/learned`.
+- **The model:** this entry ran on Sonnet, as `decision-record`'s frontmatter sets.
+
+**Revisit.**
+- **The live check of NR1,** a row in `team/open-work.md`, waiting on the founder.
+- **Wp-dashboards #3:** the "Waiting on Root" tile now counts something the contracts list's status filter doesn't. Its note has to settle that.
+- **`docs/development/NR1.md`** flags that the queue and the count each load every live contract. Reopen if the desk gets slow.
+- **Still without a note:** wp-dashboards #1 and #3 to #8.
