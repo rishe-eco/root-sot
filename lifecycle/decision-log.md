@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.36 · 2026-10-21**
+**Version 0.37 · 2026-10-21**
 
 ---
 
@@ -512,3 +512,13 @@ Four facts found on the way are written into the files as they are, not as the m
 - **Wp-dashboards #3:** the "Waiting on Root" tile now counts something the contracts list's status filter doesn't. Its note has to settle that.
 - **`docs/development/NR1.md`** flags that the queue and the count each load every live contract. Reopen if the desk gets slow.
 - **Still without a note:** wp-dashboards #1 and #3 to #8.
+
+## L-38 · 2026-10-21 · Shell scripts: no apostrophe inside `${var:-…}` or `${var:+…}` in a double-quoted string
+
+**Decision.** `lifecycle/engineering-checklist.md` 0.2 gains a *Shell scripts* section with that rule: write such a message in an `if`/`else`.
+
+**Why.** It happened in two sessions, both in `lifecycle/skills/verify/context.sh`: session B's script failed at EOF (`inbox/2026-10-20-stage-2-session-b.md`), and session E's printed an empty message that shellcheck didn't flag (`inbox/2026-10-20-stage-2-session-e.md`). It holds for any Bash, so it goes to the engineering checklist rather than one repo's `CLAUDE.md`.
+
+**Decided by.** Founder, 2026-10-21: accepted on Claude's judgement, without a line-by-line review ("you decide on all - you know the rules"). Claude put the first four of the eight items to the founder as questions; the founder closed them and handed all eight to Claude. The wording is Claude's, from the inbox notes cited. Run on Opus at `learned --consolidate`.
+
+**Revisit.** When a second project meets it, which raises its grade to *strong*.
