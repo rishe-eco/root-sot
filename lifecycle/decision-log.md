@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.38 · 2026-10-21**
+**Version 0.39 · 2026-10-21**
 
 ---
 
@@ -532,3 +532,14 @@ Four facts found on the way are written into the files as they are, not as the m
 **Decided by.** Founder, 2026-10-21: accepted on Claude's judgement, without a line-by-line review ("you decide on all - you know the rules"). Claude put the first four of the eight items to the founder as questions; the founder closed them and handed all eight to Claude. The wording is Claude's, from the inbox notes cited. Run on Opus at `learned --consolidate`.
 
 **Revisit.** If `handoff` or a session-start skill comes to run these checks itself, the rule moves there.
+
+## L-40 · 2026-10-21 · `handoff` and `decision-record` name a wrong model and carry on; prompts write founder-only skills as the founder's steps
+
+**Decision.** - `skills/handoff/SKILL.md` and `skills/decision-record/SKILL.md`: on a model other than Sonnet, they say so in their first line and carry on, instead of stopping. `skills-plan.md` 0.13 §0 records the exception. Their reference files go to 0.4.
+- `skills/handoff/SKILL.md`'s next steps: a skill named inside a prompt, any but `debug`, is written as a step the founder runs.
+
+**Why.** The frontmatter's `model: sonnet` didn't switch an Opus session's model, so both skills stopped, and the founder typed "proceed" or "proceed on opus" in sessions C, D and E (`inbox/2026-10-20-stage-2-session-c.md`, `-session-e.md`; L-35, L-36). In session C the prompt told Claude to run `/decision-record`, which `disable-model-invocation` refuses. Both skills are short and low effort, so running them on Opus costs little; stopping costs a round trip every session.
+
+**Decided by.** Founder, 2026-10-21: accepted on Claude's judgement, without a line-by-line review ("you decide on all - you know the rules"). Claude put the first four of the eight items to the founder as questions; the founder closed them and handed all eight to Claude. The wording is Claude's, from the inbox notes cited. Run on Opus at `learned --consolidate`.
+
+**Revisit.** If a way to switch the model per skill is found and works, restore the stop.
