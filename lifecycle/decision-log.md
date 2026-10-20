@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.30 · 2026-10-20**
+**Version 0.31 · 2026-10-20**
 
 ---
 
@@ -349,3 +349,21 @@ Four facts found on the way are written into the files as they are, not as the m
 **Decided by.** Founder, 2026-10-20: proposed rule 8 in place of a coordinator, chose `lifecycle/skills/` and gave the $521 figure. `bin/install-skills` and the rule's exact wording are Claude's, accepted on the diff ("keep it").
 
 **Revisit.** At the end of stage 2, after the build skills are tried on the journeys owed items and B-15: a build-side coordinator (build → verify → debug within one milestone), judged by how often those sessions stopped for the founder and against the IMNSTR per-phase costs. Also whether a sub-agent can launch sub-agents, and whether the $521 can be split between the base project and the journeys.
+
+## L-32 · 2026-10-20 · Rollout stage 2, session A: `bin/install-skills` and the four every-session skills *(reconstructed)*
+
+**Decision.**
+- **`bin/install-skills`** copies each `lifecycle/skills/<skill>/` that holds a `SKILL.md` into `~/.claude/skills/`, as copies, not symlinks (L-31). Each copy carries a `.root-sot` file naming the checkout, which lets a skill's scripts find root-sot from any repo and marks the copy as installed from here. A folder of the same name without one is someone else's skill, and is never overwritten. `--check` lists out-of-date copies and exits 1. A copy whose skill no longer exists is removed, but only if it was installed from this checkout.
+- **Four skills,** each a `SKILL.md` with a `context.sh` injected at invocation. The argument reaches the script through a quoted heredoc, so quotes in it can't break the injected command:
+  - `lifecycle-status`: Sonnet, low. It writes nothing, and lists near matches when the argument names no row;
+  - `handoff`: Sonnet, low. Its block format is placed in `SKILL.md` (reference 0.3). It commits `STATE.md` by path, never pushes without the founder's yes, and ends with the next session's prompt;
+  - `learned`: no model in its frontmatter. Capture runs on the session's model, and `--consolidate` checks that it is in a fresh Opus session. Capture writes no file for zero notes;
+  - `decision-record`: Sonnet, low. Its `reference.md` 0.2 is the shared entry format, and its *Which log* covers this log, module `decisions.md` files, and the older Tracker and ecosystem logs, which keep their own form.
+- **Fixes from rendering each skill** through a throwaway copy: `handoff` shows the newest seven block headers, not all of them; `learned` skips headings inside code fences and takes founder notes from module folders only; `decision-record` doesn't let moved ids set a module log's letter.
+
+**Why.** L-31: stage 2 starts with `bin/install-skills`, and the every-session skills come first because every later session ends with them (`README.md` §5 rules 7 and 8).
+
+**Decided by.** Reconstructed by Claude in session B, 2026-10-20, from session A's six commit messages (`601bf20` to `8cb190d`), at the founder's request. Session A left no `STATE.md` block and no entry here. Whether the founder reviewed its diffs isn't recorded, so read this as a record of what was built, not as a reviewed decision.
+
+**Revisit.** Session A's branch, `lifecycle/stage-2a-skills`, isn't merged into `main` or pushed; session B is stacked on it (L-33). None of the four skills has run on real work yet.
+
