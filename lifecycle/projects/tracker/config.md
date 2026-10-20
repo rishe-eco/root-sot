@@ -2,7 +2,7 @@
 
 *Where things are for Tracker work, how its suites run, and which resources each lane gets. Read by `build-phase` (lane resources, the card's paths), `verify` (suites, stage records, the milestone script, the deploy), `design-review` (the design system) and `close-out` (the canon). The rules a lane follows are in `brief-common.md`; what a review checks is in `review-checklist.md`.*
 
-**Version 0.1 · Status: planned · 2026-10-20 · Owner: founder**
+**Version 0.2 · Status: planned; CI and CD written (CD1), live once the founder's setup is done · 2026-10-21 · Owner: founder**
 
 **Grading.** Facts about the code are **as-built**, read from `rishe-eco/tracker` `main` @ `003db5a` on 2026-10-20: both `package.json` files, `api/vitest.config.ts`, `api/src/test/globalSetup.ts`, `client/playwright.config.ts`, `client/e2e/globalSetup.ts`. Conventions and testing are from the canon (`tracker/canon/02-architecture/04-conventions.md` 0.6, `03-engineering/01-testing.md` 0.3). **Planned:** the stage records, the development README and the lane slots, because Tracker has no lane setup yet (§4). No module has run on the lifecycle here; the first planned is a Fix, B-15 (`README.md` §8, stage 2).
 
@@ -35,13 +35,13 @@
 - **Database:** SQLite files, no Docker. Dev: `api/prisma/dev.db`. Tests: `api/prisma/test.db`, pushed fresh by Vitest's global setup.
 - **Founder's devices and accounts:** not recorded yet; the open-work file's *From the founder* table holds them when a check needs them.
 - **Heavy-runner lock:** none; one heavy suite at a time, by agreement.
-- **CI:** none.
+- **CI:** `.github/workflows/ci.yml` on every pull request, and called by `deploy.yml` on every push to `main` (CD1). Jobs: `api` (`npm ci`, `prisma generate`, the migrations-build-the-schema check, `tsc`, `npm test`), `client` (`npm ci --legacy-peer-deps`, `npx tsc --noEmit`, both i18n checks, `npm test`, `npm run build`), `deploy-script` (shellcheck and `deploy/test/tracker-deploy.test.sh`). Node 24, as the API image. No e2e (the msedge channel). A pull request's checks must be green before `verify` merges it.
 
 ## 3. Suites
 
 | Command | Runs | Who runs it |
 |---|---|---|
-| `cd client && npm run typecheck` | route types and `tsc` | lanes before their last commit; reviews |
+| `cd client && npx tsc --noEmit` | `tsc` (`npm run typecheck`'s `react-router typegen` step fails on this app; CI runs `tsc` alone) | lanes before their last commit; reviews; CI |
 | `cd api && npx vitest run <files>` | unit and integration files, one at a time (`fileParallelism: false`) | lanes and reviews, targeted |
 | `cd client && npx vitest run <files>` | component tests, with `useApi` mocked | lanes and reviews, targeted |
 | `cd client && npm run i18n:check-missing && npm run i18n:check-hardcoded` | a key missing in `en` or `fa`; literal strings in components | lanes and reviews |
@@ -94,11 +94,13 @@ One after another, never in parallel; `.tmp/` is git-ignored, from the commit th
 
 | | |
 |---|---|
-| Host | the founder's VPS; host Nginx serves `client/dist` and proxies `/graphql` to the API on `127.0.0.1:4000` |
-| How | API: `npm ci`, `npx prisma generate`, `npx prisma db push`, `npm run build && npm start` under PM2 (`tracker-api`). Client: `npm ci && npm run build`, with `VITE_API_URL` set **before** the build |
-| Who deploys | the founder, by hand. `verify` asks before any push |
-| Checks after each deploy | `pm2 status`; `curl http://127.0.0.1:4000/graphql` on the box; sign in on the live site |
-| Runbook | `root-sot/tracker/DEPLOY-VPS.md`, summarised in `tracker/canon/03-engineering/00-setup-run-deploy.md` |
+| Host | the founder's VPS, shared with root-app and IMNSTR; `https://tracker.m-root.com`. No Node on the box |
+| App root | `/opt/stacks/tracker`, a root-owned clone of `main`. The API is `api/docker-compose.yml` (container `api-api-1`, `127.0.0.1:4000`, `node:24-alpine`), which runs `prisma migrate deploy` at boot; the database is `api/data/prod.db`. The web is `releases/<stamp>-<sha>/`, live through the `current` link |
+| How | **A push to `main` deploys** (`.github/workflows/deploy.yml`, CD1), once the founder's one-time setup is done: `check` (ci.yml), then, while the repository variable `DEPLOY_ENABLED` is `true`, `deploy` builds the client on the runner and sends it over one locked SSH key (`tracker-deploy`) to `/usr/local/sbin/tracker-deploy`. The script fast-forwards to exactly that commit, backs up the database before a migration, builds and ups the container, waits for the API, runs `nginx -t`, swaps `current` and runs `deploy/checks.sh`. It exits 2, changing nothing, when `api/docker-compose.yml` or `api/.env.example` changed or the installed script differs. `workflow_dispatch` re-runs it after a manual step |
+| Secrets | GitHub environment `production`: `DEPLOY_HOST`, `DEPLOY_PORT`, `DEPLOY_KEY`, `DEPLOY_KNOWN_HOSTS`; repository variable `DEPLOY_ENABLED`. The app's own secrets stay in `api/.env` on the box |
+| Who deploys | whoever pushes `main`. `verify` asks the founder before any push, and says that the push deploys; a new `api/.env` line goes onto the box by hand **before** that push |
+| Checks after each deploy | the run ends `DEPLOYED <sha>` equal to the pushed commit, and `deploy/checks.sh` ran on the box; then sign in on the live site |
+| Runbook | `deploy/README.md` in the code repo, summarised in `root-sot/tracker/DEPLOY-VPS.md` and `tracker/canon/03-engineering/00-setup-run-deploy.md` |
 
 ## 8. Review and check scripts
 
@@ -118,4 +120,5 @@ Not built yet. The first stage that needs one adds it under `client/tests/review
 
 ## Changelog
 
+- **0.2 · 2026-10-21** — §2 CI and §7 Deploy, for CD1: CI on pull requests, a push to `main` deploys, the box's real layout (Docker at `/opt/stacks/tracker`, no Node), the secrets. §3: `npx tsc --noEmit` is the type check.
 - **0.1 · 2026-10-20** — Planned, at rollout stage 1, from the code repo, the conventions 0.6, testing 0.3 and setup 0.1. Not written by `project-config`, which doesn't exist yet; its first run on a Tracker module reviews this file.
