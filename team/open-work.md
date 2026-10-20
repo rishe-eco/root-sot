@@ -2,7 +2,7 @@
 
 *The queue. Work that engineering cannot finish because it needs human judgement, a native speaker, or a decision. Each item states its blocker and what it unblocks. Delete items when done — the decision logs are the permanent record.*
 
-**Version 0.7 · Status: living · 2026-08-23 · Owner: _root**
+**Version 0.8 · Status: living · 2026-10-20 · Owner: _root**
 
 ---
 
@@ -203,8 +203,19 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 
 ---
 
+## Past the verification ceiling
+
+*Checks a review couldn't make. `verify` adds a row, and the row is struck when the check is done.*
+
+| Project | Item | Who | Needed by | From |
+|---|---|---|---|---|
+| Tracker | After B-15's deploy, sign in on the live site, open a goal group's manage page, and check that it shows "Goal group" and not "Ignored" | founder | the deploy after `fix/b-15-goal-group-status` merges | `docs/development/fix-B-15.md` in `rishe-eco/tracker` |
+
+---
+
 ## Changelog
 
+- **0.8 · 2026-10-20** — *Past the verification ceiling* added, with its first row: the live-site check for Tracker's B-15 fix, from `verify --fix B-15`.
 - **0.7 · 2026-08-23** — Monitoring's human-work items (key verification + the answer-variant review, Persian review) promoted from the anticipated table to live items 12–13, the same day its build reached the end of its pass's full scope (phases 1–6) — the sixth and last specced skill tool to do so — and Phase 5 confirmed live that all 27 probe items are `key-unverified`. No rater-pass item exists here either, same reason as Delegation's. **The anticipated section is now empty** — every specced skill tool has code — renumbered §13 → §15 to note that rather than leave a stale table. Decided item renumbered 12 → 14.
 - **0.6 · 2026-08-23** — Delegation's human-work items (key verification, Persian review) promoted from the anticipated table to live items 10–11, the same day its build reached the end of its pass's full scope (phases 1–6) and Phase 5 confirmed live that all 21 probe items are `key-unverified`. No rater-pass item exists for Delegation — nothing here resolves through a judge. The anticipated section now covers only Monitoring (#6), renumbered §11 → §13 to make room. Decided item renumbered 10 → 12. Caught and fixed a numbering collision before committing: the anticipated section's own header was left at §11 after items 10–11 were added, colliding with the new live item 11.
 - **0.5 · 2026-08-22** — Verification's human-work items (key/bench-outcome verification, Persian review, rubric-agreement rater pass) promoted from the anticipated table to live items 7–9, the same day its Phase 2 content pack landed and Phase 5 confirmed live that all 18 probe items are `key-unverified`. The anticipated table now covers only Delegation and Monitoring, renumbered §8 → §11 to make room. Decided item renumbered 7 → 10.
