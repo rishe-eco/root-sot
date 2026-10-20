@@ -2,6 +2,35 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-21 · Rollout stage 2, session F: the second Change (NR1) · lifecycle/stage-2f-needs-root-tile @ ae8448b · rishe-eco/root-app main @ 02e7f6e
+
+*Completes session D's next step 1 (a second Change note). Carries forward session D's carry-overs and questions, apart from the one on merging the lifecycle branches, which is answered below. The module's own state is in `ecosystem/modules/01-root-studio-journeys/STATE.md`.*
+
+**What was done**
+- At the founder's word, `lifecycle/stage-2a-skills`, `2b`, `2e` and `2d` were fast-forwarded into root-sot's `main` and pushed (`4637354`).
+- Change note 02 (`ecosystem/modules/01-root-studio-journeys/changes/02-change-needs-root-tile.md`, wp-dashboards #2) was written by hand and staged as NR1. A Sonnet lane built it, `verify` reviewed it, and it is deployed: root-app `main @ a94c339`, `check` and `deploy` green. The journeys column is 20/20.
+- L-37 records it (`2ebd3be`). `/learned` wrote two notes (`ae8448b`).
+- Root-app `02e7f6e` (the deploy run's URL, docs only) is held back, local and unpushed, at the founder's word, so it rides with the next real root-app push.
+- At the founder's word ("Merge after decision-record"), this branch is merged into root-sot's `main` and pushed after this block is committed.
+
+**Next steps, in order**
+1. Read the top block of `lifecycle/STATE.md`, then L-37 in `lifecycle/decision-log.md` and `ecosystem/modules/01-root-studio-journeys/STATE.md`. Run `lifecycle/bin/install-skills --check` first. Then pick the next owed item with the founder: a third Change note for the journeys module, written by hand from `lifecycle/templates/change-note.md` until `spec change` exists (stage 3). The candidates: wp-dashboards #1 (one login factor; decided, size M, touches auth in the API and the web app; recommended), #3 (tiles open the filtered contracts list; its note must settle that the "Waiting on Root" tile now counts what Root owes, which the list's status filter can't show), the desk's sideways scroll at 360 px, or the portal's at 180 px (both in `team/open-work.md`). Then `/build-phase <stage>`, `--land` and `/verify <stage>`. Start the session from the root-app checkout (`~/Desktop/Root/root-app`). Model: Opus, medium effort for the card, high for verify.
+
+**Carry-overs**
+- A push to root-app's `main` deploys (`config.md` §7). The full e2e suite ran at `verify NR1` (136 of 137, then fixed by `d425139`).
+- The NR1 live check (sign in on the live desk as sales, open Overview, check the tile equals the Needs Root rows) and TK1's live check are rows in `team/open-work.md`, and wait on the founder.
+- Owed rows in `team/open-work.md`: the desk's 360 px scroll, and `j9a`'s heap-bound flake under the full integration suite.
+- Only the founder can run `decision-record`, `handoff`, `learned`, `verify`, `build-phase` and `lifecycle-status`. The first three set Sonnet.
+- `skills-plan.md` §0 still says skills live in `root-sot/.claude/skills/`, which L-31 replaced. That file is the founder's to change.
+- Session D's Tracker questions stay open: who corrects B-15's stale entry in `tracker/canon/04-roadmap/01-known-issues-and-debt.md` (line 27) and the grounding note in §5 of `tracker/canon/01-product/00-concepts-and-hierarchy.md`; whether Tracker's `config.md` §3 names `cd client && npx tsc --noEmit` in place of `npm run typecheck`; whether Tracker's review checklist drops "both colour schemes"; whether Tracker's `config.md` records Chrome with a scratch database as the Linux fallback for e2e.
+
+**Questions for the founder**
+- Push root-app's `02e7f6e` (docs only) now, which deploys, or let it ride with the next change? Owed by: the next root-app push.
+- Which item is the third Change note? Owed by: the next session's start.
+
+**Owed**
+- `/learned --consolidate` is due: the inbox has 21 notes in 8 files, past the cap of 15. Run it in a session of its own on Opus, high effort, before the next build.
+
 ## 2026-10-20 · Rollout stage 2, session D: the Change track's first run (TK1) · lifecycle/stage-2d-journeys-change @ 6646ac7 · rishe-eco/root-app main @ 1ddf5d0
 
 *Completes session E's next step 1 (session D). Carries forward session E's carry-overs and questions, apart from the one on L-33's five calls, which L-36 closes. The module's own state is in `ecosystem/modules/01-root-studio-journeys/STATE.md`.*
