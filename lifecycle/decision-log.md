@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.28 · 2026-10-20**
+**Version 0.29 · 2026-10-20**
 
 ---
 
@@ -296,3 +296,19 @@
 **Decided by.** Founder, 2026-10-20: approved the template list before it was written, then asked for this entry and the merge into `main`.
 
 **Revisit.** When `bin/gate` is built (stage 1, session B): whether the grammar in `required-headings.txt` holds as written. Also Learn Module 1's column 8, which the founder must supply, and the two status lines the audit found out of date (the Time Themes spec, the project-lifecycle spec).
+
+## L-29 · 2026-10-20 · Rollout stage 1, session B: `bin/gate`, and the grammar it reads
+
+**Decision.** Build `lifecycle/bin/gate` in Bash and POSIX awk, so it runs in Git Bash on Windows and on Linux. Shellcheck is clean, and `lifecycle/bin/gate-test` (46 cases, on a sandbox copy of `imnstr/modules/01-website`) proves it. Change `templates/required-headings.txt` to 0.2:
+- **Strict or warned.** A missing heading, a gap in a *Coverage* table or an empty Personas table fails a phase being opened (its cell blank, `STALE` or in progress), and is a warning on a phase already done. This replaces the 0.1 note that outputs already `done` are "not re-gated", which contradicted `skills-plan.md` §0, since every input of a phase is done.
+- **Conditional lines** are written `when <condition>: <line>`. The gate checks the line, and reports it as "not checked" rather than missing, because it can't judge the condition.
+- **The Personas table** needs at least one row. An empty selection is written `none — <why>` (journeys template 0.2).
+- **A change note's coverage:** every criterion id in it appears in some stage's **Acceptance** line, with ranges counted in full.
+- **A fetch that fails** is reported as "not checked", not as a failure.
+- **Lookups:** `in` and `each` lines don't take a heading; lists split on ", h3 " and ", bold "; headings in code fences don't count.
+
+**Why.** L-28's *Revisit*. As written, the 0.1 grammar would have failed IMNSTR's done phases on real gaps, and it couldn't evaluate its own conditional lines.
+
+**Decided by.** Founder, 2026-10-20: accepted each of the six design points before the build, then asked for this entry and the merge into `main`.
+
+**Revisit.** The gaps the gate reports as warnings on IMNSTR: AC-48 and AC-49 missing from the journeys' *Coverage*; the design README's *Plate index* and *Verdict*; the phase cards' *Decided here* and *Not here*. Also whether the one-session small Change (CS1: no card, no report, no **Acceptance** line) needs its own step-check rule, and a first run of `gate-test` in Git Bash on Windows.
