@@ -2,7 +2,7 @@
 
 *Each of the twenty lifecycle skills, and the design step: what it does, how it is invoked, which model runs it, exactly what it reads and writes, its gate, and where its shape comes from. The method these skills implement is `README.md`.*
 
-**Version 0.12 · Status: plan — nothing here is built yet · 2026-10-20 · Owner: _root**
+**Version 0.13 · Status: plan — nothing here is built yet · 2026-10-21 · Owner: _root**
 
 ---
 
@@ -16,7 +16,7 @@ Twenty skills in four groups — every session, design, build, closing the loop 
 
 **Invocation.** Every skill is `disable-model-invocation: true`, invoked by name and invisible in context until then, except `debug`, which Claude may pick up when a test fails.
 
-**Model and effort** are set in each skill's frontmatter (`model`, `effort`). A session sees its model but not its effort, so every skill's first message states the model from its frontmatter. On the wrong model, the skill stops before any work. If the prompt states a different effort, the skill says so and continues.
+**Model and effort** are set in each skill's frontmatter (`model`, `effort`). A session sees its model but not its effort, so every skill's first message states the model from its frontmatter. On the wrong model, the skill stops before any work, except `handoff` and `decision-record`: they end whatever session called them, and the frontmatter doesn't switch its model, so they name the model and carry on. If the prompt states a different effort, the skill says so and continues.
 
 **Forking.** `verify`, `ux-review` and `design-review` use `context: fork` with `background: false`: an isolated subagent that sees only the skill and its injected inputs, with the full tool set, and returns a short summary. *Verify in stage 2* that such a fork can edit, commit and run suites. A fork can't wait on the founder, so `verify` ends at "ready to deploy" and the deploy runs in the main session. A forked review gets the change notes' *carried* lists and the open-work file's rows injected, so owed items aren't counted as defects.
 
@@ -372,6 +372,7 @@ Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `bui
 
 ## Changelog
 
+- **0.13 · 2026-10-21** — §0 *Model and effort*: `handoff` and `decision-record` name a wrong model and carry on instead of stopping. From `learned --consolidate`, the first (L-40).
 - **0.12 · 2026-10-20** — `handoff` and `learned` end with the next session's prompt (`README.md` §5 rule 8). Stage 2 writes each skill as `skills/<skill>/SKILL.md` and starts with `bin/install-skills`.
 - **0.6–0.11 · 2026-10-20** — Cut back from about 10,200 words to about 5,800, one section per commit, each reviewed by the founder (L-22 to L-27). Every skill keeps what it does, reads, writes and gates on. Templates, output shapes, *Reference holds* and one-incident rules moved word for word to `skills/<skill>/reference.md`, and rarely needed shared rules to `skills/shared/reference.md`; provenance and lines repeated elsewhere were cut.
 - **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied in fourteen groups. What each group changed is its entry in `decision-log.md`, L-8 to L-21 (L-20 is the trial brief's).

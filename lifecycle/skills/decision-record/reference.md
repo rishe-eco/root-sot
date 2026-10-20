@@ -2,7 +2,7 @@
 
 *The format every decision-log entry in the lifecycle method is written in, and which log a decision goes to. `decision-record` loads it, and so do the skills that write decision-log entries of their own (`learned --consolidate`, `personas`, `revise` on the method), so all of them read this one file (`README.md` §4; `skills-plan.md` §0, "Skills don't call skills").*
 
-**Version 0.3 · Status: reference — binds from `decision-record` 0.1 · 2026-10-20 · Owner: _root**
+**Version 0.4 · Status: reference — binds from `decision-record` 0.1 · 2026-10-21 · Owner: _root**
 
 ---
 
@@ -43,6 +43,7 @@ The logs older than the method keep their own form. Converting them would rewrit
 
 ## Changelog
 
+- **0.4 · 2026-10-21** — `SKILL.md`: on a model other than Sonnet it says so and carries on. From `learned --consolidate`, the first (L-40).
 - **0.3 · 2026-10-20** — *Which log*: ids moved in from another log don't set a module log's letter. Found by a test render: IMNSTR's next row would otherwise have been an L- id that clashes with the method's.
 - **0.2 · 2026-10-20** — Placed by `decision-record` 0.1 (rollout stage 2, session A). The one-line seed is written out as the entry format, with the rules for *Decided by*, superseding, the version line and the commit, read from L-1 to L-31 and the root `CLAUDE.md`. Added *Which log*, from `skills-plan.md` §1 and the three logs as they stand. This file stays the reference, not a stub, because several skills write entries in this format.
 - **0.1 · 2026-10-20** — Seeds, moved unchanged out of `skills-plan.md` 0.5 at 0.6.

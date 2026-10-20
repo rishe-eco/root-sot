@@ -12,7 +12,7 @@ allowed-tools: Bash(bash "${CLAUDE_SKILL_DIR}/context.sh" *) Bash(git -C * commi
 
 Write down what this session did and what comes next, so a fresh session can start from it after `/clear`. Every session ends `handoff` → `learned` → `/clear` (`lifecycle/README.md` §5 rules 7 and 8). The next session starts cold, with nothing but the committed files. It knows only what this block says and the files it points to. This skill is `lifecycle/skills-plan.md` §1 `handoff`.
 
-**Start with one line:** `handoff · Sonnet, low effort`. This skill's frontmatter sets that model. If you aren't Sonnet, say which model you are and stop before anything else. Effort here is ${CLAUDE_EFFORT}. If it isn't `low`, say so in that line and carry on.
+**Start with one line:** `handoff · Sonnet, low effort`. This skill's frontmatter sets that model. If you aren't Sonnet, say which model you are in that line and carry on. This skill ends whatever session called it, and its frontmatter doesn't switch that session's model. Effort here is ${CLAUDE_EFFORT}. If it isn't `low`, say so in that line and carry on.
 
 The argument was: `$ARGUMENTS`
 
@@ -60,7 +60,7 @@ At most 40 lines. The format comes from the journeys build's state log, which ca
 - **First line:** which earlier blocks this one *replaces*, *adds to* or *partly completes*, naming their steps. A block that touches a stage named in another live block cross-references it.
 - **What was done:** a few lines of what this session decided and committed, with the files and commits that hold it. Point to where things are recorded, and don't retell them.
 - **Lanes in flight** (only if any): stage, branch, database, ports, card, status.
-- **Next steps, in order:** each written as the line the founder pastes. Give the skill, model, effort, branch and the checkout it writes in. If a skill exists for the step, the line is the invocation. The first next step is a whole prompt for a cold session. It opens with "Read the top block of `<STATE.md path>`" and says which files to read and what to do. Copy live next steps from earlier blocks forward in full. Never write "as in the earlier block": that block will be deleted.
+- **Next steps, in order:** each written as the line the founder pastes. Give the skill, model, effort, branch and the checkout it writes in. If a skill exists for the step, the line is the invocation. Claude can't start a skill other than `debug` (`disable-model-invocation`), so a skill named inside a prompt is written as a step the founder runs, after the work Claude does. The first next step is a whole prompt for a cold session. It opens with "Read the top block of `<STATE.md path>`" and says which files to read and what to do. Copy live next steps from earlier blocks forward in full. Never write "as in the earlier block": that block will be deleted.
 - **Carry-overs:** decisions, and pointers to the sections that hold them. Don't copy findings in. A session acting on an item reads the cited section, not this summary of it.
 - **Questions for the founder:** each phrased so it can be asked as it stands, with *owed by*, the step that needs the answer. Name options by noun. Letters are at most aliases.
 - **Owed:** what this session left undone, including uncommitted files.
