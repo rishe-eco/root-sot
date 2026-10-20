@@ -2,6 +2,31 @@
 
 *Newest block first. Written by `handoff`, and by `build-phase` when it launches or lands a lane.*
 
+## 2026-10-20 · 8b land NR1 · lifecycle/stage-2f-needs-root-tile @ ade6e8d · rishe-eco/root-app main @ 1ddf5d0
+
+*Replaces the lane row of the 8a launch NR1 block below. That block's next step is done.*
+
+**What was done**
+- The lane returned two commits on `nr1-needs-root-tile`: `8182e38` (the tests, seen failing first) and `5dac6fc` (the code). Both are authored by `markRice <mark2daynew@gmail.com>`, with a Sonnet co-author line. Its report is `briefs/NR1.report.md` (`b962a95`), with the measured size: +52 app lines, +62 test lines, 30.9 min, about 103k tokens. That is within size S.
+- `main` hasn't moved since `1ddf5d0`, so nothing overlaps.
+
+**For verify to decide**
+- The lane's own calls (report part 4): the shared `loadNeedsRoot(user)` returns `{ contracts, owed }`; the e2e reads the row count first and then expects the tile to match; the NR-5 test also asserts that sales gets a number.
+- The card's *Decided here* (`briefs/NR1.md`): NR-5's test lives in `j12.test.ts`, and `v4.test.ts` is unchanged; the e2e uses the existing reset with no new seed rows; NR-6 compares the Persian digits with the English number.
+- A card check the lane didn't do: which tiles keep `02-contract-flow.spec.ts`'s "non-zero count" sum above zero. The test passed, but the tiles weren't printed.
+- What the deploy runs: unchanged (no migration, no new variable; the API image rebuilds as on every push).
+- Departure (report part 5.1): passing a file to `npm run test:integration` or to the API's `npm test` doesn't filter. Both run every file. root-app `CLAUDE.md`, `config.md` §3 and the note all assume they filter. The lane ran single files through an untracked copy of the runner, which it deleted. A fix belongs to the test tooling, or to `brief-common.md` for the next card.
+
+**Lanes in flight**
+| Stage | Branch | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| NR1 (S) | `nr1-needs-root-tile` from `main @ 1ddf5d0` | A: `root_wt_a_test`, API 4201, web 4273 | `<checkout>/.claude/worktrees/nr1-needs-root-tile` | `briefs/NR1.md` | landed |
+
+**Next steps, in order**
+1. Read the top block of `ecosystem/modules/01-root-studio-journeys/STATE.md` in root-sot (`lifecycle/stage-2f-needs-root-tile`), then `changes/02-change-needs-root-tile.md`, `briefs/NR1.md` and `briefs/NR1.report.md` in the same folder. Run `/verify NR1` from the root-app checkout (Opus, high effort; it runs forked). It reviews `nr1-needs-root-tile` against `main @ 1ddf5d0`, decides the items under *For verify to decide*, and writes root-app `docs/development/NR1.md`. In the same root-app commit it adds the TK1 deploy run's URL (`https://github.com/rishe-eco/root-app/actions/runs/39472536519`) to `docs/development/TK1.md`. Before the founder is asked to push, run the full e2e suite (owed since `apps/web/e2e/helpers.ts` changed, L-36 *Revisit*).
+
+**Carry-overs**
+- A push to root-app's `main` deploys (`config.md` §7), so the push is the founder's yes to a deploy.
 ## 2026-10-20 · 8a launch NR1 · lifecycle/stage-2f-needs-root-tile @ ace74ff · rishe-eco/root-app main @ 1ddf5d0
 
 *Adds to session D's block below (TK1). That block's next step, `/decision-record` for session D, already ran: L-36 records it.*
