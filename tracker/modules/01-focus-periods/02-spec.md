@@ -2,24 +2,24 @@
 
 *Module `tracker/modules/01-focus-periods/` · Track: Module · Phase 2 · Spec, not as-built. A dated, hand-picked set of projects with its own page for progress, next actions and light management. Inputs: `00-intake.md` (research waived there). Update the changelog; don't fork.*
 
-**Version 0.3 · Status: spec · 2026-10-20 · Owner: _root**
+**Version 0.4 · Status: as-built (D-61) · 2026-10-21 · Owner: _root**
 
-**Grading.** Everything here is **proposal** until built. Items marked **[F]** were decided by the founder (intake rounds 1–2, §2 and §2.1). Every as-built fact a requirement depends on cites its file. Code read at `main @ 003db5a`.
+**Grading.** Everything here is **proposal** until built. Items marked **[F]** were decided by the founder (intake rounds 1–2, §2 and §2.1; §2.2 records what the build settled). Every as-built fact a requirement depends on cites its file. Code read at `main @ 003db5a`.
 
 **Scope ledger** *(acceptance criteria by area, at each version, against the intake)*:
 
-| Area | Intake | 0.1 | 0.2 | 0.3 |
-|---|---|---|---|---|
-| Data & API | in scope | 6 | 6 | 6 |
-| Page states | in scope | 4 | 4 | 4 |
-| Project card: progress & next actions | in scope | 6 | 6 | 7 |
-| Management on the page | in scope | 5 | 5 | 5 |
-| Look-back | in scope | 4 | 4 | 4 |
-| Navigation & language | in scope | 3 | 3 | 3 |
-| Policy guards | in scope | 3 | 3 | 3 |
-| **Total** | | **31** | **31** | **32** |
+| Area | Intake | 0.1 | 0.2 | 0.3 | 0.4 |
+|---|---|---|---|---|---|
+| Data & API | in scope | 6 | 6 | 6 | 7 |
+| Page states | in scope | 4 | 4 | 4 | 4 |
+| Project card: progress & next actions | in scope | 6 | 6 | 7 | 8 |
+| Management on the page | in scope | 5 | 5 | 5 | 5 |
+| Look-back | in scope | 4 | 4 | 4 | 5 |
+| Navigation & language | in scope | 3 | 3 | 3 | 3 |
+| Policy guards | in scope | 3 | 3 | 3 | 3 |
+| **Total** | | **31** | **31** | **32** | **35** |
 
-*At 0.3 the subject changed from goals to projects [F]. AC-20 was retired (a project can always take an action), and AC-32 and AC-33 were added.*
+*At 0.3 the subject changed from goals to projects [F]. AC-20 was retired (a project can always take an action), and AC-32 and AC-33 were added.* *At 0.4, three criteria were added from the build, none of them a new capability: AC-34 (a state the spec missed), AC-35 (the limits the build set), AC-36 (how carry-over closes the look-back).*
 
 ---
 
@@ -35,7 +35,7 @@ No new rules about what "done" means. The page reuses the project rules Tracker 
 
 **A Focus Period is a lens, not a container.** It doesn't own projects. It points at them. A project stays where it is in the tree of intent (under its goal or milestone, or on its own) and can belong to many periods over time (one at a time, since periods can't overlap). Removing a project from a period, or deleting the period, never touches the project.
 
-**Fields.** `title`; `startDate` and `endDate`, both date-only and inclusive; `projects` (many-to-many); `lookbackAnswer` (`"oriented" | "behind" | null`); `lookbackSeenAt`.
+**Fields.** `title` (trimmed, 1–120 characters); `startDate` and `endDate`, both date-only and inclusive; `projects` (at most 30, through an explicit join that keeps the order they were added, `FocusPeriodProject.addedAt`); `lookbackAnswer` (`"oriented" | "behind" | null`); `lookbackSeenAt`.
 
 **Its state is derived from today's date, never stored:**
 - *upcoming*: start is after today;
@@ -54,7 +54,7 @@ No new rules about what "done" means. The page reuses the project rules Tracker 
 - **A project is done** when it has at least one action and all of them are done. That's `getProjectStatus` returning `"Done"` (`client/app/components/projects/ProjectPreview.tsx:57-64`), the same rule as `isProjectDoneForGoal` (`client/app/components/goals/GoalPreview.tsx:36`). The client computes it; it isn't stored.
 - **Project progress** is done actions divided by all of the project's actions. That's the bar `ProjectPreview` already draws (`ProjectPreview.tsx:121`, `:538-540`).
 - **A project's actions are only ones you made.** Recurring actions from intervals and routines are created without a `projectId` (`api/src/services/actionGathering.ts:433-444`), so they never appear among a project's actions. Nothing has to filter them out.
-- **Scheduling an action requires an estimate.** `addAction` and `updateAction` reject a `tbd` that has no `estimatedTimeMinutes` (`api/src/graphql/resolvers/mutations.ts:98-128`, `:154`).
+- **Scheduling an action requires an estimate — on create only.** `addAction` rejects a `tbd` without `estimatedTimeMinutes` (`api/src/graphql/resolvers/mutations.ts:127-128`), but `updateAction` checks the estimate only when one is sent (`:152-155`), so a new day on an action with no estimate is accepted. *Corrected at 0.4:* the reschedule popover enforces it (AC-18), and the server gap is known issue **B-16**.
 - **A project's dates are inferred from its actions** (`Project.startDate`/`endDate`, `api/src/graphql/resolvers/typeResolvers.ts:42-60`). The project picker uses them to show which projects already have work scheduled inside the period.
 
 ## 2. Decisions taken at spec
@@ -84,6 +84,19 @@ Decisions made at spec without asking. Each is reversible at `revise`:
 | 11 | "Projects tbd in that period": picked by hand, or pulled in by date? | **Picked by hand.** The picker lists projects with actions already scheduled inside the period first, each showing its dates. | It matches "you set … projects", and nothing joins a period you didn't put there. The date sorting still helps you find the projects already planned for that stretch. Reversible if you meant automatic. |
 | 12 | Does the card show the project's status badge? | **No.** Progress, and "Done" once finished, only. | The existing "Ignored" badge (yellow, all undone actions in the past) is a nag here. Progress already says where the project stands. |
 | 13 | Does the card show where the project sits? | **Yes**, one muted line: *goal › milestone*, or "No goal". | Projects from different goals sit side by side, and their names alone often lack context. |
+
+### 2.2 Decisions taken at the 0.4 revise
+
+*From the build (D-61). Not founder questions: each one writes in what the build found, and none adds a capability.*
+
+| # | What the build found | Settled as | Where |
+|---|---|---|---|
+| 14 | An implicit many-to-many has no columns, so it can't keep the card order (build plan D-1) | Explicit join with `addedAt` | §1, AC-1 |
+| 15 | `Postponed` is never written (D-3) | Exclude any action with a fate | §4.3 |
+| 16 | A project can be not-done with no live action (D-7) | "No next actions" plus "+ Action" | §4.3, AC-34 |
+| 17 | Nothing bounded a period's size or title (D-8) | 30 projects, title 1–120 | §1, AC-35 |
+| 18 | Carry-over left the look-back unseen, so the tab returned to it (B3 report, decision 1) | Saving the carry-over period records the look-back | §4.5, AC-36 |
+| 19 | `updateAction` accepts a day without an estimate (D-10) | Enforced in the popover; server gap is B-16 | §1.1 |
 
 ## 3. Metrics
 
@@ -122,7 +135,8 @@ One card per project, in the order the projects were added.
 - **The project title** links to the project's page.
 - **Context:** one muted line with the goal's title, then the milestone's title if the project sits under one, or "No goal" for a standalone project (§2.1, #13).
 - **Progress:** "**5 of 8 actions done**" and a bar, the same calculation as `ProjectPreview`. With no actions, it says "No actions yet" and shows no bar. A finished project shows "Done", and no next actions.
-- **Next actions:** up to **3** undone actions of the project. An action with an `actionFate` other than `Postponed` is excluded. *(Assumption: `Postponed` stays live; check this against `api/src/services/todayPreDayAfterDay.ts` in the build.)*
+- **Next actions:** up to **3** undone actions of the project. An action with **any** `actionFate` is excluded. *(Settled at 0.4: `postponeAction` moves the day and clears the fate, `mutations.ts:938-947`, so no live action carries `Postponed`.)*
+- **No next actions.** A project that isn't done but whose remaining undone actions all have a fate (backlog, bucket list…) shows its progress, then "No next actions", and keeps "+ Action". *(Added at 0.4; the spec had missed this state.)*
   - **Order:** scheduled actions first, earliest `tbd` first (overdue ones included), then unscheduled ones, oldest first.
   - **Each row** shows the title and the scheduled day, or "No day".
   - **Overdue days** show as a plain date. No red, no "overdue" label.
@@ -151,6 +165,7 @@ One card per project, in the order the projects were added.
 - **One question, optional and skippable:** "Over this period, the days-left count made me feel… **oriented** · **behind**." The answer is saved to `lookbackAnswer`.
 - **Start a new period with these.** Opens the start form with the unfinished projects already ticked, each one untickable. The start date defaults to the day after the old period ended, or today if that day has already passed.
 - **Done** sets `lookbackSeenAt`. Skipping the question doesn't stop you from leaving.
+- **Carry-over also closes the look-back.** Saving the period started from "Start a new period with these" records the look-back, with whatever answer was picked, so the tab doesn't return to it. Cancelling the form goes back to the look-back and records nothing. *(Added at 0.4.)*
 - **No grade, score, percent or "you finished 2 of 5".** The lists are the whole report.
 
 ### 4.6 Navigation and language
@@ -177,12 +192,13 @@ One card per project, in the order the projects were added.
 
 ### 6.1 Data & API
 
-- **AC-1.** A `FocusPeriod` model exists with `title`, date-only `startDate`/`endDate`, an implicit many-to-many to `Project`, `lookbackAnswer`, `lookbackSeenAt`, `userId` (cascade on delete), and `createdAt`/`updatedAt`. The data model and decision log are updated in the same change (Convention #11).
+- **AC-1.** A `FocusPeriod` model exists with `title`, date-only `startDate`/`endDate`, an explicit join model `FocusPeriodProject` (`focusPeriodId`, `projectId`, `addedAt`; cascading from both sides) to `Project`, `lookbackAnswer`, `lookbackSeenAt`, `userId` (cascade on delete), and `createdAt`/`updatedAt`. The data model and decision log are updated in the same change (Convention 12). *(Reworded at 0.4: an implicit many-to-many can't keep the order projects were added in.)*
 - **AC-2.** `createFocusPeriod` and `updateFocusPeriod` reject `endDate < startDate`, and reject any range sharing a day with another of the user's periods.
 - **AC-3.** Setting a period's projects rejects projects that are already done, and projects the user doesn't own.
 - **AC-4.** A query returns the user's latest-ended period with an unseen look-back, the active period, and the upcoming period (each nullable). Each comes with its projects' actions and goal and milestone titles, in one round trip.
 - **AC-5.** Deleting a period or removing a project leaves the project and its actions unchanged. Deleting a project removes it from its periods.
 - **AC-6.** `recordFocusLookback(id, answer)` stores `"oriented"`, `"behind"` or nothing, and sets `lookbackSeenAt`. It's only allowed on an ended period.
+- **AC-35.** A title is trimmed and must be 1–120 characters, and a period holds at most 30 projects; each limit is refused with its own message.
 
 ### 6.2 Page states
 
@@ -200,6 +216,7 @@ One card per project, in the order the projects were added.
 - **AC-15.** Overdue actions show a plain date, with no warning colour or label.
 - **AC-16.** On a row, the checkbox only completes, the day button only reschedules, and the title only navigates.
 - **AC-32.** Each card shows the project's context line: goal › milestone, goal alone, or "No goal".
+- **AC-34.** A project that isn't done, with no undone action free of a fate, shows its progress, "No next actions" and "+ Action".
 
 ### 6.4 Management on the page
 
@@ -216,6 +233,7 @@ One card per project, in the order the projects were added.
 - **AC-23.** The oriented/behind question is optional. Skipping it still allows **Done**.
 - **AC-24.** **Start a new period with these** opens the start form with the unfinished projects ticked, each one untickable.
 - **AC-25.** The new period's start date defaults to the day after the old end, or today if that day has passed.
+- **AC-36.** Saving the carry-over period records the look-back (with the answer picked, or none); cancelling it records nothing.
 
 ### 6.6 Navigation & language
 
@@ -242,6 +260,7 @@ One card per project, in the order the projects were added.
 
 ## Changelog
 
+- **0.4 · 2026-10-21** — Written in from the build (D-61); status now as-built. AC-1 reworded to the explicit join. §4.3's `Postponed` assumption settled, and the "No next actions" state added. §1.1's estimate rule corrected (B-16). Limits and the carry-over close written down. AC-34–36 added. §2.2 records the six findings behind them.
 - **0.3 · 2026-10-20** — The founder moved the subject from goals to projects. Progress is now actions done out of total. Milestone counting dropped. AC-20 retired; AC-32 (context line) and AC-33 (picker) added. Decisions #10–13 added and #6 retired. R7 added.
 - **0.2 · 2026-10-20** — Persian term changed to فشرده by the founder; R1 retired. Eval plan waived by the founder: M1–M3 stay as measures, with no instrument planned. Wireframes added (`04-wireframes.html`).
 - **0.1 · 2026-10-20** — Spec, from `00-intake.md` (research waived). The founder decided: normal goals only, 3 next actions, Persian بازه فشرده.
