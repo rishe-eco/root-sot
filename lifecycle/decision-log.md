@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.34 · 2026-10-20**
+**Version 0.35 · 2026-10-20**
 
 ---
 
@@ -437,3 +437,51 @@ Four facts found on the way are written into the files as they are, not as the m
   - whether Chrome with a scratch database is the Linux fallback for targeted e2e.
 - **The base branch:** if a project's base isn't `main`, give `config.md` a row for it, and have `base_of` read it.
 - **The deploy:** B-15 isn't live until the founder deploys. The live-site check is in `team/open-work.md`.
+
+## L-36 · 2026-10-20 · Rollout stage 2, session D: the first Change on the build skills (TK1), L-33's calls confirmed, and root-app's module folder
+
+**Decision.**
+- **L-33's five calls stand:**
+  - the build-phase block stands in for the handoff;
+  - `git worktree add` makes the lane's worktree;
+  - `verify --milestone` takes the devices in its argument;
+  - Change stages count in column 8;
+  - `verify` keeps `background: false`. Claude Code reads that field from v2.1.218. Without it, a forked skill runs in the background.
+- **The journeys build gets a module folder,** `ecosystem/modules/01-root-studio-journeys/`, holding only its Change-track files: `STATE.md`, `changes/`, `briefs/` and `decisions.md`. The plan and the journeys file stay in `ecosystem/working/`. The journeys row in `lifecycle/status.md` links to the folder (`e01f875`).
+- **Change note 01, `changes/01-change-ticket-refresh.md`,** is written by hand from `lifecycle/templates/change-note.md`, because `spec change` is stage 3. Its one stage is TK1, wp-dashboards #9: the portal's Support page refetches tickets after a create, on a card's open and close, and on window focus.
+  - The card was 613 words (`dadb045`).
+  - The lane was Sonnet: +27 −5 app lines and +156 test lines, 26.8 minutes and 97,374 tokens, within size S.
+  - `verify` ran forked. It added four commits: two defect fixes, a test for the close alone, and the e2e helper's `UND_ERR_SOCKET` retry. It wrote `docs/development/TK1.md` in `rishe-eco/root-app`, and column 8 reached 19/19.
+  - Root-app's `main` was fast-forwarded to `1ddf5d0` and pushed. The `deploy` workflow run 39472536519 ended `DEPLOYED 1ddf5d0`.
+- **`lifecycle/bin/gate` reads `ecosystem/modules/` as root-app's,** as `project_of` in `lifecycle/skills/shared/build.sh` already did. Before this, every such module failed on a missing `lifecycle/projects/ecosystem/`. `lifecycle/bin/gate-test` passes 76 of 76, with one new case that fails on the old gate (`f16784f`). Shellcheck is clean.
+- **`lifecycle/projects/root-app/config.md` 0.3** (`73a859f`):
+  - `main` holds the whole journeys build;
+  - a push to `main` deploys through `.github/workflows/deploy.yml`, whose CI doesn't run e2e;
+  - lane worktrees come from `git worktree add`;
+  - the Linux machine runs e2e on Chrome, not `msedge`.
+- **`config.md` 0.4 and `brief-common.md` 0.2, from `verify TK1`** (`46791ac`):
+  - a single e2e test takes two `--`;
+  - check that the slot's ports are free before e2e;
+  - `psql` needs `PGPASSWORD=root` on the Linux machine;
+  - `brief-common.md`'s *Environment* sends lanes to `config.md` §2 for their machine.
+- **The full e2e suite was not run before the deploy,** though the change touched `apps/web/e2e/helpers.ts`, which every spec imports. The targeted runs were 29 + 6 passed. It is recorded as owed.
+
+**Why.** `README.md` §8 stage 2 names the journeys build's owed items as the Change track's first real use, and L-33 *Revisit* left its calls to that use.
+- The skills find stages only under `*/modules/*/` (`find_module` in `lifecycle/skills/shared/build.sh`). The gate needs a `status.md` row that links to the module folder. Neither `ecosystem/working/` nor a link to a plan file satisfies them.
+- `config.md` 0.2 predated the merge into root-app's `main` and the CI deploy (`main` @ `66c5698`), and `verify` and the card read both facts.
+- The first use answers L-33's open question: a fork can edit, commit and run suites (`verify`'s return).
+
+**Decided by.** The founder, 2026-10-20, in this session:
+- **Scope, the folder and config 0.3:** they picked "#9 only", "New modules folder (Recommended)" and "Correct it now (Recommended)" from the options Claude presented.
+- **L-33's calls:** asked whether they stood, the founder replied "is background false necessary?". After Claude explained it, they chose "Keep false (Recommended)". They raised no objection to the other four. Those stand on Claude's judgement, without a line-by-line review.
+- **The gate fix:** Claude's, made when the gate failed the new folder, and accepted on Claude's judgement.
+- **The push and the edits:** "run full e2e, then you have my go to push to main. both small edit and the one rule are accepted". Then: "never mind the e2e, continue with the rest".
+- **The change note and the card:** their contents are Claude's, and weren't reviewed line by line.
+- **The model:** this entry was written on Opus, not the Sonnet that `decision-record`'s frontmatter sets, at the founder's word ("proceed on opus"). So was the module's handoff (`032ee93`).
+
+**Revisit.**
+- **The full e2e suite:** run it before the next root-app deploy. It is owed in `docs/development/TK1.md`.
+- **The live-site check of TK1:** a row in `team/open-work.md` (*Past the verification ceiling*), waiting on the founder.
+- **The run's URL:** `docs/development/TK1.md` doesn't hold the deploy run's URL, because adding it deploys again. It goes in with the next root-app commit.
+- **`verify`'s effort:** it reported "effort may be below high (not confirmed)". Check whether a forked skill gets its `effort` frontmatter.
+- **The other owed items:** wp-dashboards #1, #2, #3 and #4–#8 have no change note yet.
