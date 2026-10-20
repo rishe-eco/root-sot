@@ -312,3 +312,26 @@
 **Decided by.** Founder, 2026-10-20: accepted each of the six design points before the build, then asked for this entry and the merge into `main`.
 
 **Revisit.** The gaps the gate reports as warnings on IMNSTR: AC-48 and AC-49 missing from the journeys' *Coverage*; the design README's *Plate index* and *Verdict*; the phase cards' *Decided here* and *Not here*. Also whether the one-session small Change (CS1: no card, no report, no **Acceptance** line) needs its own step-check rule, and a first run of `gate-test` in Git Bash on Windows.
+
+## L-30 · 2026-10-20 · Rollout stage 1, session C: project settings for root-app and Tracker; CLAUDE.md in all three repos
+
+**Decision.** Finish stage 1's file work (`README.md` §8):
+- `lifecycle/projects/root-app/` and `lifecycle/projects/tracker/`, each with `config.md`, `brief-common.md` and `review-checklist.md`, **planned**, not written by `project-config`, which doesn't exist yet. Its first run on each project's first module reviews them. root-app's are from its development README, the deploy runbook, the journeys plan 1.0 §0.2, §0.3 and §8, the recovered brief and the retrospective. Tracker's are from the code repo and its conventions 0.6, testing 0.3 and setup 0.1 canon.
+- `CLAUDE.md` at the root of root-sot: house rules, the lifecycle method, sessions, commits, and working with the founder.
+- `CLAUDE.md` in `rishe-eco/root-app`, on `wp-dashboards`, and in `rishe-eco/tracker`, on `main`. Both carry the commands, the environment's pitfalls and the git rules, and both repos now ignore `.tmp/`, where lane reports and suite logs go.
+
+Four facts found on the way are written into the files as they are, not as the method assumes:
+- all three repos are public;
+- root-app's `wp-dashboards` lacks `journeys-build`'s last commit (`267a71d`, the M4 fixture-date fix);
+- root-app has no fixed test clock: fixture days move with today through `onDay`;
+- Tracker's e2e isn't lane-safe. Its ports and API URL are fixed, it signs up users in the running API's dev database, and its config asks for Edge, which the Linux machine lacks.
+
+**Why.** Stage 2's build skills are proven on root-app and Tracker work, and need these files to draft cards and run reviews. Session rule 6 puts durable environment knowledge in each repo's CLAUDE.md, not in one machine's memory.
+
+**Decided by.** Founder, 2026-10-20: chose to finish these before stage 2, then put root-app's `CLAUDE.md` on `wp-dashboards`, asked for this merge into `main`, and asked for both code repos to be pushed. The files' contents were accepted without a line-by-line review.
+
+**Revisit.**
+- At the first stage on each project: the planned lane slots and milestone scripts.
+- Tracker: whether to schedule an e2e prep stage (movable ports, API URL, browser channel and database) or waive it, and its checkout path on the Windows build machine, which the founder supplies.
+- root-app: which branch is the base until `journeys-build` and `wp-dashboards` are merged, and whether a fixed test clock replaces `onDay`.
+- Still open from stage 1: the founder's machine setup (Docker isn't on the Linux machine), Learn Module 1's column 8, and the baseline's `/usage` and `/insights`.
