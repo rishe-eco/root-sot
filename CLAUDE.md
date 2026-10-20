@@ -27,6 +27,11 @@ This repo is Root's non-code source of truth: `ecosystem/` (Root itself), `track
 - Lessons are captured as notes in `lifecycle/learnings/inbox/`, not edited into instructions mid-session.
 - **Every session's last message is the next session's prompt**, in a fenced block to paste after `/clear` (`lifecycle/README.md` §5 rule 8).
 
+## Shell
+
+- Scope file searches to the repo or its parent folder; never `find /`.
+- Run anything that can wait for input (`psql` without its password variable, `ssh`, a push with no key) in a Bash call of its own, never after commits or a `git worktree add` in the same call. A hang sends the whole call to the background, its earlier results unseen.
+
 ## Commits
 
 - Commit as the repo's configured identity; check `git config user.email` first.
