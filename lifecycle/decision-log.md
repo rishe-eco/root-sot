@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.21 · 2026-10-19**
+**Version 0.22 · 2026-10-20**
 
 ---
 
@@ -226,3 +226,13 @@
 **Decided by.** Founder, accepted at 10c on Claude's judgement. Applied without a diff review, by the founder's instruction in the apply session.
 
 **Revisit.** When stage 1 starts.
+
+## L-22 · 2026-10-20 · Skills plan 0.6: cut back, step 1, reference material moved out
+
+**Decision.** Move every *Reference holds* block, every template's contents, and the contents lists of `config.md` and `brief-common.md` out of `lifecycle/skills-plan.md` into `lifecycle/skills/<skill>/reference.md`, one file per skill, unchanged. Each skill's section points at its file. The 0.5 changelog entry is cut to a pointer at L-8 to L-21. The plan goes from about 10,200 words to about 8,300.
+
+**Why.** Applying the trial's findings doubled the plan, from about 5,000 words, and much of the growth was material for reference files and templates that don't exist yet. Moving it is lossless, so the founder reviews the list of files, not the text. Steps 2 and 3 trim what is left, section by section, with the founder reviewing each diff.
+
+**Decided by.** Founder, 2026-10-20, approving the plan to cut back in three steps.
+
+**Revisit.** In stage 2, when each skill's author places its seeds: whether `skills/` folds into `.claude/skills/<skill>/`.
