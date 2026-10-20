@@ -2,7 +2,7 @@
 
 *Each of the twenty lifecycle skills, and the design step: what it does, how it is invoked, which model runs it, exactly what it reads and writes, its gate, and where its shape comes from. The method these skills implement is `README.md`.*
 
-**Version 0.11 · Status: plan — nothing here is built yet · 2026-10-20 · Owner: _root**
+**Version 0.12 · Status: plan — nothing here is built yet · 2026-10-20 · Owner: _root**
 
 ---
 
@@ -76,7 +76,7 @@ A project with no code yet has its config written as planned. The first stage's 
 **Invocation:** by name, at the end of a session · **Model:** Sonnet, low.
 **Reads:** the session's own work; `git log` since the last state block.
 **Writes:** a new block, at most 40 lines, at the top of the module's `STATE.md` (or `lifecycle/STATE.md`), committed, in the format in `skills/handoff/reference.md`. Live next steps are copied forward in full, each as the line the founder pastes. Blocks older than the last five are deleted; stage records hold the history.
-**Ends with:** "Run `/learned`, then `/clear`."
+**Ends with:** "Run `/learned`, then `/clear`, then paste:" and the block's first next step in a fenced block (`README.md` §5 rule 8).
 **From:** the journeys orchestrator's state log, which carried the build across three compactions.
 
 ### `decision-record`
@@ -95,6 +95,7 @@ A project with no code yet has its config written as planned. The first stage's 
 - **Writes** one file, `lifecycle/learnings/inbox/<date>-<slug>.md`, holding **zero to three** notes in the fixed fields of `skills/learned/reference.md`. Zero is a valid result; filler is not. It doesn't deduplicate: a lesson recurring across notes is the evidence consolidation needs.
 - **Rejects** notes that cite no specific event, wouldn't change a future action, or couldn't be checked later.
 - **Urgent notes** are also copied into `STATE.md` as a carry-over, so the next session reads them.
+- **Ends with** "`/clear`, then paste:" and the first next step of the top `STATE.md` block again, so it is the last thing on screen.
 
 **`--consolidate`.** When the inbox passes **15 notes or 14 days**, at each milestone during a build, and before any `close-out` · **Model:** Opus, high, in a session of its own.
 **Reads:** every inbox note; `lifecycle/learnings/index.md`; each candidate destination's line count and headings. Injected: each destination's `## Changelog` lines and the memory index, to find what is already integrated. A module's `founder-notes.md`: each note is a cluster of its own, with mechanisms offered as options.
@@ -367,10 +368,11 @@ Stage 1 (foundation) is files, not skills. The IMNSTR trial counted what its 72 
 
 Already in place from the trial: `engineering-checklist.md`, `projects/imnstr/`, and IMNSTR's `decisions.md`.
 
-Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `build-phase`, `verify` and `debug`, each written with `skill-creator` and tried on real work before stage 3. The rest follow the rollout in `README.md` §8.
+Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `build-phase`, `verify` and `debug`, each written with `skill-creator` as `skills/<skill>/SKILL.md` and tried on real work before stage 3. Its first step is `bin/install-skills`, which copies them into `~/.claude/skills/`. The rest follow the rollout in `README.md` §8.
 
 ## Changelog
 
+- **0.12 · 2026-10-20** — `handoff` and `learned` end with the next session's prompt (`README.md` §5 rule 8). Stage 2 writes each skill as `skills/<skill>/SKILL.md` and starts with `bin/install-skills`.
 - **0.6–0.11 · 2026-10-20** — Cut back from about 10,200 words to about 5,800, one section per commit, each reviewed by the founder (L-22 to L-27). Every skill keeps what it does, reads, writes and gates on. Templates, output shapes, *Reference holds* and one-incident rules moved word for word to `skills/<skill>/reference.md`, and rarely needed shared rules to `skills/shared/reference.md`; provenance and lines repeated elsewhere were cut.
 - **0.5 · 2026-10-19** — From the IMNSTR trial (`trial-run/findings.md` 0.2), applied in fourteen groups. What each group changed is its entry in `decision-log.md`, L-8 to L-21 (L-20 is the trial brief's).
 - **0.4 · 2026-10-06** — Change track: `spec change` writes a Stages section into the change note; `build-phase` gates on and drafts cards from it; `verify` reads it in place of the plan's §5.

@@ -25,6 +25,7 @@ This repo is Root's non-code source of truth: `ecosystem/` (Root itself), `track
 - A session that will run long ends with a handoff to the module's `STATE.md` (or `lifecycle/STATE.md` for work without a module), then `/clear`, not `/compact`. Never resume a large session after a limit reset; start fresh from `STATE.md`.
 - Everything a later session needs is committed. Nothing load-bearing lives in a scratchpad or in one machine's memory.
 - Lessons are captured as notes in `lifecycle/learnings/inbox/`, not edited into instructions mid-session.
+- **Every session's last message is the next session's prompt**, in a fenced block to paste after `/clear` (`lifecycle/README.md` §5 rule 8).
 
 ## Commits
 

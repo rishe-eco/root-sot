@@ -2,7 +2,7 @@
 
 *What the largest build to date cost, where the cost went, and what the lifecycle system changes because of it. Stage 0 of the lifecycle plan: the baseline every later build is measured against.*
 
-**Version 0.4 · Status: draft — completed once the journeys dev process is fully done · 2026-10-05 · Owner: _root**
+**Version 0.5 · Status: draft — completed once the journeys dev process is fully done · 2026-10-20 · Owner: _root**
 
 ---
 
@@ -47,6 +47,8 @@ Milestone suites, per `docs/development/README.md`: M1 (S1·J1·T1·S3) 2026-09-
 |---|---|---|
 | 22 Sonnet lanes | ≈1.94B | — |
 | Main Opus session | ≈279M | ≈790k |
+
+**Total:** about **$521**, read by the founder from the usage dashboard's log, 2026-10-20 *(reported, estimated)*. It covers the one session that ran the base project, the journeys and their development, so it includes more than the journeys build.
 
 **Main-session context at each compaction:** Sep 28 18:35 ≈518k · Sep 29 22:48 ≈762k · Oct 4 22:04 ≈505k.
 
@@ -101,7 +103,7 @@ The five together ≈843M, about 43% of all lane input; J1 alone ≈14% *(analys
 - [x] The orchestrator's memory files and `brief-common.md` recovered from the build machine, 2026-10-05 (§4 finding 6). Read as evidence; not committed — they hold machine paths and unrelated projects.
 - [ ] **Final cost**, once the remaining dev work (owed items, review, merge to `main`) is done — the figures above stop at Oct 5 morning.
 - [ ] **Owed items consolidated** from the stage records into `team/open-work.md` (e.g. J12: Persian native read of new strings, phone width, print).
-- [ ] `/usage` (7-day attribution and flags) and `/insights` from the build machine, to check §3 against Claude Code's own breakdown.
+- [x] ~~`/usage` (7-day attribution and flags) and `/insights` from the build machine~~ — the 7-day window had passed; replaced by the dashboard's total in §3, 2026-10-20.
 - [ ] Whether the fixture-date fix (separate session, 2026-10-05) closed the time-bomb across all suites.
 - [ ] Versus §5's estimate, after the next comparable build.
 
@@ -109,6 +111,7 @@ The five together ≈843M, about 43% of all lane input; J1 alone ≈14% *(analys
 
 ## Changelog
 
+- **0.5 · 2026-10-20** — §3: the total, about $521, from the founder's reading of the usage dashboard. §6: the `/usage` and `/insights` item closed.
 - **0.4 · 2026-10-06** — §5 aligned with the lifecycle plan: reviews read the lane report (they write the stage record); a stopping lane writes its report; phase cards are drafted by `build-phase`, `brief-common` lives in the project config.
 - **0.3 · 2026-10-05** — Memory files and `brief-common.md` recovered: finding 6 corrected (state survived, but only on one machine); lane report and state log added to what worked.
 - **0.2 · 2026-10-05** — Source documents found pushed; finding 6 (process state outside git) added.

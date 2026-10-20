@@ -2,7 +2,7 @@
 
 *Seeds for this skill's reference file and template, moved unchanged out of `skills-plan.md` at 0.8. They bind as the plan does. The skill's first author places them.*
 
-**Version 0.1 · Status: seeds · 2026-10-20 · Owner: _root**
+**Version 0.2 · Status: seeds · 2026-10-20 · Owner: _root**
 
 ---
 
@@ -12,7 +12,7 @@ At most 40 lines:
 - **header:** date · `<root-sot branch> @ <hash>` · `<code repo> main @ <hash>`, where there is a code repo;
 - **first line:** which earlier blocks this one *replaces*, *adds to* or *partly completes*, naming their steps. A block that touches a stage named in another live block cross-references it;
 - **lanes in flight:** stage, branch, database, ports, card, status;
-- **next steps, in order:** each written as the line the founder pastes, with skill, model, effort, branch and the checkout it writes in (with skills, that line is the invocation). Live next steps are copied forward in full, never "as in the earlier block";
+- **next steps, in order:** each written as the line the founder pastes, with skill, model, effort, branch and the checkout it writes in (with skills, that line is the invocation). The first one is a whole prompt for a cold session: it opens with "Read the top block of `<STATE.md path>`", and the session ends by printing it (`README.md` §5 rule 8). Live next steps are copied forward in full, never "as in the earlier block";
 - **carry-overs:** decisions and pointers to sections, not findings. A session acting on an item reads the cited section, not this summary of it;
 - **questions for the founder:** phrased ready to ask, each with *owed by*, the step that needs the answer. Options are named by noun; letters, at most, are aliases;
 - **owed.**
@@ -20,3 +20,8 @@ At most 40 lines:
 ## Source
 
 The journeys orchestrator's state log, in the `root-app-lifecycle-build` memory, moved from private memory into git.
+
+## Changelog
+
+- **0.2 · 2026-10-20** — The first next step is a whole prompt, printed at the end of the session (`README.md` §5 rule 8).
+- **0.1 · 2026-10-20** — Seeds, moved unchanged out of `skills-plan.md` at 0.8.
