@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IMNSTR.com — wireframes · draft 1</title>
+<style>
+:root{
+  --surface-2:#ffffff; --surface-1:#f6f5f0; --surface-0:#efece4;
+  --text-primary:#2c2c2a; --text-secondary:#5f5e5a; --text-muted:#8a8981;
+  --border:#e3e1d9; --border-strong:#ceccc3;
+  --accent-bg:#e6f1fb; --accent-text:#185fa5; --accent-border:#85b7eb;
+  --warn-bg:#fbf0e6; --warn-text:#9a5a12; --warn-border:#e6b887;
+  --good-bg:#e9f2e8; --good-text:#3d6b39; --good-border:#a8c8a4;
+  --sugg:#7a4fa3;
+  --radius:8px; --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --surface-2:#2b2b29; --surface-1:#232321; --surface-0:#1b1b19;
+    --text-primary:#e9e7e0; --text-secondary:#b5b3aa; --text-muted:#8a8981;
+    --border:#3a3a37; --border-strong:#4b4b47;
+    --accent-bg:#0c447c; --accent-text:#b5d4f4; --accent-border:#185fa5;
+    --warn-bg:#4a2f10; --warn-text:#e8c39a; --warn-border:#9a5a12;
+    --good-bg:#25381f; --good-text:#b8d4b0; --good-border:#3d6b39;
+    --sugg:#c9a6ea;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-0);color:var(--text-primary);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:2rem 1rem 4rem}
+h1{font-size:22px;font-weight:500;margin:0 0 4px}
+.sub{font-size:13px;color:var(--text-muted);margin:0 0 1rem;max-width:80ch}
+h2{font-size:16px;font-weight:500;margin:2.5rem 0 .3rem;padding-bottom:.5rem;border-bottom:.5px solid var(--border)}
+h2 .n{color:var(--text-muted);font-variant-numeric:tabular-nums;margin-right:.5rem}
+.lead{font-size:12px;color:var(--text-secondary);margin:0 0 .9rem;max-width:86ch}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;align-items:start}
+.frame{margin:0;display:flex;flex-direction:column;gap:8px}
+.phone,.panel{background:var(--surface-2);border:.5px solid var(--border);border-radius:14px;padding:12px;display:flex;flex-direction:column;overflow:hidden;font-size:12px}
+.phone{min-height:440px}
+.panel{min-height:180px}
+.shell{background:#1f1f1d;color:#d8d6cf;font-family:var(--mono);font-size:11px;border-radius:10px;padding:12px;min-height:180px;white-space:pre-wrap}
+.url{font-family:var(--mono);font-size:10px;color:var(--text-muted);background:var(--surface-1);border-radius:6px;padding:3px 8px;margin-bottom:8px;text-align:center}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-bottom:6px;border-bottom:.5px solid var(--border);font-size:11px;color:var(--text-muted)}
+.bar b{color:var(--text-primary);font-weight:500}
+.foot{margin-top:auto;padding-top:8px;border-top:.5px solid var(--border);font-size:10.5px;color:var(--text-muted);display:flex;gap:10px;flex-wrap:wrap}
+.date{font-size:10.5px;color:var(--text-muted);font-family:var(--mono)}
+.ttl{font-size:13px;font-weight:500;margin:2px 0}
+.body{font-size:11.5px;color:var(--text-secondary);line-height:1.5}
+.line{height:7px;background:var(--border);border-radius:3px;margin:5px 0}
+.line.s{width:60%}.line.m{width:82%}
+.entry{padding:10px 0;border-bottom:.5px dashed var(--border)}
+.entry:last-child{border-bottom:0}
+.h{font-size:15px;font-weight:500;margin:10px 0 4px}
+.p{font-size:11.5px;color:var(--text-secondary);margin:4px 0 8px}
+.lnk{color:var(--accent-text);text-decoration:underline}
+.mut{color:var(--text-muted)}
+.note{font-size:10.5px;color:var(--text-muted);line-height:1.45}
+.btn{display:inline-block;padding:7px 14px;border:.5px solid var(--border-strong);border-radius:var(--radius);font-size:12px;color:var(--text-primary);background:var(--surface-1);text-align:center}
+.btn.pri{border-color:var(--accent-border);color:var(--accent-text);background:var(--accent-bg)}
+.btn.full{display:block;width:100%}
+.btn.sm{padding:3px 9px;font-size:10.5px}
+.btn.dis{color:var(--text-muted);border-style:dashed;background:transparent}
+.field{border:.5px solid var(--border-strong);border-radius:var(--radius);padding:7px 9px;font-size:11.5px;background:var(--surface-1);min-height:30px;margin:4px 0}
+.field.ph{color:var(--text-muted)}
+.field.area{min-height:110px}
+.field.bad{border-color:var(--warn-border)}
+.lbl{font-size:10.5px;color:var(--text-muted);margin-top:6px}
+.card{border-radius:8px;padding:8px 10px;font-size:11px;line-height:1.45;margin:6px 0;background:var(--accent-bg);color:var(--accent-text)}
+.card.w{background:var(--warn-bg);color:var(--warn-text)}
+.card.g{background:var(--good-bg);color:var(--good-text)}
+.sugg{border:1px dashed var(--sugg);border-radius:8px;padding:6px 8px;margin:6px 0;font-size:11px;color:var(--text-secondary)}
+.sugg::before{content:attr(data-g);display:block;font-family:var(--mono);font-size:9.5px;color:var(--sugg);margin-bottom:2px}
+.kb{margin-top:auto;background:var(--surface-1);border-top:.5px solid var(--border);height:118px;display:grid;grid-template-columns:repeat(10,1fr);gap:3px;padding:6px;margin-left:-12px;margin-right:-12px;margin-bottom:-12px}
+.kb span{background:var(--border);border-radius:3px}
+.sheet{margin-top:auto;background:var(--surface-1);border:.5px solid var(--border-strong);border-radius:12px 12px 0 0;padding:12px;margin-left:-12px;margin-right:-12px;margin-bottom:-12px;text-align:center;font-size:11.5px}
+.dim{opacity:.4}
+.spin{display:inline-block;width:10px;height:10px;border:2px solid var(--accent-border);border-top-color:transparent;border-radius:50%;vertical-align:-1px;margin-right:5px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 0;border-bottom:.5px solid var(--border);font-size:11.5px}
+.row .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip{font-size:9.5px;font-family:var(--mono);padding:1px 6px;border-radius:9px;border:.5px solid var(--border-strong);color:var(--text-muted)}
+.chip.d{border-style:dashed}
+.disc{border:.5px solid var(--border);border-radius:8px;padding:7px 9px;margin:6px 0;font-size:11.5px;display:flex;justify-content:space-between}
+.disc::after{content:"▸";color:var(--text-muted)}
+.disc.open::after{content:"▾"}
+.ep{padding:9px 0;border-bottom:.5px dashed var(--border)}
+.tag{font-size:9.5px;font-family:var(--mono);padding:1px 6px;border-radius:9px;background:var(--surface-1);color:var(--text-secondary);margin-right:3px}
+.plat{display:inline-flex;align-items:center;gap:4px;border:.5px solid var(--border-strong);border-radius:14px;padding:3px 9px;font-size:11px;margin:5px 4px 0 0}
+.ico{width:11px;height:11px;border-radius:2px;background:var(--text-muted);display:inline-block}
+.toast{border-radius:8px;padding:8px 10px;font-size:11px;margin:6px 0;border:.5px solid var(--border-strong);background:var(--surface-1)}
+.cap{font-size:11.5px;color:var(--text-secondary);padding:0 4px;line-height:1.45}
+.cap .p{color:var(--accent-text);font-family:var(--mono);font-size:10.5px;margin:0}
+.cap .x{color:var(--warn-text)}
+.cap .s{color:var(--sugg)}
+table{border-collapse:collapse;font-size:11.5px;width:100%;margin:.4rem 0 1rem;background:var(--surface-2)}
+th,td{border:.5px solid var(--border);padding:5px 8px;text-align:left;vertical-align:top}
+th{font-weight:500;background:var(--surface-1)}
+td code,p code{font-family:var(--mono);font-size:10.5px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11px;color:var(--text-secondary);margin:.6rem 0 0}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:22px;height:12px;border-radius:3px;display:inline-block}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>IMNSTR.com — wireframes · draft 1</h1>
+<p class="sub">Module <code>imnstr/modules/01-website/</code> · Phase 4 · <code>wireframes</code>. Low fidelity: layout, content and states only. No brand, type or colour decisions; those are step 4b (Claude Design). Every step of J1–J5 in <code>03-journeys.md</code> §2 and every state in its §3 table is drawn below; plate 13 maps each step to its frame. Phone frames stand for 360 CSS px; the admin is drawn phone-first because the spec makes it so (§4.2).</p>
+<p class="sub"><b>Grading.</b> Every frame is <b>proposal</b>. Captions cite journey steps (<span style="font-family:var(--mono)">J1.7</span>), spec sections (§4.2) and acceptance criteria (AC-15) from <code>02-spec.md</code>. Anything drawn in a dashed purple box is a <b>Suggested</b> gap (G1–G9, journeys §4): not a requirement, drawn as an option so the founder and 4b can see what accepting it would cost on screen. Remove the box and the frame still meets the spec.</p>
+<div class="legend">
+  <span><i class="sw" style="background:var(--accent-bg)"></i>neutral notice</span>
+  <span><i class="sw" style="background:var(--good-bg)"></i>success</span>
+  <span><i class="sw" style="background:var(--warn-bg)"></i>error / not done</span>
+  <span><i class="sw" style="border:1px dashed var(--sugg)"></i>Suggested (G-n) — option only</span>
+  <span><i class="sw" style="background:var(--border)"></i>placeholder text</span>
+</div>
+
+<!-- ───────────────────────────────── 1 ───────────────────────────────── -->
+<h2><span class="n">1</span>Landing — who this is, the projects, two ways in</h2>
+<p class="lead">The landing page is edited in the code repo (journeys decision 1), so it has no admin counterpart and no empty state of its own. It is a single column on a phone: name and one paragraph, the projects as a plain list, and the two ways in. The log link carries no count and no "latest" date; a date here would show a gap to anyone who looks.</p>
+<div class="board">
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/</div>
+      <div class="h">[Name]</div>
+      <div class="p">[One paragraph: who this is and what they work on.]</div>
+      <div class="lbl">Projects</div>
+      <div class="entry"><div class="ttl">[Project name] <span class="lnk" style="font-weight:400;font-size:11px">↗</span></div><div class="body">[One line about it.]</div></div>
+      <div class="entry"><div class="ttl">[Project name]</div><div class="body">[One line. No outbound link: the link is optional.]</div></div>
+      <div class="entry"><div class="ttl">[Project name] <span class="lnk" style="font-weight:400;font-size:11px">↗</span></div><div class="body">[One line about it.]</div></div>
+      <div class="lbl">Elsewhere here</div>
+      <div class="entry"><span class="lnk">Learnings</span> <span class="note">— short notes on what I learn</span></div>
+      <div class="entry"><span class="lnk">Monster Podcast</span> <span class="note">— episodes and where to listen</span></div>
+      <div class="foot"><span>[Name]</span><span class="lnk">Log</span><span class="lnk">Podcast</span><span class="lnk">Feed</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J4.5 · AC-1 · §4.1</p>Who, projects, and links to <code>/log</code> and <code>/podcast</code>. The footer is the shared one from plate 3 (G5 option); without G5 the two links in the body still satisfy AC-1.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="panel">
+      <div class="bar"><b>Notes for 4b</b><span>landing</span></div>
+      <p class="note">• Projects are a list on this page, not cards linking to project pages (no per-project pages, spec §7).</p>
+      <p class="note">• An outbound link is optional per project; a project without one must not look broken (a plain name, no disabled arrow).</p>
+      <p class="note">• No "latest entry" teaser. If 4b wants one, it may show the entry's text but not its date, or it reintroduces the gap AC-5 forbids. Left out here.</p>
+      <p class="note">• No cookie banner on any public page, because nothing sets a cookie (AC-7). Not drawn anywhere.</p>
+    </div>
+    <figcaption class="cap"><p class="p">§4.1 · AC-5 · AC-7</p>Decisions the frame embodies that 4b should keep.</figcaption>
+  </figure>
+</div>
+
+<!-- ───────────────────────────────── 2 ───────────────────────────────── -->
+<h2><span class="n">2</span>The log — empty, one entry, three, and long</h2>
+<p class="lead">The same page at four amounts of data. Newest first, each entry its date, its title if set, its body in full (AC-2). The date is the entry's link to its own URL. Nothing between entries marks time passing: no month headings, no gap spacing, no "3 weeks later" (AC-5). With few entries the page stays a short column; it never stretches to fill the screen or apologises for being short. Paging is "Older entries", not page numbers, because "page 2 of 5" is a count.</p>
+<div class="board">
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/log</div>
+      <div class="h">Learnings</div>
+      <div class="p">[One line on what this log is: short notes, each on one thing learned.]</div>
+      <div class="card" style="margin-top:14px">Nothing published here at the moment.<br>Meanwhile: <span class="lnk">who I am and what I'm working on</span> · <span class="lnk">Monster Podcast</span></div>
+      <div class="foot"><span>[Name]</span><span class="lnk">Home</span><span class="lnk">Podcast</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J4.10 · AC-4 · §4.1 · empty</p>Designed empty state: what the log is and where to go instead. No "0 entries", no "coming soon", no error. The wording "at the moment" also covers "everything was unpublished". No feed link while empty (an empty feed invites nothing).</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/log</div>
+      <div class="h">Learnings</div>
+      <div class="p">[One line on what this log is.]</div>
+      <div class="entry">
+        <div class="date lnk">10 Oct 2026</div>
+        <div class="line"></div><div class="line m"></div><div class="line s"></div>
+        <div class="line" style="margin-top:9px"></div><div class="line s"></div>
+      </div>
+      <div class="sugg" data-g="SUGGESTED · G6">Follow by feed reader: <span class="lnk">feed</span></div>
+      <div class="foot"><span>[Name]</span><span class="lnk">Home</span><span class="lnk">Podcast</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J1.10 · §4.1 · not enough data</p>One untitled entry: date, then body. It looks deliberate because the page is just shorter, with the same header and footer as a full log. Nothing says "first".</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/log</div>
+      <div class="h">Learnings</div>
+      <div class="p">[One line on what this log is.]</div>
+      <div class="entry"><div class="date lnk">2 Nov 2026</div><div class="ttl">[Optional title]</div><div class="line"></div><div class="line s"></div></div>
+      <div class="entry"><div class="date lnk">13 Oct 2026</div><div class="line"></div><div class="line m"></div><div class="line s"></div></div>
+      <div class="entry"><div class="date lnk">10 Oct 2026</div><div class="line"></div><div class="line s"></div></div>
+      <div class="sugg" data-g="SUGGESTED · G6">Follow by feed reader: <span class="lnk">feed</span></div>
+      <div class="foot"><span>[Name]</span><span class="lnk">Home</span><span class="lnk">Podcast</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J4.3 · J4.4 · J2.5 · AC-2 · AC-5 · not enough data</p>Three entries, the dates 20 days apart drawn with exactly the same spacing as 3 days. No paging control: there is nothing to page. Each date links to <code>/log/&lt;id&gt;</code>.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/log</div>
+      <div class="h">Learnings</div>
+      <div class="entry"><div class="date lnk">2 Nov 2026</div><div class="line"></div><div class="line s"></div></div>
+      <div class="entry"><div class="date lnk">1 Nov 2026</div><div class="ttl">[Title]</div><div class="line"></div><div class="line m"></div></div>
+      <div class="entry"><div class="date lnk">9 Oct 2026</div><div class="line"></div><div class="line s"></div></div>
+      <div class="entry note" style="text-align:center">⋮ up to 20 entries ⋮</div>
+      <div style="text-align:center;margin:8px 0"><span class="btn sm">Older entries</span></div>
+      <div class="sugg" data-g="SUGGESTED · G6">Follow by feed reader: <span class="lnk">feed</span></div>
+      <div class="foot"><span>[Name]</span><span class="lnk">Home</span><span class="lnk">Podcast</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J2.5 · J2.9 · §4.1 · AC-5</p>Long log. <b>Proposal:</b> 20 per page, matching the feed's 20, then an "Older entries" link to <code>/log?before=…</code> (a real link, so it works without script). No page numbers, no total. The new entry after the 23-day gap sits on top with nothing marking the gap.</figcaption>
+  </figure>
+</div>
+
+<!-- ───────────────────────────────── 3 ───────────────────────────────── -->
+<h2><span class="n">3</span>An entry, the 404, and the feed</h2>
+<p class="lead">The entry page is where a follower arrives (J4.1): the link in a message is their first sight of the site. The spec lists the entry's content but no way out of it; the shared header line and footer that G5 suggests are drawn as an option. The 404 is the one page unpublishing makes routine; its designed form is G7. The feed is not a page but is drawn as a reader would show it, because AC-3's "untitled entry takes its date as its title" is only visible there.</p>
+<div class="board">
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/log/k3f9q2</div>
+      <div class="sugg" data-g="SUGGESTED · G5">[Name] · <span class="lnk">Home</span> · <span class="lnk">Learnings</span> · <span class="lnk">Podcast</span></div>
+      <div class="date">13 Oct 2026</div>
+      <div class="h" style="margin-top:2px">[Title, if set]</div>
+      <div class="line"></div><div class="line m"></div><div class="line"></div><div class="line s"></div>
+      <div class="line" style="margin-top:10px"></div><div class="line m"></div><div class="body">…with <span class="lnk">a link</span> and <i>emphasis</i>, nothing else (§4.2).</div>
+      <div class="sugg" data-g="SUGGESTED · G5" style="margin-top:14px">More learnings: <span class="lnk">the log</span><br>Who wrote this: <span class="lnk">[Name]</span></div>
+      <div class="foot"><span>[Name]</span><span class="lnk">Home</span><span class="lnk">Log</span><span class="lnk">Podcast</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J1.11 · J4.1 · J4.2 · J4.4 · J4.8 · AC-2 · AC-7 · AC-13</p>Date, title if set, body; no "edited" mark ever (AC-13); no previous/next (they would expose dates of neighbours and a gap). <span class="s">G5:</span> owner and the ways out, top and bottom. Without G5, only the browser's back button leaves this page.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/log/k3f9q2 · 404</div>
+      <div class="p" style="margin-top:12px"><b>Spec minimum (AC-14):</b> the ordinary 404 response, identical for an unpublished entry and a URL that never existed. Whatever the server's default page is.</div>
+      <div class="sugg" data-g="SUGGESTED · G7" style="margin-top:12px">
+        <div class="h" style="margin-top:0">Nothing at this address</div>
+        <div class="p">[One line: it may have moved or never existed.]</div>
+        <span class="lnk">Read the learnings log</span><br><span class="lnk">Who I am</span>
+      </div>
+      <div class="foot"><span>[Name]</span><span class="lnk">Home</span><span class="lnk">Log</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J4.9 · AC-14 · error</p>The same page for "unpublished" and "never existed": no "this entry was removed", which would leave the trace AC-14 forbids. <span class="s">G7</span> is the designed version.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">feed reader · imnstr.com/log/feed.xml</div>
+      <div class="bar"><b>[Name] — Learnings</b><span>Atom</span></div>
+      <div class="entry"><div class="ttl">[Title]</div><div class="date">2 Nov 2026</div></div>
+      <div class="entry"><div class="ttl">13 October 2026</div><div class="date">13 Oct 2026 · untitled → titled by its date</div></div>
+      <div class="entry"><div class="ttl">10 October 2026</div><div class="date">10 Oct 2026</div></div>
+      <div class="card" style="margin-top:10px">Opening an item shows the full text (AC-3) and links to its permanent <code>/log/&lt;id&gt;</code> (J4.8).</div>
+      <div class="sugg" data-g="SUGGESTED · G6">Readers find the feed from any public page through <code>&lt;link rel="alternate" type="application/atom+xml"&gt;</code>; the visible "feed" link sits on <code>/log</code> (plate 2).</div>
+    </div>
+    <figcaption class="cap"><p class="p">J4.6 · J4.7 · J4.8 · AC-3 · §4.1</p>Not a page we design; drawn so 4b and review see the title rule. The date format inside the feed title is a 4b call.</figcaption>
+  </figure>
+</div>
+
+<!-- ───────────────────────────────── 4 ───────────────────────────────── -->
+<h2><span class="n">4</span>The podcast page — empty, one link, several, long</h2>
+<p class="lead">A listener's whole visit is this page (persona E). Each episode: name, date, description, one or two tags as labels (not filters, spec §7), and a row of platform links showing only the links that exist. Known platforms (YouTube, Castbox) have an icon; an unknown label shows as text alone, in the same pill. Episode order is by the episode's date, newest first.</p>
+<div class="board">
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/podcast</div>
+      <div class="h">Monster Podcast</div>
+      <div class="p">[Two lines: what the show is about and who makes it.]</div>
+      <div class="card" style="margin-top:10px">Episodes will be listed here with links to listen.</div>
+      <div class="sugg" data-g="SUGGESTED · G8">The show on: <br><span class="plat"><i class="ico"></i>YouTube</span><span class="plat"><i class="ico"></i>Castbox</span></div>
+      <div class="foot"><span>[Name]</span><span class="lnk">Home</span><span class="lnk">Log</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J5.1 · J5.2 · AC-4 · empty</p>Says what the show is; no "0 episodes", no error, no email capture (spec §7). <span class="x">Open question for 4b/founder:</span> "will be listed" promises a future; if that is unwelcome, use the same "nothing here at the moment" line as the log. <span class="s">G8</span> turns the dead end into somewhere to go.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/podcast</div>
+      <div class="h">Monster Podcast</div>
+      <div class="p">[Two lines about the show.]</div>
+      <div class="ep">
+        <div class="ttl">[Episode name]</div>
+        <div class="date">10 Oct 2026</div>
+        <div class="line"></div><div class="line s"></div>
+        <div><span class="tag">[tag]</span></div>
+        <div><span class="plat"><i class="ico"></i>YouTube ↗</span></div>
+      </div>
+      <div class="foot"><span>[Name]</span><span class="lnk">Home</span><span class="lnk">Log</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J5.6 · J5.7 · AC-6 · §4.4 · not enough data</p>One episode, one link. Castbox is simply absent: no greyed-out pill, no "coming soon" (J5.7). The pill opens the platform in place, not a new tab (a 4b call; noted).</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/podcast</div>
+      <div class="h">Monster Podcast</div>
+      <div class="ep">
+        <div class="ttl">[Episode name]</div>
+        <div class="date">24 Oct 2026</div>
+        <div class="line"></div><div class="line s"></div>
+        <div><span class="tag">[tag]</span><span class="tag">[tag]</span></div>
+        <div><span class="plat"><i class="ico"></i>YouTube ↗</span><span class="plat"><i class="ico"></i>Castbox ↗</span><span class="plat">Spotify ↗</span></div>
+      </div>
+      <div class="ep">
+        <div class="ttl">[Episode name]</div>
+        <div class="date">10 Oct 2026</div>
+        <div class="line"></div>
+        <div><span class="tag">[tag]</span></div>
+        <div><span class="plat"><i class="ico"></i>YouTube ↗</span><span class="plat"><i class="ico"></i>Castbox ↗</span></div>
+      </div>
+      <div class="foot"><span>[Name]</span><span class="lnk">Home</span><span class="lnk">Log</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J5.8 · J5.9 · AC-6 · §4.4</p>The first episode now has its Castbox link, added later as an ordinary edit; its date and place are unchanged. "Spotify" is an unknown label: text, no icon, same pill. Every link has its label; an icon is never the only name.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/podcast</div>
+      <div class="h">Monster Podcast</div>
+      <div class="ep"><div class="ttl">[Episode]</div><div class="date">3 Mar 2027</div><div><span class="plat"><i class="ico"></i>YouTube ↗</span></div></div>
+      <div class="ep"><div class="ttl">[Episode]</div><div class="date">17 Feb 2027</div><div><span class="plat"><i class="ico"></i>YouTube ↗</span><span class="plat"><i class="ico"></i>Castbox ↗</span></div></div>
+      <div class="ep note" style="text-align:center">⋮ up to 20 episodes ⋮</div>
+      <div style="text-align:center;margin:8px 0"><span class="btn sm">Older episodes</span></div>
+      <div class="foot"><span>[Name]</span><span class="lnk">Home</span><span class="lnk">Log</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J5.10 · §4.1</p>Pages exactly like the log (same 20, same "Older" link). Tags are plain labels; tapping one does nothing in v1, so they are not styled as links.</figcaption>
+  </figure>
+</div>
+
+<!-- ───────────────────────────────── 5 ───────────────────────────────── -->
+<h2><span class="n">5</span>Admin setup — the first passkey</h2>
+<p class="lead">The admin before any passkey exists. Server shell first, then a page that does one thing. Until a passkey is registered, every other admin route behaves as if signed out (AC-8).</p>
+<div class="board">
+  <figure class="frame">
+    <div class="shell">$ imnstr setup-token
+One-time setup token (shown once):
+  7Q2M-XK4P-9DHT-L6WB
+Open https://imnstr.com/admin/setup
+on the device to register.
+Valid until used, or 30 min.
+$ _</div>
+    <figcaption class="cap"><p class="p">J1.1 · J3.10 · §4.3</p>Shown once, never stored in clear. The 30-minute expiry is a <b>proposal</b> (spec says single use only); flag for the build plan. Command name is a placeholder.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin/setup</div>
+      <div class="h">Register this device</div>
+      <div class="p">This device will sign in to the admin with a passkey. No password.</div>
+      <div class="lbl">Setup token</div>
+      <div class="field">7Q2M-XK4P-9DHT-L6WB</div>
+      <div style="margin-top:10px"><span class="btn pri full">Create passkey on this device</span></div>
+      <p class="note" style="margin-top:10px">Nothing else is here until this is done.</p>
+    </div>
+    <figcaption class="cap"><p class="p">J1.2 · AC-9 · admin setup</p>One field, one button. If the link carries the token, the field is pre-filled. No menu, no editor, no hint of the admin beyond.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin/setup</div>
+      <div class="h dim">Register this device</div>
+      <div class="p dim">This device will sign in…</div>
+      <div class="dim"><span class="btn full"><i class="spin"></i>Waiting for the passkey prompt…</span></div>
+      <div class="sheet"><b>Create a passkey for imnstr.com?</b><br><span class="note">[OS passkey sheet — Face ID / fingerprint / PIN]</span><br><span class="btn sm" style="margin-top:8px">Continue</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J1.3 · loading</p>Passkey prompt open. The page behind is inert and says what it is waiting for. If C cancels the sheet: back to the previous frame with "Not created. Try again when ready." (neutral, not an error).</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin/setup</div>
+      <div class="h">Register this device</div>
+      <div class="lbl">Setup token</div>
+      <div class="field bad">7Q2M-XK4P-9DHT-L6WB</div>
+      <div class="card w">This token can't be used. Setup tokens work once. Issue a new one on the server if you still need to register a device.</div>
+      <div><span class="btn full dis">Create passkey on this device</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J1.3 · AC-9 · error</p>Token already used (or expired). One message for both: it does not say which, so it leaks nothing about the token's history.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin</div>
+      <div class="card g">Passkey created. You're signed in on this phone.</div>
+      <div class="field area ph">What did you learn? Say it so someone else would get it.</div>
+      <div class="disc">Entries</div><div class="disc">Podcast</div><div class="disc">Passkeys</div>
+      <p class="note">Next: add your laptop's passkey under Passkeys.</p>
+    </div>
+    <figcaption class="cap"><p class="p">J1.3 · AC-9</p>Success lands signed in, on the admin (plate 7). The one-line pointer to add the second device shows only while one passkey exists; it is a setup step, not a count.</figcaption>
+  </figure>
+</div>
+
+<!-- ───────────────────────────────── 6 ───────────────────────────────── -->
+<h2><span class="n">6</span>Sign-in — passkey only</h2>
+<p class="lead">The only thing between C and the editor (J2.1). One button; no username, no password field (AC-9). The failure message is the same every time and slows down with repeated failures (AC-11). After sign-in C lands on the page they asked for, which is almost always the editor.</p>
+<div class="board">
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin</div>
+      <div class="h">Admin</div>
+      <div style="margin-top:14px"><span class="btn pri full">Sign in with a passkey</span></div>
+      <p class="note" style="margin-top:12px">No account? This admin has one user. <span class="mut">(No link: there is no sign-up.)</span></p>
+    </div>
+    <figcaption class="cap"><p class="p">J1.6 · J2.1 · J2.9 · J3.6 · AC-9</p>Opening <code>/admin</code> signed out. The site's name is enough; nothing on this page says whose admin it is beyond the URL.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">laptop · imnstr.com/admin</div>
+      <div class="h dim">Admin</div>
+      <div class="sheet" style="text-align:left"><b>Sign in to imnstr.com</b><br><span class="note">Use a passkey on another device:</span>
+        <div style="width:72px;height:72px;margin:8px auto;background:repeating-linear-gradient(45deg,var(--border) 0 4px,transparent 4px 8px);border:.5px solid var(--border-strong)"></div>
+        <span class="note">[Browser's cross-device sheet: scan with your phone]</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J1.4 · AC-9 · loading</p>On the laptop before it has a passkey: the browser's own cross-device route. We draw nothing of our own here; this is the OS/browser sheet. <span class="s">G1</span> is whether the site then offers to enrol the laptop (plate 10).</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin</div>
+      <div class="h">Admin</div>
+      <div class="card w">Sign-in didn't work. Try again.</div>
+      <div><span class="btn pri full">Sign in with a passkey</span></div>
+      <p class="note" style="margin-top:10px">After repeated failures: <span class="btn sm dis">Try again in 30 s</span></p>
+    </div>
+    <figcaption class="cap"><p class="p">AC-11 · error</p>Generic: never "unknown passkey" vs "wrong device". Back-off shown as a disabled button with a wait, not a count of failures. The 30 s figure is illustrative.</figcaption>
+  </figure>
+</div>
+
+<!-- ───────────────────────────────── 7 ───────────────────────────────── -->
+<h2><span class="n">7</span>The admin — one page, ready to write</h2>
+<p class="lead"><b>Layout call (journeys J2.2 left it here):</b> the editor is always the first thing on <code>/admin</code>, empty, with its prompt as placeholder. Below it, three collapsed sections: Entries, Podcast, Passkeys, and Sign out. The dated list of entries is never in first view, so its top date can't announce a gap. Section headings carry no counts ("Entries", never "Entries (9)"). On a phone with the keyboard up, the editor and the Publish button are all that show.</p>
+<div class="board">
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin</div>
+      <div class="lbl">Title <span class="mut">(optional)</span></div>
+      <div class="field ph">Title</div>
+      <div class="field area ph">What did you learn? Say it so someone else would get it.</div>
+      <div style="display:flex;gap:6px;align-items:center"><span class="btn sm">Link</span><span class="btn sm"><i>Emphasis</i></span><span style="flex:1"></span><span class="btn pri">Publish</span></div>
+      <div class="disc" style="margin-top:14px">Entries</div>
+      <div class="disc">Podcast</div>
+      <div class="disc">Passkeys</div>
+      <div class="foot"><span class="lnk">Sign out</span><span class="lnk">View site</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J1.6 · J2.2 · J2.3 · J2.9 · AC-5 · AC-18 · §4.2</p>The landing state of the admin, first day or after 23 days alike. No greeting, no "welcome back", no last-entry date, no total. Only the body is needed to publish; no date field exists (AC-12).</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin · 360 px · keyboard up</div>
+      <div class="field" style="min-height:24px">Title</div>
+      <div class="field area" style="min-height:120px">[Two short paragraphs being typed, wrapping inside the field, never scrolling sideways.] <span class="lnk">a link</span>|</div>
+      <div style="display:flex;gap:6px;align-items:center"><span class="btn sm">Link</span><span class="btn sm"><i>Em</i></span><span class="note" style="flex:1;text-align:right">Kept on this phone</span><span class="btn pri">Publish</span></div>
+      <div class="kb"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J1.7 · J2.3 · AC-15 · §4.2</p>Keyboard up: the toolbar and Publish stay above the keyboard, in reach of a thumb. "Kept on this phone" is the local-draft signal (no word count, no timer). Adding a link opens a small URL field in place; drawn in 4b.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin</div>
+      <div class="field dim">Title</div>
+      <div class="field area dim">[The entry, read-only while sending.]</div>
+      <div><span class="btn pri full"><i class="spin"></i>Publishing…</span></div>
+      <p class="note" style="margin-top:8px">Publish can't be tapped twice: the button is the spinner.</p>
+    </div>
+    <figcaption class="cap"><p class="p">J1.8 · J2.4 · J3.1 · loading</p>Publish in progress. The text stays visible; nothing is cleared until the server confirms (§4.2). No "first entry!" ever (AC-5).</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin</div>
+      <div class="card g">Published. <span class="lnk">Open</span> · <span class="lnk">Copy link</span><br><span style="font-family:var(--mono);font-size:10px">imnstr.com/log/k3f9q2</span></div>
+      <div class="field ph">Title</div>
+      <div class="field area ph">What did you learn? Say it so someone else would get it.</div>
+      <div style="text-align:right"><span class="btn pri">Publish</span></div>
+      <div class="disc" style="margin-top:10px">Entries</div><div class="disc">Podcast</div><div class="disc">Passkeys</div>
+    </div>
+    <figcaption class="cap"><p class="p">J1.9 · J1.11 · J2.4 · M3 · AC-12</p>Confirmation names the URL, offers Open and Copy (the share step of J1.11), and the editor is empty again, ready. The local draft was cleared on the server's confirmation.</figcaption>
+  </figure>
+</div>
+
+<!-- ───────────────────────────────── 8 ───────────────────────────────── -->
+<h2><span class="n">8</span>Admin — entries: find, fix, unpublish, republish</h2>
+<p class="lead">Entries opened from the collapsed section. Every entry is told apart by date and title, or by its opening words if untitled; drafts carry a "draft" chip, published entries none (J2.6). Newest first. Editing opens the entry in the same editor at the top of the page, with the action changed from Publish to Save.</p>
+<div class="board">
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin · Entries open</div>
+      <div class="disc open">Entries</div>
+      <div class="row"><span class="date">2 Nov</span><span class="t">[Title]</span><span class="btn sm">Edit</span></div>
+      <div class="row"><span class="date">13 Oct</span><span class="t mut">"When a passkey syncs, the…"</span><span class="btn sm">Edit</span></div>
+      <div class="row"><span class="date">12 Oct</span><span class="t mut">"Broken link here, see <span class="lnk">…</span>"</span><span class="btn sm">Edit</span></div>
+      <div class="row"><span class="date">10 Oct</span><span class="t">[Title]</span><span class="chip d">draft</span><span class="btn sm">Edit</span></div>
+      <div class="row"><span class="date mut">—</span><span class="t mut">"Half a thought about…"</span><span class="chip d">draft</span><span class="btn sm">Edit</span></div>
+      <div style="text-align:center;margin:6px 0"><span class="btn sm">Older</span></div>
+      <div class="disc">Podcast</div><div class="disc">Passkeys</div>
+    </div>
+    <figcaption class="cap"><p class="p">J2.6 · J2.8 · AC-5 · AC-14</p>An unpublished entry keeps its original date (it will return there); a never-published draft has no date yet ("—"). No total, no "showing 5 of 9". "Older" pages as on <code>/log</code>.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin · editing</div>
+      <div class="bar"><span>Editing · published 12 Oct 2026</span><span class="lnk">Cancel</span></div>
+      <div class="field ph">Title</div>
+      <div class="field area">[Body, with the broken link now fixed: <span class="lnk">https://…</span>]</div>
+      <div style="display:flex;gap:6px"><span class="btn sm">Unpublish</span><span style="flex:1"></span><span class="btn pri">Save</span></div>
+      <div class="card g">Saved. The live entry now shows this text; its link and date are unchanged.</div>
+    </div>
+    <figcaption class="cap"><p class="p">J2.7 · AC-13</p>Editing a published entry: Save, not Publish. The confirmation says what didn't change (URL, date), and the public page gets no "edited" mark.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin · editing</div>
+      <div class="bar"><span>Editing · published 20 Oct 2026</span><span class="lnk">Cancel</span></div>
+      <div class="field area dim">[Body]</div>
+      <div class="toast"><b>Take this entry off the site?</b><br><span class="note">It leaves the log and the feed; its link stops working. It stays here as a draft.</span><br><span class="btn sm" style="margin-top:6px">Keep it live</span> <span class="btn sm pri" style="margin-top:6px">Unpublish</span></div>
+      <div class="card g">Unpublished. It's in your entries as a draft.</div>
+    </div>
+    <figcaption class="cap"><p class="p">J2.8 · AC-14</p>One confirmation, no reason asked, nothing left on the public site. Drawn as one frame: the confirm, then its result below.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin · editing a draft</div>
+      <div class="bar"><span>Draft · first published 20 Oct 2026</span><span class="lnk">Cancel</span></div>
+      <div class="field area">[The rewritten entry.]</div>
+      <div style="text-align:right"><span class="btn pri">Publish</span></div>
+      <div class="sugg" data-g="SUGGESTED · G9">Publishing puts it back at <b>20 Oct 2026</b>, its original date — not at the top of the log.</div>
+      <div class="card g">Published, at 20 Oct 2026. <span class="lnk">Open</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J2.10 · AC-14</p>Republish restores the original date (spec). The header line "first published 20 Oct" already hints it; <span class="s">G9</span> says it outright before and after.</figcaption>
+  </figure>
+</div>
+
+<!-- ───────────────────────────────── 9 ───────────────────────────────── -->
+<h2><span class="n">9</span>Writing on a phone when things fail</h2>
+<p class="lead">Nothing typed is lost (§4.2, AC-16). Every failure frame keeps the text in the editor, in full, editable, and says in plain words whether it is published. Errors sit directly above the Publish button, where the eye already is, not in a banner at the top that the keyboard hides.</p>
+<div class="board">
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin · offline</div>
+      <div class="field">Title</div>
+      <div class="field area">[The entry, intact and editable.]</div>
+      <div class="card w"><b>Not published yet.</b> The connection dropped. Your text is kept on this phone.</div>
+      <div><span class="btn pri full">Try again</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J3.1 · AC-16 · error</p>Says the one fact that matters first: not published. Nothing half-published anywhere.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin</div>
+      <div class="card g">Published. <span class="lnk">Open</span> · <span class="lnk">Copy link</span></div>
+      <div class="field area ph">What did you learn? Say it so someone else would get it.</div>
+      <div class="sugg" data-g="SUGGESTED · G4">However many times "Try again" was tapped, or the browser retried, exactly one entry exists. Nothing on screen; the server makes publish idempotent.</div>
+    </div>
+    <figcaption class="cap"><p class="p">J3.2 · AC-16</p>The signal returns; C taps Try again (or it retries itself). Same confirmation as J1.9. <span class="s">G4</span> is invisible when it works, so it is a note, not UI.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin · an hour later</div>
+      <div class="card"><b>Unsent text from earlier on this phone</b> — not published.<br><span class="btn sm" style="margin-top:6px">Put it back in the editor</span> <span class="btn sm" style="margin-top:6px">Discard</span></div>
+      <div class="field ph">Title</div>
+      <div class="field area ph">What did you learn? Say it so someone else would get it.</div>
+      <div style="text-align:right"><span class="btn pri">Publish</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J3.3 · §4.2 · loading/recovery</p>The editor is still first, so J2.2 holds; the offer sits above it. "Discard" asks once more before deleting. No time stamp ("from earlier", not "61 min ago"). The laptop doesn't see this draft; accepted in v1.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin · session expired</div>
+      <div class="field">Title</div>
+      <div class="field area">[The entry, intact.]</div>
+      <div class="card w"><b>Not published yet.</b> You've been signed out after an hour idle. Sign in to finish — your text stays here.</div>
+      <div><span class="btn pri full">Sign in and publish</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J3.4 · AC-10 · AC-16 · error</p>Sign-in happens in place (the passkey sheet over this page), not by navigating to <code>/admin</code> sign-in and losing the editor.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin</div>
+      <div class="field dim">Title</div>
+      <div class="field area dim">[The entry.]</div>
+      <div class="sheet"><b>Sign in to imnstr.com</b><br><span class="note">[OS passkey sheet]</span></div>
+    </div>
+    <div class="phone" style="min-height:120px;margin-top:6px">
+      <div class="card g">Signed in. Published. <span class="lnk">Open</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J3.5 · AC-10 · AC-11 · AC-16 · loading → done</p>One passkey prompt, then the publish completes once on the fresh session and CSRF token. Two frames: during and after.</figcaption>
+  </figure>
+</div>
+
+<!-- ───────────────────────────────── 10 ───────────────────────────────── -->
+<h2><span class="n">10</span>Passkeys — add, tell apart, remove, recover</h2>
+<p class="lead">The Passkeys section of <code>/admin</code>. Adding or removing asks for a fresh sign-in first (AC-11). The spec has no names on passkeys; without G2 the list can only show what the browser reports and the date it was added, which may not tell a phone from a laptop. Both versions are drawn.</p>
+<div class="board">
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin · Passkeys open</div>
+      <div class="disc open">Passkeys</div>
+      <p class="note"><b>Spec minimum:</b></p>
+      <div class="row"><span class="t">Passkey · added 10 Oct 2026</span><span class="note">this device</span></div>
+      <div style="margin-top:8px"><span class="btn full">Add a passkey on another device</span></div>
+      <div class="sugg" data-g="SUGGESTED · G2">
+        <div class="row"><span class="t"><b>phone</b> · added 10 Oct 2026</span><span class="note">this device</span></div>
+        <div class="row" style="border:0"><span class="t"><b>laptop</b> · added 10 Oct 2026</span><span class="btn sm">Remove</span></div>
+      </div>
+    </div>
+    <figcaption class="cap"><p class="p">J1.5 · J3.9 · AC-9 · admin setup</p>With one passkey there is no Remove (removing the last would lock C out). <span class="s">G2</span>: a name C typed, so "the phone's" is findable in J3.7.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">laptop · imnstr.com/admin</div>
+      <div class="card">Confirm it's you before changing passkeys.</div>
+      <div><span class="btn pri full">Sign in again</span></div>
+      <div class="sugg" data-g="SUGGESTED · G2" style="margin-top:12px"><div class="lbl" style="margin-top:0">Name this passkey</div><div class="field">laptop</div></div>
+      <div style="margin-top:6px"><span class="btn full dis">Create passkey on this device</span></div>
+      <div class="card g">Passkey added.</div>
+    </div>
+    <figcaption class="cap"><p class="p">J1.4 · J1.5 · AC-11 · admin setup</p>Laptop, signed in via the phone (plate 6), adds its own passkey: re-authenticate, (name it), create. Three moments stacked in one frame.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">laptop · imnstr.com/admin</div>
+      <div class="disc open">Passkeys</div>
+      <div class="row"><span class="t"><b>phone</b> · added 10 Oct 2026</span><span class="btn sm">Remove</span></div>
+      <div class="row"><span class="t"><b>laptop</b> · added 10 Oct 2026</span><span class="note">this device</span></div>
+      <div class="toast"><b>Remove "phone"?</b> <span class="note">It will no longer sign in.</span>
+        <div class="sugg" data-g="SUGGESTED · G2">Any session it has open ends now.</div>
+        <span class="btn sm">Cancel</span> <span class="btn sm pri">Sign in again and remove</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J3.6 · J3.7 · AC-11</p>Remove asks for a fresh sign-in in the same step. "This device" can't be removed from itself if it is the last one. Names drawn as if G2 were accepted; without it, C must work out which "Passkey · added 10 Oct" is the phone.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">new phone</div>
+      <p class="note"><b>Spec route (§4.3):</b> issue a setup token on the server (plate 5, first frame), then on the new phone open <code>/admin/setup</code> and register (plate 5).</p>
+      <div class="sugg" data-g="SUGGESTED · G1">
+        On the laptop, under Passkeys: <span class="btn sm">Enrol a new device</span> → sign in again → a one-time code or QR shown on the laptop for the new phone to open.
+        <div style="width:60px;height:60px;margin:6px auto;background:repeating-linear-gradient(45deg,var(--border) 0 4px,transparent 4px 8px);border:.5px solid var(--border-strong)"></div>
+      </div>
+      <div class="row"><span class="t"><b>laptop</b></span></div><div class="row"><span class="t"><b>new phone</b></span><span class="note">this device</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J3.8 · J3.9 · J3.10 · §4.3</p>Both routes. Ends with two passkeys again (J3.9). Both devices lost (J3.10): only the spec route remains, starting at plate 5; no content is touched. <span class="x">G3</span> (synced passkeys being one credential) is a build-plan check with no screen; not drawn.</figcaption>
+  </figure>
+</div>
+
+<!-- ───────────────────────────────── 11 ───────────────────────────────── -->
+<h2><span class="n">11</span>Admin — the podcast form and its list</h2>
+<p class="lead">The Podcast section of <code>/admin</code>: the list of episodes, newest first, and one form for new and edit. One link row is shown; "Add another link" adds rows. One link is enough to publish (journeys decision 3). The date defaults to today and, unlike an entry's, may be changed: it orders episodes and feeds <code>datePublished</code> (§4.4).</p>
+<div class="board">
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin · Podcast open</div>
+      <div class="disc open">Podcast</div>
+      <div style="margin:4px 0"><span class="btn full">New episode</span></div>
+      <p class="note" style="text-align:center;margin:12px 0">No episodes yet.</p>
+      <div class="disc">Entries</div>
+      <p class="note" style="margin-top:10px">Entries list when empty: "No entries yet." The same one quiet line.</p>
+    </div>
+    <figcaption class="cap"><p class="p">J1.6 · J5.3 · empty</p>The admin's empty lists. "No … yet" is a fact, not a count or an invitation to catch up; the button is the only call to act.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin · new episode · keyboard up</div>
+      <div class="lbl">Name</div><div class="field">[Episode name]</div>
+      <div class="lbl">Description</div><div class="field" style="min-height:40px">[Two lines]</div>
+      <div class="lbl">Tags <span class="mut">(one or two)</span></div><div class="field">[tag]</div>
+      <div class="lbl">Date</div><div class="field">10 Oct 2026 <span class="mut">(today)</span></div>
+      <div class="lbl">Links</div>
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:4px"><div class="field">YouTube</div><div class="field">https://youtu.be/…</div></div>
+      <div class="lnk" style="font-size:11px">+ Add another link</div>
+      <div style="display:flex;gap:6px;margin-top:8px"><span class="btn sm">Save draft</span><span style="flex:1"></span><span class="btn pri">Publish</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J5.3 · J5.4 · AC-15 · AC-17 · §4.4</p>Label and URL side by side on one row would be too narrow at 360 px with long URLs; <b>proposal for 4b:</b> stack label over URL below 400 px. Labels are free text with the known ones offered as suggestions.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin · new episode</div>
+      <div class="lbl">Name</div><div class="field">[Second episode]</div>
+      <div class="lbl">Links</div>
+      <div class="field">YouTube</div>
+      <div class="field bad">youtu.be/abc123</div>
+      <div class="card w">This link needs to start with https:// — for example https://youtu.be/abc123. Nothing else you typed has changed.</div>
+      <div style="text-align:right"><span class="btn pri">Publish</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J5.5 · AC-17 · error</p>Refused at the field, with the fix spelled out using C's own text. Every other field keeps its value. (Auto-prefixing <code>https://</code> is a tempting shortcut; not drawn, since AC-17 says refuse.)</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">imnstr.com/admin · editing an episode</div>
+      <div class="bar"><span>Editing · published · 10 Oct 2026</span><span class="lnk">Cancel</span></div>
+      <div class="lbl">Links</div>
+      <div class="field">YouTube</div><div class="field">https://youtu.be/…</div>
+      <div class="field">Castbox</div><div class="field">https://castbox.fm/…</div>
+      <div class="lnk" style="font-size:11px">+ Add another link</div>
+      <div style="display:flex;gap:6px;margin-top:8px"><span class="btn sm">Unpublish</span><span style="flex:1"></span><span class="btn pri">Save</span></div>
+      <div class="card g">Saved. The episode keeps its date and place.</div>
+    </div>
+    <figcaption class="cap"><p class="p">J5.8 · AC-17 · §4.4</p>Adding a link is an ordinary edit of a published episode: Save, no unpublish. Unpublish and republish work as for entries (plate 8).</figcaption>
+  </figure>
+</div>
+
+<!-- ───────────────────────────────── 12 ───────────────────────────────── -->
+<h2><span class="n">12</span>Calls made here, for 4b and the UX review</h2>
+<p class="lead">Layout decisions the journeys left to wireframes, and small proposals beyond the spec that are not G-items. Each is <b>proposal</b>; 4b or <code>ux-review</code> may overturn any of them.</p>
+<table>
+<tr><th>#</th><th>Call</th><th>Why</th><th>Where</th></tr>
+<tr><td>W1</td><td>Admin order: editor first, then collapsed Entries, Podcast, Passkeys; Sign out last.</td><td>J2.2: the first thing in view is the empty editor, not the dated list.</td><td>plate 7</td></tr>
+<tr><td>W2</td><td>No counts in any heading, list footer or pager ("Older", never page numbers or totals).</td><td>AC-5 forbids counts of entries; a pager's total is one.</td><td>plates 2, 4, 8</td></tr>
+<tr><td>W3</td><td>20 per page on <code>/log</code> and <code>/podcast</code>, via a plain "Older" link.</td><td>Matches the feed's 20; works without script. Spec leaves the threshold to design.</td><td>plates 2, 4</td></tr>
+<tr><td>W4</td><td>No previous/next on an entry page; no "latest" teaser on the landing page.</td><td>Both would expose neighbouring dates, and so gaps.</td><td>plates 1, 3</td></tr>
+<tr><td>W5</td><td>Write-time errors sit just above Publish, not in a top banner.</td><td>The keyboard covers the top of the screen on a phone.</td><td>plate 9</td></tr>
+<tr><td>W6</td><td>Session-expired sign-in happens in place over the editor.</td><td>J3.4: sign in without leaving or losing the entry.</td><td>plate 9</td></tr>
+<tr><td>W7</td><td>"Kept on this phone" as the only draft signal; no time-ago stamps anywhere in the admin.</td><td>"61 min ago" is a timer; §4.2 forbids time since the last entry and the spirit extends to drafts.</td><td>plates 7, 9</td></tr>
+<tr><td>W8</td><td>No Remove on the last passkey.</td><td>Removing it would lock C out, leaving only the server route.</td><td>plate 10</td></tr>
+<tr><td>W9</td><td>Setup token expires after 30 min if unused, as well as on use.</td><td>Beyond the spec (single use only). For the build plan's auth stage, alongside G1–G4.</td><td>plate 5</td></tr>
+<tr><td>W10</td><td>One message for a used and an expired token; one for every sign-in failure.</td><td>Generic failures (§4.3, AC-11).</td><td>plates 5, 6</td></tr>
+<tr><td>W11</td><td>Podcast empty-state wording ("will be listed") is open: it implies a promise.</td><td>Founder or 4b to choose between it and the log's "at the moment".</td><td>plate 4</td></tr>
+</table>
+
+<!-- ───────────────────────────────── 13 ───────────────────────────────── -->
+<h2><span class="n">13</span>Coverage — every journey step and state</h2>
+<p class="lead">Each step of <code>03-journeys.md</code> §2, the plate that draws it, and how. Steps with no screen of ours (OS sheets, a server shell, the listener leaving) are still listed.</p>
+<table>
+<tr><th>Step</th><th>Plate</th><th>Step</th><th>Plate</th><th>Step</th><th>Plate</th></tr>
+<tr><td>J1.1</td><td>5 (shell)</td><td>J2.1</td><td>6</td><td>J3.1</td><td>7 (loading), 9</td></tr>
+<tr><td>J1.2</td><td>5</td><td>J2.2</td><td>7</td><td>J3.2</td><td>9 (G4 note)</td></tr>
+<tr><td>J1.3</td><td>5 (sheet, error, success)</td><td>J2.3</td><td>7</td><td>J3.3</td><td>9</td></tr>
+<tr><td>J1.4</td><td>6 (cross-device), 10</td><td>J2.4</td><td>7</td><td>J3.4</td><td>9</td></tr>
+<tr><td>J1.5</td><td>10</td><td>J2.5</td><td>2</td><td>J3.5</td><td>9</td></tr>
+<tr><td>J1.6</td><td>6, 7, 11 (empty lists)</td><td>J2.6</td><td>8</td><td>J3.6</td><td>6, 10</td></tr>
+<tr><td>J1.7</td><td>7 (keyboard)</td><td>J2.7</td><td>8</td><td>J3.7</td><td>10</td></tr>
+<tr><td>J1.8</td><td>7</td><td>J2.8</td><td>8</td><td>J3.8</td><td>10 (spec route + G1)</td></tr>
+<tr><td>J1.9</td><td>7</td><td>J2.9</td><td>6, 7</td><td>J3.9</td><td>10</td></tr>
+<tr><td>J1.10</td><td>2</td><td>J2.10</td><td>8 (G9)</td><td>J3.10</td><td>5, 10 (note)</td></tr>
+<tr><td>J1.11</td><td>3, 7</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>J4.1</td><td>3</td><td>J4.6</td><td>2, 3 (G6)</td><td>J5.1</td><td>4</td></tr>
+<tr><td>J4.2</td><td>3 (G5)</td><td>J4.7</td><td>3 (feed)</td><td>J5.2</td><td>4 (no capture; nothing to draw)</td></tr>
+<tr><td>J4.3</td><td>2</td><td>J4.8</td><td>3</td><td>J5.3</td><td>11</td></tr>
+<tr><td>J4.4</td><td>2, 3</td><td>J4.9</td><td>3 (404, G7)</td><td>J5.4</td><td>11</td></tr>
+<tr><td>J4.5</td><td>1</td><td>J4.10</td><td>2 (empty)</td><td>J5.5</td><td>11 (error)</td></tr>
+<tr><td></td><td></td><td></td><td></td><td>J5.6–J5.7</td><td>4</td></tr>
+<tr><td></td><td></td><td></td><td></td><td>J5.8</td><td>4, 11</td></tr>
+<tr><td></td><td></td><td></td><td></td><td>J5.9–J5.10</td><td>4</td></tr>
+</table>
+<table>
+<tr><th>State (journeys §3)</th><th>Drawn</th></tr>
+<tr><td><b>Empty</b></td><td><code>/log</code> (2); <code>/podcast</code> (4); admin entries and episodes lists (11)</td></tr>
+<tr><td><b>Not enough data</b></td><td><code>/log</code> with one and with three (2); <code>/podcast</code> with one episode, one link (4)</td></tr>
+<tr><td><b>Error</b></td><td>publish failed (9); session expired (9); setup token used (5); non-https link (11); sign-in failed, generic, with back-off (6); 404 (3)</td></tr>
+<tr><td><b>Loading</b></td><td>publish in progress (7); passkey prompt open (5, 6, 9); unsent draft offered back (9)</td></tr>
+<tr><td><b>Admin setup</b></td><td>first passkey with token (5); passkey list, add, remove, re-auth (10)</td></tr>
+</table>
+<p class="lead"><b>Suggested gaps drawn as options:</b> G1 (10), G2 (10), G4 (9, note only), G5 (1, 3), G6 (2, 3), G7 (3), G8 (4), G9 (8). <b>Not drawn:</b> G3, which has no screen; it is a build-plan check.</p>
+
+<p class="sub" style="margin-top:2rem"><b>Changelog</b> · 0.1 · 2026-10-10 — Step 4, <code>wireframes</code>: thirteen plates covering J1–J5 and every §3 state; G-gaps drawn as dashed options; layout calls W1–W11.<br><b>References</b> · <code>03-journeys.md</code> §2–§4 · <code>02-spec.md</code> §4, §6, §7 · format after <code>tracker/canon/06-specs/05a-delegation-lab-wireframes.html</code>.</p>
+
+</div>
+</body>
+</html>
