@@ -10,6 +10,12 @@
 #             ux-review, eval-plan, build-plan, project-config, build, live-review, close-out
 #   <stage>   phase 8 only: a stage of the build plan's §5 or of a change note's Stages (B3, PL1).
 #             Without a flag the stage is being launched; --land and --verify name the other two steps.
+#        gate <project> fix <id> <branch> [--override "<reason>"]
+#   fix       the Fix track's verify (L-34). <project> is a folder of `lifecycle/projects/`, <id> the
+#             issue's id in that project's known-issues file (B-15), and <branch> the fix's branch in the
+#             code checkout `config.md` names for this machine. It checks the entry, and that the branch
+#             changes a test file and holds a commit naming <id> with a body (the debug summary). Whether
+#             that test fails without the fix is `verify`'s to run, not the gate's.
 #
 # Prints GATE OK, GATE FAIL or GATE OVERRIDDEN on its first line and what it found below. It always
 # exits 0, because a failing injected command aborts the skill before Claude sees it.
@@ -17,7 +23,8 @@
 # Skills call it from their `context.sh`, by root-sot's real path, from any directory. An installed copy
 # of a skill (`~/.claude/skills/<skill>`, from `bin/install-skills`) reads that path from its `.root-sot`
 # file, since `${CLAUDE_SKILL_DIR}/../../..` from there is the home folder. A skill run from its own
-# folder in root-sot is three levels down. `lifecycle/skills/shared/build.sh` holds both lookups.
+# folder in root-sot is three levels down. `lifecycle/skills/shared/build.sh` holds both lookups, and
+# the fix mode's: the code checkout, the base branch and the known-issues entry.
 
 set -u
 export LC_ALL=C GIT_TERMINAL_PROMPT=0
@@ -28,7 +35,7 @@ root=$(dirname "$lifecycle")
 rules="$lifecycle/templates/required-headings.txt"
 
 fails=() warns=() skips=() oks=() notes=()
-module="" rel="" mdir="" phase="" name="" stage="" mode=launch override="" strict=1
+module="" rel="" mdir="" phase="" name="" stage="" mode=launch override="" strict=1 branch=""
 declare -A cell=()
 
 fail() { fails+=("$1"); }
@@ -37,13 +44,14 @@ fail() { fails+=("$1"); }
 content() { if [ "$strict" = 1 ]; then fails+=("$1"); else warns+=("warning: $1"); fi; }
 
 usage() {
-	echo "GATE FAIL usage: gate <module> <phase> [<stage>] [--land | --verify] [--override \"<reason>\"]${1:+ — $1}"
+	echo "GATE FAIL usage: gate <module> <phase> [<stage>] [--land | --verify] [--override \"<reason>\"], or gate <project> fix <id> <branch>${1:+ — $1}"
 	exit 0
 }
 
 finish() {
 	local head="$rel · phase $phase ($name)${stage:+ · $stage}" line
 	[ "$phase" = 8 ] && [ "$mode" != launch ] && head="$head --$mode"
+	[ "$phase" = fix ] && head="$module · fix $stage · $branch"
 	if ((${#fails[@]})) && [ -n "$override" ]; then
 		echo "GATE OVERRIDDEN · $head · reason: \"$override\""
 		for line in "${fails[@]}"; do echo "  overridden: $line"; done
@@ -522,6 +530,100 @@ inbox_empty() {
 }
 
 # ---------------------------------------------------------------------------------------------
+# The Fix track (L-34)
+
+# shared <function> [args]: one of `skills/shared/build.sh`'s lookups, in a subshell, so its
+# definitions don't replace the gate's.
+# shellcheck disable=SC1091,SC2034 # build.sh is checked on its own, and reads $lc
+shared() { (lc=$lifecycle && . "$lifecycle/skills/shared/build.sh" && "$@"); }
+
+fix_check() {
+	local project=$module dir f ki hit checkout base ref n tests others=0 h subject body
+	dir="$lifecycle/projects/$project"
+	if [ ! -d "$dir" ]; then
+		fail "project: there is no lifecycle/projects/$project/ (projects: $(find "$lifecycle/projects" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; 2>/dev/null | sort | join_ids))"
+		return
+	fi
+	if [ ! -f "$lifecycle/skills/shared/build.sh" ]; then
+		fail "fix: lifecycle/skills/shared/build.sh is missing, and the fix mode reads checkouts and entries through it"
+		return
+	fi
+	for f in brief-common review-checklist config; do
+		if [ -f "$dir/$f.md" ]; then headings "$dir/$f.md" "lifecycle/projects/$project/$f.md"; else fail "missing file: lifecycle/projects/$project/$f.md"; fi
+	done
+
+	# The card: the issue's entry.
+	ki=$(shared known_issues "$project")
+	if [ -z "$ki" ]; then
+		fail "issue: no *known-issues*.md under $(shared area_of "$project")/, so there is no entry to verify against"
+	else
+		hit=$(shared issue_line "$root/$ki" "$stage")
+		if [ -z "$hit" ]; then
+			fail "issue: $ki has no entry for $stage"
+		else
+			stage=$(grep -o -i -E -- "$stage" <<<"${hit#*:}" | head -n 1)
+			oks+=("issue: $stage is $ki:${hit%%:*}")
+			grep -qiE '~~|(^|[^a-z])(fixed|resolved|closed) (in|by|on)' <<<"${hit#*:}" &&
+				notes+=("issue: the entry may read as fixed already: \"$(cut -c1-120 <<<"${hit#*:}")\"")
+		fi
+	fi
+
+	# The branch, in this machine's checkout.
+	checkout=$(shared checkout_of "$dir/config.md")
+	if [ -z "$checkout" ]; then
+		fail "code: none of the checkouts lifecycle/projects/$project/config.md names is on this machine"
+		return
+	fi
+	if git -C "$checkout" rev-parse --verify --quiet "refs/heads/$branch" >/dev/null; then
+		ref=$branch
+	elif git -C "$checkout" rev-parse --verify --quiet "refs/remotes/origin/$branch" >/dev/null; then
+		ref=origin/$branch
+		notes+=("code: $branch is only on origin; read as origin/$branch")
+	else
+		fail "code: no branch $branch in $checkout"
+		return
+	fi
+	base=$(shared base_of "$checkout")
+	n=$(git -C "$checkout" rev-list --count "$base..$ref" 2>/dev/null || echo 0)
+	if [ "$n" = 0 ]; then
+		fail "code: $branch has no commits beyond $base"
+		return
+	fi
+	oks+=("code: $branch is $n commit(s) beyond $base, in $checkout")
+
+	# The reproducing test: a test file the branch adds or changes.
+	tests=()
+	while IFS= read -r f; do
+		[ -n "$f" ] || continue
+		if shared is_test "$f"; then tests+=("$f"); else others=$((others + 1)); fi
+	done < <(git -C "$checkout" diff --name-only --diff-filter=AM "$base...$ref" 2>/dev/null)
+	if ((${#tests[@]})); then
+		oks+=("test: $branch adds or changes ${#tests[@]} test file(s): $(printf '%s\n' "${tests[@]}" | join_ids)")
+	else
+		fail "test: $branch adds or changes no test file against $base, so nothing on it reproduces the failure"
+	fi
+	[ "$others" = 0 ] && notes+=("code: $branch changes only test files")
+
+	# The report: the newest commit naming the id, and its body.
+	h=$(git -C "$checkout" log -i -E --grep="(^|[^A-Za-z0-9])$stage([^0-9]|\$)" --format=%h -n 1 "$base..$ref" 2>/dev/null)
+	if [ -z "$h" ]; then
+		fail "report: no commit on $branch names $stage in its message, so there is no debug summary to read"
+	else
+		subject=$(git -C "$checkout" log -1 --format=%s "$h")
+		body=$(git -C "$checkout" log -1 --format=%b "$h" | grep -v -i -E '^[[:space:]]*(co-authored-by|signed-off-by):' | grep -c '[^[:space:]]')
+		if [ "$body" = 0 ]; then
+			fail "report: $h \"$subject\" names $stage, but its message has no body, so there is no debug summary"
+		else
+			oks+=("report: $h \"$subject\", with a $body-line body")
+		fi
+	fi
+
+	git -C "$checkout" cat-file -e "$ref:docs/development/fix-$stage.md" 2>/dev/null &&
+		notes+=("record: docs/development/fix-$stage.md is on $branch already; this fix was verified before")
+	return 0
+}
+
+# ---------------------------------------------------------------------------------------------
 # Arguments
 
 while (($#)); do
@@ -540,6 +642,7 @@ while (($#)); do
 			if [ -z "$module" ]; then module=$1
 			elif [ -z "$phase" ]; then phase=$1
 			elif [ -z "$stage" ]; then stage=$1
+			elif [ -z "$branch" ] && [ "$(tr '[:upper:]' '[:lower:]' <<<"$phase")" = fix ]; then branch=$1
 			else usage "too many arguments"; fi
 			shift
 			;;
@@ -561,9 +664,18 @@ case $(tr '[:upper:]' '[:lower:]' <<<"$phase") in
 	8 | build | build-phase) phase=8 name=build ;;
 	9 | live-review) phase=9 name=live-review ;;
 	10 | close-out) phase=10 name=close-out ;;
+	fix) phase=fix name=fix ;;
 	*) usage "unknown phase \"$phase\"" ;;
 esac
-if [ "$phase" = 8 ]; then
+if [ "$phase" = fix ]; then
+	if [ -z "$stage" ] || [ -z "$branch" ]; then usage "fix needs an issue id and a branch: gate <project> fix <id> <branch>"; fi
+	[ "$mode" = launch ] || usage "--land and --verify are for phase 8"
+	[[ $stage =~ ^[A-Za-z][A-Za-z0-9]*-[0-9]+$ ]] || usage "\"$stage\" isn't an issue id (B-15)"
+	module=${module%/}
+	check_branch
+	fix_check
+	finish
+elif [ "$phase" = 8 ]; then
 	[ -n "$stage" ] || usage "phase 8 needs a stage"
 else
 	[ -z "$stage" ] || usage "only phase 8 takes a stage"

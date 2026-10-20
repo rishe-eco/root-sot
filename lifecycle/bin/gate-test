@@ -33,6 +33,11 @@ cp -R "$src/$M" "$work/$M"
 mkdir -p "$work/lifecycle/skills"
 cp "$src/lifecycle/bin/install-skills" "$work/lifecycle/bin/"
 for s in shared build-phase verify; do cp -R "$src/lifecycle/skills/$s" "$work/lifecycle/skills/"; done
+# For the fix mode: Tracker's config, pointed at a throwaway code repo, and its known-issues file.
+K=tracker/canon/04-roadmap/01-known-issues-and-debt.md
+cp -R "$src/lifecycle/projects/tracker" "$work/lifecycle/projects/"
+sed "s|~/Desktop/Root/tracker|$tmp/tracker|g" "$src/lifecycle/projects/tracker/config.md" >"$work/lifecycle/projects/tracker/config.md"
+mkdir -p "$work/${K%/*}" && cp "$src/$K" "$work/$K"
 git init -q "$work"
 g symbolic-ref HEAD refs/heads/main
 g add -A
@@ -170,6 +175,47 @@ expect "a stage outside phase 8" "GATE FAIL usage" "only phase 8 takes a stage" 
 expect "a module that doesn't exist" "GATE FAIL" "missing folder: imnstr/modules/99-none" imnstr/modules/99-none 3
 expect "intake for a module not yet created" "GATE OK" "ideate creates imnstr/modules/99-none" imnstr/modules/99-none 0
 
+echo "== The fix mode (gate <project> fix <id> <branch>, L-34)"
+# The code repo: main, and a branch per case. Each fix branch changes app.ts; the ones that name B-15
+# say so in their commit's subject.
+c() { git -C "$tmp/tracker" -c user.name=gate-test -c user.email=gate-test@example.invalid "$@"; }
+# fixb <branch> <message> <file>…: a branch from main with one commit changing each file.
+fixb() {
+	local b=$1 m=$2 f
+	shift 2
+	c checkout -q -b "$b" main
+	for f in "$@"; do mkdir -p "$tmp/tracker/$(dirname "$f")" && echo "$b" >>"$tmp/tracker/$f"; done
+	c add -A && c commit -qm "$m"
+}
+git init -q "$tmp/tracker"
+c symbolic-ref HEAD refs/heads/main
+echo "app" >"$tmp/tracker/app.ts" && c add -A && c commit -qm "app"
+fixb fix/b-15 $'Fix B-15: a group showed a status\n\nThe cause, the fix and the tests.\n\nCo-Authored-By: x <x@example.invalid>' app.ts client/app/test/Status.test.tsx
+fixb fix/no-test $'Fix B-15: no test\n\nThe cause.' app.ts
+fixb fix/no-body $'Fix B-15: no body\n\nCo-Authored-By: x <x@example.invalid>' app.ts app.spec.ts
+fixb fix/no-id $'Fix the status\n\nThe cause.' app.ts e2e/status.ts
+fixb fix/verified $'Fix B-15: verified\n\nThe cause.' app.ts app.test.ts docs/development/fix-B-15.md
+c checkout -q main
+expect "a fix with a test and a summary" "GATE OK · tracker · fix B-15 · fix/b-15" "test: fix/b-15 adds or changes 1 test file(s): client/app/test/Status.test.tsx" tracker fix B-15 fix/b-15
+expect "… names the entry" "GATE OK" "issue: B-15 is $K:" tracker fix B-15 fix/b-15
+expect "… reads the commit's body, not its trailers" "GATE OK" "with a 1-line body" tracker fix B-15 fix/b-15
+expect "an id in lower case" "GATE OK · tracker · fix B-15" - tracker fix b-15 fix/b-15
+expect "an id with no entry" "GATE FAIL" "issue: $K has no entry for B-99" tracker fix B-99 fix/b-15
+expect "a branch that isn't there" "GATE FAIL" "code: no branch fix/none in $tmp/tracker" tracker fix B-15 fix/none
+expect "a branch with no commits" "GATE FAIL" "code: main has no commits beyond main" tracker fix B-15 main
+expect "no test file" "GATE FAIL" "test: fix/no-test adds or changes no test file" tracker fix B-15 fix/no-test
+expect "no body in the commit" "GATE FAIL" "names B-15, but its message has no body" tracker fix B-15 fix/no-body
+expect "no commit names the id" "GATE FAIL" "report: no commit on fix/no-id names B-15" tracker fix B-15 fix/no-id
+expect "… and --override" "GATE OVERRIDDEN" 'reason: "debug wrote no summary"' tracker fix B-15 fix/no-id --override "debug wrote no summary"
+expect "a fix verified before" "GATE OK" "record: docs/development/fix-B-15.md is on fix/verified already" tracker fix B-15 fix/verified
+expect "a project with no config" "GATE FAIL" "project: there is no lifecycle/projects/nope/" nope fix B-15 fix/b-15
+expect "a project with no known-issues file" "GATE FAIL" "issue: no *known-issues*.md under imnstr/" imnstr fix B-15 fix/b-15
+expect "no branch named" "GATE FAIL usage" "fix needs an issue id and a branch" tracker fix B-15
+expect "an id that isn't one" "GATE FAIL usage" "\"B15\" isn't an issue id" tracker fix B15 fix/b-15
+mv "$tmp/tracker" "$tmp/elsewhere"
+expect "no checkout on this machine" "GATE FAIL" "code: none of the checkouts lifecycle/projects/tracker/config.md names" tracker fix B-15 fix/b-15
+mv "$tmp/elsewhere" "$tmp/tracker"
+
 echo "== Installed skills reach the gate (bin/install-skills, .root-sot)"
 # expect_skill <case> <a line starts with> <a line contains, or -> <context.sh> <its argument line>:
 # runs a skill's context.sh as an injected command does, from outside root-sot, with the argument on
@@ -200,6 +246,11 @@ expect_skill "a skill run from its own folder in root-sot" "GATE OK · $M · pha
 mkdir -p "$tmp/bare/skills" && cp -R "$work/lifecycle/skills/verify" "$tmp/bare/skills/"
 expect_skill "a copy with no .root-sot says so" "ROOT-SOT NOT FOUND" "Rerun bin/install-skills" "$tmp/bare/skills/verify/context.sh" "PL1"
 expect_skill "an unknown stage lists each module's stages" "No module's build plan" "- $M: B1 B2 B3" "$tmp/skills/verify/context.sh" "Q9"
+expect_skill "installed verify --fix finds the project and runs the gate" "GATE OK · tracker · fix B-15 · fix/b-15" "- **B-15 — " "$tmp/skills/verify/context.sh" "--fix B-15 fix/b-15"
+expect_skill "… and prints the commit as the report" "### " "The cause, the fix and the tests." "$tmp/skills/verify/context.sh" "--fix B-15 fix/b-15"
+expect_skill "verify --fix passes --override" "GATE OVERRIDDEN · tracker · fix B-15 · fix/no-test" 'reason: "a manual check"' "$tmp/skills/verify/context.sh" "--fix B-15 fix/no-test --override \"a manual check\""
+expect_skill "verify --fix with an id no project has" "No project's known-issues file" "- tracker: $K" "$tmp/skills/verify/context.sh" "--fix B-99 fix/b-15"
+expect_skill "verify --fix with no branch" "Name the issue's id and the fix's branch" - "$tmp/skills/verify/context.sh" "--fix B-15"
 
 echo
 echo "$passed passed, $failed failed"

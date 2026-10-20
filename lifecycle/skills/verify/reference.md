@@ -2,7 +2,7 @@
 
 *Seeds for this skill's reference file and template, moved unchanged out of `skills-plan.md` 0.5 at 0.6. They bind as the plan does. The skill's first author places them, in stage 2 or later.*
 
-**Version 0.2 · Status: placed — `SKILL.md` binds · 2026-10-20 · Owner: _root**
+**Version 0.3 · Status: placed — `SKILL.md` binds · 2026-10-20 · Owner: _root**
 
 ---
 
@@ -16,6 +16,14 @@ What placing added. Each is Claude's call, not yet reviewed by the founder:
 - the milestone run waits for the founder's devices, given in the argument (`devices: …`), since the fork can't ask for them;
 - the stage record's sections are root-app's (built · decided · owed · flagged for close-out · verification), the J12 shape plus the close-out flags;
 - verify writes column 8, counting Change stages as `README.md` §3 says. The IMNSTR trial left Change stages out of the count.
+
+**The fix mode** (`verify --fix <id> <branch>`, L-34) was added to `SKILL.md` on 2026-10-20 (rollout stage 2, session E), with its gate check in `bin/gate` (`gate <project> fix <id> <branch>`). It has no seed. L-34 set what stands in for the card, the report and column 8; these are Claude's calls inside that, not yet reviewed by the founder:
+- the gate's "reproducing test" is a mechanical proxy: the branch adds or changes a file `is_test` recognises. Proving the test fails without the fix is `verify`'s step 1, by putting the branch's other changed files back to the merge base and rerunning the tests. A failure only from a missing export doesn't count;
+- the gate also requires a commit on the branch that names the id, with a body beyond its trailers: that body is the report;
+- the base branch is `main`, else `master` (`base_of`). No config row names it yet;
+- the project is found by the id's entry in a known-issues file (`*known-issues*.md` under the project's area), or named as a third argument;
+- a stale entry is flagged in the fix record and the return, not corrected: L-34's *Revisit* leaves who corrects it open;
+- the fix record's sections are the stage record's plus **Cause**. A Fix writes no column 8, no stage-list line, and no full suites.
 
 **"Every feature present"** (the last seed) has no step of its own. It is a milestone's by-hand item, read from the open-work file's rows.
 
@@ -47,5 +55,6 @@ What placing added. Each is Claude's call, not yet reviewed by the founder:
 
 ## Changelog
 
+- **0.3 · 2026-10-20** — Records the fix mode added to `SKILL.md` (L-34) and the calls made in it.
 - **0.2 · 2026-10-20** — Placed in `SKILL.md` 0.1. This file keeps the seeds as moved and a record of what placing added.
 - **0.1 · 2026-10-20** — Seeds, moved unchanged out of `skills-plan.md` 0.5 at 0.6.

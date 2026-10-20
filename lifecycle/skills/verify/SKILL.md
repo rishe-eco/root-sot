@@ -1,7 +1,7 @@
 ---
 name: verify
-description: Reviews a landed build stage of a root-sot lifecycle module in a fresh forked context. It exercises the code first, checks the diff against the project's review checklist, fixes on the lane's branch, merges the base in, reruns the affected tests, writes the stage record and moves owed items to the open-work file, ending at "ready to fast-forward" or what blocks it. With --milestone <M>, it runs the project's milestone suites instead. Run by name only, after build-phase <stage> --land.
-argument-hint: "<stage> [<module folder>] [--override \"<reason>\"] | --milestone <M> [<module folder>] [devices: …]"
+description: Reviews a landed build stage of a root-sot lifecycle module in a fresh forked context. It exercises the code first, checks the diff against the project's review checklist, fixes on the lane's branch, merges the base in, reruns the affected tests, writes the stage record and moves owed items to the open-work file, ending at "ready to fast-forward" or what blocks it. With --milestone <M>, it runs the project's milestone suites instead. With --fix <id> <branch>, it reviews a Fix from debug against its known-issues entry. Run by name only, after build-phase <stage> --land, or after debug on the Fix track.
+argument-hint: "<stage> [<module folder>] [--override \"<reason>\"] | --milestone <M> [<module folder>] [devices: …] | --fix <id> <branch> [<project>] [--override \"<reason>\"]"
 disable-model-invocation: true
 model: opus
 effort: high
@@ -16,7 +16,7 @@ Review one landed stage as the person who has to ship it. Run the code first, th
 
 **This runs forked:** a fresh context that holds only this skill and what is injected below (`README.md` §5 rule 4). You can't ask the founder anything, and nothing you say reaches them until you return. Anything that needs their yes goes in your return, under *For the main session*, with the exact command. The main session asks them and runs it. **Read further only where the diff points.** The inputs below are chosen so the review isn't steered by the build's own story.
 
-**Start with one line:** `verify · <stage or milestone> · Opus, high effort, forked`. This skill's frontmatter sets that model. If you aren't Opus, say which model you are and stop. Effort here is ${CLAUDE_EFFORT}. If it isn't `high`, say so in that line and carry on. **The second line answers a stage 2 check** (`skills-plan.md` §0 *Forking*): can this fork edit files, commit and run a suite? Say `fork: edits, commits and suites work`, or name the first one refused. If one is refused, do what you can and return the rest as steps for the main session.
+**Start with one line:** `verify · <stage, milestone or fix id> · Opus, high effort, forked`. This skill's frontmatter sets that model. If you aren't Opus, say which model you are and stop. Effort here is ${CLAUDE_EFFORT}. If it isn't `high`, say so in that line and carry on. **The second line answers a stage 2 check** (`skills-plan.md` §0 *Forking*): can this fork edit files, commit and run a suite? Say `fork: edits, commits and suites work`, or name the first one refused. If one is refused, do what you can and return the rest as steps for the main session.
 
 The argument was: `$ARGUMENTS`
 
@@ -29,9 +29,9 @@ LIFECYCLE_ARGS
 ```
 
 **Before anything else:**
-- If the injected section says `ROOT-SOT NOT FOUND`, or names no stage, module or milestone, return that and stop.
-- In stage mode, read the gate's first line. `GATE FAIL`: return what it found, in its words, and stop. `GATE OVERRIDDEN`: carry on, and copy the reason into the stage record's header.
-- If the code checkout isn't on this machine, or the lane's branch isn't in it, return that with what the main session must do (clone it, or have the founder push the branch from the lane's machine) and stop. A review without the code is no review.
+- If the injected section says `ROOT-SOT NOT FOUND`, or names no stage, module, milestone or fix, return that and stop.
+- In stage and fix mode, read the gate's first line. `GATE FAIL`: return what it found, in its words, and stop. `GATE OVERRIDDEN`: carry on, and copy the reason into the stage record's header.
+- If the code checkout isn't on this machine, or the lane's or fix's branch isn't in it, return that with what the main session must do (clone it, or have the founder push the branch from the lane's machine) and stop. A review without the code is no review.
 
 ## A stage: `verify <stage>`
 
@@ -104,17 +104,52 @@ The fork ends at "ready to deploy". The push, reading the run and recording its 
 5. **Push** only docs and test infrastructure, and only after reading the stop-file list. That push is the main session's, with the founder's word.
 6. If the module's learnings inbox is due at this milestone (`README.md` §5 rule 7), say so in your return.
 
-## What you return
+## A fix: `verify --fix <id> <branch>`
+
+The Fix track is debug → verify → decision record (`lifecycle/README.md` §1, L-34). A Fix has no module, card or lane report. In their place:
+- **the card** is the issue's entry in the project's known-issues file, injected above. It may be older than the fix and describe the symptom wrongly;
+- **the report** is the debug summary in the fix commit's message: the cause, the fix and the tests;
+- **the gate** checked that the branch changes a test file and holds a commit naming the id with a body. Whether that test reproduces the failure is yours to prove, in step 1.
+
+Work on the fix's branch in the main checkout, which `config.md` §1 gives `verify`. If that checkout is on another branch with work in progress, make a worktree from the fix's branch with `git worktree add` instead. Start from a clean `git status`.
+
+0. **Fetch.** If the base branch moved past the branch's merge base, merge it in first.
+
+1. **Reproduce first.** The test must fail without the fix, for the reason the entry or the commit gives.
+   - Run the branch's test files on the branch, and see them pass.
+   - Put the branch's other changed files back to the merge base (`git -C <checkout> checkout <merge base> -- <files>`), keeping the test files. Run the same test files, and read which tests fail and why. Then restore the files (`git -C <checkout> checkout <branch> -- <files>`) and check that `git status` is clean again.
+   - A test that fails only because the fix's new export or helper is missing hasn't reproduced anything. At least one test must fail on an assertion that names the wrong outcome. If none does, write that test, see it fail the same way, and commit it.
+   - Record the failing run's key line and the merge base's hash for the record's *Verification*.
+
+2. **The cause against the entry.** Read the commit's cause, then the diff's core files, and decide whether the cause explains the entry's symptom. If the entry describes the symptom wrongly, or names a cause the code doesn't have, the entry is stale. Say how in the record's *Flagged for close-out*, and in your return. Don't edit the known-issues file or any other canon.
+
+3. **Exercise beyond the test.** Probe the changed rule with inputs its tests don't hold. Grep for every other caller of a changed helper, and check each still gets what it got before, or what the fix means it to get. On a UI fix, look at the changed screen, as the checklist's UI section says.
+
+4. **Check against the review checklist** above: the sections that apply to the diff (house rules, every stage, UI). Fixes, and tests the review adds, follow stage step 3's rules.
+
+5. **Rerun what the fix and the review touched:** the branch's test files, every file that asserts a changed rule or imports a changed helper (found with grep), the type check, and the i18n checks when strings or keys changed. No full suites: a Fix isn't a milestone.
+
+6. **Fetch again,** then write the **fix record** in the code repo: `docs/development/fix-<id>.md`, beside the stage records (create the folder if it isn't there). Its sections are **Cause** (as the review found it, and whether it matches the commit's), **Built**, **Decided**, **Owed**, **Flagged for close-out** (the stale entry, and anything else in the canon the fix contradicts) and **Verification** (the failing-first run against the merge base, the tests rerun with exact counts, each checklist item's grade, and the flakes). Commit it on the branch.
+
+7. **Owed items** go to the open-work file, as in stage step 7.
+
+8. **No column 8, no stage list.** A Fix isn't a module stage, so it writes no cell in `lifecycle/status.md` and no line in the development README's stage list.
+
+9. **The lesson.** One capture note, from the commit's summary and from this review's lessons about *working*, to `lifecycle/learnings/inbox/<date>-verify-fix-<id>.md`. Commit it by path.
+
+10. **Ready or not.** Fetch once more. If nothing blocks, the fix is "ready to fast-forward" into the base. The merge and any push are the main session's, after the founder's word, as for a stage. The decision record that ends the Fix track is the main session's too: name it in your return.
+
 
 At most 15 lines, then *For the main session*:
 
 ```
-verify · <stage> · Opus, high, forked
+verify · <stage | fix <id>> · Opus, high, forked
 fork: <edits, commits and suites work | the first refused>
+Reproduced: <a fix only: the test that fails against the merge base @ hash, and its key line>
 Exercised: <what ran, and what it showed>
 Fixed: <n> commits · <the findings, by checklist item>
 Tests: <files rerun, with counts> · flakes: <none | which, 5× alone>
-Record: <path> @ <hash> · open-work: <rows added> · status: column 8 <n/total>
+Record: <path> @ <hash> · open-work: <rows added> · status: column 8 <n/total | none: a fix>
 Back to a lane or the founder: <items, or none>
 Result: ready to fast-forward | ready to deploy | blocked: <why>
 ```
@@ -123,6 +158,6 @@ Result: ready to fast-forward | ready to deploy | blocked: <why>
 - fast-forward or push `<base>`, and then remove the lane's worktree and branch;
 - read the deploy run and add its URL to the stage record;
 - the correction-only edits and config changes above;
-- the next step: `/handoff <module>`, whose first next step is the next stage's `build-phase`, or `verify --milestone <M>` when this stage closes one.
+- the next step: `/handoff <module>`, whose first next step is the next stage's `build-phase`, or `verify --milestone <M>` when this stage closes one. After a fix: `/decision-record` for the fix, then `/handoff` (to `lifecycle/STATE.md`), and the stale entry for the founder to settle.
 
 If the push can't happen this session, the line is "push pending: founder".

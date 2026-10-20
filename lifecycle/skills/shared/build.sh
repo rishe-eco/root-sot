@@ -1,8 +1,10 @@
 # shellcheck shell=bash disable=SC2016 # backticks in patterns are literal Markdown
 # build.sh — what the build skills' context scripts share: finding root-sot, the gate, a module's
-# project and config, its code checkout, and the stage's section in the plan or change note.
+# project and config, its code checkout, the stage's section in the plan or change note, and a Fix's
+# known-issues entry.
 #
-# Sourced, never run: `. "$root/lifecycle/skills/shared/build.sh"` after `find_root`. It lives in
+# Sourced, never run: `. "$root/lifecycle/skills/shared/build.sh"` after `find_root`. `bin/gate`'s fix
+# mode also sources it, in a subshell, with $root and $lc set. It lives in
 # `shared/`, which has no SKILL.md, so `bin/install-skills` doesn't copy it; the installed skills reach
 # it through root-sot. Every function prints and returns 0, because a context script must exit 0: a
 # failing injected command aborts the skill before Claude sees it (`skills-plan.md` §0 *The gate*).
@@ -122,6 +124,59 @@ code_state() {
 	echo "worktrees:"
 	git -C "$1" worktree list 2>/dev/null | sed 's/^/  /'
 }
+
+# base_of <checkout>: the branch stages and fixes merge into: main, else master.
+base_of() {
+	local b
+	for b in main master; do
+		git -C "$1" rev-parse --verify --quiet "refs/heads/$b" >/dev/null && { echo "$b"; return 0; }
+	done
+	echo main
+}
+
+# --- Fixes (`verify --fix`, the gate's fix mode) ---------------------------------------------------
+
+# is_issue_id <id>: a known-issues id, letters then a dash and a number (B-15, D-3).
+is_issue_id() { [[ $1 =~ ^[A-Za-z][A-Za-z0-9]*-[0-9]+$ ]]; }
+
+# area_of <project>: the root-sot area that holds a project's canon: its own folder, except root-app's,
+# which is Root's (`ecosystem/`), as in project_of.
+area_of() { case $1 in root-app) echo ecosystem ;; *) echo "$1" ;; esac; }
+
+# known_issues <project>: the project's known-issues file, relative to root-sot, or nothing.
+known_issues() {
+	local a f
+	a=$(area_of "$1")
+	[ -d "$root/$a" ] || return 0
+	f=$(find "$root/$a" -name '*known-issues*.md' -not -path '*/.git/*' 2>/dev/null | sort | head -n 1)
+	[ -n "$f" ] && echo "${f#"$root"/}"
+	return 0
+}
+
+# issue_line <file> <id>: "<line number>:<line>" of the entry that names <id> in bold, or in a table
+# row's first cell, ignoring case. <id> must pass is_issue_id.
+issue_line() {
+	[ -f "$1" ] || return 0
+	grep -n -i -E "(\*\*|^\|[[:space:]]*\**)$2([^0-9A-Za-z]|\$)" "$1" | head -n 1
+	return 0
+}
+
+# issue_entry <file> <id>: that entry, from its line up to the next list item, table row, heading or blank line.
+issue_entry() {
+	local n
+	n=$(issue_line "$1" "$2" | cut -d: -f1)
+	[ -n "$n" ] || return 0
+	awk -v n="$n" '
+		{ sub(/\r$/, "") }
+		NR == n { print; on = 1; next }
+		on && (/^[ \t]*$/ || /^#/ || /^[ \t]*([-*+]|[0-9]+[.)])[ \t]/ || /^[ \t]*\|/) { exit }
+		on { print }
+	' "$1"
+}
+
+# is_test <path>: a test file by its path: under test/, tests/, __tests__/, e2e/ or spec/, or named
+# *.test.*, *.spec.*, *_test.*, test_*.py.
+is_test() { [[ $1 =~ (^|/)(tests?|__tests__|e2e|spec)/ || $1 =~ [._-](test|spec)\.[A-Za-z0-9]+$ || $1 =~ (^|/)test_[^/]*\.py$ ]]; }
 
 # top_block <STATE.md>: the newest block, from its first h2 to the next.
 top_block() { [ -f "$1" ] && awk '/^## /{ if (on) exit; on = 1 } on' "$1"; return 0; }
