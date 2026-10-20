@@ -14,7 +14,7 @@
 | [Root website · v3 app](../ecosystem/working/root-website-v3-overview.md) | Module | | | done | | | | | | | | |
 | [Root website · versioning, Library, Review Room](../ecosystem/working/root-website-build-plan.md) | Module | | | done | | | | | done | 13/14 | | |
 | [Root Studio · project lifecycle](../ecosystem/working/root-studio-lifecycle-build-plan.md) | Module | | | done | | | | | done | 7/8 | | |
-| [Root Studio · customer journeys](../ecosystem/working/root-studio-journeys-build-plan.md) | Module | | | | done | | | | done | 18/18 | | |
+| [Root Studio · customer journeys](../ecosystem/modules/01-root-studio-journeys/) | Module | | | | done | | | | done | 18/18 | | |
 
 ## Backfill, 2026-10-20
 
@@ -39,6 +39,7 @@
 - **Root Studio · customer journeys.**
   - Column 3 is `root-studio-user-journeys.md`. That file served as both the requirements and the journeys, and no separate spec exists.
   - All 18 stages (P0 to J12) are built, with M1–M4 green. The code is not merged to `main` and not deployed (plan 1.0; `lifecycle/retros/2026-10-journeys-build.md`).
+  - From 2026-10-20 (rollout stage 2, session D) the row links to its module folder, `ecosystem/modules/01-root-studio-journeys/`, which holds the Change track's notes. The plan and the journeys file stay in `ecosystem/working/`.
   - Column 9 is blank: a design review covered the public site and the customer portal (`wp-design-review.md`, `root-studio-v1-readiness.md`), but the desk's UI review and a live UX pass have not run.
 
 **Not rows:** `root-studio-dev-dashboard-research.md` (research marked "needs review + update", with no module behind it yet), `root-studio-business-model.md` and `root-goals-update.md`. None of them is a module.
