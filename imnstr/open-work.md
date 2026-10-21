@@ -2,7 +2,7 @@
 
 *Owed items from stage reviews and close-out: what a stage left for the founder or for later, and anything past the verification ceiling. Written by `verify` and `close-out` only (lifecycle README §4); created by `verify B1`, trial step 8c. Not Root's `team/open-work.md`: IMNSTR is outside Root (`lifecycle/projects/imnstr/config.md` §1). Items owed to a later stage are also listed in the code repo's `docs/development/README.md`.*
 
-**Version 0.23 · 2026-10-18 · Owner: founder**
+**Version 0.24 · 2026-10-21 · Owner: founder**
 
 ---
 
@@ -31,6 +31,8 @@
 | F-19 | **Accept the canon B9 made stale** (B9 record, *Decided* and *Flagged for close-out*). (a) `CLAUDE.md` code style: "Breakpoints are in `em`" becomes "Media-query breakpoints are in `em`; container queries in `rem`" (the admin rows now choose their layout by `@container (min-width: 17rem)`, which follows text size as the rule intends). (b) The design README's colour table: dark muted `#aab4ad` is 7.9:1 on the ground, not 8.3; the light field edge `#7d837f` is 3.4:1 on the ground, 3.6 on the field fill. Both still pass; `tests/unit/contrast.test.ts` pins the computed values. (c) Two small design calls, if you want them otherwise: the podcast empty state's eyes sit above the line (plate 4 draws them beside it); at 180 px the hero wordmark is 17 px so the revealed word and its eyes fit (step 9 can weigh letting the eyes wrap below instead) | B9 record | next canon revision |
 | F-20 | **The spec revise change note 05 left for later** (its *What this makes stale*; PL1 record, *Flagged for close-out*), once PL1 is live. Spec 0.4: AC-42 (a never-published draft may change language; a published or was-live one may not, `LANG_FIXED`); §4.4's Episode row (date not after today; an edit may keep the date it has, `DATE_FUTURE`); AC-30 (a Newer link past the first page). Build plan §6.2: `LANG_FIXED` (409) and `DATE_FUTURE` (400). Design README *Components*: the admin's primary is solid ink, dialogs are bottom sheets below 48em, the skip link. And PL-1's "row hover" names a place the admin doesn't have | PL1 record | next canon revision |
 | F-21 | **The spec revise change note 06 left for later** (its *What this makes stale*; CS1 record, *Flagged for close-out*). Spec 0.4 §4.3 and AC-10: sessions 7 days idle and 30 days absolute (your choice, below NIST AAL2's 1 h / 24 h), and the cookie's `Max-Age` of 30 days; the §4 risk table's two session rows. Build plan 0.8 §5 B4a and §6.4's limits row. Review checklist 0.4 §4 "Expiry on the server". The design export's copy on plates 1, 2 and 13. Also: **sign in once on each device** after CS1's deploy, since sessions opened before it have a cookie that ends with the browser | CS1 record | next canon revision |
+| F-22 | **Your links on the Contact page** (CT1). Before CT1's push, on the server: add `CONTACT_EMAIL`, `CONTACT_TELEGRAM` and `CONTACT_INSTAGRAM` to `/srv/imnstr/.env` (handles without `@`; change note 08, *Founder pre-flight*). After the deploy, check `/contact` and `/fa/contact` show all three. The values are kept out of the repo by your instruction | CT1 record | CT1's push |
+| F-23 | **The spec revise change note 08 left for later** (its *What this makes stale*; CT1 record, *Flagged for close-out*): spec §2 (the Contact page), §3 "Not kept" (the form keeps what a visitor types), §4.1 (admin Messages), out of scope (comments, newsletter), the section's name "Writings" / «نوشته‌ها»; then `journeys update`. Also: `deploy/checks.sh` has no `/contact` check yet (`ci-deploy.test.ts` pins the script) | CT1 record | next canon revision |
 
 ## Owed to later stages
 
@@ -73,6 +75,7 @@
 
 ## Changelog
 
+- **0.24 · 2026-10-21** — From CT1 (change note 08): F-22 (your links in the server's `.env`), F-23 (the spec revise, and a deploy check for `/contact`).
 - **0.23 · 2026-10-18** — From CS1 (change note 06, built and verified in the 8c PL1 session): F-21 (the spec revise for the session lengths and the copy; sign in once per device).
 - **0.22 · 2026-10-18** — From `verify PL1`: F-2 gains PL1's four Persian keys; F-20 (the spec revise note 05 left for later); V-3 gains the skip link, the bottom sheets and the named offers.
 - **0.21 · 2026-10-18** — From `verify --milestone MS4`: V-5 now holds MS4 open, and needs a Persian entry on production first; V-8 is done with it.
