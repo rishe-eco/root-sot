@@ -2,6 +2,45 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-21 · 8a launch B2 · main @ 8131c8a · rishe-eco/tracker main @ 871a2c1
+
+*Partly completes the 8c verify B1 block: its next step 1 (`/build-phase B2`) is launched here. Its next step 2, carry-overs, questions and owed cleanup stand, and are copied below.*
+
+**What was done**
+- The B2 card is `tracker/modules/02-reflect/briefs/B2.md` (`0b936ee`), with 915 words of body. That's over the 700 target and under 1,000: the extra is the code check's findings.
+- The code check found the following, and the card settles each:
+  - Tracker already has a private `requireSession(ctx)` in `mutations.ts`, so Reflect's wrapper is named `requireReflectSession`, in `graphql/auth.ts`.
+  - `makeCtx` sets no `auth`, so the Reflect tests build their own session and token contexts.
+  - Noticing owns `NtcReflectCopy`, so a Reflect type is one whose name starts with `Reflect`.
+  - No test in the repo fakes the clock yet, and Prisma's `@default(now())` can't be faked, so services write `createdAt` and `closedAt` themselves.
+  - `clearDb` gains Reflect's tables.
+- Worktree made, and the lane launched on Sonnet in the background.
+
+**Lanes in flight**
+| Stage | Branch (base) | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| B2 (L) | `reflect-b2-entry-api` (`main @ 871a2c1`) | A: test database `<worktree>/api/prisma/test.db`; no ports (no e2e) | `<checkout>/.claude/worktrees/reflect-b2-entry-api` | `briefs/B2.md` | running |
+
+**Next steps, in order**
+1. From the tracker checkout on `main`, Opus, medium effort, once the lane's report is at `<checkout>/.claude/worktrees/reflect-b2-entry-api/.tmp/B2.report.md`: `/build-phase tracker/modules/02-reflect B2 --land`
+2. Before B6's card is drafted, run `/revise` (Opus, medium) on the spec for D-4 (an entry stopped with writing but no story is kept yet never listed or deletable) and to write G1–G17 and the accepted W-calls into the spec.
+
+**Carry-overs**
+- The card's *Decided here* (nine calls, among them a same-step move as a no-op, bounds in UTF-16 units, state pinned on first start only, enums for word source, met and the pre-check) is for verify B2 to rule on.
+- Open-work in `team/open-work.md`: B3 owes the fold copy. Past the ceiling: the founder's sign-in after the first migration deploy, a Persian reader's pass on the `fa` surface, and B0's Linux Chrome run.
+- Stale canon for `close-out`: listed in `docs/development/B0.md` and `docs/development/B1.md`.
+- `config.md`'s *Lane worktrees* row says the Agent tool's isolation makes them. `build-phase` makes them with `git worktree add`, so the row is for the next verify to correct.
+- Every push to the code repo's `main` deploys.
+
+**Questions for the founder**
+- Push tracker `main` (`871a2c1`; docs only, but the push deploys)? Owed by: nothing.
+- Approve the calm-close copy, `en` and `fa`, and whether it names a trusted person or a professional? Owed by: B7 (P0-1).
+- Veto any of PD-2, PD-3, PD-5, PD-6, PD-7, PD-8, PD-10, PD-11 or G6's split (`07-build-plan.md` §10)? Owed by: the card for the stage each touches. B2's card builds PD-7, PD-8 and PD-11.
+- Lock the outcome above RFL-1 in `ecosystem/ost.md`, and who reads M1–M6? Where do database backups go, the box only or off it? Owed by: nothing yet.
+
+**Owed**
+- Tracker cleanup: `git worktree remove .claude/worktrees/reflect-b0-e2e-lanes` (prunable), and `git branch -d reflect-b0-e2e-lanes reflect-b1-schema-content` (both merged).
+
 ## 2026-10-21 · 8c verify B1 · main @ 0364c16 · rishe-eco/tracker main @ 871a2c1
 
 *Replaces the 8b land B1 block's lane rows and its next steps 1 and 2 (`/verify B1` is done, and B0 and B1 are merged and deployed). Its next step 3 is copied below. Answers the 8a launch B1 and 8b land B1 blocks' questions on merging B0 and pushing root-sot. The 7 build-plan block's carry-overs and remaining questions stand.*
