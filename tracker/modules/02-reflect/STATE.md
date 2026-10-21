@@ -2,6 +2,28 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-22 · 8a launch B3 · main @ 5fb16f3 · rishe-eco/tracker main @ 8644681
+
+*Replaces the 9 revise block's next step 1, because B3 is launched. That block's carry-overs, questions and owed items still stand. Its carry-over on the past-entry `step` is settled: B6 fixes it (`07-build-plan.md` §6.1 correction), and B3's card names it under Not here.*
+
+**What was done**
+- The card is `tracker/modules/02-reflect/briefs/B3.md` (`8ce393b`). Its body is about 800 words, a little over the 500–700 range. B3 needs no P0 item. The code check found the SDL and resolvers already in place, so B3 is services and tests only.
+- The card decided four things for verify to confirm. Matching is per sentence, so a trigger that spans a sentence break doesn't match. The returned sentence is trimmed and drops its terminator. The nested-trigger test uses a fixture pack, because `en` v1 has no nested pair. The lane runs on branch `reflect-b3-catches` in slot A.
+- One test changes on purpose: B2's "offer is null until B3" in `api/src/__tests__/reflect.integration.test.ts`. It now surfaces an offer, because `betrayed` is a faux feeling.
+- The worktree was made with `git worktree add` from local `main @ 8644681`, and the Sonnet lane is running in the background.
+
+**Lanes in flight**
+| Stage | Branch (base) | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| B3 (M) | `reflect-b3-catches` (`main @ 8644681`) | A: test database `<worktree>/api/prisma/test.db`; no ports (no e2e) | `<checkout>/.claude/worktrees/reflect-b3-catches` | `briefs/B3.md` | running |
+
+**Next steps, in order**
+1. Opus, medium effort, from the tracker checkout on `main`, once the lane's report is at `<checkout>/.claude/worktrees/reflect-b3-catches/.tmp/B3.report.md`: `/build-phase tracker/modules/02-reflect B3 --land`
+
+**Carry-overs**
+- The open-work row on the fold copy belongs to B3's verify. The card holds the lane to `ARABIC_FOLDS` and `normalizeForMatch` byte-identical to the copy in `reflectContent.unit.test.ts`.
+- A proposal for `brief-common.md` at the next verify: every cooldown test uses a fixed clock (`vi.useFakeTimers({ toFake: ["Date"] })`).
+
 ## 2026-10-22 · 9 revise (change request 01) · main @ 53a6bcb · rishe-eco/tracker main @ 8644681
 
 *Replaces the 8c verify B2 block's next step 1 (`/revise` is done) and its question on `step` in a past entry (decided below). Its next step 2, carry-overs, remaining questions and owed cleanup stand, and are copied below. The 8c verify B1 block's carry-overs still stand.*
