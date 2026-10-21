@@ -2,6 +2,34 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-21 · 8c verify B1 · main @ 0364c16 · rishe-eco/tracker main @ 871a2c1
+
+*Replaces the 8b land B1 block's lane rows and its next steps 1 and 2 (`/verify B1` is done, and B0 and B1 are merged and deployed). Its next step 3 is copied below. Answers the 8a launch B1 and 8b land B1 blocks' questions on merging B0 and pushing root-sot. The 7 build-plan block's carry-overs and remaining questions stand.*
+
+**What was done**
+- `/verify B1` passed. The record is `docs/development/B1.md` in the code repo. Verify fixed the schema fence (named-argument indexes, bare id links: `15466f9`), AC-45's fence (follows Reflect's imports: `f6984c3`) and the pack's scope and labels (`b7ad796`), then merged B0 into B1 (`2fdfa87`).
+- `main` fast-forwarded `5fd71c9..b882894` (B0 and B1 together) and was pushed with the founder's word. Deploy run https://github.com/rishe-eco/tracker/actions/runs/39630883685 is green; `add_reflect` is live. Both stage records cite it (`871a2c1`, not pushed: pushing deploys).
+- root-sot: config edits approved after verify B0 applied (`9239f4f`); column 8 at 2/8, open-work rows, state of the build 0.35, capture note `lifecycle/learnings/inbox/2026-10-21-verify-B1.md` (`1a31940`); `brief-common.md` 0.3, the Windows `migrate dev` and CRLF notes (`0364c16`). root-sot `main` is pushed.
+
+**Next steps, in order**
+1. From the tracker checkout (`main`), Opus, medium effort, slot A or B: `/build-phase B2`
+2. Before B6's card is drafted, run `/revise` (Opus, medium) on the spec for D-4 (an entry stopped with writing but no story is kept yet never listed or deletable) and to write G1–G17 and the accepted W-calls into the spec.
+
+**Carry-overs**
+- Open-work in `team/open-work.md`: B3 owes the fold copy; past the ceiling are the founder's sign-in after the first migration deploy, a Persian reader's pass on the `fa` surface, and B0's Linux Chrome run.
+- B1 left `clearDb` for B2 (`briefs/B1.md`, *Decided here*).
+- Stale canon for `close-out`: listed in `docs/development/B0.md` and `docs/development/B1.md` (`01-data-model.md`, the decision-log migration note, convention 13's spending on `lastCatchAt`, `CLAUDE.md`'s e2e and Edge paragraphs, `03-engineering/01-testing.md`).
+- Persian is the open research gap (spec R2). Every push to the code repo's `main` deploys.
+
+**Questions for the founder**
+- Push tracker `main` (`871a2c1`, the deploy URL in the two stage records; docs only, but the push deploys)? Owed by: nothing.
+- Approve the calm-close copy, `en` and `fa`, and whether it names a trusted person or a professional? Owed by: B7 (P0-1).
+- Veto any of PD-2, PD-3, PD-5, PD-6, PD-7, PD-8, PD-10, PD-11 or G6's split (`07-build-plan.md` §10)? Owed by: the card for the stage each touches.
+- Lock the outcome above RFL-1 in `ecosystem/ost.md`, and who reads M1–M6? Where do database backups go, the box only or off it? Owed by: nothing yet.
+
+**Owed**
+- Tracker cleanup: `git worktree remove .claude/worktrees/reflect-b0-e2e-lanes` (prunable), and `git branch -d reflect-b0-e2e-lanes reflect-b1-schema-content` (both merged).
+
 ## 2026-10-21 · 8b land B1 · main @ 7032874 · rishe-eco/tracker main @ 5fd71c9
 
 *Replaces the 8a launch B1 block's lane row and its next step 1 (the land is done). Its next steps 2 and 3, carry-overs and questions are copied below. The 8c verify B0 block's B0 row and the 7 build-plan block stand.*
@@ -100,69 +128,6 @@
 - May the config edits above be applied to `lifecycle/projects/tracker/`? Owed by: `build-phase B1`'s card, which reads `brief-common.md`.
 - The 7 build-plan block's five questions stand (calm-close copy, CD1 setup done, the PD vetoes, locking the outcome above RFL-1, where backups go).
 
-## 2026-10-21 · 8b land B0 · main @ 9e67551 · rishe-eco/tracker main @ 5fd71c9
-
-*Replaces the 8a launch B0 block's lane row and next step 1; that block's other next steps are copied below. The 7 build-plan block stays live.*
-
-**What was done**
-- The B0 lane returned one commit, `517f0c0` on `reflect-b0-e2e-lanes`. Its report is saved as `tracker/modules/02-reflect/briefs/B0.report.md`. Measured from `5fd71c9`: +2 app, +81 tests and e2e config, +38 docs, in 24.8 min and 87,883 tokens. That's within size S. `main` hasn't moved since the base, so nothing overlaps.
-- Author: `The Monster <salmanian.foad2@gmail.com>`, the checkout's configured identity. `config.md` names no identity to check it against. The Sonnet co-author line is present.
-- Proof in the lane, with Edge: `auth.spec.ts` and `goals.spec.ts` passed 11/11 in slot A (ports 4110/5183) and 11/11 in slot B (4120/5193), run at the same time. The main checkout's dev database was unchanged.
-
-**For `verify` to decide** (report parts 4 and 5)
-- The lane's own calls: a scratch database per API port (`p<port>-e2e.db`); a credentials file per API port, so `client/.gitignore` now ignores all of `e2e/.auth/`; `outputDir` and the report folder per slot; the API wait URL is `/.well-known/apollo/server-health` (`/graphql` returns 400 to Playwright's poll); a Vite cache per web port via a new `E2E_VITE_CACHE_DIR` in `client/vite.config.ts` (two slots sharing it raced with `EPERM` on Windows).
-- Departures from the card: `helpers/auth.ts` was also changed (it hard-coded the auth file), and `vite.config.ts` was touched, which the card didn't name.
-- The card's *Decided here*: `ts-node` over `tsx` (it starts in a worktree); one shared `client/e2e/ports.ts`; no `.gitignore` line for the e2e database; the plan's default ports kept despite Windows' excluded range 3931–4030.
-- Card checks the lane didn't do: the `PW_CHANNEL=chrome` run on the default ports on the Linux machine; a real run on the default ports; `E2E_REUSE=1`.
-- Deploy: unchanged. e2e isn't in CI or the image; `vite.config.ts`'s default `cacheDir` is Vite's own.
-- Canon made stale: `config.md` §2 and §4, `CLAUDE.md`'s "e2e isn't isolated yet" paragraph, and `03-engineering/01-testing.md` if it describes e2e.
-
-**Lanes in flight**
-| Stage | Branch (base) | Slot | Worktree | Card | Status |
-|---|---|---|---|---|---|
-| B0 (S) | `reflect-b0-e2e-lanes` (`main @ 5fd71c9`) | A: test database `<worktree>/api/prisma/test.db`; e2e on ports 4110/5183 and 4120/5193 | `<checkout>/.claude/worktrees/reflect-b0-e2e-lanes` | `briefs/B0.md` | landed |
-
-**Next steps, in order**
-1. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`main`), then `tracker/modules/02-reflect/briefs/B0.md` and `briefs/B0.report.md`. From the tracker checkout on the Windows build machine (`main`), run `/verify B0` (Opus, high effort, forked). It reviews branch `reflect-b0-e2e-lanes` against base `5fd71c9` and decides the calls listed above.
-2. Optionally, in slot B: `/build-phase B1` (Opus, medium effort), from the tracker checkout, `main`.
-3. Before B6's card is drafted, run `/revise` (Opus, medium) on the spec for D-4 (an entry stopped with writing but no story is kept yet never listed or deletable) and to write G1–G17 and the accepted W-calls into the spec.
-
-**Carry-overs**
-- Proposed for `lifecycle/projects/tracker/brief-common.md` at this `verify`: its Tests section names `npm run typecheck`, which is broken; the working check is `npx tsc --noEmit`. Also: two e2e slots in one machine share the Vite cache, the credentials file, the report folders and the scratch database unless each is keyed by port (report part 7).
-- `config.md` §1 doesn't record the Windows build machine's checkout (`E:\_root\tracker`), and §2 should note Windows' excluded port ranges.
-- The 7 build-plan block's carry-overs stand.
-
-**Questions for the founder**
-- B0's `verify` needs a run on the Linux machine with `PW_CHANNEL=chrome`. Will you push `reflect-b0-e2e-lanes` for it, or run that check yourself? Owed by: `verify B0`.
-- The 7 build-plan block's five questions stand.
-
-## 2026-10-21 · 8a launch B0 · main @ 2d550ee · rishe-eco/tracker main @ 5fd71c9
-
-*Adds to the 7 build-plan block below, which stays live. Completes its next step 1 (`/build-phase B0`); B1 may still run beside it in slot B.*
-
-**What was done**
-- The B0 card, `tracker/modules/02-reflect/briefs/B0.md` (commit `2d550ee`, 785 words of body: over the 700 range, under 1,000). The code check corrected the plan in four places: `client/e2e/helpers/api.ts` also hard-codes port 4000; `tsx` isn't installed, so the e2e API runs `ts-node`; `api/.gitignore`'s `*.db` already covers the e2e file, so `.gitignore` is unchanged; and the Windows build machine excludes ports 3931–4030 today, which takes the plan's 4010 and 4020.
-- Decided in the card, for `verify` to confirm: `ts-node` over `tsx`; one shared `client/e2e/ports.ts`; no `.gitignore` change; the plan's default ports kept, with Windows runs setting the variables to ports outside the excluded ranges.
-- The lane proves two slots at once with Edge on the Windows build machine. The Chrome run on the default ports, on the Linux machine, is owed to `verify`.
-
-**Lanes in flight**
-| Stage | Branch (base) | Slot | Worktree | Card | Status |
-|---|---|---|---|---|---|
-| B0 (S) | `reflect-b0-e2e-lanes` (`main @ 5fd71c9`) | A: test database `<worktree>/api/prisma/test.db`; e2e on ports outside Windows' excluded ranges (4110/5183 and 4120/5193 suggested) | `<checkout>/.claude/worktrees/reflect-b0-e2e-lanes` | `briefs/B0.md` | running |
-
-**Next steps, in order**
-1. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`main`). Once the B0 lane has written `.tmp/B0.report.md` in its worktree (`<checkout>/.claude/worktrees/reflect-b0-e2e-lanes`), run `/build-phase B0 --land` (Opus, medium effort) from the tracker checkout on the Windows build machine, `main`.
-2. Optionally, beside B0 in slot B: `/build-phase B1` (Opus, medium effort), from the tracker checkout, `main`.
-3. Before B6's card is drafted, run `/revise` (Opus, medium) on the spec for D-4 (an entry stopped with writing but no story is kept yet never listed or deletable) and to write G1–G17 and the accepted W-calls into the spec.
-
-**Carry-overs**
-- For the next `verify`, proposed for `lifecycle/projects/tracker/brief-common.md`: its Tests section says `npm run typecheck`, which is broken here; the working check is `npx tsc --noEmit`. `config.md` §1 doesn't record the Windows build machine's checkout (`E:\_root\tracker`), and §2 should note Windows' excluded port ranges.
-- The 7 build-plan block's carry-overs stand.
-
-**Questions for the founder**
-- B0's `verify` needs a run on the Linux machine with `PW_CHANNEL=chrome`. Will you push the lane's branch for it, or run that check yourself? Owed by: `verify B0`.
-- The 7 build-plan block's five questions stand.
-
 ## 2026-10-21 · 7 build-plan · lifecycle/stage-3a-spec @ 2c6318d · rishe-eco/tracker main @ 5fd71c9
 
 *Adds to the 4 wireframes, 4 journeys, 3 personas and 2 spec blocks below, which stay live (the 1 research block is deleted; its Persian gap is carried below). Completes the 4 wireframes block's next step 2 in part: `build-plan` settled G1–G17 and W1–W19, but the spec itself was not revised.*
@@ -190,24 +155,3 @@
 - Lock the outcome above RFL-1 in `ecosystem/ost.md`, and who reads M1–M6 from the database? Owed by: nothing in the plan; the eval plan was waived.
 - Where do database backups go: the box only, or off it? Owed by: nothing yet; decides whether PD-2 is revisited (P0-3).
 
-## 2026-10-21 · 4 wireframes · lifecycle/stage-3a-spec @ 9847654 · rishe-eco/tracker main @ 5fd71c9
-
-*Adds to the 4 journeys, 3 personas, 2 spec and 1 research blocks below, which stay live. Completes the 4 journeys block's next step 1 (`/wireframes`). The 0 intake block is deleted; its carry-overs were all settled in the spec (2 spec block).*
-
-**What was done**
-- `/wireframes` wrote `tracker/modules/02-reflect/04-wireframes.html` draft 1 (committed `9847654`, not pushed). It has 11 plates, phone frames only, and Persian frames drawn right to left. Every journey step is mapped to a plate or to "no screen" (J5.5, J5.7, J5.9–J5.11 and the API half of J5.6). G1–G17 are drawn only as marked Suggested boxes.
-- 19 calls, W1–W19, are in the page's *Calls made here*. Among them: Stop here at the top end of every step; no step counter; the pre-check advisory on the same screen; autosave silent unless it fails; the trigger word never marked in the shown-back story.
-- Rendered at 1200 and 375 px and looked at, after fixes to the Suggested text direction in Persian frames and to the dialog backdrop. Plates 6–11 at 375 px were looked at only after the commit; nothing needed changing. Gate 4b OK (2 of 2 headings). `lifecycle/status.md` column 4 is `done`.
-- The run was below the skill's medium effort, on Opus 5.5.
-
-**Next steps, in order**
-1. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`lifecycle/stage-3a-spec`), then `tracker/modules/02-reflect/04-wireframes.html` (*Calls made here* first) and `tracker/modules/02-reflect/03-journeys.md` §4. If a design step (4b, the founder's, in a design tool) is planned, do it first. Otherwise run `/ux-review tracker/modules/02-reflect` in design mode on these wireframes (Opus, high effort).
-2. Run `/revise` on the spec (Opus) to take G1–G17 (or refuse some), and to accept, refuse or carry W1–W19, before `build-plan`.
-
-**Carry-overs**
-- The 4 journeys block's carry-overs stand: risks `build-plan` must handle (R7 encryption at rest, R8 Noticing's fences slice, R9 e2e not lane-safe); Persian remains the open research gap (R2).
-- No desktop frames were drawn. Neither the spec nor the journeys call for them; `ux-review` may ask for some.
-
-**Questions for the founder**
-- Is a design step (4b) planned for Reflect, or does `ux-review` work from these wireframes? Owed by: next step 1.
-- The 4 journeys block's three questions stand: the calm-close copy (owed by `build-plan`, R6), locking the outcome above RFL-1 (owed by `eval-plan`), and G6 (owed by `revise`).
