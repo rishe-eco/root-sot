@@ -1,22 +1,22 @@
 # Lifecycle — the skills, specified
 
-*Each of the twenty lifecycle skills, and the design step: what it does, how it is invoked, which model runs it, exactly what it reads and writes, its gate, and where its shape comes from. The method these skills implement is `README.md`.*
+*Each of the twenty-one lifecycle skills, and the design step: what it does, how it is invoked, which model runs it, exactly what it reads and writes, its gate, and where its shape comes from. The method these skills implement is `README.md`.*
 
-**Version 0.13 · Status: plan — nothing here is built yet · 2026-10-21 · Owner: _root**
+**Version 0.14 · Status: plan — nothing here is built yet · 2026-10-21 · Owner: _root**
 
 ---
 
 ## Summary
 
-Twenty skills in four groups — every session, design, build, closing the loop — sharing one gate script, one set of templates and one configuration folder per project. Most are invoked by name only, so they cost nothing per turn until used. Reviews run forked, in a fresh context. Lanes are launched by `build-phase` with the project's common brief plus a committed phase card, and return a seven-part report that `verify` reads before the diff. What sessions learn about working is captured as notes and integrated in batches, never edited in place. Each spec below names its source in this repo, so the skill is a transcription of what already worked, not an invention.
+Twenty-one skills in four groups — every session, design, build, closing the loop — sharing one gate script, one set of templates and one configuration folder per project. Most are invoked by name only, so they cost nothing per turn until used. Reviews run forked, in a fresh context. Lanes are launched by `build-phase` with the project's common brief plus a committed phase card, and return a seven-part report that `verify` reads before the diff. What sessions learn about working is captured as notes and integrated in batches, never edited in place. Each spec below names its source in this repo, so the skill is a transcription of what already worked, not an invention.
 
 **Grading.** Mechanics claimed for Claude Code skills (frontmatter fields, forking, injection, skill discovery) are **documented** — read from the Claude Code skills documentation on 2026-10-05. Anything marked **verify in stage N** is a reading of that documentation not yet tried here.
 
 ## 0. Shared mechanics
 
-**Invocation.** Every skill is `disable-model-invocation: true`, invoked by name and invisible in context until then, except `debug`, which Claude may pick up when a test fails.
+**Invocation.** Every skill is `disable-model-invocation: true`, invoked by name and invisible in context until then, except `debug`, which Claude may pick up when a test fails. A skill runs only when the founder's message starts with `/<skill>`; named anywhere else in a message, it is text Claude can't act on. So a prompt that starts a skill is the invocation alone (L-47).
 
-**Model and effort** are set in each skill's frontmatter (`model`, `effort`). A session sees its model but not its effort, so every skill's first message states the model from its frontmatter. On the wrong model, the skill stops before any work, except `handoff` and `decision-record`: they end whatever session called them, and the frontmatter doesn't switch its model, so they name the model and carry on. If the prompt states a different effort, the skill says so and continues.
+**Model and effort** are set in each skill's frontmatter (`model`, `effort`). Only a skill that opens a session or runs forked sets `model`: its context starts empty, so the switch costs nothing. A skill that runs inside a session already under way (`handoff`, `learned`'s capture, `decision-record`) sets only `effort` and runs on the session's own model, because a model switch mid-session reads the whole session again uncached, which costs more than the cheaper model saves (L-46). A session sees its model but not its effort, so every skill's first message states its model. On the wrong model, a skill that sets one stops before any work. If the prompt states a different effort, the skill says so and continues.
 
 **Forking.** `verify`, `ux-review` and `design-review` use `context: fork` with `background: false`: an isolated subagent that sees only the skill and its injected inputs, with the full tool set, and returns a short summary. *Verify in stage 2* that such a fork can edit, commit and run suites. A fork can't wait on the founder, so `verify` ends at "ready to deploy" and the deploy runs in the main session. A forked review gets the change notes' *carried* lists and the open-work file's rows injected, so owed items aren't counted as defects.
 
@@ -71,17 +71,26 @@ A project with no code yet has its config written as planned. The first stage's 
 **Output:** in chat, under 15 lines: the track; the module's phase, read with the status values in `README.md` §3; what is missing or stale; the next skill and its model; the founder's rows due within the next step; "inbox over cap: N notes, oldest <date> — run `learned --consolidate`" when it is.
 **From:** Spec Kit's phase order.
 
+### `start`
+**Does:** the front door for a new idea: sorts it into a track, says where in the lifecycle it starts, asks which optional phases it skips, and prints the first skill's line.
+**Invocation:** by name, with the idea in a line or a paragraph · **Model:** Sonnet, medium.
+**Reads (injected):** `lifecycle-status`'s context, run on the idea: the tracks, phases, status values and models from `README.md`, `status.md`, and the near-matching modules.
+**Asks:** in one batch, only what the idea's words leave open: the track when Change against Module is unclear; for a Module, which skips apply, offered only where a gate accepts them (research waived with a reason; no UI, so 3, 4, 4b, 5 and 9 are `n/a`; no 4b design pass); for a Change, small or during a build. Any other skip is an `--override` at that phase, named in the output.
+**Writes:** nothing. The skips travel in the printed line's arguments, and `ideate` or `spec change` records them where the gates read them.
+**Output:** under 12 lines: the track, the entry point, the phases it will run, the skips, and the first line in a fenced block, to paste now in this session.
+**From:** the founder, 2026-10-21 (L-48).
+
 ### `handoff`
 **Does:** ends a session by writing state a fresh session can start from.
-**Invocation:** by name, at the end of a session · **Model:** Sonnet, low.
+**Invocation:** by name, at the end of a session · **Model:** the session's own, low.
 **Reads:** the session's own work; `git log` since the last state block.
-**Writes:** a new block, at most 40 lines, at the top of the module's `STATE.md` (or `lifecycle/STATE.md`), committed, in the format in `skills/handoff/reference.md`. Live next steps are copied forward in full, each as the line the founder pastes. Blocks older than the last five are deleted; stage records hold the history.
+**Writes:** a new block, at most 40 lines, at the top of the module's `STATE.md` (or `lifecycle/STATE.md`), committed, in the format in `skills/handoff/reference.md`. Live next steps are copied forward in full, each as the line the founder pastes: a skill step's line is `/<skill> <arguments>` alone, a plain-work step's a whole prompt. Blocks older than the last five are deleted; stage records hold the history.
 **Ends with:** "Run `/learned`, then `/clear`, then paste:" and the block's first next step in a fenced block (`README.md` §5 rule 8).
 **From:** the journeys orchestrator's state log, which carried the build across three compactions.
 
 ### `decision-record`
 **Does:** adds a decision to the right decision log in house format.
-**Invocation:** by name, any phase · **Model:** Sonnet, low.
+**Invocation:** by name, any phase · **Model:** the session's own, low.
 **Reads (injected):** the last three entry headers of the target log (`grep`), for the next ID and the format. Never the whole log.
 **Writes:** one entry; the log's version line.
 **Which log:** `lifecycle/decision-log.md` holds decisions about the method only. A module's product decisions live in its change notes, with one line each in `<module>/decisions.md`.
@@ -372,6 +381,7 @@ Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `bui
 
 ## Changelog
 
+- **0.14 · 2026-10-21** — §0 *Model and effort*: only a skill that opens a session or forks sets a model; `handoff` and `decision-record` run on the session's own (L-46). §0 *Invocation* and §1 `handoff`: a skill step's paste line is the invocation alone (L-47). §1 `start` added (L-48).
 - **0.13 · 2026-10-21** — §0 *Model and effort*: `handoff` and `decision-record` name a wrong model and carry on instead of stopping. From `learned --consolidate`, the first (L-40).
 - **0.12 · 2026-10-20** — `handoff` and `learned` end with the next session's prompt (`README.md` §5 rule 8). Stage 2 writes each skill as `skills/<skill>/SKILL.md` and starts with `bin/install-skills`.
 - **0.6–0.11 · 2026-10-20** — Cut back from about 10,200 words to about 5,800, one section per commit, each reviewed by the founder (L-22 to L-27). Every skill keeps what it does, reads, writes and gates on. Templates, output shapes, *Reference holds* and one-incident rules moved word for word to `skills/<skill>/reference.md`, and rarely needed shared rules to `skills/shared/reference.md`; provenance and lines repeated elsewhere were cut.

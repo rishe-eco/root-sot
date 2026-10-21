@@ -2,7 +2,7 @@
 
 *Seeds for this skill's reference file and template, moved unchanged out of `skills-plan.md` at 0.8. They bind as the plan does. The skill's first author places them.*
 
-**Version 0.4 · Status: placed — `SKILL.md` binds · 2026-10-21 · Owner: _root**
+**Version 0.5 · Status: placed — `SKILL.md` binds · 2026-10-21 · Owner: _root**
 
 ---
 
@@ -20,6 +20,7 @@ The journeys orchestrator's state log, in the `root-app-lifecycle-build` memory,
 
 ## Changelog
 
+- **0.5 · 2026-10-21** — `SKILL.md`: runs on the session's own model (L-46); a skill step's paste line is the invocation alone, and a step is a skill or plain work, never both (L-47).
 - **0.4 · 2026-10-21** — `SKILL.md`: on a model other than Sonnet it says so and carries on; a skill named inside the next prompt is a step the founder runs. From `learned --consolidate`, the first (L-40).
 - **0.3 · 2026-10-20** — Placed in `SKILL.md` 0.1. This file keeps the source and a record of what was added while placing it.
 - **0.2 · 2026-10-20** — The first next step is a whole prompt, printed at the end of the session (`README.md` §5 rule 8).

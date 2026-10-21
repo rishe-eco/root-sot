@@ -44,7 +44,7 @@ Ask everything the intake needs that the founder's words don't already answer, i
 5. **What would make us drop it.** Record the answer word for word. If it can't be tested, say so in the intake, so that `spec` and `eval-plan` can make it testable. Don't make it testable yourself.
 6. **Decisions at intake:** whether research runs or is waived, and why; the code repo, or "none yet"; whether the module has UI (if not, phases 3, 4, 4b, 5 and 9 are `n/a`); and the project, for `lifecycle/projects/<project>/`.
 
-Offer a proposed answer where the files suggest one (a project from the area, a pillar from the problem), marked as Claude's proposal. An answer that is itself a question, or that widens the idea, is a new item: propose a bounded reading and ask again.
+If the argument carries a `Skips:` part from `start`, it already answers question 6's research and UI parts: write them in, and ask only what's left. Offer a proposed answer where the files suggest one (a project from the area, a pillar from the problem), marked as Claude's proposal. An answer that is itself a question, or that widens the idea, is a new item: propose a bounded reading and ask again.
 
 ## Write
 

@@ -3,7 +3,6 @@ name: decision-record
 description: Adds one decision to the right root-sot decision log in house format, with the next id and the log's version line bumped, as its own commit. Method decisions go to lifecycle/decision-log.md, a module's to its decisions.md, Tracker's and Root-wide ones to their own logs. Run by name, in any phase.
 argument-hint: "[the decision, in a line — or omit to record what this session decided]"
 disable-model-invocation: true
-model: sonnet
 effort: low
 allowed-tools: Bash(bash "${CLAUDE_SKILL_DIR}/context.sh") Bash(git -C * commit --only *) Bash(git commit --only *)
 ---
@@ -12,7 +11,7 @@ allowed-tools: Bash(bash "${CLAUDE_SKILL_DIR}/context.sh") Bash(git -C * commit 
 
 Record a decision so a later session can find it, see why it was made, and know whether the founder reviewed it. This skill writes one entry and nothing else. This skill is `lifecycle/skills-plan.md` §1 `decision-record`.
 
-**Start with one line:** `decision-record · Sonnet, low effort`. This skill's frontmatter sets that model. If you aren't Sonnet, say which model you are in that line and carry on. This skill ends whatever session called it, and its frontmatter doesn't switch that session's model. Effort here is ${CLAUDE_EFFORT}. If it isn't `low`, say so in that line and carry on.
+**Start with one line:** `decision-record · <your model>, low effort`. This skill sets no model, so it runs on the session's own: it runs inside a session already under way, and a model switch there would read the whole session again, uncached (`skills-plan.md` §0 *Model and effort*). Effort here is ${CLAUDE_EFFORT}. If it isn't `low`, say so in that line and carry on.
 
 The argument was: `$ARGUMENTS`
 
