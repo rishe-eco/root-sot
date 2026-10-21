@@ -2,6 +2,43 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-21 · 8b land B1 · main @ 7032874 · rishe-eco/tracker main @ 5fd71c9
+
+*Replaces the 8a launch B1 block's lane row and its next step 1 (the land is done). Its next steps 2 and 3, carry-overs and questions are copied below. The 8c verify B0 block's B0 row and the 7 build-plan block stand.*
+
+**What was done**
+- B1's lane returned in the launching session. Its report is `tracker/modules/02-reflect/briefs/B1.report.md` (`7032874`), and the file matched the returned message. Branch `reflect-b1-schema-content`: `e0f52f3` (schema and migration `20261021133354_add_reflect`) and `c437396` (pack and tests). Both commits are by `The Monster`, the same as `main`, with the Sonnet co-author line.
+- Measured from `5fd71c9`: +722 app lines (392 schema and pack code, 263 authored copy, 67 migration SQL), +342 tests, 0 moved, 15 min, 158k tokens. Size M. The run took far less than M's time, but its schema and pack code is 2.6× the card's estimate of ~150 lines, a finding for verify under `README.md` §6 rule 5. `main` hasn't moved since the base, so nothing overlaps.
+- The lane reported 49/49 on the four targeted files, `tsc` clean and the migration diff clean, and that six plants each failed their test.
+
+**Lanes in flight**
+| Stage | Branch (base) | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| B0 (S) | `reflect-b0-e2e-lanes` (`main @ 5fd71c9`) | A | `<checkout>/.claude/worktrees/reflect-b0-e2e-lanes` | `briefs/B0.md` | verified, not merged |
+| B1 (M) | `reflect-b1-schema-content` (`main @ 5fd71c9`) | B: `<worktree>/api/prisma/test.db`, own `dev.db`; no ports | `<checkout>/.claude/worktrees/reflect-b1-schema-content` | `briefs/B1.md` | landed |
+
+**For verify to decide**
+- The lane's own calls (report part 4): the pack's shape and the `en` copy, all but the story prompt written by the lane (verify reads it, since `en` ships `reviewed`). Extra dials (`ownWord`, `pastPageSize`, `storyStartChars`), with no autosave pause. Nesting as substring containment. `{word}` carries its own quotes. The `ANTHROPIC` check is case-sensitive and also scans comments. The scanner also catches a field-level `@unique` on text.
+- The card's *Decided here*: slot B; `clearDb` left for B2; `en` marked `reviewed`; the inline copy of the fold; no dependency.
+- Card checks not done live: the missing-marker throw and the browser-half plant (covered by self-tests), and the spaced `عمیق ترین` plant.
+- What the deploy runs: the first migration since CD1 went live. The deploy must log a `pre-migrate-…` backup, apply `add_reflect`, and end `DEPLOYED <sha>`. The base is `5fd71c9`, before B0, so merge B0 first and fast-forward or rebase B1 onto it.
+- Departures (report part 5): the redundant `fa` variants; the card's `journal Journal` plant needed an inverse relation; `migrate dev` hangs without `< /dev/null`; `migration_lock.toml` line-ending churn was restored, not committed; the dev database lands at `api/prisma/prisma/dev.db`.
+- Canon made stale: `01-data-model.md`; a decision-log migration note and convention 13's spending on `lastCatchAt` (the schema comment already points to it); convention 13's "spent once so far".
+
+**Next steps, in order**
+1. From the tracker checkout (`main`), Opus, high effort, forked: `/verify B1`
+2. Plain work. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`main`) and `docs/development/B0.md` in the tracker checkout. From `E:\_root\tracker` (`main`), run `git merge --ff-only reflect-b0-e2e-lanes` and `git push origin main` (deploys are live: the push deploys, with no app change). Then run `git worktree remove .claude/worktrees/reflect-b0-e2e-lanes` and `git branch -d reflect-b0-e2e-lanes`. Read the deploy run and check it ends `DEPLOYED <sha>` for the pushed commit. Add the run's URL to the *Verification* section of `docs/development/B0.md`.
+3. Before B6's card is drafted, run `/revise` (Opus, medium) on the spec for D-4 (an entry stopped with writing but no story is kept yet never listed or deletable) and to write G1–G17 and the accepted W-calls into the spec.
+
+**Carry-overs**
+- The config edits listed in the 8c block's carry-overs are approved (founder, 2026-10-21); the next `verify` applies them to `lifecycle/projects/tracker/`. Proposed for `brief-common.md` too: run `prisma migrate dev` with `< /dev/null` under a `timeout` on Windows, and note that `schema.prisma` is CRLF (report part 7).
+- Every other carry-over in the 8c and 7 blocks stands.
+
+**Questions for the founder**
+- The Linux Chrome run of B0 is still owed: merge B0 now, or after it? Owed by: next step 2.
+- Push root-sot `main`? It is 10 commits ahead of `origin/main`. Owed by: nothing; it is public, so it needs your yes.
+- The 7 build-plan block's other questions stand (calm-close copy, the PD vetoes, locking the outcome above RFL-1, where backups go).
+
 ## 2026-10-21 · 8a launch B1 · main @ 2173945 · rishe-eco/tracker main @ 5fd71c9
 
 *Replaces the 8c verify B0 block's next step 1 (`/build-phase B1` is done); its next steps 2 and 3 are copied below. Answers two of that block's questions: CD1 is live (P0-4), and the config edits may be applied. The 8c block's lane row for B0 stands, and so does the 7 build-plan block.*
