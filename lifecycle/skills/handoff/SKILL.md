@@ -3,7 +3,6 @@ name: handoff
 description: Ends a root-sot lifecycle session by writing a block at the top of the module's STATE.md (or lifecycle/STATE.md) that a fresh session can start from, committing it, and printing the next session's prompt. Run by name at the end of a session, before /learned and /clear.
 argument-hint: "[module folder, e.g. imnstr/modules/01-website — omit for work with no module]"
 disable-model-invocation: true
-model: sonnet
 effort: low
 allowed-tools: Bash(bash "${CLAUDE_SKILL_DIR}/context.sh" *) Bash(git -C * commit --only *) Bash(git commit --only *)
 ---
@@ -12,7 +11,7 @@ allowed-tools: Bash(bash "${CLAUDE_SKILL_DIR}/context.sh" *) Bash(git -C * commi
 
 Write down what this session did and what comes next, so a fresh session can start from it after `/clear`. Every session ends `handoff` → `learned` → `/clear` (`lifecycle/README.md` §5 rules 7 and 8). The next session starts cold, with nothing but the committed files. It knows only what this block says and the files it points to. This skill is `lifecycle/skills-plan.md` §1 `handoff`.
 
-**Start with one line:** `handoff · Sonnet, low effort`. This skill's frontmatter sets that model. If you aren't Sonnet, say which model you are in that line and carry on. This skill ends whatever session called it, and its frontmatter doesn't switch that session's model. Effort here is ${CLAUDE_EFFORT}. If it isn't `low`, say so in that line and carry on.
+**Start with one line:** `handoff · <your model>, low effort`. This skill sets no model, so it runs on the session's own: it runs inside a session already under way, and a model switch there would read the whole session again, uncached (`skills-plan.md` §0 *Model and effort*). Effort here is ${CLAUDE_EFFORT}. If it isn't `low`, say so in that line and carry on.
 
 The argument was: `$ARGUMENTS`
 
@@ -50,6 +49,8 @@ LIFECYCLE_ARGS
    <the new block's first next step, word for word>
    ```
 
+   The fenced block holds the paste line only. For a skill step, put its model and branch on the line above the fence, never inside it: a skill line must be the whole message.
+
    If there is no next step, say so instead of printing an empty block.
 
 ## The block format
@@ -60,7 +61,10 @@ At most 40 lines. The format comes from the journeys build's state log, which ca
 - **First line:** which earlier blocks this one *replaces*, *adds to* or *partly completes*, naming their steps. A block that touches a stage named in another live block cross-references it.
 - **What was done:** a few lines of what this session decided and committed, with the files and commits that hold it. Point to where things are recorded, and don't retell them.
 - **Lanes in flight** (only if any): stage, branch, database, ports, card, status.
-- **Next steps, in order:** each written as the line the founder pastes. Give the skill, model, effort, branch and the checkout it writes in. If a skill exists for the step, the line is the invocation. Claude can't start a skill other than `debug` (`disable-model-invocation`), so a skill named inside a prompt is written as a step the founder runs, after the work Claude does. The first next step is a whole prompt for a cold session. It opens with "Read the top block of `<STATE.md path>`" and says which files to read and what to do. Copy live next steps from earlier blocks forward in full. Never write "as in the earlier block": that block will be deleted.
+- **Next steps, in order:** one step per item, each with the line the founder pastes. A step is a skill or plain work, never both.
+  - **A skill step's line is the invocation alone:** `/<skill> <arguments>`, starting with the slash, nothing before it and no prose after the arguments. Claude Code expands a skill only when the message starts with its name, and Claude can't start one itself (`disable-model-invocation`, every skill but `debug`). The skill reads this block's top itself, so anything it needs to know goes in the block, not the line. Its model, effort, branch and checkout go beside the line, outside it: the skill sets its own model.
+  - **A plain-work step's line is a whole prompt for a cold session.** It opens with "Read the top block of `<STATE.md path>`", says which files to read and what to do, and names the model, effort, branch and checkout. If a skill follows the work, it is the next step, with its own line.
+  - Copy live next steps from earlier blocks forward in full. Never write "as in the earlier block": that block will be deleted.
 - **Carry-overs:** decisions, and pointers to the sections that hold them. Don't copy findings in. A session acting on an item reads the cited section, not this summary of it.
 - **Questions for the founder:** each phrased so it can be asked as it stands, with *owed by*, the step that needs the answer. Name options by noun. Letters are at most aliases.
 - **Owed:** what this session left undone, including uncommitted files.

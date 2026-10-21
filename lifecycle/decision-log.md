@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.44 · 2026-10-21**
+**Version 0.45 · 2026-10-21**
 
 ---
 
@@ -593,3 +593,33 @@ Four facts found on the way are written into the files as they are, not as the m
 **Decided by.** Founder, 2026-10-21: accepted on Claude's judgement, without a line-by-line review ("you decide on all - you know the rules"). Claude put the first four of the eight items to the founder as questions; the founder closed them and handed all eight to Claude. The wording is Claude's, from the inbox notes cited. Run on Opus at `learned --consolidate`.
 
 **Revisit.** When the app sets `.dark`, restore "both colour schemes".
+
+## L-46 · 2026-10-21 · `handoff` and `decision-record` run on the session's own model
+
+**Decision.** `handoff` and `decision-record` drop `model: sonnet` and keep `effort: low`. Only a skill that opens a session or runs forked sets a model (`skills-plan.md` 0.14 §0 *Model and effort*, `README.md` 0.9 §7).
+
+**Why.** The founder raised it: the end-of-session skills set a different model from the session's. Prompt caches are kept per model, so switching to Sonnet at the end of a long Opus session makes Sonnet read the whole session at full input price, where Opus would read it from cache at about a tenth. A cheaper model doesn't pay for that. A skill that opens a session, or forks, starts with an empty context, so its model pin costs nothing.
+
+**Decided by.** Founder, 2026-10-21, in chat: raised the problem and said "go ahead with all three on a branch" after Claude proposed the fix. The wording is Claude's. Not yet reviewed line by line.
+
+**Revisit.** If a session's `/usage` shows the end-of-session skills costing more than expected on Opus, or if Claude Code starts sharing caches across models.
+
+## L-47 · 2026-10-21 · A skill step's paste line is the invocation alone
+
+**Decision.** In a `STATE.md` block, each next step is a skill or plain work, never both. A skill step's line is `/<skill> <arguments>` alone, with its model and branch beside it, not in it. A plain-work step's line stays a whole prompt (`skills/handoff/SKILL.md`, `README.md` 0.9 §5 rule 8, `skills-plan.md` 0.14 §0 *Invocation*).
+
+**Why.** The founder raised it: pasted prompts often named a skill inside prose, and the session answered that it couldn't run it, so the founder copied out or retyped the invocation. Claude Code expands a skill only when the message starts with its name, and every lifecycle skill but `debug` is `disable-model-invocation`. The skills inject the top `STATE.md` block themselves, so the prose around the invocation was redundant anyway.
+
+**Decided by.** Founder, 2026-10-21, in chat: raised the problem and said "go ahead with all three on a branch" after Claude proposed the fix. The wording is Claude's. Not yet reviewed line by line.
+
+**Revisit.** If a skill turns out not to read the block it needs, put the missing input in its `context.sh`, not in the paste line.
+
+## L-48 · 2026-10-21 · `start`: the front door for a new idea
+
+**Decision.** Add `start` (Sonnet, medium, writes nothing): it sorts an idea into a track, names where it enters and what it runs, asks which optional phases to skip (offering only skips a gate accepts: research waived, no UI, no design pass; small or not for a Change), and prints the first skill's line. `ideate` takes a `Skips:` part in its argument and asks only what's left. Skips no gate accepts are named as overrides to expect, never routed around (`skills-plan.md` 0.14 §1 `start`, `README.md` 0.9 §1).
+
+**Why.** The founder asked for a "0-dump" skill: one place to drop an idea and get its first prompt, without remembering skill names and order. `lifecycle-status` already sorts work but writes nothing and prints no skips; `ideate` records skips but assumes a Module. `start` sits in front of both and leaves recording to the skill that owns the file, so a skip lands where the gate reads it.
+
+**Decided by.** Founder, 2026-10-21, in chat: raised the problem and said "go ahead with all three on a branch" after Claude proposed the fix. The wording is Claude's. Not yet reviewed line by line.
+
+**Revisit.** After its first three uses: whether the founder still runs `lifecycle-status` for new work, and whether the skips it offers were the ones wanted.

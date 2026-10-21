@@ -2,7 +2,7 @@
 
 *The method behind the lifecycle skills: the three tracks of work, the phases and their gates, where every file lives and who writes it, the session and build rules that keep usage down, and how lessons are kept. The skills themselves are specified in `skills-plan.md`.*
 
-**Version 0.8 · Status: plan — nothing here is built yet · 2026-10-21 · Owner: _root**
+**Version 0.9 · Status: plan — nothing here is built yet · 2026-10-21 · Owner: _root**
 
 ---
 
@@ -38,7 +38,7 @@ The design is drawn from what already worked in this repo — the journeys build
 | ↳ *small* | IMNSTR's session lengths (CS1) | size S, one stage, no schema change: note, build, verify and deploy in one session, with the same note and stage record. The founder chooses it, and the log says so |
 | **Fix** | B-15, status always "Backlog" | debug → verify → decision record |
 
-`lifecycle-status` sorts incoming work into a track. When in doubt between Change and Module: if it needs new journeys or new screens, it is a Module. A `revise` item that adds a capability (new stored data, a new screen family, or anything the intake put out of scope) leaves `revise` for `spec change`, with research or a waiver line in the note.
+`start` takes a new idea, sorts it into a track, asks which optional phases it skips and prints the first skill's line; `lifecycle-status` sorts work and reports where it stands, writing nothing. When in doubt between Change and Module: if it needs new journeys or new screens, it is a Module. A `revise` item that adds a capability (new stored data, a new screen family, or anything the intake put out of scope) leaves `revise` for `spec change`, with research or a waiver line in the note.
 
 ## 2. The Module phases
 
@@ -148,7 +148,7 @@ Rules 1–6 from the retrospective's findings 1, 3 and 6; rules 7 and 9 from `le
 5. **Everything a later session needs is committed**: state, phase cards, lane reports. Nothing load-bearing lives in session memory or a scratchpad.
 6. **Durable environment knowledge goes in the repo's CLAUDE.md**, not in one machine's memory.
 7. **Every session ends `handoff` → `learned` → `/clear`.** Lessons are captured as notes and never edited into instructions mid-flight; `learned --consolidate` integrates them in batches (15 notes or 14 days, and at each milestone during a build), with the founder accepting each change.
-8. **Every session's last message is the next session's prompt**, in a fenced block the founder pastes after `/clear`. It is the first next step of the `STATE.md` block just written, copied word for word: which block to read, then the skill or task, with module, model, effort, branch and checkout. A session with no next step says so. With the skills, `handoff` prints it and `learned` prints it again last; before them, the session writes it itself.
+8. **Every session's last message is the next session's prompt**, in a fenced block the founder pastes after `/clear`. It is the first next step of the `STATE.md` block just written, copied word for word. A skill step is the invocation alone, `/<skill> <arguments>`, since a skill runs only when the message starts with its name; the skill reads the block itself. A plain-work step is a whole prompt: which block to read, then the task, with module, model, effort, branch and checkout. A session with no next step says so. With the skills, `handoff` prints it and `learned` prints it again last; before them, the session writes it itself.
 9. **A session checks the ground before its first step.** The previous session's work landed: its branch is where the prompt says, merged or not, and the `STATE.md` block and decision-log entry it names exist. If not, stop and ask before branching. And `bin/install-skills --check` lists nothing; if it lists a skill, reinstall before using it.
 
 ## 6. Build rules
@@ -172,12 +172,13 @@ From the journeys build, kept or corrected:
 | Research, spec, journeys, build plan, eval plan, reviews, close-out | Opus · high |
 | Wireframes, revise, phase cards | Opus · medium |
 | Lanes (stage builds) | Sonnet |
-| Intake, personas, decision records, handoff, status | Sonnet · low to medium |
+| Intake, personas, status, start | Sonnet · low to medium |
+| Decision records, handoff | the session's own · low |
 | Learnings capture | the session's own · low |
 | Learnings consolidation | Opus · high |
 | Debugging | the session's own · high |
 
-Skills set these in their frontmatter, so the session's own model only matters between skills.
+Skills set these in their frontmatter, so the session's own model only matters between skills. Only a skill that opens a session or runs forked sets a model. One that runs inside a session already under way (`handoff`, `learned`'s capture, `decision-record`) runs on the session's own, because switching models mid-session reads the whole session again at full price, which costs more than the cheaper model saves (L-46).
 
 ## 8. Rollout
 
@@ -195,6 +196,7 @@ Each stage ends by checking usage against the baseline.
 
 ## Changelog
 
+- **0.9 · 2026-10-21** — §1: `start` is the front door for new ideas (L-48). §5 rule 8: a skill step's prompt is the invocation alone (L-47). §7: `handoff` and `decision-record` run on the session's own model (L-46).
 - **0.8 · 2026-10-21** — §5 rule 9: a session checks that the previous session's work landed and that the installed skills match the checkout. From `learned --consolidate`, the first (L-39).
 - **0.7 · 2026-10-20** — §3: skills live in `skills/<skill>/SKILL.md` until the plugin, installed by `bin/install-skills`. §5 rule 8: every session ends with the next session's prompt. §8: the baseline is the journeys build's total and the IMNSTR trial's per-phase costs.
 - **0.6 · 2026-10-20** — §3 and §4 list `skills/<skill>/reference.md`, the seeds moved out of `skills-plan.md` in its cut back (L-22 to L-27).
