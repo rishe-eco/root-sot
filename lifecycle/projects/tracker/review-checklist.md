@@ -2,7 +2,7 @@
 
 *What every `verify` of a Tracker stage checks, after the lane report and the diff stat and before the stage record. Items are short so a review can tick them; each cites where it comes from. The plan's §5 section for the stage, or the change note's Stages, adds that stage's own acceptance and traps on top. Sources: `tracker/canon/02-architecture/04-conventions.md` 0.6, `03-engineering/01-testing.md` 0.3, `04-roadmap/01-known-issues-and-debt.md`.*
 
-**Version 0.3 · Status: planned · 2026-10-21 · Owner: founder**
+**Version 0.4 · Status: planned · 2026-10-21 · Owner: founder**
 
 ---
 
@@ -70,8 +70,8 @@ These can't be proven by a lane or a suite. Each goes to the stage record's *ver
 
 | Can't be checked here | Fallback | Condition | Goes to |
 |---|---|---|---|
-| The e2e suite on the Linux machine (one spec runs there, `config.md` §2) | the suite on the Windows build machine (Edge) | until the browser channel is read from the environment | open-work |
-| Two lanes' e2e at once | one e2e lane per machine | until the ports and the e2e database are movable (`config.md` §4) | open-work |
+| The e2e suite on the Linux machine | the suite on the Windows build machine (Edge) | `PW_CHANNEL=chrome` exists from Reflect's B0; until the suite has run there once | open-work |
+| Two lanes' e2e at once | one e2e lane per machine | met from Reflect's B0 on Windows (`config.md` §4); until B0 is on `main` and has run on Linux | open-work |
 | Persian copy quality, every new string | the glossary and the `i18n` checks | the founder or a Persian reader | open-work, founder |
 | Content packs' human review (every pack is `key-unverified`) | the content-invariant tests | the six labs' content review | `team/open-work.md` |
 | The live site after a deploy | none | the founder signs in on the live site | open-work, founder |
@@ -80,6 +80,8 @@ These can't be proven by a lane or a suite. Each goes to the stage record's *ver
 ---
 
 ## Changelog
+
+- **0.4 · 2026-10-21** — §7: the Linux and two-lanes rows name the conditions Reflect's B0 meets. Approved by the founder after `verify B0`; applied at `verify B1`.
 
 - **0.3 · 2026-10-21** — §4: the light scheme only, until the app sets `.dark` (checked against `rishe-eco/tracker` `main` @ `94d2e63`). From `learned --consolidate`, the first (L-45).
 - **0.2 · 2026-10-21** — §7: the Linux ceiling row covers the suite only; one spec runs there (`config.md` §2). From `learned --consolidate`, the first (L-44).

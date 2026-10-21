@@ -2,7 +2,7 @@
 
 *Where things are for Tracker work, how its suites run, and which resources each lane gets. Read by `build-phase` (lane resources, the card's paths), `verify` (suites, stage records, the milestone script, the deploy), `design-review` (the design system) and `close-out` (the canon). The rules a lane follows are in `brief-common.md`; what a review checks is in `review-checklist.md`.*
 
-**Version 0.3 · Status: planned; CI and CD written (CD1), live once the founder's setup is done · 2026-10-21 · Owner: founder**
+**Version 0.4 · Status: planned; CI and CD live (CD1, P0-4); e2e slots from Reflect's B0 · 2026-10-21 · Owner: founder**
 
 **Grading.** Facts about the code are **as-built**, read from `rishe-eco/tracker` `main` @ `003db5a` on 2026-10-20: both `package.json` files, `api/vitest.config.ts`, `api/src/test/globalSetup.ts`, `client/playwright.config.ts`, `client/e2e/globalSetup.ts`. Conventions and testing are from the canon (`tracker/canon/02-architecture/04-conventions.md` 0.6, `03-engineering/01-testing.md` 0.3). **Planned:** the stage records, the development README and the lane slots, because Tracker has no lane setup yet (§4). No module has run on the lifecycle here; the first planned is a Fix, B-15 (`README.md` §8, stage 2).
 
@@ -13,7 +13,7 @@
 | | |
 |---|---|
 | Code repo | `rishe-eco/tracker`, **public** (checked 2026-10-20). Two npm projects with no root `package.json`: `api/` and `client/` |
-| Checkouts, per machine | Linux: `~/Desktop/Root/tracker`. Windows build machine: not recorded; the founder supplies it |
+| Checkouts, per machine | Linux: `~/Desktop/Root/tracker`. Windows build machine: `E:\_root\tracker`, with root-sot at `E:\_root\root-sot` |
 | Remote | `git@github-markRiceOld:rishe-eco/tracker.git` on the Linux machine (an SSH alias). Check `git config user.email` before the first commit |
 | The root-sot checkout lanes read | Linux: `~/Desktop/Root/Root`. `git pull` it before the card is drafted; the card names the commit it was drafted at |
 | Where each kind of session writes, and how it commits | lanes: their own worktree and branch, and never push. `verify`: the main checkout, merging the lane's branch into `main`, then pushing with the founder's yes |
@@ -30,7 +30,8 @@
 
 ## 2. Environment
 
-- **Machines:** the founder's Linux machine (Node 22, Chrome, no Edge) and the Windows build machine (Edge). **`client/playwright.config.ts` hard-codes `channel: "msedge"`**, so the suite doesn't run on the Linux machine until the channel is read from the environment (§4, owed). **One spec can:** put a config in the git-ignored `client/.tmp/` that spreads `playwright.config.ts` and sets only `use.channel: "chrome"`, and give the API a fresh SQLite file (`DATABASE_URL=file:<scratch>/x.db npx prisma db push --skip-generate`), so nothing writes to `dev.db`. `goals.spec.ts` passed 4/4 this way at `verify --fix B-15`.
+- **Machines:** the founder's Linux machine (Node 22, Chrome, no Edge) and the Windows build machine (Edge). From Reflect's B0, `client/playwright.config.ts` reads the channel from `PW_CHANNEL` (default `msedge`): on the Linux machine, set `PW_CHANNEL=chrome`. Playwright starts its own API on a scratch database per slot, so nothing writes to `dev.db` (`client/e2e/README.md`).
+- **Windows reserves TCP port ranges that move on reboot** (3931–4030 at B0's verify, which covers slot A's default API port). Check `netsh interface ipv4 show excludedportrange protocol=tcp` before an e2e run, and set the slot's variables to free ports. **`prisma db push` takes 7–60 s there** for a fresh scratch database; the e2e API gets 300 s to start.
 - **Setup per checkout:** `cd api && npm install && npx prisma generate`, then `cd ../client && npm install`. `api/.env` isn't in git: `DATABASE_URL="file:./dev.db"`, `JWT_SECRET`, `CORS_ORIGINS`, and an Anthropic key for the features that call it.
 - **Database:** SQLite files, no Docker. Dev: `api/prisma/dev.db`. Tests: `api/prisma/test.db`, pushed fresh by Vitest's global setup.
 - **Founder's devices and accounts:** not recorded yet; the open-work file's *From the founder* table holds them when a check needs them.
@@ -45,7 +46,7 @@
 | `cd api && npx vitest run <files>` | unit and integration files, one at a time (`fileParallelism: false`) | lanes and reviews, targeted |
 | `cd client && npx vitest run <files>` | component tests, with `useApi` mocked | lanes and reviews, targeted |
 | `cd client && npm run i18n:check-missing && npm run i18n:check-hardcoded` | a key missing in `en` or `fa`; literal strings in components | lanes and reviews |
-| `cd client && npx playwright test <spec> -g <name>` | one e2e test (one worker is the config's default); on the Linux machine add `--config .tmp/<scratch>.config.ts` (§2) | lanes and reviews, targeted; one at a time per machine (§4) |
+| `cd client && npx playwright test <spec> -g <name>` | one e2e test (one worker is the config's default), with the slot's variables (§4); on the Linux machine add `PW_CHANNEL=chrome` (§2) | lanes and reviews, targeted; one per slot (§4) |
 | `cd api && npm test`; `cd client && npm test`; `cd client && npm run test:e2e` | the full suites: 62 files and 1,079 tests on the API, 23 and 223 on the client (2026-09-21) | the orchestrator, at milestones only |
 
 **Heavy runners:** the API's full run (integration tests take 5–10 s each on SQLite) and the e2e suite. Never two at once on one machine.
@@ -56,12 +57,12 @@ At most two lanes at once, and never two that change `schema.prisma`.
 
 | Slot | Branch | Test database | Ports | Variables |
 |---|---|---|---|---|
-| A | from the stage | `<worktree>/api/prisma/test.db` | e2e: API `4000`, web `5173` | none yet |
-| B | from the stage | `<worktree>/api/prisma/test.db` | **no e2e** until the ports are movable | none yet |
-| main checkout (milestones, review) | — | `api/prisma/test.db` | API `4000`, web `5173` | — |
+| A | from the stage | `<worktree>/api/prisma/test.db` | e2e: API `4010`, web `5183` | `E2E_API_PORT=4010 E2E_WEB_PORT=5183` |
+| B | from the stage | `<worktree>/api/prisma/test.db` | e2e: API `4020`, web `5193` | `E2E_API_PORT=4020 E2E_WEB_PORT=5193` |
+| main checkout (milestones, review) | — | `api/prisma/test.db` | dev servers: API `4000`, web `5173` | — |
 
 - **API tests** are safe in two worktrees at once: the test database is a file inside each worktree.
-- **e2e is not lane-safe yet** (as-built): the API URL is fixed at `localhost:4000` in `client/e2e/globalSetup.ts` (and is `useApi.ts`'s default), the web port at `5173` with `reuseExistingServer: true`, and the e2e signs up its users through **whatever API is running, against its dev database**. Until a prep stage makes the ports, the API URL, the browser channel and the e2e database movable (as root-app's P0 test-lanes prep did), only one lane per machine runs e2e, and it starts its own API on a copy of the dev database. The first module's plan schedules that prep, or the founder waives it.
+- **e2e is lane-safe from Reflect's B0** (verified 2026-10-21 on Windows with Edge, two slots at once): Playwright starts the API and the web on the slot's ports, the API on a scratch `api/prisma/prisma/p<port>-e2e.db` it clears first, and refuses the dev servers' `4000` and `5173`. `E2E_REUSE=1` reuses servers already on the slot's ports. Every path a test run writes is keyed by the slot's API port. Before B0 is on `main`, e2e is one lane per machine on `4000`/`5173`.
 - **Branches:** before the method, a feature branch per build (`impact-noticing`) and `fix/<slug>` for fixes. **Change and Fix stages:** `<two letters><n>-<slug>`, taking the free slot.
 - **Review port and seed route:** `npm run dev` in `api/` and `client/` (`run-dev.sh`), or the `api` and `client` entries in `.claude/launch.json`. No seed route.
 
@@ -119,6 +120,8 @@ Not built yet. The first stage that needs one adds it under `client/tests/review
 | Stage reviews and milestones (`verify`) | Opus · high, forked |
 
 ## Changelog
+
+- **0.4 · 2026-10-21** — §1 the Windows checkout; §2 `PW_CHANNEL` replaces the Linux scratch-config recipe, and Windows' reserved port ranges and slow `db push`; §3 and §4 the slots' e2e ports and variables, from Reflect's B0. Approved by the founder after `verify B0`; applied at `verify B1`.
 
 - **0.3 · 2026-10-21** — §2 and §3: one e2e spec runs on the Linux machine from a scratch Chrome config and a scratch database. From `learned --consolidate`, the first (L-44).
 - **0.2 · 2026-10-21** — §2 CI and §7 Deploy, for CD1: CI on pull requests, a push to `main` deploys, the box's real layout (Docker at `/opt/stacks/tracker`, no Node), the secrets. §3: `npx tsc --noEmit` is the type check.

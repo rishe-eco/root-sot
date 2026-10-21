@@ -2,7 +2,7 @@
 
 *What every Sonnet lane building a Tracker stage gets, ahead of its phase card. `build-phase` sends this file and then the card. Paths, ports and suite commands are in `config.md` beside this file. Shaped like root-app's and IMNSTR's briefs, with Tracker's conventions and testing canon in place of theirs.*
 
-**Version 0.1 · Status: planned · 2026-10-20 · Owner: founder**
+**Version 0.2 · Status: in use · 2026-10-21 · Owner: founder**
 
 ---
 
@@ -26,8 +26,8 @@ You work in a **git worktree** of the Tracker checkout, which is your current di
 
 - **Setup, once, in your worktree:** `cd api && npm install && npx prisma generate`, then `cd ../client && npm install`. `api/.env` isn't in git: copy it from the main checkout's `api/.env`, never commit it.
 - **SQLite, no Docker.** API tests push a fresh `api/prisma/test.db` inside your worktree, so they can't collide with another lane. Never touch `api/prisma/dev.db` in any checkout but yours.
-- **e2e is one lane at a time per machine** (`config.md` §4): it uses fixed ports `4000` and `5173`, reuses a running server, and signs up its users in the running API's database. Run it only if your card says your slot has e2e, and stop any dev server you started.
-- **Browser:** the Playwright config asks for Edge. On a machine without it, say so in report item 6 rather than changing the config, unless your card says to.
+- **e2e runs on your slot's ports** (`config.md` §4): export `E2E_API_PORT` and `E2E_WEB_PORT` from your card in every command that runs a spec, since shell state doesn't persist. Playwright starts its own API on a scratch database for that port; never use `4000` or `5173`, which are the dev servers'. Run e2e only if your card says your slot has it, and stop any server you started. **Key every path a test run writes by your slot** (database, credentials, output folders), so two lanes never share one.
+- **Browser:** the Playwright config reads `PW_CHANNEL` (default `msedge`; `chrome` on the Linux machine). On a machine with neither, say so in report item 6 rather than changing the config, unless your card says to.
 - **Shell state doesn't persist between Bash calls.** Background Bash commands ignore a leading `cd`: wrap them as `bash -c 'cd <your worktree>/api && …'`.
 - **Never touch** the main checkout, another lane's worktree, or a port that isn't yours. You have no access to the server.
 
@@ -71,7 +71,7 @@ A stopped lane is not a failure. A fresh lane continues from your branch and you
 ## Tests
 
 - **Targeted only.** Run the test files your stage adds or changes, plus the files that assert any shared rule you touched. **Never run the full suites**: the orchestrator runs them at milestones.
-- Run `npm run typecheck` and both `i18n:check-*` scripts in `client/` before your last commit.
+- Run `npx tsc --noEmit` (not `npm run typecheck`, whose typegen step fails on this app) and both `i18n:check-*` scripts in `client/` before your last commit; `npx tsc --noEmit` in `api/` too when you change it.
 - **Logic is tested in API integration tests** against the test database; client component tests mock `useApi` and stay thin. Don't test thin I/O glue (`01-testing.md` §1).
 - An architectural refusal is a **fence as a test**: it reads the schema or type definitions as text, and you plant a violation once to see it fail.
 - Tests and fixtures don't depend on today's date.
@@ -91,5 +91,7 @@ A stopped lane is not a failure. A fresh lane continues from your branch and you
 ---
 
 ## Changelog
+
+- **0.2 · 2026-10-21** — Environment: e2e on the slot's variables, `PW_CHANNEL`, and every path a test run writes keyed by slot, from Reflect's B0; Tests: `npx tsc --noEmit` in place of `npm run typecheck`. Approved by the founder after `verify B0`; applied at `verify B1`.
 
 - **0.1 · 2026-10-20** — Planned, at rollout stage 1, from the conventions 0.6, testing 0.3, the code repo, and the root-app and IMNSTR briefs. Not yet used by a lane.
