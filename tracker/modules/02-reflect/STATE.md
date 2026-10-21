@@ -2,6 +2,30 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-21 · 2 spec · lifecycle/stage-3a-spec @ 68df841 · rishe-eco/tracker main @ 5fd71c9
+
+*Adds to the 1 research and 0 intake blocks below, which stay live. Completes the 1 research block's next step 1.*
+
+**What was done**
+- `tracker/modules/02-reflect/02-spec.md` written (version 0.1, 47 acceptance criteria, committed `68df841`, `lifecycle/status.md` column 2 `done`). Gate: its 7 headings pass; the missing `03-journeys.md` is `personas`'s. Not pushed.
+- Eight founder decisions (spec §2 #1–8): observer story in "you" with no "why"; the re-reading close is in; a light pre-check plus Stop here on every step; an interpretation catch on the story text; Feelings & Needs' palettes and faux-feeling catch reused; one optional three-word tap after finishing for the drop rule, never shown back; English practice content with a Persian draft; a plain deletable list of past entries.
+- Ten calls by Claude (§2 #9–18), for the founder to refuse on review: own tables, not Journals; personal API tokens refused; pre-check and after-entry answers kept out of the API; tree nodes RFL-1, RFL-1a, RFL-1a.1–3 proposed, since `ecosystem/ost.md` has no tree written.
+- Scope grew in three places against the intake (pre-check, re-reading close, after-entry tap); the ledger shows it.
+- The session ran below the skill's `high` effort.
+
+**Next steps, in order**
+1. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`lifecycle/stage-3a-spec`), then `tracker/modules/02-reflect/02-spec.md`. Run `/personas tracker/modules/02-reflect`, then `/journeys tracker/modules/02-reflect` (Opus, high effort).
+
+**Carry-overs**
+- The intake's carry-overs stand. Settled in the spec: the Journals and Feelings & Needs overlap (§2 #5, #9), the drop rule's instrument (§2 #6, §3), the tree node (§2 #16).
+- Risks `build-plan` must handle: Noticing's fences test slices `schema.prisma` from its banner to the end of the file, so Reflect's models can't be appended there (R8); encryption at rest is undecided (R7); e2e is not lane-safe (R9).
+- Persian remains the open research gap: Reflect's bet isn't tested for Persian users in this version (R2).
+
+**Questions for the founder**
+- Approve the calm-close copy (and whether it should name a trusted person or a professional)? Owed by: `build-plan`'s stop point, R6.
+- Lock the outcome above RFL-1 in `ecosystem/ost.md`? Owed by: `eval-plan`.
+- The research block's question (Re-reading close and Ruminator guard widen scope) is answered: the close and a light guard are accepted; the routed shorter version is not.
+
 ## 2026-10-21 · 1 research · lifecycle/stage-3a-spec @ 2ce2672 · rishe-eco/tracker main @ 5fd71c9
 
 *Adds to the 0 intake block below, which stays live. Completes its next step 1.*
