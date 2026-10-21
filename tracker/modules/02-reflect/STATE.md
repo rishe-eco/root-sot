@@ -2,6 +2,64 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-21 · 8b land B2 · main @ d95dfd9 · rishe-eco/tracker main @ 871a2c1
+
+*Replaces the 8a launch B2 block's lane row and its next step 1. Its next step 2, carry-overs, questions and owed cleanup stand, and are copied below.*
+
+**What was done**
+- The lane returned two commits on `reflect-b2-entry-api`: `a9fecc4` (the services, SDL, resolvers, `clearDb` and 28 integration tests) and `1641acf` (the fences). The author is the same as on `main`, with the Sonnet co-author line on both.
+- Measured from `871a2c1`: +810 app, +763 tests, nothing moved, against size L. The run took 14.7 min and 188k tokens after one resume; the first run, cut off by a network error, wasn't recorded. `main` hasn't moved since the base, so nothing overlaps.
+- The report is `tracker/modules/02-reflect/briefs/B2.report.md` (`d95dfd9`). The lane ran six targeted files, 107 passing, and `tsc` was clean.
+
+**Lanes in flight**
+| Stage | Branch (base) | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| B2 (L) | `reflect-b2-entry-api` (`main @ 871a2c1`) | A: test database `<worktree>/api/prisma/test.db`; no ports | `<checkout>/.claude/worktrees/reflect-b2-entry-api` | `briefs/B2.md` | landed |
+
+**For verify to decide**
+- **The card's nine calls** (`briefs/B2.md`, *Decided here*), above all:
+  - a move to the current step is a no-op;
+  - bounds are counted in UTF-16 units;
+  - the state is pinned on the first start only;
+  - word source, met and the pre-check are GraphQL enums.
+- **The lane's own calls** (report part 4):
+  - every Reflect write for one user runs under the `rfl-entry` lock, not only start;
+  - `ensureOwned` is called inside the services;
+  - `prompts` is fully typed, and `limits` carries more than §6.4;
+  - the SDL fence refuses `lexicon` and `lastCatchAt` too;
+  - `storyStart` drops a trailing half surrogate pair;
+  - `reviewStatus` is Reflect's pack's only;
+  - the schema-level test uses `ApolloServer.executeOperation`.
+- **Card checks the lane didn't do:**
+  - the post-deploy check, an unauthenticated `reflectHome` returning `Unauthorized` on production;
+  - the server's read-only plugin against a read-scope mutation;
+  - the `console` and "type outside the block" rules, which are planted only in the scanner's own strings, not in the repo.
+- **What the deploy runs:** unchanged. The merge adds 14 live, unlinked operations, and no migration.
+- **Departures** (report part 5): the plan's "every field and argument name" is read as operation and type names, per the card. Canon made stale: `02-graphql-api.md`.
+- **Proposals for `brief-common.md`** (report part 7):
+  - a fresh worktree needs `npm install`, `prisma generate` and a copied `api/.env`, in that order;
+  - SDL doc strings can't hold backticks;
+  - long heredocs in Git Bash fail, so write files with the Write tool.
+
+**Next steps, in order**
+1. From the tracker checkout on `main`, Opus, high effort (it runs forked): `/verify tracker/modules/02-reflect B2`
+2. Before B6's card is drafted, run `/revise` (Opus, medium) on the spec for D-4 (an entry stopped with writing but no story is kept yet never listed or deletable) and to write G1–G17 and the accepted W-calls into the spec.
+
+**Carry-overs**
+- Open-work in `team/open-work.md`: B3 owes the fold copy. Past the ceiling: the founder's sign-in after the first migration deploy, a Persian reader's pass on the `fa` surface, and B0's Linux Chrome run.
+- Stale canon for `close-out`: listed in `docs/development/B0.md` and `docs/development/B1.md`, and now `02-graphql-api.md` for B2.
+- `config.md`'s *Lane worktrees* row says the Agent tool's isolation makes them. `build-phase` makes them with `git worktree add`, so the row is for the next verify to correct.
+- Every push to the code repo's `main` deploys.
+
+**Questions for the founder**
+- Push tracker `main` (`871a2c1`; docs only, but the push deploys)? Owed by: nothing.
+- Approve the calm-close copy, `en` and `fa`, and whether it names a trusted person or a professional? Owed by: B7 (P0-1).
+- Veto any of PD-2, PD-3, PD-5, PD-6, PD-7, PD-8, PD-10, PD-11 or G6's split (`07-build-plan.md` §10)? Owed by: the card for the stage each touches. B2 built PD-7, PD-8 and PD-11.
+- Lock the outcome above RFL-1 in `ecosystem/ost.md`, and who reads M1–M6? Where do database backups go, the box only or off it? Owed by: nothing yet.
+
+**Owed**
+- Tracker cleanup: `git worktree remove .claude/worktrees/reflect-b0-e2e-lanes` (prunable), and `git branch -d reflect-b0-e2e-lanes reflect-b1-schema-content` (both merged).
+
 ## 2026-10-21 · 8a launch B2 · main @ 8131c8a · rishe-eco/tracker main @ 871a2c1
 
 *Partly completes the 8c verify B1 block: its next step 1 (`/build-phase B2`) is launched here. Its next step 2, carry-overs, questions and owed cleanup stand, and are copied below.*
