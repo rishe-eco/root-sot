@@ -2,6 +2,29 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-21 · 4 journeys · lifecycle/stage-3a-spec @ fd8ac7a · rishe-eco/tracker main @ 5fd71c9
+
+*Adds to the 3 personas, 2 spec, 1 research and 0 intake blocks below, which stay live. Completes the 3 personas block's next step 1 (`/journeys`).*
+
+**What was done**
+- `/journeys new` wrote `tracker/modules/02-reflect/03-journeys.md` 0.2 (committed `fd8ac7a`, not pushed): five journeys, 57 steps (J1 first English entry, J2 first Persian entry and Past entries, J3 pre-check, Not now, Stop here and the calm close, J4 return after a gap and deletion, J5 errors and fences). Gate OK, all 47 criteria in Coverage. `lifecycle/status.md` column 3 is `done`. The run was below the skill's high effort.
+- Four founder decisions (journeys §1): the story saves while typing; Back works between steps until Finish; a failed save keeps text in the page only; *Start a new one* shows one line, no dialog.
+- Seventeen Suggested gaps (journeys §4, G1–G17), none yet in the spec. The largest beyond the four decisions is G6: which strings are interface text and which are practice content.
+
+**Next steps, in order**
+1. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`lifecycle/stage-3a-spec`), then `tracker/modules/02-reflect/03-journeys.md` (§3 States and §4 gaps first). Run `/wireframes tracker/modules/02-reflect` (Opus, medium effort).
+2. Run `/revise` on the spec to take G1–G17 (or refuse some) before `build-plan`.
+
+**Carry-overs**
+- The 3 personas, 2 spec and 1 research blocks' carry-overs stand: risks `build-plan` must handle (R7 encryption at rest, R8 Noticing's fences slice, R9 e2e not lane-safe); Persian remains the open research gap (R2).
+- The 3 personas block's questions below stand.
+
+**Questions for the founder**
+- Approve the calm-close copy (and whether it should name a trusted person or a professional)? Owed by: `build-plan`'s stop point, R6.
+- Lock the outcome above RFL-1 in `ecosystem/ost.md`? Owed by: `eval-plan`.
+- Accept G6 (Persian users read the safety copy in Persian, though the practice content is English)? Owed by: `revise`.
+
+
 ## 2026-10-21 · 3 personas · lifecycle/stage-3a-spec @ ca77b14 · rishe-eco/tracker main @ 5fd71c9
 
 *Adds to the 2 spec, 1 research and 0 intake blocks below, which stay live. Completes the 2 spec block's next step 1 (`/personas`); `/journeys` is still open.*
