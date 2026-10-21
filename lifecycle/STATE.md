@@ -2,6 +2,31 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-21 · Rollout stage 3, session A: all twenty skills built, none tried · lifecycle/stage-3a-spec @ 6de28a2 · rishe-eco/root-app main @ 02e7f6e
+
+*Completes session F's next steps 1 and 2 (the first consolidation had already run, `bf5ade8`). Carries forward session F's carry-overs and questions. Step 3, the usage check, stays open.*
+
+**What was done**
+- At the founder's word ("all of them, carry on"), every unbuilt skill was written before any was tried: `spec`, `ideate`, `research`, `personas`, `journeys`, `wireframes`, `eval-plan`, `build-plan`, `ux-review`, `design-review`, `revise`, `close-out`, `project-config`. Each is `lifecycle/skills/<skill>/SKILL.md` with a `context.sh`, one commit each, 15 commits on `lifecycle/stage-3a-spec` (not pushed, not merged).
+- The shared helpers are `lifecycle/skills/shared/design.sh`. Each `reference.md` is now version 0.2 with a *Placed* section listing Claude's calls, not yet reviewed by the founder.
+- Checked: shellcheck clean, `bin/gate-test` 76 of 76, `bin/install-skills --check` clean, each installed copy run from the root-app checkout against IMNSTR's `01-website`. Not done: `skill-creator`'s eval loop, and any run on real work.
+- The founder's change to the rollout (build all, then test) is not yet in the decision log.
+
+**Next steps, in order**
+1. Run `/decision-record` (Sonnet) for the rollout change: all twenty skills were built before testing, at the founder's word. Then `/revise method` (Opus, medium) for `skills-plan.md` (header says "nothing built"; §0 still names `root-sot/.claude/skills/`) and `README.md` §8.
+2. Read the top block of `lifecycle/STATE.md` in root-sot (`lifecycle/stage-3a-spec`). Run `bash lifecycle/bin/install-skills --check` first. Then run `/spec change ecosystem/modules/01-root-studio-journeys wp-dashboards #1 (one login factor; D1: keep the staff SMS step, flagged off)` (Opus, high effort), then `/build-phase <stage>` and `/verify <stage>` from the root-app checkout. Note each skill's defects for `/learned`. The other twelve skills are tried as real work needs them.
+3. At the end of stage 3, check usage against the baseline (`lifecycle/README.md` §8).
+
+**Carry-overs**
+- Session F's carry-overs stand: a push to root-app's `main` deploys; the NR1 and TK1 live checks and the owed 360 px and `j9a` rows are in `team/open-work.md`; Tracker's four open questions (B-15's stale entry, `npm run typecheck`, the colour-scheme item, the Chrome fallback).
+- Only the founder can run the skills; `decision-record`, `handoff` and `learned` set Sonnet.
+- Wp-dashboards #1, #3 and #4 to #8 and the scroll bugs still have no change note.
+- The skills' calls to check are in each `reference.md` under *Placed*.
+
+**Questions for the founder**
+- Merge `lifecycle/stage-3a-spec` into root-sot's `main` and push now, or after the first tests? Owed by: step 2.
+- Push root-app's `02e7f6e` (docs only), which deploys, or let it ride? Owed by: the next root-app push.
+
 ## 2026-10-21 · Rollout stage 2, session F: the second Change (NR1) · lifecycle/stage-2f-needs-root-tile @ ae8448b · rishe-eco/root-app main @ 02e7f6e
 
 *Completes session D's next step 1 (a second Change note). Carries forward session D's carry-overs and questions, apart from the one on merging the lifecycle branches, which is answered below. The module's own state is in `ecosystem/modules/01-root-studio-journeys/STATE.md`.*
@@ -122,29 +147,3 @@
 **Owed**
 - B-15 is unverified and unpushed until the fix mode exists.
 - `skill-creator`'s eval loop and description tuning weren't run for session B's skills (L-33).
-
-## 2026-10-20 · Rollout stage 2, session B: build-phase, verify, debug · lifecycle/stage-2b-skills @ 155a80a
-
-*The first block in this file. Session A (`lifecycle/stage-2a-skills`, `601bf20`–`8cb190d`) left none; L-32 reconstructs it. This block was written by the session in `handoff`'s format, not by `/handoff`.*
-
-**What was done**
-- Stage 2's last three skills: `lifecycle/skills/build-phase/`, `verify/` and `debug/`, each a `SKILL.md` and a `context.sh`, plus `lifecycle/skills/shared/build.sh`, which they all source (`6b4c839`–`9ba7f50`). Seeds placed: each `reference.md` is 0.2.
-- `bin/gate`'s call path for installed skills is fixed (`3e9ecf4`). `bin/gate-test` passes 53 of 53 cases, and shellcheck is clean.
-- `bin/install-skills` was rerun: all seven skills are installed, and `--check` is clean.
-- Decision log L-32 (session A, reconstructed) and L-33 (this session), which lists the calls the founder hasn't reviewed.
-- **Branches:** this branch is stacked on `lifecycle/stage-2a-skills`. Neither is merged into `main` or pushed.
-
-**Next steps, in order**
-1. Read the top block of `lifecycle/STATE.md`, then L-33 in `lifecycle/decision-log.md`, and B-15 in `tracker/canon/04-roadmap/01-known-issues-and-debt.md`. This is rollout stage 2, session C: the first real use of the build skills, on the Fix track (`lifecycle/README.md` §1: debug → verify → decision record). Model: Opus, high effort. Work in the Tracker checkout that `lifecycle/projects/tracker/config.md` names for this machine, on a new branch `fix/b-15-goal-group-status` from a freshly fetched `main`. root-sot stays on `lifecycle/stage-2b-skills` unless the founder has merged it, because the installed skills read their files from that checkout. Run `/debug Goal Group status always "Backlog" (B-15)`, starting with the smallest test that reproduces it, and fix it. Before verifying, ask the founder what `verify` reads for a Fix: a Fix has no stage, card or lane report, so `verify`'s gate can't pass one (L-33 *Revisit*). Record the answer with `/decision-record`. End with `/handoff`, then `/learned`.
-2. Rollout stage 2, session D: the journeys build's owed items, on the Change track, in root-app (`lifecycle/projects/root-app/config.md`). `spec change` isn't built yet (stage 3), so the session writes the change note and its Stages section by hand from `lifecycle/templates/change-note.md`. Then `/build-phase <stage>`, `/build-phase <stage> --land`, and `/verify <stage>`. Opus: medium for the card, high for verify.
-
-**Carry-overs**
-- `skills-plan.md` §0 still says skills live in `root-sot/.claude/skills/`, which L-31 replaced. That file is the founder's to change.
-- `verify` asks for this machine's code checkout through `config.md`. IMNSTR's checkout (`rishe-eco/i-monster`) isn't on the Linux machine.
-
-**Questions for the founder**
-- Should `lifecycle/stage-2a-skills` and `lifecycle/stage-2b-skills` be merged into `main` and pushed? Until they are, root-sot's checkout has to stay on `lifecycle/stage-2b-skills`, because the installed skills read their files from it. On another branch, they report "ROOT-SOT NOT FOUND". Owed by: session C.
-- Do the five calls listed in L-33 stand: the build-phase block replacing the handoff, `git worktree add` instead of the Agent tool's isolation, devices passed in the milestone argument, Change stages counted in column 8, and `background: false`? Owed by: session D's first `build-phase`.
-
-**Owed**
-- `skill-creator`'s eval loop and description tuning weren't run. Each skill's injected context was rendered on real modules instead (L-33).
