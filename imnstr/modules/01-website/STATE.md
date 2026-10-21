@@ -2,6 +2,21 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-21 · CT1 deployed (change note 08: Contact page and Writings) · lifecycle/imnstr-ct-contact-writings @ 3786c56 · rishe-eco/i-monster main @ cb028cd
+
+*Completes the 8c verify block's step 1. Its step 2 stands, copied below.*
+
+**What was done**
+- The founder added the three `CONTACT_*` lines to the server's `.env`, then said "push now". IMNSTR's `main` was fast-forwarded to `4eac593` and pushed. Deploy run 39589869407 is green. The live check passed: `/contact` and `/fa/contact` answer 200 with the exact CSP and no `Set-Cookie`, all three links are drawn, and "Writings" and «نوشته‌ها» show on the landing pages. Open-work F-22 is done.
+- The lane's worktree and branch were removed. The record's deploy line is `cb028cd`, which is local and unpushed: a push deploys, so it rides with the next IMNSTR change.
+
+**Next steps, in order**
+1. Read the top block of `imnstr/modules/01-website/STATE.md`, then `changes/08-change-contact-and-writings.md` (*What this makes stale*) and open-work F-23. Run `revise --catch-up 08` (Opus, medium) in root-sot on a new branch from `main`: spec §2, §3 "Not kept", §4.1, out of scope and the section's name; then `journeys update`. `revise` isn't written yet (rollout stage 5), so follow `lifecycle/skills-plan.md` §4 `revise` by hand.
+
+**Owed**
+- IMNSTR `cb028cd` (docs only) is unpushed.
+- A `/contact` check in `deploy/checks.sh` (F-23).
+
 ## 2026-10-21 · 8b land and 8c verify CT1 · lifecycle/imnstr-ct-contact-writings @ 4555785 · rishe-eco/i-monster ct1-contact-writings @ 4eac593
 
 *Replaces the 8a launch block's lane row. Land and verify ran in the same session as the launch.*
