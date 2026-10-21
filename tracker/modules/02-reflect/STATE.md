@@ -2,6 +2,33 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-21 · 8a launch B0 · main @ 2d550ee · rishe-eco/tracker main @ 5fd71c9
+
+*Adds to the 7 build-plan block below, which stays live. Completes its next step 1 (`/build-phase B0`); B1 may still run beside it in slot B.*
+
+**What was done**
+- The B0 card, `tracker/modules/02-reflect/briefs/B0.md` (commit `2d550ee`, 785 words of body: over the 700 range, under 1,000). The code check corrected the plan in four places: `client/e2e/helpers/api.ts` also hard-codes port 4000; `tsx` isn't installed, so the e2e API runs `ts-node`; `api/.gitignore`'s `*.db` already covers the e2e file, so `.gitignore` is unchanged; and the Windows build machine excludes ports 3931–4030 today, which takes the plan's 4010 and 4020.
+- Decided in the card, for `verify` to confirm: `ts-node` over `tsx`; one shared `client/e2e/ports.ts`; no `.gitignore` change; the plan's default ports kept, with Windows runs setting the variables to ports outside the excluded ranges.
+- The lane proves two slots at once with Edge on the Windows build machine. The Chrome run on the default ports, on the Linux machine, is owed to `verify`.
+
+**Lanes in flight**
+| Stage | Branch (base) | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| B0 (S) | `reflect-b0-e2e-lanes` (`main @ 5fd71c9`) | A: test database `<worktree>/api/prisma/test.db`; e2e on ports outside Windows' excluded ranges (4110/5183 and 4120/5193 suggested) | `<checkout>/.claude/worktrees/reflect-b0-e2e-lanes` | `briefs/B0.md` | running |
+
+**Next steps, in order**
+1. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`main`). Once the B0 lane has written `.tmp/B0.report.md` in its worktree (`<checkout>/.claude/worktrees/reflect-b0-e2e-lanes`), run `/build-phase B0 --land` (Opus, medium effort) from the tracker checkout on the Windows build machine, `main`.
+2. Optionally, beside B0 in slot B: `/build-phase B1` (Opus, medium effort), from the tracker checkout, `main`.
+3. Before B6's card is drafted, run `/revise` (Opus, medium) on the spec for D-4 (an entry stopped with writing but no story is kept yet never listed or deletable) and to write G1–G17 and the accepted W-calls into the spec.
+
+**Carry-overs**
+- For the next `verify`, proposed for `lifecycle/projects/tracker/brief-common.md`: its Tests section says `npm run typecheck`, which is broken here; the working check is `npx tsc --noEmit`. `config.md` §1 doesn't record the Windows build machine's checkout (`E:\_root\tracker`), and §2 should note Windows' excluded port ranges.
+- The 7 build-plan block's carry-overs stand.
+
+**Questions for the founder**
+- B0's `verify` needs a run on the Linux machine with `PW_CHANNEL=chrome`. Will you push the lane's branch for it, or run that check yourself? Owed by: `verify B0`.
+- The 7 build-plan block's five questions stand.
+
 ## 2026-10-21 · 7 build-plan · lifecycle/stage-3a-spec @ 2c6318d · rishe-eco/tracker main @ 5fd71c9
 
 *Adds to the 4 wireframes, 4 journeys, 3 personas and 2 spec blocks below, which stay live (the 1 research block is deleted; its Persian gap is carried below). Completes the 4 wireframes block's next step 2 in part: `build-plan` settled G1–G17 and W1–W19, but the spec itself was not revised.*
