@@ -2,6 +2,37 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-21 · 8c verify B0 · main @ cf0b30b · rishe-eco/tracker main @ 5fd71c9
+
+*Replaces the 8b land B0 block's lane row and next step 1 (`/verify B0` is done); its other next steps are copied below. Completes the 8a launch B0 block's question about the Linux run in part. The 7 build-plan block stays live. The 4 journeys, 3 personas and 2 spec blocks are deleted: their risks (R7, R8, R9), the Persian gap and the calm-close question are settled or carried in the 7 block, and the rest lives in `02-spec.md` and `03-journeys.md`.*
+
+**What was done**
+- `/verify B0` passed. Two e2e slots ran at once on Windows with Edge (4110/5183 and 4120/5193); all 8 specs and 54 tests pass; `tsc` and both i18n checks are clean; the main checkout's `dev.db` is unchanged. The record is `docs/development/B0.md` in the code repo, at `9e17ba3`. The root-sot side is `cf0b30b` (state of the build 0.34, capture note `lifecycle/learnings/inbox/2026-10-21-verify-B0.md`).
+- `verify` fixed two things on the branch (`f46b029`, `b81eb6a`): bad ports are refused (empty, non-numeric, 4000 or 5173 with `E2E_REUSE=1`, or one port for both servers), and a second run on the same slot no longer breaks (`client/e2e/clearScratchDb.mjs` removes leftover `-wal`/`-shm` files, scratch `e2e.db` only). The API now gets 300 s to start.
+- Result: ready to deploy. The branch fast-forwards from `origin/main @ 5fd71c9`, touches no stop file and adds no `.env` line.
+
+**Lanes in flight**
+| Stage | Branch (base) | Worktree | Card | Status |
+|---|---|---|---|---|
+| B0 (S) | `reflect-b0-e2e-lanes` (`main @ 5fd71c9`) | `<checkout>/.claude/worktrees/reflect-b0-e2e-lanes` | `briefs/B0.md` | verified, not merged |
+
+**Next steps, in order**
+1. From the tracker checkout (`main`), Opus, medium effort, slot B: `/build-phase B1`.
+2. Plain work, once the founder says yes to the first question below. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`main`) and `docs/development/B0.md` in the tracker checkout. From `E:\_root\tracker` (`main`), run `git merge --ff-only reflect-b0-e2e-lanes` and `git push origin main`, then `git worktree remove .claude/worktrees/reflect-b0-e2e-lanes` and `git branch -d reflect-b0-e2e-lanes`. Read the deploy run and check it ends `DEPLOYED <sha>` for the pushed commit. Add the run's URL to the *Verification* section of `docs/development/B0.md`.
+3. Before B6's card is drafted, run `/revise` (Opus, medium) on the spec for D-4 (an entry stopped with writing but no story is kept yet never listed or deletable) and to write G1–G17 and the accepted W-calls into the spec.
+
+**Carry-overs**
+- Config edits that need the founder's yes, in `lifecycle/projects/tracker/`: `config.md` §1 (the Windows checkout `E:\_root\tracker`), §2 (`PW_CHANNEL=chrome`; Windows reserves port ranges that move on reboot; `db push` takes 7–60 s there), §4 (slot A `E2E_API_PORT=4010 E2E_WEB_PORT=5183`, slot B `4020`/`5193`); `brief-common.md` (slot variables instead of "ports 4000/5173"; `npx tsc --noEmit` instead of `npm run typecheck`; key every path a test run writes by slot); `review-checklist.md` §7 (two rows now name conditions B0 meets).
+- Stale canon for `close-out`, listed in `docs/development/B0.md`: `CLAUDE.md`'s *e2e isn't isolated yet* and *Edge* paragraphs; `03-engineering/01-testing.md` lines 55–57 and 70–71.
+- Open-work: one row in *Past the verification ceiling*, the Linux Chrome run (`PW_CHANNEL=chrome`, default ports plus slot B at once). It can't run on Windows: no Chrome, and ports 3931–4030 are reserved.
+- The 7 build-plan block's carry-overs stand (Persian gap, R7–R9 settled, canon each stage makes stale, every push to `main` deploys).
+
+**Questions for the founder**
+- B0 passed on Windows with Edge; the Linux Chrome run is still owed. Fast-forward `main` to `reflect-b0-e2e-lanes` and push now (the push deploys, with no app change), or run the Linux check first? Owed by: next step 2.
+- Push root-sot `main`? It is 5 commits ahead of `origin/main`. Owed by: nothing; it is public, so it needs your yes.
+- May the config edits above be applied to `lifecycle/projects/tracker/`? Owed by: `build-phase B1`'s card, which reads `brief-common.md`.
+- The 7 build-plan block's five questions stand (calm-close copy, CD1 setup done, the PD vetoes, locking the outcome above RFL-1, where backups go).
+
 ## 2026-10-21 · 8b land B0 · main @ 9e67551 · rishe-eco/tracker main @ 5fd71c9
 
 *Replaces the 8a launch B0 block's lane row and next step 1; that block's other next steps are copied below. The 7 build-plan block stays live.*
@@ -113,71 +144,3 @@
 **Questions for the founder**
 - Is a design step (4b) planned for Reflect, or does `ux-review` work from these wireframes? Owed by: next step 1.
 - The 4 journeys block's three questions stand: the calm-close copy (owed by `build-plan`, R6), locking the outcome above RFL-1 (owed by `eval-plan`), and G6 (owed by `revise`).
-
-## 2026-10-21 · 4 journeys · lifecycle/stage-3a-spec @ fd8ac7a · rishe-eco/tracker main @ 5fd71c9
-
-*Adds to the 3 personas, 2 spec, 1 research and 0 intake blocks below, which stay live. Completes the 3 personas block's next step 1 (`/journeys`).*
-
-**What was done**
-- `/journeys new` wrote `tracker/modules/02-reflect/03-journeys.md` 0.2 (committed `fd8ac7a`, not pushed): five journeys, 57 steps (J1 first English entry, J2 first Persian entry and Past entries, J3 pre-check, Not now, Stop here and the calm close, J4 return after a gap and deletion, J5 errors and fences). Gate OK, all 47 criteria in Coverage. `lifecycle/status.md` column 3 is `done`. The run was below the skill's high effort.
-- Four founder decisions (journeys §1): the story saves while typing; Back works between steps until Finish; a failed save keeps text in the page only; *Start a new one* shows one line, no dialog.
-- Seventeen Suggested gaps (journeys §4, G1–G17), none yet in the spec. The largest beyond the four decisions is G6: which strings are interface text and which are practice content.
-
-**Next steps, in order**
-1. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`lifecycle/stage-3a-spec`), then `tracker/modules/02-reflect/03-journeys.md` (§3 States and §4 gaps first). Run `/wireframes tracker/modules/02-reflect` (Opus, medium effort).
-2. Run `/revise` on the spec to take G1–G17 (or refuse some) before `build-plan`.
-
-**Carry-overs**
-- The 3 personas, 2 spec and 1 research blocks' carry-overs stand: risks `build-plan` must handle (R7 encryption at rest, R8 Noticing's fences slice, R9 e2e not lane-safe); Persian remains the open research gap (R2).
-- The 3 personas block's questions below stand.
-
-**Questions for the founder**
-- Approve the calm-close copy (and whether it should name a trusted person or a professional)? Owed by: `build-plan`'s stop point, R6.
-- Lock the outcome above RFL-1 in `ecosystem/ost.md`? Owed by: `eval-plan`.
-- Accept G6 (Persian users read the safety copy in Persian, though the practice content is English)? Owed by: `revise`.
-
-
-## 2026-10-21 · 3 personas · lifecycle/stage-3a-spec @ ca77b14 · rishe-eco/tracker main @ 5fd71c9
-
-*Adds to the 2 spec, 1 research and 0 intake blocks below, which stay live. Completes the 2 spec block's next step 1 (`/personas`); `/journeys` is still open.*
-
-**What was done**
-- `/personas` ran in select mode. `tracker/modules/02-reflect/03-journeys.md` now exists with its title block and `## Personas` (committed `ca77b14`, not pushed). Gate OK, 2 personas in the table.
-- Selected **A** and **B**, the grounded Tracker skill-lab newcomers, at the founder's word ("the personas we already used for tracker"). No new persona proposed; `lifecycle/personas.md` and the decision log are unchanged.
-- The Personas paragraph states the gap: A and B are not prone to rumination, so reviews as them test the interface, language and register, not whether the flow steadies or stirs someone (spec R1, R2). That stays with the eval plan.
-- The first `/personas` attempt ran on Opus and stopped at the model check; the founder switched to Sonnet and re-ran.
-
-**Next steps, in order**
-1. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`lifecycle/stage-3a-spec`), then `tracker/modules/02-reflect/02-spec.md` and the Personas section of `tracker/modules/02-reflect/03-journeys.md`. Run `/journeys new tracker/modules/02-reflect` (Opus, high effort).
-
-**Carry-overs**
-- The 2 spec block's carry-overs stand: the intake's carry-overs; risks `build-plan` must handle (R7 encryption at rest, R8 Noticing's fences slice, R9 e2e not lane-safe); Persian remains the open research gap (R2).
-- Journeys should cover the scenarios the Personas table names, including the pre-check advisory and Not now, Stop here and the calm close, and deleting a past entry.
-
-**Questions for the founder**
-- Approve the calm-close copy (and whether it should name a trusted person or a professional)? Owed by: `build-plan`'s stop point, R6.
-- Lock the outcome above RFL-1 in `ecosystem/ost.md`? Owed by: `eval-plan`.
-
-## 2026-10-21 · 2 spec · lifecycle/stage-3a-spec @ 68df841 · rishe-eco/tracker main @ 5fd71c9
-
-*Adds to the 1 research and 0 intake blocks below, which stay live. Completes the 1 research block's next step 1.*
-
-**What was done**
-- `tracker/modules/02-reflect/02-spec.md` written (version 0.1, 47 acceptance criteria, committed `68df841`, `lifecycle/status.md` column 2 `done`). Gate: its 7 headings pass; the missing `03-journeys.md` is `personas`'s. Not pushed.
-- Eight founder decisions (spec §2 #1–8): observer story in "you" with no "why"; the re-reading close is in; a light pre-check plus Stop here on every step; an interpretation catch on the story text; Feelings & Needs' palettes and faux-feeling catch reused; one optional three-word tap after finishing for the drop rule, never shown back; English practice content with a Persian draft; a plain deletable list of past entries.
-- Ten calls by Claude (§2 #9–18), for the founder to refuse on review: own tables, not Journals; personal API tokens refused; pre-check and after-entry answers kept out of the API; tree nodes RFL-1, RFL-1a, RFL-1a.1–3 proposed, since `ecosystem/ost.md` has no tree written.
-- Scope grew in three places against the intake (pre-check, re-reading close, after-entry tap); the ledger shows it.
-- The session ran below the skill's `high` effort.
-
-**Next steps, in order**
-1. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`lifecycle/stage-3a-spec`), then `tracker/modules/02-reflect/02-spec.md`. Run `/personas tracker/modules/02-reflect`, then `/journeys tracker/modules/02-reflect` (Opus, high effort).
-
-**Carry-overs**
-- The intake's carry-overs stand. Settled in the spec: the Journals and Feelings & Needs overlap (§2 #5, #9), the drop rule's instrument (§2 #6, §3), the tree node (§2 #16).
-- Risks `build-plan` must handle: Noticing's fences test slices `schema.prisma` from its banner to the end of the file, so Reflect's models can't be appended there (R8); encryption at rest is undecided (R7); e2e is not lane-safe (R9).
-- Persian remains the open research gap: Reflect's bet isn't tested for Persian users in this version (R2).
-
-**Questions for the founder**
-- Approve the calm-close copy (and whether it should name a trusted person or a professional)? Owed by: `build-plan`'s stop point, R6.
-- Lock the outcome above RFL-1 in `ecosystem/ost.md`? Owed by: `eval-plan`.
-- The research block's question (Re-reading close and Ruminator guard widen scope) is answered: the close and a light guard are accepted; the routed shorter version is not.
