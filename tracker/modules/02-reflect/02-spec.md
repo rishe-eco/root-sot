@@ -2,27 +2,27 @@
 
 *Module `tracker/modules/02-reflect/` · Track: Module · Phase 2 · Spec, not as-built. One entry at a time that walks a person from an observer's account of one scene, through the feelings and needs in it, to noticing which parts are a reading, and a last look at what they see now. Structured prompts only, no AI. Inputs: `00-intake.md`, `01-research.md`. Update the changelog; don't fork.*
 
-**Version 0.1 · Status: spec · 2026-10-21 · Owner: _root**
+**Version 0.2 · Status: spec · 2026-10-22 · Owner: _root**
 
-**Grading.** Everything here is **proposal** until built. Items marked **[F]** were decided by the founder at this step (§2, 2026-10-21). Items under *Decided here, by Claude* are Claude's calls, not the founder's; refuse any of them on review. Research findings keep their grade from `01-research.md` and are cited by its section and source id ([S3] is `01-research.md`'s Sources). Every as-built fact cites its file in `rishe-eco/tracker`; code read at `main @ 5fd71c9`. This session ran below the skill's `high` effort.
+**Grading.** Everything here is **proposal** until built. Items marked **[F]** were decided by the founder at this step (§2, 2026-10-21) or at the 0.2 revise (§2.2, 2026-10-22). Items under *Decided here, by Claude* are Claude's calls, not the founder's; refuse any of them on review. Research findings keep their grade from `01-research.md` and are cited by its section and source id ([S3] is `01-research.md`'s Sources). Every as-built fact cites its file in `rishe-eco/tracker`; code read at `main @ 5fd71c9`. This session ran below the skill's `high` effort.
 
 **Scope ledger** *(acceptance criteria by area, at each version, against the intake)*:
 
-| Area | Intake | 0.1 |
-|---|---|---|
-| Data, ownership and the unshareable fence | in scope (storage left open) | 7 |
-| Home and resuming | in scope | 4 |
-| Pre-check and stopping | **added at spec [F]** (§2 #3) | 6 |
-| Story | in scope, wording changed [F] (§2 #1) | 4 |
-| Feelings and needs | in scope | 5 |
-| Reality check and the interpretation catch | in scope; catch added [F] (§2 #4) | 6 |
-| Re-reading close and the after-entry question | **added at spec [F]** (§2 #2, #6) | 4 |
-| Past entries | in scope (left open) [F] (§2 #8) | 4 |
-| Language and content | in scope | 3 |
-| Policy guards | in scope | 4 |
-| **Total** | | **47** |
+| Area | Intake | 0.1 | 0.2 |
+|---|---|---|---|
+| Data, ownership and the unshareable fence | in scope (storage left open) | 7 | 8 |
+| Home, resuming and saving *(0.1: Home and resuming)* | in scope | 4 | 11 |
+| Pre-check and stopping | **added at spec [F]** (§2 #3) | 6 | 8 |
+| Story | in scope, wording changed [F] (§2 #1) | 4 | 4 |
+| Feelings and needs | in scope | 5 | 6 |
+| Reality check and the interpretation catch | in scope; catch added [F] (§2 #4) | 6 | 7 |
+| Re-reading close and the after-entry question | **added at spec [F]** (§2 #2, #6) | 4 | 4 |
+| Past entries | in scope (left open) [F] (§2 #8) | 4 | 7 |
+| Language and content | in scope | 3 | 6 |
+| Policy guards | in scope | 4 | 4 |
+| **Total** | | **47** | **65** |
 
-*Growth against the intake: the pre-check, the re-reading close and the after-entry question are new moves; the founder accepted each (§2). Nothing out of scope at intake came in.*
+*Growth against the intake: the pre-check, the re-reading close and the after-entry question are new moves; the founder accepted each (§2). Nothing out of scope at intake came in. At 0.2, eighteen criteria write down behaviour the journeys found unstated (G1–G17) and the past-entry fence; no capability came in. Home, resuming and saving nearly tripled (4 → 11, 17% of all) because saving and Back were unstated; asked "still the smallest version worth trying?", the founder answered yes (§2.2 #21).*
 
 ---
 
@@ -87,6 +87,19 @@ Asked 2026-10-21, one batch of eight.
 | 17 | **Reflect lives on the Tools home** as a third card beside Feelings & Needs and Noticing (`client/app/components/tools/ToolsHomePage.tsx:80-94`), not in the main navigation. | Same place as the other pillar rehearsals. |
 | 18 | **Noticing's Reflect hand-off stays a stub.** `setNoticingMotive` and its copy are untouched. | The motive audit (Reflect↔Impact) is a hand-off, out of scope at intake. |
 
+### 2.2 Decisions taken at the 0.2 revise
+
+Asked 2026-10-22, one batch of four and a second of two, recorded in `changes/01-req-past-entries-and-journey-gaps.md`.
+
+| # | Question | Answer [F] | Consequence |
+|---|---|---|---|
+| 19 | Which entries does Past entries list? (plan D-4: an entry stopped with a scene, moments or readings but no story was kept, never listed, and so never deletable) | **Every closed entry that holds any written text.** A row is named by its first writing in step order: the scene, else the story's first words, else the first moment's *when* line, else the first reading, else the close. | The calm close's "what you wrote is kept and can be deleted" is true for every entry. An entry stopped at the pre-check has no written text and is still never listed. AC-14, AC-37 and AC-46 amended; the home's line for *Start a new one* asks the same question (AC-53). |
+| 20 | Can a past entry show that it was stopped? (B2's verify: `reflectPastEntry` returned `step`) | **No.** A past entry is its own type, without the step or the outcome; only the open entry carries its step, for resuming. | Extends §2 #11's "never shown back" to whether an entry was stopped, by construction (AC-48, G10). |
+| 21 | Write the journeys' gaps G1–G17 into the spec, as the build plan's PD-1 settled them? Still the smallest version worth trying? | **Yes to both.** G1–G4 were the founder's at journeys; G2 is narrowed (no Back on the story or the pre-check, plan D-3); G12 is as-built (plan D-10); G17 shows once per sitting. | AC-49 to AC-65 (AC-53's condition is #19's); §4.2–§4.10 and a new §4.11. No new capability: each was built or planned already (plan PD-1). |
+| 22 | Write the wireframes' calls in? | **The ones that set a rule, into §4's text, with no new criteria:** W4–W7, W9, W10, W12, W13, W16, W18, W19, and the plan's PD-11 *Show older*. Pure layout (W1–W3, W8, W11, W14, W15, W17) stays the wireframes'. | §4.2–§4.10 cite each W id. |
+
+**Confirmed downstream, now fact.** §2 #9's tables are built (four models, `api/prisma/schema.prisma`, B1); §2 #10's token refusal and §2 #11's hidden fields are built and fenced (`api/src/graphql/auth.ts`, `api/src/__tests__/reflectFences.unit.test.ts`, B2); §2 #14 is built, with *Start a new one* closing only the entry it names (`startReflectEntry(replacing:)`, plan D-14). The practice locale is fixed at `en` (plan PD-7), served whatever the interface language.
+
 ## 3. Metrics
 
 | # | Measure | What it counts | Why |
@@ -102,7 +115,7 @@ What the measures don't reach: *felt scored or judged* (drop condition 2's secon
 
 ## 4. Interface requirements
 
-Every user-facing string is a key in `en` and `fa` `common.json` (convention 7); practice content (prompts, palettes, lexicon, catch copy) is in Reflect's content pack (§2 #7). Dates go through `useAppDate`. Steps commit as they go (convention 8).
+Every user-facing string is a key in `en` and `fa` `common.json` (convention 7); practice content (prompts, palettes, lexicon, catch copy) is in Reflect's content pack (§2 #7). The pre-check's questions, the advisory, **Stop here** and the calm close are interface strings, so a Persian interface shows them in Persian (G6). Every Reflect text field and every text shown back takes `dir="auto"` (G7). Dates go through `useAppDate`. Steps commit as they go (convention 8; §4.11).
 
 ### 4.1 Entry point
 
@@ -112,16 +125,18 @@ Every user-facing string is a key in `en` and `fa` `common.json` (convention 7);
 ### 4.2 Reflect home
 
 - One or two lines on what an entry is: one scene, told as an observer would.
-- **Start an entry**, or, with an entry open, **Continue the entry you started on <date>** and **Start a new one** (§2 #14).
-- A link to **Past entries**, shown once one exists. No count beside it.
-- The draft-locale banner when the person's interface language differs from the practice content's, or the practice content is a draft (§1.1).
+- While the server hasn't said whether an entry is open, a placeholder holds the button's place; neither Start nor Continue shows until it's known (W5).
+- **Start an entry**, or, with an entry open, **Continue the entry you started on <date>**, the date in the button's own label, and **Start a new one** under it, secondary (§2 #14, W16). One line under *Start a new one* says what becomes of the open entry: it is kept in Past entries, or, with nothing written yet, it simply ends. No dialog (G4, §2.2 #19).
+- A text link to **Past entries** under the main button, shown once one exists. No count beside it, and not a card (W18).
+- The draft-locale banner when the person's interface language differs from the practice content's, or the practice content is a draft (§1.1). It has no dismiss control (W19). It also shows on the entry screen, at the top of the first step shown in a sitting (G17), since Continue and a reload reach the entry without the home.
 
 ### 4.3 Pre-check
 
 - **When did this happen?** Three choices: *In the last few days* · *In the last few weeks* · *Longer ago*. Optional.
 - **Have you written about it here before?** *Yes* · *No*. Optional.
-- If the answer is *the last few days* or *Yes*, one line before the story: it may still be close, and writing now can stir it more than settle it; it could wait, or stay short. Two buttons: **Keep going** (to the story) and **Not now** (the calm close, §4.9).
+- If the answer is *the last few days* or *Yes*, one line before the story: it may still be close, and writing now can stir it more than settle it; it could wait, or stay short. Two buttons: **Keep going** (to the story) and **Not now** (the calm close, §4.9). The line shows on the pre-check itself, under the questions, as the answer is tapped, and replaces **Next**; clearing the answer brings Next back (W4).
 - Otherwise the pre-check goes straight on to the story. Both questions can be skipped.
+- The answers are written once, when the person leaves the pre-check, and the pre-check is never returned to: it has no Back, and the story has none to it (plan D-3, PD-6).
 
 ### 4.4 Story
 
@@ -136,9 +151,9 @@ Every user-facing string is a key in `en` and `fa` `common.json` (convention 7);
   - **Feeling** — Feelings & Needs' palette, six shown, with *other → type it*.
   - **Need** — Feelings & Needs' needs palette, five shown, with *other → type it*.
   - **Met or unmet?** — *Met* · *Unmet* · *Not sure*.
-- **Add another moment** until the soft cap; past it the control is gone, with no message.
-- **Faux-feeling catch.** When a committed feeling matches Feelings & Needs' lexicon, an offer under that moment: what might be underneath, with its feeling and need hints, from `composeCatch`. **Use one** replaces the feeling; **Keep mine** dismisses it. At most one per entry, under Reflect's own cooldown dial.
-- The step can be skipped.
+- **Add another moment** until the soft cap; past it the control is gone, with no message. One moment is open at a time; earlier ones fold to a line.
+- **Faux-feeling catch.** When a committed feeling matches Feelings & Needs' lexicon, an offer under that moment: what might be underneath, with its feeling and need hints, from `composeCatch`. **Use one** replaces the feeling; **Keep mine** dismisses it. At most one per entry, under Reflect's own cooldown dial. It matches the practice locale's F&N pack only (`en` in this version), whatever the interface language (G8, as §2 #15 for the interpretation catch).
+- The step can be skipped: **Next** with no moment is the skip, with no separate Skip control (W7).
 
 ### 4.6 Reality check
 
@@ -146,7 +161,8 @@ Every user-facing string is a key in `en` and `fa` `common.json` (convention 7);
 - The prompt: read it back; which parts would a camera have recorded, and which are your reading of it? Noticing a reading isn't saying it's wrong.
 - **Reading pairs**, up to three: **A reading in it** (one line) and **What a camera would have caught there** (one line). Either half can stay empty.
 - **Interpretation catch.** When the step opens and the story contains a trigger from Reflect's lexicon (absolutes such as "always", "never", "everyone"; mind-reading such as "on purpose", "wanted to"; labels such as "selfish", "rude"; verdicts dressed as events such as "ignored me"), one offer above the pairs: the word, and a line saying it might be a reading. **Use this** fills the next empty *reading* field with the sentence that holds the word; **Not this one** dismisses it. Neither is recorded as a judgment.
-- **Gestures.** Each control has one effect: the offer's two buttons act only on the offer; tapping the shown-back story only expands it; nothing in the story is selectable as a control.
+- After **Use this**, focus moves to that pair's camera half, the next thing to write (W10).
+- **Gestures.** Each control has one effect: the offer's two buttons act only on the offer; tapping the shown-back story only expands it; nothing in the story is selectable as a control. The trigger word is never marked in the shown-back story; the offer names it (W9).
 
 ### 4.7 Re-reading close
 
@@ -155,21 +171,33 @@ Every user-facing string is a key in `en` and `fa` `common.json` (convention 7);
 
 ### 4.8 After the entry
 
-- One optional question, once, right after **Finish**: *I see it a bit differently* · *About the same* · *More caught up in it*. Tapping one stores it and moves on; **Skip** moves on. No number, no colour scale, no follow-up line that reacts to the answer.
-- Then a short done line and **Back to Reflect**. No count, no streak, nothing about how many entries there are.
+- One optional question, once, right after **Finish**: *I see it a bit differently* · *About the same* · *More caught up in it*. Tapping one stores it and moves on; **Skip** moves on. No number, no colour scale, no follow-up line that reacts to the answer. The three answers are equal, in this order, with Skip as a link under them; the screen has no **Stop here** or **Back**, since the entry is already closed (W12).
+- Then a short done line and **Back to Reflect**. No count, no streak, nothing about how many entries there are. A reload after Finish shows the done line, not the question (G15).
 
 ### 4.9 Stop here, and the calm close
 
 - **Stop here** on the pre-check and on every step, in the same place on each.
 - It closes the entry where it is, keeping what was written, and shows the calm close: it's fine to stop; what you wrote is kept and can be deleted; and one line suggesting a trusted person or a professional if this is too much to hold alone. **The copy is the founder's to approve at build** (R6). No phone numbers in this version.
-- **Back to Reflect** and **Delete what I wrote** (behind `ConfirmDialog`).
+- **Back to Reflect** as the main button and **Delete what I wrote** (behind `ConfirmDialog`) as a link under it (W13). Deleting lands on the Reflect home (G9).
+- When the entry holds no written text, the calm close leaves out both **Delete what I wrote** and the "what you wrote is kept" line (G5).
 - The after-entry question is not asked after a stop.
 
 ### 4.10 Past entries
 
-- **List:** closed entries that have story text, newest first; each row shows the date (`useAppDate`) and the scene line, or the story's first words when there is no scene. The whole row opens the entry; there is no other control on a row. No search, no filter, no count, no grouping.
-- **One entry:** read-only, in step order: scene, story, moments, reading pairs, close. Not shown: the pre-check, the after-entry answer, any catch.
+- **List:** closed entries that hold any written text, newest first (§2.2 #19); each row shows the date (`useAppDate`) and the entry's first writing in step order: the scene line, else the story's first words, else the first moment's *when*, else the first reading, else the close. The whole row opens the entry; there is no other control on a row. No search, no filter, no count, no grouping. The list comes in pages, with a plain **Show older** link under the last row while older entries exist, and no number or total (plan PD-11).
+- **Empty:** with nothing to list, one plain line and **Back to Reflect**, with no zero (G16).
+- **One entry:** read-only, in step order: scene, story, moments, reading pairs, close, each part under a short interface label, and only the parts that hold text. Not shown: the pre-check, the after-entry answer, any catch, or whether the entry was stopped; no list row or view marks an entry as stopped or incomplete (G10, §2.2 #20).
+- **Not found:** an entry id that doesn't exist and one that isn't the person's show the same plain line and **Back to Reflect** (G14).
 - **Delete** in the entry view only, behind `ConfirmDialog`, saying it can't be undone. A hard delete of the entry and its rows; back to the list.
+
+### 4.11 Saving and moving between steps
+
+- **When a field is saved.** A text field saves a moment after typing pauses, and before **Next**, **Back** and **Stop here** act; **Stop here** saves the field being typed before it closes (G1). Saving shows nothing while it works (W6).
+- **A failed save.** The text stays in the page with one not-saved line and **Try again**; **Next**, **Back** and **Stop here** wait until it is saved. Nothing is written to browser storage (G3, R7).
+- **Bounds in the page.** Each field stops at its server bound (§2 #13), with one sentence and no number; the bounds come from the API, not a second copy (G13).
+- **Back.** On Feelings and needs, the reality check and the close, **Back** goes to an earlier step, the story at the earliest; everything written stays editable until **Finish** (G2, narrowed by plan D-3).
+- **Once per entry, across sittings.** Each catch's "once per entry" is counted from the server's record that it was surfaced: a reload, Back or Continue never surfaces it again, an offer left unanswered isn't shown again, and edited text isn't matched again (G2, G11).
+- **The entry URL and sign-in.** The entry URL with no open entry goes to the Reflect home (G15). After a session expires mid-entry, signing in returns to the open entry's step (G12; as-built, `client/app/root.tsx`, `LoginPage.tsx`, plan D-10).
 
 ## 5. Risks
 
@@ -197,22 +225,32 @@ Every user-facing string is a key in `en` and `fa` `common.json` (convention 7);
 - **AC-5.** No Reflect operation has an argument named `search`, `query`, `filter` or `name`, no Reflect model has an index on a text column, and no Reflect model relates to `Journal`, `Goal`, `Project` or `JournalAccess`; a fences test asserts all three.
 - **AC-6.** The server refuses a scene over 140 characters, a story over 5,000, a moment, reading or camera line over 280, an own feeling or need over 60, a close over 1,000, and a fourth moment or reading pair.
 - **AC-7.** Deleting an entry removes it and its child rows; deleting the user removes all their Reflect rows.
+- **AC-48.** The type a past entry is returned as has no field for the step it reached or its outcome; only the open entry carries its step. The fences test fails if `step` or `outcome` is added to it (§2.2 #20).
 
-### 6.2 Home and resuming
+### 6.2 Home, resuming and saving
 
 - **AC-8.** The Tools home shows a Reflect card whose button opens `/tools/reflect`.
 - **AC-9.** Starting an entry while one is open returns the open one; two concurrent starts produce one entry (`withUserLock`).
 - **AC-10.** With an entry open, the home offers *Continue* with the day it was started and *Start a new one*; *Start a new one* closes the open entry as stopped at its current step and opens a fresh one.
 - **AC-11.** A reload at any step returns to that step with every committed field in place.
+- **AC-49.** A text field is committed a moment after typing pauses and before **Next**, **Back** or **Stop here** acts; **Stop here** commits the field being typed before it closes the entry (G1).
+- **AC-50.** When a save fails, the text stays in the page with a not-saved line and **Try again**, and **Next**, **Back** and **Stop here** wait until it saves; no Reflect text is written to browser storage (G3).
+- **AC-51.** Each Reflect field stops at the bound the API serves, with one sentence and no number (G13).
+- **AC-52.** **Back** is on Feelings and needs, the reality check and the close, and reaches any earlier step from the story on; the story and the pre-check have none; what was written stays editable until **Finish** (G2, narrowed).
+- **AC-53.** With an entry open, one line under *Start a new one* says the open entry is kept in Past entries, or, when it holds no written text, that it simply ends; there is no dialog (G4, §2.2 #19).
+- **AC-54.** After a session expires mid-entry, signing in returns the person to the open entry's step (G12).
+- **AC-55.** The entry URL with no open entry goes to the Reflect home; a reload after **Finish** shows the done line, not the after-entry question (G15).
 
 ### 6.3 Pre-check and stopping
 
 - **AC-12.** The pre-check shows both questions, each optional, and goes straight on to the story when neither answer is *the last few days* or *Yes*.
 - **AC-13.** An answer of *the last few days*, or *Yes*, shows the advisory line with **Keep going** and **Not now** before the story.
-- **AC-14.** **Not now** closes the entry as stopped at the pre-check and shows the calm close; such an entry has no story and never appears in Past entries.
+- **AC-14.** **Not now** closes the entry as stopped at the pre-check and shows the calm close; such an entry holds no written text and never appears in Past entries. *(0.2: "no written text", was "no story", §2.2 #19.)*
 - **AC-15.** **Stop here** is on the pre-check and on each of the four steps, closes the entry with that step recorded, keeps what was written, and shows the calm close.
 - **AC-16.** The calm close shows the approved copy, **Back to Reflect** and **Delete what I wrote**; deleting asks through `ConfirmDialog` first.
 - **AC-17.** The after-entry question is never shown after a stop.
+- **AC-56.** When the closed entry holds no written text, the calm close shows neither **Delete what I wrote** nor the "what you wrote is kept" line (G5).
+- **AC-57.** Deleting from the calm close lands on the Reflect home (G9).
 
 ### 6.4 Story
 
@@ -228,6 +266,7 @@ Every user-facing string is a key in `en` and `fa` `common.json` (convention 7);
 - **AC-24.** **Add another moment** is gone at three moments.
 - **AC-25.** A committed feeling that matches F&N's faux-feeling lexicon surfaces the offer from `composeCatch` under that moment, at most once per entry and only off Reflect's cooldown; **Use one** replaces the feeling and **Keep mine** leaves it, and neither writes anything beyond the surface itself.
 - **AC-26.** No Reflect code reads or writes F&N's tables or calls `catchAllowed`; a unit test or import check asserts it.
+- **AC-58.** The faux-feeling catch matches the practice locale's F&N pack only, whatever the interface language: a Persian interface with a feeling typed as a `fa` lexicon word surfaces nothing (G8).
 
 ### 6.6 Reality check and the interpretation catch
 
@@ -237,6 +276,7 @@ Every user-facing string is a key in `en` and `fa` `common.json` (convention 7);
 - **AC-30.** **Use this** fills the next empty *reading* field with the sentence containing the trigger, split on `.`, `!`, `?`, `؟` and line breaks; **Not this one** dismisses it, with nothing sent to the server.
 - **AC-31.** Matching uses Unicode-letter boundaries, not `\b`, and the longest trigger wins: unit tests show "never" doesn't fire inside "nevertheless", a nested trigger picks the longer match, and an `fa` trigger matches with and without a zero-width non-joiner and with Arabic-keyboard letters.
 - **AC-32.** The trigger matches the story field only; text in the scene, moments, readings or close never surfaces the offer.
+- **AC-59.** Each catch's "once per entry" is read from the server's record that it was surfaced: after it is surfaced, a reload, **Back**, **Continue** or edited text never surfaces that catch again on the entry, answered or not (G11, G2).
 
 ### 6.7 Re-reading close and the after-entry question
 
@@ -247,22 +287,28 @@ Every user-facing string is a key in `en` and `fa` `common.json` (convention 7);
 
 ### 6.8 Past entries
 
-- **AC-37.** Past entries lists closed entries with story text, newest first, each row showing its date through `useAppDate` (Jalali in Persian) and its scene line, or the story's first words.
+- **AC-37.** Past entries lists closed entries that hold any written text, newest first, each row showing its date through `useAppDate` (Jalali in Persian) and its first writing in step order: the scene line, else the story's first words, else the first moment's *when*, else the first reading, else the close. An integration test lists an entry stopped with a moment and no story. *(0.2: was "with story text … its scene line, or the story's first words", §2.2 #19, plan D-4.)*
 - **AC-38.** The whole row opens the entry; a row has no other control.
 - **AC-39.** The entry view shows scene, story, moments, reading pairs and close, read-only, and none of the pre-check, the after-entry answer or the catches.
 - **AC-40.** **Delete** in the entry view asks through `ConfirmDialog`, then removes the entry and returns to the list.
+- **AC-60.** No list row or entry view marks an entry as stopped or incomplete; parts never written are left out of the view (G10).
+- **AC-61.** A past-entry id that doesn't exist and one that belongs to someone else show the same not-found line and **Back to Reflect** (G14).
+- **AC-62.** With nothing to list, Past entries shows one plain line and **Back to Reflect**, with no zero (G16).
 
 ### 6.9 Language and content
 
 - **AC-41.** Every interface string Reflect adds is a key in both `en` and `fa` `common.json`; `npm run i18n:check-missing` and `npm run i18n:check-hardcoded` pass.
 - **AC-42.** Reflect's content pack has a complete `fa` surface for every `en` key, marked `draft`, and a unit test fails on a missing key.
 - **AC-43.** A Persian-interface user sees Persian chrome around English practice content and the draft-locale banner saying so; the layout is right to left with Western digits.
+- **AC-63.** The pre-check's questions, the advisory, **Stop here** and the calm close are `common.json` strings, shown in the interface language; the `fa` calm close is approved with the `en` (G6, R6).
+- **AC-64.** Every Reflect text field and every text shown back carries `dir="auto"` (G7).
+- **AC-65.** The draft-locale banner, when its condition holds, also shows on the entry screen, at the top of the first step shown in each sitting (G17).
 
 ### 6.10 Policy guards
 
 - **AC-44.** No Reflect screen shows a number other than a date: no counts, scores, percentages, character counters or streaks.
 - **AC-45.** No Reflect code path calls a model or the Anthropic key.
-- **AC-46.** No Reflect operation reads more than one entry's content except the Past entries list, which returns scene, start of story and date only.
+- **AC-46.** No Reflect operation reads more than one entry's content except the Past entries list, which returns, per entry, its date and the start of its first writing only. *(0.2: was "scene, start of story and date", §2.2 #19.)*
 - **AC-47.** Reflect creates no actions, intervals, reminders, goals, journal entries or links to Learn, Organize or Impact.
 
 ## 7. Out of scope
@@ -282,11 +328,12 @@ Every user-facing string is a key in `en` and `fa` `common.json` (convention 7);
 
 ## Changelog
 
+- **0.2 · 2026-10-22** — Revise, from change request `changes/01-req-past-entries-and-journey-gaps.md`, against `rishe-eco/tracker main @ 8644681`. Four founder decisions (§2.2 #19–22): Past entries lists every closed entry with written text (plan D-4); a past entry carries no step or outcome; G1–G17 and the rule-setting W-calls written in (§4.11 new). Eighteen criteria added (AC-48 to AC-65, 65 in all); AC-14, AC-37 and AC-46 amended.
 - **0.1 · 2026-10-21** — Spec, from `00-intake.md` and `01-research.md`, against `rishe-eco/tracker main @ 5fd71c9`. Eight founder decisions (§2 #1–8), ten of Claude's (#9–18), 47 criteria.
 
 ## References
 
-- `00-intake.md`; `01-research.md`
+- `00-intake.md`; `01-research.md`; `03-journeys.md` 0.2 §4 (G1–G17); `04-wireframes.html` draft 1 (W1–W19); `07-build-plan.md` 0.1 (D-3, D-4, D-9, D-10, PD-1, PD-6, PD-7, PD-11, PD-12); `changes/01-req-past-entries-and-journey-gaps.md`
 - `ecosystem/canon/02-pillars/reflect.md` (0.2); `ecosystem/ost.md` (0.2); `ecosystem/working/affine-canvas-notation.md`
 - `tracker/canon/02-architecture/04-conventions.md` (conventions 1, 7, 8, 9, 13); `lifecycle/projects/tracker/config.md`
 - `rishe-eco/tracker` @ 5fd71c9: `api/prisma/schema.prisma`; `api/src/graphql/schema/typeDefs.ts`; `api/src/index.ts`; `api/src/content/feelings-needs/`; `api/src/services/feelingsNeeds/distinctions.ts`; `api/src/services/noticing/catches.ts`, `session.ts`; `api/src/__tests__/noticingFences.unit.test.ts`; `client/app/components/tools/ToolsHomePage.tsx`; `client/app/components/learn/FeelingsNeedsPage.tsx`; `client/app/protectedRoutes.tsx`

@@ -126,6 +126,7 @@ The project's rules are set: `brief-common.md` (what a lane follows), `review-ch
 **PD-11 · Past entries in pages of 50.** `reflectPastEntries(before: ID)` returns 50 rows and `hasOlder: Boolean`; a plain *Show older* link under the last row loads the next page. No number, no total. A control the wireframes don't draw: veto it, and the list returns every entry, unpaged.
 
 **PD-12 · Until `revise` rules on D-4, B6 builds AC-37 as written.** The proposal for `revise`: list every closed entry that holds any written text; the row shows the scene, or the story's first words, or the first moment's *when* line. If `revise` accepts it before B6's card is drafted, B6 builds that instead.
+*Correction, 2026-10-22: `revise` accepted it, with a fallback for an entry holding only readings or a close (spec 0.2 §2.2 #19, AC-37; `changes/01-req-past-entries-and-journey-gaps.md`). B6 builds that, with §6.1's correction.*
 
 **PD-13 · The interpretation offer returns the word and its sentence only.** The word is shown as the lexicon writes it; the sentence is the person's own, from the original story text (D-13). Nothing else of the lexicon leaves the server.
 
@@ -560,6 +561,8 @@ Session-only: a `requireSession` wrapper inside `requireAuth` throws §6.2's `RE
 
 `ReflectEntry { id, step, scene, story, close, createdAt, moments, readings }`. `ReflectStep`: `PRECHECK | STORY | FEELINGS | REALITY | CLOSE`. `ReflectAfterAnswer`: `DIFFERENTLY | SAME | MORE_CAUGHT_UP`.
 
+**Correction, 2026-10-22** (`changes/01-req-past-entries-and-journey-gaps.md`, spec 0.2)**.** `reflectPastEntry` returns its own past-entry type, `ReflectEntry` less `step`, and the fences refuse `step` and `outcome` on it (spec AC-48). "Listable" is now *closed, with any written text*, for `reflectPastEntries`, `reflectPastEntry` and `hasPast`; a row's text is the entry's first writing in step order (scene, story, first moment's *when*, first reading, close), cut by the server, in place of `scene` and `storyStart` (spec AC-37, AC-46); `openEntry.hasStory` becomes whether the entry holds any written text (spec AC-53). B6 builds all of it, changing B2's `LISTABLE`, `hasStory`'s rule and `storyStart`; B4 builds the home against `hasStory` as B2 left it, and if B6 renames the field it changes B4's caller too.
+
 ### 6.2 · Refusal codes
 
 | Message (exact) | When | Stage |
@@ -743,3 +746,4 @@ None new. Reflect uses Prisma, Apollo and the F&N content pack, and on the clien
 ## Changelog
 
 - **0.1 · 2026-10-21** — Plan, from `02-spec.md` 0.1, `03-journeys.md` 0.2 and `04-wireframes.html` draft 1, against `rishe-eco/tracker main @ 5fd71c9`, under the gate override (ux-review and eval-plan waived by the founder). Eight stages (B0–B7), two milestones, twenty defects found, G1–G17 and W1–W19 settled, D-4 carried to `revise`, fifteen planning decisions.
+- **0.1 · correction · 2026-10-22** — Two correction lines from `changes/01-req-past-entries-and-journey-gaps.md` (spec 0.2), written by `revise` at the founder's word instead of marking this file `STALE`: under PD-12 (D-4 accepted) and under §6.1's GraphQL table (the past-entry type without `step`; "listable" is any written text). No stage, size or order changes.

@@ -2,7 +2,7 @@
 
 *The queue. Work that engineering cannot finish because it needs human judgement, a native speaker, or a decision. Each item states its blocker and what it unblocks. Delete items when done — the decision logs are the permanent record.*
 
-**Version 0.12 · Status: living · 2026-10-22 · Owner: _root**
+**Version 0.13 · Status: living · 2026-10-22 · Owner: _root**
 
 ---
 
@@ -221,7 +221,7 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 | root-app | The desk scrolls sideways at 360 px, on every desk page: below 720 px `desk.css` lays `.desk-nav` out as a row whose links don't wrap (879 px wide in Persian, 1027 px in English). It fails the 360 px rule for the whole desk. NR1 didn't cause it | not assigned: the next desk layout stage | `docs/development/NR1.md` in `rishe-eco/root-app` |
 | root-app | `j9a`'s "a chunked upload past the cap…" heap bound (32 MB) failed once under the full integration suite (40 MB grew), and passed 3 of 3 with the file alone. The bound is process-wide, so other files' garbage counts against it | the next full integration run: if it fails again, make the measurement independent of GC timing | `docs/development/NR1.md` in `rishe-eco/root-app` |
 | Tracker | Reflect B3: the matcher's fold (`ARABIC_FOLDS`, `normalizeForMatch`) and the inline copy in `api/src/__tests__/reflectContent.unit.test.ts`, which checks that no trigger nests across families, stay the same. If one changes, change the other | B3's `verify` | `docs/development/B1.md` in `rishe-eco/tracker` |
-| Tracker | Reflect: `reflectPastEntry` returns the whole `ReflectEntry`, `step` included, so a past entry stopped before `close` shows it was stopped, which plan D-9 says is never shown back (§6.1 asks for that shape; AC-3's text doesn't cover it). The founder decides: a past-entry type without `step`, or the leak accepted in D-9 | B6's card | `docs/development/B2.md` in `rishe-eco/tracker` |
+| Tracker | ~~Reflect: `reflectPastEntry` returns the whole `ReflectEntry`, `step` included, so a past entry stopped before `close` shows it was stopped, which plan D-9 says is never shown back (§6.1 asks for that shape; AC-3's text doesn't cover it). The founder decides: a past-entry type without `step`, or the leak accepted in D-9~~ Decided at `revise`, 2026-10-22: a past-entry type without `step` or the outcome, fenced (spec 0.2 AC-48, `tracker/modules/02-reflect/changes/01-req-past-entries-and-journey-gaps.md`); B6 builds it | B6's card | `docs/development/B2.md` in `rishe-eco/tracker` |
 
 ---
 
@@ -244,6 +244,7 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 
 ## Changelog
 
+- **0.13 · 2026-10-22** — From `revise` (Tracker, Reflect, change request 01): the past entry's `step` row struck, decided as spec AC-48.
 - **0.12 · 2026-10-22** — From `verify B2` (Tracker, Reflect): an *Owed* row for the past entry's `step` (needed by B6's card), and a ceiling row for the founder's sign-in after B2's deploy.
 - **0.11 · 2026-10-21** — From `verify NR1` (root-app): TK1's full-e2e row struck (done by NR1's full run). Two rows added to *Owed*: the desk's sideways scroll at 360 px, and `j9a`'s heap-bound flake. A ceiling row for NR1's live-desk check.
 - **0.10 · 2026-10-21** — Item 16 (Persian review of the Focus Periods strings) and a ceiling row for Focus Periods' drop rule, from its build (D-61).
