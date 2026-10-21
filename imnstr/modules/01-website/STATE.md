@@ -2,6 +2,27 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-21 · 8a launch CT1 (change note 08: Contact page and Writings) · lifecycle/imnstr-ct-contact-writings @ 07fbdb6 · rishe-eco/i-monster main @ 6828da3
+
+*Adds to the 10d block; its next steps stand. A Change to the closed site, at the founder's request, run in one session: note, wireframes, card, lane, verify, deploy.*
+
+**What was done**
+- Change note `changes/08-change-contact-and-writings.md` and its wireframes (`d3f8b27`), written by hand in `spec change`'s shape; the gate passed (10 of 10 criteria staged). Card `briefs/CT1.md` (`07fbdb6`).
+- Founder's answers: rename to نوشته‌ها; form of subject, message and contact; email, Instagram and Telegram (no X); the three values kept out of every file, so the server reads them from `.env`. Claude's calls, unanswered by the founder: "Writings", messages stored and read in `/admin`, Contact in header and footer (note, *Decided by the founder*, rows 5–7).
+
+**Lanes in flight**
+
+| Stage · size | Branch @ base | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| CT1 · M | `ct1-contact-writings` @ `6828da3` | A (4110, `.tmp/e2e.db`) | main checkout's `.claude/worktrees/ct1-contact-writings` | `briefs/CT1.md` | running |
+
+**Next steps, in order**
+1. Read the top block of `imnstr/modules/01-website/STATE.md`. When the CT1 lane has reported, run `/build-phase CT1 --land` (Opus, medium), then `/verify CT1` (Opus, high), from the IMNSTR checkout. Before the push to `main`, the founder adds `CONTACT_EMAIL`, `CONTACT_TELEGRAM` and `CONTACT_INSTAGRAM` to `/srv/imnstr/.env` (note, *Founder pre-flight*).
+2. `revise --catch-up 08` for the spec (note, *What this makes stale*), then `journeys update`.
+
+**Owed**
+- This file holds more than five blocks, from the trial; they aren't pruned here.
+
 ## 2026-10-19 · `lifecycle-trial/imnstr` (step 10d, apply findings) · imnstr `main @ 6828da3`
 
 *Completes the 10c block's step 2. Steps 1 (decided) and 3 (IMNSTR's items) stand. Log: `log/10d-apply-findings.md`.*
