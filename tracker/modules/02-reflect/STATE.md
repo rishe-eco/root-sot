@@ -2,6 +2,33 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-21 · 7 build-plan · lifecycle/stage-3a-spec @ 2c6318d · rishe-eco/tracker main @ 5fd71c9
+
+*Adds to the 4 wireframes, 4 journeys, 3 personas and 2 spec blocks below, which stay live (the 1 research block is deleted; its Persian gap is carried below). Completes the 4 wireframes block's next step 2 in part: `build-plan` settled G1–G17 and W1–W19, but the spec itself was not revised.*
+
+**What was done**
+- `/build-plan` wrote `tracker/modules/02-reflect/07-build-plan.md` 0.1 (committed `2c6318d`, pushed to `origin/lifecycle/stage-3a-spec`). Gate OK at phase 8 (11 of 11 headings); `lifecycle/status.md` column 7 is `done`.
+- The phase 7 gate was overridden at the founder's word: no design step, no ux-review, eval plan waived. The reason is in the plan's header.
+- Eight stages: B0 e2e lanes prep (S), B1 schema, content and fences (M), B2 entry API (L), B3 the two catches (M), B4 home, pre-check, story, calm close (L), B5 remaining steps (L), B6 past entries (M), B7 open the door (S). MS1 after B3, MS2 after B7. Twenty defects (§0.4), fifteen planning decisions (§2).
+- All of G1–G17 and W1–W19 accepted except W2's Back on the story (refused, D-3); G2 is narrowed (PD-6).
+
+**Next steps, in order**
+1. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`lifecycle/stage-3a-spec`), then §3 and the first stage of `tracker/modules/02-reflect/07-build-plan.md`. Start from the tracker checkout (`~/Desktop/Root/tracker`, `main`). Run `/build-phase B0` (Opus, medium effort). B1 may run beside it in the second slot.
+2. Before B6's card is drafted, run `/revise` (Opus, medium) on the spec for D-4 (an entry stopped with writing but no story is kept yet never listed or deletable) and to write G1–G17 and the accepted W-calls into the spec.
+
+**Carry-overs**
+- Persian remains the open research gap (spec R2): the bet is untested for Persian users in this version.
+- R7 (no encryption at rest) is settled as PD-2; R8 by B1 and B2's placement; R9 by B0.
+- The plan's §7 lists the canon each stage makes stale (data model, GraphQL API, frontend, decision log for convention 13, `config.md` §2 and §4); each `verify` flags it for `close-out`.
+- Every push to the code repo's `main` deploys. B1's migration reaches production at its `verify`.
+
+**Questions for the founder**
+- Approve the calm-close copy, `en` and `fa`, and whether it names a trusted person or a professional? Owed by: B7 (P0-1).
+- Is CD1's one-time setup done, so that deploys are live? Owed by: B1's `verify` (P0-4).
+- Veto any of PD-2, PD-3, PD-5, PD-6, PD-7, PD-8, PD-10, PD-11 or G6's split (plan §10)? Owed by: the card for the stage each touches.
+- Lock the outcome above RFL-1 in `ecosystem/ost.md`, and who reads M1–M6 from the database? Owed by: nothing in the plan; the eval plan was waived.
+- Where do database backups go: the box only, or off it? Owed by: nothing yet; decides whether PD-2 is revisited (P0-3).
+
 ## 2026-10-21 · 4 wireframes · lifecycle/stage-3a-spec @ 9847654 · rishe-eco/tracker main @ 5fd71c9
 
 *Adds to the 4 journeys, 3 personas, 2 spec and 1 research blocks below, which stay live. Completes the 4 journeys block's next step 1 (`/wireframes`). The 0 intake block is deleted; its carry-overs were all settled in the spec (2 spec block).*
@@ -91,24 +118,3 @@
 - Approve the calm-close copy (and whether it should name a trusted person or a professional)? Owed by: `build-plan`'s stop point, R6.
 - Lock the outcome above RFL-1 in `ecosystem/ost.md`? Owed by: `eval-plan`.
 - The research block's question (Re-reading close and Ruminator guard widen scope) is answered: the close and a light guard are accepted; the routed shorter version is not.
-
-## 2026-10-21 · 1 research · lifecycle/stage-3a-spec @ 2ce2672 · rishe-eco/tracker main @ 5fd71c9
-
-*Adds to the 0 intake block below, which stays live. Completes its next step 1.*
-
-**What was done**
-- `tracker/modules/02-reflect/01-research.md` written (2,532 words before Sources, committed `2ce2672`, gate OK, `lifecycle/status.md` column 1 `done`). Not pushed.
-- It confirms the canon's reconstrual bet (H6b) and says a no-AI flow can carry it. It also finds a risk in the intake: story-first, as an immersed retelling, is the rumination route. In the one trial of people prone to rumination, they did worst with structured story writing (Sbarra, 90 adults, eight months on).
-- Recommended base: the Observer recount (an observer's bounded, concrete account, no "why", reality check framed as noticing a reading, not disputing it). Other options named: Guided recount, Re-reading close, Interpretation catch, Ruminator guard, Evaluation pair.
-- Tracker already has the mechanism for a no-AI reality check (the authored-lexicon catches in Noticing and Feelings & Needs); see §4 of the brief.
-- The session ran below the skill's `high` effort, and the brief says so.
-
-**Next steps, in order**
-1. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`lifecycle/stage-3a-spec`), then `tracker/modules/02-reflect/00-intake.md` and `tracker/modules/02-reflect/01-research.md`. Run `/spec full tracker/modules/02-reflect` (Opus, high effort).
-
-**Carry-overs**
-- The intake's carry-overs stand: `spec` assigns the opportunity-tree node, the drop rule needs an instrument (brief §5), and the Journals and Feelings & Needs overlap is settled in `spec` (brief §6).
-- The 11 questions for `spec` are in brief §7. The highest-priority gap is Persian: nothing was found on how self-distancing works in Persian (brief §8).
-
-**Questions for the founder**
-- Re-reading close and Ruminator guard each widen the intake's scope. Accept either, both, or neither? Owed by: `spec`.
