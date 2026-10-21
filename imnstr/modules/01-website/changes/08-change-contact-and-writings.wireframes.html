@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>08 — Contact and Writings — wireframes</title>
+<style>
+:root{
+  --surface-2:#ffffff; --surface-1:#f6f5f0; --surface-0:#efece4;
+  --text-primary:#2c2c2a; --text-secondary:#5f5e5a; --text-muted:#8a8981;
+  --border:#e3e1d9; --border-strong:#ceccc3;
+  --accent-bg:#e6f1fb; --accent-text:#185fa5;
+  --warn-bg:#fbf0e6; --warn-text:#9a5a12;
+  --good-bg:#e9f2e8; --good-text:#3d6b39;
+  --radius:8px; --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --surface-2:#2b2b29; --surface-1:#232321; --surface-0:#1b1b19;
+    --text-primary:#e9e7e0; --text-secondary:#b5b3aa; --text-muted:#8a8981;
+    --border:#3a3a37; --border-strong:#4b4b47;
+    --accent-bg:#0c447c; --accent-text:#b5d4f4;
+    --warn-bg:#4a2f10; --warn-text:#e8c39a;
+    --good-bg:#25381f; --good-text:#b8d4b0;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;padding:24px 16px;background:var(--surface-0);color:var(--text-primary);font:15px/1.5 var(--font)}
+h1{font-size:20px;margin:0 0 4px} h2{font-size:17px;margin:40px 0 4px}
+.cap{color:var(--text-secondary);font-size:13px;margin:0 0 12px;max-width:70ch}
+.row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
+.frame{background:var(--surface-2);border:1px solid var(--border-strong);border-radius:var(--radius);padding:14px;inline-size:100%}
+.phone{max-inline-size:375px} .desk{max-inline-size:860px}
+.label{font-size:12px;color:var(--text-muted);margin:0 0 6px}
+.bar{block-size:10px;background:var(--surface-0);border-radius:4px;margin:6px 0}
+.hdr{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:12px;font-size:13px}
+.hdr nav{display:flex;gap:10px} .cur{text-decoration:underline}
+.links{display:flex;flex-direction:column;gap:6px;margin:10px 0 16px}
+.links a{color:var(--accent-text)}
+.desk .links{flex-direction:row;gap:20px}
+.field{margin:10px 0} .field b{display:block;font-size:13px}
+.input{border:1px solid var(--border-strong);border-radius:6px;block-size:36px;background:var(--surface-1)}
+.ta{block-size:110px}
+.btn{display:inline-block;border:1px solid var(--border-strong);border-radius:6px;padding:8px 16px;margin-top:6px}
+.err{color:var(--warn-text);font-size:13px}
+.note{border-radius:6px;padding:8px 10px;font-size:13px;margin:8px 0}
+.note.good{background:var(--good-bg);color:var(--good-text)} .note.warn{background:var(--warn-bg);color:var(--warn-text)}
+.ftr{border-top:1px solid var(--border);margin-top:16px;padding-top:8px;font-size:12px;color:var(--text-muted);display:flex;gap:10px;flex-wrap:wrap}
+.msg{border-top:1px solid var(--border);padding:10px 0}
+.msg .meta{font-size:12px;color:var(--text-muted)}
+.rtl{direction:rtl}
+</style>
+</head>
+<body>
+<h1>08 — Contact and Writings · wireframes</h1>
+<p class="cap">Change note <code>08-change-contact-and-writings.md</code> (CT-1 to CT-10). Low fidelity: the design is 4b's, unchanged. Real copy only where the words are the requirement. The founder's links are shown as invented values: the real ones are set on the server, never in the repo.</p>
+
+<h2>1 · Contact page (CT-2 to CT-7)</h2>
+<p class="cap">Phone, 375 px, English and Persian; desktop, English. The header keeps Writings, Podcast and the language switch on a phone (Contact and Feed are in the footer there). From the tablet breakpoint the header gains Contact, current on this page.</p>
+<div class="row">
+  <div class="frame phone">
+    <p class="label">/contact · phone · empty</p>
+    <div class="hdr"><span>iMNSTR ••</span><nav><span>Writings</span><span>Podcast</span><span>فا</span></nav></div>
+    <strong>Contact</strong>
+    <div class="bar" style="inline-size:80%"></div>
+    <div class="links">
+      <a>✉ someone@example.com</a>
+      <a>Telegram · @example_channel ↗</a>
+      <a>Instagram · @example ↗</a>
+    </div>
+    <div class="field"><b>Subject</b><div class="input"></div></div>
+    <div class="field"><b>Message</b><div class="input ta"></div></div>
+    <div class="field"><b>How can I reach you?</b><div class="input"></div></div>
+    <span class="btn">Send</span>
+    <div class="ftr"><span>Writings</span><span>Podcast</span><span>Feed</span><span class="cur">Contact</span></div>
+  </div>
+
+  <div class="frame phone">
+    <p class="label">/contact · phone · refused (400)</p>
+    <div class="note warn">Two fields need a look: Subject, How can I reach you?</div>
+    <div class="field"><b>Subject</b><div class="input"></div><span class="err">Write a subject.</span></div>
+    <div class="field"><b>Message</b><div class="input ta"></div></div>
+    <div class="field"><b>How can I reach you?</b><div class="input"></div><span class="err">Say how I can reach you.</span></div>
+    <span class="btn">Send</span>
+    <p class="label" style="margin-top:16px">/contact?sent=1 · after a send (303)</p>
+    <div class="note good">Sent. Thank you. I'll get back to you.</div>
+    <p class="label">at the cap (429)</p>
+    <div class="note warn">Too many messages today. Please write to the email above instead.</div>
+  </div>
+
+  <div class="frame phone rtl" lang="fa">
+    <p class="label">/fa/contact · phone</p>
+    <div class="hdr"><span>iMNSTR ••</span><nav><span>نوشته‌ها</span><span>پادکست</span><span>EN</span></nav></div>
+    <strong>تماس</strong>
+    <div class="links">
+      <a>✉ someone@example.com</a>
+      <a>تلگرام · @example_channel ↗</a>
+      <a>اینستاگرام · @example ↗</a>
+    </div>
+    <div class="field"><b>موضوع</b><div class="input"></div></div>
+    <div class="field"><b>پیام</b><div class="input ta"></div></div>
+    <div class="field"><b>چطور با شما تماس بگیرم؟</b><div class="input"></div></div>
+    <span class="btn">بفرستید</span>
+    <div class="ftr"><span>نوشته‌ها</span><span>پادکست</span><span>فید</span><span class="cur">تماس</span></div>
+  </div>
+</div>
+<div class="row" style="margin-top:24px">
+  <div class="frame desk">
+    <p class="label">/contact · desktop</p>
+    <div class="hdr"><span>iMNSTR ••</span><nav><span>Writings</span><span>Podcast</span><span>Feed</span><span class="cur">Contact</span><span>فا</span></nav></div>
+    <strong>Contact</strong>
+    <div class="links"><a>✉ someone@example.com</a><a>Telegram ↗</a><a>Instagram ↗</a></div>
+    <div style="max-inline-size:36rem">
+      <div class="field"><b>Subject</b><div class="input"></div></div>
+      <div class="field"><b>Message</b><div class="input ta"></div></div>
+      <div class="field"><b>How can I reach you?</b><div class="input"></div></div>
+      <span class="btn">Send</span>
+    </div>
+  </div>
+</div>
+
+<h2>2 · Admin: Messages (CT-8)</h2>
+<p class="cap">A section in the admin shell, after Podcast. Newest first. No count anywhere. Delete asks first. An empty list says so in a line.</p>
+<div class="row">
+  <div class="frame desk">
+    <p class="label">/admin · Messages</p>
+    <strong>Messages</strong>
+    <div class="msg"><b>A question about the podcast</b><div class="meta">EN · 21 Oct, 14:02 · reach: someone@example.com</div><div class="bar"></div><div class="bar" style="inline-size:60%"></div><span class="btn">Delete</span></div>
+    <div class="msg"><b dir="rtl">سلام</b><div class="meta">FA · 20 Oct, 09:15 · reach: @example</div><div class="bar" style="inline-size:70%"></div><span class="btn">Delete</span></div>
+    <p class="label" style="margin-top:12px">empty: "No messages."</p>
+  </div>
+</div>
+
+<h2>3 · The rename (CT-1)</h2>
+<p class="cap">Every place the section's name appears: header and footer nav, landing row title, log page title, feed title, the 404's "Read the writings", the entry page's "More writings". The path stays <code>/log</code>.</p>
+<div class="row">
+  <div class="frame phone"><p class="label">landing row</p><strong>Writings</strong><div class="bar" style="inline-size:70%"></div></div>
+  <div class="frame phone rtl" lang="fa"><p class="label">ردیف صفحه‌ی اول</p><strong>نوشته‌ها</strong><div class="bar" style="inline-size:70%"></div></div>
+</div>
+</body>
+</html>
