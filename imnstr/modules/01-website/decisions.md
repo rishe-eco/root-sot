@@ -2,7 +2,7 @@
 
 *One line per product decision, each pointing at the change note that holds it. Written by `revise` and `spec change`; `decision-record` for any other module decision. Method decisions go in `lifecycle/decision-log.md`.*
 
-**Version 0.1 · 2026-10-19 · Owner: founder**
+**Version 0.2 · 2026-10-21 · Owner: founder**
 
 ---
 
@@ -18,6 +18,7 @@
 | — | 2026-10-18 | Copy and longer sessions (CS1), built in one session by the founder's choice | `changes/06-copy-and-sessions.md` |
 | L-6 | 2026-10-19 | Spec 0.5: catching up to PL1 and CS1, and the canon the build left stale | `changes/07-spec-catch-up-05-06.md` |
 | — | 2026-10-21 | A Contact page with a stored message form and admin Messages; the log renamed Writings / «نوشته‌ها» (CT1), in one session at the founder's request | `changes/08-change-contact-and-writings.md` |
+| — | 2026-10-21 | Spec 0.6: caught up to CT1 (the Contact page, admin Messages, the log named Writings / «نوشته‌ها»); note 08's three calls by Claude confirmed by the founder; design README 0.4; eval plan marked STALE | `changes/09-req-catch-up-08.md` |
 
 Rows marked — had no decision-log entry when they were made; they are indexed here from their notes.
 

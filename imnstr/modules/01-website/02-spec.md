@@ -1,16 +1,29 @@
 # IMNSTR.com — spec
 
-*Module `imnstr/modules/01-website/` · Track: Module · Phase 2 · Spec, not as-built. A personal site with four parts, in English and Persian: a landing page, a learnings log, a Monster Podcast page and one admin page. Inputs: `00-intake.md`, `01-research.md`; revised from `03-journeys.md` §4, `04b-design/README.md` and `04b-design/review/README.md` (change note `changes/01-journeys-design-bilingual.md`), then from `05-ux-review.md` and `06-eval-plan.md` §6 (change note `changes/02-ux-review-eval-plan.md`), then from `03-journeys.md` §4 (G10–G16) and `04b-design/README.md` 0.2, *Beyond the spec* (change note `changes/03-journeys-gaps-design-0-2.md`), then from change notes 05 and 06, *What this makes stale* (change note `changes/07-spec-catch-up-05-06.md`). This spec doesn't restate the journeys. Update the changelog; don't fork.*
+*Module `imnstr/modules/01-website/` · Track: Module · Phase 2 · Spec, not as-built. A personal site with five parts, in English and Persian: a landing page, a log named Writings, a Monster Podcast page, a Contact page and one admin page. Inputs: `00-intake.md`, `01-research.md`; revised from `03-journeys.md` §4, `04b-design/README.md` and `04b-design/review/README.md` (change note `changes/01-journeys-design-bilingual.md`), then from `05-ux-review.md` and `06-eval-plan.md` §6 (change note `changes/02-ux-review-eval-plan.md`), then from `03-journeys.md` §4 (G10–G16) and `04b-design/README.md` 0.2, *Beyond the spec* (change note `changes/03-journeys-gaps-design-0-2.md`), then from change notes 05 and 06, *What this makes stale* (change note `changes/07-spec-catch-up-05-06.md`), then from change note 08, *What this makes stale* (change request `changes/09-req-catch-up-08.md`). This spec doesn't restate the journeys. Update the changelog; don't fork.*
 
-**Version 0.5 · Status: spec · 2026-10-19 · Owner: founder**
+**Version 0.6 · Status: spec · 2026-10-21 · Owner: founder**
 
-**Grading.** Everything here is **proposal** until built; the 0.5 changes are behind stages already built and verified (PL1, CS1). Items marked **[F]** were decided by the founder, at spec (§2), at the 0.2 revise (§2.1), at the 0.3 revise (§2.2), at the 0.4 revise (§2.3) or at the 0.5 revise (§2.4). Research findings carry their grade from `01-research.md` and are cited by section. Unmarked requirements are this spec's reading, open to the founder at any later phase through `revise`.
+**Grading.** Everything here is **proposal** until built; the 0.5 changes are behind stages already built and verified (PL1, CS1), and the 0.6 changes behind CT1 (change note 08), built, verified and deployed. Items marked **[F]** were decided by the founder, at spec (§2), at the 0.2 revise (§2.1), at the 0.3 revise (§2.2), at the 0.4 revise (§2.3), at the 0.5 revise (§2.4) or at the 0.6 revise (§2.5). Research findings carry their grade from `01-research.md` and are cited by section. Unmarked requirements are this spec's reading, open to the founder at any later phase through `revise`.
+
+**Scope ledger** *(acceptance criteria by area, at each version, against the intake; added at 0.6, with the earlier columns counted from the changelog)*:
+
+| Area | Intake | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 |
+|---|---|---|---|---|---|---|---|
+| Public | in scope | 7 | 15 | 15 | 15 | 15 | 16 |
+| Authentication | in scope | 4 | 10 | 11 | 11 | 11 | 11 |
+| Admin | in scope | 7 | 8 | 10 | 10 | 11 | 11 |
+| Reader record | out ("analytics"), narrowed at 0.3 | — | — | 2 | 2 | 2 | 2 |
+| Access and motion | in scope | 1 | 5 | 5 | 5 | 5 | 5 |
+| Languages | not named | — | 4 | 4 | 5 | 5 | 5 |
+| Contact | not named (comments and newsletter out) | — | — | — | — | — | 4 |
+| **Total** | | **19** | **42** | **47** | **48** | **49** | **54** |
 
 ---
 
 ## Summary
 
-1. **Four parts, nothing else:** landing page, learnings log (with a feed), Monster Podcast page, one admin page. No now line, no tags on entries, no comments, visitor accounts, or analytics anyone can watch. A private reader record keeps totals only and is read only at the checks **[F]** (§3.1). **Public pages come in English and Persian [F]**: two independent streams, not translations, behind one admin (§4.5).
+1. **Five parts, nothing else:** landing page, the log (named Writings, with a feed), Monster Podcast page, a Contact page **[F]** (0.6), one admin page. No now line, no tags on entries, no comments, visitor accounts, or analytics anyone can watch. The Contact page's form keeps only what a visitor types, read only in the admin (§4.1, §4.4). A private reader record keeps totals only and is read only at the checks **[F]** (§3.1). **Public pages come in English and Persian [F]**: two independent streams, not translations, behind one admin (§4.5).
 2. **The admin is home-built (shape A) [F]**: a passkey login the site owns. Research §5.3 becomes acceptance criteria, and auth is the build's risk stage.
 3. **Publishing must be nearly free, on a phone [F]**: write, publish, done. Date and time are set automatically; the title is optional; a failed save never loses text.
 4. **No page counts anything.** No streaks, entry counts, gap markers or "days since", public or in the admin (research §1, §2.3).
@@ -21,6 +34,8 @@
 A public notebook. Its first user is the founder, for whom writing the log is the habit (intake §4). Followers of the founder's work read what is being learned and built; podcast listeners arrive for episode links. Employers and clients are not a target.
 
 The log is a **stream**, not a garden: short entries, newest first, rarely edited (research §3). Entries say what was learned, past tense, written for a reader (research §2.1). They never carry public plans (research §2.2). "Daily" is the founder's aim; nothing in the product enforces or displays it (research §1, §2.3).
+
+Since 0.6 a reader can also reach the founder: a Contact page carries the founder's links and a private form, whose messages only the founder reads (§4.1, §4.2). It is not comments: nothing a visitor sends appears on any page.
 
 The site carries no Root brand. Its design system is settled in step 4b, and nothing in this spec depends on it.
 
@@ -99,9 +114,20 @@ From change note 05's and 06's *What this makes stale*: decisions the founder to
 | 43 | No way back from page 2 (UX pass 2 F4; note 05 PL-10) | **Past the first page, a "Newer" link** | §4.1; AC-30. |
 | 44 | Sessions (the founder at 8c PL1; note 06 CS1) | **7 days idle, 30 days absolute, and the cookie lasts 30 days.** Below NIST AAL2's ceilings (1 h, 24 h), by choice: sign-ins become rare, and a lost device is ended by removing its passkey | §4.3; §5; AC-10. |
 
+### 2.5 Decisions taken at the 0.6 revise
+
+From change note 08's *What this makes stale* (CT1, built, verified and deployed 2026-10-21). Change request `changes/09-req-catch-up-08.md`. The founder took 45's Persian name and 46 at the change step. 45's English name, 47 and 48 were Claude's calls there (note 08, *Decided by the founder*, rows 5–7), unanswered, then deployed at the founder's word; the founder confirmed them at this revise.
+
+| # | Item (source) | Answer **[F]** | Consequence |
+|---|---|---|---|
+| 45 | The log's name (note 08, rows 1 and 5) | **Writings in English, «نوشته‌ها» in Persian.** The paths stay `/log` and `/fa/log`, so no link breaks. The sentences saying the founder writes down what it learned stay: they describe the site, not the section | §4.1; AC-50. |
+| 46 | A way to reach the founder (note 08, rows 2–4) | **A Contact page with the founder's links (email, Telegram channel, Instagram; no X) and a form of subject, message and how to reach you.** The links' values live in the server's environment, never in a file of the public repo | §4.1, §4.4; AC-51 to AC-53. |
+| 47 | Where messages go (note 08, row 6) | **Stored, and read in a Messages section of `/admin`.** No email, so no mail provider, secret or third-party request | §4.2; AC-54. |
+| 48 | Where Contact is linked (note 08, row 7) | **The footer on every public page, and the header from the tablet breakpoint up**, where the Feed link joins it, so the header still fits at 360 px | §4.1; AC-26, AC-51. |
+
 ## 3. Metrics
 
-The site collects nothing about visitors (intake §5). Every metric comes from the founder or from the content itself, and none is displayed on any page.
+The site collects nothing about visitors (intake §5), except what a visitor chooses to type into the Contact form and send (§4.4, 0.6). Every metric comes from the founder or from the content itself, and none is displayed on any page.
 
 | ID | Metric | How measured | When |
 |---|---|---|---|
@@ -110,17 +136,17 @@ The site collects nothing about visitors (intake §5). Every metric comes from t
 | M3 | Publishing overhead on a phone | Seconds from opening `/admin` on the phone to the entry being live, excluding writing time; read from a screen recording. **Warm** (already signed in) is gated by AC-15. **Cold** (signed out, so it includes the passkey sign-in) is timed and reported, not gated **[F]**. Protocol: `06-eval-plan.md` §3.A. | At build verification and at step 9 |
 | R | Reader record | Totals kept by the server (§3.1); read by the founder at the check, after M1's answers | With M1 |
 
-M1 is the drop rule's measure; M2 and R are its supporting facts (research §6), and neither decides the reading alone. A lull is normal and is not a signal by itself (research §2.3): one fact the decision rule in `06-eval-plan.md` must respect. **Not measured, by design:** anything about one visitor, entries per period, words written. Visits are counted only as private totals (§3.1).
+M1 is the drop rule's measure; M2 and R are its supporting facts (research §6), and neither decides the reading alone. A lull is normal and is not a signal by itself (research §2.3): one fact the decision rule in `06-eval-plan.md` must respect. **Not measured, by design:** anything about one visitor, entries per period, words written, messages received. Visits are counted only as private totals (§3.1).
 
 ### 3.1 The reader record
 
 **[F]** at the 0.3 revise. Research §2.4 (*evidence, thin*) names unmet recognition as the common reason blogs die, and the site gives no reader signal. Research §1 (*evidence, strong*) warns that counting an enjoyed activity can corrode it. The record answers the first without becoming a scoreboard. It is a **proposal** until built.
 
 - **Kept,** counted on the server, as totals per calendar month and per language:
-  - **R1 views** of each entry and each public page, excluding requests that identify themselves as bots (approximate);
+  - **R1 views** of each entry and of the landing, log and podcast pages, excluding requests that identify themselves as bots (approximate). The Contact page isn't counted (as built, `lib/record.ts`'s whitelist);
   - **R2 feed subscribers**, as feed readers report them in their requests (many aggregators send "N subscribers"; which ones do is verified at the build);
   - **R3 referring sites**, by domain only.
-- **Not kept:** anything that identifies or follows one visitor (IP address, device, location, time on page); podcast link clicks (the platforms show their own); counts of the founder's own writing.
+- **Not kept:** anything that identifies or follows one visitor (IP address, device, location, time on page); podcast link clicks (the platforms show their own); counts of the founder's own writing; counts of Contact sends. Since 0.6, the one thing a visitor gives the site is a message they type and send: the form stores it as a message (§4.4), not in the record, and nothing about its sender beyond what they typed.
 - **Shown nowhere on the site.** Not in the admin, not on any public page, with no notice that a check is due (AC-5). The founder reads it at each check with one command on the server, covering the period since the last check, after answering M1 (`06-eval-plan.md` §3.C, §3.D).
 - Public pages still set no cookies and call no third-party host (AC-7). The counting is server-side.
 
@@ -131,24 +157,27 @@ M1 is the drop rule's measure; M2 and R are its supporting facts (research §6),
 | Page | Holds |
 |---|---|
 | **Landing** `/` | Who this is; the projects, as a list on this page (name, one line, optional outbound link); a way into the log and into the podcast page. |
-| **Log** `/log` | Published entries, newest first by first-publish time. Each shows its date and time, its title if it has one, and its body. 20 per page, with a plain "Older" link that works without script (W3) **[F]**; past the first page, a "Newer" link back **[F]** (0.5). A visible link to the feed (G6). |
+| **Log**, named **Writings** / «نوشته‌ها» **[F]** (0.6) `/log` | Published entries, newest first by first-publish time. Each shows its date and time, its title if it has one, and its body. 20 per page, with a plain "Older" link that works without script (W3) **[F]**; past the first page, a "Newer" link back **[F]** (0.5). A visible link to the feed (G6). |
 | **Entry** `/log/<id>` | One entry at a stable, shareable URL (research §2.4). The URL never changes when the entry is edited. |
 | **Feed** `/log/feed.xml` | Atom: the 20 most recent published entries, full text. An entry without a title takes its date as its feed title, in its language's format: Gregorian in the English feed; Solar Hijri with Persian digits in the Persian feed **[F]**. |
 | **Podcast** `/podcast` | Show-level links to the platforms, whether or not episodes exist (G8). Each language's page links to its own show: the Persian podcast is a separate show with its own channels **[F]**. Episodes, newest first: name, description, one or two tags, and one link per platform, each opening in a new tab **[F]**. 20 per page, as the log. `PodcastEpisode` markup from schema.org (research §4). |
+| **Contact** `/contact` **[F]** (0.6) | The founder's links: email (`mailto:`), the Telegram channel and Instagram, the last two opening in a new tab. Each is shown only when the server's environment holds a valid value for it; with none, the page shows the form alone. Below them, a form of three required fields: subject, message and how to reach you. It posts to its own page and needs no script. A send shows a thank-you notice and an empty form; a refusal keeps everything typed and names each error beside its field. Messages are stored and read only in the admin (§4.2). |
 | **Not found** | One designed 404 page, the same for an unpublished entry and a URL that never existed, with ways to `/log` and `/` (G7). An entry's id under the other language's paths is a URL that doesn't exist there: it gets that language's 404, with no redirect **[F]**. |
 
-- **Every public page** names the site's owner and links to `/`, `/log` and `/podcast` (G5), and carries `<link rel="alternate">` to its language's feed (G6).
+- **Every public page** names the site's owner and links to `/`, `/log` and `/podcast` (G5), and carries `<link rel="alternate">` to its language's feed (G6). Its footer also links to `/contact`; the header does from the tablet breakpoint up, where the Feed link joins it, so the header still fits one line at 360 px **[F]** (0.6).
+- **The log's name [F]** (0.6) is **Writings** in English and **«نوشته‌ها»** in Persian, wherever the section is named: the nav, the landing row, the log's title, the feed's title, the 404's link and the entry page's "More writings". Its paths don't change.
 - The empty log and the empty podcast page are **designed states**, not blanks or errors (research §4, §6). The podcast may have no episodes at launch.
 - A log of one to three entries must look deliberate (research §6, "not enough data").
-- Public pages set no cookies, load no analytics or tracking scripts, and host no audio. The server counts requests into the reader record (§3.1) and stores nothing about one visitor.
+- Public pages set no cookies, load no analytics or tracking scripts, and host no audio. The server counts requests into the reader record (§3.1) and stores nothing about one visitor, beyond the message a visitor types into the Contact form and sends (§4.4, 0.6).
 - The owner is named as **iMNSTR**; the founder's personal name doesn't appear **[F]**.
 - **Light and dark** both follow `prefers-color-scheme` **[F]**, on every public and admin page and in every state.
 - Landing-page content (who, projects) and the show-level podcast links, for both languages, are edited in the code repo, not the admin; the admin holds only log entries and podcast items. **[F]**, journeys §1.1; show links at the 0.4 revise.
+- **The Contact page's three links** are set in the server's environment (`CONTACT_EMAIL`, `CONTACT_TELEGRAM`, `CONTACT_INSTAGRAM`), not in the code repo or the admin **[F]** (0.6): the repo is public, and no real address or handle may enter it, not even in a test.
 - The paths above are the English site. Persian has the same pages under `/fa/` (§4.5).
 
 ### 4.2 The admin page
 
-One page at `/admin`, one user (intake §5). It holds: the entry editor; the list of entries, published and unpublished; the podcast form and list of episodes. How these sit on one page is the wireframes' job.
+One page at `/admin`, one user (intake §5). It holds: the entry editor; the list of entries, published and unpublished; the podcast form and list of episodes; and, since 0.6, the messages sent through the Contact page **[F]**. How these sit on one page is the wireframes' job.
 
 - **Phone-first [F].** Every admin task is designed for, and tested at, phone width with the on-screen keyboard open. Desk use must work too.
 - **The editor invites an explanation**, as a placeholder rather than a required field: *"What did you learn? Say it so someone else would get it."* (research §2.1). Wording may change in 4b; the intent stays.
@@ -157,11 +186,12 @@ One page at `/admin`, one user (intake §5). It holds: the entry editor; the lis
 - **Nothing is lost.** Text survives a failed save, a dropped connection and an expired session; the editor keeps a local draft until the server confirms the save. The same holds for the episode form **[F]**.
 - **Editing never discards unsent text [F].** Opening another entry to edit while unsent text exists keeps that text, says so, and offers it back.
 - **Save draft [F].** An entry can be saved to the server without publishing. A saved draft is listed in the admin, can be opened, edited and published from any signed-in device, and never appears publicly. Text not yet saved or published still lives only on the device it was typed on (journeys J3.3).
-- **No counts here either.** The admin shows no streaks, totals or time since the last entry, no count per language, and nothing from the reader record. Overjustification hits the already motivated hardest, and that is the founder (research §1).
+- **No counts here either.** The admin shows no streaks, totals or time since the last entry, no count per language, no count of messages, and nothing from the reader record. Overjustification hits the already motivated hardest, and that is the founder (research §1).
 - **Publishing is idempotent** (G4): one draft, entry or episode, publishes once, however many times the request is sent or retried **[F]** (episodes at the 0.4 revise).
 - **The lists tell drafts apart [F]:** an unpublished entry or episode is labelled "was live" and shows its original date, where it returns; a never-published draft is labelled "draft" and has no date.
 - **Republishing says where the entry goes** (G9): the admin says it returns at its original date, and names that date.
 - **Language:** each entry and episode is given a language when it is written; a new one starts in the last language used (§4.5). A never-published draft may change language; a published or "was live" item may not **[F]** (0.5). The admin's own UI is English.
+- **Messages [F]** (0.6). Each message shows its subject, how to reach the sender, the text, its language and its date in the admin lists' format (§4.4), newest first, 20 at a time with "Older". Delete asks for confirmation, then removes the message for good. Nothing marks a message read or new, and the admin can't reply: the founder answers from their own email or account.
 
 ### 4.3 Authentication (shape A)
 
@@ -188,15 +218,16 @@ From research §5.3 (primary standards: W3C WebAuthn L3, NIST SP 800-63B-4, OWAS
 |---|---|---|
 | **Entry** | language: English / Persian **[F]**; body (required); title (optional) **[F]**; first-published date-time (automatic) **[F]**; state: draft / published | A draft is an entry saved but not published: by Save draft, or by unpublishing. The date-time is set at first publish in the founder's timezone and is never typed in. Edits leave it and the URL unchanged. Unpublishing returns the entry to draft; republishing restores its original date. **Date and time are both shown** ("2 Nov 2026, 21:14") **[F]**. Public pages always show the year; admin lists show it only when it isn't the current year **[F]**. |
 | **Episode** | language: English / Persian **[F]**; name; description; one or two tags; date (defaults to today, used for order and `datePublished`; not after today, though an edit may keep the date it has **[F]**, 0.5); links: one or more pairs of platform label and https URL **[F]**; state: draft / published | Platform labels are free text. Known platforms (YouTube, Castbox) may get an icon; unknown ones still show their label. An episode goes up with its first link; more are added later (journeys §1.3). A link can be removed, but a published episode keeps at least one **[F]**. |
+| **Message** *(0.6)* | subject (1–120 characters); message (1–5,000); how to reach the sender (1–200); the language of the page it was sent from; the time received (automatic) | All three fields are required, trimmed and counted in characters. Nothing else is kept: no address, user agent, cookie or anything not typed into the form. A message can't be edited; the founder deletes it (§4.2). The site stores at most 30 in any 24 hours, site-wide, because it never reads who sent one. |
 
 ### 4.5 Languages
 
 **[F]** at the 0.2 revise: English and Persian, as independent content on one site.
 
 - **Two streams, not translations.** Each entry and episode belongs to one language and appears only on that language's pages and in its feed. Nothing links an entry to a counterpart, and none is expected.
-- **Paths [F]:** English stays at `/`, `/log`, `/log/<id>`, `/log/feed.xml` and `/podcast`. Persian uses the same paths under `/fa/`. There's no redirect by browser language; the visitor chooses.
+- **Paths [F]:** English stays at `/`, `/log`, `/log/<id>`, `/log/feed.xml`, `/podcast` and, since 0.6, `/contact`. Persian uses the same paths under `/fa/`. There's no redirect by browser language; the visitor chooses.
 - **Landing content in both**, still edited in the code repo.
-- **A language switch on every public page** goes to the other language's page of the same kind: landing to landing, log to log, podcast to podcast. From an entry, it goes to the other language's log, because there is no counterpart entry; from a 404, it goes to the other language's landing page **[F]**. It names the other language in that language: "فارسی" on English pages, "English" on Persian ones **[F]**. The landing, log and podcast pages carry `hreflang` alternates for each other.
+- **A language switch on every public page** goes to the other language's page of the same kind: landing to landing, log to log, podcast to podcast, contact to contact. From an entry, it goes to the other language's log, because there is no counterpart entry; from a 404, it goes to the other language's landing page **[F]**. It names the other language in that language: "فارسی" on English pages, "English" on Persian ones **[F]**. The landing, log, podcast and contact pages carry `hreflang` alternates for each other.
 - **Persian pages** are `lang="fa" dir="rtl"`, with a mirrored layout and type that covers Persian script. English pages are `lang="en" dir="ltr"`. **The 4b design system covers neither**, since Bricolage Grotesque and Newsreader have no Arabic-script glyphs. Choosing the Persian type and the mirrored layouts is owed by design.
 - **Each language stands alone.** One language may have few or no entries while the other has many. Each gets the designed empty and not-enough-data states (AC-4), and no page compares the two or shows that one is behind.
 - **Mixed-direction text [F].** A paragraph's direction follows its entry's language, not its first character. English terms and URLs inside Persian text, and Persian inside English, are isolated so they keep their own order, in the editor and on every page and feed.
@@ -219,7 +250,9 @@ From the 4b HIG review (`04b-design/review/README.md`), run with `apple-design`.
 |---|---|---|
 | **Auth is home-built** | Shape A owns every line of the login (research §5.1); mistakes are security defects. | §4.3 as acceptance criteria (AC-8 to AC-11); auth is its own build stage, reviewed against the standards. |
 | **Locked out** | Both passkeys lost. | Two devices before launch; server-side re-enrolment by setup token. |
-| **No sign anyone reads it** | Unmet recognition is the common reason blogs die (research §2.4, thin); comments and visible analytics are out of scope. | Named, not featured: the feed and shareable entry URLs serve followers. M1 asks about it directly, and the reader record (§3.1) gives it facts at each check. |
+| **No sign anyone reads it** | Unmet recognition is the common reason blogs die (research §2.4, thin); comments and visible analytics are out of scope. | Named, not featured: the feed and shareable entry URLs serve followers. M1 asks about it directly, and the reader record (§3.1) gives it facts at each check. Since 0.6, a reader can also write through the Contact page, privately. |
+| **Spam through the Contact form** | A public form with no sign-in draws bots, and the cap is site-wide, so a flood can fill it for a day. | A hidden honeypot field, a same-origin check, at most 30 stored in any 24 hours, and no script to attack (AC-52, AC-53). When the cap is reached, the refusal points to the email link, which the flood doesn't block. |
+| **Messages hold personal data** | How to reach a sender is personal data, typed by them; the code repo is public. | Only what the sender typed is kept, nothing about their device or address, and nothing of a message is logged (AC-53). The founder deletes messages (AC-54). The founder's own links live in the server's environment, never in the repo (AC-51). The database's backups hold messages too, until they rotate. *Proposal: no retention limit is set.* |
 | **The reader record becomes a scoreboard** | Counting can corrode an enjoyed activity (research §1); a number read before the answers can steer them. | Totals only, shown nowhere on the site, read at the check after M1's answers (§3.1; AC-47). Reading it between checks is the founder's discipline, not a lock. |
 | **Server logs hold more than the record** | Hosting may keep raw request logs with IP addresses, whatever the record keeps. | The build plan names the host's log retention and keeps it as short as the host allows. *Proposal.* |
 | **Unpublish is not erasure** | Feed readers and archives may keep an entry after it is unpublished. | Stated here; the site removes the entry from every page and the feed it controls. |
@@ -243,14 +276,15 @@ Each is checkable on the running site. Journey-level criteria belong to `03-jour
 - **AC-5** With published entries on days 1, 2 and 9, no page (public or admin) shows a gap, a streak, a count of entries or words, or time since the last entry.
 - **AC-6** Each episode shows its name, description, tags and every platform link with its label; the page's `PodcastEpisode` markup passes the Schema.org validator.
 - **AC-7** No public page sets a cookie or makes a request to an analytics or tracking host (checked in the browser's network panel).
-- **AC-26** Every public page, including the 404, names the site's owner as iMNSTR and links to `/`, `/log` and `/podcast` in its own language.
+- **AC-26** Every public page, including the 404, names the site's owner as iMNSTR and links to `/`, `/log` and `/podcast` in its own language, and from its footer to `/contact`.
 - **AC-27** `/log` shows a visible link to its feed, and every public page carries `<link rel="alternate" type="application/atom+xml">` pointing at its language's feed.
 - **AC-28** An unpublished entry's URL and a URL that never existed both return 404 with the same designed page, which links to `/log` and `/`. An English entry's id under `/fa/log/`, and a Persian entry's id under `/log/`, return that language's 404, with no redirect.
 - **AC-29** `/podcast` shows show-level platform links both with zero episodes and with more than 20. `/fa/podcast`'s show-level links go to the Persian show's channels, not the English show's. Both sets are changed in the code repo; the admin has no field for them.
 - **AC-30** `/log` and `/podcast` show 20 items per page with an "Older" link and, past the first page, a "Newer" link, both working with JavaScript off; no page shows a page number, a total or a count.
 - **AC-31** Each entry shows its first-publish date and time in the founder's timezone, in the page's language's date format: Gregorian on English pages, Solar Hijri with Persian digits on Persian pages (§4.5). Public pages always show the year. In the admin lists, an item from the current year shows no year and an older one does.
 - **AC-32** Every page and state, public and admin, including notices, field states and the 404, renders in light and in dark following `prefers-color-scheme`, and meets AC-19 in both.
-- **AC-33** Platform links open in a new tab with `rel="noopener"`.
+- **AC-33** Platform links, and the Contact page's Telegram and Instagram links, open in a new tab with `rel="noopener"`.
+- **AC-50** The log is named **Writings** on English pages and **«نوشته‌ها»** on Persian ones: in the header and footer nav, the landing page's row ("Read the writings" / «نوشته‌ها را بخوانید»), the log's title, the feed's title, the 404's link and the entry page's "More writings" / «نوشته‌های بیشتر». No public page or feed names the section "Learnings" or «آموخته‌ها». `/log`, `/fa/log`, every entry URL and both feeds' paths answer as before.
 
 **Authentication**
 - **AC-8** Every admin route and admin API returns 401 or redirects to sign-in without a valid session; tested route by route.
@@ -278,6 +312,12 @@ Each is checkable on the running site. Journey-level criteria belong to `03-jour
 - **AC-43** With unsent text in the editor, opening another entry to edit keeps that text: the admin says it is kept, and offers it back once the edit is done or cancelled. Nothing unsent is discarded without the founder choosing Discard.
 - **AC-44** An entry saved with Save draft appears in the admin list as a draft on a second signed-in device, can be edited and published there, and appears on no public page or feed until published.
 
+**Contact** *(0.6)*
+- **AC-51** `/contact` and `/fa/contact` answer in their language and direction, and the switch goes between them (AC-41). From the design's tablet breakpoint up, the header links to Contact, marked as the current page there; below it, only the footer does, and the header fits one line at 360 px (AC-36). The page shows a `mailto:` link, a link to `https://t.me/<handle>` and one to `https://www.instagram.com/<handle>/`, each only when the server's environment holds a valid value for it; with a value unset or invalid, that link is absent and nothing else changes. No real address or handle is in the code repo, its tests or its fixtures.
+- **AC-52** The form has three labelled, required fields: subject (1–120 characters), message (1–5,000) and how to reach you (1–200), counted after trimming. It works with JavaScript off. A valid send stores one message with its language and time, and returns to the page with a thank-you notice and an empty form. A field empty or too long is refused with everything typed kept, each error beside its field and linked from a summary at the top. A send from another origin is refused. When the site has stored 30 messages in the last 24 hours, a valid send is refused with a notice to try again later, pointing to the email link when one is shown. No refusal stores anything.
+- **AC-53** A send whose hidden honeypot field is filled gets the same answer as a valid send and stores nothing; the field is hidden without a `style` attribute, and is out of the tab order and the accessibility tree. The Contact page, its send and its answer set no cookie, load nothing from another host and carry no inline script or `style` attribute (AC-7). A stored message holds the three fields, its language and its time, and nothing else: no IP address, user agent or other per-visitor field. Nothing of a message or its sender is logged.
+- **AC-54** Signed in, the admin has a Messages section: each message's subject, how to reach the sender, the message, its language and its date in the admin's format (AC-31), newest first, 20 at a time with "Older". Delete asks for confirmation, then removes the message. No count, total or "new" mark appears anywhere (AC-5). Its routes are among those AC-8 tests: signed out, they answer 401.
+
 **Reader record**
 - **AC-46** After requests to entries, the feed and pages, the record holds only monthly totals per language: views per entry and page (R1), feed subscribers as readers report them (R2), and referring domains (R3). Its store holds no IP address, user-agent string, cookie or other per-visitor field.
 - **AC-47** No admin or public page shows any figure from the record, and nothing on the site says a check is due. The founder's report command prints the totals for a given period.
@@ -290,17 +330,19 @@ Each is checkable on the running site. Journey-level criteria belong to `03-jour
 - **AC-38** With `prefers-reduced-motion: reduce`, nothing on any page animates or moves, including the eyes following the pointer.
 
 **Languages**
-- **AC-39** English and Persian each have their own landing page, log, entry pages, feed and podcast page, English at the paths in §4.1 and Persian under `/fa/`. An entry or episode appears only on its own language's pages and in its own feed. AC-2 to AC-4, AC-6 and AC-26 to AC-31 hold for each language.
+- **AC-39** English and Persian each have their own landing page, log, entry pages, feed, podcast page and Contact page, English at the paths in §4.1 and Persian under `/fa/`. An entry or episode appears only on its own language's pages and in its own feed. AC-2 to AC-4, AC-6 and AC-26 to AC-31 hold for each language.
 - **AC-40** Persian pages are `lang="fa" dir="rtl"` with a mirrored layout and every glyph in a font that covers Persian script, so no fallback boxes or system-font fallback; English pages are `lang="en" dir="ltr"`. Each feed declares its language. An untitled entry's title in the Persian feed is its date in Solar Hijri with Persian digits.
-- **AC-41** Every public page has a language switch to the other language's page of the same kind; from an entry it goes to the other language's log, and from a 404 to the other language's landing page. The switch reads "فارسی" on English pages and "English" on Persian ones. The landing, log and podcast pages carry `hreflang` alternates for each other. No page redirects by browser language.
+- **AC-41** Every public page has a language switch to the other language's page of the same kind; from an entry it goes to the other language's log, and from a 404 to the other language's landing page. The switch reads "فارسی" on English pages and "English" on Persian ones. The landing, log, podcast and contact pages carry `hreflang` alternates for each other. No page redirects by browser language.
 - **AC-42** In the admin, each new entry and episode is given a language before it is published; a never-published draft may change language when it is saved or published, and the server refuses a language change for a published or "was live" item, and starts in the last language used: after a Persian entry is published, the next new entry starts in Persian. A Persian body is edited right-to-left. The admin lists show each item's language and no count per language. With 40 English entries and zero Persian, `/fa/log` shows its designed empty state, and no page mentions the other language's entries.
 - **AC-48** A Persian entry whose paragraph starts with an English word, and contains a URL, edits and renders right-to-left; the English word and the URL keep their left-to-right order inside the line, in the editor, on its page, on `/fa/log` and in the feed. The same holds for Persian inside an English entry.
 
 ## 7. Out of scope
 
-From the intake: per-project pages, a projects page, comments, visitor accounts, search, analytics, newsletter, audio hosting. At the 0.3 revise, "analytics" was narrowed to analytics anyone can watch, or any per-visitor data; the private reader record (§3.1) is in scope. Added at spec: a dated now line **[F]**; tags on log entries **[F]**; a tag index; a podcast feed; email or password sign-in; images in entries; scheduled publishing. Added at the 0.2 revise: translations, or links between an entry and a counterpart in the other language; redirects by browser language; an admin UI in Persian; languages beyond English and Persian. Added at the 0.3 revise: counting podcast link clicks; counts of the founder's own writing; the founder's personal name on the site.
+From the intake: per-project pages, a projects page, comments, visitor accounts, search, analytics, newsletter, audio hosting. At the 0.3 revise, "analytics" was narrowed to analytics anyone can watch, or any per-visitor data; the private reader record (§3.1) is in scope. Added at spec: a dated now line **[F]**; tags on log entries **[F]**; a tag index; a podcast feed; email or password sign-in; images in entries; scheduled publishing. Added at the 0.2 revise: translations, or links between an entry and a counterpart in the other language; redirects by browser language; an admin UI in Persian; languages beyond English and Persian. Added at the 0.3 revise: counting podcast link clicks; counts of the founder's own writing; the founder's personal name on the site. At the 0.6 revise, comments and a newsletter stay out: the Contact form is private, read only by the founder, and adds nothing to any public page. Added at the 0.6 revise: an email or push alert for a new message; replying from the admin; read or unread state for messages; an X link; counting Contact sends or views.
 
 ## Changelog
+
+- **0.6 · 2026-10-21** — Revise (change request `changes/09-req-catch-up-08.md`), catching the spec up to CT1, from change note 08, *What this makes stale*. Added: a Contact page with the founder's links, read from the server's environment, and a private form (§1, §4.1, new AC-51 to AC-53); a Message item (§4.4); a Messages section in the admin (§4.2, new AC-54); the log named Writings / «نوشته‌ها» (§4.1, new AC-50); two risks (§5). Changed: what the site keeps from a visitor (§3, §3.1, §4.1); five parts, not four (header, §Summary); `/contact` in the paths, the switch and `hreflang` (§4.5, AC-39, AC-41); the footer link (AC-26); the Contact page's new-tab links (AC-33); out of scope (§7). New: §2.5 and the scope ledger. R1's pages are named as built: the Contact page isn't counted.
 
 - **0.5 · 2026-10-19** — Revise (change note `changes/07-spec-catch-up-05-06.md`), catching the spec up to stages built and verified, from change notes 05 and 06, *What this makes stale*. Added: a never-published draft may change language, a published or "was live" item may not (§4.2, AC-42); an episode date after today is refused, an edit may keep its date (§4.4, new AC-49); a "Newer" link past the first page (§4.1, AC-30). Changed: sessions last 7 days idle and 30 days absolute, below NIST AAL2's ceilings by the founder's choice, and the cookie lasts 30 days (§4.3, AC-10); the two session rows of §5. New: §2.4.
 
@@ -315,6 +357,7 @@ From the intake: per-project pages, a projects page, comments, visitor accounts,
 
 - `00-intake.md`; `01-research.md` §1–§6 (sources listed there).
 - `changes/05-live-review-polish.md` (PL-8, PL-9, PL-10) and `changes/06-copy-and-sessions.md` (CS-1, CS-2), *What this makes stale*.
+- `changes/08-change-contact-and-writings.md` (CT-1 to CT-10, *Decided by the founder*, *What this makes stale*); the code repo's `docs/development/CT1.md` (*Built*, *Flagged for close-out*).
 - `05-ux-review.md`, pass 1 (findings F1, F2, F4, F6, F9–F11, F14–F16, F18); `06-eval-plan.md` §3, §6.
 - `03-journeys.md` §1 (decisions 1–7), §4 (G1–G16); `04-wireframes.html` plate 12 (W3, W8, W9); `04b-design/README.md` 0.1 and 0.2 (decisions, beyond the spec, import findings); `04b-design/review/README.md` (findings #1–#4, #7, #8, #10).
 - WCAG 2.2: 1.4.11 Non-text Contrast, 2.5.8 Target Size (Minimum), 1.4.4 Resize Text. The 44 px target is Apple's HIG (via the review), and is stricter than WCAG AA.

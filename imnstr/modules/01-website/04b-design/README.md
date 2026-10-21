@@ -2,7 +2,7 @@
 
 *Module `imnstr/modules/01-website/` · Phase 4b, second pass at step 05e · Claude Design output. Inputs: `02-spec.md` 0.3, `03-journeys.md` 0.3, `04-wireframes.html` (plates 1–13, W1–W11), `05-ux-review.md`, change notes 01–02, `review/README.md`. Every frame is **proposal**.*
 
-**Version 0.3 · Status: design; built (the exports are not redrawn: *As built* below says where the site now differs) · 2026-10-19 · Owner: founder**
+**Version 0.4 · Status: design; built (the exports are not redrawn: *As built* below says where the site now differs) · 2026-10-21 · Owner: founder**
 
 ## What's here
 
@@ -142,7 +142,7 @@ Every wireframe plate (1–11) has a designed counterpart. 05e added plates 12�
 
 **Suggested, drawn and flagged:** G10 (the switch's label), G12 (mixed-direction text), and, as journeys decisions already taken, G14 (Persian show links) and G16 (wrong-language 404). G11 and G15 have no screen of their own.
 
-## As built, where the site differs from the plates (0.3)
+## As built, where the site differs from the plates (0.3, 0.4)
 
 *The exports and `source/` are not redrawn; this list is the reference. **As-built**, from the stage records in the code repo.*
 
@@ -150,13 +150,15 @@ Every wireframe plate (1–11) has a designed counterpart. 05e added plates 12�
 - **Components** above: every admin primary in solid ink, bottom-sheet dialogs below `48em`, the skip link (PL1).
 - **The podcast's empty state:** the eyes sit above the line, where plate 4 draws them beside it (B9, kept by the founder at 0.3).
 - **The 180 px hero wordmark** at 17 px (B9, kept; *Type* above).
+- **0.4: the log is named "Writings" / «نوشته‌ها»** wherever the plates say "Learnings" / «آموخته‌ها» (nav, landing row, log title, "More learnings", the 404's link; CT1, spec 0.6 AC-50). Paths unchanged.
+- **0.4: a Contact page and an admin Messages section**, which no plate draws. They are drawn in `changes/08-change-contact-and-writings.wireframes.html` with this design system unchanged; the Contact link joins the header from `48em`, as Feed does (CT1, spec 0.6 AC-51 to AC-54).
 
 ## Beyond the spec (route through `revise` or the build plan)
 
 - **Admin vs site styling:** the admin uses the site's type and colour. Its primary action is now solid ink, not the highlighter.
 - **G1 enrolment code:** one-time, 10 minutes (accepted into spec 0.2).
 - **Emphasis renders as highlighter**, as `<mark>` (AC-37).
-- **Copy:** the log keeps the name "Learnings". The landing page labels projects "Things I'm building". The feed link reads "Feed" everywhere.
+- **Copy:** the log keeps the name "Learnings" (*renamed "Writings" at spec 0.6; As built above*). The landing page labels projects "Things I'm building". The feed link reads "Feed" everywhere.
 - **New at 05e:** "was live" for unpublished entries and episodes; the year shown only when it isn't the current one; Copy link turns to "Copied" for 2 s; the one-time independence note before launch; one error message for used and expired setup tokens and enrolment codes.
 
 ## Gaps (listed, not designed)
@@ -186,6 +188,7 @@ Every wireframe plate (1–11) has a designed counterpart. 05e added plates 12�
 
 ## Changelog
 
+- **0.4 · 2026-10-21** — At the spec's 0.6 revise (change request `changes/09-req-catch-up-08.md`), by the founder. Catches the README up to CT1; nothing redrawn. *As built* gains the log's new name and the Contact page and admin Messages, drawn in change note 08's wireframes; *Beyond the spec*'s "keeps the name Learnings" is marked as superseded.
 - **0.3 · 2026-10-19** — At the spec's 0.5 revise (change note `changes/07-spec-catch-up-05-06.md`), by the founder (F-19 (b, c), F-20, F-21). Catches the README up to the build; nothing redrawn. Colour: dark muted 7.9:1, the light field edge 3.4:1 on the ground (B9). Components: solid ink for every admin primary, and no admin row hover; bottom-sheet dialogs below `48em`; the skip link (PL1). New *As built* section: the founder's copy on plates 1, 2 and 13 (CS1), and two B9 calls kept.
 - **0.2 · 2026-10-10** — Step 05e, second design pass: the HIG review's fixes and the UX review's design findings applied to plates 1–11; plates 12–15 (admin states from spec 0.3, Persian public pages, writing in Persian, the admin in dark); Persian type (Estedad, Vazirmatn); dark state tokens; the language switch and field. Design system kept.
 - **0.1 · 2026-10-10** — Step 4b: plates 1–11, direction 8a, the design system.
