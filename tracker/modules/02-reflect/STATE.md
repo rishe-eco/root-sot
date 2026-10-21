@@ -2,6 +2,36 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-21 · 8a launch B1 · main @ 2173945 · rishe-eco/tracker main @ 5fd71c9
+
+*Replaces the 8c verify B0 block's next step 1 (`/build-phase B1` is done); its next steps 2 and 3 are copied below. Answers two of that block's questions: CD1 is live (P0-4), and the config edits may be applied. The 8c block's lane row for B0 stands, and so does the 7 build-plan block.*
+
+**What was done**
+- B1's card is `tracker/modules/02-reflect/briefs/B1.md` (`2173945`, 878 words of body: over the 700 target, under the 1,000 that would mean the plan is underspecified). The code check found no test that asserts Reflect is absent. It also settled where the block goes (between `LoopState` and Noticing's banner), what "nests across families" means (after B3's fold), and that `clearDb` waits for B2.
+- The card flags one thing for verify: the plan's Arabic-keyboard trigger variants are redundant once B3's matcher folds them. The lane authors them anyway, adds the ZWNJ-free spelling, and reports it.
+- Founder, 2026-10-21: P0-4 is done and deploys are live, so B1's merge runs `add_reflect` on the box after a backup. The config edits from the 8c block are approved for the next verify.
+- The lane was launched as a Sonnet subagent in this session.
+
+**Lanes in flight**
+| Stage | Branch (base) | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| B0 (S) | `reflect-b0-e2e-lanes` (`main @ 5fd71c9`) | A | `<checkout>/.claude/worktrees/reflect-b0-e2e-lanes` | `briefs/B0.md` | verified, not merged |
+| B1 (M) | `reflect-b1-schema-content` (`main @ 5fd71c9`) | B: test database `<worktree>/api/prisma/test.db`, own `dev.db`; no ports | `<checkout>/.claude/worktrees/reflect-b1-schema-content` | `briefs/B1.md` | running |
+
+**Next steps, in order**
+1. Once the lane has written `.tmp/B1.report.md` in its worktree. From the tracker checkout (`main`), Opus, medium effort: `/build-phase tracker/modules/02-reflect B1 --land`
+2. Plain work. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`main`) and `docs/development/B0.md` in the tracker checkout. From `E:\_root\tracker` (`main`), run `git merge --ff-only reflect-b0-e2e-lanes` and `git push origin main` (deploys are live: the push deploys, with no app change). Then run `git worktree remove .claude/worktrees/reflect-b0-e2e-lanes` and `git branch -d reflect-b0-e2e-lanes`. Read the deploy run and check it ends `DEPLOYED <sha>` for the pushed commit. Add the run's URL to the *Verification* section of `docs/development/B0.md`. B1's branch is based on `5fd71c9`, before B0. B0 touches none of B1's files, so B1 rebases cleanly after it.
+3. Before B6's card is drafted, run `/revise` (Opus, medium) on the spec for D-4 (an entry stopped with writing but no story is kept yet never listed or deletable) and to write G1–G17 and the accepted W-calls into the spec.
+
+**Carry-overs**
+- The config edits listed in the 8c block's carry-overs are approved (founder, 2026-10-21); the next `verify` applies them to `lifecycle/projects/tracker/`.
+- Every other carry-over in the 8c and 7 blocks stands.
+
+**Questions for the founder**
+- The Linux Chrome run of B0 is still owed: merge B0 now, or after it? Owed by: next step 2.
+- Push root-sot `main`? It is 8 commits ahead of `origin/main`. Owed by: nothing; it is public, so it needs your yes.
+- The 7 build-plan block's other questions stand (calm-close copy, the PD vetoes, locking the outcome above RFL-1, where backups go).
+
 ## 2026-10-21 · 8c verify B0 · main @ cf0b30b · rishe-eco/tracker main @ 5fd71c9
 
 *Replaces the 8b land B0 block's lane row and next step 1 (`/verify B0` is done); its other next steps are copied below. Completes the 8a launch B0 block's question about the Linux run in part. The 7 build-plan block stays live. The 4 journeys, 3 personas and 2 spec blocks are deleted: their risks (R7, R8, R9), the Persian gap and the calm-close question are settled or carried in the 7 block, and the rest lives in `02-spec.md` and `03-journeys.md`.*
