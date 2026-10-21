@@ -17,6 +17,7 @@
 | — | 2026-10-18 | Live-review polish (PL1); spec held at 0.4 | `changes/05-live-review-polish.md` |
 | — | 2026-10-18 | Copy and longer sessions (CS1), built in one session by the founder's choice | `changes/06-copy-and-sessions.md` |
 | L-6 | 2026-10-19 | Spec 0.5: catching up to PL1 and CS1, and the canon the build left stale | `changes/07-spec-catch-up-05-06.md` |
+| — | 2026-10-21 | A Contact page with a stored message form and admin Messages; the log renamed Writings / «نوشته‌ها» (CT1), in one session at the founder's request | `changes/08-change-contact-and-writings.md` |
 
 Rows marked — had no decision-log entry when they were made; they are indexed here from their notes.
 

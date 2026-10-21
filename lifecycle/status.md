@@ -1,6 +1,6 @@
 | Module | Track | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| [01-website](../imnstr/modules/01-website/) | Module | done | done | done | done | done | done | done | done | 10/10 | done | closed · eval due |
+| [01-website](../imnstr/modules/01-website/) | Module | done | done | done | done | done | done | done | done | 11/11 | done | closed · eval due |
 | [Tracker · Clarity Lab](../tracker/canon/06-specs/01-clarity-lab.md) | Module | | | done | | | | | done | 3/4 | done | |
 | [Tracker · Evidence Lab](../tracker/canon/06-specs/02-evidence-lab.md) | Module | | | done | | | | | | done | done | |
 | [Tracker · Decomposition Lab](../tracker/canon/06-specs/03-decomposition-lab.md) | Module | | | done | | done | | | done | 6/7 | done | |
