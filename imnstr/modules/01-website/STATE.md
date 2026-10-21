@@ -2,6 +2,24 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-21 · revise --catch-up 08 and journeys update (spec 0.6, journeys 0.5) · docs/imnstr-catch-up-08 @ e083be9 · rishe-eco/i-monster main @ cb028cd
+
+*Does the CT1-deployed block's step 1. `revise` isn't written yet, so it ran by hand from `lifecycle/skills-plan.md` §4. Opus, medium, as the prompt set.*
+
+**What was done**
+- One batch of four questions; the founder took every recommendation: spec 0.6 with new criteria; note 08's three calls by Claude (the English "Writings", messages kept in `/admin`, the Contact link in header and footer) confirmed as the founder's; the design README fixed here; a new journey J7.
+- `d07ea85`: spec **0.6** (§2.5 decisions 45–48, the Contact page, the Message item, admin Messages, §3 and §3.1 on what a visitor gives, §5 two risks, §7, AC-50 to AC-54, a scope ledger); change request `changes/09-req-catch-up-08.md`; design README **0.4** (*As built*); `decisions.md` 0.2; open-work 0.25 strikes F-23's spec part; `status.md` column 6 **STALE**: the eval plan says "The site keeps nothing about any one visitor", and its F4 assumes no reader signal the founder sees between checks.
+- `e083be9`: journeys **0.5**: J7 (D and F write, C reads and deletes), Coverage for AC-50 to AC-54, states, Suggested **G17** (the Contact page doesn't say a message is private). AC-48 and AC-49 are still not in Coverage, as at 0.4.
+- The branch is local and unpushed: root-sot is public, so pushing it waits for the founder's word.
+
+**Next steps, in order**
+1. Read the top block of `imnstr/modules/01-website/STATE.md`. On the founder's word, push `docs/imnstr-catch-up-08` and merge it into root-sot's `main`. Then run `eval-plan --touch-up changes/09-req-catch-up-08.md` (Opus, medium) in root-sot, on a new branch from `main`: the two `STALE` sentences in `06-eval-plan.md` §1 (whether messages are a fact read at M1's check, after the answers, and how F4 reads a signal the founder sees between checks); clear column 6.
+
+**Owed**
+- G17 (journeys §4) waits for a later `revise`; it is a copy line, so a small Change.
+- Open-work F-23: its `journeys update` part is done (journeys 0.5) and is struck by the next `verify` or `close-out`; the `/contact` check in `deploy/checks.sh` stays open, with the stale «آموخته‌های» comment in `assets/css/tokens.css`.
+- IMNSTR `cb028cd` (docs only) is still unpushed; a push deploys.
+
 ## 2026-10-21 · CT1 deployed (change note 08: Contact page and Writings) · lifecycle/imnstr-ct-contact-writings @ 3786c56 · rishe-eco/i-monster main @ cb028cd
 
 *Completes the 8c verify block's step 1. Its step 2 stands, copied below.*
