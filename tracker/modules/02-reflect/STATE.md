@@ -2,6 +2,42 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-21 · 8b land B0 · main @ 9e67551 · rishe-eco/tracker main @ 5fd71c9
+
+*Replaces the 8a launch B0 block's lane row and next step 1; that block's other next steps are copied below. The 7 build-plan block stays live.*
+
+**What was done**
+- The B0 lane returned one commit, `517f0c0` on `reflect-b0-e2e-lanes`. Its report is saved as `tracker/modules/02-reflect/briefs/B0.report.md`. Measured from `5fd71c9`: +2 app, +81 tests and e2e config, +38 docs, in 24.8 min and 87,883 tokens. That's within size S. `main` hasn't moved since the base, so nothing overlaps.
+- Author: `The Monster <salmanian.foad2@gmail.com>`, the checkout's configured identity. `config.md` names no identity to check it against. The Sonnet co-author line is present.
+- Proof in the lane, with Edge: `auth.spec.ts` and `goals.spec.ts` passed 11/11 in slot A (ports 4110/5183) and 11/11 in slot B (4120/5193), run at the same time. The main checkout's dev database was unchanged.
+
+**For `verify` to decide** (report parts 4 and 5)
+- The lane's own calls: a scratch database per API port (`p<port>-e2e.db`); a credentials file per API port, so `client/.gitignore` now ignores all of `e2e/.auth/`; `outputDir` and the report folder per slot; the API wait URL is `/.well-known/apollo/server-health` (`/graphql` returns 400 to Playwright's poll); a Vite cache per web port via a new `E2E_VITE_CACHE_DIR` in `client/vite.config.ts` (two slots sharing it raced with `EPERM` on Windows).
+- Departures from the card: `helpers/auth.ts` was also changed (it hard-coded the auth file), and `vite.config.ts` was touched, which the card didn't name.
+- The card's *Decided here*: `ts-node` over `tsx` (it starts in a worktree); one shared `client/e2e/ports.ts`; no `.gitignore` line for the e2e database; the plan's default ports kept despite Windows' excluded range 3931–4030.
+- Card checks the lane didn't do: the `PW_CHANNEL=chrome` run on the default ports on the Linux machine; a real run on the default ports; `E2E_REUSE=1`.
+- Deploy: unchanged. e2e isn't in CI or the image; `vite.config.ts`'s default `cacheDir` is Vite's own.
+- Canon made stale: `config.md` §2 and §4, `CLAUDE.md`'s "e2e isn't isolated yet" paragraph, and `03-engineering/01-testing.md` if it describes e2e.
+
+**Lanes in flight**
+| Stage | Branch (base) | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| B0 (S) | `reflect-b0-e2e-lanes` (`main @ 5fd71c9`) | A: test database `<worktree>/api/prisma/test.db`; e2e on ports 4110/5183 and 4120/5193 | `<checkout>/.claude/worktrees/reflect-b0-e2e-lanes` | `briefs/B0.md` | landed |
+
+**Next steps, in order**
+1. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`main`), then `tracker/modules/02-reflect/briefs/B0.md` and `briefs/B0.report.md`. From the tracker checkout on the Windows build machine (`main`), run `/verify B0` (Opus, high effort, forked). It reviews branch `reflect-b0-e2e-lanes` against base `5fd71c9` and decides the calls listed above.
+2. Optionally, in slot B: `/build-phase B1` (Opus, medium effort), from the tracker checkout, `main`.
+3. Before B6's card is drafted, run `/revise` (Opus, medium) on the spec for D-4 (an entry stopped with writing but no story is kept yet never listed or deletable) and to write G1–G17 and the accepted W-calls into the spec.
+
+**Carry-overs**
+- Proposed for `lifecycle/projects/tracker/brief-common.md` at this `verify`: its Tests section names `npm run typecheck`, which is broken; the working check is `npx tsc --noEmit`. Also: two e2e slots in one machine share the Vite cache, the credentials file, the report folders and the scratch database unless each is keyed by port (report part 7).
+- `config.md` §1 doesn't record the Windows build machine's checkout (`E:\_root\tracker`), and §2 should note Windows' excluded port ranges.
+- The 7 build-plan block's carry-overs stand.
+
+**Questions for the founder**
+- B0's `verify` needs a run on the Linux machine with `PW_CHANNEL=chrome`. Will you push `reflect-b0-e2e-lanes` for it, or run that check yourself? Owed by: `verify B0`.
+- The 7 build-plan block's five questions stand.
+
 ## 2026-10-21 · 8a launch B0 · main @ 2d550ee · rishe-eco/tracker main @ 5fd71c9
 
 *Adds to the 7 build-plan block below, which stays live. Completes its next step 1 (`/build-phase B0`); B1 may still run beside it in slot B.*
