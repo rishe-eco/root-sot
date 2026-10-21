@@ -2,6 +2,27 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-21 · 1 research · lifecycle/stage-3a-spec @ 2ce2672 · rishe-eco/tracker main @ 5fd71c9
+
+*Adds to the 0 intake block below, which stays live. Completes its next step 1.*
+
+**What was done**
+- `tracker/modules/02-reflect/01-research.md` written (2,532 words before Sources, committed `2ce2672`, gate OK, `lifecycle/status.md` column 1 `done`). Not pushed.
+- It confirms the canon's reconstrual bet (H6b) and says a no-AI flow can carry it. It also finds a risk in the intake: story-first, as an immersed retelling, is the rumination route. In the one trial of people prone to rumination, they did worst with structured story writing (Sbarra, 90 adults, eight months on).
+- Recommended base: the Observer recount (an observer's bounded, concrete account, no "why", reality check framed as noticing a reading, not disputing it). Other options named: Guided recount, Re-reading close, Interpretation catch, Ruminator guard, Evaluation pair.
+- Tracker already has the mechanism for a no-AI reality check (the authored-lexicon catches in Noticing and Feelings & Needs); see §4 of the brief.
+- The session ran below the skill's `high` effort, and the brief says so.
+
+**Next steps, in order**
+1. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`lifecycle/stage-3a-spec`), then `tracker/modules/02-reflect/00-intake.md` and `tracker/modules/02-reflect/01-research.md`. Run `/spec full tracker/modules/02-reflect` (Opus, high effort).
+
+**Carry-overs**
+- The intake's carry-overs stand: `spec` assigns the opportunity-tree node, the drop rule needs an instrument (brief §5), and the Journals and Feelings & Needs overlap is settled in `spec` (brief §6).
+- The 11 questions for `spec` are in brief §7. The highest-priority gap is Persian: nothing was found on how self-distancing works in Persian (brief §8).
+
+**Questions for the founder**
+- Re-reading close and Ruminator guard each widen the intake's scope. Accept either, both, or neither? Owed by: `spec`.
+
 ## 2026-10-21 · 0 intake · lifecycle/stage-3a-spec @ 9562efb · rishe-eco/tracker main @ 5fd71c9
 
 First block.
