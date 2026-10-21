@@ -2,6 +2,31 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-22 · 8b land B3 · main @ 610223b · rishe-eco/tracker main @ 8644681
+
+*Replaces the 8a launch B3 block's lane row and next step. Its carry-overs still stand, and so do the 9 revise block's carry-overs, questions and owed items.*
+
+**What was done**
+- The lane's report is saved as `tracker/modules/02-reflect/briefs/B3.report.md`. The branch has two commits, `d7ae3c6` and `89be54c`, both authored by the local identity with a Sonnet co-author line.
+- Measured from `main @ 8644681`: +234 app lines, +486 test lines, nothing moved, in 10.6 min and 141k tokens. That is within size M. `main` hasn't moved since the base, so nothing overlaps.
+
+**For verify to decide**
+- The lane's own calls (report part 4): the helpers are named `interpretationOfferFor` and `fauxOfferFor`; a missing `ReflectState` means no offer rather than an error; on equal weight, the first-listed trigger and the earlier sentence win; the import fence also refuses default, namespace, `export *` and bare-directory imports.
+- The card's four decisions (`briefs/B3.md`, *Decided here*): per-sentence matching, the trimmed sentence, the fixture pack for the nesting test, and slot A.
+- Departures (report part 5): the shared fold doesn't map a curly apostrophe `’` to `'`, so "didn't care" typed on a phone won't match. Changing it means changing all three copies of the fold together (the open-work row).
+- Not done by the lane: a check through the real GraphQL transport (report part 6). Nothing the deploy runs changes.
+
+**Lanes in flight**
+| Stage | Branch (base) | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| B3 (M) | `reflect-b3-catches` (`main @ 8644681`) | A: test database `<worktree>/api/prisma/test.db`; no ports (no e2e) | `<checkout>/.claude/worktrees/reflect-b3-catches` | `briefs/B3.md` | landed |
+
+**Next steps, in order**
+1. Opus, high effort, forked, from the tracker checkout on `main`: `/verify tracker/modules/02-reflect B3`
+
+**Carry-overs**
+- Proposal for `brief-common.md` (report part 7): in this harness, heredocs and `sed` mangle backslashes, so write anything with a backslash using the Write or Edit tool. This joins the fixed-clock proposal in the 8a block.
+
 ## 2026-10-22 · 8a launch B3 · main @ 5fb16f3 · rishe-eco/tracker main @ 8644681
 
 *Replaces the 9 revise block's next step 1, because B3 is launched. That block's carry-overs, questions and owed items still stand. Its carry-over on the past-entry `step` is settled: B6 fixes it (`07-build-plan.md` §6.1 correction), and B3's card names it under Not here.*
