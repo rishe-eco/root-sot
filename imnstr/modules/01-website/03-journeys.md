@@ -1,21 +1,21 @@
 # IMNSTR.com — journeys
 
-*Module `imnstr/modules/01-website/` · Phase 3 · Journeys (`journeys new`). The paths the four selected personas take through the site, step by step, with what must be true at each step. Input: `02-spec.md` 0.3 (§2, §4, §6); amended at 0.3 (`journeys gap`, step 05d) from change notes `changes/01-…` and `changes/02-…`; amended at 0.4 (`journeys gap`, step 10b4) for spec 0.5's sessions, from change note `changes/07-…`. Wireframes (`04-wireframes.html`) draw every step and every state named here; this file doesn't decide layout. Update the changelog; don't fork.*
+*Module `imnstr/modules/01-website/` · Phase 3 · Journeys (`journeys new`). The paths the four selected personas take through the site, step by step, with what must be true at each step. Input: `02-spec.md` 0.3 (§2, §4, §6); amended at 0.3 (`journeys gap`, step 05d) from change notes `changes/01-…` and `changes/02-…`; amended at 0.4 (`journeys gap`, step 10b4) for spec 0.5's sessions, from change note `changes/07-…`; amended at 0.5 (`journeys update --from-note 08`) for spec 0.6's Contact page, Messages and the name Writings, from change request `changes/09-req-catch-up-08.md`. Wireframes (`04-wireframes.html`) draw every step and every state named here; this file doesn't decide layout. Update the changelog; don't fork.*
 
-**Version 0.4 · Status: journeys · 2026-10-19 · Owner: founder**
+**Version 0.5 · Status: journeys · 2026-10-21 · Owner: founder**
 
-**Grading.** Every journey is **proposal**: none of this is built, and C, D, E and F are **hypothesis** personas (`lifecycle/personas.md`). Items marked **[F]** were decided by the founder (§1 below). Bare section numbers and AC-n (§4.2, AC-15) cite `02-spec.md`; G1–G16 are this file's gaps. Text marked **[0.3]** was added or changed at 0.3; steps added at 0.3 take a letter (J1.5a) or the next number, so citations of 0.2 steps in the wireframes, design and review stay valid. Text marked **[0.4]** was changed at 0.4, for spec 0.5's 7-day sessions (§4.3, AC-10); no steps were added or renumbered. Where a journey needs something the spec doesn't require, the step says **Suggested** and the item is listed in §4 below for `revise`; nothing marked Suggested is a requirement yet.
+**Grading.** Every journey is **proposal**: none of this is built, and C, D, E and F are **hypothesis** personas (`lifecycle/personas.md`). Items marked **[F]** were decided by the founder (§1 below). Bare section numbers and AC-n (§4.2, AC-15) cite `02-spec.md`; G1–G16 are this file's gaps. Text marked **[0.3]** was added or changed at 0.3; steps added at 0.3 take a letter (J1.5a) or the next number, so citations of 0.2 steps in the wireframes, design and review stay valid. Text marked **[0.4]** was changed at 0.4, for spec 0.5's 7-day sessions (§4.3, AC-10); no steps were added or renumbered. Text marked **[0.5]** was added at 0.5, for spec 0.6 (change note 08, CT1): J7 is new, and no earlier step was renumbered. J7 walks a site that is already built, so its *Must be true* cells are checks of live behaviour, still graded **proposal** as journeys. Where a journey needs something the spec doesn't require, the step says **Suggested** and the item is listed in §4 below for `revise`; nothing marked Suggested is a requirement yet.
 
 ---
 
 ## Summary
 
-1. **Six journeys:** J1 first day (C), J2 return after a gap and the normal loop (C), J3 errors (C: failed save, expired session, lost phone), J4 a follower with not enough data (D), J5 a listener and the podcast page (E, with C adding episodes), and **[0.3]** J6 a Persian follower with a thin Persian stream (F, with C writing in Persian).
+1. **Seven journeys:** J1 first day (C), J2 return after a gap and the normal loop (C), J3 errors (C: failed save, expired session, lost phone), J4 a follower with not enough data (D), J5 a listener and the podcast page (E, with C adding episodes), **[0.3]** J6 a Persian follower with a thin Persian stream (F, with C writing in Persian), and **[0.5]** J7 a reader writes to iMNSTR (D and F, with C reading in the admin).
 2. **The founder decided seven things [F]:** landing content is edited in the code repo; the two passkeys live on a phone and a laptop; an episode goes up as soon as its first link exists, with more links added later. **[0.3]** A new entry starts in the last language used; the Persian podcast is a separate show with its own platform links; an entry's id under the other language is that language's 404; the 404's switch goes to the other landing page.
 3. **Two places carry most of the risk:** the moment C opens the admin after a gap (nothing may count or scold), and every failure while writing on a phone (nothing may be lost or published twice).
-4. **Sixteen gaps in the spec** (§4 below). G1–G9 were accepted into spec 0.2. **[0.3]** G10–G16 are new and Suggested: the switch's label, the Persian feed's untitled titles, mixed-direction text, the language default, per-language show links, idempotent episode publish, and the wrong-language 404.
+4. **Seventeen gaps in the spec** (§4 below). G1–G9 were accepted into spec 0.2. **[0.3]** G10–G16 are new and Suggested: the switch's label, the Persian feed's untitled titles, mixed-direction text, the language default, per-language show links, idempotent episode publish, and the wrong-language 404. **[0.5]** G17, found walking J7, is new and Suggested: nothing on the Contact page says a message stays private.
 5. **Each step's "Must be true" cell is a journey-level acceptance check** (`J<n>.<step>`), the level the spec left to this file (spec §6).
-6. **[0.3] Every acceptance criterion added since 0.2 (AC-20 to AC-47) is walked**, except AC-46 and the report command of AC-47, which have no screen (§3).
+6. **[0.3] Every acceptance criterion added since 0.2 (AC-20 to AC-47) is walked**, except AC-46 and the report command of AC-47, which have no screen (§3). **[0.5]** AC-50 to AC-54 are walked in J7. AC-48 and AC-49 (spec 0.4, 0.5) are still not in Coverage (changelog 0.4).
 
 ## Personas
 
@@ -24,7 +24,7 @@ Registry: `lifecycle/personas.md`. A and B are not selected: they are defined by
 | Persona | Serves | Why selected | Journeys it should anchor |
 |---|---|---|---|
 | **C Writer** | Intake audience 1: the founder | The admin is the habit, and the spec's hardest requirements sit there: phone-first, nothing lost, passkey auth, no counters. | First day (passkey bootstrap, first entry); return after a gap; failed save; expired session; lost passkey; the podcast form |
-| **D Follower** | Intake audience 2 | Reads the log from a shared link or the feed; the public pages must orient someone who has never seen the site. | Arriving at an entry; reading the log; not enough data (0–3 entries) |
+| **D Follower** | Intake audience 2 | Reads the log from a shared link or the feed; the public pages must orient someone who has never seen the site. | Arriving at an entry; reading the log; not enough data (0–3 entries); **[0.5]** writing to the founder (J7) |
 | **E Listener** | Intake audience 3 | Arrives for one episode link; the podcast page, including its empty state, is their whole visit. | Finding an episode and its platform link; empty podcast page |
 | **F Persian follower** | Intake audience 2, in Persian (spec §4.5) | Reads only Persian, arrives at a `/fa/` entry or feed, and is the only selected persona who can score language parity (M6). Added at step 05c from UX review F11. | Arriving at a Persian entry; reading the Persian log and podcast; finding the language switch; a thin or empty Persian stream |
 
@@ -39,10 +39,11 @@ Registry: `lifecycle/personas.md`. A and B are not selected: they are defined by
 | 5 | **[0.3]** Is the Persian podcast the same show as the English one? | **No: a separate Persian show**, with its own platform channels | J6.7: `/fa/podcast`'s show-level links go to the Persian show. Spec §4.1 has one set of show links; Suggested as G14. |
 | 6 | **[0.3]** What does an English entry's id under `/fa/` return? | **The Persian 404**, as any unknown URL | J6.11: no redirect, no hint of the other stream (spec AC-39). Suggested as G16. |
 | 7 | **[0.3]** Where does the switch on a 404 go? | **The other language's landing page** | J6.11: the spec's switch maps pages by kind, and a 404 has none. Suggested as G16. |
+| 8 | **[0.5]** How is the contact path walked? (spec 0.6; asked in the 0.6 revise's batch, 2026-10-21) | **A new journey, J7**, rather than steps appended to J4 and J2 | J7: D sends, meets a refusal and the cap, F sends in Persian, C reads and deletes. Earlier step numbers are untouched. |
 
 ## 2. Journeys
 
-Six journeys, each ~10 steps. A step's *Must be true* cell is its acceptance check, cited as `J<n>.<step>`. *Where* names a page or a moment, not a layout.
+Seven journeys, each ~10 steps. A step's *Must be true* cell is its acceptance check, cited as `J<n>.<step>`. *Where* names a page or a moment, not a layout.
 
 ### J1 — First day: setup and the first entry *(C)*
 
@@ -125,7 +126,7 @@ Six journeys, each ~10 steps. A step's *Must be true* cell is its acceptance che
 | # | Step | Where | Must be true |
 |---|---|---|---|
 | 1 | D taps the link. | `/log/<id>` | The entry reads well on a phone: date **[0.3]** and time (AC-31), title if set, body. No cookie banner, because nothing sets a cookie (AC-7). |
-| 2 | D wonders whose this is. | `/log/<id>` | **[0.3]** Every public page names the owner as iMNSTR and links to `/`, `/log` and `/podcast` (AC-26). |
+| 2 | D wonders whose this is. | `/log/<id>` | **[0.3]** Every public page names the owner as iMNSTR and links to `/`, `/log` and `/podcast` (AC-26). **[0.5]** Its footer also links to Contact (AC-26; J7 starts there). |
 | 3 | D goes to the log. | `/log` | Three entries, newest first, each with its date (AC-2). It looks deliberate: no "only 3 entries", no "more soon", no paging controls with nothing to page. |
 | 4 | D reads the other two. | `/log` → `/log/<id>` | Each entry links to its own URL (AC-2). |
 | 5 | D looks at the landing page. | `/` | Who this is, the projects, ways into the log and podcast (AC-1). |
@@ -163,7 +164,7 @@ Six journeys, each ~10 steps. A step's *Must be true* cell is its acceptance che
 | 1 | C | On the phone, opens the editor. It starts in English, the last language used; C sets Persian and writes a paragraph with an English term and a URL inside it. Publishes. | editor | The body edits right-to-left once Persian is set (AC-42). The English term and URL keep their own order inside the Persian line (G12). The warm M3 median is ≤ 30 s in Persian as in English (AC-15). The next new entry starts in Persian (decision 4). |
 | 2 | C | Copies the entry's URL and shares it. | editor | The URL is `/fa/log/<id>` (AC-39). |
 | 3 | F | Taps the link. | `/fa/log/<id>` | `lang="fa" dir="rtl"`, a mirrored layout, every glyph in the Persian face, with no fallback boxes or system font (AC-40). Date and time in Solar Hijri with Persian digits (AC-31). The mixed line reads in order (G12). No cookie banner (AC-7). |
-| 4 | F | Wonders whose this is. | `/fa/log/<id>` | The owner is named as iMNSTR, with links to `/fa/`, `/fa/log` and `/fa/podcast`, in Persian (AC-26). The Latin wordmark sits in the right-to-left page without horizontal scroll at 360 px (AC-36). |
+| 4 | F | Wonders whose this is. | `/fa/log/<id>` | The owner is named as iMNSTR, with links to `/fa/`, `/fa/log` and `/fa/podcast`, in Persian (AC-26), **[0.5]** and from the footer to `/fa/contact`. The Latin wordmark sits in the right-to-left page without horizontal scroll at 360 px (AC-36). |
 | 5 | F | Goes to the Persian log. | `/fa/log` | Two entries, newest first, each with its own URL (AC-2, AC-39). It looks deliberate. Nothing says the English log has thirty, or that Persian is behind (AC-42, §4.5). |
 | 6 | F | Wants to follow without remembering to visit; adds the feed to a reader. | `/fa/log` → feed reader | A visible link to the Persian feed; the page's `<link rel="alternate">` points at it, not at the English one (AC-27). The feed declares Persian and holds only Persian entries (AC-39, AC-40). **Suggested:** an untitled entry's feed title is its Solar Hijri date in Persian digits (G11). |
 | 7 | F | Opens the Persian podcast page; there are no Persian episodes. | `/fa/podcast` | The designed empty state, in Persian (AC-4), with show-level links to the **Persian** show's channels (AC-29, decision 5; G14). No English episode appears (AC-39). |
@@ -173,29 +174,46 @@ Six journeys, each ~10 steps. A step's *Must be true* cell is its acceptance che
 | 11 | F | Someone sends F `/fa/log/<id>` for an English entry; another time, for a Persian entry C unpublished. | `/fa/log/<id>` | Both get the same designed 404, in Persian, linking to `/fa/log` and `/fa/` (AC-28, AC-26; decision 6). Its switch goes to the English landing (decision 7; G16). |
 | 12 | F | Variant: before any Persian entry, with forty English ones, F arrives at `/fa/log`. | `/fa/log` | The designed empty state, in Persian. No page mentions the English entries (AC-42, AC-4). The switch is still there. |
 
+### J7 — A reader writes to iMNSTR *(D and F, with C)* · *added at 0.5*
+
+**Starts:** some weeks after launch. D, who follows the founder's work (J4), has read an entry on a phone and wants to tell the founder something about it. The server's environment holds all three of the founder's links. **Ends:** C has read D's and F's messages in the admin, answered D outside the site, and deleted the message. **Covers:** AC-5, AC-7, AC-26, AC-31, AC-33, AC-36, AC-39, AC-41, AC-50 to AC-54; decision 8. The screens are drawn in `changes/08-change-contact-and-writings.wireframes.html`.
+
+| # | Who | Step | Where | Must be true |
+|---|---|---|---|---|
+| 1 | D | At the end of the entry, looks for a way to reach its author. | `/log/<id>` | The footer links to Contact, as on every public page (AC-26). At 360 px the header doesn't, and still fits one line (AC-51, AC-36). The section is called Writings, in the nav and in "More writings" (AC-50). |
+| 2 | D | Opens Contact. | `/contact` | The founder's links come first: email, the Telegram channel, Instagram, each shown only because the server holds a value for it. Telegram and Instagram open in a new tab (AC-51, AC-33). Below them, the form: subject, message, how to reach you, each with a label a screen reader reads. No cookie banner: nothing sets a cookie or loads from another host (AC-53, AC-7). **Suggested:** the page says a message is read only by iMNSTR and never shown on the site (G17). |
+| 3 | D | Writes a subject and a long message, leaves "How can I reach you?" empty, and taps Send. | `/contact` | Refused, and nothing stored. The error sits beside the empty field and is linked from a summary at the top; the subject and message are still there (AC-52). Without JavaScript it works the same. |
+| 4 | D | Adds an email address and sends again. | `/contact` → `/contact?sent=1` | One message stored, with its language and time. The page says it was sent and shows an empty form (AC-52). Nothing says how many messages the site holds, or counts anything (AC-5). |
+| 5 | — | Variant: a bot fills every field, the hidden one too. | `/contact` | It gets the same answer as D's send, and nothing is stored (AC-53). D, on a screen reader, never meets the hidden field: it is out of the tab order and the accessibility tree (AC-53). |
+| 6 | D | Variant: the site has stored 30 messages in the last 24 hours, and D sends a valid message. | `/contact` | Refused, with everything typed kept, and a notice to try again tomorrow that points to the email link above; with no email link set, it says only to try again tomorrow (AC-52). Nothing is stored. |
+| 7 | F | From a Persian entry, follows the footer's Contact link and writes in Persian, with an English word in the subject. | `/fa/contact` | Persian, right to left, with Persian labels, errors and notice (AC-51, AC-39). The switch goes to `/contact`, and the page carries `hreflang` alternates for it (AC-41). The message is stored with its language, Persian. |
+| 8 | C | That evening, signed in on the laptop, scrolls to Messages. | `/admin`, Messages | Newest first: F's, then D's. Each shows its subject, how to reach the sender, the message, its language and its date in the admin's format (AC-54, AC-31). F's reads right to left, with the English word in its own order inside the line, as AC-48 asks of entries. No count, total, "new" mark or unread state anywhere in the admin (AC-54, AC-5). With no messages, the section says "No messages." and nothing more. |
+| 9 | C | Answers D from their own email, outside the site. | email | The admin has no reply and doesn't record that C answered (spec §4.2). What D typed under "How can I reach you?" is what C needs. |
+| 10 | C | Deletes D's message. | `/admin`, Messages | Delete asks first ("It can't be undone"), then the message is gone from the list (AC-54). The rest of the list and its order are unchanged. |
+
 ## 3. Coverage
 
-**Spec acceptance criteria by journey** (spec 0.3). Every AC with a user-visible path is walked at least once. AC-19 (WCAG 2.2 AA), AC-32 (light and dark), AC-35 (tap targets) and AC-38 (reduced motion) apply to every step and are checked at steps 5 and 9, not at one step. **[0.3]** AC-20 to AC-47 added.
+**Spec acceptance criteria by journey** (spec 0.3). Every AC with a user-visible path is walked at least once. AC-19 (WCAG 2.2 AA), AC-32 (light and dark), AC-35 (tap targets) and AC-38 (reduced motion) apply to every step and are checked at steps 5 and 9, not at one step. **[0.3]** AC-20 to AC-47 added. **[0.5]** Spec 0.6: AC-50 to AC-54 added, and J7 added to the cells of the criteria it also walks; AC-48 and AC-49 still not listed (changelog 0.4).
 
 | AC | Journey steps | AC | Journey steps |
 |---|---|---|---|
 | AC-1 | J4.5, J6.9 | AC-25 | J3.2 |
-| AC-2 | J4.3, J4.4, J6.5 | AC-26 | J4.2, J6.4, J6.11 |
+| AC-2 | J4.3, J4.4, J6.5 | AC-26 | J4.2, J6.4, J6.11, J7.1 |
 | AC-3 | J4.7, J2.7 | AC-27 | J4.6, J6.6 |
 | AC-4 | J4.10, J5.1, J6.7, J6.12 | AC-28 | J4.9, J6.11 |
-| AC-5 | J1.8, J2.2, J2.5 | AC-29 | J5.1, J5.10, J6.7 |
+| AC-5 | J1.8, J2.2, J2.5, J7.4, J7.8 | AC-29 | J5.1, J5.10, J6.7 |
 | AC-6 | J5.6, J5.9 | AC-30 | J5.10. The log's "Older" link is not walked: no journey has more than 20 entries in one language; checked at the build |
-| AC-7 | J4.1, J6.3 | AC-31 | J1.10, J4.1, J6.3 |
+| AC-7 | J4.1, J6.3, J7.2 | AC-31 | J1.10, J4.1, J6.3, J7.8 |
 | AC-8 | not walked: no journey reaches the admin unsigned except through sign-in; tested route by route | AC-32 | all; not one step |
-| AC-9 | J1.3, J1.4, J3.6 | AC-33 | J5.6 |
+| AC-9 | J1.3, J1.4, J3.6 | AC-33 | J5.6, J7.2 |
 | AC-10 | J2.9, J3.4, J3.5 | AC-34 | J2.10 |
 | AC-11 | J1.5, J3.5, J3.7, J3.8, J3.11 | AC-35 | all; not one step |
-| AC-12 | J1.8 | AC-36 | J6.4; all |
+| AC-12 | J1.8 | AC-36 | J6.4, J7.1; all |
 | AC-13 | J2.7 | AC-37 | J1.7 |
 | AC-14 | J2.8, J2.10, J4.9 | AC-38 | all; not one step |
-| AC-15 | J1.7, J1.9, J5.3, J6.1 | AC-39 | J6.2, J6.5, J6.6, J6.7, J6.9 |
+| AC-15 | J1.7, J1.9, J5.3, J6.1 | AC-39 | J6.2, J6.5, J6.6, J6.7, J6.9, J7.7 |
 | AC-16 | J3.1, J3.4, J3.5, J5.5a | AC-40 | J6.3, J6.6 |
-| AC-17 | J5.4, J5.5, J5.8, J5.8a | AC-41 | J6.8, J6.9, J6.10 |
+| AC-17 | J5.4, J5.5, J5.8, J5.8a | AC-41 | J6.8, J6.9, J6.10, J7.7 |
 | AC-18 | J1.6, J1.8 | AC-42 | J1.7, J6.1, J6.5, J6.12 |
 | AC-19 | all | AC-43 | J2.6a |
 | AC-20 | J1.4, J3.8 | AC-44 | J2.11, J2.12 |
@@ -203,22 +221,25 @@ Six journeys, each ~10 steps. A step's *Must be true* cell is its acceptance che
 | AC-22 | J1.5, J3.7 | AC-46 | **no screen:** the record's store is server-side; checked at the build |
 | AC-23 | J1.5a, J3.7, J5.8a (the episode's last link, AC-17's twin) | AC-47 | J2.2 (nothing shown). The report command: **no screen**, a server command at each check |
 | AC-24 | J1.5a | | |
+| **[0.5]** AC-50 | J7.1 | AC-51 | J7.1, J7.2, J7.7 |
+| AC-52 | J7.3, J7.4, J7.6 | AC-53 | J7.2, J7.5 |
+| AC-54 | J7.8, J7.10; its 401 signed out is AC-8's route-by-route test, not walked | | |
 
-**States the design must draw**, as the journeys meet them. **[0.3]** Rows marked *0.3* are new; drawing them is step 05e's, in light and dark (AC-32), and Persian rows mirrored.
+**States the design must draw**, as the journeys meet them. **[0.3]** Rows marked *0.3* are new; drawing them is step 05e's, in light and dark (AC-32), and Persian rows mirrored. **[0.5]** Entries marked *0.5* are J7's; they are built, and drawn in `changes/08-change-contact-and-writings.wireframes.html`.
 
 | State | Where it appears |
 |---|---|
-| **Empty** | `/log` with no entries (J4.10); `/podcast` with no episodes (J5.1); the admin's entries and episodes lists before anything exists (J1.6). *0.3:* `/fa/log` empty beside a full English log (J6.12); `/fa/podcast` empty, with the Persian show's links (J6.7) |
+| **Empty** | `/log` with no entries (J4.10); `/podcast` with no episodes (J5.1); the admin's entries and episodes lists before anything exists (J1.6). *0.3:* `/fa/log` empty beside a full English log (J6.12); `/fa/podcast` empty, with the Persian show's links (J6.7). *0.5:* the admin's Messages with none, "No messages." (J7.8); the Contact page with no link set, the form alone (J7.2, AC-51) |
 | **Not enough data** | `/log` with one entry (J1.10) and with three (J4.3); `/podcast` with one episode, one link (J5.6). *0.3:* `/fa/log` with two entries (J6.5) |
-| **Error** | publish failed, not published (J3.1); session expired, sign in to finish (J3.4); setup token already used (J1.3); non-https link refused (J5.5); passkey sign-in failed, generic message (AC-11); 404 for an unpublished or unknown entry (J4.9). *0.3:* setup token expired unused (J1.2); episode publish failed, form kept (J5.5a); last passkey and an episode's last link with no Remove (J1.5a, J3.7, J5.8a); the Persian 404 and its switch (J6.11) |
+| **Error** | publish failed, not published (J3.1); session expired, sign in to finish (J3.4); setup token already used (J1.3); non-https link refused (J5.5); passkey sign-in failed, generic message (AC-11); 404 for an unpublished or unknown entry (J4.9). *0.3:* setup token expired unused (J1.2); episode publish failed, form kept (J5.5a); last passkey and an episode's last link with no Remove (J1.5a, J3.7, J5.8a); the Persian 404 and its switch (J6.11). *0.5:* the contact form with a field empty or too long, the summary and the field errors (J7.3); the cap reached, with and without an email link (J7.6); a send from another origin (AC-52, no step) |
 | **Loading** | publish in progress (J1.8, J3.1); passkey prompt open (J1.3, J2.1); unsent draft offered back (J3.3) |
-| **Notices** *(0.3)* | unsent text kept while editing another entry, offered back (J2.6a); draft saved (J2.11); republishing names the original date (J2.10); enrolment code with its 10-min life (J3.8); this device signed out after removing its own passkey (J3.11) |
+| **Notices** *(0.3)* | unsent text kept while editing another entry, offered back (J2.6a); draft saved (J2.11); republishing names the original date (J2.10); enrolment code with its 10-min life (J3.8); this device signed out after removing its own passkey (J3.11). *0.5:* message sent (J7.4); Delete a message, asked first (J7.10) |
 | **Admin setup** | first passkey with the setup token (J1.2); passkey list, add and remove with re-authentication (J1.5, J3.7). *0.3:* the independence check (J1.5a); the language field, starting at the last used (J1.7, J6.1); the Persian body right-to-left with mixed text (J6.1) |
-| **Persian** *(0.3)* | every public page mirrored with Persian type and Solar Hijri dates (J6.3–J6.12); the language switch on every page, including the 404 (J6.8–J6.11) |
+| **Persian** *(0.3)* | every public page mirrored with Persian type and Solar Hijri dates (J6.3–J6.12); the language switch on every page, including the 404 (J6.8–J6.11). *0.5:* `/fa/contact`, and a Persian message in the admin (J7.7, J7.8) |
 
 ## 4. Suggested — gaps in the spec, for `revise`
 
-None of these is a requirement until the founder accepts it through `revise` on `02-spec.md`. Each names the journey step that found it. **G1–G9 were accepted at the 0.2 revise** (change note `changes/01-…`) and are kept here as the record; the steps that cited them now cite the AC. **[0.3]** G10–G16 are new and open.
+None of these is a requirement until the founder accepts it through `revise` on `02-spec.md`. Each names the journey step that found it. **G1–G9 were accepted at the 0.2 revise** (change note `changes/01-…`) and are kept here as the record; the steps that cited them now cite the AC. **[0.3]** G10–G16 are new and open. **[0.5]** G17 is new and open.
 
 | # | Gap | Found at | Suggested | Why |
 |---|---|---|---|---|
@@ -238,9 +259,11 @@ None of these is a requirement until the founder accepts it through `revise` on 
 | **G14** | Show-level links per language | J6.7 | `/fa/podcast`'s show-level links go to the separate Persian show **[F]**, decision 5; the spec says where both sets are edited (code repo, as landing content, is the journeys' guess) | §4.1 has one set of show links; AC-29 applies per language (AC-39) without saying they differ. |
 | **G15** | A retried episode publish | J5.5a | Publishing an episode is idempotent, as an entry's is | AC-25 covers entries only; AC-16 now covers the episode form's text but not "once". |
 | **G16** | The wrong-language entry URL, and the 404's switch | J6.11 | An entry's id under the other language returns that language's 404, with no redirect **[F]**, decision 6; the switch on a 404 goes to the other landing **[F]**, decision 7 | AC-39 implies the first and doesn't say it; AC-41 maps the switch by page kind, and a 404 has none. |
+| **G17** | **[0.5]** Nothing says a message stays private | J7.2 | The Contact page says, near the form, that a message is read only by iMNSTR and never shown on the site | The page asks for "How can I reach you?", which is personal data, and gives no sign of where a message goes. A reader who knows comment forms may hold back, or write as if in public. Spec §1 says the form is not comments; the page doesn't. **Grade:** proposal, from walking J7; a copy line, no new behaviour. |
 
 ## Changelog
 
+- **0.5 · 2026-10-21** — `journeys update --from-note 08`, for spec 0.6 (change request `changes/09-req-catch-up-08.md`; change note 08, CT1). New **J7**, a reader writes to iMNSTR (D and F, with C), by the founder's choice (decision 8): the footer's Contact link, the links, a refused send, a send, the honeypot, the cap, a Persian send, Messages in the admin, a reply outside the site, Delete. J4.2 and J6.4 note the footer link; persona D's row gains J7. Coverage: AC-50 to AC-54, and J7 in the cells of AC-5, 7, 26, 31, 33, 36, 39, 41. States: J7's empty, error, notice and Persian states. New Suggested gap G17 (the page doesn't say a message is private). Marked **[0.5]**; no steps renumbered. Scoped to note 08: AC-48, AC-49 and AC-30's Newer link are still not in Coverage, and nothing else was checked against spec 0.6.
 - **0.4 · 2026-10-19** — Step 10b4, `journeys gap`, for spec 0.5's sessions (7 days idle, 30 days absolute; change note `changes/07-…`, *STALE*). J2.9: C is still signed in the next day, and signs in about once a month, at the 30-day limit (was "sign in if idle over 1 h"). J3.4: the refusal comes after eight days idle in an open tab (was 70 minutes), with the 30-day limit as the other trigger, and it is now rare. J2's opening line names the daily loop as steps 2–4. AC-10 is also walked at J2.9. Marked **[0.4]**; no steps added or renumbered. By the founder's choice, nothing else was checked against spec 0.5: AC-48 and AC-49 are still not in Coverage, and AC-30's cell doesn't name the Newer link.
 - **0.3 · 2026-10-10** — Step 05d, `journeys gap`, against spec 0.3: J6 for persona F (Persian follower, with C writing in Persian); steps amended or added in J1–J5 for AC-20 to AC-47 (J1.5a, J2.6a, J2.11–12, J3.11, J5.5a, J5.8a), marked **[0.3]**, with 0.2 step numbers kept; four founder decisions (§1, 4–7); Coverage rewritten for AC-1 to AC-47, with AC-46 and the report command of AC-47 marked no screen; new states for the design pass; G1–G9 marked accepted, G10–G16 Suggested.
 - **0.2 · 2026-10-10** — Step 3b, `journeys new`: five journeys (J1–J5), three founder decisions (§1), AC coverage and the states the wireframes must draw (§3), nine Suggested gaps for `revise` (§4).
@@ -250,5 +273,5 @@ None of these is a requirement until the founder accepts it through `revise` on 
 
 - `02-spec.md` §2 (decisions), §3 (metrics), §4 (interface), §5 (risks), §6 (acceptance criteria), §7 (out of scope).
 - `lifecycle/personas.md`, entries C, D, E, F; `lifecycle/decision-log.md` L-1, L-4.
-- `changes/01-journeys-design-bilingual.md`, `changes/02-ux-review-eval-plan.md`: what changed in the spec since 0.2 of this file. **[0.4]** `changes/07-spec-catch-up-05-06.md`, *STALE*: the two steps amended at 0.4.
+- `changes/01-journeys-design-bilingual.md`, `changes/02-ux-review-eval-plan.md`: what changed in the spec since 0.2 of this file. **[0.4]** `changes/07-spec-catch-up-05-06.md`, *STALE*: the two steps amended at 0.4. **[0.5]** `changes/08-change-contact-and-writings.md` (CT-1 to CT-10) and its wireframes; `changes/09-req-catch-up-08.md`, *Owed by other skills*; the code repo's `locales/en.ts` (the Contact page's copy) and `admin/copy.ts` (Messages), read at `main @ cb028cd`.
 - Format of the step tables follows the flows in `ecosystem/working/impact-build/01-noticing-spec.md` §4 (the source the skill spec names for `new` mode).
