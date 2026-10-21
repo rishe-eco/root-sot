@@ -2,6 +2,27 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-21 · 3 personas · lifecycle/stage-3a-spec @ ca77b14 · rishe-eco/tracker main @ 5fd71c9
+
+*Adds to the 2 spec, 1 research and 0 intake blocks below, which stay live. Completes the 2 spec block's next step 1 (`/personas`); `/journeys` is still open.*
+
+**What was done**
+- `/personas` ran in select mode. `tracker/modules/02-reflect/03-journeys.md` now exists with its title block and `## Personas` (committed `ca77b14`, not pushed). Gate OK, 2 personas in the table.
+- Selected **A** and **B**, the grounded Tracker skill-lab newcomers, at the founder's word ("the personas we already used for tracker"). No new persona proposed; `lifecycle/personas.md` and the decision log are unchanged.
+- The Personas paragraph states the gap: A and B are not prone to rumination, so reviews as them test the interface, language and register, not whether the flow steadies or stirs someone (spec R1, R2). That stays with the eval plan.
+- The first `/personas` attempt ran on Opus and stopped at the model check; the founder switched to Sonnet and re-ran.
+
+**Next steps, in order**
+1. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`lifecycle/stage-3a-spec`), then `tracker/modules/02-reflect/02-spec.md` and the Personas section of `tracker/modules/02-reflect/03-journeys.md`. Run `/journeys new tracker/modules/02-reflect` (Opus, high effort).
+
+**Carry-overs**
+- The 2 spec block's carry-overs stand: the intake's carry-overs; risks `build-plan` must handle (R7 encryption at rest, R8 Noticing's fences slice, R9 e2e not lane-safe); Persian remains the open research gap (R2).
+- Journeys should cover the scenarios the Personas table names, including the pre-check advisory and Not now, Stop here and the calm close, and deleting a past entry.
+
+**Questions for the founder**
+- Approve the calm-close copy (and whether it should name a trusted person or a professional)? Owed by: `build-plan`'s stop point, R6.
+- Lock the outcome above RFL-1 in `ecosystem/ost.md`? Owed by: `eval-plan`.
+
 ## 2026-10-21 · 2 spec · lifecycle/stage-3a-spec @ 68df841 · rishe-eco/tracker main @ 5fd71c9
 
 *Adds to the 1 research and 0 intake blocks below, which stay live. Completes the 1 research block's next step 1.*
