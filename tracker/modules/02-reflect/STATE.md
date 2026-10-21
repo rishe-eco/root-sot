@@ -2,6 +2,28 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-21 · 4 wireframes · lifecycle/stage-3a-spec @ 9847654 · rishe-eco/tracker main @ 5fd71c9
+
+*Adds to the 4 journeys, 3 personas, 2 spec and 1 research blocks below, which stay live. Completes the 4 journeys block's next step 1 (`/wireframes`). The 0 intake block is deleted; its carry-overs were all settled in the spec (2 spec block).*
+
+**What was done**
+- `/wireframes` wrote `tracker/modules/02-reflect/04-wireframes.html` draft 1 (committed `9847654`, not pushed). It has 11 plates, phone frames only, and Persian frames drawn right to left. Every journey step is mapped to a plate or to "no screen" (J5.5, J5.7, J5.9–J5.11 and the API half of J5.6). G1–G17 are drawn only as marked Suggested boxes.
+- 19 calls, W1–W19, are in the page's *Calls made here*. Among them: Stop here at the top end of every step; no step counter; the pre-check advisory on the same screen; autosave silent unless it fails; the trigger word never marked in the shown-back story.
+- Rendered at 1200 and 375 px and looked at, after fixes to the Suggested text direction in Persian frames and to the dialog backdrop. Plates 6–11 at 375 px were looked at only after the commit; nothing needed changing. Gate 4b OK (2 of 2 headings). `lifecycle/status.md` column 4 is `done`.
+- The run was below the skill's medium effort, on Opus 5.5.
+
+**Next steps, in order**
+1. Read the top block of `tracker/modules/02-reflect/STATE.md` in root-sot (`lifecycle/stage-3a-spec`), then `tracker/modules/02-reflect/04-wireframes.html` (*Calls made here* first) and `tracker/modules/02-reflect/03-journeys.md` §4. If a design step (4b, the founder's, in a design tool) is planned, do it first. Otherwise run `/ux-review tracker/modules/02-reflect` in design mode on these wireframes (Opus, high effort).
+2. Run `/revise` on the spec (Opus) to take G1–G17 (or refuse some), and to accept, refuse or carry W1–W19, before `build-plan`.
+
+**Carry-overs**
+- The 4 journeys block's carry-overs stand: risks `build-plan` must handle (R7 encryption at rest, R8 Noticing's fences slice, R9 e2e not lane-safe); Persian remains the open research gap (R2).
+- No desktop frames were drawn. Neither the spec nor the journeys call for them; `ux-review` may ask for some.
+
+**Questions for the founder**
+- Is a design step (4b) planned for Reflect, or does `ux-review` work from these wireframes? Owed by: next step 1.
+- The 4 journeys block's three questions stand: the calm-close copy (owed by `build-plan`, R6), locking the outcome above RFL-1 (owed by `eval-plan`), and G6 (owed by `revise`).
+
 ## 2026-10-21 · 4 journeys · lifecycle/stage-3a-spec @ fd8ac7a · rishe-eco/tracker main @ 5fd71c9
 
 *Adds to the 3 personas, 2 spec, 1 research and 0 intake blocks below, which stay live. Completes the 3 personas block's next step 1 (`/journeys`).*
@@ -90,21 +112,3 @@
 
 **Questions for the founder**
 - Re-reading close and Ruminator guard each widen the intake's scope. Accept either, both, or neither? Owed by: `spec`.
-
-## 2026-10-21 · 0 intake · lifecycle/stage-3a-spec @ 9562efb · rishe-eco/tracker main @ 5fd71c9
-
-First block.
-
-**What was done:** the founder's description is in `tracker/modules/02-reflect/00-intake.md`. The smallest version is one entry at a time with structured prompts only: story, feelings and needs, reality check. No AI mirror, no pattern recognition, no hand-off to other pillars. Research runs. The module has UI. Project is tracker.
-
-**Next steps, in order:**
-1. Run `research` (Opus, high effort) in the root-sot checkout, on branch `lifecycle/stage-3a-spec`:
-```
-Read the top block of tracker/modules/02-reflect/STATE.md, then tracker/modules/02-reflect/00-intake.md and ecosystem/canon/02-pillars/reflect.md. Run research for the Reflect module as a double check on the canon's existing evidence (ecosystem/canon/04-research/, ecosystem/working/learn-discovery/): does structured, no-AI prompting (story, feelings and needs, observation vs interpretation) produce reconstrual rather than rumination, and what does a structured-prompts-only flow need to avoid? Grade claims, cite sources, write the findings into the module folder.
-```
-2. Then `spec full 02-reflect` (Opus, high).
-
-**Carry-overs:**
-- The tree node is unplaced; `spec` assigns it (`00-intake.md` §3).
-- The drop rule is "one and two" (reconstrual and rumination tests); it is not testable yet, so `spec` and `eval-plan` must give it an instrument (`00-intake.md` §6).
-- Overlap to settle in `spec`: Tracker's existing Journals and Feelings & Needs (`tracker/canon/01-product/03-modules.md`).
