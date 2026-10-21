@@ -2,6 +2,26 @@
 
 *Newest block first. Written by `handoff`.*
 
+## 2026-10-21 · 8b land and 8c verify CT1 · lifecycle/imnstr-ct-contact-writings @ 4555785 · rishe-eco/i-monster ct1-contact-writings @ 4eac593
+
+*Replaces the 8a launch block's lane row. Land and verify ran in the same session as the launch.*
+
+**What was done**
+- Landed: `briefs/CT1.report.md` (`f8306ac`): +1,052 app, +1,195 tests, 46.5 min, 371,579 tokens, against size M.
+- Verified: three review commits on the branch (`fcc823e` the cap notice without an email link; `399f556` two e2e tests; `4eac593` the record `docs/development/CT1.md` and the stage list). Open-work 0.24, F-22 and F-23 (`04b5502`); column 8 at 11/11 and `decisions.md` (`b33da23`); a capture note (`4555785`). Result: **ready to deploy**, a fast-forward of `main @ 6828da3`, no stop file.
+
+**Lanes in flight**
+
+| Stage · size | Branch @ base | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| CT1 · M | `ct1-contact-writings` @ `6828da3` | A | main checkout's `.claude/worktrees/ct1-contact-writings` | `briefs/CT1.md` | verified, not yet on `main` |
+
+**Next steps, in order**
+1. Read the top block of `imnstr/modules/01-website/STATE.md`. The founder adds the three `CONTACT_*` lines to `/srv/imnstr/.env` (open-work F-22). Then, on the founder's word, fast-forward IMNSTR's `main` to `ct1-contact-writings` and push it (it deploys), read the run through the API, record its URL in `docs/development/CT1.md`, check `/contact` and `/fa/contact` with `HEAD`, and remove the lane's worktree and branch.
+2. `revise --catch-up 08` (open-work F-23), Opus, medium, in root-sot.
+
+**Carry-over (urgent lesson):** stop a server by the PID on its port, never `taskkill /IM node.exe` — inbox/2026-10-21-verify-CT1.md
+
 ## 2026-10-21 · 8a launch CT1 (change note 08: Contact page and Writings) · lifecycle/imnstr-ct-contact-writings @ 07fbdb6 · rishe-eco/i-monster main @ 6828da3
 
 *Adds to the 10d block; its next steps stand. A Change to the closed site, at the founder's request, run in one session: note, wireframes, card, lane, verify, deploy.*
