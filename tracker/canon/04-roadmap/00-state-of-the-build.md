@@ -2,7 +2,7 @@
 
 *Source of truth. What exists and what doesn't, verified. The most time-sensitive file in the canon — trust the date. Update the changelog; don't fork.*
 
-**Version 0.35 · Status: as-built · 2026-10-21 · Owner: _root**
+**Version 0.36 · Status: as-built · 2026-10-22 · Owner: _root**
 
 ---
 
@@ -30,7 +30,7 @@
 - **Onboarding** (F-6a/b) — first-login slideshow + per-module intro overlays, DB-persisted. *(`add_onboarding`)*
 - **Journals** — linkable, shareable-by-email logs with opt-in discoverability; a seed of *Journey/ماجرا*. *(`add_journals`)*
 - **Noticing** (Impact Act 1) — the first **Impact**-pillar surface here. A once-only Day-1 frame that rehearses being read correctly from the inside, then a repeatable loop — place → person → what you saw → what it might point at → an optional small thing — with three authored catches (no model anywhere), a **needs palette of its own** rather than Feelings & Needs’ twelve, and a graduation door retired by acknowledgement rather than by a count. `/tools/impact/noticing`. *(migrations `add_noticing`, `noticing_frame_completed_at_nullable`; merged to `main` 2026-09-21 — D-59.)* **“Built” here means the code and its tests, not a verdict: phase 8 and Gate A are human and have not been run.**
-- **Reflect** (the observer recount; B1 of 8, verified 2026-10-21, on `reflect-b1-schema-content`, not yet on `main`) — the foundation only: four tables (`ReflectEntry`, `ReflectMoment`, `ReflectReading`, `ReflectState`) and the content pack `api/src/content/reflect/` (prompts and an interpretation lexicon in four families; `en` reviewed, `fa` a draft that is not served), held by fences: no index on any text column, no count field, no link to Journal, Goal or Project, and no model call anywhere a Reflect file imports. No API or screen yet. *(migration `add_reflect`.)* Record: `docs/development/B1.md` in `rishe-eco/tracker`.
+- **Reflect** (the observer recount; B0 and B1 of 8 on `main` and deployed 2026-10-21; B2 verified 2026-10-22, on `reflect-b2-entry-api`, not yet on `main`) — B1, the foundation: four tables (`ReflectEntry`, `ReflectMoment`, `ReflectReading`, `ReflectState`) and the content pack `api/src/content/reflect/` (prompts and an interpretation lexicon in four families; `en` reviewed, `fa` a draft that is not served), held by fences: no index on any text column, no count field, no link to Journal, Goal or Project, and no model call anywhere a Reflect file imports. B2, the entry API: every Reflect query and mutation but the two catches (14 operations, a real sign-in only: an API token of either scope is refused with its own message, never `Unauthorized`), one open entry per person at any age, each step committed as it goes, bounds and the three-moment cap refused, closed entries with story text listed 50 a page, read and deleted. No screen yet, so nothing calls it. *(migration `add_reflect`; B2 none.)* Records: `docs/development/B1.md` and `B2.md` in `rishe-eco/tracker`.
 
 **Engineering**
 - Backend test suite: unit (auth, overlap, recurrence) + integration (actions, auth, gathering, goals, milestones, projects, today, journals). *(T-1, T-4)*
@@ -79,6 +79,7 @@ An **Impact** prototype now lives here as well — **Noticing**, Act 1 of that p
 
 ## Changelog
 
+- **0.36 · 2026-10-22** — **Reflect** B2 added under Built: the entry API, session only. Verified on the branch, not on `main`; B0 and B1 are now on `main` and deployed. Record: `docs/development/B2.md` in `rishe-eco/tracker`.
 - **0.35 · 2026-10-21** — **Reflect** B1 added under Built: the schema, the content pack and its fences. Verified on the branch (with B0 merged in), not on `main`; the deploy brings the first migration since CD1. Record: `docs/development/B1.md` in `rishe-eco/tracker`.
 - **0.34 · 2026-10-21** — **Lane-safe e2e** (Reflect B0) added under Engineering: per-slot ports, scratch database and Vite cache, and the browser channel from the environment. Verified on the branch, not merged; the Linux run is owed. Record: `docs/development/B0.md` in `rishe-eco/tracker`.
 - **0.33 · 2026-10-21** — **Focus Periods** built and verified (D-61): API 64 files / 1,123 tests, client 27 / 270, live en/fa pass at 360 px. On `feat/focus-periods`.
