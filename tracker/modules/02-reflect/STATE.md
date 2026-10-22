@@ -2,6 +2,36 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-22 · 8b land B5 · main @ 82c6522 · rishe-eco/tracker main @ 133bb4b
+
+*Replaces the 8a launch B5 block's lane row and next steps; its carry-overs stand. The "after verify B4" block's step 2 (B0's Linux run, owed to B5's verify) and its push question stand.*
+
+**What was done**
+- The lane returned; its report is `tracker/modules/02-reflect/briefs/B5.report.md` (`82c6522`). Two commits on `reflect-b5-steps`, `5210330` and `53f3ad9`, by the repo's usual identity, co-authored by Sonnet 5.5. Measured: +1,210 app lines against L's ~900 (1.3 times, under the 2 times line), +1,140 test lines, 43 min, 285k tokens.
+- No overlap with the newer `main`: since `53385f9` it adds only `133bb4b`, which touches `docs/development/B4.md` (B4's deploy, green). The lane didn't touch that file.
+
+**Lanes in flight**
+| Stage | Branch (base) | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| B5 (L) | `reflect-b5-steps` (`main @ 53385f9`) | A: test database `<worktree>/api/prisma/test.db`; e2e ran on API `4030`, web `5203` | `<checkout>/.claude/worktrees/reflect-b5-steps` | `briefs/B5.md` | landed |
+
+**Next steps, in order**
+1. Verify B5. Opus, high effort, forked, from the tracker checkout on `main`:
+   `/verify tracker/modules/02-reflect B5`
+2. B0's Linux Chrome run, owed to this verify (open-work row). Plain work, founder or a session on the Linux machine. Paste: "Read the top block of tracker/modules/02-reflect/STATE.md in root-sot, and the open-work row for Reflect B0's acceptance in team/open-work.md. On the Linux machine, from the tracker checkout's client/, run the two Playwright commands that row names, at the same time, and record the result in docs/development/B0.md."
+
+**For verify to decide**
+- The card's *Decided here*, all four as built (Met cleared by an explicit null, an API change in a stage planned as client only; own words commit on blur, Enter or flush; J1's own fresh user; the done line from location state).
+- The lane's own calls, report part 4: chiefly the need hints and the offer's `dismiss` text left unused, a hint's source matched case-insensitively, *Use this* adding a pair when none is empty, the story folded at every width, and a failed answer moving on to the done line silently. Draft `en` and `fa` copy under `reflect.after.*`, `reflect.feelings.*`, `reflect.faux.*`, `reflect.reality.*`.
+- Departures, report part 5: the served `otherLabel` is "other → type it", not plate 5's "other…"; the offer's sentence comes back without its full stop (a B3 matter); B4's `ReflectStepBar` overflowed at 180 px and now wraps; `helpers/freshUser.ts` repeats `globalSetup.ts`'s module keys.
+- Not done: a Persian walk in a browser, keyboard order and Escape, the *Use this* race with an unstored pair (report part 6).
+- What the deploy runs changes by one API line (`saveMoment`'s `met`); no migration.
+- Slot A's ports 4010 and 5183 were held by servers started from B4's old worktree path. Stop them before verify's e2e, or set free ports.
+- Canon made stale, for close-out: report part 4 item 13. The lane closes B4's three open-work rows for B5 (the reflow e2e, the footer's Back, the `closed` refusal).
+
+**Questions for the founder**
+- Push `rishe-eco/tracker` `main` so B4 deploys (if not already pushed)? `133bb4b` records a green deploy run, so this may be answered. Owed by: the deploy check in `team/open-work.md`.
+
 ## 2026-10-22 · 8a launch B5 · main @ 9488919 · rishe-eco/tracker main @ 53385f9
 
 *Partly completes the "after verify B4" block: its step 1 (B5's card) is done and its B5 carry-overs are folded into the card. Its step 2 (B0's Linux run, owed to B5's verify) and its other carry-overs and question stand.*
