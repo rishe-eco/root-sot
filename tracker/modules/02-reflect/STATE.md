@@ -2,6 +2,31 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-22 · 8b land B4 · main @ 29ce685 · rishe-eco/tracker main @ 0cdc7d3
+
+*Replaces the 8a launch B4 block's lane row and next steps. Its carry-overs and question stand. MS1 is still unrun (founder's skip).*
+
+**What was done**
+- The lane returned two commits on `reflect-b4-entry-shell`: `06255be` (the app and component tests) and `caa8fc6` (`client/e2e/reflect.spec.ts`). Both are authored "The Monster <salmanian.foad2@gmail.com>", as `main` is, with a `Claude Sonnet 5.5` co-author line. The report is saved as `tracker/modules/02-reflect/briefs/B4.report.md`. Measured: +1,319 app lines (132 of them locale JSON), +599 test lines, 17.5 min, 236k tokens, against size L. That is under twice the size.
+- The lane reports 23 component tests, 3 e2e tests (Windows, Edge, slot A), `tsc` and both i18n checks green, and two D-15 tests seen failing under a plant. AC-54 passed by hand once, with a temporary spec that wasn't committed.
+
+**Lanes in flight**
+| Stage | Branch (base) | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| B4 (L) | `reflect-b4-entry-shell` (`main @ 0cdc7d3`) | A: test database `<worktree>/api/prisma/test.db`; e2e API `4010`, web `5183` | `<checkout>/.claude/worktrees/reflect-b4-entry-shell` | `briefs/B4.md` | landed |
+
+**For verify to decide**
+- The lane's own calls (report part 4): Next on the story moves to FEELINGS, where B5's bodies aren't built yet; the story's labels come from the pack's prompts, with no "What happened, in order" key; separate failure lines for a failed action and a failed delete; the pre-check commit failure holds every exit; one ordered save queue; a flush on unmount; the banner shows until the first move; delete uses `replace`; its own `fa` copy (بازتاب, نوشته), not in the glossary.
+- The card's *Decided here*: `useApi` with no Apollo cache (D-9 met by construction), the pre-check save on every exit, the e2e's shared user, and slot A.
+- Card checks the lane didn't do: no RTL or 375 px look by eye, focus order, or screen-reader names.
+- **The deploy check in the card is wrong:** it asserts the draft banner, but the served `en` pack is reviewed, so an English interface shows no banner. The check is: signed in on production, `/tools/reflect` shows Start an entry, and no Tools card links to it.
+- Departures (report part 5): the Past entries link leads to the app's not-found until B6 adds `/tools/reflect/past`; G4's line uses `hasStory` (story only) until B6; `brief-common.md`'s client setup needs `npm ci --legacy-peer-deps`; the plan's eviction sentence should say no Reflect read goes through Apollo.
+- Overlap with a newer `main`: none (`main` has not moved since `0cdc7d3`).
+
+**Next steps, in order**
+1. B0's Linux Chrome run (open-work row, owed to B4's verify). Plain work, founder or a session on the Linux machine. Paste: "Read the top block of tracker/modules/02-reflect/STATE.md in root-sot, and the open-work row for Reflect B0's acceptance in team/open-work.md. On the Linux machine, from the tracker checkout's client/, run the two Playwright commands that row names, at the same time, and record the result in docs/development/B0.md."
+2. Opus, high effort, forked, from the tracker checkout on `main`: `/verify B4`
+
 ## 2026-10-22 · 8a launch B4 · main @ 84534cf · rishe-eco/tracker main @ 0cdc7d3
 
 *Replaces the "after verify B3" block's next steps. The founder skipped MS1 ("I'm skipping MS1"), so it is not owed before B4; it stays undone. That block's carry-overs, questions and owed items stand, apart from the B4 lines settled in the card.*
