@@ -369,7 +369,7 @@ Session-only: a `requireSession` wrapper inside `requireAuth` throws §6.2's `RE
 **Logic** client only.
 - `client/app/components/reflect/useReflectAutosave.ts`: per field, 800 ms after typing pauses, and `flush()` before Next, Back and Stop here. On failure the text stays, the not-saved line and **Try again** show, and Next, Back and Stop here wait. Never browser storage (G1, G3, W6).
 - Inputs stop at the bounds `reflectContent.limits` serves, with the one bound sentence (G13). The story shows the soft-line sentence past `storySoftLine` (AC-20).
-- `dir="auto"` on every field (G7). After a delete, the deleted entry is evicted from the Apollo cache (D-9).
+- `dir="auto"` on every field (G7). After a delete, no Reflect read goes through Apollo, so there is nothing to evict (D-9).
 
 **API or routes** client routes `/tools/reflect` and `/tools/reflect/entry` in `protectedRoutes.tsx`, beside F&N's and Noticing's. Documents in `queries.ts`: `reflectHome`, `reflectEntry`, `reflectContent`, `startReflectEntry`, `saveReflectEntry`, `moveReflectEntry`, `stopReflectEntry`, `deleteReflectEntry`.
 
@@ -747,3 +747,4 @@ None new. Reflect uses Prisma, Apollo and the F&N content pack, and on the clien
 
 - **0.1 · 2026-10-21** — Plan, from `02-spec.md` 0.1, `03-journeys.md` 0.2 and `04-wireframes.html` draft 1, against `rishe-eco/tracker main @ 5fd71c9`, under the gate override (ux-review and eval-plan waived by the founder). Eight stages (B0–B7), two milestones, twenty defects found, G1–G17 and W1–W19 settled, D-4 carried to `revise`, fifteen planning decisions.
 - **0.1 · correction · 2026-10-22** — Two correction lines from `changes/01-req-past-entries-and-journey-gaps.md` (spec 0.2), written by `revise` at the founder's word instead of marking this file `STALE`: under PD-12 (D-4 accepted) and under §6.1's GraphQL table (the past-entry type without `step`; "listable" is any written text). No stage, size or order changes.
+- **0.1 · correction · 2026-10-22** — §5 B4's Logic: "evicted from the Apollo cache" reads "no Reflect read goes through Apollo, so there is nothing to evict" (found at `verify B4`; the as-built reads use `useApi`, not Apollo's cache). Correction only, at the founder's word; no stage, size or order changes.
