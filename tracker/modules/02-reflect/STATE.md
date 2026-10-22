@@ -2,6 +2,31 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-22 · 8a launch B4 · main @ 84534cf · rishe-eco/tracker main @ 0cdc7d3
+
+*Replaces the "after verify B3" block's next steps. The founder skipped MS1 ("I'm skipping MS1"), so it is not owed before B4; it stays undone. That block's carry-overs, questions and owed items stand, apart from the B4 lines settled in the card.*
+
+**What was done**
+- The B4 card, `tracker/modules/02-reflect/briefs/B4.md` (`84aa7d6`), is 981 words: over the 500–700 range, because spec 0.2 added client criteria for B4 (AC-49–AC-57, AC-63–AC-65) that plan §5 B4 doesn't list. The plan section is behind the spec, not underspecified.
+- The code check found that Reflect pages fetch with `useApi` and never reach the Apollo cache, so D-9's eviction is met by never caching (card *Decided here* 1). `InternalPageLayout` has no step-bar slot, and `ConfirmDialog` already puts Cancel first. No test names a Reflect route.
+- Slot A's ports 4010 and 5183 are outside today's reserved Windows ranges.
+
+**Lanes in flight**
+| Stage | Branch (base) | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| B4 (L) | `reflect-b4-entry-shell` (`main @ 0cdc7d3`) | A: test database `<worktree>/api/prisma/test.db`; e2e API `4010`, web `5183` | `<checkout>/.claude/worktrees/reflect-b4-entry-shell` | `briefs/B4.md` | running |
+
+**Next steps, in order**
+1. Opus, medium effort, from the tracker checkout on `main`, once the lane has written `.tmp/B4.report.md` in its worktree: `/build-phase tracker/modules/02-reflect B4 --land`
+2. `/verify B4` (Opus, high), after the land. Before it, B0's Linux Chrome run (open-work) is owed.
+
+**Carry-overs**
+- Decided in the card, for verify: `useApi` and no Apollo cache, the pre-check save sent on every exit, the e2e's shared user ending each test with no open entry, and G4's line reading `hasStory` until B6 (change note, B4 lines).
+- MS1 is still unrun: the full API suite, both fences suites and the content suite. A later milestone covers it, or the founder runs it on its own.
+
+**Questions for the founder**
+- Approve the calm-close copy, `en` and `fa`? Owed by: B7 (P0-1). B4 ships draft values under the final keys.
+
 ## 2026-10-22 · after verify B3 and the curly-apostrophe fold · main @ 71adece · rishe-eco/tracker main @ 0cdc7d3
 
 *Replaces the 8b land B3 block's next step (`/verify B3` is done and B3 is merged and deployed). Its carry-overs are settled or copied below. Adds to the 8a launch B3 and 9 revise blocks, whose carry-overs, questions and owed items stand. The 8c verify B2 block's stand too. The 8c verify B1 block is deleted: its live items are in the carry-overs below.*
