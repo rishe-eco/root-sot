@@ -2,6 +2,32 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-22 · 8a launch B5 · main @ 9488919 · rishe-eco/tracker main @ 53385f9
+
+*Partly completes the "after verify B4" block: its step 1 (B5's card) is done and its B5 carry-overs are folded into the card. Its step 2 (B0's Linux run, owed to B5's verify) and its other carry-overs and question stand.*
+
+**What was done**
+- B5's card, `tracker/modules/02-reflect/briefs/B5.md` (852 words of body, over the 700 range from the code check's settlements, under 1,000).
+- The code check found one gap the plan doesn't name: `saveReflectMoment` can't clear Met (an explicit `null` leaves it, B2's decision 5). The card has the lane change that for `met` alone, with an integration test, though the plan says B5 is client only.
+- Lane launched in slot A, worktree made from local `main @ 53385f9`.
+
+**Lanes in flight**
+| Stage | Branch (base) | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| B5 (L) | `reflect-b5-steps` (`main @ 53385f9`) | A: test database `<worktree>/api/prisma/test.db`; e2e API `4010`, web `5183` | `<checkout>/.claude/worktrees/reflect-b5-steps` | `briefs/B5.md` | running |
+
+**Next steps, in order**
+1. Land B5 when the lane reports. Opus, medium effort, from the tracker checkout on `main`:
+   `/build-phase tracker/modules/02-reflect B5 --land`
+2. B0's Linux Chrome run, owed to B5's verify (open-work row). Plain work, founder or a session on the Linux machine. Paste: "Read the top block of tracker/modules/02-reflect/STATE.md in root-sot, and the open-work row for Reflect B0's acceptance in team/open-work.md. On the Linux machine, from the tracker checkout's client/, run the two Playwright commands that row names, at the same time, and record the result in docs/development/B0.md."
+
+**Carry-overs**
+- For verify to decide: the card's *Decided here* (Met cleared by an explicit null; own words commit on blur, Enter or flush; J1's e2e signs up its own user; the done line reads React Router's location state).
+- The card also takes B4's three open-work rows for B5 (the e2e at 180 px and 360 px with the reflow check, Back in `ReflectFooter`, a `closed` refusal going to the home).
+
+**Questions for the founder**
+- Push `rishe-eco/tracker` `main` so B4 deploys (if not already pushed)? Owed by: the deploy check in `team/open-work.md`.
+
 ## 2026-10-22 · after verify B4 · main @ bc7542f · rishe-eco/tracker main @ 0cdc7d3
 
 *Replaces the 8b land B4 block's next steps and its "for verify to decide" list (verify B4 has run). That block's carry-overs, the 8a launch B4 block's, and the "after verify B3" block's all stand, as do the calm-close copy question and the unrun MS1 (founder's skip). B4 is verified and landed on `main` in `rishe-eco/tracker`; whether it was pushed is not recorded here (the code repo's `main` was at `53385f9` at handoff), so the deploy may not have happened.*
