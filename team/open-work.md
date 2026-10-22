@@ -2,7 +2,7 @@
 
 *The queue. Work that engineering cannot finish because it needs human judgement, a native speaker, or a decision. Each item states its blocker and what it unblocks. Delete items when done — the decision logs are the permanent record.*
 
-**Version 0.14 · Status: living · 2026-10-22 · Owner: _root**
+**Version 0.15 · Status: living · 2026-10-22 · Owner: _root**
 
 ---
 
@@ -222,7 +222,7 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 | root-app | `j9a`'s "a chunked upload past the cap…" heap bound (32 MB) failed once under the full integration suite (40 MB grew), and passed 3 of 3 with the file alone. The bound is process-wide, so other files' garbage counts against it | the next full integration run: if it fails again, make the measurement independent of GC timing | `docs/development/NR1.md` in `rishe-eco/root-app` |
 | Tracker | ~~Reflect B3: the matcher's fold (`ARABIC_FOLDS`, `normalizeForMatch`) and the inline copy in `api/src/__tests__/reflectContent.unit.test.ts`, which checks that no trigger nests across families, stay the same. If one changes, change the other~~ Checked at `verify B3`, 2026-10-22: Noticing's and Reflect's copies are byte-identical and the test's has the same rules; `services/reflect/catches.ts`'s docblock carries the change-all-three rule | B3's `verify` | `docs/development/B1.md` in `rishe-eco/tracker` |
 | Tracker | ~~Reflect: `reflectPastEntry` returns the whole `ReflectEntry`, `step` included, so a past entry stopped before `close` shows it was stopped, which plan D-9 says is never shown back (§6.1 asks for that shape; AC-3's text doesn't cover it). The founder decides: a past-entry type without `step`, or the leak accepted in D-9~~ Decided at `revise`, 2026-10-22: a past-entry type without `step` or the outcome, fenced (spec 0.2 AC-48, `tracker/modules/02-reflect/changes/01-req-past-entries-and-journey-gaps.md`); B6 builds it | B6's card | `docs/development/B2.md` in `rishe-eco/tracker` |
-| Tracker | Reflect's interpretation matcher misses a curly apostrophe: `didn’t care` (U+2019, what phone keyboards type) doesn't match the authored `didn't care`, the one apostrophe trigger in the `en` lexicon. The founder chooses: fold `’` to `'` in all three copies of the fold, Noticing's included (its own Fix there), or author `didn’t care` beside `didn't care` in Reflect's `en` lexicon | B5's card (the offer's first screen) | `docs/development/B3.md` in `rishe-eco/tracker` |
+| Tracker | ~~Reflect's interpretation matcher misses a curly apostrophe: `didn’t care` (U+2019, what phone keyboards type) doesn't match the authored `didn't care`, the one apostrophe trigger in the `en` lexicon. The founder chooses: fold `’` to `'` in all three copies of the fold, Noticing's included (its own Fix there), or author `didn’t care` beside `didn't care` in Reflect's `en` lexicon~~ Decided and done, 2026-10-22: the founder chose the fold, in all three copies (`47d4c87` in `rishe-eco/tracker`). It fixes Noticing's `bad if i don't` too. Feelings & Needs' fold is unchanged, since none of its triggers has an apostrophe | B5's card (the offer's first screen) | `docs/development/B3.md` in `rishe-eco/tracker` |
 
 ---
 
@@ -246,6 +246,7 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 
 ## Changelog
 
+- **0.15 · 2026-10-22** — After `verify B3` (Tracker, Reflect): the curly-apostrophe row struck. The founder chose the fold, which is done in all three copies.
 - **0.14 · 2026-10-22** — From `verify B3` (Tracker, Reflect): the fold row struck (checked), an *Owed* row for the curly apostrophe (needed by B5's card), and a ceiling row for the founder's sign-in after B3's deploy.
 - **0.13 · 2026-10-22** — From `revise` (Tracker, Reflect, change request 01): the past entry's `step` row struck, decided as spec AC-48.
 - **0.12 · 2026-10-22** — From `verify B2` (Tracker, Reflect): an *Owed* row for the past entry's `step` (needed by B6's card), and a ceiling row for the founder's sign-in after B2's deploy.
