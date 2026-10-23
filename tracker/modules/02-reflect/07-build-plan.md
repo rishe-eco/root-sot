@@ -413,7 +413,7 @@ Session-only: a `requireSession` wrapper inside `requireAuth` throws §6.2's `RE
 
 **Schema** none.
 
-**Logic** client only. Back on these three steps goes to any earlier step from the story on (PD-6), after `flush()`. Folded moments are rebuilt from the entry on reload (AC-11).
+**Logic** client, and one API line: an explicit `met: null` clears Met (B5's card, decision 1). Back on these three steps goes to any earlier step from the story on (PD-6), after `flush()`. Folded moments are rebuilt from the entry on reload (AC-11).
 
 **API or routes** `queries.ts` adds `saveReflectMoment`, `saveReflectReading`, `finishReflectEntry`, `answerReflectEntry`.
 
