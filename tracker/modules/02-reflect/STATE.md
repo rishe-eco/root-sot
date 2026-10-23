@@ -2,6 +2,28 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-23 · 8a launch B6 · main @ b940dba · rishe-eco/tracker main @ a9a572f
+
+*Replaces next step 1 of the "after verify B5" block (B6's card, now launched). That block's step 2, its carry-overs, questions and owed items stand.*
+
+**What was done**
+- B6's card, `tracker/modules/02-reflect/briefs/B6.md` (`47fc423`), 933 words of body: over the 700 range, because the plan's B6 section says "client only" while spec 0.2 (§6.1's correction) moves the list rule, the row label, the past-entry type without `step` and the `hasStory` rename into B6. The card adds that API half. The size stays M, which may be tight.
+- Decided on the card, for verify: whitespace-only text counts as written (open-work row); the label falls back past the spec's five to the first feeling, need and camera line (a spec gap); `hasStory` renamed `hasWriting`; one shared e2e `MODULE_KEYS` file. The plan's Apollo-eviction trap is dropped: reads go through `useApi`.
+- Slot A's ports were clear of Windows' reserved ranges at launch.
+
+**Lanes in flight**
+| Stage | Branch (base) | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| B6 (M) | `reflect-b6-past` (`main @ a9a572f`) | A: test database `<worktree>/api/prisma/test.db`; e2e API `4010`, web `5183` | `<checkout>/.claude/worktrees/reflect-b6-past` | `briefs/B6.md` | running |
+
+**Next steps, in order**
+1. Land B6 when its lane reports. Opus, medium effort, from the tracker checkout on `main` (Windows build machine, where the worktree is):
+   `/build-phase tracker/modules/02-reflect B6 --land`
+2. B0's Linux Chrome run, owed to B6's verify, as step 2 of the "after verify B5" block.
+
+**Carry-overs**
+- For B6's verify: the card's *Decided here* and its note that the plan section was underspecified for spec 0.2.
+
 ## 2026-10-23 · after verify B5 · main @ 550f1e5 · rishe-eco/tracker main @ a9a572f
 
 *Replaces the next steps of the 8b land B5, 8a launch B5, "after verify B4" and 8b land B4 blocks (B5 is verified). Their carry-overs stand, with the deleted blocks' live items copied in below. This session wrote only this block; its facts come from the files and commits.*
