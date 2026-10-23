@@ -2,6 +2,30 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-23 · 8b land B6 · main @ 4d4e80d · rishe-eco/tracker main @ a9a572f
+
+*Replaces the 8a launch B6 block's lane row and next step 1. Its carry-overs stand. The "after verify B5" block's step 2, carry-overs, questions and owed items stand.*
+
+**What was done**
+- B6's lane returned on `reflect-b6-past` (`6239c2a` API half, `da4eb8e` client half), authored as `main`'s commits are, with the Sonnet co-author line. Report saved as `tracker/modules/02-reflect/briefs/B6.report.md` (`8d7df31`): +555 app, +423 tests, 22 min, 183k tokens, against size M. Within twice the size. `main` has nothing newer than the base, so there is no overlap.
+
+**Lanes in flight**
+| Stage | Branch (base) | Slot | Worktree | Card | Status |
+|---|---|---|---|---|---|
+| B6 (M) | `reflect-b6-past` (`main @ a9a572f`) | A: test database `<worktree>/api/prisma/test.db`; e2e API `4010`, web `5183` | `<checkout>/.claude/worktrees/reflect-b6-past` | `briefs/B6.md` | landed |
+
+**Next steps, in order**
+1. Verify B6. Opus, high effort, forked, from the tracker checkout on `main` on the Windows build machine (the lane's branch isn't pushed). Paste: "Read the top block of tracker/modules/02-reflect/STATE.md in root-sot, then briefs/B6.md and briefs/B6.report.md. Run `verify B6` on branch `reflect-b6-past` and decide each item under *For verify* in that block."
+2. B0's Linux Chrome run, owed to B6's verify, as step 2 of the "after verify B5" block.
+
+**For verify**
+- The card's *Decided here*: whitespace-only text counts as written; the label's three extra fallbacks (feeling, need, camera); `hasStory` renamed `hasWriting`; one shared e2e `MODULE_KEYS`.
+- The lane's own calls (report part 4): the label takes the first child with text, not `moments[0]`; one rule written three times (`LISTABLE`, `holdsText`, client `holdsWrittenText`); `AND: [LISTABLE, cursor]`; not found read from `getLastError()`; Met shown through new `reflect.past.met.*` keys; a reading and its camera line on two lines with no arrow; no header back link on the list; draft `fa` copy.
+- Departures (report part 5): the empty line's wording is the lane's ("Nothing here yet."), founder's copy; `getHome` now joins the open entry's children; the card's `error` instruction was wrong (`getLastError()` used); the plan's Apollo trap is obsolete.
+- Checks the lane didn't do: plates 10 and 11 in a browser, in `fa` and with a long unbroken word; *Show older* past 50 in a browser; `errorPolicy.integration.test.ts` rerun alone; the existing `reflect.spec.ts` walks at 360 and 180 px.
+- The deploy: nothing new on the box. After it, an unauthenticated `POST /graphql` with `{ reflectPastEntries { hasOlder } }` returns `Unauthorized`.
+- Stale canon for `close-out`: plan §6.1's GraphQL table; `02-graphql-api.md` if it lists the Reflect types; spec §4.10 and AC-37 name five label fallbacks, not eight (for `revise`).
+
 ## 2026-10-23 · 8a launch B6 · main @ b940dba · rishe-eco/tracker main @ a9a572f
 
 *Replaces next step 1 of the "after verify B5" block (B6's card, now launched). That block's step 2, its carry-overs, questions and owed items stand.*
