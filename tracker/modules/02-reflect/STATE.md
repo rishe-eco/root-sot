@@ -2,6 +2,28 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-10-23 · after close-out B6 · main @ 2bf78d5 · rishe-eco/tracker main @ eea1c59
+
+*Replaces next step 1 of the 8b land B6 block (B6 is verified and closed out). Its step 2 (B0's Linux run) and its carry-overs stand, as do the "after verify B5" block's carry-overs, questions and owed items. The older "8a launch B5" and "after verify B4" blocks are gone; their live items (B0's Linux run, the push question) are in the "after verify B5" block. This session wrote only this block; its facts come from the files and commits.*
+
+**What was done**
+- `verify B6` ran: Reflect column 8 at 7/8 and the state of the build 0.40 (`bd5972d`), open-work 0.18 (`2aadfed`), the capture note `lifecycle/learnings/inbox/2026-10-23-verify-B6.md` (`8b9f0e2`).
+- `close-out B6` ran: plan §5 B6 and §6.1 corrected to what was built, `brief-common.md` 0.6 (`2bf78d5`).
+- The stage record has B6's green deploy run (`eea1c59` in `rishe-eco/tracker`, `docs/development/B6.md`).
+
+**Next steps, in order**
+1. B7's card and launch. Opus, medium effort, from the tracker checkout on `main` on the Windows build machine:
+   `/build-phase tracker/modules/02-reflect B7`
+2. B0's Linux Chrome run, owed to B6's verify, as step 2 of the "after verify B5" block. Plain work, founder or a session on the Linux machine. Paste: "Read the top block of tracker/modules/02-reflect/STATE.md in root-sot, and the open-work row for Reflect B0's acceptance in team/open-work.md. On the Linux machine, from the tracker checkout's client/, run the two Playwright commands that row names, at the same time, and record the result in docs/development/B0.md."
+
+**Carry-overs**
+- B7's card takes the *Show all* fold, the faux offer's 4.31:1 contrast and the calm-close copy (see the "after verify B5" block).
+- Stale canon still named in the 8b land B6 block: `02-graphql-api.md` if it lists the Reflect types; spec §4.10 and AC-37 say five label fallbacks, not eight (for `revise`).
+
+**Owed**
+- B6's post-deploy check: an unauthenticated `POST /graphql` with `{ reflectPastEntries { hasOlder } }` returns `Unauthorized` on production. Not recorded as run.
+- Tracker cleanup: remove the `reflect-b6-past` worktree and branch if present.
+
 ## 2026-10-23 · 8b land B6 · main @ 4d4e80d · rishe-eco/tracker main @ a9a572f
 
 *Replaces the 8a launch B6 block's lane row and next step 1. Its carry-overs stand. The "after verify B5" block's step 2, carry-overs, questions and owed items stand.*
@@ -106,76 +128,3 @@
 
 **Questions for the founder**
 - Push `rishe-eco/tracker` `main` so B4 deploys (if not already pushed)? `133bb4b` records a green deploy run, so this may be answered. Owed by: the deploy check in `team/open-work.md`.
-
-## 2026-10-22 · 8a launch B5 · main @ 9488919 · rishe-eco/tracker main @ 53385f9
-
-*Partly completes the "after verify B4" block: its step 1 (B5's card) is done and its B5 carry-overs are folded into the card. Its step 2 (B0's Linux run, owed to B5's verify) and its other carry-overs and question stand.*
-
-**What was done**
-- B5's card, `tracker/modules/02-reflect/briefs/B5.md` (852 words of body, over the 700 range from the code check's settlements, under 1,000).
-- The code check found one gap the plan doesn't name: `saveReflectMoment` can't clear Met (an explicit `null` leaves it, B2's decision 5). The card has the lane change that for `met` alone, with an integration test, though the plan says B5 is client only.
-- Lane launched in slot A, worktree made from local `main @ 53385f9`.
-
-**Lanes in flight**
-| Stage | Branch (base) | Slot | Worktree | Card | Status |
-|---|---|---|---|---|---|
-| B5 (L) | `reflect-b5-steps` (`main @ 53385f9`) | A: test database `<worktree>/api/prisma/test.db`; e2e API `4010`, web `5183` | `<checkout>/.claude/worktrees/reflect-b5-steps` | `briefs/B5.md` | running |
-
-**Next steps, in order**
-1. Land B5 when the lane reports. Opus, medium effort, from the tracker checkout on `main`:
-   `/build-phase tracker/modules/02-reflect B5 --land`
-2. B0's Linux Chrome run, owed to B5's verify (open-work row). Plain work, founder or a session on the Linux machine. Paste: "Read the top block of tracker/modules/02-reflect/STATE.md in root-sot, and the open-work row for Reflect B0's acceptance in team/open-work.md. On the Linux machine, from the tracker checkout's client/, run the two Playwright commands that row names, at the same time, and record the result in docs/development/B0.md."
-
-**Carry-overs**
-- For verify to decide: the card's *Decided here* (Met cleared by an explicit null; own words commit on blur, Enter or flush; J1's e2e signs up its own user; the done line reads React Router's location state).
-- The card also takes B4's three open-work rows for B5 (the e2e at 180 px and 360 px with the reflow check, Back in `ReflectFooter`, a `closed` refusal going to the home).
-
-**Questions for the founder**
-- Push `rishe-eco/tracker` `main` so B4 deploys (if not already pushed)? Owed by: the deploy check in `team/open-work.md`.
-
-## 2026-10-22 · after verify B4 · main @ bc7542f · rishe-eco/tracker main @ 0cdc7d3
-
-*Replaces the 8b land B4 block's next steps and its "for verify to decide" list (verify B4 has run). That block's carry-overs, the 8a launch B4 block's, and the "after verify B3" block's all stand, as do the calm-close copy question and the unrun MS1 (founder's skip). B4 is verified and landed on `main` in `rishe-eco/tracker`; whether it was pushed is not recorded here (the code repo's `main` was at `53385f9` at handoff), so the deploy may not have happened.*
-
-**What was done**
-- `verify B4` ran in two forks. Its stage record is `docs/development/B4.md` in `rishe-eco/tracker` (`2783bb7`, the second fork's rerun in `53385f9`). Two review fixes went in first: `cf9342b` (each prompt's direction isolated in its label) and `0a88e67` (the advisory's Not now and Keep going wrap at narrow widths).
-- root-sot: open-work rows in `team/open-work.md` 0.16 (`52636c8`), Reflect column 8 at 5/8 and the state of the build 0.38 (`ae633b4`), and the capture note `lifecycle/learnings/inbox/2026-10-22-verify-B4.md` (`5284de6`). `lifecycle/projects/tracker/brief-common.md` 0.5 installs the client with `npm ci --legacy-peer-deps` (`9d10f05`). The build plan's B4 eviction line is corrected (`bc7542f`).
-
-**Next steps, in order**
-1. B5's card. Opus, medium effort, from the tracker checkout on `main`, slot A:
-   `/build-phase tracker/modules/02-reflect B5`
-2. B0's Linux Chrome run, now owed to B5's verify (open-work row). Plain work, founder or a session on the Linux machine. Paste: "Read the top block of tracker/modules/02-reflect/STATE.md in root-sot, and the open-work row for Reflect B0's acceptance in team/open-work.md. On the Linux machine, from the tracker checkout's client/, run the two Playwright commands that row names, at the same time, and record the result in docs/development/B0.md."
-
-**Carry-overs**
-- B5's card takes these open-work rows: the e2e rerun at 180 px and 360 px with the reflow check (B5's lane extends `client/e2e/reflect.spec.ts`), tests for `ReflectFooter`'s Back, and a `closed` refusal that goes to the home (beside G15's second half). It also owns D-17 and D-18 (`07-build-plan.md` §0.4).
-- B6's card takes the whitespace-as-written-text decision, and the Past entries link that leads to not-found until B6 adds `/tools/reflect/past`.
-- The founder's checks after B4's deploy (a signed-in look at `/tools/reflect`, no Tools card) and at MS2 (a screen reader on a phone) are open-work rows, not steps.
-- The lane's own calls and departures are in `tracker/modules/02-reflect/briefs/B4.report.md` parts 4 and 5.
-
-**Questions for the founder**
-- Push `rishe-eco/tracker` `main` so B4 deploys (if not already pushed)? Owed by: the deploy check in `team/open-work.md`.
-
-## 2026-10-22 · 8b land B4 · main @ 29ce685 · rishe-eco/tracker main @ 0cdc7d3
-
-*Replaces the 8a launch B4 block's lane row and next steps. Its carry-overs and question stand. MS1 is still unrun (founder's skip).*
-
-**What was done**
-- The lane returned two commits on `reflect-b4-entry-shell`: `06255be` (the app and component tests) and `caa8fc6` (`client/e2e/reflect.spec.ts`). Both are authored "The Monster <salmanian.foad2@gmail.com>", as `main` is, with a `Claude Sonnet 5.5` co-author line. The report is saved as `tracker/modules/02-reflect/briefs/B4.report.md`. Measured: +1,319 app lines (132 of them locale JSON), +599 test lines, 17.5 min, 236k tokens, against size L. That is under twice the size.
-- The lane reports 23 component tests, 3 e2e tests (Windows, Edge, slot A), `tsc` and both i18n checks green, and two D-15 tests seen failing under a plant. AC-54 passed by hand once, with a temporary spec that wasn't committed.
-
-**Lanes in flight**
-| Stage | Branch (base) | Slot | Worktree | Card | Status |
-|---|---|---|---|---|---|
-| B4 (L) | `reflect-b4-entry-shell` (`main @ 0cdc7d3`) | A: test database `<worktree>/api/prisma/test.db`; e2e API `4010`, web `5183` | `<checkout>/.claude/worktrees/reflect-b4-entry-shell` | `briefs/B4.md` | landed |
-
-**For verify to decide**
-- The lane's own calls (report part 4): Next on the story moves to FEELINGS, where B5's bodies aren't built yet; the story's labels come from the pack's prompts, with no "What happened, in order" key; separate failure lines for a failed action and a failed delete; the pre-check commit failure holds every exit; one ordered save queue; a flush on unmount; the banner shows until the first move; delete uses `replace`; its own `fa` copy (بازتاب, نوشته), not in the glossary.
-- The card's *Decided here*: `useApi` with no Apollo cache (D-9 met by construction), the pre-check save on every exit, the e2e's shared user, and slot A.
-- Card checks the lane didn't do: no RTL or 375 px look by eye, focus order, or screen-reader names.
-- **The deploy check in the card is wrong:** it asserts the draft banner, but the served `en` pack is reviewed, so an English interface shows no banner. The check is: signed in on production, `/tools/reflect` shows Start an entry, and no Tools card links to it.
-- Departures (report part 5): the Past entries link leads to the app's not-found until B6 adds `/tools/reflect/past`; G4's line uses `hasStory` (story only) until B6; `brief-common.md`'s client setup needs `npm ci --legacy-peer-deps`; the plan's eviction sentence should say no Reflect read goes through Apollo.
-- Overlap with a newer `main`: none (`main` has not moved since `0cdc7d3`).
-
-**Next steps, in order**
-1. B0's Linux Chrome run (open-work row, owed to B4's verify). Plain work, founder or a session on the Linux machine. Paste: "Read the top block of tracker/modules/02-reflect/STATE.md in root-sot, and the open-work row for Reflect B0's acceptance in team/open-work.md. On the Linux machine, from the tracker checkout's client/, run the two Playwright commands that row names, at the same time, and record the result in docs/development/B0.md."
-2. Opus, high effort, forked, from the tracker checkout on `main`: `/verify B4`
