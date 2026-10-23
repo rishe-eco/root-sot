@@ -457,14 +457,14 @@ Session-only: a `requireSession` wrapper inside `requireAuth` throws §6.2's `RE
 
 **Schema** none.
 
-**Logic** client only. PD-12 decides the list rule: AC-37 as written unless `revise` has ruled on D-4 before this card.
+**Logic** client, and the API half spec 0.2 added (§6.1's correction): "listable" is any written text, a row's text is the entry's first writing, `hasStory` becomes `hasWriting`, and `reflectPastEntry` returns its own type without `step`. PD-12 decides the list rule: `revise` ruled on D-4 (spec 0.2 AC-37).
 
-**API or routes** client routes `/tools/reflect/past` and `/tools/reflect/past/:id`; `queries.ts` adds `reflectPastEntries`, `reflectPastEntry`. `deleteReflectEntry` already exists, from B4.
+**API or routes** client routes `/tools/reflect/past` and `/tools/reflect/past/:id`; `queries.ts` adds `reflectPastEntries`, `reflectPastEntry` (which returns `ReflectPastEntry`). `deleteReflectEntry` already exists, from B4.
 
 **Screens.**
 - **Plate 10, the list.**
   - Row placeholders while loading.
-  - Each row: the date (`useAppDate`, Jalali in Persian, Western digits) above the scene, or the story's first words, cut to one line (W14). The whole row is a link and the only control (AC-38).
+  - Each row: the date (`useAppDate`, Jalali in Persian, Western digits) above the entry's first writing, cut to one line (W14). The whole row is a link and the only control (AC-38).
   - *Show older* under the last row when `hasOlder` (PD-11).
   - Empty: one plain line and *Back to Reflect*, no zero (G16).
 - **Plate 11, one entry.**
@@ -478,15 +478,15 @@ Session-only: a `requireSession` wrapper inside `requireAuth` throws §6.2's `RE
 
 **Image and deploy.** none.
 
-**Constraints from earlier stages.** B2's list returns `id`, `createdAt`, `scene`, `storyStart` only (AC-46): the view's full entry comes from `reflectPastEntry(id)`, one entry at a time.
+**Constraints from earlier stages.** The list returns `id`, `createdAt`, `firstWriting` only (AC-46): the view's full entry comes from `reflectPastEntry(id)`, one entry at a time.
 
 **Acceptance.** AC-37, AC-38, AC-39, AC-40.
 
 **Size: M.**
 
 **Traps.**
-- Evict the deleted entry and the list's cached page from Apollo, or Back shows it again (D-9).
-- `storyStart` is cut by the server; don't fetch the full story for the list.
+- No Reflect read goes through Apollo, so there is nothing to evict on delete (D-9; as B4's correction).
+- `firstWriting` is cut by the server; don't fetch the full story for the list.
 
 **Not here:** editing a closed entry (spec §7).
 
@@ -544,11 +544,11 @@ Session-only: a `requireSession` wrapper inside `requireAuth` throws §6.2's `RE
 
 | Operation | Returns | Rules | Stage |
 |---|---|---|---|
-| `reflectHome` | `ReflectHome { openEntry: { id, createdAt, hasStory } \| null, hasPast: Boolean!, practiceLocale, reviewStatus }` | `hasPast` true when a listable entry exists; no count | B2 |
+| `reflectHome` | `ReflectHome { openEntry: ReflectOpenEntry { id, createdAt, hasWriting } \| null, hasPast: Boolean!, practiceLocale, reviewStatus }` | `hasPast` true when a listable entry exists; no count | B2 |
 | `reflectEntry` | `ReflectEntry` or null | the open entry, any age | B2 |
 | `reflectContent` | `ReflectContent { locale, reviewStatus, prompts, feelings[6], needs[5], otherLabel, limits }` | practice locale only (PD-7); never the lexicon | B2 |
-| `reflectPastEntries(before: ID)` | `{ rows: [{ id, createdAt, scene, storyStart }], hasOlder }` | closed, with story text, newest `createdAt` first, 50 a page | B2 |
-| `reflectPastEntry(id: ID!)` | `ReflectEntry` or `Not found` | closed and listable only | B2 |
+| `reflectPastEntries(before: ID)` | `ReflectPastPage { rows: [ReflectPastRow { id, createdAt, firstWriting }], hasOlder }` | closed, with any written text, newest `createdAt` first, 50 a page | B2 |
+| `reflectPastEntry(id: ID!)` | `ReflectPastEntry` (`ReflectEntry` less `step`) or `Not found` | closed and listable only | B2 |
 | `startReflectEntry(replacing: ID)` | `ReflectEntry` | the open one, or new; `replacing` closes only that id | B2 |
 | `saveReflectEntry(entryId, scene, story, close, precheckWhen, precheckBefore)` | `ReflectEntry` | open only; pre-check arguments only while `step` is `precheck` | B2 |
 | `saveReflectMoment(entryId, position, whenText, feeling, feelingSource, need, needSource, met)` | `ReflectMomentResult { moment, fauxOffer }` | position < 3 and ≤ the current count | B2, B3 |
@@ -748,3 +748,4 @@ None new. Reflect uses Prisma, Apollo and the F&N content pack, and on the clien
 - **0.1 · 2026-10-21** — Plan, from `02-spec.md` 0.1, `03-journeys.md` 0.2 and `04-wireframes.html` draft 1, against `rishe-eco/tracker main @ 5fd71c9`, under the gate override (ux-review and eval-plan waived by the founder). Eight stages (B0–B7), two milestones, twenty defects found, G1–G17 and W1–W19 settled, D-4 carried to `revise`, fifteen planning decisions.
 - **0.1 · correction · 2026-10-22** — Two correction lines from `changes/01-req-past-entries-and-journey-gaps.md` (spec 0.2), written by `revise` at the founder's word instead of marking this file `STALE`: under PD-12 (D-4 accepted) and under §6.1's GraphQL table (the past-entry type without `step`; "listable" is any written text). No stage, size or order changes.
 - **0.1 · correction · 2026-10-22** — §5 B4's Logic: "evicted from the Apollo cache" reads "no Reflect read goes through Apollo, so there is nothing to evict" (found at `verify B4`; the as-built reads use `useApi`, not Apollo's cache). Correction only, at the founder's word; no stage, size or order changes.
+- **0.1 · correction · 2026-10-23** — §5 B6 and §6.1 brought to what spec 0.2 and B6 built (found at `verify B6`): B6's Logic is client and the API half, not "client only"; its API, row text, *Constraints* line and traps name `ReflectPastEntry`, `firstWriting` and `useApi` reads in place of `scene`, `storyStart` and Apollo eviction; §6.1's table names `ReflectPastPage`, `ReflectPastRow`, `ReflectPastEntry` and `ReflectOpenEntry.hasWriting`. Correction only, at the founder's word; no stage, size or order changes.

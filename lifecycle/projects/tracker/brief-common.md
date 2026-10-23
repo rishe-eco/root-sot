@@ -2,7 +2,7 @@
 
 *What every Sonnet lane building a Tracker stage gets, ahead of its phase card. `build-phase` sends this file and then the card. Paths, ports and suite commands are in `config.md` beside this file. Shaped like root-app's and IMNSTR's briefs, with Tracker's conventions and testing canon in place of theirs.*
 
-**Version 0.5 · Status: in use · 2026-10-22 · Owner: founder**
+**Version 0.6 · Status: in use · 2026-10-23 · Owner: founder**
 
 ---
 
@@ -29,7 +29,7 @@ You work in a **git worktree** of the Tracker checkout, which is your current di
 - **e2e runs on your slot's ports** (`config.md` §4): export `E2E_API_PORT` and `E2E_WEB_PORT` from your card in every command that runs a spec, since shell state doesn't persist. Playwright starts its own API on a scratch database for that port; never use `4000` or `5173`, which are the dev servers'. Run e2e only if your card says your slot has it, and stop any server you started. **Key every path a test run writes by your slot** (database, credentials, output folders), so two lanes never share one.
 - **Browser:** the Playwright config reads `PW_CHANNEL` (default `msedge`; `chrome` on the Linux machine). On a machine with neither, say so in report item 6 rather than changing the config, unless your card says to.
 - **Shell state doesn't persist between Bash calls.** Background Bash commands ignore a leading `cd`: wrap them as `bash -c 'cd <your worktree>/api && …'`.
-- **Write anything with a backslash using the Write or Edit tool,** never a Bash heredoc or a `sed` replacement: here a heredoc halves `\\` to `\`, and `sed` turns `\n` into a newline.
+- **Write anything with a backslash using the Write or Edit tool,** never a Bash heredoc or a `sed` replacement: here a heredoc halves `\\` to `\`, and `sed` turns `\n` into a newline. **Generate any file holding a regex with Write, never a Bash heredoc**, including a script that writes one: the heredoc rewrites the regex silently, and the file still runs.
 - **On Windows, `prisma migrate dev` can hang** waiting on a prompt: run it as `timeout 300 npx prisma migrate dev --name <x> --skip-generate < /dev/null`, then `npx prisma generate`. **`schema.prisma` is CRLF:** edit it with a tool that keeps CRLF; Git Bash `sed -i` rewrites it as LF.
 - **Never touch** the main checkout, another lane's worktree, or a port that isn't yours. You have no access to the server.
 
@@ -93,6 +93,8 @@ A stopped lane is not a failure. A fresh lane continues from your branch and you
 ---
 
 ## Changelog
+
+- **0.6 · 2026-10-23** — Environment: any file holding a regex is generated with Write, never a Bash heredoc (B6's lane report part 7: three regexes silently rewritten). Approved by the founder after `verify B6`.
 
 - **0.5 · 2026-10-22** — Environment: `client/` installs with `npm ci --legacy-peer-deps`, as CI does; a plain `npm install` fails with ERESOLVE (found at `verify B4`). Approved by the founder after `verify B4`.
 
