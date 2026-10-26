@@ -4,7 +4,7 @@
 
 **From:** _root
 **Status:** **Draft, 0.1 — for the founder to shoot at.** The strategy is the founder's decision; the plan's detail is Claude's proposal and has not been reviewed.
-**Version:** 0.1 · 2026-10-26 · Owner: _root
+**Version:** 0.2 · 2026-10-26 · Owner: _root
 **Reads with:** [ADR 0001](../decisions/0001-studio-first-with-design-wedge.md) (the paid design phase is the front door), `root-studio-business-model.md` §10.1–10.2 (the assumptions this test feeds), `root-website-project-lifecycle.md` §1 (the Nahal story, the source of every proof claim here), and the brand definition `../canon/01-philosophy/01-brand-definition.md` (voice, refusals).
 
 **Grading.** Every claim carries one of four marks:
@@ -84,6 +84,41 @@ Usual channel advice is out of date. Iran was cut off from the global internet f
 - **Peep Laja** ([profile](https://www.favikon.com/es/blog/who-is-peep-laja-b2b-influencer)): critiques real messaging on LinkedIn, specifically and without cruelty.
 - **Harry Dry, Marketing Examples** ([AMA](https://www.indiehackers.com/post/i-m-harry-dry-i-left-uni-failed-with-a-few-startups-finally-got-traction-and-left-my-job-to-work-on-marketing-examples-ama-aef7149b11)): short before-and-after teardowns, each teaching one thing in under a minute.
 - **Persian accounts: open.** No Persian studio getting clients this way could be verified, and none is named rather than invent one. The founder can name two or three for a later pass.
+
+### 1.4 Who already offers something similar
+
+*Sourced from about a dozen searches on 2026-10-26. This is not an exhaustive market scan.*
+
+**In Iran**
+
+- **Approving the design before code is standard, and studios say so.**
+  - [Onwebs](https://onwebs.ir/blog/website-design-process) (Mashhad) tells clients to expect, in order: a written brief, wireframes, clickable mockups, then a live staging site, with approval at each step.
+  - Pricing is a free estimate during a consultation, not a fixed-price phase.
+- **Paying in stages is common, but it means instalments, not acceptance.**
+  - [Light Company](https://ecomotive.ir/1405/05/19/%D8%B7%D8%B1%D8%A7%D8%AD%DB%8C-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AD%D8%B1%D9%81%D9%87%D8%A7%DB%8C-%D8%A8%D8%A7-%D9%BE%D8%B1%D8%AF%D8%A7%D8%AE%D8%AA-%D8%A7%D9%82%D8%B3%D8%A7%D8%B7%DB%8C%D8%9B/), [Tabaneshahr](https://tabaneshahr.com/%D8%B7%D8%B1%D8%A7%D8%AD%DB%8C-%D8%B3%D8%A7%DB%8C%D8%AA/) and [AzkiWeb](https://azkiweb.com/Installment-based-website-design) sell instalment plans to ease the budget.
+  - The payment is spread over time rather than released against something accepted.
+- **UI design is sold on its own by freelancers,** priced per page or per project on Ponisha and similar marketplaces. It is a one-off service, not the paid first step towards a build.
+
+**Abroad**
+
+- **Paid discovery is established practice.** Agencies charge a fixed $3k–8k for a scoping phase and often credit it against the build ([ParallelHQ](https://www.parallelhq.com/blog/website-design-pricing), [Solspace](https://solspace.com/blog/what-to-expect-from-a-paid-website-discovery-process)). Freelancers sell the same idea as "roadmapping" (§1.3).
+- **Fixed-price packages with design approval are common.** [F5 Studio](https://f5-studio.com/services/fixed-price-website/) (Ukraine) sells WordPress packages from $700 to $6,500. Scope and price are agreed before work starts, and the design is reviewed before development. That is close to our tiers.
+
+**What the combination leaves open for us** *(inferred)*
+
+No Iranian studio was found that offers these three together:
+
+1. **A fixed-price design phase as the paid way in, with a deliverable the client keeps.** Elsewhere, design is either bundled into one contract or done free to win the job, which is Nahal's mistake.
+2. **Every payment released against something the client accepted,** not just split into instalments.
+3. **A portal where the approvals are on the record.** Competitors describe their approval steps in a blog post; ours are visible to the client.
+
+**The risk.** "You see the design before we code" is already ordinary copy in Iran, so it is not a difference on its own. The differences a client can check are:
+
+- a fixed price;
+- a design they can take elsewhere;
+- payment only against what they have accepted.
+
+The Nahal story is what makes those believable. The drafts in §5 lead with those points, and the week-4 post (§4) makes the paid design phase explicit.
 
 ---
 
@@ -478,3 +513,8 @@ Booking the walk-through on the call is what stops the proposal going cold.
   - **Strategy:** shortlisted A, B and C. The founder chose an A + B mix, with C as the fallback.
   - **Plan:** week-4 targets and the continue, change or stop rule; the week-by-week plan at 10 hours a week; ready Persian drafts for week 1 (bios, three posts, two outreach variants, the follow-up, the price reply); the discovery-call guide with "not yet" on both sides; the conversation-to-proposal handoff with prices left as placeholders; the weekly review.
   - Founder decisions recorded in §0. Plan detail is Claude's proposal, not yet reviewed.
+- **0.2 · 2026-10-26**: Added §1.4, *who already offers something similar*.
+  - **Sourced:** in Iran, design-before-code is standard copy and staged payment means instalments. Abroad, paid discovery and fixed-price packages are established.
+  - **Inferred:** the combination is still open for us, namely a paid design phase the client keeps, payment against acceptance, and approvals on the record.
+  - **Risk named:** design-before-code alone is not a difference.
+  - Founder request.
