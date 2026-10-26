@@ -4,7 +4,7 @@
 
 **From:** _root
 **Status:** **Draft, 0.1 — for the founder to shoot at.** The strategy is the founder's decision; the plan's detail is Claude's proposal and has not been reviewed.
-**Version:** 0.2 · 2026-10-26 · Owner: _root
+**Version:** 0.3 · 2026-10-26 · Owner: _root
 **Reads with:** [ADR 0001](../decisions/0001-studio-first-with-design-wedge.md) (the paid design phase is the front door), `root-studio-business-model.md` §10.1–10.2 (the assumptions this test feeds), `root-website-project-lifecycle.md` §1 (the Nahal story, the source of every proof claim here), and the brand definition `../canon/01-philosophy/01-brand-definition.md` (voice, refusals).
 
 **Grading.** Every claim carries one of four marks:
@@ -26,6 +26,20 @@ Where the founder accepted something on Claude's judgement, it says so.
 2. **Strategy:** a **mix of one-to-one outreach (A) and story-led content (B)** (§2). Claude recommended A with a thin layer of B. The founder chose a mix. The split below (roughly 5 hours of outreach, 2.5 of content, 2.5 of calls and proposals) is Claude's proposal.
 3. **Nahal may be named** in public posts.
 4. **No Root Studio social accounts exist yet.** Week 1 includes setting them up.
+
+**Answers to §8, also 2026-10-26:**
+
+5. **Design-phase payment terms** *(accepted on Claude's judgement)*:
+   - the basic tier is paid in full upfront;
+   - the custom and premium tiers are paid 50% upfront and 50% when the client approves the design.
+
+   The prices and delivery hours are still the founder's to fill in.
+6. **The design fee is credited in full against the build** during this test *(accepted on Claude's judgement)*. Revisit after the first two or three deals.
+7. **Names:** the Persian name is «استودیو ریشه», and the drafts address the reader as «شما» *(founder)*.
+8. **Nahal's owner reads the part 1 post before it is published,** and decides on the line about the earlier experience *(founder)*.
+9. **Root's practice matches checklist item 4** *(founder, "fine")*: the domain is registered in the client's name, and the client can take the site's files and data with them.
+10. **The first sector** is a shop with a product catalogue, like Nahal *(founder)*.
+11. **Persian accounts to study** are deferred *(founder)*.
 
 The fixed facts from the brief also apply:
 
@@ -202,7 +216,7 @@ Weeks start on Saturday. Suggested dates assume a start on **Saturday 31 Oct 202
 ### Who to message
 
 - Owner-run businesses with real products or services, active in the last 30 days, where one person evidently decides.
-- **Start with one sector** close to Nahal's shape (a shop with a product catalogue), so the observations get sharper with each message. *(Claude's judgement; the founder may pick another.)*
+- **Start with one sector:** a shop with a product catalogue, like Nahal. Staying in one sector makes the observations sharper with each message *(founder, §0.10)*.
 
 **Two signals to look for:**
 
@@ -271,7 +285,7 @@ About 10 hours a week *(inferred estimates)*.
 
 ## 5. Ready drafts for week 1 *(spec; Persian)*
 
-**Two calls taken on Claude's judgement, open for the founder to veto:**
+**Name and register** *(founder, §0.7)*:
 
 - **Persian name:** «استودیو ریشه». The brand file names Root Studio only in English.
 - **Register:** «شما». The brand voice says warm, not formal. With business owners, «شما» is ordinary courtesy rather than formality, so the warmth is carried by plain words.
@@ -324,7 +338,7 @@ The master tagline is not used on Studio accounts, so brand §7's two-tier rule 
 
 ### 5.4 Post 3: the five-question checklist
 
-*Each of the five must be true of Root's own terms before this goes out. Check the domain-ownership line in particular against how Root registers domains.*
+*Each of the five must be true of Root's own terms. The founder confirmed item 4 (§0.9): the domain is in the client's name, and their files and data go with them. If that practice ever changes, this post changes with it.*
 
 > **پیش از آن‌که برای سایت پول بدهید، این پنج چیز را بخواهید**
 >
@@ -369,7 +383,7 @@ The master tagline is not used on Studio accounts, so brand §7's two-tier rule 
 **When the reply is "how much?":**
 
 > قیمتِ ساخت را بدونِ دانستنِ این‌که دقیقاً چه لازم دارید نمی‌شود صادقانه گفت؛ و قیمتِ حدسی همان چیزی است که بعداً غافلگیرتان می‌کند.
-> کارِ ما با یک مرحله‌ی طراحی با قیمتِ ثابت شروع می‌شود، از [قیمتِ سطحِ پایه] تا [قیمتِ سطحِ ویژه]. در این مرحله فهرستِ کاملِ آنچه ساخته می‌شود و طرحِ همه‌ی صفحه‌ها آماده می‌شود، و مالِ شماست؛ حتی اگر ساخت را با کسِ دیگری ادامه دهید. بعد از آن، قیمتِ ساخت ثابت و روشن است.
+> کارِ ما با یک مرحله‌ی طراحی با قیمتِ ثابت شروع می‌شود، از [قیمتِ سطحِ پایه] تا [قیمتِ سطحِ ویژه]. در این مرحله فهرستِ کاملِ آنچه ساخته می‌شود و طرحِ همه‌ی صفحه‌ها آماده می‌شود، و مالِ شماست؛ حتی اگر ساخت را با کسِ دیگری ادامه دهید. بعد از آن، قیمتِ ساخت ثابت و روشن است، و اگر ساخت را با ما ادامه دهید، هزینه‌ی طراحی کامل از آن کم می‌شود.
 > اگر بخواهید، در یک گفت‌وگوی بیست‌دقیقه‌ای می‌گویم کدام سطح به کارتان می‌آید.
 
 ---
@@ -444,9 +458,9 @@ Booking the walk-through on the call is what stops the proposal going cold.
 >
 > **زمان:** [N] هفته از پرداخت.
 > **قیمت:** [قیمت]، ثابت.
-> **پرداخت:** [شرایط]
+> **پرداخت:** [سطحِ پایه: کاملِ مبلغ در شروع] / [سطحِ اختصاصی و ویژه: نیمی در شروع، نیمی پس از تأییدِ طرح توسطِ شما]
 >
-> **بعد از آن:** پیشنهادِ ساخت با قیمتِ ثابت، بر پایه‌ی همین فهرست و طرح. [هزینه‌ی طراحی از قیمتِ ساخت کم می‌شود / نمی‌شود.]
+> **بعد از آن:** پیشنهادِ ساخت با قیمتِ ثابت، بر پایه‌ی همین فهرست و طرح. اگر ساخت را با ما ادامه دهید، هزینه‌ی طراحی کامل از قیمتِ ساخت کم می‌شود.
 
 **3. The 15-minute walk-through.** Answer their questions, then ask for a decision.
 
@@ -458,11 +472,13 @@ Booking the walk-through on the call is what stops the proposal going cold.
 - **Publicly**, describe each tier by what the customer gets, never by how it is made. ADR 0001 lets AI show only in the mid tier's *price*, never in words.
 - **Internally**, the mid tier is Claude-assisted composition. The cost-to-deliver column keeps the cheap tiers cheap to *deliver* (ADR 0001, "harder").
 
-| Tier (public name) | Public description | Internal (never published) | Price | Delivery cost (hours) |
-|---|---|---|---|---|
-| پایه | طرحِ صفحه‌ها بر پایه‌ی یک قالبِ آزموده، با رنگ و محتوای شما | Theme pick and customisation | [ ] | [ ] |
-| اختصاصی | چیدمانِ اختصاصیِ هر صفحه برای کسب‌وکارِ شما | Claude-assisted composition | [ ] | [ ] |
-| ویژه | طراحیِ اختصاصی با طراحِ ارشد | Senior designer plus Claude | [ ] | [ ] |
+| Tier (public name) | Public description | Internal (never published) | Price | Payment *(§0.5)* | Delivery cost (hours) |
+|---|---|---|---|---|---|
+| پایه | طرحِ صفحه‌ها بر پایه‌ی یک قالبِ آزموده، با رنگ و محتوای شما | Theme pick and customisation | [ ] | 100% upfront | [ ] |
+| اختصاصی | چیدمانِ اختصاصیِ هر صفحه برای کسب‌وکارِ شما | Claude-assisted composition | [ ] | 50% upfront, 50% on design approval | [ ] |
+| ویژه | طراحیِ اختصاصی با طراحِ ارشد | Senior designer plus Claude | [ ] | 50% upfront, 50% on design approval | [ ] |
+
+The design fee is credited in full against the build if the client continues with Root *(§0.6)*.
 
 **Owed before the first design phase is paid** *(from ADR 0001)*:
 
@@ -496,13 +512,10 @@ Booking the walk-through on the call is what stops the proposal going cold.
 
 ## 8. Open for the founder
 
-1. **Tier prices, delivery hours and payment terms** for the design phase (§6.3 table and template).
-2. **Is the design fee credited against the build?** Agencies commonly credit it in full (§1.2). Not crediting makes the design phase a product in its own right. It is a pricing decision either way.
-3. **The Persian name «استودیو ریشه»** and the **«شما» register** (§5): both Claude's judgement, open to veto.
-4. **Nahal's owner reads** the part 1 story before it is published, and decides on the bracketed line about the earlier experience.
-5. **Domain and data ownership:** confirm Root's practice matches checklist item 4 before Post 3 goes out.
-6. **The first sector** (§4). The default is a catalogue shop like Nahal.
-7. **Persian accounts to study** (§1.3), if the founder knows two or three good ones.
+*The 2026-10-26 answers are recorded in §0.5–0.11. What is left:*
+
+1. **Tier prices and delivery hours** (§6.3 table). Write down the real delivery hours for each tier first, then set the price. Until then, the "how much?" reply (§5.5) and the proposal cannot go out.
+2. **Persian accounts to study** (§1.3). Deferred by the founder; nothing in the plan waits on it.
 
 ---
 
@@ -518,3 +531,9 @@ Booking the walk-through on the call is what stops the proposal going cold.
   - **Inferred:** the combination is still open for us, namely a paid design phase the client keeps, payment against acceptance, and approvals on the record.
   - **Risk named:** design-before-code alone is not a difference.
   - Founder request.
+- **0.3 · 2026-10-26**: Founder answers to §8, recorded in §0.5–0.11.
+  - **Accepted on Claude's judgement:** the basic tier is paid in full upfront, and the custom and premium tiers 50% upfront and 50% on design approval. The design fee is credited in full against the build during the test.
+  - **Confirmed by the founder:** the name «استودیو ریشه» and the «شما» register; Nahal's owner reads the part 1 post first; Root's practice matches checklist item 4; the first sector is a catalogue shop.
+  - **Deferred:** Persian accounts to study.
+  - **Applied to:** the price reply (§5.5), the proposal template and tier table (§6.3), and the notes in §4 and §5.
+  - §8 now holds only tier prices and delivery hours, plus the deferred item.
