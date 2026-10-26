@@ -4,7 +4,7 @@
 
 **From:** _root
 **Status:** **Draft, 0.1 — for the founder to shoot at.** The strategy is the founder's decision; the plan's detail is Claude's proposal and has not been reviewed.
-**Version:** 0.3 · 2026-10-26 · Owner: _root
+**Version:** 0.4 · 2026-10-26 · Owner: _root
 **Reads with:** [ADR 0001](../decisions/0001-studio-first-with-design-wedge.md) (the paid design phase is the front door), `root-studio-business-model.md` §10.1–10.2 (the assumptions this test feeds), `root-website-project-lifecycle.md` §1 (the Nahal story, the source of every proof claim here), and the brand definition `../canon/01-philosophy/01-brand-definition.md` (voice, refusals).
 
 **Grading.** Every claim carries one of four marks:
@@ -40,6 +40,9 @@ Where the founder accepted something on Claude's judgement, it says so.
 9. **Root's practice matches checklist item 4** *(founder, "fine")*: the domain is registered in the client's name, and the client can take the site's files and data with them.
 10. **The first sector** is a shop with a product catalogue, like Nahal *(founder)*.
 11. **Persian accounts to study** are deferred *(founder)*.
+12. **Design-phase prices are set from the market** *(founder, on Claude's market proposal, 2026-10-26)*: 8M / 25M / 48M tomans for a site without a store, and 12M / 38M / 70M for a store (§6.3).
+    - The founder's delivery times are kept as the promised delivery periods. They are calendar time, not working hours.
+    - The prices are reviewed at the week-4 review. Toman prices go stale quickly, and if the first two or three clients accept without hesitating, the prices go up.
 
 The fixed facts from the brief also apply:
 
@@ -383,7 +386,7 @@ The master tagline is not used on Studio accounts, so brand §7's two-tier rule 
 **When the reply is "how much?":**
 
 > قیمتِ ساخت را بدونِ دانستنِ این‌که دقیقاً چه لازم دارید نمی‌شود صادقانه گفت؛ و قیمتِ حدسی همان چیزی است که بعداً غافلگیرتان می‌کند.
-> کارِ ما با یک مرحله‌ی طراحی با قیمتِ ثابت شروع می‌شود، از [قیمتِ سطحِ پایه] تا [قیمتِ سطحِ ویژه]. در این مرحله فهرستِ کاملِ آنچه ساخته می‌شود و طرحِ همه‌ی صفحه‌ها آماده می‌شود، و مالِ شماست؛ حتی اگر ساخت را با کسِ دیگری ادامه دهید. بعد از آن، قیمتِ ساخت ثابت و روشن است، و اگر ساخت را با ما ادامه دهید، هزینه‌ی طراحی کامل از آن کم می‌شود.
+> کارِ ما با یک مرحله‌ی طراحی با قیمتِ ثابت شروع می‌شود، از ۸ میلیون تومان برای سایتِ بدونِ فروشگاه و از ۱۲ میلیون تومان برای فروشگاه. در این مرحله فهرستِ کاملِ آنچه ساخته می‌شود و طرحِ همه‌ی صفحه‌ها آماده می‌شود، و مالِ شماست؛ حتی اگر ساخت را با کسِ دیگری ادامه دهید. بعد از آن، قیمتِ ساخت ثابت و روشن است، و اگر ساخت را با ما ادامه دهید، هزینه‌ی طراحی کامل از آن کم می‌شود.
 > اگر بخواهید، در یک گفت‌وگوی بیست‌دقیقه‌ای می‌گویم کدام سطح به کارتان می‌آید.
 
 ---
@@ -407,7 +410,7 @@ The master tagline is not used on Studio accounts, so brand §7's two-tier rule 
 | 3 | «قبلاً سایت داشته‌اید یا با طراحی کار کرده‌اید؟ چطور پیش رفت؟» | **Burned?** and what they fear | Listen. Never comment on the other designer. Note their fear in their own words. | — |
 | 4 | «اگر سه ماهِ دیگر سایت بالا باشد، چه چیزی فرق کرده؟ از کجا می‌فهمید جواب داده؟» | **Outcome** | Concrete: orders through the site, fewer repeated questions, a link for wholesale buyers | Vague: «بهتر می‌شود» |
 | 5 | «تصمیمِ نهایی با کیست؟ چه کسانی نظر می‌دهند؟» | **Decider** (Nahal F8) | The person on the call decides, or the decider joins the next call | The decider is absent and unreachable |
-| 6 | «برای این کار بودجه‌ای در ذهن دارید؟ اگر نه، مرحله‌ی طراحیِ ما از [X] تا [Y] است. در این محدوده هستیم؟» | **Budget** | Yes, or close | Far below the lowest tier |
+| 6 | «برای این کار بودجه‌ای در ذهن دارید؟ اگر نه، مرحله‌ی طراحیِ ما برای سایتِ بدونِ فروشگاه از ۸ میلیون تومان و برای فروشگاه از ۱۲ میلیون تومان شروع می‌شود. در این محدوده هستیم؟» | **Budget** | Yes, or close | Far below the lowest tier |
 | 7 | «تاریخی هست که برایتان مهم باشد؟ و در دو ماهِ آینده چه کارهای دیگری وقت‌تان را می‌گیرد؟» | **Timing and their bandwidth** | A date that matters, and room to take part | A busy season, a move, no room |
 | 8 | «محتوا، یعنی عکسِ محصول‌ها، متن‌ها و قیمت‌ها، را چه کسی آماده می‌کند؟ دامنه و هاست دارید؟» | **Readiness** (Nahal F4) | A named person who can deliver within about a month | «بعداً درستش می‌کنیم» |
 
@@ -456,8 +459,8 @@ Booking the walk-through on the call is what stops the proposal going cold.
 >
 > **شامل نمی‌شود:** ساختِ سایت، تولیدِ محتوا، [موارد دیگر].
 >
-> **زمان:** [N] هفته از پرداخت.
-> **قیمت:** [قیمت]، ثابت.
+> **زمان:** [مدتِ تحویل از جدول] از پرداخت.
+> **قیمت:** [قیمت از جدول] تومان، ثابت.
 > **پرداخت:** [سطحِ پایه: کاملِ مبلغ در شروع] / [سطحِ اختصاصی و ویژه: نیمی در شروع، نیمی پس از تأییدِ طرح توسطِ شما]
 >
 > **بعد از آن:** پیشنهادِ ساخت با قیمتِ ثابت، بر پایه‌ی همین فهرست و طرح. اگر ساخت را با ما ادامه دهید، هزینه‌ی طراحی کامل از قیمتِ ساخت کم می‌شود.
@@ -472,11 +475,28 @@ Booking the walk-through on the call is what stops the proposal going cold.
 - **Publicly**, describe each tier by what the customer gets, never by how it is made. ADR 0001 lets AI show only in the mid tier's *price*, never in words.
 - **Internally**, the mid tier is Claude-assisted composition. The cost-to-deliver column keeps the cheap tiers cheap to *deliver* (ADR 0001, "harder").
 
-| Tier (public name) | Public description | Internal (never published) | Price | Payment *(§0.5)* | Delivery cost (hours) |
+| Tier (public name) | Public description | Internal (never published) | No store: price · delivery | Store: price · delivery | Payment *(§0.5)* |
 |---|---|---|---|---|---|
-| پایه | طرحِ صفحه‌ها بر پایه‌ی یک قالبِ آزموده، با رنگ و محتوای شما | Theme pick and customisation | [ ] | 100% upfront | [ ] |
-| اختصاصی | چیدمانِ اختصاصیِ هر صفحه برای کسب‌وکارِ شما | Claude-assisted composition | [ ] | 50% upfront, 50% on design approval | [ ] |
-| ویژه | طراحیِ اختصاصی با طراحِ ارشد | Senior designer plus Claude | [ ] | 50% upfront, 50% on design approval | [ ] |
+| پایه | طرحِ صفحه‌ها بر پایه‌ی یک قالبِ آزموده، با رنگ و محتوای شما | Theme pick and customisation | **8M** · 3 days | **12M** · 10 days | 100% upfront |
+| اختصاصی | چیدمانِ اختصاصیِ هر صفحه برای کسب‌وکارِ شما | Claude-assisted composition | **25M** · 2 weeks | **38M** · 1 month | 50% upfront, 50% on design approval |
+| ویژه | طراحیِ اختصاصی با طراحِ ارشد | Senior designer plus Claude | **48M** · 1 month | **70M** · 2 months | 50% upfront, 50% on design approval |
+
+Prices are in tomans *(founder, §0.12)*. Delivery times are calendar time and include the client's review rounds.
+
+**Why these prices** *(sourced anchors, inferred positioning, read 2026-10-26)*. The market for design-only work splits in two:
+
+- **Freelancers and small teams:** [JobTeam](https://jobteam.ir/Service/616-ui-design) charges 15.4M for 3 pages and 23.1M for 5 pages.
+- **Agencies:** [Sobelz](https://sobelz.com/ui-ux-design-price/) (October 2026) starts at 28M for 3–5 pages, 48M for a 7–10-page company site and 58M for a 7–12-page store.
+- **Hourly:** UI design runs 500k–1.2M tomans an hour ([Sanjagh, Aban 1405](https://sanjagh.pro/price/%D8%B7%D8%B1%D8%A7%D8%AD%DB%8C-ux-ui)).
+- **What owners compare against:** a whole theme-based WordPress site, from 19M for a company site and 29M for a store ([Vista](https://vistaapp.ir/site-design-price/)).
+
+Root sits at the top of the freelancer range and the bottom of the agency range. Burned owners have usually tried the cheap end already, and the offer adds what neither end sells: the scope list, a design the client keeps, and the fee credited against the build. Per tier:
+
+- **پایه** stays well under a whole theme site, so the first yes is easy.
+- **اختصاصی** is the tier that should look surprisingly good next to agencies. It is the one place ADR 0001 lets the cost structure show.
+- **ویژه** is priced at agency level. If the senior designer is paid externally, their fee comes out of this price. Their rate is not yet recorded, so check the margin before the first one is sold.
+
+**Capacity.** A custom store design is a month of delivery alongside the test's 10 hours a week. During the test, take on **one design phase at a time** *(inferred)*.
 
 The design fee is credited in full against the build if the client continues with Root *(§0.6)*.
 
@@ -512,10 +532,10 @@ The design fee is credited in full against the build if the client continues wit
 
 ## 8. Open for the founder
 
-*The 2026-10-26 answers are recorded in §0.5–0.11. What is left:*
+*The 2026-10-26 answers are recorded in §0.5–0.12. What is left:*
 
-1. **Tier prices and delivery hours** (§6.3 table). Write down the real delivery hours for each tier first, then set the price. Until then, the "how much?" reply (§5.5) and the proposal cannot go out.
-2. **Persian accounts to study** (§1.3). Deferred by the founder; nothing in the plan waits on it.
+1. **Persian accounts to study** (§1.3). Deferred by the founder; nothing in the plan waits on it.
+2. **The senior designer's rate,** if the premium tier uses someone external (§6.3). It is needed only before the first premium tier is sold.
 
 ---
 
@@ -537,3 +557,9 @@ The design fee is credited in full against the build if the client continues wit
   - **Deferred:** Persian accounts to study.
   - **Applied to:** the price reply (§5.5), the proposal template and tier table (§6.3), and the notes in §4 and §5.
   - §8 now holds only tier prices and delivery hours, plus the deferred item.
+- **0.4 · 2026-10-26**: Design-phase prices set from the market (founder, §0.12).
+  - **Prices (tomans):** 8M / 25M / 48M without a store, and 12M / 38M / 70M for a store.
+  - **Delivery times:** the founder's, as calendar time.
+  - **Filled in:** the §6.3 tier table (with anchors from JobTeam, Sobelz, Sanjagh and Vista), the price reply (§5.5), the budget question (§6.1 Q6) and the proposal template.
+  - **Added:** a capacity note of one design phase at a time during the test, and a price review at week 4.
+  - §8 now holds only the deferred Persian accounts and the external designer's rate. Nothing is left blocking week 1.
