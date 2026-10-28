@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Hamrah cards</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+@font-face { font-family: 'Vazirmatn'; font-weight: 100 900; font-display: block;
+  src: url(node_modules/@fontsource-variable/vazirmatn/files/vazirmatn-arabic-wght-normal.woff2) format('woff2');
+  unicode-range: U+0600-06FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC; }
+@font-face { font-family: 'Vazirmatn'; font-weight: 100 900; font-display: block;
+  src: url(node_modules/@fontsource-variable/vazirmatn/files/vazirmatn-latin-wght-normal.woff2) format('woff2'); }
+html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+body { font-family: var(--font-persian); background: var(--color-bg); color: var(--color-text); }
+body.clear { background: transparent; }
+.card { position: absolute; inset: 0; display: none; place-items: center; text-align: center; }
+.card.on { display: grid; }
+.stack { display: grid; gap: 28px; justify-items: center; }
+.rule { inline-size: 64px; block-size: 3px; background: var(--color-rule); border-radius: 2px; }
+.tag { font-size: 84px; font-weight: 600; line-height: 1.3; }
+.tag .face { color: var(--color-beauty); }
+.desc { font-size: 34px; color: var(--color-text-muted); font-weight: 400; }
+.eyebrow { font-size: 30px; color: var(--color-secondary); font-weight: 500; }
+.name { font-size: 180px; font-weight: 700; line-height: 1.1; }
+.lead { font-size: 36px; color: var(--color-text-muted); }
+.inverse { background: var(--color-inverse); color: var(--color-text-inverse); }
+.inverse .later { font-size: 96px; font-weight: 600; }
+.inverse .rule { background: var(--color-eyebrow-on-inverse); }
+.close { font-size: 62px; font-weight: 600; line-height: 1.7; max-inline-size: 1500px; }
+.close em { font-style: normal; color: var(--color-accent-text); }
+.fine { position: absolute; inset-block-end: 56px; inset-inline: 0; font-size: 22px; color: var(--color-text-subtle); }
+.sig { font-size: 28px; color: var(--color-text-subtle); display: flex; gap: 16px; align-items: center; }
+.sig b { color: var(--color-text); font-weight: 700; font-size: 34px; }
+.sig i { inline-size: 1px; block-size: 26px; background: var(--color-border-strong); }
+/* captions: a lower-third pill, centred over the preview */
+.cap { position: absolute; bottom: 42px; left: 0; right: 620px; display: none; justify-content: center; }
+.cap.on { display: flex; }
+.cap span { display: inline-block; background: rgba(30, 53, 87, .94); color: var(--neutral-100); font-size: 34px; font-weight: 600; padding: 14px 40px 16px; border-radius: 999px; box-shadow: 0 12px 36px rgba(30, 53, 87, .28); white-space: nowrap; }
+</style>
+</head>
+<body>
+<section class="card" id="tagline"><div class="stack">
+  <div class="tag">در جست‌وجوی چیزی <span class="face">نو</span>...</div>
+  <div class="rule"></div>
+  <div class="desc">زیست‌بومی برای شناختن و ساختنِ خود.</div>
+</div></section>
+
+<section class="card" id="hamrah"><div class="stack">
+  <div class="eyebrow">روت استودیو</div>
+  <div class="name">همراه</div>
+  <div class="lead">سایتت، از اولین سؤال تا سال‌ها بعد</div>
+</div></section>
+
+<section class="card inverse" id="later"><div class="stack">
+  <div class="rule"></div>
+  <div class="later">چند ماه بعد</div>
+</div></section>
+
+<section class="card" id="close"><div class="stack">
+  <div class="close">ریشه سایتت را به‌جای تو اداره نمی‌کند؛<br><em>تو را توانا می‌کند</em> که خودت اداره‌اش کنی.</div>
+</div></section>
+
+<section class="card" id="end"><div class="stack">
+  <div class="tag">در جست‌وجوی چیزی <span class="face">نو</span>...</div>
+  <div class="rule"></div>
+  <div class="desc">زیست‌بومی برای شناختن و ساختنِ خود.</div>
+  <div class="sig" style="margin-block-start: 40px"><b>ریشه</b><i></i>روت استودیو · همراه</div>
+</div>
+<div class="fine">کسب‌وکار، محصولات، نشانی و قیمت‌های این ویدیو خیالی‌اند. همراه هنوز یک چشم‌انداز است.</div></section>
+
+<div class="cap" id="c1"><span>یک آدرسِ اینستاگرام؛ و سایتی با محصولاتِ خودت.</span></div>
+<div class="cap" id="c2"><span>در هر قدم، کنارِ یک کاربلد.</span></div>
+<div class="cap" id="c3"><span>مهبد نظر می‌دهد؛ تصمیم با توست.</span></div>
+<div class="cap" id="c4"><span>قیمت از اولین جواب پیداست.</span></div>
+<div class="cap" id="c5"><span>و حالا، خودت از پسش برمی‌آیی.</span></div>
+</body>
+</html>

@@ -2,7 +2,7 @@
 
 **From:** _root
 **Status:** **Vision draft, 0.1 — the founder's thinking, drawn out in conversation and written down. Nothing here is decided for the build, sequenced, or in any plan's scope.** It describes where Root Studio is heading, not what is next. It is also the brief for a showcase video, made in a later session (§11).
-**Version:** 0.1 · 2026-10-26 · Owner: _root
+**Version:** 0.2 · 2026-10-28 · Owner: _root
 **What this is:** the founder's picture of the ultimate Root Studio, a wizard where a business talks to an AI companion and watches its website being built, with every point the founder settled, every point still open, and the places this vision meets (or collides with) canon and the existing plans.
 
 **Grading.**
@@ -147,6 +147,8 @@ Even with everything automatable automated, including SMS and hosting, some thin
 
 **Open for the video session:** length, landscape or vertical, Persian only or with English subtitles, the audience, and music.
 
+**Made, 2026-10-26** *(the format founder, the refinements Suggested)*: about 90 s, landscape 16:9, Persian only with no subtitles, for Iranian small-business owners, over a synthesized pad. The refined storyboard, the mockup and the build are in [`hamrah-showcase/`](hamrah-showcase/README.md); the first cut runs 1:37 and waits for the founder's review.
+
 ## 12. Open questions
 
 1. **Where do Instagram and old-site review live:** inside Requirements, or as tools at any step? *(founder, open)*
@@ -163,4 +165,5 @@ Even with everything automatable automated, including SMS and hosting, some thin
 
 ## Changelog
 
+- **0.2 · 2026-10-28** — §11 records the video's settled format and points to `hamrah-showcase/`, where the refined storyboard and its source now live. Nothing else changed.
 - **0.1 · 2026-10-26** — First draft, from a conversation with the founder: the wizard and its screen, Hamrah as an expert at every step, Mahbod named, the user wins, the Instagram moment, price and payment, Root's team, the feeling, and a storyboard seed for the showcase video. Claude's proposals are marked Suggested and none is confirmed.
