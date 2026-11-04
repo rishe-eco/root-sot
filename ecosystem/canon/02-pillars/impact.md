@@ -1,7 +1,7 @@
 # Root · ریشه — Pillar: Impact
 *Source of truth. Short on purpose. Concept + philosophy; relationships subcomponent unresolved. Update the changelog; don't fork.*
 
-**Version 0.2 (draft) · 2026-09-20 · Owner: _root**
+**Version 0.3 (draft) · 2026-10-18 · Owner: _root**
 
 ---
 
@@ -24,9 +24,13 @@ The part we're building is **need recognition** — a discovery discipline in th
 
 **How the three moves are built (settled 2026-09-20).** Not as two inventories and an intersection. That shape — ikigai's four circles, the skills-based volunteering matcher — fails three ways at once: the intersection framing produces paralysis, matching fails on scoping and motive rather than taxonomy, and self-report inventories overclaim. So move 1 is trained as a **repeated perceptual practice** (noticing is the gate on the whole compassion process, and its cues are faint enough to need recurrence), move 2 is **emergent** — capacity read back from what you actually turned out to have, never a skills form — and move 3 is what falls out, not a matching step. Act 1 is the tool that does this: **Noticing** (`../../working/impact-build/00-act1-concept.md`).
 
+**Move 2 and the goal-scoped capacity check (2026-10-18).** "No skills form, ever" governs the **general self-inventory** and stands. Journey's first act adds a different instrument: a capacity check scoped to **one goal the person has already chosen**, asking concrete questions (have you done something like this, what does it need, do you have it) rather than asking for a self-portrait. It runs in Organize's territory, after the need is chosen, so it cannot become the matcher this section rejects. The emergent portrait stays Impact's; the goal-scoped check feeds it nothing it did not earn. Spec: `../../working/journey-build/04-capacity-check.md`.
+
 ## 4. Input pillar, not output
 
 Impact *identifies* where capacity could meet need; it does **not** execute. The recognized service act flows to **Organize** as a goal — but only after passing **Reflect's motive check** (compassion and genuine capacity vs. obligation and guilt). So the chain is: Impact recognizes → Reflect audits motive → Organize executes with full rigor → Reflect+Organize handle any failure (effort vs. outcome). Discipline is the container for the compassion, not its enemy (see `organize.md` §6).
+
+**This chain is now the spine of Journey's first act (2026-10-18).** The first thing anyone does in Journey is name a need in the world and carry it through Reflect, a batteries-and-capacity check, Organize and Learn (`00-the-loop.md` §5). Impact opens the product. Two fences carry over unchanged: the need is **singular and near** (§2), and Impact still does not execute — it hands the need on.
 
 ## 5. Why motive is load-bearing
 
@@ -56,3 +60,4 @@ Does the feature help the person *see honestly where they can contribute, from g
 
 - **0.1 · 2026-07-14** — Initial draft under working name "Others." Need-recognition scope, input-not-output role, motive-dependence rationale, relationships deferred, name candidates recorded.
 - **0.2 · 2026-09-20** — **Named Impact** (§2), with the cost of the name recorded and two fences taken in exchange (no score in any form; singular-and-near, never aggregate). §3 records *how* the three moves are built — perception trained by repetition, capacity emergent, no matcher — and points at Act 1, **Noticing**. Persian name still open. File renamed `others.md` → `impact.md`.
+- **0.3 · 2026-10-18** — **Impact opens Journey.** §4: the recognize → audit → execute chain becomes the spine of the first act. §3: the goal-scoped capacity check is added and distinguished from the general self-inventory, which stays refused. Decision log 2026-10-18.
