@@ -1,7 +1,7 @@
 # Root · ریشه — Pillar: Maintain
 *Source of truth. Short on purpose. Concept and philosophy, not feature spec. Update the changelog; don't fork.*
 
-**Version 0.1 (draft) · 2026-07-14 · Owner: _root**
+**Version 0.2 (draft) · 2026-10-18 · Owner: _root**
 
 ---
 
@@ -20,6 +20,8 @@ Three recognitions, all personal — Maintain teaches the person to read *themse
 ## 3. Output: immediate action only
 
 If Maintain surfaces a depleted or overcharged battery *now*, the response happens now. Deferring it to tomorrow is the app declaring it acceptable to spend another day in that state — which contradicts the pillar's purpose. If immediate action isn't possible, it leaves Maintain: a capability gap → Learn, a future commitment → Organize. No schedules, no recharge streaks.
+
+**A second use, added 2026-10-18: the read as context for a goal.** In Journey's first act, and wherever a goal is set, a batteries read sits beside the goal. It **informs and never gates** — the goal can always be set, and the read is there so it can be sized to what the person actually has. This does not soften the rule above: a low or overfull battery still offers its respond-now move in the same moment. What it must not become is a precondition ("recharge before you may plan") or a scheduled check. Spec: `../../working/journey-build/03-batteries-check.md`.
 
 ## 4. The recognition-vs-action fork (and the risk it gates)
 
@@ -45,3 +47,4 @@ Does the feature help the person *notice and respond to their state now*, or doe
 ## Changelog
 
 - **0.1 · 2026-07-14** — Initial draft. Three recognitions, immediate-action-only, the recognition-vs-action fork and the drift-to-optimization risk it gates.
+- **0.2 · 2026-10-18** — §3: the batteries read gains a second use — **context beside a goal**, inform-only, never a gate and never scheduled; the respond-now rule is unchanged. Decision log 2026-10-18.

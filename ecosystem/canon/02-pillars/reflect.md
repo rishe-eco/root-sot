@@ -1,7 +1,7 @@
 # Root · ریشه — Pillar: Reflect
 *Source of truth. Short on purpose. Concept and philosophy, not feature spec. Update the changelog; don't fork.*
 
-**Version 0.2 (draft) · 2026-07-22 · Owner: _root**
+**Version 0.3 (draft) · 2026-10-18 · Owner: _root**
 
 ---
 
@@ -31,6 +31,10 @@ If articulation surfaces a need that can be acted on now, it's acted on now. Oth
 
 Reflect is the **motive auditor** for service (Reflect↔Impact): before a recognized service opportunity becomes an Organize goal, Reflect checks whether it comes from compassion and genuine capacity or from obligation. And on **failure** (Reflect↔Organize), Reflect holds the emotional and meaning-making side — what the loss says about what you value — while Organize holds the structural read. See The Loop §4.
 
+**Reflect is step 2 of Journey's first act, and is built first (2026-10-18).** It receives the named need, asks why it matters to *you* and whether it comes from care or from *should*, and turns it into what you would like to do and what is most likely to get in the way — the obstacle beside the wish, because a wish held alone predicts less effort, not more (Oettingen's mental contrasting). It also receives every failure and every goal gone quiet. That makes it the critical path of the child version, so a **minimum Reflect** is built before anything else: story, feelings and need, one reconstrual move (§6), the motive check, intent and obstacle, and an immediate-action-or-handoff close. The mirror is structural in the minimum — the person's own words laid side by side — with the agent mirror (§8) deferred. Spec: `../../working/journey-build/02-reflect-minimum.md`.
+
+**Where the motive check meets authorship (decided 2026-10-18).** The Loop §4 says obligation-born service is *stopped here*; the anti-patterns file says Root never authors for the user. Resolved for authorship: Reflect surfaces *should*, reconstrues once, and offers to reshape or let go — and if the person still keeps the goal, it is theirs. The motive is stored on the reflection; if the goal later goes quiet, the failure flow asks about it once. The check stops a *should* from passing unexamined, not from being chosen.
+
 ## 6. Known risk and the bet we're taking
 
 Reflect rests on NVC's claim that naming feelings and needs *deepens* connection rather than flattening it — a claim whose evidence base is thin. The better-evidenced Etkin finding runs the other way for *quantification*. Our position: articulation (translating a feeling into the right word and the need beneath it) is a different operation from quantification (compressing it into a metric), and the affect-labeling literature suggests naming is itself mildly regulating. We are betting on articulation-not-quantification, and we know it is a bet — hence the hard line against scales and the gating of pattern recognition. See `04-research/`.
@@ -53,3 +57,4 @@ Does the feature help the person *see their own experience more truly*, or does 
 
 - **0.1 · 2026-07-14** — Initial draft. Story-first articulation model, immediate-action-only output, mirror/pattern split with pattern-recognition gated, motive-audit and failure roles, the articulation-not-quantification bet stated honestly.
 - **0.2 · 2026-07-22** — §6 sharpened: the active lever is **reconstrual/self-distancing** (Kross & Ayduk), not writing per se; introduced the H6a/H6b framing and tied it to the Learn→Reflect ordering (from the 22 Jul session and `Research/reflection.txt`). No change to the mirror/gating model.
+- **0.3 · 2026-10-18** — §5: Reflect is **step 2 of Journey's first act** and the child version's critical path, so a **minimum Reflect** is built first (structural mirror, one reconstrual move, motive check, intent beside obstacle). Records how the motive check meets no-authoring: a *should* goal may be kept, motive recorded. Decision log 2026-10-18.

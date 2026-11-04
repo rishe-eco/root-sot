@@ -1,7 +1,7 @@
 # Root · ریشه — Pillar: Organize
 *Source of truth. Short on purpose. Concept + philosophy as canon; as-built tracker in the appendix. Update the changelog; don't fork.*
 
-**Version 0.1 (draft) · 2026-07-14 · Owner: _root**
+**Version 0.2 (draft) · 2026-10-18 · Owner: _root**
 
 ---
 
@@ -32,9 +32,11 @@ Outcome 2 stops at *recognizing and articulating* the loophole. Fixing the patte
 
 Organize needs a first-class **failure mode**, not just a success path. Two toxic responses to guard against: "I tried, it didn't work, so effort is pointless" and "I failed, full stop." Growth mindset's move — **separate effort from outcome** — is the antidote: you own effort, strategy, and learning; you do not own outcomes. So on failure, Organize asks: was this in my control or not? did I know? what can I learn? what next time? The structural read lives here; the emotional and meaning-making read lives in **Reflect** (the Reflect↔Organize coupling). This also closes the Impact execution gap — service goals whose outcomes you don't control ("I showed up fully and it still didn't land") need exactly this effort-vs-outcome handling.
 
+**Specced 2026-10-18, together with ignoring.** Failure is rarely announced; mostly a goal goes quiet or an action keeps moving. So the failure mode covers three moments — an action carried for a long time, a goal gone quiet, and a goal closed as *let go* or *didn't work* — with the same short structural read in each, and letting go treated as a legitimate decision (disengaging from an unattainable goal and re-engaging elsewhere both track wellbeing — Wrosch et al., 2003). Spec: `../../working/journey-build/05-failure-and-ignoring.md`.
+
 ## 6. Service goals
 
-Service acts recognized in Impact, once they pass Reflect's motive check, arrive in Organize and get the **same rigor as any goal**: blocked time, prep, reliable follow-through. This is the core reframe — **discipline is the container for compassion, not its enemy.** A promise not kept isn't compassion; it's performance. This tightly couples Reflect and Organize on the service path (motive in, failure out).
+Service acts recognized in Impact, once they pass Reflect's motive check, arrive in Organize and get the **same rigor as any goal**: blocked time, prep, reliable follow-through. *(2026-10-18: this is now how everyone's first goal in Journey arrives — the first act ends in Organize, and when capacity is short the goal that builds it is set as **serving** the real one.)* This is the core reframe — **discipline is the container for compassion, not its enemy.** A promise not kept isn't compassion; it's performance. This tightly couples Reflect and Organize on the service path (motive in, failure out).
 
 ## 7. The Clarity Check (F-1)
 
@@ -72,3 +74,4 @@ Does the feature help the person pursue *what they genuinely want, seen clearly,
 ## Changelog
 
 - **0.1 · 2026-07-14** — Initial draft. Four outcomes separated, mindset-first, understanding-not-fixing, failure handling with effort/outcome split, service-goal discipline, Clarity Check (F-1). As-built appendix from updated repos: Clarity Check, journaling, onboarding/module-intro scaffolding all found present.
+- **0.2 · 2026-10-18** — §5: the failure mode is specced together with **ignoring** (carried actions, goals gone quiet, goals closed as let go / didn't work), letting go treated as a decision. §6: the first act's goal arrives here, with capacity goals set as serving the real one. Decision log 2026-10-18.

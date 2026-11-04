@@ -1,7 +1,7 @@
 # Root · ریشه — Pillar: Learn
 *Source of truth. Short on purpose. Concept + first module. Update the changelog; don't fork.*
 
-**Version 0.4 (draft) · 2026-08-11 · Owner: _root**
+**Version 0.5 (draft) · 2026-10-18 · Owner: _root**
 
 ---
 
@@ -9,9 +9,11 @@
 
 Learn is where a person builds capacity on purpose. The general shape: choose a skill, evaluate where you are, set an endpoint and an intensity for a period, follow a pathway, track progress, and evaluate at points along the way. Learn is fed by every other pillar (a gap surfaces in Reflect, Maintain, Organize, or Impact) and returns capacity to Organize, where the new ability makes new action possible.
 
+**Learn inside a goal (2026-10-18).** In Journey's first act Learn arrives last, inside the goal, as one question: *what is the one thing that, if you already knew how to do it, would make this much easier?* The person names it; Root offers questions and guides for finding and learning it; *nothing* is a valid answer. Most such things are not anything Root teaches, and the child version does not pretend otherwise — Learn's job there is to help the person name the highest-leverage gap and route it, not to own the content. Learning that serves a need the person chose is the better-evidenced order anyway: a self-transcendent purpose sustains learning through tedious material where self-oriented reasons do not (Yeager et al., 2014). Spec: `../../working/journey-build/01-first-act.md` §3.6.
+
 ## 2. First module — Emotion & Need Language Building
 
-The founding module, and the on-ramp to Reflect. Design principles, all grounded (see `04-research/`):
+The founding module, and the on-ramp to Reflect. *(2026-10-18: no longer the default on-ramp — Journey's first act opens on Impact, not on this module. It stays a tool, and the natural instrument for naming feelings and needs inside Reflect.)* Design principles, all grounded (see `04-research/`):
 
 - **One coupled module, not two tracks.** Feelings and needs are two ends of one mechanism — a feeling is the signal, the need is what it signals about. Teaching feelings alone trains reading a gauge without knowing what it measures.
 - **Mindset before vocabulary; A before B.** First the frame (emotions are workable signals about needs, not verdicts). Then competence A (vocabulary), then competence B (distinctions: feeling-vs-thought, need-vs-strategy) — B is a refinement layer on top of A, never the opening move.
@@ -76,7 +78,7 @@ Does the module build *real capacity the person can carry into their own life*, 
 
 ## 9. Open questions
 
-- Pathway recommendation logic (how a learning path is proposed) — undetermined.
+- Pathway recommendation logic (how a learning path is proposed) — undetermined. *Partly answered for the child version (2026-10-18): the person names the one thing; Root offers questions and guides, not a recommended path.*
 - Integration vs. separation of module delivery (learned-through-Reflect-interaction vs. structured module) — a discovery question.
 - Module set beyond the first two; per-module evaluation design.
 - ~~**Does a generic module runner survive contact with a third module?**~~ **Answered 2026-08-11 by speccing skill #3** (`tracker/canon/06-specs/03-decomposition-lab.md` §2). It does not survive as a *generic* runner — and per-tool duplication isn't the alternative either. The third module needs **both existing shapes at once**: four of its six modules are Clarity-shaped (a 10–15 minute sitting authoring and revising one artifact), two are Evidence-shaped (a ~2 minute drill on one seeded fault). So the sharper form of the §7a finding is that **pedagogy belongs to the *step*, not to the tool** — which argues for a composable step library, where the seven-step template selects a per-step implementation, and against both a single lesson container and three parallel bespoke builds. Three data points now, and the third is the one that discriminates between the two answers the first two couldn't separate.
@@ -91,3 +93,4 @@ Does the module build *real capacity the person can carry into their own life*, 
 - **0.1 · 2026-07-14** — Initial draft, from the emotion/need module design. Spiral (not ladder) model, three tiers, Persian-first affect-labeling constraint, guardrails, prototype scope, reality-check sequel.
 - **0.2 · 2026-07-22** — Added the build-order nuance (§4: discovery/prototype English-only for now; Persian-first stays the product constraint). Added the refined Learn→Reflect bridge rationale: reconstrual/self-distancing (Kross & Ayduk) is the load-bearing lever, tracked as H6b vs. H6a — from the 22 Jul feelings-&-needs session. Concept, tiers, and scope otherwise unchanged.
 - **0.2 (rev) · 2026-07-23** — Clarified §3: H6b is a **deferred integration/ordering input, not a build gate** — Learn is built and shipped standalone regardless (per the development model recorded in the decision log). No change to the module concept.
+- **0.5 · 2026-10-18** — §1: **Learn inside a goal** — in Journey's first act Learn is the one thing the person names, with Root's questions and guides; Root does not own the content. §2: Module 1 is no longer the default on-ramp to Reflect (it stays a tool and Reflect's instrument). §9: pathway logic partly answered for the child version. Decision log 2026-10-18.

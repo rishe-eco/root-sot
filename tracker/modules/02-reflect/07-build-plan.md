@@ -126,6 +126,7 @@ The project's rules are set: `brief-common.md` (what a lane follows), `review-ch
 **PD-11 · Past entries in pages of 50.** `reflectPastEntries(before: ID)` returns 50 rows and `hasOlder: Boolean`; a plain *Show older* link under the last row loads the next page. No number, no total. A control the wireframes don't draw: veto it, and the list returns every entry, unpaged.
 
 **PD-12 · Until `revise` rules on D-4, B6 builds AC-37 as written.** The proposal for `revise`: list every closed entry that holds any written text; the row shows the scene, or the story's first words, or the first moment's *when* line. If `revise` accepts it before B6's card is drafted, B6 builds that instead.
+*Correction, 2026-10-22: `revise` accepted it, with a fallback for an entry holding only readings or a close (spec 0.2 §2.2 #19, AC-37; `changes/01-req-past-entries-and-journey-gaps.md`). B6 builds that, with §6.1's correction.*
 
 **PD-13 · The interpretation offer returns the word and its sentence only.** The word is shown as the lexicon writes it; the sentence is the person's own, from the original story text (D-13). Nothing else of the lexicon leaves the server.
 
@@ -368,7 +369,7 @@ Session-only: a `requireSession` wrapper inside `requireAuth` throws §6.2's `RE
 **Logic** client only.
 - `client/app/components/reflect/useReflectAutosave.ts`: per field, 800 ms after typing pauses, and `flush()` before Next, Back and Stop here. On failure the text stays, the not-saved line and **Try again** show, and Next, Back and Stop here wait. Never browser storage (G1, G3, W6).
 - Inputs stop at the bounds `reflectContent.limits` serves, with the one bound sentence (G13). The story shows the soft-line sentence past `storySoftLine` (AC-20).
-- `dir="auto"` on every field (G7). After a delete, the deleted entry is evicted from the Apollo cache (D-9).
+- `dir="auto"` on every field (G7). After a delete, no Reflect read goes through Apollo, so there is nothing to evict (D-9).
 
 **API or routes** client routes `/tools/reflect` and `/tools/reflect/entry` in `protectedRoutes.tsx`, beside F&N's and Noticing's. Documents in `queries.ts`: `reflectHome`, `reflectEntry`, `reflectContent`, `startReflectEntry`, `saveReflectEntry`, `moveReflectEntry`, `stopReflectEntry`, `deleteReflectEntry`.
 
@@ -412,7 +413,7 @@ Session-only: a `requireSession` wrapper inside `requireAuth` throws §6.2's `RE
 
 **Schema** none.
 
-**Logic** client only. Back on these three steps goes to any earlier step from the story on (PD-6), after `flush()`. Folded moments are rebuilt from the entry on reload (AC-11).
+**Logic** client, and one API line: an explicit `met: null` clears Met (B5's card, decision 1). Back on these three steps goes to any earlier step from the story on (PD-6), after `flush()`. Folded moments are rebuilt from the entry on reload (AC-11).
 
 **API or routes** `queries.ts` adds `saveReflectMoment`, `saveReflectReading`, `finishReflectEntry`, `answerReflectEntry`.
 
@@ -456,14 +457,14 @@ Session-only: a `requireSession` wrapper inside `requireAuth` throws §6.2's `RE
 
 **Schema** none.
 
-**Logic** client only. PD-12 decides the list rule: AC-37 as written unless `revise` has ruled on D-4 before this card.
+**Logic** client, and the API half spec 0.2 added (§6.1's correction): "listable" is any written text, a row's text is the entry's first writing, `hasStory` becomes `hasWriting`, and `reflectPastEntry` returns its own type without `step`. PD-12 decides the list rule: `revise` ruled on D-4 (spec 0.2 AC-37).
 
-**API or routes** client routes `/tools/reflect/past` and `/tools/reflect/past/:id`; `queries.ts` adds `reflectPastEntries`, `reflectPastEntry`. `deleteReflectEntry` already exists, from B4.
+**API or routes** client routes `/tools/reflect/past` and `/tools/reflect/past/:id`; `queries.ts` adds `reflectPastEntries`, `reflectPastEntry` (which returns `ReflectPastEntry`). `deleteReflectEntry` already exists, from B4.
 
 **Screens.**
 - **Plate 10, the list.**
   - Row placeholders while loading.
-  - Each row: the date (`useAppDate`, Jalali in Persian, Western digits) above the scene, or the story's first words, cut to one line (W14). The whole row is a link and the only control (AC-38).
+  - Each row: the date (`useAppDate`, Jalali in Persian, Western digits) above the entry's first writing, cut to one line (W14). The whole row is a link and the only control (AC-38).
   - *Show older* under the last row when `hasOlder` (PD-11).
   - Empty: one plain line and *Back to Reflect*, no zero (G16).
 - **Plate 11, one entry.**
@@ -477,15 +478,15 @@ Session-only: a `requireSession` wrapper inside `requireAuth` throws §6.2's `RE
 
 **Image and deploy.** none.
 
-**Constraints from earlier stages.** B2's list returns `id`, `createdAt`, `scene`, `storyStart` only (AC-46): the view's full entry comes from `reflectPastEntry(id)`, one entry at a time.
+**Constraints from earlier stages.** The list returns `id`, `createdAt`, `firstWriting` only (AC-46): the view's full entry comes from `reflectPastEntry(id)`, one entry at a time.
 
 **Acceptance.** AC-37, AC-38, AC-39, AC-40.
 
 **Size: M.**
 
 **Traps.**
-- Evict the deleted entry and the list's cached page from Apollo, or Back shows it again (D-9).
-- `storyStart` is cut by the server; don't fetch the full story for the list.
+- No Reflect read goes through Apollo, so there is nothing to evict on delete (D-9; as B4's correction).
+- `firstWriting` is cut by the server; don't fetch the full story for the list.
 
 **Not here:** editing a closed entry (spec §7).
 
@@ -543,11 +544,11 @@ Session-only: a `requireSession` wrapper inside `requireAuth` throws §6.2's `RE
 
 | Operation | Returns | Rules | Stage |
 |---|---|---|---|
-| `reflectHome` | `ReflectHome { openEntry: { id, createdAt, hasStory } \| null, hasPast: Boolean!, practiceLocale, reviewStatus }` | `hasPast` true when a listable entry exists; no count | B2 |
+| `reflectHome` | `ReflectHome { openEntry: ReflectOpenEntry { id, createdAt, hasWriting } \| null, hasPast: Boolean!, practiceLocale, reviewStatus }` | `hasPast` true when a listable entry exists; no count | B2 |
 | `reflectEntry` | `ReflectEntry` or null | the open entry, any age | B2 |
 | `reflectContent` | `ReflectContent { locale, reviewStatus, prompts, feelings[6], needs[5], otherLabel, limits }` | practice locale only (PD-7); never the lexicon | B2 |
-| `reflectPastEntries(before: ID)` | `{ rows: [{ id, createdAt, scene, storyStart }], hasOlder }` | closed, with story text, newest `createdAt` first, 50 a page | B2 |
-| `reflectPastEntry(id: ID!)` | `ReflectEntry` or `Not found` | closed and listable only | B2 |
+| `reflectPastEntries(before: ID)` | `ReflectPastPage { rows: [ReflectPastRow { id, createdAt, firstWriting }], hasOlder }` | closed, with any written text, newest `createdAt` first, 50 a page | B2 |
+| `reflectPastEntry(id: ID!)` | `ReflectPastEntry` (`ReflectEntry` less `step`) or `Not found` | closed and listable only | B2 |
 | `startReflectEntry(replacing: ID)` | `ReflectEntry` | the open one, or new; `replacing` closes only that id | B2 |
 | `saveReflectEntry(entryId, scene, story, close, precheckWhen, precheckBefore)` | `ReflectEntry` | open only; pre-check arguments only while `step` is `precheck` | B2 |
 | `saveReflectMoment(entryId, position, whenText, feeling, feelingSource, need, needSource, met)` | `ReflectMomentResult { moment, fauxOffer }` | position < 3 and ≤ the current count | B2, B3 |
@@ -559,6 +560,8 @@ Session-only: a `requireSession` wrapper inside `requireAuth` throws §6.2's `RE
 | `deleteReflectEntry(entryId)` | `Boolean!` | any owned entry; hard delete | B2 |
 
 `ReflectEntry { id, step, scene, story, close, createdAt, moments, readings }`. `ReflectStep`: `PRECHECK | STORY | FEELINGS | REALITY | CLOSE`. `ReflectAfterAnswer`: `DIFFERENTLY | SAME | MORE_CAUGHT_UP`.
+
+**Correction, 2026-10-22** (`changes/01-req-past-entries-and-journey-gaps.md`, spec 0.2)**.** `reflectPastEntry` returns its own past-entry type, `ReflectEntry` less `step`, and the fences refuse `step` and `outcome` on it (spec AC-48). "Listable" is now *closed, with any written text*, for `reflectPastEntries`, `reflectPastEntry` and `hasPast`; a row's text is the entry's first writing in step order (scene, story, first moment's *when*, first reading, close), cut by the server, in place of `scene` and `storyStart` (spec AC-37, AC-46); `openEntry.hasStory` becomes whether the entry holds any written text (spec AC-53). B6 builds all of it, changing B2's `LISTABLE`, `hasStory`'s rule and `storyStart`; B4 builds the home against `hasStory` as B2 left it, and if B6 renames the field it changes B4's caller too.
 
 ### 6.2 · Refusal codes
 
@@ -743,3 +746,6 @@ None new. Reflect uses Prisma, Apollo and the F&N content pack, and on the clien
 ## Changelog
 
 - **0.1 · 2026-10-21** — Plan, from `02-spec.md` 0.1, `03-journeys.md` 0.2 and `04-wireframes.html` draft 1, against `rishe-eco/tracker main @ 5fd71c9`, under the gate override (ux-review and eval-plan waived by the founder). Eight stages (B0–B7), two milestones, twenty defects found, G1–G17 and W1–W19 settled, D-4 carried to `revise`, fifteen planning decisions.
+- **0.1 · correction · 2026-10-22** — Two correction lines from `changes/01-req-past-entries-and-journey-gaps.md` (spec 0.2), written by `revise` at the founder's word instead of marking this file `STALE`: under PD-12 (D-4 accepted) and under §6.1's GraphQL table (the past-entry type without `step`; "listable" is any written text). No stage, size or order changes.
+- **0.1 · correction · 2026-10-22** — §5 B4's Logic: "evicted from the Apollo cache" reads "no Reflect read goes through Apollo, so there is nothing to evict" (found at `verify B4`; the as-built reads use `useApi`, not Apollo's cache). Correction only, at the founder's word; no stage, size or order changes.
+- **0.1 · correction · 2026-10-23** — §5 B6 and §6.1 brought to what spec 0.2 and B6 built (found at `verify B6`): B6's Logic is client and the API half, not "client only"; its API, row text, *Constraints* line and traps name `ReflectPastEntry`, `firstWriting` and `useApi` reads in place of `scene`, `storyStart` and Apollo eviction; §6.1's table names `ReflectPastPage`, `ReflectPastRow`, `ReflectPastEntry` and `ReflectOpenEntry.hasWriting`. Correction only, at the founder's word; no stage, size or order changes.

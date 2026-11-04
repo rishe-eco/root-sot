@@ -1,7 +1,7 @@
 # Root · ریشه — The Development Engine (Five Phases)
 *Source of truth. Short on purpose. How we discover and build each pillar. Update the changelog; don't fork.*
 
-**Version 0.1 (draft) · 2026-07-14 · Owner: _root**
+**Version 0.2 (draft) · 2026-10-18 · Owner: _root**
 
 ---
 
@@ -44,8 +44,19 @@ Uniform process across non-uniform uncertainty is waste. A pillar with strong an
 - Exact done-checklists per phase gate (drafted in `02-async-coordination.md`, sharpened by piloting).
 - How Phase 5 feature specs are versioned as they graduate into canon.
 
+## 7. Journey's child version: the loop is the unit (2026-10-18)
+
+Journey is now built loop-first (decision log, 2026-10-18), so for the child version three things in this file change and the rest holds.
+
+- **The unit under test is the loop, not a pillar.** The tree's root is a loop-level outcome — *a person goes from a need they named to a goal they are pursuing, and the loop keeps feeding itself after that* — and opportunities are found **at the seams** (need → reflect, reflect → goal, failure → reflect, and so on) as often as inside one pillar.
+- **The WIP limit becomes one loop test at a time.** The loop is always the thing in Phase 3; a seam or a pillar is deepened by running a loop with that part changed. Two changes tested at once still confound, which is what the original limit protected against.
+- **"Pilot on low novelty, not Impact" (§5) is suspended for the child version**, because the first act opens on Impact by design. What it protected — not confusing *is the process working* with *is the idea right* — is now carried by **per-seam evaluation**: each handoff gets its own pre-written question and signal, on the model of Noticing's spine feel-test (`../../working/impact-build/03-spine-evaluation.md`), so a loop that fails can be located rather than only observed.
+
+Standalone pillar work, if a pillar later splits off, runs the engine as written above.
+
 ---
 
 ## Changelog
 
 - **0.1 · 2026-07-14** — Initial draft. Five phases from the reworked engine; the 14-step checklist folded into tree-building; WIP limit, variable depth, pilot-low-novelty and don't-specify-before-contact disciplines.
+- **0.2 · 2026-10-18** — Added §7: for Journey's child version the **loop is the unit** — loop-level outcome, opportunities at the seams, one loop test at a time, and the low-novelty pilot rule suspended in favour of **per-seam evaluation**. §1–§6 unchanged for standalone pillar work. Decision log 2026-10-18.

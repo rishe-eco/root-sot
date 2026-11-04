@@ -2,7 +2,7 @@
 
 *Source of truth. The bug catalogue and hygiene items. Status must be re-verified — read the grounding note. Update the changelog; don't fork.*
 
-**Version 0.9 · Status: mixed (see per-item grounding) · 2026-10-21 · Owner: _root**
+**Version 0.10 · Status: mixed (see per-item grounding) · 2026-10-22 · Owner: _root**
 
 ---
 
@@ -14,6 +14,7 @@
 - **B-2 — Toggle doesn't persist checked state** (`ActionPreview` `useEffect` dep). Fixed 2026-07-16.
 - **B-3 — "Show more" hides the Add-action button** (`ProjectPreview`). Fixed 2026-07-16.
 - **A dead session never redirected to login.** `isAuthenticated` was `!!token` — presence, not validity — so an expired or server-rejected JWT kept the app signed in while every request failed; only a manual logout recovered it. Fixed 2026-09-21 (D-60): expired tokens are dropped at boot and an `Unauthorized` reply signs out centrally. **It was never on this list**, which is the part worth keeping: every page handled its own failure politely, so an app-wide break looked like a series of unrelated local ones. It surfaced only when a brand-new tool was opened on an old session, and had plausibly been reachable since the dev database was reset during the Noticing build.
+- **A curly apostrophe missed Noticing's and Reflect's triggers.** Phone keyboards type `’` (U+2019), and the fold didn't map it to the `'` the lexicons are written with, so `bad if i don’t` (Noticing) and `didn’t care` (Reflect) never fired. Fixed 2026-10-22 (`47d4c87` in `rishe-eco/tracker`): all three copies of the fold now map `’` to `'`. Feelings & Needs' fold is unchanged, since none of its triggers has an apostrophe. Found by a probe at Reflect's `verify B3`; it was never on this list.
 
 ## Open — data integrity (highest priority to re-verify)
 
@@ -103,6 +104,7 @@ Before working a bug, re-read the cited file(s), confirm the issue still reprodu
 
 ## Changelog
 
+- **0.10 · 2026-10-22** — The curly-apostrophe miss in Noticing's and Reflect's matchers recorded as fixed: the founder chose the fold after `verify B3`.
 - **0.9 · 2026-10-21** — B-16 (`updateAction`'s estimate gap) and B-17 (the progress bar in RTL) added, both found building Focus Periods (D-61).
 - **0.8 · 2026-09-21** — The **dead-session redirect** bug recorded as fixed (D-60), and the token-in-console leak struck from Hygiene. Both are noted as *never having been on this list*: the first was masked by per-page error handling, the second by nobody reading the console on a page that worked.
 - **0.7 · 2026-08-25** — The review ladder never expanded, in any of the six labs, since the engine's first version: nothing wrote `reviewIntervalIndex` and neither review-outcome function was ever called. Fixed and recorded as closed (D-52). Found by diffing an unmerged branch, not by a review pass — no walkthrough would have caught it, since the symptom is a review date that is only wrong relative to what it should have been several reviews later.

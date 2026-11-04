@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.38 · Status: living · 2026-10-21 · Owner: _root**
+**Version 0.39 · Status: living · 2026-11-04 · Owner: _root**
 
 ---
 
@@ -33,6 +33,14 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-10-20 | **add_focus_periods** | `FocusPeriod` and the explicit join `FocusPeriodProject` (with `addedAt`) — **Focus Periods**, a dated lens over a few projects. The first module built on the lifecycle method. See D-61. |
 
 ## 2. Key decisions
+
+### D-62 · Tracker becomes Journey's child version — 2026-10-18
+
+Root decided to build Journey **loop-first** (Root decision log, 2026-10-18): a thin version of the whole loop before any pillar is deep, rather than five standalone pillar apps integrated later. That loop is built **here**. Tracker stops being only a staging ground for separate apps and becomes Journey's **child version**; residents can still migrate out if one earns its own product, and the 2026-08-01 rule that location does not decide ownership stands.
+
+**What it means in this repo, before any code.** Five minimum specs in Root's `../../ecosystem/working/journey-build/` will land here in order: **minimum Reflect** (the first act's step 2 and the loop's critical path; Journals and Noticing's motive chip are its only precursors), a **batteries check** (Maintain), a **goal capacity check**, **failure-and-ignoring handling** (the goal-level failure concept `../canon/04-roadmap/02-refactor-toward-root.md` §3 lists as missing), and the **first act** with its overview. Each adds schema; convention #12 applies to each as it lands. The specs propose two small additions to `Goal` that are worth knowing about early: a **serves** link that is deliberately *not* part of the structural tree (so D-4's single-parent rule and the status cascade are untouched), and an explicit **close** (`closedAt` / `closedAs`) — the first time a goal can end as anything other than done.
+
+*Set aside:* building the first act as a separate app beside Tracker. *Origin:* founder direction, 2026-10-18.
 
 ### D-61 · Focus Periods: a lens over a few projects, with no tally — 2026-10-21
 
@@ -669,6 +677,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.39 · 2026-11-04** — D-62 added (decided 2026-10-18 on `docs/journey-loop-first`, merged 2026-11-04; it was numbered D-61 there, which Focus Periods took on main): **Tracker becomes Journey's child version** — Root builds Journey loop-first, and the thin whole loop is built here; five minimum specs (Reflect, batteries, capacity, failure-and-ignoring, the first act) queued in Root's `working/journey-build/`. No code, no migration yet.
 - **0.38 · 2026-10-21** — D-61 added, and the migration timeline extended with `add_focus_periods`. **Focus Periods**: a dated lens over a few projects with its own tab and a no-tally look-back, the first Tracker module built on the lifecycle method (Sonnet lanes for B1 and B3, Opus for B2). Records the explicit join, the client-sent date key, the narrow server copy of the done rule, and two defects found outside the feature (`Milestone.goal`, fixed; the `updateAction` estimate gap, B-16).
 - **0.37 · 2026-09-21** — D-59 and D-60 added, and the migration timeline extended with `add_noticing` and `noticing_frame_completed_at_nullable`. **D-59: Noticing is built and merged** — the Impact pillar’s first surface here, sharing nothing with Feelings & Needs (least of all the needs palette, reversed on scope the day it was decided), the source of §12’s permission for a rehearsal to break house style, and the origin of fences-as-tests. Phase 8 and Gate A remain unrun and human. **D-60: a dead session is decided in one place** — `isAuthenticated` was presence rather than validity, and per-page error handling is what let an app-wide break pass for a series of local ones for weeks.
 - **0.36 · 2026-09-21** — D-58 added: **TagPicker is never a dead end.** An empty tag vocabulary made every form's tag picker a label above an empty void (the "+ tag" control only rendered when unselected tags existed), with no in-form path to create the first tag. The picker now always offers an inline create-and-attach field + empty-state hint + a link to the manager; `useTagVocabulary` shares the load/create logic across all four forms. Client-only, no migration. 215/215 client · tsc + i18n clean.

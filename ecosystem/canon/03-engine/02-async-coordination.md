@@ -1,7 +1,7 @@
 # Root · ریشه — Async Coordination
 *Source of truth. Short on purpose. How a remote team of three stays integrated without daily presence. Update the changelog; don't fork.*
 
-**Version 0.3 (draft) · 2026-07-29 · Owner: _root**
+**Version 0.4 (draft) · 2026-10-18 · Owner: _root**
 
 ---
 
@@ -28,7 +28,7 @@ Handoffs happen via the **tree + decision notes**, not conversation. The only *r
 
 - **View A — Task kanban:** who has what, status columns. Simple kanban suffices.
 - **View B — Opportunity Solution Tree:** Affine edgeless canvas; the living artifact per pillar.
-- **View C — Pillar portfolio:** pillar cards in *phase* columns (Phase 1…5), with the WIP limit visible so overload is obvious at a glance. Also where ongoing tracks (root-cast, Journey integration) sit — these are *not* pillars and don't run the discovery engine.
+- **View C — Pillar portfolio:** pillar cards in *phase* columns (Phase 1…5), with the WIP limit visible so overload is obvious at a glance. Also where ongoing tracks (root-cast) sit — these are *not* pillars and don't run the discovery engine. *(2026-10-18: Journey is no longer an integration track beside the pillars — it is the loop the pillars are deepened inside; see `00-five-phase-engine.md` §7.)*
 
 AFFiNE is the agreed home for all three. It keeps the *living* layer; the *canonical* layer lives in the markdown canon repo (see README). Watch the one seam: pillar **definitions** (canon, repo) vs. pillar **feature-specs-in-progress** (living, AFFiNE).
 
@@ -36,7 +36,7 @@ AFFiNE is the agreed home for all three. It keeps the *living* layer; the *canon
 
 ## 6. Coherence counterweight
 
-Independent execution needs a shared canonical level or the pillars drift (different UX vocabularies, incompatible data models, divergent readings of the philosophy) and the eventual merge into Journey becomes a rewrite. The canon repo *is* that counterweight; keep it current. Note the two questions this separates: *when to merge* pillars into Journey (a product signal, later) vs. *how to stay coherent while separate* (this file, from day one).
+Independent execution needs a shared canonical level or the pillars drift (different UX vocabularies, incompatible data models, divergent readings of the philosophy). The canon repo *is* that counterweight; keep it current. *(2026-10-18: with Journey built loop-first the pillars are no longer separate to begin with, so the merge-becomes-a-rewrite risk is gone; the counterweight now guards the opposite risk — a pillar that later splits off taking a private vocabulary with it.)*
 
 ## 7. Open questions
 
@@ -45,7 +45,7 @@ The first two are **drafted but unpiloted** — `../../working/affine-workspace.
 - ~~The concrete Affine workspace structure and kanban/canvas templates.~~ *Drafted: five-doc workspace, View C as pillar-cards-in-phase-columns with the WIP limit written into the column name, View A as a five-column kanban with ID-prefixed cards.*
 - ~~Linking view A task cards to view B tree nodes.~~ *Drafted: tree node IDs as card titles, tool-independent by design.*
 - **New, and unanswered:** how a closed loop's tree is snapshotted. The canon is versioned; canvases are not, so the tree that justified a Phase 4 decision is overwritten by normal use. Options in `../../working/affine-workspace.md` §6.
-- The Journey integration indicator (product decision, tracked in the log).
+- ~~The Journey integration indicator~~ — inverted 2026-10-18: whether and when a pillar splits off from Journey (decision log).
 
 ---
 
@@ -54,3 +54,4 @@ The first two are **drafted but unpiloted** — `../../working/affine-workspace.
 - **0.1 · 2026-07-14** — Initial draft. Gate-as-handoff, tree-travels/meetings-exceptional, WIP + parallelism pattern, three Affine views, coherence counterweight.
 - **0.2 · 2026-07-22** — §5: **AFFiNE now deployed** (was "setup deferred") — containerized on the VPS behind Nginx with WebSocket headers; spelling normalized to AFFiNE. Workspace/templates remain to be built.
 - **0.3 · 2026-07-29** — §7: the workspace-structure and A→B-linking questions are drafted (unpiloted) in `../../working/affine-workspace.md` and `../../working/affine-canvas-notation.md`. Added the unversioned-canvas gap as a new open question. No change to the three views themselves.
+- **0.4 · 2026-10-18** — Journey is no longer an integration track: View C note, §6 and §7 updated for the loop-first build (decision log 2026-10-18).
