@@ -2,7 +2,7 @@
 
 *Ecosystem-level sequencing: which pillar and which business stream get worked next, and where each sits in the five-phase engine. **Skeleton** — see the note below before relying on it. Update the changelog; don't fork.*
 
-**Version 0.6 · Status: skeleton (assembled, not authored; §3 is as-built) · 2026-10-18 · Owner: _root**
+**Version 0.7 · Status: skeleton (assembled, not authored; §3 is as-built) · 2026-11-04 · Owner: _root**
 
 ---
 
@@ -36,7 +36,7 @@ Source: `canon/02-pillars/`, `working/`, and the canon log.
 |---|---|---|
 | **Organize** | past the engine — as-built | Prototyped in **Tracker** — a personal staging app, not itself the pillar (decision log, 2026-08-01) — mid-transformation toward the pillar. Its own sequence is `../tracker/roadmap.md`. Did not come through the engine; it predates it. |
 | **Grow (Learn)** | **Phase 1, active** | Module 1 (Feelings & Needs) discovery is the live workstream — `working/learn-discovery/`. `01-research-criteria-and-method.md` done; method artifacts then participant criteria next, produced one at a time. Six hypotheses H1–H6, with H6 split into H6a/H6b on 2026-07-22. English-only for the first build. |
-| **Reflect** | **minimum specced, next to build** | Step 2 of Journey's first act and the child version's critical path (2026-10-18). Minimum Reflect: `working/journey-build/02-reflect-minimum.md`. Carries the reconstrual / self-distancing finding folded in on 2026-07-22. |
+| **Reflect** | **minimum specced, next to build** | Step 2 of Journey's first act and the child version's critical path (2026-10-18). Minimum Reflect: `working/journey-build/02-reflect-minimum.md`. Carries the reconstrual / self-distancing finding folded in on 2026-07-22. An earlier Act 1 concept and wireframes, **Re-seeing** (2026-09-30, `working/reflect-build/`), predate the loop-first pivot and are not the live spec. |
 | **Maintain** | **batteries check specced** | The read informs a goal and never gates it (2026-10-18). `working/journey-build/03-batteries-check.md`. |
 | **Impact** | concept · **Act 1 built, unjudged** | Named 2026-09-20 (`canon/02-pillars/impact.md`); Persian name open. Act 1 = **Noticing** (`working/impact-build/`) — phases 1–7 built and **merged to Tracker `main` 2026-09-21**. **Phase 8 (two-week feel-test) and Gate A (three-day disconfirming smoke) are human and have not been run**, so the code exists and the verdict does not. |
 
@@ -91,6 +91,7 @@ Named so the gap is explicit rather than silently empty:
 
 ## Changelog
 
+- **0.7 · 2026-11-04** — §2 Reflect row: points to `working/reflect-build/`, the Act 1 concept and wireframes (**Re-seeing**, 2026-09-30) written on a branch that was only merged now. They predate the 2026-10-18 loop-first pivot; minimum Reflect (`working/journey-build/02-reflect-minimum.md`) stays the live spec.
 - **0.6 · 2026-10-18** — **Journey reworked loop-first** (decision log 2026-10-18). §1: for Journey the unit in test is the loop. §2: Reflect (minimum specced, next to build) and Maintain (batteries check specced); the Learn-holds-the-slot implication superseded by the child version's build order. §4 rewritten around the first act and `working/journey-build/`. §5 and §6.2 updated: Journey V1 is off the parked list.
 - **0.5 · 2026-08-01** — §3: **Contracts' urgency stood down** — a live first client is no longer the driving milestone, so email leaves the critical path (decision log, 2026-08-01). The stream now runs on depth: versioning to completion, then the Research Lab, per `working/root-website-build-plan.md`.
 - **0.4 · 2026-08-01** — §3: the Postgres blocker named in 0.2 is **cleared** — the stack ran against a real database and the initial migration is committed. Email and design-image upload remain; the upload now has a spec. Corrected because 0.2's wording had gone stale the same day it was contradicted by the code.
