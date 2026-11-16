@@ -35,6 +35,9 @@ These are current working documents, not canon. They change as the work proceeds
 ## Personal / dogfooding
 - **`root-goals-update.md`** — a schema-agnostic spec of the founder's own goals/sub-goals/routines/intervals (Health, Root, Personal, P) to be written into the Journey/tracker database via Prisma — i.e. the founder dogfooding the app. Contains explicit CONFIRM items and safety rules for the write. *(2026-07-21.)*
 
+## Housekeeping
+- **`consistency-audit-2026-11-16.md`** — **a worklist, not a spec**: the places where documents disagree with each other, with the code repos or with the current direction (roadmap §0, ADR 0002), found in one read of all four repos on 2026-11-16. 32 items, each with where it is and what would settle it. Delete items as they are settled. *(2026-11-16; Claude's findings, not yet read by the founder.)*
+
 ## Brand assets
 - **`Color pallete choice.png`** — brand colour-palette selection (visual identity). *(2026-07-21.)*
 
