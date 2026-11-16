@@ -2,13 +2,63 @@
 
 *Ecosystem-level sequencing: which pillar and which business stream get worked next, and where each sits in the five-phase engine. **Skeleton** — see the note below before relying on it. Update the changelog; don't fork.*
 
-**Version 0.7 · Status: skeleton (assembled, not authored; §3 is as-built) · 2026-11-04 · Owner: _root**
+**Version 0.8 · Status: §0 is the current direction and state (2026-11-16); §1–§6 are the earlier skeleton, kept and marked where §0 overtakes them · 2026-11-16 · Owner: _root**
 
 ---
 
 > **Read this first.** The Root canon has never had a roadmap file. Ecosystem-level roadmapping lived in the living layer (Affine), and the canon deliberately kept feature-spec detail out until a pillar clears Phase 5. This file was created at repo consolidation on 2026-07-29 to fill the slot in the planned structure, and it contains **only sequencing that is already decided somewhere in this repo, with the source cited.** It invents nothing. Where the material is silent it says so rather than guessing.
 >
 > Two consequences: **(1)** there is no dated plan here, because none exists in the sources; **(2)** the two largest streams below are explicitly *pending a rework session* and their detail is on hold by decision, not by oversight.
+
+## 0. Now — the direction, and where things stand (2026-11-16)
+
+*Read this section first; it is the page that says where things are. Written by Claude on 2026-11-16 from the founder's account in conversation and from a read of all four repos that day. The founder has not yet read this wording. Marks: **founder** (their words, condensed), **as-read** (from the repos on 2026-11-16, not re-verified against running systems), **inferred**.*
+
+### 0.1 Where we are going
+
+The decision is recorded in [ADR 0002](decisions/0002-product-ladder-to-hamrah-prototype.md) (proposed). In short *(founder)*:
+
+- **The goal:** by about the third week of January 2027, a working prototype of what the Hamrah showcase video shows (`working/root-studio-hamrah-vision.md`, `working/hamrah-showcase/`).
+- **The way there:** prepare a simple product, sell it to a set number of people, use the sales to learn what to automate, and move step by step toward the prototype.
+- **Four product tiers:**
+
+  | Tier | What it is | Standing |
+  |---|---|---|
+  | **C** | A simple website pack, sold directly | **current work** |
+  | **B** | The AI website creator (Hamrah) | **next** |
+  | **A** | The website and everything around it: SEO, marketing strategy, CRM, accounting, social media | set aside for now |
+  | **S** | Software as a service built for a particular institution, group or team | set aside for now |
+
+- **Set aside for now:** tiers A and S, and the larger part of Root Studio's earlier plan.
+- **Journey is not dropped.** Its principles are followed in Root's own internal work first and watched there; what is learned is then applied to Journey itself. Building Journey as a product is not the current work.
+
+### 0.2 Where each piece stands
+
+| Piece | State | Mark |
+|---|---|---|
+| **Tier C** | Being defined now: what is in the pack, how many buyers, the price. Nothing about it is written in this repo yet. | founder |
+| **Finding buyers** | The social acquisition test (`working/root-studio-social-acquisition-test.md`) was extended from four weeks to six. It is in week 3, with little done so far. | founder |
+| **What customers have said** | Some pieces are in use, with no feedback coming back. One customer cancelled in November 2026; the reason is not yet known. | founder |
+| **Tier B · Hamrah** | Vision 0.3 and a showcase video (first cut 2026-10-26). No prototype code exists. | as-read |
+| **root-app** (Studio's site, portal and desk) | The whole contract-to-delivery pipeline is built and on `main`, which has deployed on every push since 2026-10-20. The journeys build is 20 of 20 stages. Four changes followed on 2026-11-12 (VA1, SC1, US1, CC1) after the founder walked the portal; none has a change note in this repo. | as-read |
+| **Nahal** | Root Studio's first full client build (ADR 0001). Work on it continues, and it is the source of `working/wordpress-learnings/`. | as-read |
+| **Journey in Tracker** | Paused where it stood on 2026-10-23: Reflect 7 of 8 stages (B7 unbuilt), the capacity check at intake and research, the batteries check, failure handling and the first act specced only. Noticing is built; no record of its feel-test being run. | as-read |
+| **Journey's principles in Root's own work** | Under way as practice. Nothing in this repo records it yet. | founder |
+| **Learn · Module 1** | The demo is built in Tracker. The discovery interviews are planned and not run; the last new discovery work is dated 2026-07-30. §2 below still calls it "Phase 1, active". | as-read |
+| **The six skills labs** | Built in Tracker. Their content checks are still owed (`../team/open-work.md`, items 1–13). | as-read |
+| **The lifecycle method** | All twenty skills built 2026-10-21. Used on Reflect B0–B6 and on TK1, NR1 and B-15. Not used for the November root-app changes. | as-read |
+| **IMNSTR** | Outside Root. Built and closed out; its evaluation and real content are owed (`../imnstr/open-work.md`). | as-read |
+
+### 0.3 What this overtakes below
+
+- **§2's build order** for Journey's child version is paused, not cancelled. *(inferred; to confirm)*
+- **§3's decided order** (brand → design → website → social) and its "runs on depth" sequence are overtaken by the tier ladder. §3 stays as the record of how root-app came to be.
+- **§4** still describes Journey V1 correctly as a product with no deadline. It is no longer the current work.
+- **§6.3** (Root Studio against Journey V1) is answered: the C-then-B ladder comes first.
+
+### 0.4 What is still open
+
+Listed once, in ADR 0002's *Open* section: the tier C pack, its buyers and price; what counts as the January prototype; which parts of the Studio plan are set aside; whether the acquisition test feeds tier C; and where the record of Journey's principles in Root's own work lives. The mismatches found between documents on 2026-11-16 are in `working/consistency-audit-2026-11-16.md`.
 
 ## 1. The engine that governs sequence
 
@@ -46,6 +96,8 @@ Source: `canon/02-pillars/`, `working/`, and the canon log.
 
 ## 3. Root Studio — the business stream
 
+> **Overtaken 2026-11-16 — see §0.** The order and sequence below were set aside when the tier ladder was adopted (ADR 0002). Kept as the record of how `root-app` was built. Its account of the code stops at 2026-08-01; §0.2 has the current state.
+
 The one stream with a **decided order** (`working/README.md`, brand canon §6–§7):
 
 > **define brand first** (research → positioning / identity) → **design** → **website** → **social / representation**
@@ -63,6 +115,8 @@ Solo for now, with help possible on parts later. Formerly "Root Dev"; renamed to
 The v2 build brief (`working/root-website-requirements_2.md`, 2026-07-08 — design tokens, bilingual/RTL, process) **still holds**; v3 extends rather than replaces it. Keep both.
 
 ## 4. Journey V1 — the product stream
+
+> **Not the current work since early November 2026 — see §0.** Journey is carried as practice in Root's own internal work first (ADR 0002, point 5). What follows is still the latest description of Journey as a product.
 
 **Reworked 2026-10-18 — loop-first** (decision log). The "changes have come to light" that held this section turned out to be a change of build order, not of scope: Journey is built as **a thin version of the whole loop first** — Tracker as its *child version* — and each pillar deepens inside it; a pillar becomes its own product only if one fits.
 
@@ -84,13 +138,14 @@ Named so the gap is explicit rather than silently empty:
 
 1. **A decision on what follows Learn Module 1** — whether Learn runs further loops or another pillar takes the Phase-3 slot.
 2. **The outcome of the rework session** — *half-answered 2026-10-18:* Journey's build order is decided (§4). §3 and §4 still cannot be sequenced against each other, and this file still has no dates.
-3. **Relative priority of Root Studio vs. Journey V1.** The founder's personal priority order is recorded as *P → Root → Monster Podcast* (`working/root-goals-update.md`), but that is a personal time-allocation, not a product sequence. The two are not the same thing and shouldn't be conflated.
+3. ~~**Relative priority of Root Studio vs. Journey V1.**~~ **Answered 2026-11-16** (ADR 0002, proposed): the tier C then tier B ladder comes first; Journey is carried as practice inside Root's own work. The original wording follows. The founder's personal priority order is recorded as *P → Root → Monster Podcast* (`working/root-goals-update.md`), but that is a personal time-allocation, not a product sequence. The two are not the same thing and shouldn't be conflated.
 4. ~~**Whether the Skills Engine R&D belongs to Learn or to Tracker.**~~ **Resolved 2026-08-01** (decision log): it belongs to **Grow (Learn)**; Tracker is a staging ground that hosts it for now, and code location does not determine pillar ownership. See §2's "two content families" note.
 
 ---
 
 ## Changelog
 
+- **0.8 · 2026-11-16** — **New §0: the current direction and the state of every piece.** The three-month goal (a Hamrah prototype by about the third week of January 2027), the sell-first path, the four product tiers (C current, B next, A and S set aside) and Journey carried as practice in Root's own work, all from the founder's account and recorded as ADR 0002 (proposed). §0.2 is a state table read from the four repos on 2026-11-16. §3 and §4 marked as overtaken or not current; §6.3 answered. Nothing in §1–§6 was deleted. Written by Claude; not yet read by the founder.
 - **0.7 · 2026-11-04** — §2 Reflect row: points to `working/reflect-build/`, the Act 1 concept and wireframes (**Re-seeing**, 2026-09-30) written on a branch that was only merged now. They predate the 2026-10-18 loop-first pivot; minimum Reflect (`working/journey-build/02-reflect-minimum.md`) stays the live spec.
 - **0.6 · 2026-10-18** — **Journey reworked loop-first** (decision log 2026-10-18). §1: for Journey the unit in test is the loop. §2: Reflect (minimum specced, next to build) and Maintain (batteries check specced); the Learn-holds-the-slot implication superseded by the child version's build order. §4 rewritten around the first act and `working/journey-build/`. §5 and §6.2 updated: Journey V1 is off the parked list.
 - **0.5 · 2026-08-01** — §3: **Contracts' urgency stood down** — a live first client is no longer the driving milestone, so email leaves the critical path (decision log, 2026-08-01). The stream now runs on depth: versioning to completion, then the Research Lab, per `working/root-website-build-plan.md`.
