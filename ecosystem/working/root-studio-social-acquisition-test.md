@@ -4,7 +4,8 @@
 
 **From:** _root
 **Status:** **Draft, 0.1 — for the founder to shoot at.** The strategy is the founder's decision; the plan's detail is Claude's proposal and has not been reviewed.
-**Version:** 0.4 · 2026-10-26 · Owner: _root
+**Version:** 0.5 · 2026-11-16 · Owner: _root
+**Running status, 2026-11-16** *(founder)*: the test was extended from four weeks to **six**. It is in its third week, and little of the plan has been done so far. Counted from the 31 October start in §4, six weeks end about 11 December *(inferred)*. §3 and §4 below still describe the four-week version and have not been re-planned. Whether this test is the channel for tier C's buyers is open ([ADR 0002](../decisions/0002-product-ladder-to-hamrah-prototype.md)).
 **Reads with:** [ADR 0001](../decisions/0001-studio-first-with-design-wedge.md) (the paid design phase is the front door), `root-studio-business-model.md` §10.1–10.2 (the assumptions this test feeds), `root-website-project-lifecycle.md` §1 (the Nahal story, the source of every proof claim here), and the brand definition `../canon/01-philosophy/01-brand-definition.md` (voice, refusals).
 
 **Grading.** Every claim carries one of four marks:
@@ -563,3 +564,4 @@ The design fee is credited in full against the build if the client continues wit
   - **Filled in:** the §6.3 tier table (with anchors from JobTeam, Sobelz, Sanjagh and Vista), the price reply (§5.5), the budget question (§6.1 Q6) and the proposal template.
   - **Added:** a capacity note of one design phase at a time during the test, and a price review at week 4.
   - §8 now holds only the deferred Persian accounts and the external designer's rate. Nothing is left blocking week 1.
+- **0.5 · 2026-11-16**: Header gains a running-status line: extended to six weeks, in week 3, little done so far (founder, 2026-11-16). The plan itself is unchanged and still reads as four weeks. Written by Claude from the founder's account.
