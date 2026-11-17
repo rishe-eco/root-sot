@@ -3,8 +3,8 @@
 *What this is: the founder's live walkthrough of the staff desk's contract pages (2026-11-16), turned into an agreed list of changes: a new step order, fewer tabs, simpler inputs, one bug, and the conversion of older contracts onto the new layout. Each change says what it is, what the code does today, and what it costs underneath.*
 
 **From:** _root
-**Status:** **Draft, 0.1 — agreed in conversation, not yet planned or built.** Every item was confirmed by the founder in the session; the ones that were Claude's proposals are marked as such. Nothing here has a build stage yet.
-**Version:** 0.1 · 2026-11-16 · Owner: _root
+**Status:** **0.2 — built in root-app, on local `main`, not deployed.** 0.1 was agreed in conversation; Every item was confirmed by the founder in the session; the ones that were Claude's proposals are marked as such. Nothing here has a build stage yet.
+**Version:** 0.2 · 2026-11-17 · Owner: _root
 **Reads with:** `root-studio-user-journeys.md` (the step order this file revises, §4) and `root-studio-journeys-build-plan.md` (the J-stages that built today's desk).
 
 **Why.** The founder has put several contracts through the desk and found it confusing every time: two rows of tabs, the same list editable in two places, steps that look alike, and inputs that fight the user. The aim is a desk where it is always clear where you are, whose turn it is, and where each thing is edited.
@@ -150,7 +150,22 @@ A first reading of the data and API work, for whoever plans the stages:
 - **Conversion rules** (item 34): what an older contract shows in Requirements, Pages and features, and Phases and payment, which it never had; how its design options and page images appear in the Design step; what happens to its `checkedAt` ticks. To be settled when the stage is planned, with the founder.
 - **One-language titles and the customer** (item 26): when the customer's language has no title, do they see the other language's title plainly, or with a mark? Not discussed.
 
+## 6. Decided during the build (0.2)
+
+*Graded **founder** where the founder answered on 2026-11-17, **Claude** where Claude decided while the founder was away (the reasoning per decision is in root-app's stage records `docs/development/DX1.md` … `DX4.md`).*
+
+- **§5 settled** *(founder)*: the prefix is **`R-`** (`R-1405-001`); a title missing in the reader's language shows the other language's plainly, no mark; **no conversion** of older contracts — the only one is unsigned and the founder recreates it on the new road (item 34 dropped; the legacy tabs stay for it meanwhile); an invoice due on a date is **issued by staff** when the day comes, no scheduler; one deploy at the end.
+- **Stages as built** *(Claude)*: DX1 (inputs, the draft, item 33), DX2a (the PHASES step, No design, three tabs off), DX2b (what a phase is, snapshot format 3), DX3b (reference, New customer), DX3a (handover items, preset), DX3c (duplicate), DX4 (one title field, autosave).
+- **Item 33's cause** *(as-built)*: the contract template has no English body for 12 of 15 articles; the API now says when a body is withheld (`bodyWithheld`).
+- **Item 12** *(Claude)*: phases and payment lock at the agreement's **approval**, like steps 1–3, not at signing; a phase's item set stays editable after signing (the build flow assigns items then).
+- **Item 10** *(Claude)*: a scope item's phases are a set; its acceptance is by the last of them. A phase's "done" is one rule (demo approved, or no demo and marked done) read by invoices, delivery and the wizard.
+- **Snapshots** *(Claude)*: one new format 3 carries hasDemo, item phase sets, dated invoices and the handover list; one-language titles are `''` in the other key, so format 3 keeps its shape. Format 1 and 2 bytes untouched (a test pins the format-2 hash).
+- **Items 7, 8, 20** *(Claude)*: the dependency row *is* the handover item; the brief's three provider columns are migrated into rows and dropped; each provider is optional; rows added after the lock are board-only.
+- **Item 26** *(Claude)*: "either language is enough" covers the titles typed on the contract workspace; the library, templates, services and site types keep both required.
+
 ## Changelog
+
+- **0.2 · 2026-11-17** — Built across seven stages in root-app (DX1–DX4), merged to local `main`, not deployed. §6 records the founder's answers to §5 and the decisions taken in the build.
 
 - **0.1 · 2026-11-16** — Initial. The founder's live walkthrough of the desk's contract pages, recorded as 34 items in eleven groups; grounded in `root-app` @ `60d75c3`, read only. Revises `root-studio-user-journeys.md` §4's step order and the desk's tabs.
   - **Decided by the founder:** the new step order with *Phases and payment*; the top row cut to Steps, Contract, Dependencies, Activity, Notes; the Dependencies tab kept and shared with Requirements, signed rows locking; price set in the Contract tab and the plan held to it; dates typed by hand; demo setup in each Demo step; every older contract converted after a backed-up release.
