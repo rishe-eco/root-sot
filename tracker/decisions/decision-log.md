@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.53 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.54 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -33,6 +33,14 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-10-20 | **add_focus_periods** | `FocusPeriod` and the explicit join `FocusPeriodProject` (with `addedAt`) — **Focus Periods**, a dated lens over a few projects. The first module built on the lifecycle method. See D-61. |
 
 ## 2. Key decisions
+
+### D-77 · Tension has three sizes in words, is the larger of its two parts, and is never totalled or charted — 2026-11-19
+
+Tension (`../drafts/session-rhythm.md` §8b) is read in three sizes, in words: **light, heavy, very heavy**; no mark means none. An item's tension is the **larger** of its calculated part (from requirements) and its marked part (set by the person), never their sum; the calculated part is mapped onto the same three words. Both proposed fences hold: **no tension total across items, and no history chart.** Binds stage 5b; Galaxy draws the three sizes once 5b exists.
+
+*Why:* words, like the battery reads (D-66), resist becoming a number to bring down; three sizes are enough to draw as size; "the larger of" avoids arithmetic on a feeling. *Cost, accepted:* coarser than the five steps Galaxy's probe used, and the calculated part has to be fitted to three words.
+
+*Decided by:* the founder, 2026-11-19, choosing "three words, fences hold" over Galaxy's five-step scale. It was Claude's recommendation.
 
 ### D-76 · A one-off deep-work block is a Time Theme with one date, made from the look-ahead — 2026-11-19
 
@@ -817,6 +825,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.54 · 2026-11-19** — D-77 added: **tension** is three sizes in words (light, heavy, very heavy), the larger of its calculated and marked parts; no total across items, no chart. Binds stage 5b.
 - **0.53 · 2026-11-19** — D-76 added: **a one-off deep-work block is a Time Theme with one date**, made from the look-ahead; past one-offs hidden from the theme list. Binds stage 2.
 - **0.52 · 2026-11-19** — D-75 added: **a deep-work block surfaces items by time and never holds them**; D-54's order-not-membership rule stands. Binds stage 2.
 - **0.51 · 2026-11-19** — D-74 added: **no paper run**; the rhythm goes from spec to design to build, and the four-week test (D-68) is its first test in use.
