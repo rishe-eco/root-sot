@@ -132,20 +132,19 @@ code{font-family:var(--mono);font-size:10.5px}
 <body>
 <div class="wrap">
 
-<h1>Session rhythm, stage 1 — wireframes · draft 1</h1>
-<p class="sub">Module <code>tracker/modules/05-session-rhythm/</code> · Phase 4 · <code>wireframes</code>. Low fidelity: layout, content and states only. No brand, type or colour decisions. There is no design step for this module (4b skipped, founder, 2026-11-19), so <code>ux-review</code> reads these frames. Every step of <code>03-journeys.md</code> 0.2 is drawn here or listed in Coverage as having no screen.</p>
-<p class="sub"><b>Grading.</b> Every frame is <b>proposal</b>. Captions cite journey steps (<code>J1.7</code>), spec sections (§4.2) and acceptance criteria (AC-15) from <code>02-spec.md</code> 0.1. Anything drawn dashed in purple is a Suggested item from the journeys' §4 (S1 to S12): an option for <code>revise</code>, not a requirement. Calls these frames made themselves are W1 to W26, at the foot. Dates follow the journeys: switch Monday 18 November, first session Wednesday 20, the due-day session Saturday 23, the return Monday 16 December.</p>
-<p class="sub"><b>Drawn marks.</b> <span class="cx"></span> the cross-out control (empty: not crossed; filled: crossed; dotted: none, "just to know"). <span class="ov" style="display:inline-block;height:12px"></span> the amber overlap mark. <span class="hd">⋮⋮</span> the drag handle. <b>+</b> in the top bar is the quick-capture control.</p>
+<h1>Session rhythm, stage 1 — wireframes · draft 2</h1>
+<p class="sub">Module <code>tracker/modules/05-session-rhythm/</code> · Phase 4 · <code>wireframes</code>. Low fidelity: layout, content and states only. No brand, type or colour decisions. There is no design step for this module (4b skipped, founder, 2026-11-19), so <code>ux-review</code> reads these frames. <b>Draft 2</b> redraws them from <code>02-spec.md</code> 0.2: the journeys' Suggested S1 to S12 are now requirements and drawn as plain UI, "Done for now" is "Skip the rest", the new criteria AC-65 to AC-75 are drawn, and the UX review's pass-1 layout findings (P1-F8 to F13, F16 to F18) are fixed. Plate numbers are kept. Every step of <code>03-journeys.md</code> 0.2 is drawn here or listed in Coverage as having no screen.</p>
+<p class="sub"><b>Grading.</b> Every frame is <b>proposal</b>. Captions cite journey steps (<code>J1.7</code>), spec sections (§4.2) and acceptance criteria (AC-15) from <code>02-spec.md</code> 0.2. No Suggested item is left: S1 to S12 became spec at 0.2 (§2.3 #19 to #30), so nothing is drawn dashed. Calls these frames made themselves are W1 to W39, at the foot (W27 onward are draft 2's). <code>03-journeys.md</code> 0.2 still says "Done for now" at J3.11 and J4.7; it is marked <code>STALE</code> until <code>journeys update</code> runs, and these frames follow the spec. Dates follow the journeys: switch Monday 18 November, first session Wednesday 20, the due-day session Saturday 23, the return Monday 16 December.</p>
+<p class="sub"><b>Drawn marks.</b> <span class="cx"></span> the cross-out control (empty: not crossed; filled: crossed; dotted: none, "just to know"). <span class="ov" style="display:inline-block;height:12px"></span> the amber overlap mark. <span class="hd">⋮⋮</span> the drag handle, which is also a button: a tap opens Move up and Move down (W27). <b>+</b> in the top bar is the quick-capture control.</p>
 <div class="legend">
   <span><i class="sw" style="background:var(--accent-bg)"></i>neutral notice</span>
   <span><i class="sw" style="background:var(--good-bg)"></i>success</span>
   <span><i class="sw" style="background:var(--warn-bg)"></i>amber: overlap, not saved, refused (never red)</span>
-  <span><i class="sw" style="border:1px dashed var(--sugg)"></i>Suggested (S-n), option only</span>
   <span><i class="sw" style="background:var(--border)"></i>placeholder text</span>
 </div>
 
 <!-- ───────────── 1 Today ───────────── -->
-<h2><span class="n">1</span>Today — default, fold open, loading, empty, right to left, and desktop</h2>
+<h2><span class="n">1</span>Today — default, fold open, Move up and Move down, loading, failed load, a crossing not saved, empty, right to left, and desktop</h2>
 <p class="lead">Today opens on the list with nothing before it: no Organize or Review button, no wizard, no locked state (§4.1, D-64). One quiet session line under the date (plate 2), timed items first, "Any time" after, crossed items in a closed fold at the foot. No count anywhere, not even on the fold.</p>
 <div class="board">
   <figure class="frame">
@@ -185,7 +184,25 @@ code{font-family:var(--mono);font-size:10.5px}
       <div class="row"><span class="cx on"></span><span class="tm"></span><span class="t st">Book dentist</span></div>
       <div class="foot"><span>tap a filled control to uncross</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J2.2 · J2.3 · J2.5 · J2.6 · AC-11 · AC-12 · AC-14 · AC-18 · AC-22 · §4.1 · §4.3 · fold open, dragging</p>Crossing strikes the title, then the row slides into the fold (no animation with reduced motion). Uncrossing in the fold returns it to its place in the order. Drag uses the handle only, and drops only among rows of the same start time or within "Any time" (W6); a drop never changes a time.</figcaption>
+    <figcaption class="cap"><p class="p">J2.2 · J2.3 · J2.5 · J2.6 · AC-11 · AC-12 · AC-14 · AC-18 · AC-22 · §4.1 · §4.3 · fold open, dragging</p>Crossing strikes the title, then the row slides into the fold (no animation with reduced motion). Uncrossing in the fold returns it to its place in the order. Drag uses the handle only, and drops only among rows of the same start time or within "Any time" (W6); a drop never changes a time. Uncrossing on the day it was crossed also undoes any move crossing made (AC-18, §2.3 #33).</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/today · move up, move down</div>
+      <div class="bar"><b>Tracker</b><span>☰ &nbsp;<b>+</b></span></div>
+      <div class="h">Today</div>
+      <div class="date">Thursday 21 November</div>
+      <div class="p">Next session: Saturday 23 November · <span class="lnk">Start now</span></div>
+      <div class="row"><span class="cx"></span><span class="tm">08:30</span><span class="t">Call the plumber</span><span class="hd">⋮⋮</span></div>
+      <div class="sec">Any time</div>
+      <div class="row"><span class="cx"></span><span class="tm"></span><span class="t">Stretch</span><span class="hd">⋮⋮</span></div>
+      <div class="row" style="background:var(--surface-1)"><span class="cx"></span><span class="tm"></span><span class="t">Read chapter 3</span><span class="hd">⋮⋮</span></div>
+      <div class="modal" style="margin:2px 0 6px auto;width:60%"><div class="lnk">Move up</div><div class="lnk">Move down</div></div>
+      <div class="row"><span class="cx"></span><span class="tm"></span><span class="t">Book dentist</span><span class="hd">⋮⋮</span></div>
+      <div class="note">A drag of "Read chapter 3" up among the timed rows is refused: the row slides back to "Any time", with no message.</div>
+      <div class="foot"><span>tap the handle: menu · hold and drag: move</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J2.5 · AC-11 · AC-74 · §4.1 · §2.3 #34 · ordering without dragging</p>A tap on the handle opens a two-line menu, Move up and Move down, with the same effect as a drag; a hold drags. At the top of its group Move up is not shown, at the bottom Move down. The grey note states the refused drop; it is not on-screen copy (W27).</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
@@ -204,15 +221,43 @@ code{font-family:var(--mono);font-size:10.5px}
   </figure>
   <figure class="frame">
     <div class="phone">
+      <div class="url">/today · failed to load</div>
+      <div class="bar"><b>Tracker</b><span>☰ &nbsp;<b>+</b></span></div>
+      <div class="h">Today</div>
+      <div class="date">Thursday 21 November</div>
+      <div class="card">Today didn't load. <span class="btn sm" style="margin-left:6px">Try again</span></div>
+      <div class="foot"><span>no list, no red; the top bar and + still work</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">States: Error · AC-70 · §4.10 · failed load</p>One line and <b>Try again</b> in place of the list. Neutral, not amber: nothing the person entered was lost. The session line is absent too, since it comes from the same load (W28).</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/today · a crossing not saved</div>
+      <div class="bar"><b>Tracker</b><span>☰ &nbsp;<b>+</b></span></div>
+      <div class="h">Today</div>
+      <div class="date">Thursday 21 November</div>
+      <div class="p">Next session: Saturday 23 November · <span class="lnk">Start now</span></div>
+      <div class="row" style="border-bottom:0"><span class="cx on"></span><span class="tm">08:30</span><span class="t st">Call the plumber</span></div>
+      <div class="card w" style="margin-top:0">Not saved. <span class="lnk">Try again</span></div>
+      <div class="row"><span class="cx"></span><span class="tm">10:00</span><span class="t">Team call</span><span class="hd">⋮⋮</span></div>
+      <div class="sec">Any time</div>
+      <div class="row"><span class="cx"></span><span class="tm"></span><span class="t">Read chapter 3</span><span class="hd">⋮⋮</span></div>
+      <div class="disc">Crossed out</div>
+      <div class="foot"><span>every other row still crosses and drags</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J5.9 · AC-69 · §4.10 · §2.3 #27 · error: not saved</p>The crossing failed: the row stays where it was, still shown crossed, with an amber "Not saved." and <b>Try again</b> under it. It moves to the fold only once saved. Nothing else is blocked (W29).</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
       <div class="url">/today</div>
       <div class="bar"><b>Tracker</b><span>☰ &nbsp;<b>+</b></span></div>
       <div class="h">Today</div>
       <div class="date">Thursday 21 November</div>
       <div class="p">Next session: Saturday 23 November · <span class="lnk">Start now</span></div>
-      <div class="sugg" data-g="S8 · Suggested · empty Today">One quiet line: "Nothing on today." No illustration, no button: the add control is already in the top bar. The "Crossed out" fold is hidden when nothing is crossed.</div>
-      <div class="foot"><span>empty</span></div>
+      <div class="p">Nothing on today.</div>
+      <div class="foot"><span>empty · no fold, no illustration, no button</span></div>
     </div>
-    <figcaption class="cap"><p class="p">States: Empty · §4.1 · §4.9 · <span class="s">S8</span></p>The spec has no empty Today. Drawn only as the Suggested option; the sentence's words are the requirement if S8 is taken.</figcaption>
+    <figcaption class="cap"><p class="p">States: Empty · AC-68 · §4.1 · §2.3 #26 · empty</p>One quiet line, "Nothing on today.", in the list's place. No illustration, no button: the add control is already in the top bar. The "Crossed out" fold is hidden while nothing is crossed.</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone" dir="rtl" lang="fa">
@@ -300,7 +345,7 @@ code{font-family:var(--mono);font-size:10.5px}
 </div>
 
 <!-- ───────────── 3 Quick capture ───────────── -->
-<h2><span class="n">3</span>Quick capture — open, choosing a day, saved, refused, not saved, right to left, and a key typed in a field</h2>
+<h2><span class="n">3</span>Quick capture — open, choosing a day, saved, refused, not saved, right to left, a key typed in a field, and desktop</h2>
 <p class="lead">Title, an optional day, an optional time, nothing else (§4.2, D-70). On a phone it rises as a sheet over the keyboard; on desktop it is a small centred modal (W8). Enter saves and closes; a short confirmation names the day.</p>
 <div class="board">
   <figure class="frame">
@@ -314,7 +359,7 @@ code{font-family:var(--mono);font-size:10.5px}
       </div>
       <div class="kb"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
     </div>
-    <figcaption class="cap"><p class="p">J2.7 · J2.9 · AC-23 · AC-24 · AC-27 · §4.2 · default</p>Opened with <code>N</code> or the top-bar <b>+</b>. Focus starts in the title; Tab reaches the day, the time and Add. The day reads "Today" until changed, so the empty date is visible as a choice (W9). Focus is trapped in the sheet.</figcaption>
+    <figcaption class="cap"><p class="p">J2.7 · J2.9 · AC-23 · AC-24 · AC-27 · §4.2 · default</p>Opened with <code>N</code> or the top-bar <b>+</b>. Focus starts in the title; Tab reaches the day, the time and Add. The day reads "Today" until changed, so the empty date is visible as a choice (W9). Tapping the "Today" chip opens the day chips of the next frame in its place; tapping "Time" opens the time field. Focus is trapped in the sheet.</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
@@ -326,11 +371,11 @@ code{font-family:var(--mono);font-size:10.5px}
         <div class="chips"><span class="chip">Today</span><span class="chip">Tomorrow</span><span class="chip on">Friday</span><span class="chip">Pick a date…</span><span class="chip">No date yet</span></div>
         <div class="lbl">Time (optional)</div>
         <div class="field ph">HH:mm</div>
-        <div class="sugg" data-g="S10 · Suggested · no past days">"Pick a date…" opens on today and offers no day before it; the server refuses a past date from capture.</div>
+        <div class="note">"Pick a date…" opens on today; no earlier day can be picked.</div>
         <div style="text-align:right"><span class="btn sm pri">Add</span></div>
       </div>
     </div>
-    <figcaption class="cap"><p class="p">J2.9 · J5.3 · AC-24 · AC-26 · §4.2 · choosing a day</p>Day as chips: today, tomorrow, the next named weekday ahead, a full picker, and "No date yet" (W9). No estimate, no project, no review setting: new captures are "ask me".</figcaption>
+    <figcaption class="cap"><p class="p">J2.9 · J5.3 · AC-24 · AC-26 · AC-71 · §4.2 · §2.3 #28 · choosing a day</p>Opened from the "Today" chip of the frame before, which it replaces. Day as chips: today, tomorrow, the next named weekday ahead, a full picker, and "No date yet" (W9). No estimate, no project, no review setting: new captures are "ask me".</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
@@ -371,10 +416,11 @@ code{font-family:var(--mono);font-size:10.5px}
       <div class="sheet" style="text-align:left">
         <div class="field">Book dentist</div>
         <div class="chips"><span class="chip on">Friday</span><span class="chip">Time</span></div>
-        <div class="sugg" data-g="S9 · Suggested · failed save">"Not saved." and <b>Try again</b> under the title; the text and the day stay; Escape still closes without saving.</div>
+        <div class="card w">Not saved. <span class="lnk">Try again</span></div>
+        <div style="text-align:right"><span class="btn sm pri">Add</span></div>
       </div>
     </div>
-    <figcaption class="cap"><p class="p">J5.9 · States: Error · §4.2 · <span class="s">S9</span></p>The spec draws no failed save. Drawn only as the Suggested option.</figcaption>
+    <figcaption class="cap"><p class="p">J5.9 · States: Error · AC-69 · §4.10 · error: not saved</p>The save failed: the sheet stays open, the title and the day stay, and "Not saved." with <b>Try again</b> sits under them in amber. Escape still closes without saving (W29).</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
@@ -402,23 +448,43 @@ code{font-family:var(--mono);font-size:10.5px}
     <figcaption class="cap"><p class="p">J2.10 · AC-23 · AC-64 · §2.2 #14 · RTL</p>Opened by the physical <code>N</code> key, which types د on a Persian layout. Title aligned right, Add at the left end, the time field left-to-right.</figcaption>
   </figure>
 </div>
+<div class="board wide" style="margin-top:16px">
+  <figure class="frame">
+    <div class="desk">
+      <div class="url">/today · desktop, capture open</div>
+      <div class="bar"><b>Tracker</b><span>Today · Focus · Projects · Actions · Calendar · … &nbsp; <span class="btn sm">+ Add</span></span></div>
+      <div class="dim" style="max-width:560px;margin:0 auto;width:100%"><div class="h">Today</div><div class="line m"></div><div class="line"></div></div>
+      <div class="modal" style="max-width:420px;margin:-40px auto 0;width:100%;background:var(--surface-2)">
+        <div class="field">Book dentist|</div>
+        <div class="lbl">Day</div>
+        <div class="chips"><span class="chip">Today</span><span class="chip">Tomorrow</span><span class="chip on">Friday</span><span class="chip">Pick a date…</span><span class="chip">No date yet</span></div>
+        <div class="lbl">Time (optional)</div>
+        <div class="field ph" style="width:90px">HH:mm</div>
+        <div style="text-align:right"><span class="btn sm">Cancel</span> <span class="btn sm pri">Add</span></div>
+      </div>
+      <div class="foot"><span>Enter saves · Escape or a click outside closes · focus trapped, then restored</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J2.7 · J2.9 · AC-23 · AC-24 · AC-27 · AC-71 · §4.2 · desktop</p>On desktop capture is a small modal centred over the dimmed page (W8), and the day chips show at once: there is room, so no tap is needed to open them. A Cancel button joins Escape and the click outside, for a mouse (W30).</figcaption>
+  </figure>
+</div>
 
 <!-- ───────────── 4 Crossing out elsewhere ───────────── -->
-<h2><span class="n">4</span>Crossing out on Focus, the actions list and the project page — linked rows, past-dated items, an old tab</h2>
-<p class="lead">The cross-out control takes the checkbox's slot on every surface (§4.3, [F §2.1 #1]). It is its own target, separate from the row's link: the control wins, so crossing never opens the item (AC-21). Progress on Focus and projects moves only at review.</p>
+<h2><span class="n">4</span>Crossing out on Focus, the actions list and the project page — linked rows, "Moves at your next session", past-dated items, an old tab</h2>
+<p class="lead">The cross-out control takes the checkbox's slot on every surface (§4.3, [F §2.1 #1]). It is its own target, separate from the row's link: the control wins, so crossing never opens the item (AC-21). Progress on Focus and projects moves only at review; while a crossed item there waits for it, one quiet line says so (AC-75).</p>
 <div class="board">
   <figure class="frame">
     <div class="phone">
       <div class="url">/focus</div>
       <div class="bar"><b>Tracker</b><span>☰ &nbsp;<b>+</b></span></div>
       <div class="h">Focus</div>
+      <div class="lbl">Progress</div>
       <div class="line s"></div>
+      <div class="note">Moves at your next session</div>
       <div class="row"><span class="cx on"></span><span class="t lnk st">Write intro section</span><span class="date">today</span></div>
       <div class="row"><span class="cx"></span><span class="t lnk">Outline chapter 2</span><span class="date">Sat</span></div>
-      <div class="note">Focus's own progress is unchanged code and did not move: the crossing is not done.</div>
       <div class="foot"><span>control ≥ 44 px target, outside the link</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J2.11 · AC-17 · AC-21 · R2 · §4.3 · Focus</p>A crossed row stays in place on Focus, struck through (no fold here), so what was cleared today is visible though progress lags (W13).</figcaption>
+    <figcaption class="cap"><p class="p">J2.11 · AC-17 · AC-21 · R2 · §4.3 · Focus</p>A crossed row stays in place on Focus, struck through (no fold here), so what was cleared today is visible though progress lags (W13). Focus's progress is unchanged code and doesn't move; directly under it, muted, "Moves at your next session" shows while an item here is crossed and not done, with no number (AC-75, §2.3 #35, W31).</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
@@ -430,18 +496,22 @@ code{font-family:var(--mono);font-size:10.5px}
       <div class="row"><span class="cx"></span><span class="t lnk">Renew passport</span><span class="date">no date</span></div>
       <div class="toast">Moved to today and crossed out</div>
     </div>
-    <figcaption class="cap"><p class="p">J2.11 · AC-19 · AC-21 · §2.2 #9 · §4.3 · actions list</p>"Fix bike light" was undated and "Buy stamps" was Saturday's: both now read "today", crossed. A short notice says the date moved, once per crossing, because the move is not visible otherwise (W14).</figcaption>
+    <figcaption class="cap"><p class="p">J2.11 · AC-19 · AC-21 · §2.2 #9 · §4.3 · actions list</p>"Fix bike light" was undated and "Buy stamps" was Saturday's: both now read "today", crossed. A short notice says the date moved, once per crossing, because the move is not visible otherwise (W14). Uncrossing "Buy stamps" the same day returns it to Saturday, and "Fix bike light" to no date (AC-18, §2.3 #33).</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
       <div class="url">/projects/:id</div>
       <div class="bar"><b>Tracker</b><span>☰ &nbsp;<b>+</b></span></div>
       <div class="h">Kitchen renovation</div>
-      <div class="row"><span class="cx"></span><span class="t lnk">Measure the wall</span><span class="date">Tue 19</span></div>
-      <div class="sugg" data-g="S6 · Suggested · past-dated item">Crossing a past-dated item moves it to today and crosses it, as a future one does; first-due stays Tuesday. Same notice: "Moved to today and crossed out".</div>
+      <div class="lbl">Progress</div>
+      <div class="line s"></div>
+      <div class="note">Moves at your next session</div>
+      <div class="row"><span class="cx on"></span><span class="t lnk st">Measure the wall</span><span class="date">today</span></div>
+      <div class="row"><span class="cx"></span><span class="t lnk">Order tiles</span><span class="date">Fri</span></div>
+      <div class="toast">Moved to today and crossed out</div>
       <div class="foot"><span>project page</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J2.12 · AC-54 · §2.2 #9 · <span class="s">S6</span></p>The spec covers future and undated items only. Drawn only as the Suggested option.</figcaption>
+    <figcaption class="cap"><p class="p">J2.12 · AC-19 · AC-54 · AC-75 · §2.2 #9 · §2.3 #23 · past-dated item</p>"Measure the wall" was Tuesday's and never crossed. Crossing moves it to today and crosses it, as a future item does, with the same notice; its first-due date stays Tuesday. The project's progress line reads as on Focus.</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
@@ -450,60 +520,60 @@ code{font-family:var(--mono);font-size:10.5px}
       <div class="h">Today</div>
       <div class="chips"><span class="btn sm dis">Organize</span><span class="btn sm dis">Review</span></div>
       <div class="row"><span class="cx"></span><span class="t">Call the plumber</span></div>
-      <div class="sugg" data-g="S11 · Suggested · removed operation">"Tracker was updated. <u>Reload</u>" in place of the raw error; the checkbox goes back to unticked.</div>
+      <div class="card w">Tracker was updated. <span class="lnk">Reload</span></div>
       <div class="foot"><span>old code; nothing changed on the server</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J5.10 · AC-4 · AC-17 · <span class="s">S11</span> · error</p>The old page calls <code>toggleAction</code>, which no longer exists; nothing is written. Drawn only as the Suggested option.</figcaption>
+    <figcaption class="cap"><p class="p">J5.10 · AC-4 · AC-17 · AC-72 · §4.10 · §2.3 #29 · error</p>The old page calls <code>toggleAction</code>, which no longer exists; nothing is written. "Tracker was updated. Reload" shows in place of the raw error, and the checkbox goes back to unticked.</figcaption>
   </figure>
 </div>
 
 <!-- ───────────── 5 Look back ───────────── -->
-<h2><span class="n">5</span>The session: Look back — first session, answers and follow-ups, a changed answer, "Don't ask", nothing to ask, not saved, right to left</h2>
-<p class="lead"><code>/session</code> is its own page: no app navigation, a step header, and an exit to Today that keeps everything (§4.4). Crossed items come first, pre-filled "happened", confirmed in one tap; then the rest by day, oldest first, each with its four answers. Every answer saves as it is made.</p>
+<h2><span class="n">5</span>The session: Look back — first session, answers and follow-ups, a changed answer, "Don't ask", nothing to ask, not saved, right to left, and desktop</h2>
+<p class="lead"><code>/session</code> is its own page: no app navigation, a step header, and an exit to Today that keeps everything (§4.4). Crossed items come first, pre-filled "happened", confirmed in one tap; then the rest by day, oldest first, each with its four answers. Every answer saves as it is made, and the header says so ("Saved as you go", W32). Completed step names are links back (W25).</p>
 <div class="board">
   <figure class="frame">
     <div class="phone">
       <div class="url">/session</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
       <div class="steps"><b>Look back</b><span>·</span><span>Look ahead</span><span>·</span><span>When and where</span></div>
-      <div class="sugg" data-g="S1 · founder-decided, awaiting revise">The first session looks back from the switch date: Monday 18 and Tuesday 19 November.</div>
       <div class="sec">Crossed out</div>
       <div class="date">Tuesday 19 November</div>
-      <div class="row"><span class="t">Call the plumber</span><span class="chip">happened</span></div>
-      <div class="row"><span class="t">Buy stamps</span><span class="chip">happened</span></div>
+      <div class="row"><span class="t">Call the plumber</span><span class="chip">happened</span><span class="mut">▸</span></div>
+      <div class="row"><span class="t">Buy stamps</span><span class="chip">happened</span><span class="mut">▸</span></div>
       <span class="btn sm pri">Confirm these</span>
-      <div class="date" style="margin-top:10px">Monday 18 November</div>
+      <div class="sec" style="margin-top:12px">Not crossed</div>
+      <div class="date">Monday 18 November</div>
       <div class="ttl">Review draft</div>
       <div class="seg"><span>happened</span><span>partly</span><span>didn't happen</span><span>no longer matters</span></div>
       <div class="note"><span class="lnk">Don't ask about this</span></div>
       <div class="ttl">Team call</div>
       <div class="seg"><span>happened</span><span>partly</span><span>didn't happen</span><span>no longer matters</span></div>
-      <div class="foot"><span class="lnk">Done for now</span></div>
+      <div class="note"><span class="lnk">Don't ask about this</span></div>
+      <div class="foot"><span class="lnk">Skip the rest</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J1.6 · J1.7 · J3.2 · J3.3 · AC-28 · AC-31 · AC-32 · AC-33 · AC-39 · AC-61 · §4.4 · §4.5 · not enough data · default</p>"Confirm these" names no number. Tapping a crossed row opens its four answers in place. Answers are four equal choices, two by two on a phone, one row on desktop (W15). "Done for now" sits at the foot at all times (W17). The range's dates rest on S1, drawn as the founder's decision awaiting <code>revise</code>.</figcaption>
+    <figcaption class="cap"><p class="p">J1.6 · J1.7 · J3.2 · J3.3 · AC-28 · AC-31 · AC-32 · AC-33 · AC-37 · AC-39 · AC-61 · §4.4 · §4.5 · §2.3 #19 · #31 · not enough data · default</p>The first session looks back from the switch date, Monday 18, to yesterday (AC-31). Crossed rows end in a chevron: a tap opens their four answers in place. The rest sit under their own heading, "Not crossed" (W33). "Confirm these" names no number; crossed rows still pre-filled "happened" count as happened when the step completes, confirmed or not (AC-32). "Don't ask about this" sits under every unanswered row (W34). Answers are four equal choices, two by two on a phone, one row on desktop (W15). "Skip the rest" sits at the foot at all times (W17).</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
       <div class="url">/session · follow-ups</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
       <div class="steps"><b>Look back</b><span>·</span><span>Look ahead</span><span>·</span><span>When and where</span></div>
       <div class="date">Wednesday 20 November</div>
       <div class="ttl">Draft the proposal</div>
       <div class="seg"><span>happened</span><span class="on">partly</span><span>didn't happen</span><span>no longer matters</span></div>
-      <div class="fu"><div class="lbl">Place the rest</div><div class="chips"><span class="chip">Sat</span><span class="chip">Sun</span><span class="chip on">Mon</span></div>
-        <div class="sugg" data-g="S4 · Suggested · picker range">Days from today to the day before the pre-filled next date; changing the next date later leaves placed items where they are.</div></div>
+      <div class="fu"><div class="lbl">Place the rest</div><div class="chips"><span class="chip">Sat</span><span class="chip">Sun</span><span class="chip on">Mon</span></div></div>
       <div class="ttl">Clean the garage</div>
       <div class="seg"><span>happened</span><span>partly</span><span class="on">didn't happen</span><span>no longer matters</span></div>
       <div class="fu"><div class="chips"><span class="chip">Move to a day ahead</span><span class="chip on">Set it aside</span><span class="chip">Let it go</span></div><div class="note">All optional. With none, it stays on its day.</div></div>
       <div class="row dim"><span class="t">Renew gym card</span><span class="mut">no longer matters · <span class="lnk">change</span></span></div>
-      <div class="foot"><span class="lnk">Done for now</span></div>
+      <div class="foot"><span class="lnk">Skip the rest</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J3.4 · J3.5 · J3.6 · J3.7 · AC-33 · AC-34 · AC-35 · AC-54 · §4.5 · follow-ups</p>Follow-ups open inline under the chosen answer, all optional; "Move to a day ahead" opens the same day chips. "No longer matters" leaves the list of questions but stays as one dimmed line with "change" until the session completes, so it can still be changed (W16).</figcaption>
+    <figcaption class="cap"><p class="p">J3.4 · J3.5 · J3.6 · J3.7 · AC-33 · AC-34 · AC-35 · AC-54 · AC-65 · §4.5 · §2.3 #22 · follow-ups</p>Follow-ups open inline under the chosen answer, all optional; "Move to a day ahead" opens the same day chips. The chips run from today (Saturday) to the day before the pre-filled next date (Tuesday); changing the next date later leaves "Draft the proposal" on Monday (AC-65). "No longer matters" leaves the list of questions but stays as one dimmed line with "change" until the session completes, so it can still be changed (W16).</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
       <div class="url">/session · change, don't ask</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
       <div class="steps"><b>Look back</b><span>·</span><span>Look ahead</span><span>·</span><span>When and where</span></div>
       <div class="date">Thursday 21 November</div>
       <div class="ttl">Call the bank</div>
@@ -511,17 +581,17 @@ code{font-family:var(--mono);font-size:10.5px}
       <div class="note">Changed from happened: no longer done unless another day says happened.</div>
       <div class="ttl">Renew gym card</div>
       <div class="seg"><span class="on">happened</span><span>partly</span><span>didn't happen</span><span>no longer matters</span></div>
-      <div class="sugg" data-g="S5 · Suggested · reverse the fate">Changing away from "no longer matters" (or from a set-aside or let-go) restores the fate the item had before; a move stays.</div>
+      <div class="note">Changed from no longer matters: back on its day, as before.</div>
       <div class="row dim"><span class="t">Stretch</span><span class="mut">not asked again</span></div>
       <div class="toast">Won't ask about "Stretch" again. <span class="lnk">Undo</span></div>
-      <div class="foot"><span class="lnk">Done for now</span></div>
+      <div class="foot"><span class="lnk">Skip the rest</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J3.8 · J3.9 · AC-36 · AC-37 · §4.5 · §2.2 #10 · changed answer · notice: undo</p>The grey note under a changed answer states the rule; it is not on-screen copy. "Don't ask about this" leaves the row in place, dimmed, while the undo shows for a few seconds, then the row goes (W18).</figcaption>
+    <figcaption class="cap"><p class="p">J3.8 · J3.9 · AC-36 · AC-37 · AC-66 · §4.5 · §2.2 #10 · §2.3 #24 · changed answer · notice: undo</p>The grey notes under changed answers state the rules; they are not on-screen copy. Changing away from "no longer matters", or from "didn't happen" with set aside or let go, gives the action back the fate it had before; a move made by a follow-up stays (AC-66). "Don't ask about this" leaves the row in place, dimmed, while the undo shows for a few seconds, then the row goes (W18).</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
       <div class="url">/session · all answered</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
       <div class="steps"><b>Look back</b><span>·</span><span>Look ahead</span><span>·</span><span>When and where</span></div>
       <div class="date">Friday 22 November</div>
       <div class="row"><span class="t">Gym</span><span class="chip">happened</span></div>
@@ -530,12 +600,12 @@ code{font-family:var(--mono);font-size:10.5px}
       <span class="btn pri full">Look ahead</span>
       <div class="foot"><span>every item answered: the step completes</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J1.8 · J3.11 · AC-38 · AC-39 · §4.5 · complete</p>With every item answered, the foot's "Done for now" becomes the primary "Look ahead" (W17). Answered rows collapse to their answer and reopen on tap.</figcaption>
+    <figcaption class="cap"><p class="p">J1.8 · J3.11 · AC-38 · AC-39 · §4.5 · §2.3 #32 · complete</p>With every item answered, the foot's "Skip the rest" becomes the primary "Look ahead" (W17). Answered rows collapse to their answer and reopen on tap. Tapping "Skip the rest" earlier completes the step the same way: the uncrossed items left are not asked again and stay on their day (AC-38, §2.3 #36). J3.11 still names the old label until the journeys are updated.</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
       <div class="url">/session · nothing to ask</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
       <div class="steps"><b>Look back</b><span>·</span><span>Look ahead</span><span>·</span><span>When and where</span></div>
       <div class="p">Nothing to look back on.</div>
       <span class="btn pri full">Continue</span>
@@ -546,15 +616,15 @@ code{font-family:var(--mono);font-size:10.5px}
   <figure class="frame">
     <div class="phone">
       <div class="url">/session · offline</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
       <div class="steps"><b>Look back</b><span>·</span><span>Look ahead</span><span>·</span><span>When and where</span></div>
       <div class="ttl">Water the plants</div>
       <div class="seg"><span>happened</span><span class="on">partly</span><span>didn't happen</span><span>no longer matters</span></div>
-      <div class="sugg" data-g="S9 · Suggested · failed save">"Not saved." and <b>Try again</b> on this row, in amber; the chosen answer stays shown; every other row still works.</div>
+      <div class="card w">Not saved. <span class="lnk">Try again</span></div>
       <div class="ttl">Gym</div>
       <div class="seg"><span>happened</span><span>partly</span><span>didn't happen</span><span>no longer matters</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J5.9 · J5.11 · AC-30 · AC-62 · <span class="s">S9</span> · error</p>Drawn only as the Suggested option.</figcaption>
+    <figcaption class="cap"><p class="p">J5.9 · J5.11 · AC-30 · AC-62 · AC-69 · §4.10 · error: not saved</p>Offline, the answer didn't save: "Not saved." and <b>Try again</b> on this row, in amber; "partly" stays shown; every other row still answers, and each failed row carries its own line (W29). The header's "Saved as you go" doesn't change: it is a promise, not a status.</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone" dir="rtl" lang="fa">
@@ -566,36 +636,62 @@ code{font-family:var(--mono);font-size:10.5px}
       <div class="seg"><span>انجام شد</span><span class="on">نصفه انجام شد</span><span>انجام نشد</span><span>دیگه مهم نیست</span></div>
       <div class="fu"><div class="chips"><span class="chip"><span class="line" style="width:26px;display:inline-block;margin:0"></span></span><span class="chip on"><span class="line" style="width:26px;display:inline-block;margin:0"></span></span></div></div>
       <div class="note"><span class="lnk">نپرس</span></div>
-      <div class="foot"><span><span class="line" style="width:50px;display:inline-block;margin:0"></span></span></div>
+      <div class="foot"><span class="lnk">بقیه رو رد کن</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J5.11 · AC-59 · AC-60 · AC-64 · §2.2 #17 · RTL</p>The exit arrow points right, toward Today, at the start edge. The four answers keep their order reading right to left. "Don't ask" is shown with its short term نپرس; whether the full phrase is longer is for the build.</figcaption>
+    <figcaption class="cap"><p class="p">J5.11 · AC-59 · AC-60 · AC-64 · §2.2 #17 · §2.3 #32 · RTL</p>"Skip the rest" is written in full, «بقیه رو رد کن», since the spec fixes it. The exit arrow points right, toward Today, at the start edge. The four answers keep their order reading right to left. "Don't ask" is shown with its short term نپرس; whether the full phrase is longer is for the build.</figcaption>
+  </figure>
+</div>
+
+<div class="board wide" style="margin-top:16px">
+  <figure class="frame">
+    <div class="desk">
+      <div class="url">/session · desktop, look back</div>
+      <div class="bar"><span class="lnk">← Today</span><span class="steps" style="margin:0"><b>Look back</b><span>·</span><span>Look ahead</span><span>·</span><span>When and where</span></span><span class="mut">Saved as you go</span></div>
+      <div style="max-width:640px;margin:0 auto;width:100%">
+        <div class="sec">Crossed out</div>
+        <div class="date">Friday 22 November</div>
+        <div class="row"><span class="t">Gym</span><span class="chip">happened</span><span class="mut">▸</span></div>
+        <span class="btn sm pri">Confirm these</span>
+        <div class="sec" style="margin-top:12px">Not crossed</div>
+        <div class="date">Thursday 21 November</div>
+        <div class="ttl">Call the bank</div>
+        <div class="seg" style="grid-template-columns:repeat(4,1fr)"><span>happened</span><span>partly</span><span>didn't happen</span><span>no longer matters</span></div>
+        <div class="note"><span class="lnk">Don't ask about this</span></div>
+        <div class="ttl">Draft the proposal</div>
+        <div class="seg" style="grid-template-columns:repeat(4,1fr)"><span>happened</span><span class="on">partly</span><span>didn't happen</span><span>no longer matters</span></div>
+        <div class="fu"><div class="lbl">Place the rest</div><div class="chips"><span class="chip">Sat</span><span class="chip">Sun</span><span class="chip on">Mon</span></div></div>
+      </div>
+      <div class="foot"><span class="lnk">Skip the rest</span><span>one column; the four answers in one row</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J3.3 · J3.4 · J3.5 · AC-32 · AC-33 · AC-34 · §4.4 · §4.5 · desktop</p>The look-back on desktop: no app navigation, the step header in the top bar, one centred column, and the four answers in one row of equal choices (W15). Follow-ups open under the row as on a phone.</figcaption>
   </figure>
 </div>
 
 <!-- ───────────── 6 Look back after a gap ───────────── -->
-<h2><span class="n">6</span>Look back after a gap — the gap block, Not tracked, Fill in, and a session continued days later or in a second tab</h2>
+<h2><span class="n">6</span>Look back after a gap — the gap block, Not tracked, Fill in, a session continued days later or in a second tab, and a session that fails to load</h2>
 <p class="lead">When the range holds days older than today minus the spacing, those days fold into one block at the top with its two dates and nothing else: no count of days or items (AC-49, AC-61).</p>
 <div class="board">
   <figure class="frame">
     <div class="phone">
       <div class="url">/session · 16 December</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
       <div class="steps"><b>Look back</b><span>·</span><span>Look ahead</span><span>·</span><span>When and where</span></div>
       <div class="card">1 December – 12 December
+        <div style="font-size:10.5px;opacity:.85">Skip these days, or answer them one by one.</div>
         <div class="chips" style="margin-top:6px"><span class="btn sm">Not tracked</span><span class="btn sm">Fill in</span></div></div>
       <div class="date">Friday 13 December</div>
       <div class="ttl">Gym</div>
       <div class="seg"><span>happened</span><span>partly</span><span>didn't happen</span><span>no longer matters</span></div>
       <div class="date">Saturday 14 December</div>
       <div class="line m"></div>
-      <div class="foot"><span class="lnk">Done for now</span></div>
+      <div class="foot"><span class="lnk">Skip the rest</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J4.3 · J4.4 · AC-31 · AC-49 · AC-61 · §2.2 #12 · default</p>The block is a neutral card, not amber: a gap is not an error. The two buttons are equal; neither is primary (W20). Ordinary days start under it.</figcaption>
+    <figcaption class="cap"><p class="p">J4.3 · J4.4 · AC-31 · AC-49 · AC-61 · §2.2 #12 · default</p>The block is a neutral card, not amber: a gap is not an error. The two buttons are equal; neither is primary (W20). One quiet line under the dates says what each does, in their order and with no count (W35, review P1-F8). Ordinary days start under it.</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
       <div class="url">/session · not tracked</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
       <div class="steps"><b>Look back</b><span>·</span><span>Look ahead</span><span>·</span><span>When and where</span></div>
       <div class="row dim"><span class="t">1 December – 12 December</span><span class="mut">not tracked · <span class="lnk">change</span></span></div>
       <div class="date">Friday 13 December</div>
@@ -603,14 +699,14 @@ code{font-family:var(--mono);font-size:10.5px}
       <div class="date">Saturday 14 December</div>
       <div class="ttl">Pay rent</div>
       <div class="seg"><span>happened</span><span>partly</span><span>didn't happen</span><span>no longer matters</span></div>
-      <div class="foot"><span class="lnk">Done for now</span></div>
+      <div class="foot"><span class="lnk">Skip the rest</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J4.5 · J4.7 · AC-38 · AC-39 · AC-50 · AC-57 · after Not tracked</p>The block shrinks to one dimmed line that can be changed until the session completes (W20). Its days are out of the look-back.</figcaption>
+    <figcaption class="cap"><p class="p">J4.5 · J4.7 · AC-38 · AC-39 · AC-50 · AC-57 · AC-67 · after Not tracked</p>The block shrinks to one dimmed line that can be changed until the session completes (W20). Its days are out of the look-back; their open items come back once in the look-ahead as "From the gap" (plate 7, AC-67).</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
       <div class="url">/session · fill in</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
       <div class="steps"><b>Look back</b><span>·</span><span>Look ahead</span><span>·</span><span>When and where</span></div>
       <div class="date">Sunday 1 December</div>
       <div class="ttl">Pay invoice</div>
@@ -618,37 +714,45 @@ code{font-family:var(--mono);font-size:10.5px}
       <div class="date">Monday 2 December</div>
       <div class="line m"></div><div class="line s"></div>
       <div class="date">… to Sunday 15 December</div>
-      <div class="foot"><span class="lnk">Done for now</span></div>
+      <div class="foot"><span class="lnk">Skip the rest</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J4.6 · AC-50 · branch: Fill in</p>The twelve days open as ordinary days, oldest first; no gap is stored. "Done for now" is the way out of a long list.</figcaption>
+    <figcaption class="cap"><p class="p">J4.6 · AC-50 · branch: Fill in</p>The twelve days open as ordinary days, oldest first; no gap is stored. "Skip the rest" is the way out of a long list.</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
       <div class="url">/session · continued 16 December</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
       <div class="steps"><b>Look back</b><span>·</span><span>Look ahead</span><span>·</span><span>When and where</span></div>
-      <div class="sugg" data-g="S2 · founder-decided, awaiting revise">Same session: answers kept, look-back range as it opened, ending 30 November. The look-ahead and its date limits count from 16 December.</div>
       <div class="row"><span class="t">Gym</span><span class="chip">happened</span></div>
       <div class="ttl">Pay rent</div>
       <div class="seg"><span>happened</span><span>partly</span><span>didn't happen</span><span>no longer matters</span></div>
-      <div class="foot"><span class="lnk">Done for now</span></div>
+      <div class="foot"><span class="lnk">Skip the rest</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J3.10 · J4.11 · J5.8 · AC-28 · AC-29 · AC-30 · loading → resumed</p>Continue, or Start in a second tab, opens the one open session at its first unfinished step, answers shown. No "welcome back" notice (W21). While it loads, the step header shows and the rows are placeholders.</figcaption>
+    <figcaption class="cap"><p class="p">J3.10 · J4.11 · J5.8 · AC-28 · AC-29 · AC-30 · AC-31 · AC-40 · §2.3 #20 · loading → resumed</p>Continue, or Start in a second tab, opens the one open session at its first unfinished step, answers shown. No "welcome back" notice (W21). Continued on 16 December, it is the same session: answers kept, its look-back range as it opened (ending 30 November); the look-ahead and its date limits count from 16 December. While it loads, the step header shows and the rows are placeholders.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/session · failed to load</div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
+      <div class="steps"><b>Look back</b><span>·</span><span>Look ahead</span><span>·</span><span>When and where</span></div>
+      <div class="card">The session didn't load. <span class="btn sm" style="margin-left:6px">Try again</span></div>
+      <div class="foot"><span>← Today still works; nothing answered is lost</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">States: Error · AC-70 · §4.10 · failed load</p>One line and <b>Try again</b> in place of the step, neutral, no red. The header stays so the way back to Today is there (W28).</figcaption>
   </figure>
 </div>
 
 <!-- ───────────── 7 Look ahead ───────────── -->
-<h2><span class="n">7</span>The session: Look ahead — the next date, "From before", the days, "No date yet", moving, removing, loading, "From the gap", and desktop</h2>
+<h2><span class="n">7</span>The session: Look ahead — the next date, "From before", the days, "No date yet", moving and ordering, removing, the next date moved later and earlier, "From the gap", letting them all go, a failed edit and a failed gathering, and desktop</h2>
 <p class="lead">Its own screen, not a mode of Calendar (D-73). The next session's date comes first, because the days below depend on it (§2.2 #6). Then the days, each a list in Today's order. Undated items wait in a closed "No date yet" fold above the days. Nothing is counted; overlaps show amber and ask nothing.</p>
 <div class="board">
   <figure class="frame">
     <div class="phone">
       <div class="url">/session · look ahead, first session</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
-      <div class="steps"><span>Look back</span><span>·</span><b>Look ahead</b><span>·</span><span>When and where</span></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
+      <div class="steps"><span class="lnk">Look back</span><span>·</span><b>Look ahead</b><span>·</span><span>When and where</span></div>
       <div class="lbl">Next session</div>
       <div class="chips"><span class="chip">Fri 22</span><span class="chip on">Sat 23</span><span class="chip">Sun 24</span><span class="chip">Mon 25</span><span class="chip">Tue 26</span><span class="chip">Wed 27</span></div>
-      <div class="sugg" data-g="S3 · Suggested · position of From before">Sits here, under the next date, in the first session only; "offered" means it was shown.</div>
       <div class="sec">From before</div>
       <div class="row"><span class="t">Sort tax papers</span><span class="lnk">Keep on…</span></div>
       <div class="chips" style="margin-left:10px"><span class="chip">Wed</span><span class="chip on">Thu</span><span class="chip">Fri</span></div>
@@ -659,13 +763,13 @@ code{font-family:var(--mono);font-size:10.5px}
       <div class="line m"></div>
       <div class="foot"><span>leaving the block untouched changes nothing</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J1.8 · J1.9 · J1.10 · AC-40 · AC-51 · AC-52 · AC-54 · AC-61 · §4.6 · not enough data</p>The next date is six day chips, today+2 to today+7, so a date out of range can't be picked (W22). Pre-filled Saturday: today plus the default 3. "From before" lists open items from before the switch, no count, each with "Keep on…" over the shown days, and one "Let them all go". A kept item leaves the block for its day.</figcaption>
+    <figcaption class="cap"><p class="p">J1.8 · J1.9 · J1.10 · AC-40 · AC-51 · AC-52 · AC-54 · AC-61 · §4.6 · not enough data</p>The next date is six day chips, today+2 to today+7, so a date out of range can't be picked (W22). Pre-filled Saturday: today plus the default 3. "From before" lists open items from before the switch, no count, each with "Keep on…" over the shown days, and one "Let them all go". A kept item leaves the block for its day. The block sits here, under the next date, in the first session only, and counts as offered once shown (§2.3 #21); "Let them all go" has an undo (frame "let them all go" below).</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
       <div class="url">/session · look ahead, days</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
-      <div class="steps"><span>Look back</span><span>·</span><b>Look ahead</b><span>·</span><span>When and where</span></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
+      <div class="steps"><span class="lnk">Look back</span><span>·</span><b>Look ahead</b><span>·</span><span>When and where</span></div>
       <div class="lbl">Next session</div>
       <div class="chips"><span class="chip">Mon 25</span><span class="chip">Tue 26</span><span class="chip">Wed 27</span><span class="chip on">Thu 28</span><span class="chip">Fri 29</span><span class="chip">Sat 30</span></div>
       <div class="disc">No date yet</div>
@@ -683,30 +787,31 @@ code{font-family:var(--mono);font-size:10.5px}
       <div class="row"><span class="tm"></span><span class="t">Draft the proposal</span><span class="hd">⋯</span></div>
       <div class="foot"><span class="btn sm pri">When and where</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J3.12 · J3.13 · J2.6 · AC-40 · AC-41 · AC-42 · AC-43 · AC-45 · §4.6 · default · empty day</p>All days open in one column, today first. Rows have no cross-out control here; each has a "⋯" for move, time and remove, and drags as on Today (W23). "+ Add to Saturday" opens capture with the day fixed. An empty day shows one muted line. The 10:00 overlap is marked and nothing asks to resolve it.</figcaption>
+    <figcaption class="cap"><p class="p">J3.12 · J3.13 · J2.6 · AC-40 · AC-41 · AC-42 · AC-43 · AC-45 · §4.6 · default · empty day</p>All days open in one column, today first. Rows have no cross-out control here; each has a "⋯" for move, Move up and Move down, time and remove, and drags as on Today (W23, AC-74). "+ Add to Saturday" opens capture with the day fixed. An empty day shows one muted line. The 10:00 overlap is marked and nothing asks to resolve it.</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
       <div class="url">/session · move, time, remove</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
-      <div class="steps"><span>Look back</span><span>·</span><b>Look ahead</b><span>·</span><span>When and where</span></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
+      <div class="steps"><span class="lnk">Look back</span><span>·</span><b>Look ahead</b><span>·</span><span>When and where</span></div>
       <div class="date">Sunday 24 November</div>
       <div class="row"><span class="tm"></span><span class="t">Fix bike</span><span class="hd">⋯</span></div>
       <div class="modal">
         <div class="lbl">Move to</div>
         <div class="chips"><span class="chip">Sat</span><span class="chip">Mon</span><span class="chip">Tue</span><span class="chip">Wed</span><span class="chip">Later…</span><span class="chip">No date yet</span></div>
+        <div class="lbl">Order</div><div class="chips"><span class="chip">Move up</span><span class="chip">Move down</span></div>
         <div class="lbl">Time</div><div class="field ph">HH:mm</div>
         <div class="lnk">Remove</div>
       </div>
       <div class="toast">Removed "Water plants". <span class="lnk">Undo</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J3.13 · AC-43 · AC-30 · §4.6 · notice: undo</p>"Later…" picks a date after the shown days; "No date yet" clears it: those two are "off the shown days" (W24). Remove sets let-go with an undo for a few seconds. Each change saves as made.</figcaption>
+    <figcaption class="cap"><p class="p">J3.13 · AC-43 · AC-30 · AC-74 · §4.6 · notice: undo</p>Move up and Move down order the row within its day, as a drag does; a drop across start times is refused and slides back, as on Today (W27). "Later…" picks a date after the shown days; "No date yet" clears it: those two are "off the shown days" (W24). Remove sets let-go with an undo for a few seconds. Each change saves as made.</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
       <div class="url">/session · no date yet open</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
-      <div class="steps"><span>Look back</span><span>·</span><b>Look ahead</b><span>·</span><span>When and where</span></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
+      <div class="steps"><span class="lnk">Look back</span><span>·</span><b>Look ahead</b><span>·</span><span>When and where</span></div>
       <div class="lbl">Next session</div>
       <div class="chips"><span class="chip">Mon 25</span><span class="chip">Tue 26</span><span class="chip">Wed 27</span><span class="chip on">Thu 28</span><span class="chip">Fri 29</span><span class="chip">Sat 30</span></div>
       <div class="disc open">No date yet</div>
@@ -720,39 +825,95 @@ code{font-family:var(--mono);font-size:10.5px}
   </figure>
   <figure class="frame">
     <div class="phone">
-      <div class="url">/session · next date changed</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
-      <div class="steps"><span>Look back</span><span>·</span><b>Look ahead</b><span>·</span><span>When and where</span></div>
+      <div class="url">/session · next date moved later</div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
+      <div class="steps"><span class="lnk">Look back</span><span>·</span><b>Look ahead</b><span>·</span><span>When and where</span></div>
       <div class="lbl">Next session</div>
-      <div class="chips"><span class="chip">Mon 25</span><span class="chip on">Tue 26</span><span class="chip">Wed 27</span><span class="chip">Thu 28 ←</span><span class="chip">Fri 29</span><span class="chip">Sat 30</span></div>
+      <div class="chips"><span class="chip">Mon 25</span><span class="chip">Tue 26</span><span class="chip">Wed 27</span><span class="chip on">Thu 28</span><span class="chip">Fri 29</span><span class="chip">Sat 30</span></div>
+      <div class="date">Saturday 23 November · today</div>
+      <div class="line m"></div>
+      <div class="date">Sunday 24 November</div>
+      <div class="line s"></div>
       <div class="date">Monday 25 November</div>
       <div class="line m"></div>
       <div class="date">Tuesday 26 November</div>
       <div class="dim"><div class="line"></div><div class="line s"></div></div>
+      <div class="date">Wednesday 27 November</div>
+      <div class="dim"><div class="line s"></div></div>
       <div class="note"><span class="spin"></span>new days gather; the days already shown stay usable</div>
     </div>
-    <figcaption class="cap"><p class="p">J3.12 · AC-41 · AC-48 · §2.2 #7 · loading</p>Choosing Thursday from Tuesday's pre-fill adds Tuesday and Wednesday; their recurring items arrive as placeholders fill in. Nothing else on the screen waits.</figcaption>
+    <figcaption class="cap"><p class="p">J3.12 · AC-40 · AC-41 · AC-48 · §2.2 #7 · loading</p>The pre-fill was Tuesday 26 (today plus 3); G picked Thursday 28, now the selected chip. That adds Tuesday and Wednesday, whose recurring items arrive as their placeholders fill in. Nothing else on the screen waits.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/session · next date moved earlier</div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
+      <div class="steps"><span class="lnk">Look back</span><span>·</span><b>Look ahead</b><span>·</span><span>When and where</span></div>
+      <div class="lbl">Next session</div>
+      <div class="chips"><span class="chip on">Mon 25</span><span class="chip">Tue 26</span><span class="chip">Wed 27</span><span class="chip">Thu 28</span><span class="chip">Fri 29</span><span class="chip">Sat 30</span></div>
+      <div class="date">Saturday 23 November · today</div>
+      <div class="line m"></div>
+      <div class="date">Sunday 24 November</div>
+      <div class="line s"></div>
+      <div class="note">Monday to Wednesday leave the screen; what G placed there keeps its date. Nothing is said.</div>
+      <div class="foot"><span class="btn sm pri">When and where</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J3.12 · AC-40 · AC-41 · AC-65 · §4.6 · shrink</p>Moving the next date earlier, from Thursday back to Monday, shows only Saturday and Sunday. Items already planned on the hidden days keep their dates and are not moved, asked about or announced; they are back in view if the date moves later again (W36). The grey note states the rule; it is not on-screen copy.</figcaption>
   </figure>
   <figure class="frame">
     <div class="phone">
       <div class="url">/session · after a gap</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
-      <div class="steps"><span>Look back</span><span>·</span><b>Look ahead</b><span>·</span><span>When and where</span></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
+      <div class="steps"><span class="lnk">Look back</span><span>·</span><b>Look ahead</b><span>·</span><span>When and where</span></div>
       <div class="lbl">Next session</div>
       <div class="chips"><span class="chip on">Wed 18</span><span class="chip">Thu 19</span><span class="chip">Fri 20</span><span class="chip">Sat 21</span><span class="chip">Sun 22</span><span class="chip">Mon 23</span></div>
-      <div class="sugg" data-g="S7 · Suggested · From the gap">"From the gap": the open items of the not-tracked days, once, shaped like "From before": "Keep on…" a shown day, "Let them all go", or leave them.</div>
-      <div class="date">Monday 16 December · today</div>
+      <div class="sec">From the gap</div>
+      <div class="row"><span class="t">Pay invoice</span><span class="lnk">Keep on…</span></div>
+      <div class="row"><span class="t">Call the landlord</span><span class="lnk">Keep on…</span></div>
+      <span class="btn sm">Let them all go</span>
+      <div class="date" style="margin-top:8px">Monday 16 December · today</div>
       <div class="line m"></div>
       <div class="foot"><span class="btn sm pri">When and where</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J4.8 · J4.9 · AC-40 · §2.2 #2 · <span class="s">S7</span></p>G picks Wednesday, two days out; the usual spacing becomes 2. "From the gap" is drawn only as the Suggested option.</figcaption>
+    <figcaption class="cap"><p class="p">J4.8 · J4.9 · AC-40 · AC-67 · §2.2 #2 · §2.3 #25 · after Not tracked</p>G picks Wednesday, two days out; the usual spacing becomes 2. After <b>Not tracked</b>, the gap days' open items are offered once as "From the gap", shaped like "From before": each kept onto a shown day with "Keep on…", all let go with undo, or left as they are. No count. Once shown, it is not offered again.</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/session · let them all go</div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
+      <div class="steps"><span class="lnk">Look back</span><span>·</span><b>Look ahead</b><span>·</span><span>When and where</span></div>
+      <div class="lbl">Next session</div>
+      <div class="chips"><span class="chip on">Wed 18</span><span class="chip">Thu 19</span><span class="chip">Fri 20</span><span class="chip">Sat 21</span><span class="chip">Sun 22</span><span class="chip">Mon 23</span></div>
+      <div class="row dim"><span class="t">From the gap</span><span class="mut">let go</span></div>
+      <div class="date">Monday 16 December · today</div>
+      <div class="line m"></div>
+      <div style="margin-top:auto"></div>
+      <div class="toast">Let them go. <span class="lnk">Undo</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J1.10 · J4.8 · AC-51 · AC-67 · §2.3 #37 · notice: undo</p>"Let them all go" in "From before" or "From the gap" collapses the block to one dimmed line and shows the same undo as remove, for a few seconds. Undo brings the block back as it was, items unkept (W37).</figcaption>
+  </figure>
+  <figure class="frame">
+    <div class="phone">
+      <div class="url">/session · not saved, gathering failed</div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
+      <div class="steps"><span class="lnk">Look back</span><span>·</span><b>Look ahead</b><span>·</span><span>When and where</span></div>
+      <div class="date">Sunday 24 November</div>
+      <div class="row" style="border-bottom:0"><span class="tm"></span><span class="t">Fix bike</span><span class="hd">⋯</span></div>
+      <div class="card w" style="margin-top:0">Not saved. <span class="lnk">Try again</span></div>
+      <div class="date">Monday 25 November</div>
+      <div class="line m"></div>
+      <div class="date">Tuesday 26 November</div>
+      <div class="card">These days didn't load. <span class="btn sm" style="margin-left:6px">Try again</span></div>
+      <div class="foot"><span>every other day and row still works</span></div>
+    </div>
+    <figcaption class="cap"><p class="p">J3.13 · AC-69 · AC-70 · §4.10 · error: not saved · failed load</p>Two failures drawn together. "Fix bike" was moved onto Sunday and the save failed: it stays where G put it, with amber "Not saved." and <b>Try again</b> (W29). Below, gathering for the newly added days failed: one neutral line with <b>Try again</b> where those days' lists would be (W28). Nothing else is blocked.</figcaption>
   </figure>
 </div>
 <div class="board wide" style="margin-top:16px">
   <figure class="frame">
     <div class="desk">
       <div class="url">/session · desktop, full width</div>
-      <div class="bar"><span class="lnk">← Today</span><span class="steps" style="margin:0"><span>Look back</span><span>·</span><b>Look ahead</b><span>·</span><span>When and where</span></span><span></span></div>
+      <div class="bar"><span class="lnk">← Today</span><span class="steps" style="margin:0"><span class="lnk">Look back</span><span>·</span><b>Look ahead</b><span>·</span><span>When and where</span></span><span></span></div>
       <div style="max-width:640px;margin:0 auto;width:100%">
         <div class="lbl">Next session</div>
         <div class="chips"><span class="chip">Mon 25</span><span class="chip">Tue 26</span><span class="chip">Wed 27</span><span class="chip on">Thu 28</span><span class="chip">Fri 29</span><span class="chip">Sat 30</span></div>
@@ -764,9 +925,9 @@ code{font-family:var(--mono);font-size:10.5px}
         <div class="date">Sunday 24 November</div>
         <div class="note mut">Nothing planned.</div>
       </div>
-      <div class="foot"><span>no app navigation; the step header is the only header; one column at every width</span></div>
+      <div class="foot"><span>no app navigation; the step header is the only header; one column at every width; <code>N</code> opens capture</span></div>
     </div>
-    <figcaption class="cap"><p class="p">J3.12 · J3.13 · §4.4 · §4.6 · desktop</p>Full width means no app chrome, not wide content: the days stay one column, so the look-ahead never reads as a week calendar (W23). <span class="s">S12</span> (capture on <code>/session</code> with the top bar hidden) is not drawn as UI: with no top bar, <code>N</code> is the only way in, if S12 is taken.</figcaption>
+    <figcaption class="cap"><p class="p">J3.12 · J3.13 · §4.4 · §4.6 · desktop</p>Full width means no app chrome, not wide content: the days stay one column, so the look-ahead never reads as a week calendar (W23). The top bar is hidden on <code>/session</code>; <code>N</code> still opens capture, and an item captured onto a day shown here appears on it at once (AC-73, §2.3 #30). On a phone, each day's "+ Add to &lt;day&gt;" is the way in.</figcaption>
   </figure>
 </div>
 
@@ -777,8 +938,8 @@ code{font-family:var(--mono);font-size:10.5px}
   <figure class="frame">
     <div class="phone">
       <div class="url">/session · when and where</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
-      <div class="steps"><span>Look back</span><span>·</span><span>Look ahead</span><span>·</span><b>When and where</b></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
+      <div class="steps"><span class="lnk">Look back</span><span>·</span><span class="lnk">Look ahead</span><span>·</span><b>When and where</b></div>
       <div class="ttl">When and where will you sit down for it?</div>
       <div class="date">Thursday 28 November</div>
       <div class="lbl">When</div><div class="field ph">HH:mm</div>
@@ -792,8 +953,8 @@ code{font-family:var(--mono);font-size:10.5px}
   <figure class="frame">
     <div class="phone">
       <div class="url">/session · filled</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
-      <div class="steps"><span>Look back</span><span>·</span><span>Look ahead</span><span>·</span><b>When and where</b></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
+      <div class="steps"><span class="lnk">Look back</span><span>·</span><span class="lnk">Look ahead</span><span>·</span><b>When and where</b></div>
       <div class="ttl">When and where will you sit down for it?</div>
       <div class="date">Saturday 23 November</div>
       <div class="lbl">When</div><div class="field">19:00</div>
@@ -808,14 +969,14 @@ code{font-family:var(--mono);font-size:10.5px}
   <figure class="frame">
     <div class="phone">
       <div class="url">/session · place limit</div>
-      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span></span></div>
-      <div class="steps"><span>Look back</span><span>·</span><span>Look ahead</span><span>·</span><b>When and where</b></div>
+      <div class="bar"><span class="lnk">← Today</span><b>Session</b><span class="mut">Saved as you go</span></div>
+      <div class="steps"><span class="lnk">Look back</span><span>·</span><span class="lnk">Look ahead</span><span>·</span><b>When and where</b></div>
       <div class="lbl">Where</div><div class="field">the long table at the back of the library on the second floor, near …|</div>
-      <div class="note">Typing stops at 80 characters; no counter is shown. A crafted request over 80 is refused by the server.</div>
+      <div class="p">That's as long as a place can be.</div>
       <div style="margin-top:auto"></div>
       <span class="btn pri full">Finish</span>
     </div>
-    <figcaption class="cap"><p class="p">J5.5 · AC-46 · error</p>The field holds 80 and takes no more (W11). The grey note states the rule; it is not on-screen copy.</figcaption>
+    <figcaption class="cap"><p class="p">J5.5 · AC-46 · error</p>The field holds 80 and takes no more, with no counter (W11). When typing or a paste reaches the limit, one quiet line under the field says so, so a cut paste is noticed (W38, review P1-F16). A crafted request over 80 is refused by the server.</figcaption>
   </figure>
 </div>
 
@@ -831,12 +992,12 @@ code{font-family:var(--mono);font-size:10.5px}
       <div class="lbl">Date · time</div><div class="field ph">optional</div>
       <div class="lbl">Estimate</div><div class="field ph">optional</div>
       <div class="lbl">In the session</div>
-      <div class="row"><span>◉ Ask me</span><span class="note"><div class="line" style="width:90px"></div></span></div>
-      <div class="row"><span>○ Don't ask</span><span class="note"><div class="line" style="width:90px"></div></span></div>
-      <div class="row"><span>○ Just to know</span><span class="note"><div class="line" style="width:90px"></div></span></div>
+      <div class="entry" style="padding:4px 0"><div>◉ Ask me</div><div class="note">Your next session asks how it went.</div></div>
+      <div class="entry" style="padding:4px 0"><div>○ Don't ask</div><div class="note">You can still cross it out; no session asks about it.</div></div>
+      <div class="entry" style="padding:4px 0"><div>○ Just to know</div><div class="note">Shown on its day as a reminder; nothing to cross out or answer.</div></div>
       <div class="foot"><span>no "estimate required" message with a date</span></div>
     </div>
-    <figcaption class="cap"><p class="p">§4.8 · AC-26 · AC-37 · D-71 · form</p>Three radio choices below the date fields, help as a line each (placeholder). The group's label "In the session" is proposed. A "Don't ask" set from the look-back shows here afterwards.</figcaption>
+    <figcaption class="cap"><p class="p">§4.8 · AC-26 · AC-37 · D-71 · form</p>Three radio choices below the date fields, each with its line of help under it, written so "Don't ask" (crossable, never asked) and "Just to know" (not crossable) can be told apart (W39, review P1-F18). The group's label "In the session" is proposed. A "Don't ask" set from the look-back shows here afterwards.</figcaption>
   </figure>
 </div>
 
@@ -872,13 +1033,13 @@ code{font-family:var(--mono);font-size:10.5px}
   <tr><td>W8</td><td>Capture is a bottom sheet on a phone and a small centred modal on desktop.</td><td>§4.2 says "small modal"; on a phone a sheet sits above the keyboard.</td><td>plate 3</td></tr>
   <tr><td>W9</td><td>Capture's day is a row of chips: Today (shown selected by default), Tomorrow, the next named weekday, "Pick a date…", "No date yet". Time is a chip that opens an <code>HH:mm</code> field.</td><td>Most captures are today or soon; showing "Today" makes the empty-date default visible rather than implicit.</td><td>plate 3</td></tr>
   <tr><td>W10</td><td>Confirmations (capture, the <code>.ics</code> download) are short toasts at the foot with no link, gone after a few seconds.</td><td>§4.2 asks for a short confirmation; a link would turn it into a navigation choice.</td><td>plates 3, 8</td></tr>
-  <tr><td>W11</td><td>No character counters. The title's 200 is checked on Enter with a message; the place field stops taking input at 80.</td><td>§4.9 rules out counts on these surfaces; a counter is close enough to one to avoid. The title is refused, not cut, because AC-25 says refused.</td><td>plates 3, 8</td></tr>
+  <tr><td>W11</td><td>No character counters. The title's 200 is checked on Enter with a message; the place field stops taking input at 80 (draft 2: with a line when it does, W38).</td><td>§4.9 rules out counts on these surfaces; a counter is close enough to one to avoid. The title is refused, not cut, because AC-25 says refused.</td><td>plates 3, 8</td></tr>
   <tr><td>W12</td><td>Escape or a click outside closes capture at once, even with a title typed: no "discard?" question.</td><td>§4.2 and AC-27 say it closes without saving; a question would add a step to the fastest surface.</td><td>plate 3</td></tr>
   <tr><td>W13</td><td>On Focus, the actions list and the project page, a crossed row stays in place, struck through; only Today has a fold.</td><td>§4.3 names the fold for Today only; R2 wants what was cleared today visible on Focus.</td><td>plate 4</td></tr>
   <tr><td>W14</td><td>Crossing an item not dated today shows "Moved to today and crossed out" once.</td><td>AC-19 moves the date as a side effect; off Today the move would otherwise be invisible.</td><td>plate 4</td></tr>
   <tr><td>W15</td><td>The four answers are four equal choices, two by two on a phone, one row on desktop; none is pre-selected for uncrossed items.</td><td>No answer should look like the expected one; two by two keeps the labels whole at 375 px.</td><td>plates 5, 6</td></tr>
   <tr><td>W16</td><td>An item answered "no longer matters" leaves the questions but stays as one dimmed line with "change" until the session completes.</td><td>AC-36 and J3.8 change that answer back; an item that disappeared could not be changed.</td><td>plate 5</td></tr>
-  <tr><td>W17</td><td>"Done for now" is a link at the foot of the look-back at all times; when every item is answered it is replaced by a primary "Look ahead".</td><td>R1: the way out of a long look-back must never need scrolling to find; one primary action at a time.</td><td>plate 5</td></tr>
+  <tr><td>W17</td><td>"Skip the rest" (draft 1: "Done for now", renamed by spec 0.2 §2.3 #32) is a link at the foot of the look-back at all times; when every item is answered it is replaced by a primary "Look ahead". It completes the step: uncrossed items left are not asked again, crossed ones count as happened.</td><td>R1: the way out of a long look-back must never need scrolling to find; one primary action at a time. The new name says the skipped items are not coming back (review P1-F3).</td><td>plate 5</td></tr>
   <tr><td>W18</td><td>After "Don't ask about this" the row stays, dimmed, while the undo toast shows, then goes.</td><td>Undo is easier to trust when the thing undone is still in view.</td><td>plate 5</td></tr>
   <tr><td>W19</td><td>The empty look-back reads "Nothing to look back on." with <b>Continue</b>.</td><td>§4.5 fixes that a line is shown, not its words.</td><td>plate 5</td></tr>
   <tr><td>W20</td><td>The gap block is a neutral card with two equal buttons; after <b>Not tracked</b> it shrinks to one dimmed line with "change" until the session completes.</td><td>A gap is not an error (no amber), and neither choice is the right one; a misclick should be reversible within the session.</td><td>plate 6</td></tr>
@@ -886,12 +1047,25 @@ code{font-family:var(--mono);font-size:10.5px}
   <tr><td>W22</td><td>The next date is six day chips, today+2 to today+7, not a calendar picker.</td><td>The range is six days; chips make an out-of-range date impossible to pick (AC-40, J5.4).</td><td>plate 7</td></tr>
   <tr><td>W23</td><td>The look-ahead is one column of days at every width; its rows have no cross-out control, a "⋯" menu for move, time and remove, and a drag handle; each day ends with "+ Add to &lt;day&gt;" and an empty day reads "Nothing planned."</td><td>One column keeps it from reading as a week calendar (D-73); crossing is about today, not planning.</td><td>plate 7</td></tr>
   <tr><td>W24</td><td>"Off the shown days" means two choices in the move menu: "Later…" (a date after the shown days) and "No date yet".</td><td>§4.6 says "out of them" without saying where to.</td><td>plate 7</td></tr>
-  <tr><td>W25</td><td>The session's header has "← Today" at the start and the three step names; a completed step's name is a link back to it until the session completes.</td><td>AC-36 lets answers change until completion, so Look back must stay reachable from the later steps.</td><td>plates 5–8</td></tr>
+  <tr><td>W25</td><td>The session's header has "← Today" at the start and the three step names; a completed step's name is a link back to it until the session completes, drawn as a link (draft 2, review P1-F9).</td><td>AC-36 lets answers change until completion, so Look back must stay reachable from the later steps.</td><td>plates 5–8</td></tr>
   <tr><td>W26</td><td>The cross-out control is drawn as a square in the old checkbox's slot: empty when not crossed, filled when crossed. The title strikes through.</td><td>Made silently in draft 1 and raised afterwards: a box that fills can read as "done", against D-67. The founder chose to keep the box, 2026-11-19, on Claude's drawing, not after a review. <code>ux-review</code> may still raise it.</td><td>plates 1, 4, 5 (legend)</td></tr>
+  <tr><td>W27</td><td>On Today the drag handle is also a button: a tap opens a two-line menu, Move up and Move down (each hidden at its group's edge); a hold drags. On the look-ahead, Move up and Move down sit in the row's "⋯" menu. A refused drop slides back with no message.</td><td>AC-74 needs a non-drag way to order; reusing the handle adds no new control to a row that already has three.</td><td>plates 1, 7</td></tr>
+  <tr><td>W28</td><td>A failed load is one neutral line naming what didn't load ("Today didn't load.", "The session didn't load.", "These days didn't load.") with a <b>Try again</b> button, in the list's place. Neutral, not amber.</td><td>§4.10 fixes one line and Try again, not the words; amber is kept for a save that lost the person's input.</td><td>plates 1, 6, 7</td></tr>
+  <tr><td>W29</td><td>A failed save shows "Not saved." and a <b>Try again</b> link in an amber line directly under the row (or in the capture sheet), with the row left as the person set it; a crossed row stays in the list until saved.</td><td>§4.10 says "on that row"; leaving it in place keeps the failure next to what failed.</td><td>plates 1, 3, 5, 7</td></tr>
+  <tr><td>W30</td><td>Desktop capture shows the day chips at once and has a Cancel button beside Add.</td><td>There is room on desktop, so the tap that opens the chips on a phone is saved; Cancel serves a mouse (review P1-F18).</td><td>plate 3</td></tr>
+  <tr><td>W31</td><td>"Moves at your next session" is a muted line directly under the progress on Focus and the project page.</td><td>AC-75 says "beside its progress"; under it fits a phone's width.</td><td>plate 4</td></tr>
+  <tr><td>W32</td><td>"Saved as you go" sits, muted, at the end of the session's top bar on every step; no per-row tick.</td><td>Review P1-F10: nothing said the session keeps its work, so leaving felt risky.</td><td>plates 5–8</td></tr>
+  <tr><td>W33</td><td>Crossed rows in the look-back end in a chevron; the uncrossed items sit under their own heading, "Not crossed".</td><td>Review P1-F11: the crossed rows looked fixed, and the second group read as part of the first.</td><td>plate 5</td></tr>
+  <tr><td>W34</td><td>"Don't ask about this" sits under every unanswered row's answers.</td><td>§4.5 says each row has it; review P1-F12 found it drawn under one row only.</td><td>plate 5</td></tr>
+  <tr><td>W35</td><td>The gap block has one quiet line under its dates: "Skip these days, or answer them one by one."</td><td>Review P1-F8: the buttons didn't say what they do. The line follows the buttons' order and holds no count.</td><td>plate 6</td></tr>
+  <tr><td>W36</td><td>Moving the next date earlier hides the later days; items planned on them keep their dates and nothing is said.</td><td>Review P1-F17; the spec moves nothing on a date change (AC-65's rule, applied to the look-ahead's own items).</td><td>plate 7</td></tr>
+  <tr><td>W37</td><td>"Let them all go" collapses the block to one dimmed line and shows "Let them go. Undo"; undo restores the block as it was.</td><td>AC-51 and AC-67 give it remove's undo; the words are proposed.</td><td>plate 7</td></tr>
+  <tr><td>W38</td><td>When the place field reaches 80 characters, one quiet line under it reads "That's as long as a place can be." No counter.</td><td>Review P1-F16: a cut paste went unnoticed; a line at the limit tells without counting (§4.9).</td><td>plate 8</td></tr>
+  <tr><td>W39</td><td>The review setting's help lines: Ask me, "Your next session asks how it went."; Don't ask, "You can still cross it out; no session asks about it."; Just to know, "Shown on its day as a reminder; nothing to cross out or answer."</td><td>Review P1-F18: the lines were placeholders, so "Don't ask" and "Just to know" couldn't be told apart.</td><td>plate 9</td></tr>
 </table>
 
 <h2>Coverage</h2>
-<p class="lead">Every journey step to its plate, or "no screen" with a note. Every state in the journeys' states table to its plates. Every Suggested item, drawn or not.</p>
+<p class="lead">Every journey step to its plate, or "no screen" with a note. Every state in the journeys' states table to its plates. Every Suggested item, now a requirement, and where it is drawn. Every criterion new at spec 0.2, and every UX-review pass-1 layout finding.</p>
 <table>
   <tr><th>Step</th><th>Plate</th><th>Note</th></tr>
   <tr><td>J1.1</td><td>1, 2</td><td>AC-1, AC-2 have no screen of their own</td></tr>
@@ -899,10 +1073,10 @@ code{font-family:var(--mono);font-size:10.5px}
   <tr><td>J1.3</td><td>1</td><td></td></tr>
   <tr><td>J1.4</td><td>10</td><td>copy change on existing screens</td></tr>
   <tr><td>J1.5</td><td>1, 2</td><td>closing the tab: no screen</td></tr>
-  <tr><td>J1.6</td><td>5</td><td>S1 marked</td></tr>
+  <tr><td>J1.6</td><td>5</td><td>first look-back from the switch date (S1, AC-31)</td></tr>
   <tr><td>J1.7</td><td>5</td><td></td></tr>
   <tr><td>J1.8</td><td>5, 7</td><td></td></tr>
-  <tr><td>J1.9</td><td>7</td><td>S3 marked for the position</td></tr>
+  <tr><td>J1.9</td><td>7</td><td>position of "From before" (S3, §2.3 #21)</td></tr>
   <tr><td>J1.10</td><td>7</td><td></td></tr>
   <tr><td>J1.11</td><td>8</td><td></td></tr>
   <tr><td>J1.12</td><td>2</td><td>"next week opens another session" is plate 5 again; AC-5, AC-6 have no screen</td></tr>
@@ -910,26 +1084,26 @@ code{font-family:var(--mono);font-size:10.5px}
   <tr><td>J2.2</td><td>1</td><td>fold frame</td></tr>
   <tr><td>J2.3</td><td>1</td><td>fold frame</td></tr>
   <tr><td>J2.4</td><td>1</td><td></td></tr>
-  <tr><td>J2.5</td><td>1</td><td>reload: no screen</td></tr>
+  <tr><td>J2.5</td><td>1</td><td>drag, Move up and Move down, refused drop (AC-74); reload: no screen</td></tr>
   <tr><td>J2.6</td><td>1, 7</td><td>the kept order shows on the look-ahead's day</td></tr>
-  <tr><td>J2.7</td><td>3</td><td></td></tr>
+  <tr><td>J2.7</td><td>3</td><td>phone and desktop</td></tr>
   <tr><td>J2.8</td><td>3</td><td></td></tr>
   <tr><td>J2.9</td><td>3</td><td></td></tr>
   <tr><td>J2.10</td><td>1, 3</td><td>RTL frames</td></tr>
-  <tr><td>J2.11</td><td>4</td><td></td></tr>
-  <tr><td>J2.12</td><td>4</td><td>S6</td></tr>
+  <tr><td>J2.11</td><td>4</td><td>"Moves at your next session" (AC-75)</td></tr>
+  <tr><td>J2.12</td><td>4</td><td>S6, AC-19</td></tr>
   <tr><td>J2.13</td><td>no screen</td><td>closing Tracker; the fence is checked on every plate</td></tr>
   <tr><td>J3.1</td><td>1, 2</td><td></td></tr>
   <tr><td>J3.2</td><td>5</td><td></td></tr>
   <tr><td>J3.3</td><td>5</td><td></td></tr>
   <tr><td>J3.4</td><td>5</td><td></td></tr>
-  <tr><td>J3.5</td><td>5</td><td>S4</td></tr>
+  <tr><td>J3.5</td><td>5</td><td>S4, AC-65</td></tr>
   <tr><td>J3.6</td><td>5</td><td></td></tr>
   <tr><td>J3.7</td><td>5</td><td></td></tr>
-  <tr><td>J3.8</td><td>5</td><td>S5</td></tr>
+  <tr><td>J3.8</td><td>5</td><td>S5, AC-66</td></tr>
   <tr><td>J3.9</td><td>5</td><td></td></tr>
   <tr><td>J3.10</td><td>2, 6</td><td>Today in progress; resumed session</td></tr>
-  <tr><td>J3.11</td><td>5</td><td></td></tr>
+  <tr><td>J3.11</td><td>5</td><td>the journeys' "Done for now" is drawn as "Skip the rest" (§2.3 #32)</td></tr>
   <tr><td>J3.12</td><td>7</td><td>default and loading frames</td></tr>
   <tr><td>J3.13</td><td>7</td><td></td></tr>
   <tr><td>J3.14</td><td>7</td><td></td></tr>
@@ -940,56 +1114,79 @@ code{font-family:var(--mono);font-size:10.5px}
   <tr><td>J4.4</td><td>6</td><td></td></tr>
   <tr><td>J4.5</td><td>6</td><td></td></tr>
   <tr><td>J4.6</td><td>6</td><td></td></tr>
-  <tr><td>J4.7</td><td>6</td><td></td></tr>
-  <tr><td>J4.8</td><td>7</td><td>S7</td></tr>
+  <tr><td>J4.7</td><td>6</td><td>"Skip the rest", as J3.11</td></tr>
+  <tr><td>J4.8</td><td>7</td><td>S7, AC-67: "From the gap" and its undo</td></tr>
   <tr><td>J4.9</td><td>7, 8</td><td></td></tr>
   <tr><td>J4.10</td><td>2</td><td></td></tr>
-  <tr><td>J4.11</td><td>6</td><td>S2 marked</td></tr>
+  <tr><td>J4.11</td><td>6</td><td>S2, AC-28, AC-31, AC-40: continued session; failed load</td></tr>
   <tr><td>J5.1</td><td>3</td><td></td></tr>
   <tr><td>J5.2</td><td>3</td><td></td></tr>
-  <tr><td>J5.3</td><td>3</td><td>S10</td></tr>
+  <tr><td>J5.3</td><td>3</td><td>S10, AC-71</td></tr>
   <tr><td>J5.4</td><td>7</td><td>the chips offer no out-of-range date (W22); the crafted request is API only, no screen</td></tr>
   <tr><td>J5.5</td><td>8</td><td></td></tr>
   <tr><td>J5.6</td><td>no screen</td><td>API refusal</td></tr>
   <tr><td>J5.7</td><td>no screen</td><td>API refusal, a second account</td></tr>
   <tr><td>J5.8</td><td>6</td><td>resumed frame</td></tr>
-  <tr><td>J5.9</td><td>5</td><td>S9</td></tr>
-  <tr><td>J5.10</td><td>4</td><td>S11</td></tr>
+  <tr><td>J5.9</td><td>1, 3, 5, 7</td><td>S9, AC-69: not saved on a crossing, a capture, an answer, a look-ahead edit</td></tr>
+  <tr><td>J5.10</td><td>4</td><td>S11, AC-72</td></tr>
   <tr><td>J5.11</td><td>1, 3, 5</td><td>RTL frames; the error messages are drawn in <code>en</code> only, their <code>fa</code> keys are the build's</td></tr>
 </table>
 <table>
   <tr><th>State</th><th>Plates</th></tr>
-  <tr><td>Empty</td><td>1 (S8, empty Today and hidden fold); 5 (nothing to ask); 7 (an empty day; "No date yet" and "From before" not shown when empty)</td></tr>
-  <tr><td>Not enough data</td><td>2 ("Plan your next days"); 5 (first session, S1); 7 (pre-fill 3, "From before")</td></tr>
-  <tr><td>Error</td><td>3 (title refused; S9 not saved; S10); 4 (S11 old tab); 5 (S9 not saved); 7 (next date: impossible by W22); 8 (place limit); server refusals: no screen</td></tr>
-  <tr><td>Loading</td><td>1 (Today loading); 6 (session resuming); 7 (next date changed)</td></tr>
-  <tr><td>Notices</td><td>2 (the line's four forms and in progress); 3 (capture confirmations); 4 (moved to today, W14); 5 ("Don't ask" undo); 7 (remove undo); 8 (<code>.ics</code> downloaded)</td></tr>
+  <tr><td>Empty</td><td>1 ("Nothing on today.", hidden fold, AC-68); 5 (nothing to ask); 7 (an empty day; "No date yet" and "From before" not shown when empty)</td></tr>
+  <tr><td>Not enough data</td><td>2 ("Plan your next days"); 5 (first session from the switch date, AC-31); 7 (pre-fill 3, "From before")</td></tr>
+  <tr><td>Error</td><td>1 (Today failed to load, AC-70; a crossing not saved, AC-69); 3 (title refused; capture not saved; no past day, AC-71); 4 (old tab, AC-72); 5 (answer not saved); 6 (session failed to load); 7 (next date: impossible by W22; look-ahead edit not saved; gathering failed); 8 (place limit, W38); server refusals: no screen</td></tr>
+  <tr><td>Loading</td><td>1 (Today loading); 6 (session resuming); 7 (next date moved later; moved earlier, no load)</td></tr>
+  <tr><td>Notices</td><td>2 (the line's four forms and in progress); 3 (capture confirmations); 4 (moved to today, W14); 4 ("Moves at your next session"); 5 ("Don't ask" undo; "Saved as you go"); 7 (remove undo; "Let them all go" undo); 8 (<code>.ics</code> downloaded)</td></tr>
 </table>
 <table>
-  <tr><th>Suggested</th><th>Drawn</th><th>Where</th></tr>
-  <tr><td>S1</td><td>yes, marked founder-decided</td><td>plate 5</td></tr>
-  <tr><td>S2</td><td>yes, marked founder-decided</td><td>plate 6</td></tr>
-  <tr><td>S3</td><td>yes, the position</td><td>plate 7</td></tr>
-  <tr><td>S4</td><td>yes</td><td>plate 5</td></tr>
-  <tr><td>S5</td><td>yes</td><td>plate 5</td></tr>
-  <tr><td>S6</td><td>yes</td><td>plate 4</td></tr>
-  <tr><td>S7</td><td>yes</td><td>plate 7</td></tr>
-  <tr><td>S8</td><td>yes</td><td>plate 1</td></tr>
-  <tr><td>S9</td><td>yes</td><td>plates 3, 5</td></tr>
-  <tr><td>S10</td><td>yes</td><td>plate 3</td></tr>
-  <tr><td>S11</td><td>yes</td><td>plate 4</td></tr>
-  <tr><td>S12</td><td>no: named in a caption</td><td>plate 7, desktop caption. It hides a control rather than adding one, so there is nothing to draw as an option</td></tr>
+  <tr><th>Suggested</th><th>Now (spec 0.2)</th><th>Drawn, as plain UI</th></tr>
+  <tr><td>S1</td><td>§2.3 #19 · AC-31</td><td>plate 5, first frame and caption</td></tr>
+  <tr><td>S2</td><td>§2.3 #20 · AC-28, AC-31, AC-40</td><td>plate 6, continued frame's caption</td></tr>
+  <tr><td>S3</td><td>§2.3 #21 · AC-51, AC-52</td><td>plate 7, first frame</td></tr>
+  <tr><td>S4</td><td>§2.3 #22 · AC-65</td><td>plate 5, follow-ups; plate 7, moved earlier</td></tr>
+  <tr><td>S5</td><td>§2.3 #24 · AC-66</td><td>plate 5, changed answer</td></tr>
+  <tr><td>S6</td><td>§2.3 #23 · AC-19</td><td>plate 4, project page</td></tr>
+  <tr><td>S7</td><td>§2.3 #25 · AC-67</td><td>plate 7, after a gap; let them all go</td></tr>
+  <tr><td>S8</td><td>§2.3 #26 · AC-68</td><td>plate 1, empty</td></tr>
+  <tr><td>S9</td><td>§2.3 #27, §4.10 · AC-69, AC-70</td><td>plates 1, 3, 5, 6, 7</td></tr>
+  <tr><td>S10</td><td>§2.3 #28 · AC-71</td><td>plate 3, choosing a day; desktop</td></tr>
+  <tr><td>S11</td><td>§2.3 #29 · AC-72</td><td>plate 4, old tab</td></tr>
+  <tr><td>S12</td><td>§2.3 #30 · AC-73</td><td>plate 7, desktop frame (foot and caption): the top bar is absent on every session frame</td></tr>
+</table>
+
+<table>
+  <tr><th>New at spec 0.2</th><th>Plates</th></tr>
+  <tr><td>AC-65 to AC-73</td><td>as S4, S5, S7, S8, S9, S10, S11, S12 above</td></tr>
+  <tr><td>AC-74 Move up, Move down, refused drop</td><td>1 (move up, move down); 7 (move menu)</td></tr>
+  <tr><td>AC-75 "Moves at your next session"</td><td>4 (Focus, project page)</td></tr>
+  <tr><td>AC-32, AC-38 amended (pre-fill counts; "Skip the rest")</td><td>5 (first frame, complete), 6</td></tr>
+  <tr><td>AC-18 amended (uncrossing undoes the move)</td><td>1 (fold), 4 (actions list)</td></tr>
+  <tr><td>AC-51 amended (undo on "Let them all go")</td><td>7</td></tr>
+</table>
+<table>
+  <tr><th>UX review pass 1</th><th>How draft 2 handles it</th></tr>
+  <tr><td>P1-F8 gap block's buttons</td><td>fixed as proposed: one line under the dates (W35), plate 6</td></tr>
+  <tr><td>P1-F9 step links</td><td>fixed: completed step names drawn as links (W25), plates 7, 8</td></tr>
+  <tr><td>P1-F10 saved as you go</td><td>fixed: "Saved as you go" in the session's top bar (W32), plates 5–8</td></tr>
+  <tr><td>P1-F11 crossed rows, second heading</td><td>fixed: chevron and "Not crossed" (W33), plate 5</td></tr>
+  <tr><td>P1-F12 "Don't ask" on one row</td><td>fixed: under every unanswered row (W34), plate 5</td></tr>
+  <tr><td>P1-F13 capture's two day layouts</td><td>fixed: captioned, the "Today" chip opens the day chips, plate 3</td></tr>
+  <tr><td>P1-F16 place field cuts silently</td><td>fixed: a line at the limit, no counter (W38), plate 8</td></tr>
+  <tr><td>P1-F17 changed next date</td><td>fixed: frame redrawn to match J3.12, and the shrink drawn (W36), plate 7</td></tr>
+  <tr><td>P1-F18 desktop and help lines</td><td>fixed: desktop capture (W30) and desktop look-back frames, plates 3, 5; help lines written (W39), plate 9</td></tr>
 </table>
 
 <h2>Changelog</h2>
 <ul class="lead">
+  <li><b>draft 2 · 2026-11-19</b> — From <code>03-journeys.md</code> 0.2 (marked <code>STALE</code>; frames follow the spec where it differs) and <code>02-spec.md</code> 0.2, with <code>05-ux-review.md</code> 0.2 pass 1 and <code>changes/01-req-journeys-gaps-and-review-pass-1.md</code>. "Done for now" renamed "Skip the rest" and W17 updated; S1 to S12 redrawn as plain UI citing their criteria; AC-65 to AC-75 drawn (Move up and Move down, "Moves at your next session", undo on "Let them all go", failures on Today, capture, the look-back, the look-ahead and loads, "From the gap"); P1-F8 to F13 and F16 to F18 fixed; new frames on plates 1, 3, 5, 6 and 7; calls W27 to W39. Plate numbers kept. Rendered at 1200 and 375 px with headless Edge and looked at. Drawn in the founder's unattended run; the gate reported column 3 <code>STALE</code> (journeys not yet updated from note 01) and was carried past by the run. Written by Claude (Opus 5.5).</li>
   <li><b>draft 1a · 2026-11-19</b> — Call W26 added: the founder kept the square cross-out control. No frame changed.</li>
   <li><b>draft 1 · 2026-11-19</b> — From <code>03-journeys.md</code> 0.2 and <code>02-spec.md</code> 0.1. Ten plates, 25 calls. Rendered at 1200 and 375 px in the app's built-in browser and looked at. Written by Claude (Opus 5.5) at an effort below the skill's medium.</li>
 </ul>
 
 <h2>References</h2>
 <ul class="lead">
-  <li><code>02-spec.md</code> 0.1 (§4, §6); <code>03-journeys.md</code> 0.2 (§2, states, §4 Suggested); <code>STATE.md</code> 3b block</li>
+  <li><code>02-spec.md</code> 0.2 (§2.3, §4, §4.10, §6; draft 1 used 0.1); <code>03-journeys.md</code> 0.2 (§2, states, §4 Suggested); <code>05-ux-review.md</code> 0.2, pass 1; <code>changes/01-req-journeys-gaps-and-review-pass-1.md</code>; <code>STATE.md</code> 3b block</li>
   <li><code>lifecycle/templates/wireframes.html</code> 0.1 (frame kit); <code>../../decisions/decision-log.md</code> D-20, D-64 to D-73</li>
 </ul>
 
