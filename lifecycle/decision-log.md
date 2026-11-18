@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.45 · 2026-10-21**
+**Version 0.46 · 2026-11-19**
 
 ---
 
@@ -623,3 +623,22 @@ Four facts found on the way are written into the files as they are, not as the m
 **Decided by.** Founder, 2026-10-21, in chat: raised the problem and said "go ahead with all three on a branch" after Claude proposed the fix. The wording is Claude's. Not yet reviewed line by line.
 
 **Revisit.** After its first three uses: whether the founder still runs `lifecycle-status` for new work, and whether the skips it offers were the ones wanted.
+
+## L-49 · 2026-11-19 · Unattended build runs: `bin/drive` and the founder's rule
+
+**Decision.** Once a module's build plan and project config are committed, and after a new project's first stage, the build may run unattended. `lifecycle/bin/drive <module>` runs one fresh headless session per step, chosen by the Drive line in the top block of `STATE.md`. Every step session gets `lifecycle/unattended.md` in its system prompt. That file holds the founder's rule in their words: keep working; answer questions yourself and log each decision; stop only where a change would be irreversible; otherwise decide by best practice, the canon and the vision. Calls go in `<module>/calls.md`, graded *proposal*. Pushes, deploys and production steps count as irreversible, so a run never deploys. Launch and land become one step, and `handoff`'s block carries the Drive line. The change is in `README.md` 0.10 §5b, `skills-plan.md` 0.15 §0 and `unattended.md` 0.1.
+
+**Why.**
+- In the IMNSTR trial the founder started about 41 build-phase sessions by hand. Each also needed `/handoff`, `/learned` and `/clear`, and most of those prompts carried no decision.
+- The founder wants to start a build and come back four to eight hours later without losing review quality.
+- The driver keeps what made the build sound: Sonnet lanes, Opus verify in a fresh context, and milestone suites.
+- It also keeps the session rules the journeys retrospective paid for: no context outlives a step, and a limit is waited out with a fresh session.
+- Claude proposed stopping on whole classes of change: schema, auth, money and scope. The founder chose to stop only at irreversible steps.
+- Claude added *blocked* stops: a service down, three failed hypotheses, a gate it can't satisfy, a usage limit. These leave no call to make. An unattended loop on that kind of block is what cost the journeys build ten overnight hours.
+
+**Decided by.** Founder, 2026-11-19, in chat: asked for unattended runs, said "yes, write it up", and gave the standing rule's text. The rest of the wording and the driver are Claude's, not yet reviewed line by line. The *blocked* stops are Claude's addition, for the founder to keep or drop.
+
+**Revisit.** After the first real unattended build:
+- whether `/<skill>` expands under `claude -p` (not seen yet, because the headless CLI wasn't signed in);
+- how many `calls.md` rows the founder vetoed;
+- whether any stage the run merged had to be reopened.

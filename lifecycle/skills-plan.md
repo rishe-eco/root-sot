@@ -2,7 +2,7 @@
 
 *Each of the twenty-one lifecycle skills, and the design step: what it does, how it is invoked, which model runs it, exactly what it reads and writes, its gate, and where its shape comes from. The method these skills implement is `README.md`.*
 
-**Version 0.14 · Status: plan — nothing here is built yet · 2026-10-21 · Owner: _root**
+**Version 0.15 · Status: plan — nothing here is built yet · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -33,6 +33,14 @@ Twenty-one skills in four groups — every session, design, build, closing the l
 **Reference seeds.** Where a skill's section names `skills/<skill>/reference.md`, that file holds seeds for the skill's reference file and template. They bind as this plan does. The skill's first author places them. Rules every skill shares but rarely needs, such as redoing a phase, are in `skills/shared/reference.md`.
 
 **Parallel sessions** on one branch or one machine commit by path (`git commit --only <paths>`) or from their own checkout; fetch and rebase right before pushing; merge `STATE.md` by block, newest first, never by copying over it; and take the heavy-runner lock named in `config.md` before running a suite.
+
+**Unattended runs** (`README.md` §5b, L-49). `bin/drive` starts each build step as a headless `claude -p "<the Drive line's step>"`, with `unattended.md` appended to the system prompt. A prompt starting with `/<skill>` should expand the skill there, as in a typed message (L-47). *Verify on the first real run*: on 2026-11-19 the headless CLI on the build machine wasn't signed in, so that has not been seen yet. Every skill keeps its text as written. Where `unattended.md` is in the system prompt, it changes four things:
+- each question for the founder becomes a call logged in `<module>/calls.md`, and a "founder's yes" becomes such a row, except before an irreversible step;
+- `build-phase` runs its lane in the foreground and lands it in the same session;
+- `verify`'s *For the main session* items are done by the session that ran the fork, pushes excepted;
+- every step ends by writing its `STATE.md` block with a **Drive line** and its `learned` notes, as if `/handoff` and `/learned` had been typed.
+
+`handoff`'s block format carries the Drive line in every block it writes, so a run can start from an attended session's block.
 
 **References.** Anything named for another session is named by its committed path relative to the repo: never by number alone, never by a machine path. Journey steps, criteria and findings are cited by the id copied from the file (`J3.4`, not "J2 step 4"). An open-work number is cited with its file.
 
@@ -381,6 +389,7 @@ Stage 2 builds `lifecycle-status`, `handoff`, `learned`, `decision-record`, `bui
 
 ## Changelog
 
+- **0.15 · 2026-11-19** — §0 *Unattended runs*: what `unattended.md` changes in a step started by `bin/drive`, and the Drive line in `handoff`'s block format (L-49).
 - **0.14 · 2026-10-21** — §0 *Model and effort*: only a skill that opens a session or forks sets a model; `handoff` and `decision-record` run on the session's own (L-46). §0 *Invocation* and §1 `handoff`: a skill step's paste line is the invocation alone (L-47). §1 `start` added (L-48).
 - **0.13 · 2026-10-21** — §0 *Model and effort*: `handoff` and `decision-record` name a wrong model and carry on instead of stopping. From `learned --consolidate`, the first (L-40).
 - **0.12 · 2026-10-20** — `handoff` and `learned` end with the next session's prompt (`README.md` §5 rule 8). Stage 2 writes each skill as `skills/<skill>/SKILL.md` and starts with `bin/install-skills`.

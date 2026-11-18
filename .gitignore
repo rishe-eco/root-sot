@@ -7,3 +7,6 @@ desktop.ini
 .claude/settings.local.json
 *.tmp
 ~$*
+
+# Unattended run logs and locks (lifecycle/bin/drive)
+.drive/
