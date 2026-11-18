@@ -2,6 +2,51 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-11-19 · 7 build-plan · docs/root-os @ cc2aa4d · rishe-eco/tracker main @ eea1c59
+
+*Replaces the 5–6 block below: its next step 1 is done, and its step 2 is skipped because config 0.4 needs no settling before the first stage (`07-build-plan.md` §10). Its carry-overs and questions stand, as amended here. The 2 spec block is dropped (five kept); its one live note is copied under Carry-overs.*
+**Drive:** run · /build-phase SR0 tracker/modules/05-session-rhythm
+
+**What was done** (in the founder's unattended run; calls in `tracker/modules/05-session-rhythm/calls.md` rows 15 to 26)
+- `build-plan`, by hand (`c4d5f68`): `07-build-plan.md` 0.1. Nine stages, SR0 to SR8 (ids chosen not to collide with Reflect's B0–B6 and fix-B-15; PD-1), MS1 after SR5 and MS2 after SR8. 22 defects in §0.4, each assigned; PD-1 to PD-20 in §2; W1–W39, S13, P1-F15 and the eval plan's query script all accepted (§2's table). Gate `8 SR0`: OK. Status column 7 `done`. Config 0.4 needs no settling before SR0 (§10, call 25); its stale facts (D-18) are fixed by SR0's `verify`, before MS1.
+
+**Next steps, in order** (each `build-phase` Opus, medium, and each `verify` Opus, high, from the tracker checkout `E:\_root\tracker` on `main`; one lane at a time; `build-phase` launches and lands in one session, `unattended.md` rule 6)
+1. `/build-phase SR0 tracker/modules/05-session-rhythm`
+2. `/verify SR0 tracker/modules/05-session-rhythm` (also applies config 0.4's edits, D-18)
+3. `/build-phase SR1 tracker/modules/05-session-rhythm`
+4. `/verify SR1 tracker/modules/05-session-rhythm`
+5. `/build-phase SR2 tracker/modules/05-session-rhythm`
+6. `/verify SR2 tracker/modules/05-session-rhythm`
+7. `/build-phase SR3 tracker/modules/05-session-rhythm`
+8. `/verify SR3 tracker/modules/05-session-rhythm`
+9. `/build-phase SR4 tracker/modules/05-session-rhythm`
+10. `/verify SR4 tracker/modules/05-session-rhythm`
+11. `/build-phase SR5 tracker/modules/05-session-rhythm`
+12. `/verify SR5 tracker/modules/05-session-rhythm`
+13. `/verify --milestone MS1 tracker/modules/05-session-rhythm`
+14. `/build-phase SR6 tracker/modules/05-session-rhythm`
+15. `/verify SR6 tracker/modules/05-session-rhythm`
+16. `/build-phase SR7 tracker/modules/05-session-rhythm`
+17. `/verify SR7 tracker/modules/05-session-rhythm`
+18. `/build-phase SR8 tracker/modules/05-session-rhythm`
+19. `/verify SR8 tracker/modules/05-session-rhythm`
+20. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+
+**Carry-overs**
+- **Push order (PD-10, call 22):** nothing is pushed in the run. First SR0's merge commit alone, then nothing until MS2 passes: an earlier push switches the founder into an unbuilt session (D-9) and breaks AC-72 for open tabs (D-8). Every `verify` lists its push as owed.
+- After the build, before `close-out`: `journeys update tracker/modules/05-session-rhythm --from-note 02` and `eval-plan tracker/modules/05-session-rhythm --touch-up changes/02-req-session-saves-and-eval-measures.md` (change request 02, *Owed by other skills*); and AC-44's wording through `revise` (PD-7c).
+- From the 2 spec block: D-64's line "Until stage 1 is built, D-5 still describes the code" overstates it (D-5 was never enforced in code, `02-spec.md` §1.1); no decision-log entry was written. For `close-out`.
+
+**Questions for the founder**
+- Which opportunity-tree node does the session rhythm sit on (`ecosystem/ost.md` §6)? Owed by: `close-out`.
+- Push `docs/root-os` (root-sot is public), and merge it into `main` when? Owed by: the founder; the run pushes nothing.
+- Read `calls.md` rows 5 to 26 and veto any call with a change note or `revise`; the plan's PD-1 to PD-20 can also be refused on the diff. Owed by: before SR0's `verify`, ideally.
+- Your phone and calendar app for MS2's by-hand list, and the stray worktree `.claude/worktrees/xenodochial-ramanujan-376dc8` in the tracker checkout (P0-4, P0-6). Owed by: MS2.
+
+**Owed**
+- Push pending: founder (root-sot `docs/root-os`; nothing in tracker yet).
+- Nothing uncommitted.
+
 ## 2026-11-19 · 5–6 ux-review, revise 01–02, journeys update, wireframes draft 2, eval-plan · docs/root-os @ c830e5a · rishe-eco/tracker main @ eea1c59
 
 *Replaces the 4 wireframes block below: its next steps 1 to 3 are done. Its carry-overs and questions stand, as amended here.*
@@ -121,40 +166,6 @@
 **Questions for the founder**
 - Which opportunity-tree node does the session rhythm sit on (`ecosystem/ost.md` §6)? Owed by: `close-out`.
 - Push `docs/root-os` (now 25 commits ahead, root-sot is public), and merge it into `main` when? Owed by: before `build-plan`.
-
-**Owed**
-- Nothing uncommitted. Nothing pushed.
-
-
-## 2026-11-19 · 2 spec · docs/root-os @ 581ca10 · rishe-eco/tracker main @ eea1c59
-
-*Replaces the 0 intake block of the same day (same session).*
-**Drive:** stop · design phases are attended · resume: run the next phase below
-
-**What was done**
-- Stage 0 of `tracker/drafts/session-rhythm.md` decided with the founder, one at a time: D-63 to D-78 in `tracker/decisions/decision-log.md` (log 0.55), applied in the draft's 0.3-draft (§12 ticked). Start now (D-63); the day gate retires (D-64); the founder declined the paper run (D-74, against Claude's recommendation).
-- Opened the module by following `start` and `ideate` by hand (Opus, not their Sonnet): `00-intake.md`. Research waived, and no design pass (phase 4b), both the founder's choice. The drop rule is "Drop it if I find myself planning on paper again because it's easier than the app"; not testable from the record (spec M5).
-- `02-spec.md` 0.1 by `spec full`'s steps: 64 criteria in nine areas, four questions asked (§2.1), eighteen settled by Claude (§2.2, refusable on the diff). Gate 3: spec headings 7 of 7; personas file missing, as expected.
-
-**Next steps, in order**
-1. Skill step, Sonnet, medium effort (the skill sets it), from the root-sot checkout on `docs/root-os`: `/personas tracker/modules/05-session-rhythm`
-2. Skill step, Opus, high effort, same checkout: `/journeys new tracker/modules/05-session-rhythm`
-3. Skill step, Opus, medium effort: `/wireframes tracker/modules/05-session-rhythm`
-4. No design pass (phase 4b skipped, founder, 2026-11-19): the UX review reads the wireframes.
-5. Skill step, Opus, high effort: `/ux-review design tracker/modules/05-session-rhythm`
-6. Skill step, Opus, high effort: `/eval-plan tracker/modules/05-session-rhythm`
-7. Skill step, Opus, high effort: `/build-plan tracker/modules/05-session-rhythm`
-8. Only if `build-plan` finds that `lifecycle/projects/tracker/config.md` 0.4 needs settling: the first build stage runs attended, from the tracker checkout (`E:\_root\tracker`): `/build-phase <first stage>` (Opus, medium effort), then `/verify <first stage> tracker/modules/05-session-rhythm` (Opus, high effort; it runs forked). Otherwise skip to step 9.
-9. Plain work, in a terminal at the root-sot checkout, no model to choose (each step session sets its own): `lifecycle/bin/drive tracker/modules/05-session-rhythm`. Before it, the founder sets this block's successor's Drive line to `run · <the first build step>`, as `build-plan`'s handoff will propose.
-
-**Carry-overs**
-- D-5's gate was never enforced in code; only the onboarding copy and two buttons carry it (`02-spec.md` §1.1). D-64's line "Until stage 1 is built, D-5 still describes the code" overstates it; no new entry was written for that.
-- The Persian terms in `02-spec.md` §2.2 #17 are Claude's proposals; `journeys` should put them to the founder.
-- Out of scope for stage 1 and carried in the spec's §7: Focus Periods' two ties to the session, outsource and bucket list in the look-back, per-user time zones.
-
-**Questions for the founder**
-- Which opportunity-tree node does the session rhythm sit on? The tree is on its canvas (`ecosystem/ost.md` §6), and no node is named in the files. Owed by: `close-out`.
-- Push `docs/root-os` (23 commits ahead of `origin/docs/root-os`, root-sot is public), and merge it into `main` when? Owed by: before `build-plan`, so the build's cards read a pushed root-sot.
 
 **Owed**
 - Nothing uncommitted. Nothing pushed.
