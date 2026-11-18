@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.41 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.42 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -33,6 +33,14 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-10-20 | **add_focus_periods** | `FocusPeriod` and the explicit join `FocusPeriodProject` (with `addedAt`) — **Focus Periods**, a dated lens over a few projects. The first module built on the lifecycle method. See D-61. |
 
 ## 2. Key decisions
+
+### D-65 · A count about one item may appear in the look-back and on its own page — 2026-11-19
+
+The failure-and-ignoring spec (`../../ecosystem/working/journey-build/05-failure-and-ignoring.md` 0.1, "Dates, not counts" and its *No counts* fence) is loosened for Tracker's session rhythm (`../drafts/session-rhythm.md` §5). A pattern line may count **one item's own planned days**, for example "Evening walk has not happened on its last four planned days. What's been in the way?", in two places only: the session's look-back, and that item's or goal's own page. Everything else in the fence stands: no count across items ("3 goals have gone quiet"), no total, no score, nothing on the daily view, no counter of looks or failures, and the wording is about the attempt, never the person.
+
+*Why:* a pattern such as "a recurring item that keeps not happening" can't be named without counting its own occurrences, and "since when" alone does not say it for an item that recurs. The spec's rule was written against a guilt ledger, debt piling up across items; a single item's line, read inside review and followed by a question, is not that. *Cost, accepted:* a Journey fence is loosened, and the look-back's wording must carry the weight the rule used to. Stage 1 shows no patterns (§5, "Do not design the pattern view yet"), so this binds stages 3 and 7.
+
+*Decided by:* the founder, 2026-11-19, choosing "look-back and the item's page" from three options (that; the look-back only, as §5 first proposed; keep dates only). It was Claude's recommendation. *Set aside:* keeping dates only.
 
 ### D-64 · The day gate retires; the session is the one ritual (supersedes D-5) — 2026-11-19
 
@@ -693,6 +701,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.42 · 2026-11-19** — D-65 added: **a count about one item** may appear in the session look-back and on that item's own page, loosening the failure spec's "dates, not counts" for the session rhythm; no count across items anywhere.
 - **0.41 · 2026-11-19** — D-64 added: **the day gate retires** (supersedes D-5). Today opens with no step before it; Pre-day and After-day retire into the session's look-ahead and look-back. Takes effect when the session rhythm's stage 1 lands.
 - **0.40 · 2026-11-19** — D-63 added: **the session rhythm starts now**, beside the January Hamrah commitment. Stages 0 and 1 open as a lifecycle Module; Galaxy stays after the stage 1 gate.
 - **0.39 · 2026-11-04** — D-62 added (decided 2026-10-18 on `docs/journey-loop-first`, merged 2026-11-04; it was numbered D-61 there, which Focus Periods took on main): **Tracker becomes Journey's child version** — Root builds Journey loop-first, and the thin whole loop is built here; five minimum specs (Reflect, batteries, capacity, failure-and-ignoring, the first act) queued in Root's `working/journey-build/`. No code, no migration yet.
