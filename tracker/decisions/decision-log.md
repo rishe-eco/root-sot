@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.49 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.50 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -33,6 +33,14 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-10-20 | **add_focus_periods** | `FocusPeriod` and the explicit join `FocusPeriodProject` (with `addedAt`) — **Focus Periods**, a dated lens over a few projects. The first module built on the lifecycle method. See D-61. |
 
 ## 2. Key decisions
+
+### D-73 · The look-ahead is the session's own screen, not a mode of Calendar — 2026-11-19
+
+The session's look-ahead (`../drafts/session-rhythm.md` §2 step 4, §12 "Calendar's part") is a screen of its own inside the session: the days from today until the next session date, each as a simple list, with recurring items already placed, and adding, moving and removing on each. It reuses Calendar's parts where they fit (the Time Theme bands, the item editor), not Calendar's page. Calendar stays as it is (§9).
+
+*Why:* a session is a short sequence of steps that saves as each is completed and can be resumed (§2); it should hold the person inside it. Calendar is an open-ended view to wander in. *Cost, accepted:* two places show the days ahead, and some layout is built twice.
+
+*Decided by:* the founder, 2026-11-19, choosing "own screen" over a planning mode of Calendar. It was Claude's recommendation.
 
 ### D-72 · Existing data is kept; the record starts the day the rhythm switches on — 2026-11-19
 
@@ -785,6 +793,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.50 · 2026-11-19** — D-73 added: **the look-ahead is the session's own screen**, a per-day list until the next session, reusing Calendar's parts but not its page.
 - **0.49 · 2026-11-19** — D-72 added: **existing data is kept**; day states become read-only history; the record starts on the switch date; older open actions are offered once as one optional "from before" block.
 - **0.48 · 2026-11-19** — D-71 added: **every item is asked about at review** by default; one tap in the look-back sets "don't ask", kept on the item's recurrence. Three settings: ask me, don't ask, just to know.
 - **0.47 · 2026-11-19** — D-70 added: **quick capture** is a small modal from any screen (title required; optional date, empty meaning today; optional time). The estimate-when-dated rule becomes optional.
