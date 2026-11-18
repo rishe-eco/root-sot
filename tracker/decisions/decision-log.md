@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.42 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.43 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -33,6 +33,19 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-10-20 | **add_focus_periods** | `FocusPeriod` and the explicit join `FocusPeriodProject` (with `addedAt`) — **Focus Periods**, a dated lens over a few projects. The first module built on the lifecycle method. See D-61. |
 
 ## 2. Key decisions
+
+### D-66 · Level checks may be scheduled, and a read shows in the look-back — 2026-11-19
+
+Two fences in the batteries check spec (`../../ecosystem/working/journey-build/03-batteries-check.md` 0.1) change for Tracker's session rhythm (`../drafts/session-rhythm.md` §6):
+
+- **Scheduling is allowed.** The person may set a level check as a recurring item, and one may sit in the session (step 3). The spec's "no reminder, no interval, no gathered action can open this tool", and the schema comment that enforces it, do not carry over.
+- **A read shows in two more places:** as one line of context in the session look-back, on the day it was taken, and on a gap's record. The spec showed a read only on the goal it informed.
+
+**Unchanged and still enforced:** no history view, chart or trend of reads; no numbers, gauges or sliders; a skip is not recorded; whether the person did the recharge is never stored; a low read informs and never blocks.
+
+*Why:* the founder's stated need is a check on a schedule they set, because a level noticed only when you think to ask is noticed too late. A read taken on a day is the most direct evidence of why something on it didn't happen, or why a gap began. *Cost, accepted:* the spec's reason for its fence was drift from noticing to a number to improve; the history fence is now the only guard against it, so it stays as an acceptance criterion. This binds stage 4; stage 1 builds nothing for it.
+
+*Decided by:* the founder, 2026-11-19, choosing "both" from three options (both; scheduling only; neither). It was Claude's recommendation.
 
 ### D-65 · A count about one item may appear in the look-back and on its own page — 2026-11-19
 
@@ -701,6 +714,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.43 · 2026-11-19** — D-66 added: **level checks may be scheduled**, and a read shows in its day's look-back and on a gap's record, changing two batteries-spec fences; the no-history fence stands.
 - **0.42 · 2026-11-19** — D-65 added: **a count about one item** may appear in the session look-back and on that item's own page, loosening the failure spec's "dates, not counts" for the session rhythm; no count across items anywhere.
 - **0.41 · 2026-11-19** — D-64 added: **the day gate retires** (supersedes D-5). Today opens with no step before it; Pre-day and After-day retire into the session's look-ahead and look-back. Takes effect when the session rhythm's stage 1 lands.
 - **0.40 · 2026-11-19** — D-63 added: **the session rhythm starts now**, beside the January Hamrah commitment. Stages 0 and 1 open as a lifecycle Module; Galaxy stays after the stage 1 gate.
