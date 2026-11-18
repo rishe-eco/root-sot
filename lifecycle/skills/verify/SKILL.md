@@ -20,6 +20,8 @@ Review one landed stage as the person who has to ship it. Run the code first, th
 
 The argument was: `$ARGUMENTS`
 
+**In an unattended run** (`lifecycle/unattended.md`, started by `lifecycle/bin/drive`), the fork still asks nothing and returns *For the main session* as below. The session that ran the fork then does those items itself, logging each call in `<module>/calls.md`: it fast-forwards the code repo's **local** base, removes the lane's worktree, and writes the block with its Drive line. It never pushes. A push goes under **Owed** as "push pending: founder", and the next stage builds on the local base.
+
 ## What the files say
 
 ```!

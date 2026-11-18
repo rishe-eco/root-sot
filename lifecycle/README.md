@@ -2,7 +2,7 @@
 
 *The method behind the lifecycle skills: the three tracks of work, the phases and their gates, where every file lives and who writes it, the session and build rules that keep usage down, and how lessons are kept. The skills themselves are specified in `skills-plan.md`.*
 
-**Version 0.9 · Status: plan — nothing here is built yet · 2026-10-21 · Owner: _root**
+**Version 0.10 · Status: plan — nothing here is built yet · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -75,6 +75,7 @@ NN-slug/
   briefs/                phase cards (<stage>.md) and lane reports (<stage>.report.md) — committed
   changes/               one numbering: change notes from `spec change` (NN-change-<slug>.md), change requests from `revise` (NN-req-<slug>.md)
   decisions.md           one line per product decision, pointing at its change note
+  calls.md               calls made without the founder during a `bin/drive` run, for the founder to veto (§5b)
 ```
 
 **Next to the code**, in the code repo: stage records (`docs/development/<stage>.md`) and the development README's stage list — as the journeys build did. The code repo keeps a one-line pointer to the module folder.
@@ -92,6 +93,8 @@ NN-slug/
 | `skills/<skill>/SKILL.md` | The skill itself, from stage 2. It lives here until the plugin (stage 6); `bin/install-skills` copies every skill into `~/.claude/skills/`, so the sessions in all three repos find it. Rerun it after any skill changes |
 | `projects/<project>/` | Per-project configuration: `brief-common.md`, `review-checklist.md`, `config.md` (paths, suites, milestone script, lane resources) |
 | `bin/gate` | The mechanical gate check every phase skill runs |
+| `bin/drive` | Runs a module's build steps unattended, one fresh headless session per step (§5b); `bin/drive-test` is its test suite |
+| `unattended.md` | The standing rule every `bin/drive` step session gets: the founder's rule in their words, and how a step applies it (§5b) |
 | `retros/` | Build retrospectives |
 | `learnings/inbox/` | Capture notes from `learned`, one file per session — nothing in them is acted on until consolidated |
 | `learnings/index.md` | Every integrated lesson, where it now lives, and how often it recurred |
@@ -114,7 +117,8 @@ Modules that predate this system stay where they are; `status.md` points at thei
 | File | Only writer |
 |---|---|
 | `status.md` | each phase skill, **its own cell only**; `ideate` adds the row; `revise` sets `STALE`; `close-out` closes the row |
-| `STATE.md` (module or shared) | `handoff`; `ideate` creates it; `build-phase` when it launches or lands a lane; `debug` when it stops after three failed hypotheses; `learned` for urgent carry-overs |
+| `STATE.md` (module or shared) | `handoff`; `ideate` creates it; `build-phase` when it launches or lands a lane; `debug` when it stops after three failed hypotheses; `learned` for urgent carry-overs; any step of a `bin/drive` run, ending as `unattended.md` rule 5 says |
+| `<module>/calls.md` | any step of a `bin/drive` run, one row per call (`unattended.md` rule 2); `revise` marks a row settled |
 | `learnings/inbox/` | `learned` (capture writes notes); `verify` adds one capture note per review |
 | `learnings/index.md` | `learned --consolidate`, which also writes the destinations once accepted |
 | `lifecycle/decision-log.md` | `decision-record`; also the entries `personas`, `revise` on the method and `learned --consolidate` cause, written in `decision-record`'s format from its shared reference file |
@@ -134,8 +138,9 @@ Modules that predate this system stay where they are; `status.md` points at thei
 | `README.md` (this file) | the founder, as for `templates/` |
 | `skills-plan.md` | the founder, as for `templates/` |
 | `skills/` | the founder, as for `templates/`; each skill's first author places its seeds |
+| `unattended.md` | the founder, as for `templates/` |
 
-One file pattern per row, so a skill can grep its own rights.
+One file pattern per row, so a skill can grep its own rights. **In a `bin/drive` run**, a row above that needs "the founder's yes" takes a `calls.md` row instead, except before an irreversible step (`unattended.md` rule 3).
 
 ## 5. Session rules
 
@@ -150,6 +155,17 @@ Rules 1–6 from the retrospective's findings 1, 3 and 6; rules 7 and 9 from `le
 7. **Every session ends `handoff` → `learned` → `/clear`.** Lessons are captured as notes and never edited into instructions mid-flight; `learned --consolidate` integrates them in batches (15 notes or 14 days, and at each milestone during a build), with the founder accepting each change.
 8. **Every session's last message is the next session's prompt**, in a fenced block the founder pastes after `/clear`. It is the first next step of the `STATE.md` block just written, copied word for word. A skill step is the invocation alone, `/<skill> <arguments>`, since a skill runs only when the message starts with its name; the skill reads the block itself. A plain-work step is a whole prompt: which block to read, then the task, with module, model, effort, branch and checkout. A session with no next step says so. With the skills, `handoff` prints it and `learned` prints it again last; before them, the session writes it itself.
 9. **A session checks the ground before its first step.** The previous session's work landed: its branch is where the prompt says, merged or not, and the `STATE.md` block and decision-log entry it names exist. If not, stop and ask before branching. And `bin/install-skills --check` lists nothing; if it lists a skill, reinstall before using it.
+
+## 5b. Unattended runs
+
+Once a module's build plan and project config are committed, the build can run without the founder: `lifecycle/bin/drive <module>` (decision L-49). In the IMNSTR trial, the founder started about 41 build-phase sessions by hand. Each also took `/handoff`, `/learned` and `/clear`, and most of those prompts carried no decision. The driver takes over that loop. The method's checks stay as they are: Sonnet lanes, Opus verify in a fresh context, targeted tests per stage and full suites at milestones.
+
+1. **One fresh headless session per step.** The driver reads the **Drive line** in the top block of `<module>/STATE.md` and runs that step as `claude -p`, in auto permission mode. It appends `unattended.md` to the session's system prompt, waits for the step to end, then reads the Drive line again. No context outlives a step, so rules 1–3 above hold without anyone typing `/clear`.
+2. **The founder's rule** (`unattended.md`, in their words): keep working; answer questions yourself and log each call; stop only where a change would be irreversible. Calls go in `<module>/calls.md`, graded *proposal*, for the founder to veto after the run. Every push is irreversible here, and so is every deploy and any production step, so **an unattended run never deploys**. It ends with stages merged into the code repo's local `main` and the pushes listed as owed.
+3. **A step ends itself:** it writes the `STATE.md` block with its Drive line, writes `learned`'s capture notes and commits by path. This replaces rule 7's three typed commands.
+4. **Launch and land are one step** (`build-phase` runs the lane in the foreground). An unattended run builds one lane at a time.
+5. **The run stops** when a step writes `stop` (an irreversible step it can't usefully go past, or blocked: a service down, `debug`'s three failed hypotheses, a gate it can't satisfy), when it writes `done`, when there is no progress (the same Drive line twice), on a timeout, a failed pre-flight (free disk, the project's own check such as Docker), a `.drive/STOP` file, or the step cap. A usage limit is waited out, and the same step is then started fresh (rule 3).
+6. **Where it starts and ends.** Phases 0–7b stay attended: they are where the founder's questions belong, and `build-plan` should leave the cards as little to decide as possible. The first stage of a new project stays attended too, because its `verify` settles `config.md` with the founder. Live review and close-out stay attended. In a run, the founder's work is the morning read: `calls.md`, the top of `STATE.md`, and the owed pushes.
 
 ## 6. Build rules
 
@@ -196,6 +212,7 @@ Each stage ends by checking usage against the baseline.
 
 ## Changelog
 
+- **0.10 · 2026-11-19** — §5b *Unattended runs*: `bin/drive`, the founder's rule in `unattended.md`, `<module>/calls.md`, the Drive line; §3 and §4 list the new files and their writers; in a run, a `calls.md` row stands in for the founder's yes except before an irreversible step (L-49). Prototype: the driver is tested against a stub, not yet against a real build.
 - **0.9 · 2026-10-21** — §1: `start` is the front door for new ideas (L-48). §5 rule 8: a skill step's prompt is the invocation alone (L-47). §7: `handoff` and `decision-record` run on the session's own model (L-46).
 - **0.8 · 2026-10-21** — §5 rule 9: a session checks that the previous session's work landed and that the installed skills match the checkout. From `learned --consolidate`, the first (L-39).
 - **0.7 · 2026-10-20** — §3: skills live in `skills/<skill>/SKILL.md` until the plugin, installed by `bin/install-skills`. §5 rule 8: every session ends with the next session's prompt. §8: the baseline is the journeys build's total and the IMNSTR trial's per-phase costs.

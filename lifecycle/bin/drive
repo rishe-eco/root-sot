@@ -1,0 +1,178 @@
+#!/usr/bin/env bash
+# drive — runs a lifecycle module's build steps unattended, one fresh headless Claude session per step.
+#
+# Specified in `lifecycle/README.md` §5b and decision L-49; the rule every step session gets is
+# `lifecycle/unattended.md`. Prototype 0.1.
+#
+# The loop: read the Drive line in the top block of <module>/STATE.md; if it says `run · <line>`, start a
+# fresh `claude -p "<line>"` with unattended.md appended to its system prompt; when that session ends,
+# read the Drive line again. It stops on `stop`, `done`, a missing line, no progress, a timeout, a failed
+# pre-flight, a STOP file, or the step cap. Each step is its own process, so no context grows across steps
+# (retrospective finding 1), and a usage limit is waited out by starting the same step fresh, never by
+# resuming (README §5 rule 3).
+#
+# Usage: drive <module> [--max-steps N] [--step-timeout SECS] [--dry-run] [--once]
+#   <module>          the module folder, relative to root-sot (tracker/modules/05-example) or absolute
+#   --max-steps N     stop after N steps (default 40)
+#   --step-timeout S  kill a step after S seconds (default 14400 = 4 h; a lane runs inside its step)
+#   --dry-run         print the step it would run, and run nothing
+#   --once            run one step, then stop
+#
+# Environment:
+#   DRIVE_CLAUDE        the claude command (default `claude`; the tests use a stub)
+#   DRIVE_ROOT          root-sot's path (default: two folders above this script)
+#   DRIVE_ADD_DIRS      folders the step sessions may work in, separated by `:` (default: root-sot's parent,
+#                       which holds the code checkouts)
+#   DRIVE_PREFLIGHT     a script run before every step; non-zero exit stops the run (e.g. `docker info`)
+#   DRIVE_MIN_FREE_GB   minimum free space on root-sot's drive and on the home drive (default 5; Docker
+#                       Desktop's disk goes read-only when C: fills — IMNSTR 8b B4b)
+#   DRIVE_LIMIT_WAIT    seconds to wait after a usage limit before starting the step fresh (default 1800)
+#   DRIVE_LIMIT_RETRIES how many such waits per step (default 8)
+#
+# Halt a run between steps: create `.drive/STOP` in root-sot (all runs) or `.drive/<slug>/STOP` (this one).
+# Logs: `.drive/<slug>/<run>/` in root-sot (git-ignored): drive.log, and each step's JSON result.
+#
+# Exit: 0 done · 1 usage error · 2 stopped by a step (`stop`) or by STOP file / cap / --once · 3 no progress
+#       or no Drive line · 4 pre-flight failed · 5 step failed or timed out · 6 limit retries spent
+
+set -u
+export LC_ALL=C GIT_TERMINAL_PROMPT=0
+
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)
+root=${DRIVE_ROOT:-$(cd "$here/../.." && pwd -P)}
+rule="$root/lifecycle/unattended.md"
+claude_cmd=${DRIVE_CLAUDE:-claude}
+add_dirs=${DRIVE_ADD_DIRS:-$(dirname "$root")}
+min_gb=${DRIVE_MIN_FREE_GB:-5}
+limit_wait=${DRIVE_LIMIT_WAIT:-1800}
+limit_retries=${DRIVE_LIMIT_RETRIES:-8}
+
+max_steps=40 step_timeout=14400 dry=0 once=0 module=""
+while (($#)); do
+	case "$1" in
+		--max-steps) max_steps=$2; shift 2 ;;
+		--step-timeout) step_timeout=$2; shift 2 ;;
+		--dry-run) dry=1; shift ;;
+		--once) once=1; shift ;;
+		-h|--help) sed -n '2,36p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+		-*) echo "drive: unknown option $1" >&2; exit 1 ;;
+		*) [[ -z $module ]] || { echo "drive: one module only" >&2; exit 1; }; module=$1; shift ;;
+	esac
+done
+[[ -n $module ]] || { echo "usage: drive <module> [--max-steps N] [--step-timeout S] [--dry-run] [--once]" >&2; exit 1; }
+[[ $module = /* || $module =~ ^[A-Za-z]: ]] || module="$root/$module"
+state="$module/STATE.md"
+[[ -f $state ]] || { echo "drive: no STATE.md in $module" >&2; exit 1; }
+[[ -f $rule ]] || { echo "drive: missing $rule" >&2; exit 1; }
+rel=${module#"$root"/}
+slug=${rel//\//_}
+
+base="$root/.drive/$slug"
+run="$base/$(date -u +%Y%m%dT%H%M%SZ)"
+mkdir -p "$run"
+log="$run/drive.log"
+say() { printf '%s  %s\n' "$(date -u +%H:%M:%SZ)" "$*" | tee -a "$log"; }
+
+# One run per module at a time.
+if ! mkdir "$base/lock" 2>/dev/null; then
+	echo "drive: another run holds $base/lock (remove it if that run is dead)" >&2; exit 1
+fi
+trap 'rmdir "$base/lock" 2>/dev/null' EXIT
+
+# The Drive line of the top block: the first one in the file, since blocks are newest first.
+drive_line() { grep -m1 '^\*\*Drive:\*\*' "$state" | sed 's/^\*\*Drive:\*\*[[:space:]]*//; s/[[:space:]]*$//'; }
+
+free_gb() { df -Pk "$1" 2>/dev/null | awk 'NR==2 { printf "%d", $4 / 1048576 }'; }
+
+preflight() {
+	local d g
+	for d in "$root" "$HOME"; do
+		g=$(free_gb "$d")
+		if [[ -n $g ]] && ((g < min_gb)); then say "pre-flight: ${g} GB free on the drive of $d, under $min_gb"; return 1; fi
+	done
+	if [[ -n ${DRIVE_PREFLIGHT:-} ]]; then
+		if ! bash -c "$DRIVE_PREFLIGHT" >>"$log" 2>&1; then say "pre-flight: \`$DRIVE_PREFLIGHT\` failed"; return 1; fi
+	fi
+	return 0
+}
+
+# Reads a step's JSON result: prints `<is_error> <cost> <turns>` and, on a second line, the result text.
+read_result() {
+	node -e '
+		let j = {}; try { j = JSON.parse(require("fs").readFileSync(process.argv[1], "utf8")); } catch (e) {}
+		console.log(`${j.is_error ? 1 : 0} ${j.total_cost_usd ?? "?"} ${j.num_turns ?? "?"}`);
+		console.log(String(j.result ?? "").replace(/\s+/g, " ").slice(0, 400));
+	' "$1"
+}
+
+looks_like_limit() { grep -Eqi 'usage limit|rate limit|limit (reached|reset)|resets? at|overloaded|429' <<<"$1"; }
+
+say "drive · $rel · root-sot $root · rule $(sed -n 's/^\*\*Version \([^ ]*\).*/\1/p' "$rule" | head -1)"
+say "logs: $run"
+
+steps=0 total_cost=0 last_line="" repeats=0
+while :; do
+	if [[ -e $root/.drive/STOP || -e $base/STOP ]]; then say "STOP file found; halting before the next step"; exit 2; fi
+
+	line=$(drive_line)
+	if [[ -z $line ]]; then say "no Drive line in the top block of $rel/STATE.md; nothing to run"; exit 3; fi
+	verb=${line%%[[:space:]]*}
+	case "$verb" in
+		done) say "done: $line"; say "steps $steps · cost \$$total_cost · read $rel/calls.md and the top of $rel/STATE.md"; exit 0 ;;
+		stop) say "stopped by the step: ${line#stop}"; say "steps $steps · cost \$$total_cost · read $rel/calls.md and the top of $rel/STATE.md"; exit 2 ;;
+		run) ;;
+		*) say "Drive line not understood: $line"; exit 3 ;;
+	esac
+	cmd=$(sed 's/^run[[:space:]]*·[[:space:]]*//' <<<"$line")
+	[[ -n $cmd && $cmd != "$line" ]] || { say "Drive line has no step after \`run ·\`: $line"; exit 3; }
+
+	if [[ $line == "$last_line" ]]; then
+		repeats=$((repeats + 1))
+		if ((repeats >= 2)); then say "the step left the same Drive line twice; no progress: $cmd"; exit 3; fi
+	else
+		repeats=0
+	fi
+	if ((steps >= max_steps)); then say "step cap ($max_steps) reached before: $cmd"; exit 2; fi
+
+	if ((dry)); then say "dry run · would run: $cmd"; exit 0; fi
+	preflight || exit 4
+
+	steps=$((steps + 1))
+	n=$(printf '%02d' "$steps")
+	extra=()
+	IFS=: read -r -a dirs <<<"$add_dirs"
+	for d in "${dirs[@]}"; do [[ -n $d ]] && extra+=(--add-dir "$d"); done
+
+	tries=0
+	while :; do
+		say "step $n · $cmd"
+		before=$(git -C "$root" rev-parse HEAD 2>/dev/null || echo none)
+		started=$SECONDS
+		(cd "$root" && timeout "$step_timeout" "$claude_cmd" -p "$cmd" \
+			--permission-mode auto \
+			--append-system-prompt-file "$rule" \
+			--output-format json \
+			"${extra[@]}") >"$run/$n.json" 2>"$run/$n.stderr"
+		code=$?
+		mapfile -t res < <(read_result "$run/$n.json")
+		read -r is_err cost turns <<<"${res[0]:-1 ? ?}"
+		text=${res[1]:-}
+		[[ $cost =~ ^[0-9.]+$ ]] && total_cost=$(awk -v a="$total_cost" -v b="$cost" 'BEGIN { printf "%.2f", a + b }')
+		say "step $n · exit $code · $((SECONDS - started)) s · $turns turns · \$$cost · $(git -C "$root" rev-parse --short HEAD 2>/dev/null) (was ${before:0:7})"
+		[[ -n $text ]] && say "step $n · says: $text"
+
+		if ((code == 124)); then say "step $n timed out after $step_timeout s; its work so far is in its commits"; exit 5; fi
+		if ((code != 0 || is_err == 1)) && looks_like_limit "$text $(tail -c 2000 "$run/$n.stderr" 2>/dev/null)"; then
+			tries=$((tries + 1))
+			if ((tries > limit_retries)); then say "usage limit: $limit_retries waits spent"; exit 6; fi
+			say "usage limit; waiting $limit_wait s, then the same step in a fresh session ($tries/$limit_retries)"
+			sleep "$limit_wait"
+			continue
+		fi
+		if ((code != 0 || is_err == 1)); then say "step $n failed; see $run/$n.json and $n.stderr"; exit 5; fi
+		break
+	done
+
+	last_line=$line
+	if ((once)); then say "--once: next Drive line is \`$(drive_line)\`"; exit 2; fi
+done

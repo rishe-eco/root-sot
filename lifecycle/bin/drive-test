@@ -1,0 +1,128 @@
+#!/usr/bin/env bash
+# drive-test — tests `bin/drive` against a stub `claude`, with no model, network or code repo.
+#
+# Each case builds a throwaway root-sot in a temp folder: `lifecycle/unattended.md` and a module whose
+# STATE.md holds a Drive line. The stub plays a queue of steps: it checks the prompt it was given and the
+# flags, rewrites the Drive line as a real step would, and prints a JSON result. Run it after any change
+# to `bin/drive`. Exits 1 if any case fails.
+
+set -u
+export LC_ALL=C
+
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)
+drive="$here/drive"
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+pass=0 fail=0
+
+# The stub. Queue lines: <expected prompt> TAB <new Drive line, or -> TAB <ok | limit | fail | slow>
+cat >"$tmp/claude-stub" <<'STUB'
+#!/usr/bin/env bash
+prompt="" rule="" mode=""
+while (($#)); do
+	case "$1" in
+		-p) prompt=$2; shift 2 ;;
+		--append-system-prompt-file) rule=$2; shift 2 ;;
+		--permission-mode) mode=$2; shift 2 ;;
+		*) shift ;;
+	esac
+done
+q="$STUB_QUEUE"
+IFS=$'\t' read -r want next how <"$q" || { echo '{"is_error":true,"result":"stub queue empty"}'; exit 1; }
+sed -i 1d "$q"
+echo "$prompt" >>"$STUB_SEEN"
+[[ $prompt == "$want" ]] || { echo "{\"is_error\":true,\"result\":\"stub wanted [$want] got [$prompt]\"}"; exit 1; }
+grep -q "The founder's rule" "$rule" 2>/dev/null || { echo '{"is_error":true,"result":"no rule file"}'; exit 1; }
+[[ $mode == auto ]] || { echo '{"is_error":true,"result":"not auto mode"}'; exit 1; }
+case "$how" in
+	limit) echo '{"is_error":true,"result":"Claude usage limit reached. Your limit resets at 3am."}'; exit 1 ;;
+	fail) echo '{"is_error":true,"result":"tool error"}'; exit 1 ;;
+	slow) sleep 5 ;;
+esac
+if [[ $next != - ]]; then
+	# A step writes a new top block, Drive line under its first line.
+	f="$STUB_STATE"
+	{ head -n 2 "$f"; printf '## step block\n\n**Drive:** %s\n\n' "$next"; tail -n +3 "$f"; } >"$f.new" && mv "$f.new" "$f"
+fi
+echo '{"type":"result","subtype":"success","is_error":false,"num_turns":3,"total_cost_usd":0.5,"result":"ok"}'
+STUB
+chmod +x "$tmp/claude-stub"
+
+# case <name> <expected exit> <initial Drive line or ""> <queue lines...> -- <drive args...>
+case_() {
+	local name=$1 want=$2 first=$3; shift 3
+	local queue=() args=()
+	while (($#)) && [[ $1 != -- ]]; do queue+=("$1"); shift; done
+	[[ ${1:-} == -- ]] && shift
+	args=("$@")
+	local r="$tmp/$name" m="$tmp/$name/tracker/modules/01-x"
+	mkdir -p "$m" "$r/lifecycle"
+	cp "$here/../unattended.md" "$r/lifecycle/unattended.md"
+	{ printf '# STATE — tracker / 01-x\n\n'; [[ -n $first ]] && printf '## first block\n\n**Drive:** %s\n' "$first"; } >"$m/STATE.md"
+	: >"$r/queue"; for q in "${queue[@]}"; do printf '%s\n' "$q" >>"$r/queue"; done
+	: >"$r/seen"
+	DRIVE_ROOT="$r" DRIVE_CLAUDE="$tmp/claude-stub" DRIVE_MIN_FREE_GB=0 DRIVE_LIMIT_WAIT=0 DRIVE_LIMIT_RETRIES=2 \
+		STUB_QUEUE="$r/queue" STUB_SEEN="$r/seen" STUB_STATE="$m/STATE.md" \
+		bash "$drive" tracker/modules/01-x "${args[@]}" >"$r/out" 2>&1
+	local got=$?
+	local left; left=$(wc -l <"$r/queue")
+	if ((got == want)) && { ((want != 0)) || ((left == 0)); }; then
+		pass=$((pass + 1)); echo "ok   $name"
+	else
+		fail=$((fail + 1)); echo "FAIL $name: exit $got, wanted $want; $left queued steps left"; sed 's/^/     /' "$r/out"
+	fi
+}
+T=$'\t'
+
+case_ full-build 0 "run · /build-phase B1 tracker/modules/01-x" \
+	"/build-phase B1 tracker/modules/01-x${T}run · /verify B1 tracker/modules/01-x${T}ok" \
+	"/verify B1 tracker/modules/01-x${T}run · /build-phase B2 tracker/modules/01-x${T}ok" \
+	"/build-phase B2 tracker/modules/01-x${T}run · /verify B2 tracker/modules/01-x${T}ok" \
+	"/verify B2 tracker/modules/01-x${T}run · /verify --milestone MS1 tracker/modules/01-x${T}ok" \
+	"/verify --milestone MS1 tracker/modules/01-x${T}done${T}ok"
+
+case_ step-stops 2 "run · /build-phase B1 tracker/modules/01-x" \
+	"/build-phase B1 tracker/modules/01-x${T}stop · the deploy needs a push · resume: push, then drive${T}ok"
+
+case_ already-done 0 "done"
+case_ no-drive-line 3 ""
+case_ garbled-line 3 "maybe · something"
+case_ run-without-step 3 "run ·"
+
+case_ no-progress 3 "run · /verify B1 tracker/modules/01-x" \
+	"/verify B1 tracker/modules/01-x${T}-${T}ok" \
+	"/verify B1 tracker/modules/01-x${T}-${T}ok"
+
+case_ limit-then-fresh 0 "run · /verify B1 tracker/modules/01-x" \
+	"/verify B1 tracker/modules/01-x${T}-${T}limit" \
+	"/verify B1 tracker/modules/01-x${T}done${T}ok"
+
+case_ limit-spent 6 "run · /verify B1 tracker/modules/01-x" \
+	"/verify B1 tracker/modules/01-x${T}-${T}limit" \
+	"/verify B1 tracker/modules/01-x${T}-${T}limit" \
+	"/verify B1 tracker/modules/01-x${T}-${T}limit"
+
+case_ step-fails 5 "run · /verify B1 tracker/modules/01-x" \
+	"/verify B1 tracker/modules/01-x${T}-${T}fail"
+
+case_ timeout 5 "run · /verify B1 tracker/modules/01-x" \
+	"/verify B1 tracker/modules/01-x${T}done${T}slow" -- --step-timeout 1
+
+case_ once 2 "run · /build-phase B1 tracker/modules/01-x" \
+	"/build-phase B1 tracker/modules/01-x${T}run · /verify B1 tracker/modules/01-x${T}ok" -- --once
+
+case_ step-cap 2 "run · /build-phase B1 tracker/modules/01-x" \
+	"/build-phase B1 tracker/modules/01-x${T}run · /verify B1 tracker/modules/01-x${T}ok" -- --max-steps 1
+
+case_ dry-run 0 "run · /build-phase B1 tracker/modules/01-x" -- --dry-run
+
+# A STOP file halts before the first step.
+mkdir -p "$tmp/stop-file/.drive"; touch "$tmp/stop-file/.drive/STOP"
+case_ stop-file 2 "run · /build-phase B1 tracker/modules/01-x"
+
+# A failing pre-flight stops before the step runs.
+DRIVE_PREFLIGHT="exit 1" case_ preflight-fails 4 "run · /build-phase B1 tracker/modules/01-x" \
+	"/build-phase B1 tracker/modules/01-x${T}done${T}ok"
+
+echo "drive-test: $pass passed, $fail failed"
+((fail == 0))
