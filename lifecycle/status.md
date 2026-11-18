@@ -17,6 +17,7 @@
 | [Root Studio · customer journeys](../ecosystem/modules/01-root-studio-journeys/) | Module | | | | done | | | | done | 20/20 | | |
 | [Tracker · Reflect](../tracker/modules/02-reflect/) | Module | done | done | done | STALE | done | | | done | 7/8 | | |
 | [Capacity check](../tracker/modules/03-capacity-check/) | Module | done | done | | | | | | | | | |
+| [Galaxy](../tracker/modules/04-galaxy/) | Module | done | | | | | | | | | | |
 
 ## Backfill, 2026-10-20
 
