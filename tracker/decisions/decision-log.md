@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.40 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.41 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -33,6 +33,14 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-10-20 | **add_focus_periods** | `FocusPeriod` and the explicit join `FocusPeriodProject` (with `addedAt`) — **Focus Periods**, a dated lens over a few projects. The first module built on the lifecycle method. See D-61. |
 
 ## 2. Key decisions
+
+### D-64 · The day gate retires; the session is the one ritual (supersedes D-5) — 2026-11-19
+
+**This supersedes D-5** ("the daily cycle is gated by DayState"). When the session rhythm's stage 1 lands, Today opens with no step before it. Pre-day and After-day stop being gates and retire as wizards. Their jobs move into the session (`../drafts/session-rhythm.md` §2, §9): the day overview, setting times and the overlap warning go to the session's look-ahead; the handling of unfinished actions (postpone, outsource, backlog, bucket list, pass) goes to the look-back. Nothing in the app is locked behind the session, and a late session blocks nothing.
+
+*Why:* D-5's rationale was that "the ritual is the product": it guaranteed nothing scheduled was silently dropped. In use, the founder, Tracker's first user, has repeatedly stopped using the app, and a daily gate that must be cleared before today opens is one of the four causes the draft names (§1): it puts a cost on coming back after missed days. *Cost, accepted:* the no-silent-drop guarantee now holds only at each session, so an item can go unanswered for up to seven days, the longest spacing; and the ritual D-5 called the product becomes a session every 2 to 7 days. Until stage 1 is built, D-5 still describes the code.
+
+*Decided by:* the founder, 2026-11-19, choosing "Retire it" from three options (retire; keep a light daily gate; keep D-5). Retiring was Claude's recommendation. *Set aside:* a lighter daily gate, such as a one-tap close of yesterday.
 
 ### D-63 · The session rhythm starts now, alongside the January commitment — 2026-11-19
 
@@ -685,6 +693,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.41 · 2026-11-19** — D-64 added: **the day gate retires** (supersedes D-5). Today opens with no step before it; Pre-day and After-day retire into the session's look-ahead and look-back. Takes effect when the session rhythm's stage 1 lands.
 - **0.40 · 2026-11-19** — D-63 added: **the session rhythm starts now**, beside the January Hamrah commitment. Stages 0 and 1 open as a lifecycle Module; Galaxy stays after the stage 1 gate.
 - **0.39 · 2026-11-04** — D-62 added (decided 2026-10-18 on `docs/journey-loop-first`, merged 2026-11-04; it was numbered D-61 there, which Focus Periods took on main): **Tracker becomes Journey's child version** — Root builds Journey loop-first, and the thin whole loop is built here; five minimum specs (Reflect, batteries, capacity, failure-and-ignoring, the first act) queued in Root's `working/journey-build/`. No code, no migration yet.
 - **0.38 · 2026-10-21** — D-61 added, and the migration timeline extended with `add_focus_periods`. **Focus Periods**: a dated lens over a few projects with its own tab and a no-tally look-back, the first Tracker module built on the lifecycle method (Sonnet lanes for B1 and B3, Opus for B2). Records the explicit join, the client-sent date key, the narrow server copy of the done rule, and two defects found outside the feature (`Milestone.goal`, fixed; the `updateAction` estimate gap, B-16).
