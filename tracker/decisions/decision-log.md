@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.43 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.44 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -33,6 +33,14 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-10-20 | **add_focus_periods** | `FocusPeriod` and the explicit join `FocusPeriodProject` (with `addedAt`) — **Focus Periods**, a dated lens over a few projects. The first module built on the lifecycle method. See D-61. |
 
 ## 2. Key decisions
+
+### D-67 · An item is done only when the look-back says it happened; crossing out claims nothing — 2026-11-19
+
+In the session rhythm (`../drafts/session-rhythm.md` §3, §5, §9), an action's done state is set only by the session's look-back: the answer **happened** sets it, and the other three answers (partly, didn't happen, no longer matters) don't. Crossing an item out on the daily view is stored on its own and never feeds done, goal or project status, milestone progress or Focus Periods' done rule. A crossed item arrives in the look-back pre-filled as "happened" and is confirmed there.
+
+*Why:* separating the gesture from the record is the concept's answer to "ticking feels like obligation" (§1). If crossing out counted, even provisionally, it would again be a claim the person feels they have to make, and un-crossing would have to undo status cascades. *Cost, accepted:* goal, project and Focus progress can be as old as the last session, up to seven days, and the stage 5 dashboard inherits that lag.
+
+*Decided by:* the founder, 2026-11-19, choosing "done at review" from three options (done at review; crossed counts as provisionally done; done at review or set explicitly on the item's own page). It was Claude's recommendation. *Set aside:* provisional done, and an explicit done control on the item's page.
 
 ### D-66 · Level checks may be scheduled, and a read shows in the look-back — 2026-11-19
 
@@ -714,6 +722,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.44 · 2026-11-19** — D-67 added: **done is set at review**: only the look-back's "happened" marks an action done; crossing out is stored apart and feeds no status or progress.
 - **0.43 · 2026-11-19** — D-66 added: **level checks may be scheduled**, and a read shows in its day's look-back and on a gap's record, changing two batteries-spec fences; the no-history fence stands.
 - **0.42 · 2026-11-19** — D-65 added: **a count about one item** may appear in the session look-back and on that item's own page, loosening the failure spec's "dates, not counts" for the session rhythm; no count across items anywhere.
 - **0.41 · 2026-11-19** — D-64 added: **the day gate retires** (supersedes D-5). Today opens with no step before it; Pre-day and After-day retire into the session's look-ahead and look-back. Takes effect when the session rhythm's stage 1 lands.
