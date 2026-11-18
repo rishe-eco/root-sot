@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.48 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.49 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -33,6 +33,19 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-10-20 | **add_focus_periods** | `FocusPeriod` and the explicit join `FocusPeriodProject` (with `addedAt`) — **Focus Periods**, a dated lens over a few projects. The first module built on the lifecycle method. See D-61. |
 
 ## 2. Key decisions
+
+### D-72 · Existing data is kept; the record starts the day the rhythm switches on — 2026-11-19
+
+When the session rhythm's stage 1 lands and the day gate retires (D-64), existing data is handled as follows (`../drafts/session-rhythm.md` §12 "Existing data"):
+
+- **Nothing is deleted or rewritten.** Goals, milestones, projects, intervals, routines and actions stay as they are. Actions already done stay done; their old fate values stay.
+- **Stored day states** (`DayState`: the Pre-day and After-day completion times) are kept as read-only history. Nothing new depends on them, except what gathering still needs.
+- **The record starts on the switch date.** The first session has nothing to look back over; it goes straight to the look-ahead and the next date.
+- **Older open actions** (not done, no fate, dated before the switch) are offered once, as one block, "from before": keep an item (it goes to the look-ahead), let them all go in one tap, or leave the block untouched. Leaving it untouched changes nothing, and the block is not offered again.
+
+*Why:* coming back must cost nothing (§2), and a backlog in the first session is exactly what the concept removes. *Cost, accepted:* patterns can be read only from the switch date on; history before it stays in the old shape.
+
+*Decided by:* the founder, 2026-11-19, choosing "keep all, fresh record" over back-filling a first look-back. It was Claude's recommendation.
 
 ### D-71 · Every item is asked about at review unless the person stops it, one tap, in the look-back — 2026-11-19
 
@@ -772,6 +785,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.49 · 2026-11-19** — D-72 added: **existing data is kept**; day states become read-only history; the record starts on the switch date; older open actions are offered once as one optional "from before" block.
 - **0.48 · 2026-11-19** — D-71 added: **every item is asked about at review** by default; one tap in the look-back sets "don't ask", kept on the item's recurrence. Three settings: ask me, don't ask, just to know.
 - **0.47 · 2026-11-19** — D-70 added: **quick capture** is a small modal from any screen (title required; optional date, empty meaning today; optional time). The estimate-when-dated rule becomes optional.
 - **0.46 · 2026-11-19** — D-69 added: **a session is called from Today** (one line from its due date) with an optional one-event calendar add at the end of each session; Tracker sends no email or push.
