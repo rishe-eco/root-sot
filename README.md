@@ -62,7 +62,8 @@ root-sot/
                                04-roadmap (as-built inventory), 06-specs (the
                                Skills Engine — partly built, a Learn prototype)
     modules/                   lifecycle module folders for Tracker work
-    drafts/                    Time Themes spec, plan and wireframes
+    drafts/                    Time Themes spec, plan and wireframes; the session
+                               rhythm concept (session-rhythm.md)
     docs/                      older backend docs (superseded by canon, kept)
     base/                      archived planning artifacts + research notes
     DEPLOY-VPS.md              deployment runbook

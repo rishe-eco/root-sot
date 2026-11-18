@@ -6,6 +6,8 @@
 
 ---
 
+> **Overtaken in part, 2026-11-16.** The daily cycle this roadmap assumes (Pre-day/After-day, §5's open question) is proposed for retirement in `drafts/session-rhythm.md`: a session every 2 to 7 days, crossing out instead of ticking, and a staged build plan. That draft is a concept awaiting the founder's decisions (its §12); nothing here is changed until they are taken.
+
 > **How this file relates to the canon.** It does not restate what exists — `canon/04-roadmap/00-state-of-the-build.md` owns the verified inventory, `canon/04-roadmap/01-known-issues-and-debt.md` owns the bug catalogue, `canon/04-roadmap/02-refactor-toward-root.md` owns the gap to the Organize pillar. This file holds the one thing none of them holds: **order**. Read it as a proposal to argue with, not a settled plan — the roadmap is the least-verified document in this repo.
 
 ## 1. The strategic question that gates everything
