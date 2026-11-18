@@ -59,6 +59,7 @@ At most 40 lines. The format comes from the journeys build's state log, which ca
 
 - **Header:** `## <date> · <this session's step> · <root-sot branch> @ <hash> · <code repo> <branch> @ <hash>`. Take the values from *Header facts* above, using the hashes from before this commit. Leave out the code repo if there isn't one.
 - **First line:** which earlier blocks this one *replaces*, *adds to* or *partly completes*, naming their steps. A block that touches a stage named in another live block cross-references it.
+- **Drive line**, directly under the first line: `**Drive:** run · <the first next step's line>` when that step may run unattended (a build stage's `build-phase` or `verify`, or a milestone's `verify --milestone`, after the project's first stage); `**Drive:** stop · <why> · resume: <what the founder does>` when it needs the founder or isn't a build step; `**Drive:** done` when the build has no stage or milestone left. `lifecycle/bin/drive` reads only this line (`lifecycle/unattended.md`).
 - **What was done:** a few lines of what this session decided and committed, with the files and commits that hold it. Point to where things are recorded, and don't retell them.
 - **Lanes in flight** (only if any): stage, branch, database, ports, card, status.
 - **Next steps, in order:** one step per item, each with the line the founder pastes. A step is a skill or plain work, never both.

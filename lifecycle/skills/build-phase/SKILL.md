@@ -26,6 +26,10 @@ $ARGUMENTS
 LIFECYCLE_ARGS
 ```
 
+## In an unattended run
+
+If your system prompt holds `lifecycle/unattended.md` (*The founder's rule*), `lifecycle/bin/drive` started this session and nobody is there to answer. That file wins wherever this skill says to ask the founder or wait for their yes, except before an irreversible step. Make the call, and log it in `<module>/calls.md`. Run the lane in the foreground (`run_in_background: false`), then land it in this same session. End as its rule 5 says: one block that replaces the launch block, with the Drive line `run · /verify <stage> <module>`.
+
 ## Before either step
 
 - **Read the gate's first line.** `GATE FAIL`: say what it found, in its words, and stop. The founder fixes the input or reruns with `--override "<reason>"`. `GATE OVERRIDDEN`: carry on, and copy the reason into the card's header line (launch) or the report's header line (land). If the injected section says `ROOT-SOT NOT FOUND`, or names no stage or module, say so and stop.
