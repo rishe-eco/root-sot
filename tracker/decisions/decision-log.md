@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.45 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.46 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -33,6 +33,17 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-10-20 | **add_focus_periods** | `FocusPeriod` and the explicit join `FocusPeriodProject` (with `addedAt`) — **Focus Periods**, a dated lens over a few projects. The first module built on the lifecycle method. See D-61. |
 
 ## 2. Key decisions
+
+### D-69 · A session is called from Today, with an optional calendar event as the backstop — 2026-11-19
+
+How the session rhythm calls the person to a session (`../drafts/session-rhythm.md` §12, the first gap):
+
+- **On Today.** From the session's due date, the daily view shows one line offering to start the session. It never counts days late, never blocks, and is never a pop-up; after the due date it reads as the date it was due (§2).
+- **An optional calendar event.** The session's last step, after the next date and the when-and-where (§10 point 2), offers "add to my calendar": one event for the next session, as a downloadable `.ics` file or a calendar link. Tracker sends nothing itself: no email, no push, no server-side reminder.
+
+*Why:* the founder described the use they picture: "while I go over my plans and tasks for planning once in a number of days, I check in with the app to review and skim the tasks and outline almost daily - maybe skipping some weekends and/or vacations". The daily skim is where the call will be seen. The calendar event is the backstop for the stretches when the skim lapses, including the unexplained "simply not going back" (§1), and it is one reminder on a date the person chose, in their own tool, so it is not an engagement mechanic. Tracker has no email or push today, so this adds no server, secret or provider. *Cost, accepted:* if the person doesn't add the event and stops opening the app, nothing reaches them; moving the date means adding the event again.
+
+*Decided by:* the founder, 2026-11-19. Asked first between a calendar event, one email, and no reminder, they answered with the use above; Claude read it as "the call lives on Today" and asked whether to add the calendar event too, and the founder chose both, Claude's recommendation. *Set aside:* email and browser push.
 
 ### D-68 · The four-week test after stage 1, fixed before building, read from the record — 2026-11-19
 
@@ -737,6 +748,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.46 · 2026-11-19** — D-69 added: **a session is called from Today** (one line from its due date) with an optional one-event calendar add at the end of each session; Tracker sends no email or push.
 - **0.45 · 2026-11-19** — D-68 added: **the four-week test after stage 1**: §11's four measures as written, with stage 1 storing session dates, gaps and look-back start and end so the gate reads from the record.
 - **0.44 · 2026-11-19** — D-67 added: **done is set at review**: only the look-back's "happened" marks an action done; crossing out is stored apart and feeds no status or progress.
 - **0.43 · 2026-11-19** — D-66 added: **level checks may be scheduled**, and a read shows in its day's look-back and on a gap's record, changing two batteries-spec fences; the no-history fence stands.
