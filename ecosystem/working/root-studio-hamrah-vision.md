@@ -2,7 +2,8 @@
 
 **From:** _root
 **Status:** **Vision draft, 0.1 — the founder's thinking, drawn out in conversation and written down. Nothing here is decided for the build, sequenced, or in any plan's scope.** It describes where Root Studio is heading, not what is next. It is also the brief for a showcase video, made in a later session (§11).
-**Version:** 0.2 · 2026-10-28 · Owner: _root
+**Version:** 0.3 · 2026-11-16 · Owner: _root
+**Since 2026-11:** a working prototype of this vision is Root's three-month goal, due about the third week of January 2027 ([ADR 0002](../decisions/0002-product-ladder-to-hamrah-prototype.md), proposed). This file is still the vision and not the prototype's spec; the status line above describes the file, not the goal.
 **What this is:** the founder's picture of the ultimate Root Studio, a wizard where a business talks to an AI companion and watches its website being built, with every point the founder settled, every point still open, and the places this vision meets (or collides with) canon and the existing plans.
 
 **Grading.**
@@ -165,5 +166,6 @@ Even with everything automatable automated, including SMS and hosting, some thin
 
 ## Changelog
 
+- **0.3 · 2026-11-16** — Header notes that a prototype of this vision became Root's three-month goal in early November 2026 (ADR 0002, proposed), which is the plan §10 and §12.8 were waiting for. Hamrah is tier B of the four product tiers recorded there. Nothing else changed. Written by Claude from the founder's account; not yet read by the founder.
 - **0.2 · 2026-10-28** — §11 records the video's settled format and points to `hamrah-showcase/`, where the refined storyboard and its source now live. Nothing else changed.
 - **0.1 · 2026-10-26** — First draft, from a conversation with the founder: the wizard and its screen, Hamrah as an expert at every step, Mahbod named, the user wins, the Instagram moment, price and payment, Root's team, the feeling, and a storyboard seed for the showcase video. Claude's proposals are marked Suggested and none is confirmed.

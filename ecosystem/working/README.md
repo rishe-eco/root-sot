@@ -29,6 +29,9 @@ These are current working documents, not canon. They change as the work proceeds
 - **`root-studio-dev-dashboard-research.md`** — ⚠️ **NEEDS REVIEW + UPDATE** (recovered from a stash 2026-10-14; predates the journeys plan and v1 readiness) — **research + assessment** of the founder's *Development dashboard* sketch (2026-10-02): the internal console for the Claude delivery pipeline, i.e. lifecycle stage 6 opened up. Reads the sketch as a **V-model** whose verification arm is the market's gap, maps each step onto L1–L7 as built, works through the left-column gaps (content, scope, design rules, benchmarks, security, testing) with 2025–26 evidence, covers the market and Iran (incl. the 2026 blackout → agent-optional delivery, domestic-network resilience), and proposes a no-code first run as Claude Code skills before any UI. *(0.1 · 2026-10-02.)*
 - **`root-website-review-room.md`** — **spec** as of 2026-08-04, and sequenced by the build plan as track C: a private panel where an invited specialist (psychologist, sociologist, manager) reads **Root's own documents** and **leaves comments**. Sibling to the Research Lab and opposite in every property that matters — private not public, our documents not others', and the reader writes. Its three deciding questions are answered: **snapshot at review time** (and the freeze is a git commit), **one corpus for everyone defined by an allowlist** — which reverses the document's own per-reviewer-grant reading — and **passage-level anchoring**, which the snapshot is what makes safe. *(0.2 · 2026-08-04.)*
 
+## WordPress learnings
+- **`wordpress-learnings/`** — reusable lessons from WordPress/WooCommerce client builds, one folder per learning with its source kept beside it. First entry: `per-colour-gallery/`, the Nahal colour-filtered product gallery (Blocksy + WooCommerce), snapshotted before round 4 replaced it. See `wordpress-learnings/README.md`. *(0.1 · 2026-11-15.)*
+
 ## Galaxy and Root OS (horizon ideas)
 *Names (founder, 2026-11-18): **Galaxy** is the full-screen tool in Tracker, built first; **Root OS** is the full shell it heads toward.*
 - **`root-os-business-horizon.md`** — **parked vision, not a plan**: "everything business in one place" (calls, messages, email, follow-ups, reminders) as a branch that could grow out of Root OS, past Galaxy, the full-screen room planned as a Tracker tool. Its purpose is less time at the computer and more in the real world, with agents doing the digital work, built by watching business people and then fitted to each small business. It records what's distinctive, what's hard (integrations, a crowded space, local conditions), where it touches ADR 0001 and Hamrah, and what would unpark it. *(0.2 · 2026-11-18.)*
@@ -36,6 +39,9 @@ These are current working documents, not canon. They change as the work proceeds
 
 ## Personal / dogfooding
 - **`root-goals-update.md`** — a schema-agnostic spec of the founder's own goals/sub-goals/routines/intervals (Health, Root, Personal, P) to be written into the Journey/tracker database via Prisma — i.e. the founder dogfooding the app. Contains explicit CONFIRM items and safety rules for the write. *(2026-07-21.)*
+
+## Housekeeping
+- **`consistency-audit-2026-11-16.md`** — **a worklist, not a spec**: the places where documents disagree with each other, with the code repos or with the current direction (roadmap §0, ADR 0002), found in one read of all four repos on 2026-11-16. 32 items, each with where it is and what would settle it. Delete items as they are settled. *(2026-11-16; Claude's findings, not yet read by the founder.)*
 
 ## Brand assets
 - **`Color pallete choice.png`** — brand colour-palette selection (visual identity). *(2026-07-21.)*

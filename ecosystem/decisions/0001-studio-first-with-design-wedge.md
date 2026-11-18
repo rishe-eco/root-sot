@@ -1,6 +1,6 @@
 # ADR 0001 — Root Studio runs studio-first, with a paid design wedge; platform-as-SaaS is gated
 
-**Status:** proposed
+**Status:** proposed. *Points 4 and 5 are reopened, and points 1–3 put in question, by [ADR 0002](0002-product-ladder-to-hamrah-prototype.md) (proposed, 2026-11-16). Nothing below has been rewritten.*
 **Date:** 2026-09-18 · **Owner:** _root
 
 ## Context
