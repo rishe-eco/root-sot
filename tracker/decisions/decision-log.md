@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.39 · Status: living · 2026-11-04 · Owner: _root**
+**Version 0.40 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -33,6 +33,14 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-10-20 | **add_focus_periods** | `FocusPeriod` and the explicit join `FocusPeriodProject` (with `addedAt`) — **Focus Periods**, a dated lens over a few projects. The first module built on the lifecycle method. See D-61. |
 
 ## 2. Key decisions
+
+### D-63 · The session rhythm starts now, alongside the January commitment — 2026-11-19
+
+The session rhythm (`../drafts/session-rhythm.md`) goes ahead now: stage 0 (its decisions) and stage 1 (the rhythm itself) open as a lifecycle Module, `../modules/05-…`, up to a committed stage 1 spec in this session. It is not held until after the Hamrah prototype that Root has committed to for about the third week of January 2027 (`../../ecosystem/decisions/0002-product-ladder-to-hamrah-prototype.md`, `../../ecosystem/roadmap.md` §0).
+
+*Why:* stage 0 is decisions and stage 1 is a spec; after those, the design phases (personas to build plan) are a handful of attended sessions, and the build itself can then run unattended under `lifecycle/bin/drive` (method decision L-49), so the cost in the founder's hours is mostly before the build. The founder is the rhythm's first user, so the January weeks are also its first real test. *Cost, accepted:* those attended sessions still compete with tier C for the same hours. Galaxy (`../modules/04-galaxy/`) stays after the rhythm's stage 1 gate, as its intake already says.
+
+*Decided by:* the founder, 2026-11-19, choosing "Start now" from three options (now; after January; now on paper only, build after January). "Start now" was Claude's recommendation. *Set aside:* recording the decisions and stopping before the module until after January.
 
 ### D-62 · Tracker becomes Journey's child version — 2026-10-18
 
@@ -677,6 +685,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.40 · 2026-11-19** — D-63 added: **the session rhythm starts now**, beside the January Hamrah commitment. Stages 0 and 1 open as a lifecycle Module; Galaxy stays after the stage 1 gate.
 - **0.39 · 2026-11-04** — D-62 added (decided 2026-10-18 on `docs/journey-loop-first`, merged 2026-11-04; it was numbered D-61 there, which Focus Periods took on main): **Tracker becomes Journey's child version** — Root builds Journey loop-first, and the thin whole loop is built here; five minimum specs (Reflect, batteries, capacity, failure-and-ignoring, the first act) queued in Root's `working/journey-build/`. No code, no migration yet.
 - **0.38 · 2026-10-21** — D-61 added, and the migration timeline extended with `add_focus_periods`. **Focus Periods**: a dated lens over a few projects with its own tab and a no-tally look-back, the first Tracker module built on the lifecycle method (Sonnet lanes for B1 and B3, Opus for B2). Records the explicit join, the client-sent date key, the narrow server copy of the done rule, and two defects found outside the feature (`Milestone.goal`, fixed; the `updateAction` estimate gap, B-16).
 - **0.37 · 2026-09-21** — D-59 and D-60 added, and the migration timeline extended with `add_noticing` and `noticing_frame_completed_at_nullable`. **D-59: Noticing is built and merged** — the Impact pillar’s first surface here, sharing nothing with Feelings & Needs (least of all the needs palette, reversed on scope the day it was decided), the source of §12’s permission for a rehearsal to break house style, and the origin of fences-as-tests. Phase 8 and Gate A remain unrun and human. **D-60: a dead session is decided in one place** — `isAuthenticated` was presence rather than validity, and per-page error handling is what let an app-wide break pass for a series of local ones for weeks.
