@@ -2,25 +2,25 @@
 
 *Module `tracker/modules/05-session-rhythm/` · Track: Module · Phase 2 · Spec, not as-built. Stage 1 of the session rhythm: Today with no gate, crossing out, quick capture, the planning-and-review session every 2 to 7 days, return after a gap, and the record. Inputs: `00-intake.md` (research waived there), written from `../../drafts/session-rhythm.md` 0.3-draft and Tracker decisions D-63 to D-78. Update the changelog; don't fork.*
 
-**Version 0.2 · Status: spec · 2026-11-19 · Owner: _root**
+**Version 0.3 · Status: spec · 2026-11-19 · Owner: _root**
 
 **Grading.** Everything here is **proposal** until built. Items marked **[F]** were decided by the founder: at stage 0 (D-63 to D-78, `../../decisions/decision-log.md`) or at this spec (§2). Items under §2.2 were settled by Claude without asking and are refusable on the diff. Every as-built fact cites its file in `rishe-eco/tracker`, read at `main @ eea1c59`.
 
 **Scope ledger** *(acceptance criteria by area, at each version, against the intake)*:
 
-| Area | Intake | 0.1 | 0.2 |
-|---|---|---|---|
-| A. The switch and what retires | in scope | 7 | 8 |
-| B. Today | in scope | 9 | 11 |
-| C. Crossing out | in scope | 6 | 7 |
-| D. Quick capture | in scope | 5 | 7 |
-| E. The session: shell, look-back | in scope | 12 | 14 |
-| F. The session: look-ahead, next session | in scope | 9 | 9 |
-| G. Return after a gap, and "from before" | in scope | 5 | 6 |
-| H. The record | in scope | 5 | 5 |
-| I. Language and fences | in scope | 6 | 6 |
-| J. Failures | in scope (implied by convention #8) | — | 2 |
-| **Total** | | **64** | **75** |
+| Area | Intake | 0.1 | 0.2 | 0.3 |
+|---|---|---|---|---|
+| A. The switch and what retires | in scope | 7 | 8 | 8 |
+| B. Today | in scope | 9 | 11 | 11 |
+| C. Crossing out | in scope | 6 | 7 | 7 |
+| D. Quick capture | in scope | 5 | 7 | 7 |
+| E. The session: shell, look-back | in scope | 12 | 14 | 14 |
+| F. The session: look-ahead, next session | in scope | 9 | 9 | 9 |
+| G. Return after a gap, and "from before" | in scope | 5 | 6 | 6 |
+| H. The record | in scope | 5 | 5 | 5 |
+| I. Language and fences | in scope | 6 | 6 | 6 |
+| J. Failures | in scope (implied by convention #8) | — | 2 | 2 |
+| **Total** | | **64** | **75** | **75** |
 
 ---
 
@@ -124,6 +124,16 @@ From `changes/01-req-journeys-gaps-and-review-pass-1.md`. Items 19 and 20 are th
 36. **Items the look-back leaves behind stay where they are** (unanswered after **Skip the rest**, or "didn't happen" with no follow-up): on their own day, visible on the project page and the actions list, and on no planning surface. No new block is added; `06-eval-plan.md` watches for them (review P1-F2, refused as a requirement).
 37. **"Let them all go"** ("From before", "From the gap") has the same undo as remove (review P1-F7). AC-51, AC-67.
 
+### 2.4 Decisions taken at the 0.3 revise
+
+From `changes/02-req-session-saves-and-eval-measures.md`. Settled by Claude during the founder's unattended run, logged in `calls.md`, graded *proposal* and refusable on the diff.
+
+38. **The session's own steps fail like every other save:** completing a step, **Confirm these**, **Skip the rest**, "Don't ask about this", the next date, when and where, and **Finish** show "Not saved." and **Try again**, and the session stays at the step that failed (journeys S13). §4.10, AC-69.
+39. **M2 counts a filled-in return:** a stretch over 7 days that ended in a session whose old days were filled in, with no gap stored, is a recorded return (eval plan §6 #1).
+40. **M3's typical value** is the median of unpaused look-backs; paused means finished on a later date than started, or over 30 minutes (eval plan §6 #2).
+41. **M5** is read from the eval plan's paper-page instrument and the founder's day-28 questions (eval plan §6 #3).
+42. **The record query** (AC-58) also computes the left-behind count of §2.3 #36 and the sessions started and not completed (eval plan §6 #4). Nothing new is stored.
+
 ## 3. Metrics
 
 Measures only. `06-eval-plan.md` owns how each is read and the decision rules. M1 to M4 are D-68's gate [F].
@@ -131,10 +141,10 @@ Measures only. `06-eval-plan.md` owns how each is read and the decision rules. M
 | # | Measure | What it counts | Why |
 |---|---|---|---|
 | M1 | Sessions held | Completed sessions in the 28 days from the switch date (D-68: at least 8) | The rhythm holds, or doesn't |
-| M2 | Longest stretch between sessions, and its gap record | Days between consecutive session dates; whether a stretch over 7 days ended in a session with a gap stored (D-68) | Return after absence is the failure the concept was written for |
-| M3 | Look-back time | Finished minus started, per session, from the stored times; the typical value against five minutes (D-68) | A long look-back becomes the next ritual to avoid (draft §5) |
+| M2 | Longest stretch between sessions, and its gap record | Days between consecutive session dates; whether a stretch over 7 days ended in a session with a gap stored **[0.3]** or with its days filled in (D-68; §2.4 #39) | Return after absence is the failure the concept was written for |
+| M3 | Look-back time | Finished minus started, per session, from the stored times; the typical value against five minutes (D-68). **[0.3]** The typical value is the median of unpaused look-backs; a look-back is paused when it finished on a later date than it started, or took over 30 minutes (§2.4 #40) | A long look-back becomes the next ritual to avoid (draft §5) |
 | M4 | Crossing out as obligation | The founder's own judgement, asked once at the end of the four weeks (D-68) | Cause 2 of draft §1 |
-| M5 | The drop rule | The founder's own account, at the end of the four weeks, of whether they planned on paper because it was easier than the app (intake §6). Not readable from the record | The intake's drop rule |
+| M5 | The drop rule | The founder's own account, at the end of the four weeks, of whether they planned on paper because it was easier than the app (intake §6). Not readable from the record. **[0.3]** Made testable by `06-eval-plan.md` §3.B and §3.C, the dated paper pages (§2.4 #41) | The intake's drop rule |
 | M6 | Days with a crossing | Days in the four weeks with at least one item crossed out | The daily skim the founder described (D-69), as far as the record can see it |
 
 ## 4. Interface requirements
@@ -218,7 +228,7 @@ No "x of y", no progress bar, no daily total, no streak, no colour for a finishe
 
 ### 4.10 Failures *(0.2)*
 
-- **A failed save** anywhere in this module (an answer, a crossing on any surface, a capture, a look-ahead edit, a "From before" or "From the gap" choice) shows "Not saved." and **Try again** on that row or in the modal, in amber, keeps what was entered on screen, and blocks nothing else (§2.3 #27).
+- **A failed save** anywhere in this module (an answer, a crossing on any surface, a capture, a look-ahead edit, a "From before" or "From the gap" choice, **[0.3]** and the session's own steps of §2.4 #38) shows "Not saved." and **Try again** on that row or in the modal, in amber, keeps what was entered on screen, and blocks nothing else (§2.3 #27).
 - **A failed load** of Today, `/session` or the look-ahead's gathering shows one line and **Try again** in place of the list.
 - **A removed operation** called from an old tab shows "Tracker was updated. Reload" (§2.3 #29).
 
@@ -327,7 +337,7 @@ No "x of y", no progress bar, no daily total, no streak, no colour for a finishe
 - **AC-55.** A day record holds the action, the date key, when it was crossed (or nothing), **[0.2]** the date the crossing moved it from (or nothing), its answer (or nothing) and when it was answered; there is at most one per action per day.
 - **AC-56.** Each session stores its start, the first and last days its look-back covered, the look-back's start and finish, the next due date, when, where, and when it completed.
 - **AC-57.** Each gap stores its first and last dates and the planned items of AC-50, and the session it was recorded in.
-- **AC-58.** M1 to M3 and M6 (§3) can be computed for any 28-day window from these tables alone, by a query the eval plan names.
+- **AC-58.** M1 to M3 and M6 (§3) can be computed for any 28-day window from these tables alone, by a query the eval plan names. **[0.3]** The same query computes the actions a look-back left on a past day with no fate (§2.3 #36) and the sessions started and not completed.
 
 ### 6.9 Language and fences
 
@@ -340,7 +350,7 @@ No "x of y", no progress bar, no daily total, no streak, no colour for a finishe
 
 ### 6.10 Failures *(0.2)*
 
-- **AC-69.** A failed save of an answer, a crossing (on any surface), a capture, a look-ahead edit, or a "From before" or "From the gap" choice shows "Not saved." and **Try again** on that row or in the modal, keeps what was entered on screen, leaves every other control working, and uses no red.
+- **AC-69.** A failed save of an answer, a crossing (on any surface), a capture, a look-ahead edit, a "From before" or "From the gap" choice, **[0.3]** or a session step (completing a step, **Confirm these**, **Skip the rest**, "Don't ask about this", the next date, when and where, **Finish**, which then leaves the session at that step) shows "Not saved." and **Try again** on that row or in the modal, keeps what was entered on screen, leaves every other control working, and uses no red.
 - **AC-70.** A failed load of Today, `/session` or the look-ahead's gathering shows one line with **Try again** in place of the list, and no red.
 
 ## 7. Out of scope
@@ -356,6 +366,7 @@ No "x of y", no progress bar, no daily total, no streak, no colour for a finishe
 
 ## Changelog
 
+- **0.3 · 2026-11-19** — `revise`, `changes/02-req-session-saves-and-eval-measures.md`: journeys S13 (the session's own saves fail visibly) and the eval plan's §6 items 1 to 4 (M2, M3, M5, AC-58), as §2.4 #38 to #42; AC-58 and AC-69 amended; §3 M2, M3, M5. No new criteria. Claude's calls in the unattended run, logged in `calls.md`.
 - **0.2 · 2026-11-19** — `revise`, `changes/01-req-journeys-gaps-and-review-pass-1.md`: the journeys' Suggested S1 to S12 and the UX review's pass 1 (P1-F1 to F7, F14) written in as §2.3 #19 to #37, §4.10 and AC-65 to AC-75; AC-18, AC-19, AC-28, AC-31, AC-32, AC-38, AC-40, AC-51, AC-52 and AC-55 amended; "Done for now" renamed "Skip the rest". S1 and S2 are the founder's (journeys §1); the rest were settled by Claude during the founder's unattended run and are logged in `calls.md`. New area J (failures). 64 → 75 criteria.
 - **0.1 · 2026-11-19** — Spec, from `00-intake.md` (research waived there) and `../../drafts/session-rhythm.md` 0.3-draft with D-63 to D-78. Four questions asked at spec (§2.1), eighteen settled by Claude (§2.2). Code read at `rishe-eco/tracker` `main @ eea1c59`; the main finding is that D-5's gate was never enforced in code (§1.1). Written by Claude (Opus 5.5) following `spec`'s steps by hand.
 
