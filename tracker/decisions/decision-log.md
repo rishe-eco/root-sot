@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.51 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.52 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -33,6 +33,14 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-10-20 | **add_focus_periods** | `FocusPeriod` and the explicit join `FocusPeriodProject` (with `addedAt`) — **Focus Periods**, a dated lens over a few projects. The first module built on the lifecycle method. See D-61. |
 
 ## 2. Key decisions
+
+### D-75 · A deep-work block surfaces items by time; it never holds them (D-54 stands) — 2026-11-19
+
+For the session rhythm's deep-work blocks (`../drafts/session-rhythm.md` §8b, "Items put into it"), D-54's rule stands: soft means order, never membership. An item is in a block because its time falls inside the block's span; matching tags rise to the top of the band. There is no link from a block to its items. Binds stage 2.
+
+*Why:* placing an item by time already does what is needed, and a membership link would have to be kept in step whenever a block or an item moves. *Cost, accepted:* an item can't belong to a block apart from its time, so moving a block doesn't carry its items with it.
+
+*Decided by:* the founder, 2026-11-19, choosing "only surface" over "holds items". It was Claude's recommendation.
 
 ### D-74 · No paper run: the session rhythm goes from spec to design to build — 2026-11-19
 
@@ -801,6 +809,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.52 · 2026-11-19** — D-75 added: **a deep-work block surfaces items by time and never holds them**; D-54's order-not-membership rule stands. Binds stage 2.
 - **0.51 · 2026-11-19** — D-74 added: **no paper run**; the rhythm goes from spec to design to build, and the four-week test (D-68) is its first test in use.
 - **0.50 · 2026-11-19** — D-73 added: **the look-ahead is the session's own screen**, a per-day list until the next session, reusing Calendar's parts but not its page.
 - **0.49 · 2026-11-19** — D-72 added: **existing data is kept**; day states become read-only history; the record starts on the switch date; older open actions are offered once as one optional "from before" block.
