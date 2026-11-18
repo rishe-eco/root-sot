@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.52 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.53 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -33,6 +33,14 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-10-20 | **add_focus_periods** | `FocusPeriod` and the explicit join `FocusPeriodProject` (with `addedAt`) — **Focus Periods**, a dated lens over a few projects. The first module built on the lifecycle method. See D-61. |
 
 ## 2. Key decisions
+
+### D-76 · A one-off deep-work block is a Time Theme with one date, made from the look-ahead — 2026-11-19
+
+The one-off block the session rhythm needs (`../drafts/session-rhythm.md` §8b, deep-work table, "Just this once") is a Time Theme with a single date in its existing date list (`TimeTheme.customRepeatDates`). It is created from the session's look-ahead in one step (span, title, tags), without opening the theme editor. Past one-offs are hidden from the theme list by default. No new entity. Binds stage 2.
+
+*Why:* it needs no new schema, and Calendar, Today and (later) Galaxy already draw theme bands. *Cost, accepted:* one-offs live among the recurring themes, so the theme list needs a filter to stay readable.
+
+*Decided by:* the founder, 2026-11-19, choosing "one-date theme" over a theme-less placed occurrence. It was Claude's recommendation.
 
 ### D-75 · A deep-work block surfaces items by time; it never holds them (D-54 stands) — 2026-11-19
 
@@ -809,6 +817,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.53 · 2026-11-19** — D-76 added: **a one-off deep-work block is a Time Theme with one date**, made from the look-ahead; past one-offs hidden from the theme list. Binds stage 2.
 - **0.52 · 2026-11-19** — D-75 added: **a deep-work block surfaces items by time and never holds them**; D-54's order-not-membership rule stands. Binds stage 2.
 - **0.51 · 2026-11-19** — D-74 added: **no paper run**; the rhythm goes from spec to design to build, and the four-week test (D-68) is its first test in use.
 - **0.50 · 2026-11-19** — D-73 added: **the look-ahead is the session's own screen**, a per-day list until the next session, reusing Calendar's parts but not its page.
