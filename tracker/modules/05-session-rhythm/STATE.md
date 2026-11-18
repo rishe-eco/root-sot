@@ -2,6 +2,38 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-11-19 · 5–6 ux-review, revise 01–02, journeys update, wireframes draft 2, eval-plan · docs/root-os @ c830e5a · rishe-eco/tracker main @ eea1c59
+
+*Replaces the 4 wireframes block below: its next steps 1 to 3 are done. Its carry-overs and questions stand, as amended here.*
+**Drive:** stop · build-plan runs in the attended run-to-the-end session · resume: run the next phase below
+
+**What was done** (all in the founder's unattended run; every call is in `tracker/modules/05-session-rhythm/calls.md`, rows 1 to 14)
+- `ux-review design`, pass 1 (`fcdd174`): 18 findings, one high (P1-F1, crossed pre-fills lost to "Done for now"). All now closed or carried (`05-ux-review.md` 0.2).
+- `revise` 01 (`66f712b`): spec 0.1 → 0.2, S1 to S12 and P1-F1 to F7, F14 in; AC-65 to AC-75; "Done for now" renamed "Skip the rest"; P1-F2 refused as a requirement (calls 5 to 9). `changes/01-req-journeys-gaps-and-review-pass-1.md`.
+- `journeys update --from-note 01` (`6e05954`): journeys 0.3, 70 rows, all 75 criteria covered, new S13.
+- `wireframes` draft 2 (`45e2cc3`): S1 to S12 as plain UI, the review's layout findings fixed, calls W27 to W39.
+- `eval-plan` (`be49bf3`): `06-eval-plan.md` 0.1; drop = pause; Ambiguous runs two more weeks (call 13).
+- `revise` 02 (`88d4c5b`): spec 0.3, S13 and the eval plan's §6 items 1 to 4. `changes/02-req-session-saves-and-eval-measures.md`.
+- Gate phase 7: OK.
+
+**Next steps, in order**
+1. Skill step, Opus, high effort, root-sot checkout on `docs/root-os`: `/build-plan tracker/modules/05-session-rhythm`
+2. Only if `build-plan` finds that `lifecycle/projects/tracker/config.md` 0.4 needs settling: the first build stage runs attended, from the tracker checkout (`E:\_root\tracker`): `/build-phase <first stage>` (Opus, medium effort), then `/verify <first stage> tracker/modules/05-session-rhythm` (Opus, high effort). Otherwise skip to step 3.
+3. Plain work, in a terminal at the root-sot checkout: `lifecycle/bin/drive tracker/modules/05-session-rhythm`, once the top block's Drive line reads `run · <the first build step>`.
+
+**Carry-overs**
+- After the build, before `close-out`: `journeys update tracker/modules/05-session-rhythm --from-note 02` and `eval-plan tracker/modules/05-session-rhythm --touch-up changes/02-req-session-saves-and-eval-measures.md` (change request 02, *Owed by other skills*).
+- `build-plan` settles W1 to W39, P1-F15 (44 px hit areas) and the eval plan's query-script card (§6 #5).
+
+**Questions for the founder**
+- Which opportunity-tree node does the session rhythm sit on (`ecosystem/ost.md` §6)? Owed by: `close-out`.
+- Push `docs/root-os` (root-sot is public), and merge it into `main` when? Owed by: the founder; the run pushes nothing.
+- Read `calls.md` rows 5 to 14 and veto any call with a change note or `revise`.
+
+**Owed**
+- Nothing uncommitted. Nothing pushed.
+
+
 ## 2026-11-19 · 4 wireframes · docs/root-os @ f407dbf · rishe-eco/tracker main @ eea1c59
 
 *Partly completes the 3b journeys block below: its next steps 1 and 2 are done. Its carry-overs and questions stand. Written after the fact by the run-to-the-end session (the wireframes session wrote no block).*
