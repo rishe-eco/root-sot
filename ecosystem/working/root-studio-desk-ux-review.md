@@ -3,8 +3,8 @@
 *What this is: the founder's live walkthrough of the staff desk's contract pages (2026-11-16), turned into an agreed list of changes: a new step order, fewer tabs, simpler inputs, one bug, and the conversion of older contracts onto the new layout. Each change says what it is, what the code does today, and what it costs underneath.*
 
 **From:** _root
-**Status:** **0.2 — built in root-app, on local `main`, not deployed.** 0.1 was agreed in conversation; Every item was confirmed by the founder in the session; the ones that were Claude's proposals are marked as such. Nothing here has a build stage yet.
-**Version:** 0.2 · 2026-11-17 · Owner: _root
+**Status:** **0.3 — built and deployed** (root-app `main` @ `6ef64be`, pushed 2026-11-18). 0.1 was agreed in conversation; Every item was confirmed by the founder in the session; the ones that were Claude's proposals are marked as such. Nothing here has a build stage yet.
+**Version:** 0.3 · 2026-11-18 · Owner: _root
 **Reads with:** `root-studio-user-journeys.md` (the step order this file revises, §4) and `root-studio-journeys-build-plan.md` (the J-stages that built today's desk).
 
 **Why.** The founder has put several contracts through the desk and found it confusing every time: two rows of tabs, the same list editable in two places, steps that look alike, and inputs that fight the user. The aim is a desk where it is always clear where you are, whose turn it is, and where each thing is edited.
@@ -163,7 +163,17 @@ A first reading of the data and API work, for whoever plans the stages:
 - **Items 7, 8, 20** *(Claude)*: the dependency row *is* the handover item; the brief's three provider columns are migrated into rows and dropped; each provider is optional; rows added after the lock are board-only.
 - **Item 26** *(Claude)*: "either language is enough" covers the titles typed on the contract workspace; the library, templates, services and site types keep both required.
 
+- **The founder's walk of the built desk, 2026-11-18** *(founder; built as DX6 and two rounds before it)*:
+  - **Steps:** the selected step is marked by its start bar alone; what a step lacks sits on a line reserved under every pill; the calendar opens from the date field itself; small counts are a track of chips, 0 to 5 plus "More".
+  - **Requirements:** 0 is a valid count and 0 months of support an option; the budget and the contract's fee are one number; "New site type" sits beside the picker; the handover panel is called **Dependencies** (who provides what, by when), and every dependency needs a who and a when, or "Not needed", before the contract can go out (reverses Claude's earlier "each provider optional").
+  - **Pages and features:** the extras are a managed list (Templates → Extras) and can be added to one contract; the separate "status, flags, trades, phases" block is gone, and each item carries its own chips and a Details drawer.
+  - **Phases and payment:** every field has a visible label.
+  - **Contract tab:** articles start folded.
+  - **Everywhere:** one way to add things, an "Add …" button opening a small labelled form; the boxes in the tabs use the status box's ground; Templates' "Handover items" is "Default dependencies".
+
 ## Changelog
+
+- **0.3 · 2026-11-18** — Deployed (root-app `6ef64be`). §6 gains the founder's walk of the built desk and what it changed (DX6 and the rounds before it).
 
 - **0.2 · 2026-11-17** — Built across seven stages in root-app (DX1–DX4), merged to local `main`, not deployed. §6 records the founder's answers to §5 and the decisions taken in the build.
 
