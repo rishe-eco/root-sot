@@ -2,7 +2,8 @@
 
 **From:** _root
 **Status:** **Draft, 0.5 — the customer journey and the staff journey, both answered.** Covers the founder's customer scenario as given 2026-09-28 in two parts: invite through contract approval, then design, mockup, demo, the closing summary, and a status panel around the whole. **Every customer-journey question in §6 is answered** (2026-09-28), and the answers are folded into the stages. **§7 is the staff journey** — sales, design and development — and §8 records its answers (2026-09-28). **Nothing here is built, and nothing should be built until every journey is in** — the founder's instruction is to plan every missing piece first.
-**Version:** 0.7 · 2026-09-28 · Owner: _root
+**Version:** 0.8 · 2026-11-16 · Owner: _root
+**Revised by:** `root-studio-desk-ux-review.md` (0.1, 2026-11-16) — the step order (a new *Phases and payment* step between Pages and features and the draft) and the desk's tabs. Where the two differ on those, that file wins.
 **What this is:** each journey scenario checked against `rishe-eco/root-app` as it is, sorted into *have / partly / missing*, and the missing pieces sequenced as **J-stages** in the shape the L-stages used — each to get its own build doc in `root-app/docs/development/` when it starts. The founder asked for gaps in the scenario itself to be pointed out along the way; those are marked **Suggested** and kept apart from what the scenario asked for.
 
 **Grading.**
@@ -793,6 +794,7 @@ The founder accepted every lean except where the **Answer** column says otherwis
 
 ## Changelog
 
+- **0.8 · 2026-11-16** — Points at `root-studio-desk-ux-review.md`, which revises the step order and the desk's tabs after the founder's walkthrough of the built desk. No journey content changed here.
 - **0.7 · 2026-09-28** — Records the build plan 0.2's fourth departure: mockup views on their own subdomains (PD-9), superseding §7.6's tokenised path. No journey content changed.
 - **0.6 · 2026-09-28** — Points §4 at the new build plan (`root-studio-journeys-build-plan.md` 0.1) and records its three departures from this file's sketch — one feedback model (PD-1), wizard state and delivery on the contract (PD-5, PD-6) — plus its decision not to frame theme demos. No journey content changed.
 - **0.5 · 2026-09-28** — **The staff journey answered** (§8 is now a decisions record). Three changes by the founder: **design and development take part from step 1** — they see contracts and answer feedback in the early steps, and every such answer is **approved or declined with a reason by sales** (§7.3's matrix and approval semantics updated); **sales assigns the designer and developer at contract creation** and can change them (assignment joins S1; my reading that it narrows *authorship*, not visibility, is recorded for correction); and **the summary takes no feedback** — it becomes a record of the contract with each step's iterations used and finish date, and **delivery is set by sales when closing the project** rather than by a customer act (J11 rewritten). Every Suggested staff item accepted.
