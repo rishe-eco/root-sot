@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.47 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.48 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -33,6 +33,20 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-10-20 | **add_focus_periods** | `FocusPeriod` and the explicit join `FocusPeriodProject` (with `addedAt`) — **Focus Periods**, a dated lens over a few projects. The first module built on the lifecycle method. See D-61. |
 
 ## 2. Key decisions
+
+### D-71 · Every item is asked about at review unless the person stops it, one tap, in the look-back — 2026-11-19
+
+Which items the session's look-back asks about (`../drafts/session-rhythm.md` §3, §5, §12 "Which items are asked about at review"). Each item has one of three settings:
+
+- **ask me** (the default, for every kind of item): it appears in the look-back and gets one of the four answers;
+- **don't ask**: it can still be crossed out on the day, but it is not in the look-back and makes no record;
+- **just to know**: it shows on the day, can't be crossed out, and is not asked about (§3, unchanged).
+
+Inside the look-back, any item can be switched to "don't ask" in one tap. For a gathered item the setting is kept on its interval or routine, so it holds for every later occurrence; it can be switched back on the item's source.
+
+*Why:* which routines need a record is learned by reviewing them, not by guessing beforehand, and a one-tap way out keeps the look-back short (D-68's under-five-minutes measure). *Cost, accepted:* "don't ask" items leave no record, so no pattern can be read from them later.
+
+*Decided by:* the founder, 2026-11-19, choosing "ask by default" over defaulting routines to "don't ask". It was Claude's recommendation.
 
 ### D-70 · Quick capture is a small modal, from anywhere: a title, and an optional date and time — 2026-11-19
 
@@ -758,6 +772,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.48 · 2026-11-19** — D-71 added: **every item is asked about at review** by default; one tap in the look-back sets "don't ask", kept on the item's recurrence. Three settings: ask me, don't ask, just to know.
 - **0.47 · 2026-11-19** — D-70 added: **quick capture** is a small modal from any screen (title required; optional date, empty meaning today; optional time). The estimate-when-dated rule becomes optional.
 - **0.46 · 2026-11-19** — D-69 added: **a session is called from Today** (one line from its due date) with an optional one-event calendar add at the end of each session; Tracker sends no email or push.
 - **0.45 · 2026-11-19** — D-68 added: **the four-week test after stage 1**: §11's four measures as written, with stage 1 storing session dates, gaps and look-back start and end so the gate reads from the record.
