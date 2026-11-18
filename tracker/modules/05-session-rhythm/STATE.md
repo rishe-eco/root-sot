@@ -2,6 +2,37 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-11-19 · 3a personas · docs/root-os @ f7397ac · rishe-eco/tracker main @ eea1c59
+
+*Adds to the 2 spec block of the same day (kept below); its next step 1 is done. Its carry-overs and questions stand.*
+**Drive:** stop · design phases are attended · resume: run the next phase below
+
+**What was done**
+- `/personas` (Sonnet) selected one persona: **G, Sitting planner**, a new hypothesis added to `lifecycle/personas.md` 0.3 and recorded in `lifecycle/decision-log.md` L-50 (log 0.47). The founder accepted G and refused H, a core-set team member, so the team-member audience and the Persian terms (`02-spec.md` §2.2 #17) have no persona.
+- `03-journeys.md` now exists with its `## Personas` table (one row); the gate passes phase 3. Commits `f81061d` (registry and journeys file) and `f7397ac` (decision log). Not pushed.
+
+**Next steps, in order**
+1. Skill step, Opus, high effort, root-sot checkout on `docs/root-os`: `/journeys new tracker/modules/05-session-rhythm`
+2. Skill step, Opus, medium effort: `/wireframes tracker/modules/05-session-rhythm`
+3. No design pass (phase 4b skipped, founder, 2026-11-19): the UX review reads the wireframes.
+4. Skill step, Opus, high effort: `/ux-review design tracker/modules/05-session-rhythm`
+5. Skill step, Opus, high effort: `/eval-plan tracker/modules/05-session-rhythm`
+6. Skill step, Opus, high effort: `/build-plan tracker/modules/05-session-rhythm`
+7. Only if `build-plan` finds that `lifecycle/projects/tracker/config.md` 0.4 needs settling: the first build stage runs attended, from the tracker checkout (`E:\_root	racker`): `/build-phase <first stage>` (Opus, medium effort), then `/verify <first stage> tracker/modules/05-session-rhythm` (Opus, high effort; it runs forked). Otherwise skip to step 8.
+8. Plain work, in a terminal at the root-sot checkout, no model to choose: `lifecycle/bin/drive tracker/modules/05-session-rhythm`. Before it, the founder sets the successor block's Drive line to `run · <the first build step>`, as `build-plan`'s handoff will propose.
+
+**Carry-overs**
+- `journeys` should put the Persian terms in `02-spec.md` §2.2 #17 to the founder, and says in its file that no persona reads Persian.
+- Otherwise as the block below.
+
+**Questions for the founder**
+- Which opportunity-tree node does the session rhythm sit on (`ecosystem/ost.md` §6)? Owed by: `close-out`.
+- Push `docs/root-os` (now 25 commits ahead, root-sot is public), and merge it into `main` when? Owed by: before `build-plan`.
+
+**Owed**
+- Nothing uncommitted. Nothing pushed.
+
+
 ## 2026-11-19 · 2 spec · docs/root-os @ 581ca10 · rishe-eco/tracker main @ eea1c59
 
 *Replaces the 0 intake block of the same day (same session).*
