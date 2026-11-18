@@ -2,7 +2,7 @@
 
 *Decisions about the method itself, and only those. Written in `decision-record`'s format. A module's product decisions live in its change notes, indexed in `<module>/decisions.md`. L-2, L-3, L-5 and L-6 moved to `imnstr/modules/01-website/decisions.md` on 2026-10-19 (L-9), keeping their ids.*
 
-**Version 0.46 · 2026-11-19**
+**Version 0.47 · 2026-11-19**
 
 ---
 
@@ -642,3 +642,13 @@ Four facts found on the way are written into the files as they are, not as the m
 - whether `/<skill>` expands under `claude -p` (not seen yet, because the headless CLI wasn't signed in);
 - how many `calls.md` rows the founder vetoed;
 - whether any stage the run merged had to be reopened.
+
+## L-50 · 2026-11-19 · Persona G (Sitting planner) added for Tracker session rhythm
+
+**Decision.** Add hypothesis persona G (Sitting planner) to `lifecycle/personas.md` (0.3), for `tracker/modules/05-session-rhythm/`. It is selected in that module's `03-journeys.md`. No team-member persona (proposed as H) is added, and no existing persona changes.
+
+**Why.** No registered persona fits the intake's audience (`tracker/modules/05-session-rhythm/00-intake.md`, "Who it is for"): A and B enter through Tracker's Tools page, and C is IMNSTR's phone-first writer. G rests on that audience line and on the spec's §4.1, §4.4 to §4.6, §4.9 and §6.7. The founder refused H, so the team-member audience has no persona, and the spec's Persian terms (§2.2 #17) have none to be scored against.
+
+**Decided by.** Founder, 2026-11-19, in chat, answering Claude's two proposals: "Accept G" and refused H. The record's wording is Claude's, not reviewed line by line.
+
+**Revisit.** After the UX review of this module: whether G alone exposed what a team member new to the rhythm would hit, and whether a Persian-reading persona is needed for the spec's `fa` strings.
