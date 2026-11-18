@@ -2,7 +2,7 @@
 
 *What this is: the founder's idea of "everything business in one place", a branch that could grow out of Root OS. Written down so it isn't lost. Not a plan, not a spec, nothing to build.*
 
-**Version 0.1 · Status: vision draft, parked · 2026-11-18 · Owner: _root**
+**Version 0.2 · Status: vision draft, parked · 2026-11-18 · Owner: _root**
 
 Grounding: **inferred** throughout. No research, no interviews, no code. Points the founder said are marked *founder*. Claude's additions are marked *Suggested*.
 
@@ -10,7 +10,9 @@ Grounding: **inferred** throughout. No research, no interviews, no code. Points 
 
 ## 1. Where it comes from
 
-**Root OS** (*founder*, 2026-11-18) is a full-screen room inside Tracker that has only an exit button. It shows what you need right now from all of your work and nothing else. The long-term dream is software that does what you need and nothing more, starting from the OS itself. The near-term reading is a **shell**: one surface over your own data, built first as a Tracker tool, because the backend and logic already exist. Its ideal loop is that it follows you, learns you, reveals itself, you tell it something, and it reveals itself again.
+**Names** (*founder*, 2026-11-18). **Galaxy** is the tool inside Tracker: the full-screen room, built first. **Root OS** is the full shell it is heading toward, kept for when the founder gets there.
+
+**Galaxy** (*founder*, 2026-11-18) is a full-screen room inside Tracker that has only an exit button. It shows what you need right now from all of your work and nothing else. The long-term dream is software that does what you need and nothing more, starting from the OS itself. The near-term reading is a **shell**: one surface over your own data, built first as a Tracker tool, because the backend and logic already exist. Its ideal loop is that it follows you, learns you, reveals itself, you tell it something, and it reveals itself again.
 
 The business branch came from one frustration (*founder*): to start a working day you have to go to five or six places, sign in, check in, and sometimes switch devices. Some of that comes from limited access to modern devices, but not all of it.
 
@@ -33,7 +35,7 @@ The business branch came from one frustration (*founder*): to start a working da
 
 *Suggested.*
 
-- **The work is integrations, not interface.** Email, calls, messengers and calendars each mean an account, an API, permissions, failure handling and upkeep. That's the opposite of Root OS v0, which is surface only.
+- **The work is integrations, not interface.** Email, calls, messengers and calendars each mean an account, an API, permissions, failure handling and upkeep. That's the opposite of Galaxy, which is surface only.
 - **The space is crowded.** Large suites and many startups already compete on "one inbox for your business". The purpose in §3 is the difference, not the feature list.
 - **Local conditions.** For Iranian small businesses, the channels in use, the 2026 shutdowns and domestic-network limits change which integrations even make sense. `root-studio-social-acquisition-test.md` has the current picture of where those owners are.
 
@@ -45,11 +47,11 @@ The business branch came from one frustration (*founder*): to start a working da
 
 ## 6. Why it's parked, and what would unpark it
 
-Parked because the founder wants to spend very little time on Root OS, and this branch is the most expensive part of it.
+Parked because the founder wants to spend very little time on Galaxy and Root OS, and this branch is the most expensive part of it.
 
 *Suggested* signals to reopen it:
 
-1. Root OS v0 has been lived with in Tracker, and the room is used daily.
+1. Galaxy has been lived with in Tracker, and the room is used daily.
 2. The reveal loop has worked for one person (the founder) before it's tried on others.
 3. ADR 0001's gate opens, or this is deliberately carved out from it.
 4. Studio has clients whose working day can be watched.
@@ -58,4 +60,5 @@ Parked because the founder wants to spend very little time on Root OS, and this 
 
 ## Changelog
 
+- **0.2 · 2026-11-18** — Names recorded: **Galaxy** is the Tracker tool, **Root OS** the full shell later. §1, §4 and §6 now say Galaxy where they meant the Tracker tool.
 - **0.1 · 2026-11-18** — First capture, from the conversation in which Root OS was first described. Parked on purpose.

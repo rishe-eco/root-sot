@@ -1,15 +1,16 @@
 <!doctype html>
 <!--
-  Root OS — opening-sequence motion probe.
-  Version 0.1 · Status: probe (made-up data, no backend) · 2026-11-18 · Owner: _root
+  Galaxy (the Root OS tool in Tracker) — opening-sequence motion probe.
+  Version 0.2 · Status: probe (made-up data, no backend) · 2026-11-18 · Owner: _root
   Open in a browser, full screen. "replay" (bottom left) restarts the sequence.
-  Changelog: 0.1 · 2026-11-18 — first probe: greeting breaks into data, two panels open, closing one sends it to its place in orbit.
+  Changelog: 0.2 · 2026-11-18 — renamed to Galaxy (Root OS is the full shell, later).
+  0.1 · 2026-11-18 — first probe: greeting breaks into data, two panels open, closing one sends it to its place in orbit.
 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Root OS — opening probe</title>
+<title>Galaxy — opening probe</title>
 <style>
 :root{--bg:#05060a;--ink:#ece6d6;--dim:#7d8496;--faint:#2a2e38;--amber:#f0a43a;--coral:#e8664a;--core:#f6ecd4;--item:#aeb6c8}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -76,7 +77,7 @@ svg#sky{position:fixed;inset:0;width:100%;height:100%}
   <div class="meta">2 deep work blocks · 1 offline stretch · After-day at 21:30</div>
   <div class="rows">
     <div class="row"><span class="t">07:30</span><span>Morning routine<span class="tag">routine</span></span></div>
-    <div class="row deep"><span class="t">09:30–11:30</span><span>Deep work<span class="tag">Root OS probe review · prepare: notes open</span></span></div>
+    <div class="row deep"><span class="t">09:30–11:30</span><span>Deep work<span class="tag">Galaxy probe review · prepare: notes open</span></span></div>
     <div class="row"><span class="t">12:00</span><span>Reply to the Studio client draft</span></div>
     <div class="row deep"><span class="t">14:00–15:30</span><span>Deep work<span class="tag">Journey Reflect spec</span></span></div>
     <div class="row"><span class="t">17:00</span><span>Walk, offline</span></div>
@@ -97,7 +98,7 @@ svg#sky{position:fixed;inset:0;width:100%;height:100%}
   <button class="soft">Plan something to ease it</button>
 </div>
 
-<div id="gone"><div>Root OS would close here.</div><button class="corner" style="position:static" onclick="location.reload()">come back</button></div>
+<div id="gone"><div>Galaxy would close here.</div><button class="corner" style="position:static" onclick="location.reload()">come back</button></div>
 
 <script>
 const NS='http://www.w3.org/2000/svg';
@@ -120,7 +121,7 @@ const GOALS=[
 const P=[
   {id:'plan',label:'Your day',sub:'click to open',kind:'frag',ring:1,a:205,spd:5,panel:'plan'},
   {id:'needs',label:'Needs you',sub:'click to open',kind:'attn',ring:1,a:335,spd:5,panel:'needs'},
-  {id:'a1',label:'Deep work · Root OS probe review',sub:'09:30–11:30',kind:'item',ring:1,a:60,spd:5},
+  {id:'a1',label:'Deep work · Galaxy probe review',sub:'09:30–11:30',kind:'item',ring:1,a:60,spd:5},
   {id:'a2',label:'Reply to the Studio client draft',sub:'12:00',kind:'item',ring:1,a:118,spd:5},
   {id:'a3',label:'Walk, offline',sub:'17:00',kind:'item',ring:2,a:20,spd:3},
   {id:'a4',label:'Deep work · Journey Reflect spec',sub:'14:00–15:30',kind:'item',ring:2,a:250,spd:3},
