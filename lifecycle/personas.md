@@ -2,7 +2,7 @@
 
 *The fixed set of simulated people that journeys are written for and UX reviews are scored against. Each has a grounding. Existing personas are never redefined: score history depends on them staying the same.*
 
-**Version 0.2 · Status: seeded by the trial run · 2026-10-10 · Owner: _root**
+**Version 0.3 · Status: seeded by the trial run · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -53,10 +53,19 @@ Someone who reads Persian and follows the founder's Persian stream. Grounding: `
 - Also stands in for a Persian listener on `/fa/podcast`; no separate persona is proposed for that.
 - Does not stand in for the real founder's own M1 judgment (`02-spec.md` §3).
 
+### G — Sitting planner · *hypothesis* · added 2026-11-19 for tracker/modules/05-session-rhythm
+Someone who plans their days in one sitting every few days and then lives them. Grounding: `tracker/modules/05-session-rhythm/00-intake.md` "Who it is for"; `02-spec.md` §4.1 (Today, the session line), §4.4 to §4.6 (the session), §4.9 (fences), §6.7 (return after a gap).
+- Plans in a sitting every 2 to 7 days; on most days only skims the plan, and skips some days (weekends, holidays).
+- Has left planning tools before because keeping them up cost more than they gave.
+- Knows Tracker; has seen the old gate and Today's wizards. Reads English.
+- Probes: Today with nothing before it, crossing out against done, the session's length and the look-back's four answers, the next session's date, quick capture, return after a gap, and the fences (no counts, streaks, progress or red).
+- Does not stand in for the real founder's own judgment of M4 and M5 (`02-spec.md` §3).
+
 ## Not proposed
 A reader using a screen reader or other assistive technology. It is covered by the accessibility acceptance criterion (spec AC-19) and the review's coverage checklist, not by a persona.
 
 ## Changelog
 
+- **0.3 · 2026-11-19** — Added G (Sitting planner, hypothesis) for Tracker session rhythm (L-50). No existing persona changed.
 - **0.2 · 2026-10-10** — Added F (Persian follower, hypothesis) for IMNSTR, from UX review F11. No existing persona changed.
 - **0.1 · 2026-10-10** — Seeded by the trial run: A and B copied from the persona review method §2; C, D, E proposed for IMNSTR.
