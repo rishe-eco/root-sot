@@ -2,7 +2,7 @@
 
 *Draft. Not yet canon. A concept and a staged build plan, not a spec: each stage needs its own spec, through the lifecycle method, before code. When a stage lands, fold it into `../canon/01-product/`, `../canon/02-architecture/01-data-model.md` and a `../decisions/decision-log.md` entry. Reuses two Journey specs: `../../ecosystem/working/journey-build/03-batteries-check.md` and `05-failure-and-ignoring.md`. Update the changelog; don't fork.*
 
-**Version 0.1-draft · Status: concept (nothing built; four decisions open, §12) · 2026-11-16 · Owner: _root**
+**Version 0.2-draft · Status: concept (nothing built; decisions open, §12) · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -14,6 +14,7 @@ Tracker goes back to its first purpose: a personal place to follow a goal until 
 - **The day is light.** Items can be crossed out to clear them from view. Crossing out is not a record and nothing is counted.
 - **The record is made at review.** For each item the person says what happened. Patterns are read from that, and from gaps.
 - **Three things are added on top:** level checks with an immediate action, a short read when a goal goes quiet or fails, and a dashboard over chosen goals.
+- **Three more came from Galaxy** (section 8b): requirements between items, tension, and deep-work blocks, which are mostly Time Themes. Galaxy itself, the full-screen room, is interface only and draws what this concept stores (`../modules/04-galaxy/`).
 - **Two specs already exist** for the level checks and the failure read, written on 2026-10-18 for Journey. This concept reuses them and changes two of their rules; both changes are named below.
 
 This is a concept and a plan, not a spec. Each stage in the build plan still needs its own spec before code. Sources: the founder's account in conversation on 2026-11-16, and a read of the `tracker` and `root-sot` repositories the same day. The app was not run.
@@ -201,6 +202,50 @@ A selection can be saved under a name, so the person can keep more than one dash
 - in the session's look-ahead, open actions from the current focus are offered first;
 - when a focus period ends, its look-back is offered inside the next session, so there is one review moment and not two.
 
+## 8b. Requirements, tension and deep-work blocks
+
+*Added 0.2-draft, 2026-11-19, from the conversation that described Galaxy (`../modules/04-galaxy/00-intake.md`). Galaxy is kept to interface only. Anything it needs that stores or calculates something is here, under this concept's rules.*
+
+### Requirements
+
+An item can be marked as a **requirement of** another item, project or goal: "this has to happen before that can". Tracker has no link of this kind today.
+
+- It is the data under three things: an item shown as "waiting on a requirement", the calculated part of tension, and preparing actions for a deep-work block.
+- A requirement is a warning, never a block, like overlaps. Nothing stops the later item from being planned or crossed out.
+
+### Tension
+
+Tension is how heavy a task feels, recorded so the person is aware of it. It isn't a call to act, and it isn't attention: an item can be tense and need nothing.
+
+- **Two parts.** A **calculated part** comes from requirements: how close the deadlines of the things waiting on the item are, and how much follows from them. A **marked part** is set by the person, for any reason of their own. The item's tension is both together.
+- **Sizes.** Tension has sizes. The scale is open; Galaxy's probe used five steps.
+- **Easing.** When something is tense, the person can plan items to ease it, linked to the tense item. When an easing item is answered "happened" in the look-back, one question follows: did the tension come down, in your own judgment? The answer updates the marked part. The founder's reason: this is about how someone feels about doing something, so their own feedback is essential.
+- **Where it shows.** Tension is the person's own mark, not a pattern, so it may appear on the daily view as a size. A tense item that keeps being moved *is* a pattern (section 5, "an item that keeps being moved"). It shows only where patterns show: the look-back and the item's own page. No red, as in section 7.
+- **Not a level.** Level checks (section 6) read how the person is. Tension reads how one task feels. They sit side by side and don't feed each other unless the founder decides they should.
+- **Fences, proposed:** no tension total across items, and no history chart. The same reasoning as the level-check fence: a felt weight turned into a number to bring down stops being felt.
+
+### Deep-work blocks: mostly Time Themes
+
+The founder asked whether deep-work blocks are Time Themes. **Mostly yes,** with one gap and one reuse.
+
+| What a deep-work block needs | Time Themes today (D-54) | What is new |
+| --- | --- | --- |
+| A span of the day with a nature ("deep work") | Exactly this: a span with a tag | Nothing |
+| On a regular schedule | Interval recurrence, verbatim | Nothing |
+| Just this once, set up while planning the days ahead | Possible only as a theme with one ad-hoc date, made in the theme editor | **The gap:** placing a one-off block from the session's look-ahead, without authoring a recurring theme |
+| Items put into it | An item given a time inside the span sits in the band; matching tags rise to the top | Nothing, if placing an item by time is enough. A block that *holds* items would reverse D-54's "soft means order, never membership", and needs a decision |
+| Preparing actions | Not modelled | **The reuse:** a preparing action is a requirement of the block's items. No separate concept |
+
+So no new entity. The one-off block belongs in stage 2, next to part-of-day timing and the look-ahead's clash pass.
+
+### Attention
+
+"Needs you" in Galaxy is a derived list, and nothing new is stored for it: items with no date, items with a date and no time, items waiting on a requirement, and items that are requirements of something due soon. It never shows as a count. Undated items are offered in the look-ahead, which is where they get placed.
+
+### Alignment, later
+
+Galaxy draws goals as orbits that line up, or don't, with one direction. Reading that from data is a pattern: a scattered cloud with no direction yet, or a formed system whose goals are out of line. It belongs in stage 7, designed from real records like the other patterns. Galaxy draws it only once it exists.
+
 ## 9. What retires, what stays, what changes
 
 Most of the app stays. The change is concentrated in the daily cycle.
@@ -256,12 +301,13 @@ Stage 1 is the whole bet: if the new rhythm does not hold in the founder's own u
 | **0 · Decisions** | Decision-log entries: retiring the day gate (D-5); the two changed fences (scheduled level checks, counts inside the look-back); done-at-review. Then the stage 1 spec | Nothing yet |
 | **1 · The rhythm** | Today without a gate; crossing out; the session (look-back with the four answers, look-ahead, next date); return after a gap; the record; gathering up to seven days; time order within a day | Use Tracker on the new rhythm |
 | **Gate** | The founder uses stage 1 for four weeks | Decide whether to go on |
-| **2 · Clashes** | Part-of-day timing; one decision per clash; "during"; recurring clashes settled once; the multi-day pass | Plan several days without repeated clash handling |
+| **2 · Clashes** | Part-of-day timing; one decision per clash; "during"; recurring clashes settled once; the multi-day pass; one-off deep-work blocks from the look-ahead (section 8b) | Plan several days without repeated clash handling |
 | **3 · Stalling** | Closing a goal three ways; carried, gone quiet and away; the one-time frame; the badge rename | See and answer what stalls |
 | **4 · Level checks** | The read, the person's own lists, scheduling, the two offers on a low read | Check levels on a schedule and act on a low one |
 | **5 · Dashboard** | Pick goals, saved selections | See chosen goals at a glance |
+| **5b · Requirements and tension** | The requirement link; tension's two parts and sizes; easing items and the look-back question (section 8b) | Mark and see what weighs, and see whether easing it worked |
 | **6 · Access and onboarding** | Roles, switches per user, the first-session path | Bring a second person in |
-| **7 · Patterns** | Designed from the records stage 1 has produced | See patterns across weeks |
+| **7 · Patterns** | Designed from the records stage 1 has produced, including the alignment read (section 8b) | See patterns across weeks |
 
 **The gate after stage 1, with its test set before building.** Proposed measures, for the founder to adjust:
 
@@ -274,7 +320,9 @@ If the test fails, the record of how it failed is the most useful thing Tracker 
 
 **A paper run first (suggested 2026-11-16).** The rhythm can be tested by hand before stage 1 is built: sessions on paper at the chosen spacing, crossing out during the day, the four answers at review, and the next session put in a calendar each time. The founder's earlier paper rhythm worked; a few weeks of this costs nothing and tells stage 1 what it needs.
 
-**Order after the gate is a proposal.** Stages 2 to 5 do not depend on each other. If overlaps cause the most trouble during the four weeks, stage 2 goes first; if a goal goes quiet, stage 3.
+**Galaxy is not a stage here.** It is its own module (`../modules/04-galaxy/`), interface only, built after the gate over whichever stages exist by then. Its goals view is the natural face of stage 5's dashboard.
+
+**Order after the gate is a proposal.** Stages 2 to 5b do not depend on each other. If overlaps cause the most trouble during the four weeks, stage 2 goes first; if a goal goes quiet, stage 3.
 
 **Method and size.** Each stage goes through the lifecycle method already used for Focus Periods and Reflect, starting from its own spec. No effort estimate is given here: none can be made honestly before the stage 1 spec exists.
 
@@ -291,9 +339,16 @@ If the test fails, the record of how it failed is the most useful thing Tracker 
 - [ ] The four-week test and its measures (section 11).
 - [ ] Start stages 0 and 1 now, or after the January commitment.
 
+**Decisions for the founder before stages 2 and 5b (section 8b):**
+
+- [ ] Whether a deep-work block holds items, which reverses D-54's "order, never membership", or only surfaces them.
+- [ ] A one-off block: a Time Theme with one date, or an occurrence placed without a theme.
+- [ ] The tension scale, and whether its fences (no total, no chart) hold.
+- [ ] What a requirement can point at: items only, or projects and goals too.
+
 **Missing from the concept:**
 
-- **How the app calls the person to a session.** Nothing here reminds anyone that a session is due. The founder's unexplained "simply not going back" makes this the largest gap. Root refuses engagement mechanics, so the question is whether one reminder, on a date the person chose, is acceptable, and by what channel.
+- **How the app calls the person to a session.** Nothing here reminds anyone that a session is due. Galaxy offers one candidate answer: a room worth coming back to, rather than a reminder. The founder's unexplained "simply not going back" makes this the largest gap. Root refuses engagement mechanics, so the question is whether one reminder, on a date the person chose, is acceptable, and by what channel.
 - **Quick capture.** "Easily add items" is a stated need and is not designed here: which fields are required, and how few steps adding takes from any screen.
 - **Which items are asked about at review.** Some routines only need to be known, others need a record. The proposal is a per-item setting, with "ask me" as the default. Whether that default is right is untested.
 - **Emotional level.** Whether it is a fourth read or already covered by mind and spirit.
@@ -311,4 +366,5 @@ If the test fails, the record of how it failed is the most useful thing Tracker 
 
 ## Changelog
 
+- **0.2-draft · 2026-11-19** — New section 8b from the Galaxy conversation, so that Galaxy stays interface only: **requirements** between items; **tension** (a calculated part from requirements, a marked part, sizes, easing items and a look-back question); **deep-work blocks** read as mostly Time Themes (one gap, a one-off block from the look-ahead; one reuse, preparing actions as requirements); the derived **attention** list; and the **alignment** read deferred to stage 7. Build plan: stage 5b added, stages 2 and 7 widened, Galaxy named as its own module after the gate. Four decisions added to §12, and Galaxy noted against the reminder gap.
 - **0.1-draft · 2026-11-16** — Initial. Written by Claude from the founder's account in conversation on 2026-11-16 and a read of `tracker` and `root-sot` that day; the app was not run. Committed 2026-11-19 from the shared doc of the same name; the §11 paper-run paragraph was added from the same conversation. Not yet read in this form by the founder.
