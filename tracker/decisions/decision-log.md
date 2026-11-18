@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.44 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.45 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -33,6 +33,21 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-10-20 | **add_focus_periods** | `FocusPeriod` and the explicit join `FocusPeriodProject` (with `addedAt`) — **Focus Periods**, a dated lens over a few projects. The first module built on the lifecycle method. See D-61. |
 
 ## 2. Key decisions
+
+### D-68 · The four-week test after stage 1, fixed before building, read from the record — 2026-11-19
+
+The session rhythm's stage 1 gate (`../drafts/session-rhythm.md` §11) is four weeks of the founder's own use, counted from the day stage 1 is deployed and in daily use. It passes on four measures, as §11 proposed them:
+
+1. at least **8 sessions** held in the four weeks;
+2. **no gap longer than 7 days**, or, if there is one, the return happened and the gap was recorded;
+3. the **look-back usually takes under five minutes**;
+4. the **founder's own judgement** that crossing out does not feel like an obligation.
+
+**Added:** stage 1 stores what measures 1 to 3 need, so the gate is read from the record and not from memory: each session's date, each gap's start and end, and when each look-back starts and finishes. Measure 4 is asked of the founder at the end of the four weeks and written into the gate's record. If the test fails, the record of how it failed is the input to revising the concept before anything more is built (§11).
+
+*Why:* stage 1 is the whole bet, so its test is fixed before the build rather than after it, when the result would be read generously. *Cost, accepted:* a few timestamps in the stage 1 spec.
+
+*Decided by:* the founder, 2026-11-19, choosing "as written, and stored" over scaling measure 1 to the chosen spacing. It was Claude's recommendation.
 
 ### D-67 · An item is done only when the look-back says it happened; crossing out claims nothing — 2026-11-19
 
@@ -722,6 +737,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.45 · 2026-11-19** — D-68 added: **the four-week test after stage 1**: §11's four measures as written, with stage 1 storing session dates, gaps and look-back start and end so the gate reads from the record.
 - **0.44 · 2026-11-19** — D-67 added: **done is set at review**: only the look-back's "happened" marks an action done; crossing out is stored apart and feeds no status or progress.
 - **0.43 · 2026-11-19** — D-66 added: **level checks may be scheduled**, and a read shows in its day's look-back and on a gap's record, changing two batteries-spec fences; the no-history fence stands.
 - **0.42 · 2026-11-19** — D-65 added: **a count about one item** may appear in the session look-back and on that item's own page, loosening the failure spec's "dates, not counts" for the session rhythm; no count across items anywhere.
