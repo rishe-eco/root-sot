@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.54 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.55 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -33,6 +33,14 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-10-20 | **add_focus_periods** | `FocusPeriod` and the explicit join `FocusPeriodProject` (with `addedAt`) — **Focus Periods**, a dated lens over a few projects. The first module built on the lifecycle method. See D-61. |
 
 ## 2. Key decisions
+
+### D-78 · A requirement is an item, and what waits on it can be an item, a project or a goal — 2026-11-19
+
+The requirement link (`../drafts/session-rhythm.md` §8b, Requirements) runs from an **item** (the requirement, always an action) to an **item, a project or a goal** (what waits on it): "this has to happen before that can". It stays a warning, never a block. Binds stage 5b.
+
+*Why:* it is how the founder described requirements in the Galaxy conversation (`../modules/04-galaxy/00-intake.md`), and much of tension's calculated part, how much follows from an item, sits at project and goal level. *Cost, accepted:* the link has three kinds of target, so the tension calculation and the "waiting on a requirement" list each handle three cases. Item-to-item only was the smaller choice, and could have been widened later.
+
+*Decided by:* the founder, 2026-11-19, choosing "items, projects and goals" over "items only, for now". It was Claude's recommendation.
 
 ### D-77 · Tension has three sizes in words, is the larger of its two parts, and is never totalled or charted — 2026-11-19
 
@@ -825,6 +833,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.55 · 2026-11-19** — D-78 added: **a requirement** is always an item, and what waits on it can be an item, a project or a goal. Binds stage 5b.
 - **0.54 · 2026-11-19** — D-77 added: **tension** is three sizes in words (light, heavy, very heavy), the larger of its calculated and marked parts; no total across items, no chart. Binds stage 5b.
 - **0.53 · 2026-11-19** — D-76 added: **a one-off deep-work block is a Time Theme with one date**, made from the look-ahead; past one-offs hidden from the theme list. Binds stage 2.
 - **0.52 · 2026-11-19** — D-75 added: **a deep-work block surfaces items by time and never holds them**; D-54's order-not-membership rule stands. Binds stage 2.
