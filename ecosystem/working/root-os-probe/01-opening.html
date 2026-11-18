@@ -1,0 +1,290 @@
+<!doctype html>
+<!--
+  Root OS — opening-sequence motion probe.
+  Version 0.1 · Status: probe (made-up data, no backend) · 2026-11-18 · Owner: _root
+  Open in a browser, full screen. "replay" (bottom left) restarts the sequence.
+  Changelog: 0.1 · 2026-11-18 — first probe: greeting breaks into data, two panels open, closing one sends it to its place in orbit.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Root OS — opening probe</title>
+<style>
+:root{--bg:#05060a;--ink:#ece6d6;--dim:#7d8496;--faint:#2a2e38;--amber:#f0a43a;--coral:#e8664a;--core:#f6ecd4;--item:#aeb6c8}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,sans-serif;overflow:hidden;user-select:none}
+svg#sky{position:fixed;inset:0;width:100%;height:100%}
+#greet{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);font-size:clamp(34px,5vw,68px);font-weight:200;letter-spacing:.14em;white-space:nowrap;opacity:0;transition:opacity 1.6s ease;pointer-events:none}
+#greet span{display:inline-block}
+.orbit{fill:none;stroke:#e9e3d2;stroke-width:.6;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.4s cubic-bezier(.4,0,.2,1)}
+.drawn .orbit{stroke-dashoffset:0}
+.goal-orbit{stroke:#9aa3b5;stroke-dasharray:1;opacity:.22}
+.pt{opacity:0;transition:opacity .7s ease}
+.pt.on{opacity:1}
+.pt .hit{fill:transparent;cursor:default}
+.pt.clickable .hit{cursor:pointer}
+#core{opacity:0;transform-origin:center;transition:opacity 1.6s ease}
+#core.on{opacity:1}
+.panel{position:fixed;width:330px;padding:22px 22px 18px;background:rgba(12,14,21,.88);border:1px solid rgba(236,230,214,.09);border-radius:16px;backdrop-filter:blur(8px);display:none;z-index:5}
+.panel h2{font-size:15px;font-weight:500;letter-spacing:.02em}
+.panel .meta{font-size:12px;color:var(--dim);margin-top:3px}
+.panel .x{position:absolute;top:14px;right:14px;width:26px;height:26px;border-radius:50%;border:0;background:transparent;color:var(--dim);font-size:18px;line-height:26px;cursor:pointer}
+.panel .x:hover{color:var(--ink);background:rgba(255,255,255,.06)}
+.rows{margin-top:16px;display:flex;flex-direction:column;gap:2px}
+.row{display:grid;grid-template-columns:88px 1fr;gap:10px;padding:8px 10px;border-radius:9px;font-size:13.5px;line-height:1.35}
+.row .t{color:var(--dim);font-variant-numeric:tabular-nums;font-size:12.5px;padding-top:1px}
+.row.deep{background:rgba(246,236,212,.06);box-shadow:inset 2px 0 0 rgba(246,236,212,.55)}
+.row .tag{display:block;font-size:11.5px;color:var(--dim);margin-top:2px}
+.sec{font-size:11.5px;color:var(--dim);margin:16px 0 6px 10px;letter-spacing:.04em}
+.need{padding:8px 10px;border-radius:9px;font-size:13.5px}
+.need .why{display:block;font-size:11.5px;color:var(--amber);opacity:.85;margin-top:2px}
+.tens{padding:8px 10px;border-radius:9px;font-size:13.5px}
+.tens .dots{display:inline-flex;gap:3px;margin-left:8px;vertical-align:1px}
+.tens .dots i{width:6px;height:6px;border-radius:50%;background:rgba(232,102,74,.18)}
+.tens .dots i.f{background:var(--coral)}
+.tens .why{display:block;font-size:11.5px;color:var(--dim);margin-top:2px}
+.soft{margin-top:14px;width:100%;padding:9px;border-radius:10px;border:1px solid rgba(236,230,214,.12);background:transparent;color:var(--dim);font:inherit;font-size:12.5px;cursor:pointer}
+.soft:hover{color:var(--ink);border-color:rgba(236,230,214,.25)}
+#whisper{position:fixed;left:40px;top:34px;opacity:0;transition:opacity 1.4s ease;pointer-events:none}
+#whisper .d{font-size:12px;color:var(--dim);letter-spacing:.05em}
+#whisper .l{font-size:15px;font-weight:300;margin-top:6px}
+#tip{position:fixed;pointer-events:none;padding:7px 10px;border-radius:8px;background:rgba(12,14,21,.92);border:1px solid rgba(236,230,214,.1);font-size:12.5px;opacity:0;transition:opacity .15s;z-index:9;max-width:260px}
+#tip .s{display:block;color:var(--dim);font-size:11.5px;margin-top:2px}
+#hint{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);font-size:12px;color:var(--dim);opacity:0;transition:opacity 1s;pointer-events:none}
+.corner{position:fixed;font-size:12px;color:#5d6373;cursor:pointer;letter-spacing:.06em;z-index:8;background:none;border:0;font-family:inherit}
+.corner:hover{color:var(--ink)}
+#exit{top:30px;right:36px}
+#replay{bottom:26px;left:36px}
+#gone{position:fixed;inset:0;background:#000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;z-index:20;color:var(--dim);font-size:13px}
+@keyframes tw{0%,100%{opacity:.15}50%{opacity:.7}}
+.tw{animation:tw 4s ease-in-out infinite}
+</style>
+</head>
+<body>
+<svg id="sky" aria-hidden="true"></svg>
+<div id="greet"></div>
+<div id="whisper"><div class="d" id="date"></div><div class="l">Two things want you. One is heavy.</div></div>
+<button class="corner" id="exit">exit</button>
+<button class="corner" id="replay" onclick="location.reload()">replay</button>
+<div id="hint">Close a panel and it finds its place. Click its light to bring it back.</div>
+<div id="tip"></div>
+
+<div class="panel" id="panel-plan">
+  <button class="x" aria-label="Close">&times;</button>
+  <h2>Your day</h2>
+  <div class="meta">2 deep work blocks · 1 offline stretch · After-day at 21:30</div>
+  <div class="rows">
+    <div class="row"><span class="t">07:30</span><span>Morning routine<span class="tag">routine</span></span></div>
+    <div class="row deep"><span class="t">09:30–11:30</span><span>Deep work<span class="tag">Root OS probe review · prepare: notes open</span></span></div>
+    <div class="row"><span class="t">12:00</span><span>Reply to the Studio client draft</span></div>
+    <div class="row deep"><span class="t">14:00–15:30</span><span>Deep work<span class="tag">Journey Reflect spec</span></span></div>
+    <div class="row"><span class="t">17:00</span><span>Walk, offline</span></div>
+    <div class="row"><span class="t">21:30</span><span>After-day</span></div>
+  </div>
+</div>
+
+<div class="panel" id="panel-needs">
+  <button class="x" aria-label="Close">&times;</button>
+  <h2>Needs you</h2>
+  <div class="meta">3 need attention · 2 carry tension</div>
+  <div class="need">Contract wording for Studio<span class="why">no date</span></div>
+  <div class="need">Persian strings for Focus<span class="why">no time set</span></div>
+  <div class="need">Tracker deploy check<span class="why">waiting on a requirement</span></div>
+  <div class="sec">Tension</div>
+  <div class="tens">Studio demo<span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></span><span class="why">calculated · two things wait on it, due Thursday</span></div>
+  <div class="tens">Tax paperwork<span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></span><span class="why">marked by you · pushed 3 times · colliding</span></div>
+  <button class="soft">Plan something to ease it</button>
+</div>
+
+<div id="gone"><div>Root OS would close here.</div><button class="corner" style="position:static" onclick="location.reload()">come back</button></div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const svg=document.getElementById('sky');
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);(parent||svg).appendChild(e);return e;}
+
+let W,H,cx,cy,s;
+function measure(){W=innerWidth;H=innerHeight;cx=W/2;cy=H/2+16;s=Math.min(W/1.7,H)/860;}
+measure();
+
+const FLAT=.36;
+const RINGS=[100,178,258];
+const GOALS=[
+  {label:'Health',sub:'goal · aligned',tilt:-2,R:330,a:40,spd:2.2},
+  {label:'Root Studio',sub:'goal · nearly aligned',tilt:7,R:368,a:170,spd:1.7},
+  {label:'Journey',sub:'goal · out of plane',tilt:-15,R:404,a:285,spd:1.35},
+  {label:'Home',sub:'goal · far out of plane',tilt:24,R:440,a:105,spd:1.1},
+];
+const P=[
+  {id:'plan',label:'Your day',sub:'click to open',kind:'frag',ring:1,a:205,spd:5,panel:'plan'},
+  {id:'needs',label:'Needs you',sub:'click to open',kind:'attn',ring:1,a:335,spd:5,panel:'needs'},
+  {id:'a1',label:'Deep work · Root OS probe review',sub:'09:30–11:30',kind:'item',ring:1,a:60,spd:5},
+  {id:'a2',label:'Reply to the Studio client draft',sub:'12:00',kind:'item',ring:1,a:118,spd:5},
+  {id:'a3',label:'Walk, offline',sub:'17:00',kind:'item',ring:2,a:20,spd:3},
+  {id:'a4',label:'Deep work · Journey Reflect spec',sub:'14:00–15:30',kind:'item',ring:2,a:250,spd:3},
+  {id:'t1',label:'Studio demo',sub:'tension 3 · two things wait on it · due Thursday',kind:'tension',ring:0,a:250,spd:9,size:3},
+  {id:'c1',label:'Tax paperwork',sub:'tension 4 · pushed 3 times · colliding with your day',kind:'collide',ring:0,a:80,spd:9,size:4},
+];
+
+function pos(R,a,tilt){
+  const r=R*s,ar=a*Math.PI/180,t=(tilt||0)*Math.PI/180;
+  const ex=r*Math.cos(ar),ey=r*FLAT*Math.sin(ar);
+  return [cx+ex*Math.cos(t)-ey*Math.sin(t), cy+ex*Math.sin(t)+ey*Math.cos(t), (Math.sin(ar)+1)/2];
+}
+
+const stars=el('g',{});
+for(let i=0;i<140;i++){
+  el('circle',{cx:Math.random()*2400,cy:Math.random()*1400,r:(Math.random()*.9+.3).toFixed(2),fill:'#cfd6e6',opacity:(Math.random()*.4+.08).toFixed(2),class:Math.random()<.12?'tw':'',style:`animation-delay:${(Math.random()*4).toFixed(1)}s`},stars);
+}
+const orbitG=el('g',{});
+const ringEls=RINGS.map((R,i)=>el('ellipse',{class:'orbit',pathLength:1,opacity:[.34,.22,.14][i]},orbitG));
+const goalEls=GOALS.map(g=>el('ellipse',{class:'orbit goal-orbit',pathLength:1},orbitG));
+
+const core=el('g',{id:'core'});
+const coreHalo=[30,18,10].map((r,i)=>el('circle',{r,fill:'#f6ecd4',opacity:[.04,.07,.13][i]},core));
+const coreDot=el('circle',{r:6,fill:'#f6ecd4'},core);
+
+const ptLayer=el('g',{});
+const COLORS={frag:'#f6ecd4',attn:'#f0a43a',item:'#aeb6c8',tension:'#f0a43a',collide:'#e8664a',planet:'#c9cfdc'};
+function makePoint(p,kind){
+  const g=el('g',{class:'pt'},ptLayer);
+  const c=COLORS[kind];
+  p.halo=el('circle',{r:kind==='item'||kind==='planet'?0:(kind==='tension'||kind==='collide'?6+p.size*4:11),fill:c,opacity:kind==='frag'||kind==='attn'?.14:.12},g);
+  p.flare=el('circle',{r:14,fill:'none',stroke:'#e8664a','stroke-width':1,opacity:0},g);
+  p.dot=el('circle',{r:{frag:4.6,attn:4.6,item:2.6,tension:3.6,collide:3.8,planet:3.2}[kind],fill:c},g);
+  el('circle',{class:'hit',r:16},g);
+  p.g=g;p.kind=kind;
+  g.addEventListener('mouseenter',()=>showTip(p));
+  g.addEventListener('mouseleave',hideTip);
+  if(p.panel){g.classList.add('clickable');g.addEventListener('click',()=>{if(!p.open&&ready)openPanel(p);});}
+}
+P.forEach(p=>makePoint(p,p.kind));
+GOALS.forEach(g=>{g.size=0;makePoint(g,'planet');});
+
+function layout(){
+  measure();
+  RINGS.forEach((R,i)=>{const e=ringEls[i];e.setAttribute('cx',cx);e.setAttribute('cy',cy);e.setAttribute('rx',R*s);e.setAttribute('ry',R*s*FLAT);});
+  GOALS.forEach((g,i)=>{const e=goalEls[i];e.setAttribute('cx',cx);e.setAttribute('cy',cy);e.setAttribute('rx',g.R*s);e.setAttribute('ry',g.R*s*FLAT);e.setAttribute('transform',`rotate(${g.tilt} ${cx} ${cy})`);});
+  core.setAttribute('transform',`translate(${cx},${cy})`);
+}
+layout();addEventListener('resize',()=>{layout();render(0);});
+
+let moving=false,ready=false,last=performance.now(),T=0;
+function render(dt){
+  T+=dt;
+  const all=[...P,...GOALS];
+  for(const p of all){
+    if(moving)p.a=(p.a+p.spd*dt)%360;
+    let R=p.R||RINGS[p.ring];
+    if(p.kind==='collide'){
+      const f=1-.34*(.5+.5*Math.sin(T*1.1));
+      R*=f;
+      p.flare.setAttribute('opacity',Math.max(0,(.78-f)/.1).toFixed(2));
+      p.flare.setAttribute('r',(14+8*Math.sin(T*6)).toFixed(1));
+    }
+    const [x,y,depth]=pos(R,p.a,p.tilt);
+    let jx=0,jy=0;
+    if(p.kind==='collide'&&R<RINGS[0]*.8){jx=(Math.random()-.5)*2;jy=(Math.random()-.5)*2;}
+    p.x=x;p.y=y;
+    const sc=.72+.28*depth;
+    p.g.setAttribute('transform',`translate(${(x+jx).toFixed(1)},${(y+jy).toFixed(1)}) scale(${sc.toFixed(3)})`);
+    if(p.kind==='tension'||p.kind==='collide'){
+      p.halo.setAttribute('opacity',(.1+.06*Math.sin(T*1.6+p.size)).toFixed(3));
+    }
+  }
+  coreHalo[0].setAttribute('r',(30+3*Math.sin(T*.8)).toFixed(1));
+}
+function loop(now){const dt=Math.min(.05,(now-last)/1000);last=now;render(dt);requestAnimationFrame(loop);}
+render(0);requestAnimationFrame(loop);
+
+const tip=document.getElementById('tip');
+function showTip(p){if(!p.g.classList.contains('on'))return;tip.innerHTML=`${p.label}<span class="s">${p.sub||''}</span>`;tip.style.left=(p.x+16)+'px';tip.style.top=(p.y-12)+'px';tip.style.opacity=1;}
+function hideTip(){tip.style.opacity=0;}
+
+async function pulse(p,times=3){
+  for(let i=0;i<times;i++){
+    const ring=el('circle',{r:6,fill:'none',stroke:COLORS[p.kind],'stroke-width':1.2,opacity:.9},p.g);
+    ring.animate([{r:'6px',opacity:.9},{r:'30px',opacity:0}],{duration:900,easing:'ease-out'}).onfinish=()=>ring.remove();
+    await sleep(520);
+  }
+  await sleep(300);
+}
+
+const panels={plan:document.getElementById('panel-plan'),needs:document.getElementById('panel-needs')};
+function panelSpot(id){
+  const off=Math.min(380,W*.24);
+  return id==='plan'?[cx-off,cy]:[cx+off,cy];
+}
+function openPanel(p){
+  const el_=panels[p.panel];
+  el_.style.display='block';el_.style.visibility='hidden';
+  const w=el_.offsetWidth,h=el_.offsetHeight;
+  const [px,py]=panelSpot(p.panel);
+  el_.style.left=(px-w/2)+'px';el_.style.top=Math.max(20,py-h/2)+'px';
+  el_.style.visibility='visible';
+  const r=el_.getBoundingClientRect();
+  const dx=p.x-(r.left+w/2),dy=p.y-(r.top+h/2);
+  p.open=true;p.dot.setAttribute('opacity',.25);
+  el_.animate([{transform:`translate(${dx}px,${dy}px) scale(.02)`,opacity:0,borderRadius:'50%'},{transform:'translate(0,0) scale(1)',opacity:1,borderRadius:'16px'}],{duration:850,easing:'cubic-bezier(.2,.8,.2,1)'});
+}
+function closePanel(p){
+  const el_=panels[p.panel];
+  const r=el_.getBoundingClientRect();
+  const dx=p.x-(r.left+r.width/2),dy=p.y-(r.top+r.height/2);
+  el_.animate([{transform:'translate(0,0) scale(1)',opacity:1,borderRadius:'16px'},{transform:`translate(${dx}px,${dy}px) scale(.02)`,opacity:.1,borderRadius:'50%'}],{duration:760,easing:'cubic-bezier(.6,0,.3,1)'}).onfinish=()=>{
+    el_.style.display='none';p.open=false;p.dot.setAttribute('opacity',1);pulse(p,1);
+  };
+}
+P.filter(p=>p.panel).forEach(p=>panels[p.panel].querySelector('.x').addEventListener('click',()=>closePanel(p)));
+
+document.getElementById('exit').addEventListener('click',()=>{document.getElementById('gone').style.display='flex';});
+document.getElementById('date').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+
+const greet=document.getElementById('greet');
+greet.innerHTML=[...'Good morning'].map(ch=>ch===' '?'<span>&nbsp;</span>':`<span>${ch}</span>`).join('');
+
+async function breakGreeting(){
+  const spans=[...greet.querySelectorAll('span')].filter(sp=>sp.textContent.trim());
+  const targets=P;
+  let maxEnd=0;
+  spans.forEach((sp,i)=>{
+    const p=targets[i%targets.length];
+    const r=sp.getBoundingClientRect();
+    const dx=p.x-(r.left+r.width/2),dy=p.y-(r.top+r.height/2);
+    const delay=i*75,dur=1400;
+    sp.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:`translate(${dx*.55}px,${dy*.55}px) scale(.6)`,opacity:.8,offset:.45},{transform:`translate(${dx}px,${dy}px) scale(.08)`,opacity:0}],{duration:dur,delay,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});
+    setTimeout(()=>p.g.classList.add('on'),delay+dur*.8);
+    maxEnd=Math.max(maxEnd,delay+dur);
+  });
+  await sleep(maxEnd);
+  P.forEach(p=>p.g.classList.add('on'));
+}
+
+async function run(){
+  await sleep(600);
+  greet.style.opacity=1;
+  await sleep(2900);
+  render(0);
+  orbitG.parentNode;svg.classList.add('drawn');
+  document.getElementById('core').classList.add('on');
+  await breakGreeting();
+  greet.style.display='none';
+  GOALS.forEach((g,i)=>setTimeout(()=>g.g.classList.add('on'),i*250));
+  moving=true;
+  await sleep(500);
+  document.getElementById('whisper').style.opacity=1;
+  await sleep(1400);
+  const plan=P[0],needs=P[1];
+  await pulse(plan);openPanel(plan);
+  await sleep(1100);
+  await pulse(needs);openPanel(needs);
+  ready=true;
+  await sleep(1400);
+  document.getElementById('hint').style.opacity=1;
+}
+run();
+</script>
+</body>
+</html>
