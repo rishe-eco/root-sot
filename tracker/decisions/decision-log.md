@@ -2,7 +2,7 @@
 
 *Append-only, living. How we got here and what we set aside. New decisions go at the top of §2; don't rewrite history — supersede it. Update the changelog; don't fork.*
 
-**Version 0.46 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.47 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -33,6 +33,16 @@ The migration history is the ground truth of how the schema evolved. Condensed:
 | 2026-10-20 | **add_focus_periods** | `FocusPeriod` and the explicit join `FocusPeriodProject` (with `addedAt`) — **Focus Periods**, a dated lens over a few projects. The first module built on the lifecycle method. See D-61. |
 
 ## 2. Key decisions
+
+### D-70 · Quick capture is a small modal, from anywhere: a title, and an optional date and time — 2026-11-19
+
+Adding an item (`../drafts/session-rhythm.md` §3 "Adding is always open", §12 "Quick capture") is a small modal that opens from every screen. It holds a **title** (the only required field), an optional **date** and an optional **time**. An empty date puts the item on **today**; "no date yet" is an explicit choice in the modal, and undated items are offered in the session's look-ahead. Estimate, project and tags are not in the modal; they are set later on the item, or in the look-ahead.
+
+**A rule relaxes:** today an action with a date must have an estimate (`estimatedTimeMinutes`, "Required when tbd is set"). Under the rhythm it is optional, and an item without an estimate is simply not checked for overlaps.
+
+*Why:* "easily add items" is a stated need, and every required field is a reason not to capture. The founder proposed the form: "how about considering a small modal? for both title and optionally date and time, and anywhere". Empty-means-today because most quick captures are for now, and an undated item is easy to lose until the next look-ahead. *Cost, accepted:* the estimate rule relaxes, so overlap detection covers fewer items.
+
+*Decided by:* the founder, 2026-11-19. Claude proposed a title-only inline capture; the founder proposed the modal with date and time; for an empty date the founder chose "today", Claude's recommendation, over "no date".
 
 ### D-69 · A session is called from Today, with an optional calendar event as the backstop — 2026-11-19
 
@@ -748,6 +758,7 @@ Frontend talks to the backend exclusively over GraphQL (via `useApi` + `queries.
 
 ## Changelog
 
+- **0.47 · 2026-11-19** — D-70 added: **quick capture** is a small modal from any screen (title required; optional date, empty meaning today; optional time). The estimate-when-dated rule becomes optional.
 - **0.46 · 2026-11-19** — D-69 added: **a session is called from Today** (one line from its due date) with an optional one-event calendar add at the end of each session; Tracker sends no email or push.
 - **0.45 · 2026-11-19** — D-68 added: **the four-week test after stage 1**: §11's four measures as written, with stage 1 storing session dates, gaps and look-back start and end so the gate reads from the record.
 - **0.44 · 2026-11-19** — D-67 added: **done is set at review**: only the look-back's "happened" marks an action done; crossing out is stored apart and feeds no status or progress.
