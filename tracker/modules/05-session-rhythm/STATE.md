@@ -2,6 +2,48 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · 8+ verify SR2 · docs/root-os @ 284f56c · rishe-eco/tracker main @ 051afcc
+
+*Replaces the 8 build SR2 block below: its next step 1 (`/verify SR2`) is done — the stage is verified and on local `main`. Steps 2–15 carry forward, renumbered. Carry-overs and questions stand, as amended here.*
+**Drive:** run · /build-phase SR3 tracker/modules/05-session-rhythm
+
+**What was done** (verify forked, Opus high; main-session items done per `unattended.md` rule 7; calls 37–40)
+- Exercised: both SR0 server fixes reproduced against SR0's code; Today at 180/360 px × en/fa screenshotted and looked at; fence tests catch a planted violation.
+- Fixed on the branch, each test seen failing first: `0408ffd` 180 px reflow + lone-row menu semantics (W27); `e08f7a5` Try again after failed first load (W7); `d336cab` fa intro copy. Accepted all *Decided here*, all six lane calls, both SR0 fixes. The plan/card 180 px disagreement closed by four reflow e2e tests, no plan edit.
+- Tests: api 108 (9 files), client 70 (8 files), `today.spec` 11/11, `tsc` clean both, i18n green both. Flake: `crossing.spec` "Actions list … uncrossing restores both" 2/5 alone — SR1's, pre-existing.
+- Record `docs/development/SR2.md` @ `051afcc`; open-work rows (`b4d82cc`); column 8 **3/9** (`b09e342`); capture note (`284f56c`). Local tracker `main` fast-forwarded `35bf320..051afcc`; `sr2-today` worktree and branch removed.
+
+**Lanes in flight**
+- None.
+
+**Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout `E:\_root\tracker` on `main`; one lane at a time)
+1. `/build-phase SR3 tracker/modules/05-session-rhythm`
+2. `/verify SR3 tracker/modules/05-session-rhythm`
+3. `/build-phase SR4 tracker/modules/05-session-rhythm`
+4. `/verify SR4 tracker/modules/05-session-rhythm`
+5. `/build-phase SR5 tracker/modules/05-session-rhythm`
+6. `/verify SR5 tracker/modules/05-session-rhythm`
+7. `/verify --milestone MS1 tracker/modules/05-session-rhythm`
+8. `/build-phase SR6 tracker/modules/05-session-rhythm`
+9. `/verify SR6 tracker/modules/05-session-rhythm`
+10. `/build-phase SR7 tracker/modules/05-session-rhythm`
+11. `/verify SR7 tracker/modules/05-session-rhythm`
+12. `/build-phase SR8 tracker/modules/05-session-rhythm`
+13. `/verify SR8 tracker/modules/05-session-rhythm`
+14. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+
+**Carry-overs** (adds to the block below)
+- Back to a lane or the founder: a failed `orderDay` shows no "Not saved." (SR7, or `revise` AC-69); Today's row at 180 px is cramped (design call, by MS2); "just to know" on Today is exercisable only once SR3 sets `reviewSetting` — SR3's verify should check it end to end.
+- `crossing.spec.ts` flake (SR1's): name it to the founder at the MS2 push; owed to whoever next touches crossing.
+- Proposed for `brief-common.md` via `learned` (not applied): when a stage wires the first client call to an earlier stage's server operation, test the exact fields requested and two calls racing.
+
+**Questions for the founder**
+- Read `calls.md` rows 5–40 and veto any with a change note or `revise`.
+
+**Owed**
+- Push pending: founder — tracker `53cd2ec:main` (SR0 merge, PD-10) and nothing else until MS2 (SR1, SR2 `051afcc` wait); root-sot `docs/root-os`.
+- Nothing uncommitted (after this block's commit).
+
 ## 2026-11-19 · 8 build SR2 (launch and land) · docs/root-os @ cf1af91 · rishe-eco/tracker main @ 35bf320
 
 *Replaces the 8a launch SR2 block: its lane returned and is landed. Adds to the 8+ verify SR1 block below (its next step 1, `/build-phase SR2`, is now built and landed). Steps carry forward, renumbered. Carry-overs and questions stand, as amended here.*
