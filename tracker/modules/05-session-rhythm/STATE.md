@@ -2,6 +2,60 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · 8 build SR1 (launch and land) · docs/root-os @ ce1e639 · rishe-eco/tracker main @ 53cd2ec
+
+*Replaces the 8+ verify SR0 block below: its next step 1 (`/build-phase SR1`) is built and landed. Steps 2–18 carry forward, renumbered. Carry-overs and questions stand, as amended here.*
+**Drive:** run · /verify SR1 tracker/modules/05-session-rhythm
+
+**What was done** (one unattended session, launch and land together, `unattended.md` rule 6)
+- **Resumed, not started fresh.** The `sr1-crossing` worktree already held a complete-looking but *uncommitted* SR1 build from a prior interrupted lane (no report, no stash). Preserved it rather than discard (call 32): reused the committed card `briefs/SR1.md` (drafted at `main @ 53cd2ec`, where `main` still sits, so its code check held) and launched a foreground Sonnet lane in that worktree to review the work against the card, run the targeted tests green, commit it, and report.
+- Lane built SR1 on branch `sr1-crossing` (5 commits, tip `f436613`), base `main @ 53cd2ec`. Report saved to `briefs/SR1.report.md`.
+- Measured at land: +541 app · +633 tests · 0 moved (plus `TodayActionRow.tsx` deleted, −305 app; net app ≈ +236) · ~34 min · ~215k tokens — for the resumed finish pass only, not the original build — against size **M**. App insertions above M's ~200–350 range but under 2×: a finding to weigh, not a rule-5 overrun. API `crossing.integration` 17/17 and `actions.integration` 16/16; shared-rule reruns 19/19 + 51/51; client 38 + 6 + 20 passed; `tsc --noEmit` clean in api and client; both i18n checks green; e2e `crossing.spec.ts` 4/4 (slot A). All 5 commits authored `salmanian.foad2@gmail.com` with the Sonnet co-author line.
+
+**Lanes in flight**
+- SR1 (M) · branch `sr1-crossing` @ `f436613`, base `main @ 53cd2ec` · slot A (db `<worktree>/api/prisma/test.db`; e2e ports 4010/5183) · worktree the tracker checkout's `.claude/worktrees/sr1-crossing` · card `briefs/SR1.md` · status **landed** — until `verify` fast-forwards `main` and removes the worktree.
+
+**What verify must decide** (read the cited report parts, not this summary)
+- The lane's own calls — `briefs/SR1.report.md` part 4 (the `canCross` boolean, `onCrossedChange` prop, the 4000 ms info toast, `NotSavedLine` as `role="alert"`, the shared control on the `showTodayOptions` branch). The card's *Decided here* (`briefs/SR1.md`): new-file homes, `CrossResult.moved` nullability, `crossedPending` batching.
+- **Out-of-scope work inherited and kept** — report part 5 items 2–3: `TodayActionRow.tsx` deleted (SR2's job, but dead code with no caller and already on SR2's delete list), and `ActionPreview`'s shared `showTodayOptions` branch got the new control (likely throwaway scaffolding SR2 replaces). Concrete gap flagged for SR2: `GET_TODAY_ACTIONS` doesn't select `crossedPending`/`reviewSetting`, so AC-20/AC-75 don't hold on Today yet.
+- **One transient e2e failure, not reproduced** — report part 6: an Actions-list uncross didn't restore the date on the first cold run; passed on isolated rerun, ×3 `--repeat-each`, and a second full run. Weigh whether cold-boot flake or a real race; if the lane's size overrun matters, note it.
+- Card checks the lane couldn't do — report part 6 (180 px reflow; a live Today browser walk). Deploy: none — SR1 is not pushed (PD-10). Overlap with a newer base: none (`main` unmoved at `53cd2ec`).
+
+**Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout `E:\_root\tracker` on `main`; one lane at a time; `build-phase` launches and lands in one session, `unattended.md` rule 6)
+1. `/verify SR1 tracker/modules/05-session-rhythm` (also fast-forwards `main`, removes the `sr1-crossing` worktree and branch)
+2. `/build-phase SR2 tracker/modules/05-session-rhythm`
+3. `/verify SR2 tracker/modules/05-session-rhythm`
+4. `/build-phase SR3 tracker/modules/05-session-rhythm`
+5. `/verify SR3 tracker/modules/05-session-rhythm`
+6. `/build-phase SR4 tracker/modules/05-session-rhythm`
+7. `/verify SR4 tracker/modules/05-session-rhythm`
+8. `/build-phase SR5 tracker/modules/05-session-rhythm`
+9. `/verify SR5 tracker/modules/05-session-rhythm`
+10. `/verify --milestone MS1 tracker/modules/05-session-rhythm`
+11. `/build-phase SR6 tracker/modules/05-session-rhythm`
+12. `/verify SR6 tracker/modules/05-session-rhythm`
+13. `/build-phase SR7 tracker/modules/05-session-rhythm`
+14. `/verify SR7 tracker/modules/05-session-rhythm`
+15. `/build-phase SR8 tracker/modules/05-session-rhythm`
+16. `/verify SR8 tracker/modules/05-session-rhythm`
+17. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+
+**Carry-overs**
+- **Push order (PD-10, call 22):** nothing is pushed in the run. SR0's merge commit (`53cd2ec`) alone first, then nothing until MS2 passes. Every `verify` lists its push as owed.
+- After the build, before `close-out`: `journeys update … --from-note 02` and `eval-plan … --touch-up changes/02-…md` (change request 02); AC-44's wording through `revise` (PD-7c).
+- From the 2 spec block: D-64's line about D-5 overstates it (`02-spec.md` §1.1); no decision-log entry written. For `close-out`.
+- SR0 verify's flags for `close-out` (in `docs/development/SR0.md` *Flagged for close-out*): data model, GraphQL API and known-issues entries for the schema; a migration note in the decision log; the SR0 card's stale docs/development line.
+
+**Questions for the founder**
+- Which opportunity-tree node does the session rhythm sit on (`ecosystem/ost.md` §6)? Owed by: `close-out`.
+- Push `docs/root-os` (root-sot is public), and merge it into `main` when? Owed by: the founder; the run pushes nothing.
+- Read `calls.md` rows 5 to 32 and veto any call with a change note or `revise`; the plan's PD-1 to PD-20, the lane's report-part-4 decisions, and call 32 (reusing the worktree's uncommitted work) can also be refused on the diff. Owed by: before SR1's `verify`, ideally.
+- Your phone and calendar app for MS2's by-hand list, and the stray worktree `.claude/worktrees/xenodochial-ramanujan-376dc8` in the tracker checkout (P0-4, P0-6). Owed by: MS2.
+
+**Owed**
+- Push pending: founder — tracker `main @ 53cd2ec` (SR0's merge; PD-10's first push, then nothing until MS2) and root-sot `docs/root-os`.
+- Nothing uncommitted (after this block's commit).
+
 ## 2026-11-19 · 8+ verify SR0 · docs/root-os @ d82a4fd · rishe-eco/tracker main @ 53cd2ec
 
 *Replaces the 8 build SR0 block below: its next step 1 (`/verify SR0`) is done — the stage is verified and on local `main`. Steps 2–19 carry forward, renumbered. Carry-overs and questions stand, as amended here.*
