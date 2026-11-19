@@ -2,6 +2,28 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-20 · revise 03: SR9 added · docs/root-os @ f33b30b · rishe-eco/tracker main @ 7f86a93
+**Drive:** run · /build-phase SR9 tracker/modules/05-session-rhythm
+*Replaces the "MS2 questions answered by call" block below as the live block (its step 1, `revise`, ran). The MS2 main-session block's question 3 (consolidation) and Owed, and the older blocks' live questions, stay live. Nothing pushed.*
+
+**What was done**
+- `revise` 03 (`changes/03-req-ms2-fix-stage.md`): build plan 0.3 → 0.4 adds **SR9** (M) after SR8; MS2 now follows SR9. Spec unchanged at 0.3 (no item changes what the module does; row 101). No `STALE`.
+- SR9 carries: the three controls under 44 px (cross-out control, Today's Reorder handle, the look-back row's sixth button in `fa`); `ms2/strict-hit-areas` (`92cd028`) merged into the lane branch first, its 5 failures the stage's failing tests (row 103); six open-work lane items (`gatherKey` bound, 180 px cross-out on three surfaces, `en`/`fa` drag instructions, the calendar's 20 px scroll, `IntervalForm`'s test, "Later…" commits on Enter or blur, row 102).
+- The four design calls (contrast, Focus toast slot, `todayKey` at mount, the cramped 180 px row) go to the founder after MS2; `verify SR9` moves their *needed by* (row 104).
+- Calls rows 101–105; rows 94–96, 99, 100 marked settled. `decisions.md` 0.3.
+
+**Lanes in flight**
+- none. (The stray worktree `claude/xenodochial-ramanujan-376dc8` is P0-6, the founder's.)
+
+**Next steps, in order** (`build-phase` Opus medium, `verify` Opus high, from the tracker checkout on `main`; one lane at a time)
+1. `/build-phase SR9 tracker/modules/05-session-rhythm`
+2. `/verify SR9 tracker/modules/05-session-rhythm` (its main session: the four design rows' *needed by*, the struck rows, delete `ms2/strict-hit-areas` after the fast-forward)
+3. `/verify --milestone MS2 tracker/modules/05-session-rhythm devices: none (unattended run; the by-hand items and the box run of rhythm:gate stay owed to the founder)`
+4. Still owed from change 02, before `close-out`: `journeys update --from-note 02`, `eval-plan --touch-up`.
+
+**Owed**
+- As the MS2 main-session block below: the pushes (push pending: founder), the by-hand pass, consolidation (`/learned --consolidate`, with the founder), close-out's items.
+
 ## 2026-11-20 · MS2 questions answered by call · docs/root-os @ 14391f2 · rishe-eco/tracker main @ 7f86a93
 
 *Adds to the MS2 main-session block below: its questions 1 and 2 are answered here as calls under the founder's rule (`calls.md` rows 99 and 100); its question 3 (consolidation), its Owed and the older blocks' live questions stand. Nothing pushed.*

@@ -2,11 +2,11 @@
 
 *Module `tracker/modules/05-session-rhythm/` · Track: Module · Phase 7 · `build-plan`. The order the code lands in and the shape it takes, to the level of tables, routes, refusal codes, screens and tests, so each stage's phase card is a transcription and not a design exercise. Inputs: `02-spec.md` 0.3, `03-journeys.md` 0.3, `04-wireframes.html` draft 2, no `04b-design/` (skipped at intake), `05-ux-review.md` 0.2, `06-eval-plan.md` 0.1, `changes/01-…` and `changes/02-…`, `lifecycle/projects/tracker/` (config 0.4, brief-common 0.6, review-checklist 0.4). Update the changelog; don't fork.*
 
-**Version 0.3 · Status: plan · 2026-11-19 · Owner: _root**
+**Version 0.4 · Status: plan · 2026-11-20 · Owner: _root**
 
 **Where this file yields.** On *what* the module does, the spec wins. On what a person experiences, the journeys win. On how it looks, the wireframes (this module has no design pass). On what the code is, the repository.
 
-**Grading.** Everything here is **proposal**. Facts about the code and infrastructure are **as-built**, read at `rishe-eco/tracker main @ eea1c59`. No item here is **[F]**: this plan was written in the founder's unattended run (`lifecycle/unattended.md`), and every choice the skill would have asked the founder is a call, logged in `calls.md` rows 15 to 26 and refusable on the diff. The [F] items cited are the spec's and the journeys'.
+**Grading.** Everything here is **proposal**. Facts about the code and infrastructure are **as-built**, read at `rishe-eco/tracker main @ eea1c59`. No item here is **[F]**: this plan was written in the founder's unattended run (`lifecycle/unattended.md`), and every choice the skill would have asked the founder is a call, logged in `calls.md` rows 15 to 26 and refusable on the diff. SR9 was added by `revise` (`changes/03-req-ms2-fix-stage.md`; `calls.md` rows 99 to 105). The [F] items cited are the spec's and the journeys'.
 
 ---
 
@@ -138,14 +138,15 @@ The day gate is gone: Today is a list in time order with a quiet session line, a
 | SR5 | Session API: look-ahead, next session, Finish | M | SR4 | SR2, SR3 | MS1 |
 | SR6 | Session screens: shell and look-back | L | SR2, SR4 | SR5 | — |
 | SR7 | Session screens: look-ahead, when and where | L | SR3, SR5, SR6 | SR8 | — |
-| SR8 | The record query, `rhythmGate` | S | SR5 | SR7 | MS2 |
+| SR8 | The record query, `rhythmGate` | S | SR5 | SR7 | — |
+| SR9 | MS2's fixes: hit areas and the rows due | M | SR8 | — | MS2 |
 
-- **The unattended run's order:** SR0, SR1, SR2, SR3, SR4, SR5 (then MS1), SR6, SR7, SR8 (then MS2). One lane at a time (PD-20).
+- **The unattended run's order:** SR0, SR1, SR2, SR3, SR4, SR5 (then MS1), SR6, SR7, SR8, SR9 (then MS2). One lane at a time (PD-20).
 - **Schema:** only SR0 changes `schema.prisma` (PD-2), so any pair above is schema-safe. Pairs that share `mutations.ts`, `typeDefs.ts`, `queries.ts` and both `common.json` add under their own namespaces (`rhythm.today`, `rhythm.capture`, `rhythm.session`, …), and the second `verify` resolves the merge.
 - **Lane slots** (config §4): one lane at a time takes slot A; a pair would take A and B.
 - **MS1** (after SR5): the full API suite; the API complete; Today, crossing and capture driven end to end. **Needs config §6's milestone script fixed first** (D-18).
-- **MS2** (after SR8): the full API, client and e2e suites; the by-hand list (§8); then the push of PD-10's second half, the deploy, and the founder's sign-in. The switch date is set by that deploy's first visit.
-- **Cost:** about 33 lane hours at the bands' midpoints, 9 Opus `verify` reviews and 2 milestones. Reflect ran under its hours; read them as a ceiling.
+- **MS2** (after SR9; first run after SR8 found the controls SR9 fixes): the full API, client and e2e suites; the by-hand list (§8); then the push of PD-10's second half, the deploy, and the founder's sign-in. The switch date is set by that deploy's first visit.
+- **Cost:** about 36 lane hours at the bands' midpoints, 10 Opus `verify` reviews and 2 milestones (MS2 run twice). Reflect ran under its hours; read them as a ceiling.
 
 **Sizes** *(lane hours, and lines of new app code, with tests and moved code counted apart)*: **S** 1–2 h, up to ~300 lines · **M** 2–4 h, ~300–700 lines · **L** 4–6 h, ~700–1,300 lines. Recalibrated from Reflect's records: its L stages added 810 (B2), 1,187 (B4) and 1,161 (B5) lines of app code; its M stages 234 (B3) and 515 (B6).
 
@@ -496,6 +497,44 @@ The day gate is gone: Today is a list in time order with a quiet session line, a
 
 **Not here:** reading the results (the founder, at E2 and E3).
 
+**SR9** follows this stage, then MS2.
+
+### SR9 · MS2's fixes: hit areas and the rows due
+
+**Goal.** Close what the first MS2 run left open: the three controls under 44 px that the strict hit-area helper found, the helper itself merged, and the six lane items due at MS2 (`changes/03-req-ms2-fix-stage.md`). No new behaviour; nothing the spec doesn't already ask.
+
+**Base.** Local `main @ 7f86a93` or later. First, merge the local branch `ms2/strict-hit-areas` (`92cd028`, `client/e2e/helpers/hitArea.ts` only) into the lane's branch, and run its four specs (`capture`, `crossing`, `session`, `today`): 5 of 53 fail. Those are this stage's failing tests.
+
+**Schema** none.
+
+**Logic and screens**, each with its open-work row in `team/open-work.md`:
+1. **The cross-out control** on Focus, the actions list and Today: its `::before` (`-inset-[14px]` on a 14 px box) is 42 px. Make the area at least 44 px in both directions without moving the row's layout.
+2. **Today's Reorder handle:** the strict probe misses it 21 px to the left, on the row. Its hit area reaches 44 px.
+3. **The look-back row's sixth button in `fa`:** missed 21 px to the left (the row's end in RTL). Its hit area reaches 44 px in both languages.
+4. **The `gatherKey` dedup read** (SR0 row): bound it to the keys a gather run generates, plus legacy rows with no `forDate`. Same results on every existing test.
+5. **The cross-out control at 180 px** (SR1 row): add 180 px to the reflow check on the actions list, Focus and the project page, `en` and `fa`. Fix any overflow found; a layout *change* beyond that is the founder's (the cramped-row row).
+6. **The drag handle's screen-reader instructions** (SR2 row): `DndContext` gets its own `en` and `fa` instructions and announcements, saying Enter opens Move up and Move down; no claim of a keyboard pick-up that doesn't exist. Applies to Today and the look-ahead.
+7. **The calendar's page scroll at 360 × 800** (SR3 row): the top bar makes `TrackerCalendar.tsx`'s `min-h-[60vh]` list scroll the page by 20 px. Make the page fit with no page scroll in `en` and `fa`; trace the routine form's 48 px and the time map's 2 px and fix them if they are the same cause, else report them.
+8. **`IntervalForm`'s review setting** (SR3 row): a client test with `useApi` mocked, for routine and interval modes, reading the saved setting back.
+9. **"Later…" commits once** (SR7 row): the look-ahead's date field sends `planItem` on Enter or on leaving the field, not on every change; the Jalali field (one change, on a click) still saves on that click. No visible change (no Move button: `calls.md` row 102).
+
+**API or routes** none new. **Strings** the instructions of item 6 only, in both `common.json` files.
+
+**Tests.** The four strict specs pass in full. Item 4: an integration test that a long-lived daily interval's dedup read is bounded, and that a moved row still dedupes (D-2). Item 5: the reflow cases. Item 6: a client test that the instructions are the locale's. Item 8 as above. Item 9: an e2e that an ArrowUp in the date field doesn't move the row until Enter or blur, and a client test for the Jalali click.
+
+**Constraints from earlier stages.** AC-17's control and AC-74's Move up and Move down stay as they are; no count, no red; PD-2 (no schema change).
+
+**Acceptance.** No new criterion. AC-17, AC-74 and the review checklist's 44 px and reflow rules, now measured strictly; the open-work rows above settled.
+
+**Size: M.** Slot A, with e2e (config §4).
+
+**Traps.**
+- Each strict test stops at its first miss: a fix reruns all four specs, not the one that failed.
+- A larger `::before` must not overlap the next control's area; the strict helper names what it hit.
+- Item 4 must still read legacy rows with no `forDate`, or a moved row duplicates (§9 item 1).
+
+**Not here:** the four design calls (the error text's contrast, the Focus toast slot, `todayKey` at mount, the cramped 180 px row). They are the founder's, after MS2 (`changes/03-req-ms2-fix-stage.md`).
+
 **MS2** follows this stage.
 
 ---
@@ -730,6 +769,8 @@ None new. Used: `@dnd-kit/core` and `@dnd-kit/sortable` (installed), `vite-plugi
 **Owed by other skills:** `journeys update --from-note 02` and `eval-plan --touch-up` (change 02), before `close-out`; PD-7c's wording fix to AC-44, through `revise` at `close-out`.
 
 ## Changelog
+
+- **0.4 · 2026-11-20** — `revise`, `changes/03-req-ms2-fix-stage.md`: stage SR9 added after SR8 for MS2's three controls under 44 px, the strict hit-area helper's merge (`ms2/strict-hit-areas`) and six open-work lane items due at MS2; MS2 moves after SR9; §3's order and cost. Scope change through `revise` (README §4). Calls in the unattended run, `calls.md` rows 99 to 105.
 
 - **0.3 · 2026-11-19** — Correction only, from `verify SR7` (record `docs/development/SR7.md` @ `da6b5e0`), applied unattended (`calls.md` row 84): §5 SR7's screens say the look-ahead reads, gathers to the next date − 1 and reads again; the row is a composed `LookAheadRow`, not `TodayRow`; a band is the row's classes plus the day's theme strip, with no band component; a move is drawn once saved. No scope change.
 
