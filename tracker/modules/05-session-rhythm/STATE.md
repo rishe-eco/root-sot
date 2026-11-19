@@ -2,6 +2,56 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · 8+ verify SR1 · docs/root-os @ 2308053 · rishe-eco/tracker main @ 35bf320
+
+*Replaces the 8 build SR1 block below: its next step 1 (`/verify SR1`) is done — the stage is verified and on local `main`. Steps 2–17 carry forward, renumbered. Carry-overs and questions stand, as amended here.*
+**Drive:** run · /build-phase SR2 tracker/modules/05-session-rhythm
+
+**What was done** (one unattended `verify` session; calls in `calls.md` rows 33–35)
+- `verify SR1`, Opus, run unattended by `bin/drive`. Reviewed the landed lane: exercised `setCrossed` and the batched `crossedPending` resolver, reran green — API `crossing.integration` **18** (17 lane + 1 review regression) and `actions.integration` **16**; shared-rule reruns **19** + **70**; client `CrossOutControl`/`ActionPreview`/`FocusPage`/`staleBuild`/`focusLogic` **64**; `tsc --noEmit` clean in api and client; both i18n green; e2e `crossing.spec.ts` **4/4** cold (slot A). AC-17 confirmed by grep (networked `toggleAction` gone; `ToolsPage`'s local selection helper left, the trap).
+- **One defect found and fixed (the reviewer's to fix, call 33).** Probing a repeat cross of an action already moved to today found the `DayRecord` upsert erasing `crossMoved`/`movedFromKey`, breaking the later uncross's restore (AC-18) — reachable by a two-rapid-click race or a crafted call. Fixed on the branch; a regression test was seen to fail first. Commit `7b14751`.
+- Decided the lane's calls and the card's *Decided here* (all in `docs/development/SR1.md` *Decided*): all accepted. The inherited out-of-scope work — `TodayActionRow.tsx` deleted and `ActionPreview`'s `showTodayOptions` (Today) branch given the control — kept with a flag to SR2 (call 35); the concrete Today gap (`GET_TODAY_ACTIONS` lacks `crossedPending`/`reviewSetting`, so AC-20/AC-75 don't hold on Today) is owed to SR2.
+- Brought local `main` to SR1 by a plain fast-forward, `35bf320` (call 34; no `--no-ff` — nothing after SR0 is pushed until MS2, so there's no SR1 merge commit to push); removed the `sr1-crossing` worktree and branch (a foreground `git worktree remove` timed out deleting `node_modules` on Windows and bricked retry — recovered via PowerShell `Remove-Item` + `prune`; capture note). **Nothing pushed.**
+- Wrote the stage record and the README stage list (`docs/development/SR1.md`, `README.md`, on `main` @ `35bf320`); updated the state of the build (→ 0.42), `status.md` column 8 (`2/9`), and `team/open-work.md` (→ 0.20, two owed rows for SR2). Capture note in `lifecycle/learnings/inbox/2026-11-19-verify-SR1.md` (three notes, one urgent — the Windows worktree-removal recipe).
+
+**Lanes in flight**
+- None. SR1 is verified and on local `main @ 35bf320`; its worktree and branch are removed. (The stray `.claude/worktrees/xenodochial-ramanujan-376dc8` is the founder's, P0-4/P0-6, untouched.)
+
+**Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout `E:\_root\tracker` on `main`; one lane at a time; `build-phase` launches and lands in one session, `unattended.md` rule 6)
+1. `/build-phase SR2 tracker/modules/05-session-rhythm`
+2. `/verify SR2 tracker/modules/05-session-rhythm`
+3. `/build-phase SR3 tracker/modules/05-session-rhythm`
+4. `/verify SR3 tracker/modules/05-session-rhythm`
+5. `/build-phase SR4 tracker/modules/05-session-rhythm`
+6. `/verify SR4 tracker/modules/05-session-rhythm`
+7. `/build-phase SR5 tracker/modules/05-session-rhythm`
+8. `/verify SR5 tracker/modules/05-session-rhythm`
+9. `/verify --milestone MS1 tracker/modules/05-session-rhythm`
+10. `/build-phase SR6 tracker/modules/05-session-rhythm`
+11. `/verify SR6 tracker/modules/05-session-rhythm`
+12. `/build-phase SR7 tracker/modules/05-session-rhythm`
+13. `/verify SR7 tracker/modules/05-session-rhythm`
+14. `/build-phase SR8 tracker/modules/05-session-rhythm`
+15. `/verify SR8 tracker/modules/05-session-rhythm`
+16. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+
+**Carry-overs**
+- **Push order (PD-10, call 22):** nothing is pushed in the run. The founder may push SR0's merge commit alone first (`git push origin 53cd2ec:main`); SR1 (`35bf320`) and everything after wait until MS2 passes — SR1 removes `toggleAction`, which must deploy after SR0's migration (that single MS2 deploy satisfies it). Every `verify` lists its push as owed.
+- **SR2 must** add `crossedPending`/`reviewSetting` to `GET_TODAY_ACTIONS` (AC-20/AC-75 on Today) and check whether `ActionPreview`'s `showTodayOptions` branch survives its `TodayRow` rebuild — if not, that branch and `TodayActionRow`'s fellow plumbing are dead (open-work, 2026-11-19).
+- After the build, before `close-out`: `journeys update … --from-note 02` and `eval-plan … --touch-up changes/02-…md` (change request 02); AC-44's wording through `revise` (PD-7c).
+- From the 2 spec block: D-64's line about D-5 overstates it (`02-spec.md` §1.1); no decision-log entry written. For `close-out`.
+- `close-out` reads each stage record's *Flagged for close-out*: SR0's (data model, GraphQL API, known-issues for the schema; a migration note; the SR0 card's stale docs/development line) and **SR1's** (`02-graphql-api.md`: `setCrossed`, `crossedPending`/`reviewSetting`, `CrossResult`, `toggleAction` removed; `03-frontend.md`: the cross-out control and shared failure line).
+
+**Questions for the founder**
+- Which opportunity-tree node does the session rhythm sit on (`ecosystem/ost.md` §6)? Owed by: `close-out`.
+- Push `docs/root-os` (root-sot is public), and merge it into `main` when? Owed by: the founder; the run pushes nothing.
+- Read `calls.md` rows 5 to 35 and veto any call with a change note or `revise`; the plan's PD-1 to PD-20, the lane's report-part-4 decisions, and the SR1 verify's calls 33 (the repeat-cross fix), 34 (the fast-forward) and 35 (keeping the inherited Today work) can also be refused on the diff. Owed by: before SR2's `verify`, ideally.
+- Your phone and calendar app for MS2's by-hand list, and the stray worktree `.claude/worktrees/xenodochial-ramanujan-376dc8` in the tracker checkout (P0-4, P0-6). Owed by: MS2.
+
+**Owed**
+- Push pending: founder — tracker `53cd2ec:main` (SR0's merge, PD-10's one allowed early push) and nothing else until MS2 (SR1 `35bf320` and after); root-sot `docs/root-os`.
+- Nothing uncommitted (after this block's commit).
+
 ## 2026-11-19 · 8 build SR1 (launch and land) · docs/root-os @ ce1e639 · rishe-eco/tracker main @ 53cd2ec
 
 *Replaces the 8+ verify SR0 block below: its next step 1 (`/build-phase SR1`) is built and landed. Steps 2–18 carry forward, renumbered. Carry-overs and questions stand, as amended here.*

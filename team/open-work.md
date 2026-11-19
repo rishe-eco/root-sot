@@ -2,7 +2,7 @@
 
 *The queue. Work that engineering cannot finish because it needs human judgement, a native speaker, or a decision. Each item states its blocker and what it unblocks. Delete items when done — the decision logs are the permanent record.*
 
-**Version 0.19 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.20 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -233,6 +233,8 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 | Tracker | Reflect B6: Past entries' empty line (`Nothing here yet.`) and not-found line (`That entry isn't here.`) are the lane's wording, in both languages; plates 10 and 11 say "wording to come". The founder approves or replaces them | B7's card (its copy pass) | `docs/development/B6.md` in `rishe-eco/tracker` |
 | Tracker | Session rhythm SR0: the `gatherKey` dedup read loads every gathered row of the user's active templates (no `forDate` bound) — correct for any history (that is how a moved row still dedupes, D-2) but unbounded by date, so a long-lived daily interval reads every row it ever made on each Today open. Bound it to the keys a run generates (plus legacy rows). Not a current defect | MS1's milestone run (so the full API suite reflects the bound) | `docs/development/SR0.md` in `rishe-eco/tracker` |
 | Tracker | Session rhythm SR0: no test walks a full gather → `orderDay` → re-gather on a later date proving a template's `sortOrder` reaches a *future* occurrence. SR0 verifies `orderDay` writes the source's `sortOrder` and that `dayList` reads `Action.sortOrder`, but not the round trip | SR5's or MS1's `verify` | `docs/development/SR0.md` in `rishe-eco/tracker` |
+| Tracker | Session rhythm SR1: `GET_TODAY_ACTIONS` doesn't select `crossedPending`/`reviewSetting`, so on **Today** a `justToKnow` control isn't hidden (AC-20) and a crossed control reads unfilled after a reload (AC-75). SR1 left Today's query alone as its card asked (`showTodayOptions` got the shared control only to keep the component compiling once `toggleAction` went). SR2 adds the two fields to that query, or retires the `showTodayOptions` path entirely when `TodayRow` replaces it | SR2's card/verify | `docs/development/SR1.md` in `rishe-eco/tracker` |
+| Tracker | Session rhythm SR1: the cross-out control's 180 px reflow and a both-languages/light-scheme hand pass weren't driven — the card scoped e2e to four tests at 360 px (one `fa`, RTL confirmed). Add the 180 px width to `crossing.spec.ts`'s reflow check when Today reuses the control | SR2's UI `verify` (Today reuses the control) or MS1 | `docs/development/SR1.md` in `rishe-eco/tracker` |
 
 ---
 
@@ -261,6 +263,7 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 
 ## Changelog
 
+- **0.20 · 2026-11-19** — From `verify SR1` (Tracker, session rhythm), run unattended by `bin/drive`: two *Owed* rows (add `crossedPending`/`reviewSetting` to `GET_TODAY_ACTIONS` so AC-20/AC-75 hold on Today; drive the control's 180 px reflow and a both-languages hand pass), both for SR2. Nothing is pushed in the run (PD-10).
 - **0.19 · 2026-11-19** — From `verify SR0` (Tracker, session rhythm), run unattended by `bin/drive`: two *Owed* rows (bound the `gatherKey` dedup read; the gather→order→re-gather round-trip test) and one ceiling row (the `add_session_rhythm` migration on a real deployed database, at MS2). Nothing is pushed in the run (PD-10).
 - **0.18 · 2026-10-23** — From `verify B6` (Tracker, Reflect): the whitespace row and the e2e module-key row struck (decided, done). One *Owed* row (the empty and not-found lines' wording, for B7's card). One ceiling row (the sign-in after B6's deploy); B6's screens added to the screen-reader row. B0's Linux row now needed by B7's `verify`.
 - **0.17 · 2026-10-22** — From `verify B5` (Tracker, Reflect): B4's three rows for B5 struck (done). Three *Owed* rows (*Show all* over a story that fits, the faux offer's muted-text contrast, one e2e module-key list). One ceiling row (the sign-in after B5's deploy); B5's screens added to the screen-reader row. B0's Linux row now needed by B6's `verify`.
