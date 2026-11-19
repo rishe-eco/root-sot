@@ -2,7 +2,7 @@
 
 *Module `tracker/modules/05-session-rhythm/` · Track: Module · Phase 7 · `build-plan`. The order the code lands in and the shape it takes, to the level of tables, routes, refusal codes, screens and tests, so each stage's phase card is a transcription and not a design exercise. Inputs: `02-spec.md` 0.3, `03-journeys.md` 0.3, `04-wireframes.html` draft 2, no `04b-design/` (skipped at intake), `05-ux-review.md` 0.2, `06-eval-plan.md` 0.1, `changes/01-…` and `changes/02-…`, `lifecycle/projects/tracker/` (config 0.4, brief-common 0.6, review-checklist 0.4). Update the changelog; don't fork.*
 
-**Version 0.4 · Status: plan · 2026-11-20 · Owner: _root**
+**Version 0.5 · Status: plan · 2026-11-20 · Owner: _root**
 
 **Where this file yields.** On *what* the module does, the spec wins. On what a person experiences, the journeys win. On how it looks, the wireframes (this module has no design pass). On what the code is, the repository.
 
@@ -511,7 +511,7 @@ The day gate is gone: Today is a list in time order with a quiet session line, a
 1. **The cross-out control** on Focus, the actions list and Today: its `::before` (`-inset-[14px]` on a 14 px box) is 42 px. Make the area at least 44 px in both directions without moving the row's layout.
 2. **Today's Reorder handle:** the strict probe misses it 21 px to the left, on the row. Its hit area reaches 44 px.
 3. **The look-back row's sixth button in `fa`:** missed 21 px to the left (the row's end in RTL). Its hit area reaches 44 px in both languages.
-4. **The `gatherKey` dedup read** (SR0 row): bound it to the keys a gather run generates, plus legacy rows with no `forDate`. Same results on every existing test.
+4. **The `gatherKey` dedup read** (SR0 row): bound it to the keys a gather run generates, plus legacy rows with a null `gatherKey`, whatever their `forDate`. Same results on every existing test.
 5. **The cross-out control at 180 px** (SR1 row): add 180 px to the reflow check on the actions list, Focus and the project page, `en` and `fa`. Fix any overflow found; a layout *change* beyond that is the founder's (the cramped-row row).
 6. **The drag handle's screen-reader instructions** (SR2 row): `DndContext` gets its own `en` and `fa` instructions and announcements, saying Enter opens Move up and Move down; no claim of a keyboard pick-up that doesn't exist. Applies to Today and the look-ahead.
 7. **The calendar's page scroll at 360 × 800** (SR3 row): the top bar makes `TrackerCalendar.tsx`'s `min-h-[60vh]` list scroll the page by 20 px. Make the page fit with no page scroll in `en` and `fa`; trace the routine form's 48 px and the time map's 2 px and fix them if they are the same cause, else report them.
@@ -531,7 +531,7 @@ The day gate is gone: Today is a list in time order with a quiet session line, a
 **Traps.**
 - Each strict test stops at its first miss: a fix reruns all four specs, not the one that failed.
 - A larger `::before` must not overlap the next control's area; the strict helper names what it hit.
-- Item 4 must still read legacy rows with no `forDate`, or a moved row duplicates (§9 item 1).
+- Item 4 must still read legacy rows with a null `gatherKey`, whatever their `forDate`, or a moved row duplicates (§9 item 1).
 
 **Not here:** the four design calls (the error text's contrast, the Focus toast slot, `todayKey` at mount, the cramped 180 px row). They are the founder's, after MS2 (`changes/03-req-ms2-fix-stage.md`).
 
@@ -769,6 +769,8 @@ None new. Used: `@dnd-kit/core` and `@dnd-kit/sortable` (installed), `vite-plugi
 **Owed by other skills:** `journeys update --from-note 02` and `eval-plan --touch-up` (change 02), before `close-out`; PD-7c's wording fix to AC-44, through `revise` at `close-out`.
 
 ## Changelog
+
+- **0.5 · 2026-11-20** — Correction only, from `verify SR9` (record `docs/development/SR9.md` @ `72acbdd`), applied unattended (`calls.md` row 111): §5 SR9 item 4 and its third Trap say the legacy rows are those with a null `gatherKey`, whatever their `forDate`, as built. No scope change.
 
 - **0.4 · 2026-11-20** — `revise`, `changes/03-req-ms2-fix-stage.md`: stage SR9 added after SR8 for MS2's three controls under 44 px, the strict hit-area helper's merge (`ms2/strict-hit-areas`) and six open-work lane items due at MS2; MS2 moves after SR9; §3's order and cost. Scope change through `revise` (README §4). Calls in the unattended run, `calls.md` rows 99 to 105.
 

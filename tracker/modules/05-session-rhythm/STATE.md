@@ -2,6 +2,29 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-20 · verify SR9, main-session items (unattended) · docs/root-os @ ce98ab7 · rishe-eco/tracker main @ 72acbdd
+**Drive:** run · /verify --milestone MS2 tracker/modules/05-session-rhythm devices: none (unattended run; the by-hand items and the box run of rhythm:gate stay owed to the founder)
+*Replaces the "8a+8b SR9" block below as the live block (its step 1, `verify SR9`, ran). The MS2 main-session block's question 3 and Owed, and the older blocks' live questions, stay live. Nothing pushed.*
+
+**What was done**
+- `verify SR9` (fork, Opus high): ready to fast-forward; 2 fix commits (look-ahead drag instruction names Move up/Move down; calendar list keeps 192 px on short screens). Record tracker `docs/development/SR9.md` @ `72acbdd`; root-sot `7e2d8f3` (open-work 0.32), `69e59f9` (state of the build 0.53), `aed0945` (status, column 8 at 10/10), `ce98ab7` (capture note).
+- Main session: tracker local `main` fast-forwarded 7f86a93 → `72acbdd`; worktree `sr9-ms2-fixes` removed; branches `sr9-ms2-fixes` and `ms2/strict-hit-areas` deleted (row 110). Build plan 0.5, correction only (row 111). The four design rows in `team/open-work.md` 0.33 now needed after MS2, before close-out (row 112). Calls rows 110–115.
+
+**Lanes in flight**
+- none. (The stray worktree `claude/xenodochial-ramanujan-376dc8` is P0-6, the founder's.)
+
+**Questions for the founder**
+1. **SR9's row wrap.** To stop the overflows, action rows now wrap when narrow. On `/activities` at 360 px the row fits but a long word in a title is cut off ("quarter", "numbe"); at 768 px Focus and `/activities` rows wrap where `main` squeezed the title. Keep it as part of your cramped-row decision, or have a lane redo it? Kept for now (row 113). *Owed by:* close-out.
+2. **Two rules for `lifecycle/projects/tracker/brief-common.md`**, not applied (row 114): (a) a reflow card names each page's route and the column selector `expectReflow` takes, and says e2e screenshots land in `client/.tmp/`; (b) a layout that "takes the remaining height" names a minimum height, and the lane measures 640 × 360 too. Each costs a line in every later card; each would have saved SR9 a fix. *Owed by:* the next card written.
+
+**Next steps, in order** (`verify` Opus high, from the tracker checkout on `main`)
+1. `/verify --milestone MS2 tracker/modules/05-session-rhythm devices: none (unattended run; the by-hand items and the box run of rhythm:gate stay owed to the founder)`
+2. Still owed from change 02, before `close-out`: `journeys update --from-note 02`, `eval-plan --touch-up`.
+
+**Owed**
+- Push pending: founder — root-sot `docs/root-os` (through this commit) and tracker local `main` @ `72acbdd`.
+- As the MS2 main-session block below: the by-hand pass, consolidation (`/learned --consolidate`, with the founder), close-out's items.
+
 ## 2026-11-20 · 8a+8b SR9 (launch and land, unattended) · docs/root-os @ c521e80 · rishe-eco/tracker sr9-ms2-fixes @ 6af7c01
 **Drive:** run · /verify SR9 tracker/modules/05-session-rhythm
 *Replaces the "revise 03: SR9 added" block below as the live block (its step 1 ran). Its steps 2–4 are copied here; the MS2 main-session block's question 3 and Owed, and the older blocks' live questions, stay live. Nothing pushed.*
