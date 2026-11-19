@@ -2,6 +2,31 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · 8a+8b launch and land SR8 · docs/root-os @ 3e1a3d3 · rishe-eco/tracker main @ da6b5e0
+*Replaces the "verify SR7, main-session items" block's step 1 (`build-phase SR8`, ran). That block's founder questions 1–7 and its Owed items stay live, as do the MS1-rerun block's questions 1–2 and the SR6 block's questions 1–3. Nothing pushed.*
+**Drive:** run · /verify SR8 tracker/modules/05-session-rhythm
+
+**What was done**
+- The card `briefs/SR8.md` (`3e1a3d3`, 874 words) was reused unchanged because `main` hadn't moved (calls row 88). The lane ran in the foreground on slot A and landed in this session.
+- Lane commit `258fec7` on `sr8-rhythm-gate`: `gateReport.ts`, `scripts/rhythmGate.ts`, `rhythm:gate` in `api/package.json`, and `rhythmGate.integration.test.ts` (5 of 5 pass). `tsc` and `npm run build` are clean, and the compiled command printed against a scratch database. Author and co-author lines are correct.
+- Measured: +344 app · +217 tests · 0 moved · 6 min 22 s · 99.6k tokens, against size S (~300 app lines, so within twice). The report is at `tracker/modules/05-session-rhythm/briefs/SR8.report.md`.
+
+**Lanes in flight**
+- SR8 (S) · `sr8-rhythm-gate` from `main @ da6b5e0` · slot A (`<worktree>/api/prisma/test.db`, no e2e) · the tracker checkout's `.claude/worktrees/sr8-rhythm-gate` · `briefs/SR8.md` · **landed**
+
+**For verify to decide**
+- The card's *Decided here* 1–8 (calls row 86).
+- The lane's own eight calls (report part 4; calls row 89). W1's day credited to the earlier session and begun-after-due on unfinished sessions are the two that change counts.
+- Departures (report part 5): `neither` in M2 has no producer named; the lane wrote a dummy `api/.env` instead of copying main's.
+- Not checked: the Docker image carrying `dist/scripts/rhythmGate.js` (MS2's deploy check). There is no overlap with a newer `main`.
+
+**Next steps, in order** (each `verify` Opus high, from the tracker checkout on `main`; one lane at a time)
+1. `/verify SR8 tracker/modules/05-session-rhythm`
+2. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+
+**Owed**
+- Push pending: founder. Tracker local `main` and the lane branch, root-sot `docs/root-os` (PD-10 holds the first push for MS2).
+
 ## 2026-11-19 · verify SR7, main-session items · docs/root-os @ 6ad407a · rishe-eco/tracker main @ da6b5e0
 *Replaces the "8a+8b launch and land SR7" block below as the live block (its step 1, `verify SR7`, ran). The MS1-rerun block's founder questions 1–2 and the SR6 block's questions 1–3 stay live. Nothing pushed.*
 **Drive:** run · /build-phase SR8 tracker/modules/05-session-rhythm
