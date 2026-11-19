@@ -2,48 +2,57 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
-## 2026-11-19 · 8a launch SR2 · docs/root-os @ 64513d3 · rishe-eco/tracker main @ 35bf320
+## 2026-11-19 · 8 build SR2 (launch and land) · docs/root-os @ cf1af91 · rishe-eco/tracker main @ 35bf320
 
-*Adds to the 8+ verify SR1 block below: starts its next step 1 (`/build-phase SR2`). In an unattended run the lane runs in the foreground and is landed in this same session, which then replaces this block with the land block (`unattended.md` rule 6). This block exists so a cold session can recover if this one is interrupted mid-lane.*
-**Drive:** run · /build-phase SR2 tracker/modules/05-session-rhythm --land
+*Replaces the 8a launch SR2 block: its lane returned and is landed. Adds to the 8+ verify SR1 block below (its next step 1, `/build-phase SR2`, is now built and landed). Steps carry forward, renumbered. Carry-overs and questions stand, as amended here.*
+**Drive:** run · /verify SR2 tracker/modules/05-session-rhythm
 
-**What was done** (this launch; call in `calls.md` row 36)
-- Reused the committed card `briefs/SR2.md` (1034 words, committed at `64513d3`; drafted at `main @ 35bf320`, where `main` still sits, so its code check held). Spot-checked its load-bearing claims against the unmoved tree: `@dnd-kit` installed; `GET_TODAY_ACTIONS` still read by `client/app/components/tools/ToolsPage.tsx` (keep it, mismatch 1); `overlaps`/`timeToMinutes` in `api/src/services/todayPreDayAfterDay.ts` (keep them, mismatch 2); `ensureRhythm` on the server. All held — card reused unchanged.
-- Made the `sr2-today` worktree from local `main @ 35bf320` (slot A; branched without `git pull`, call 36). Slot A's ports 4010/5183 confirmed free (no Windows excluded range covers them). Launched a foreground Sonnet lane in it.
+**What was done** (one unattended session, launch and land together, `unattended.md` rule 6; call in `calls.md` row 36)
+- Reused the committed card `briefs/SR2.md` (committed at `64513d3`, drafted at `main @ 35bf320`, where `main` still sits). Spot-checked its load-bearing claims against the unmoved tree (all held): `@dnd-kit` installed, `GET_TODAY_ACTIONS` still read by `tools/ToolsPage.tsx` (keep, mismatch 1), `overlaps`/`timeToMinutes` in `todayPreDayAfterDay.ts` (keep, mismatch 2), `ensureRhythm` on the server. Card reused unchanged.
+- Made the `sr2-today` worktree from local `main @ 35bf320` (slot A, ports 4010/5183 confirmed free; branched without `git pull`, call 36). A foreground Sonnet lane built SR2 on branch `sr2-today` (10 commits, tip `c79f4cf`). Report saved to `briefs/SR2.report.md`.
+- Measured at land: +743 app · +487 tests · 0 moved · ~1.7 h (102 min) · ~523k tokens, against size **L**. App insertions above L's ~300–500 range but under 2×; net app code −1915 (three wizards + the `showTodayOptions` branch deleted), time well under L's 4–6 h — a note, not a rule-5 overrun. All 10 commits authored `salmanian.foad2@gmail.com` with the Sonnet co-author line; tree clean. Tests green: api `108` (9 files), client `68` (8 files), `tsc --noEmit` clean in both, both i18n green; e2e `today.spec.ts` **7/7** cold ×2 (slot A).
 
 **Lanes in flight**
-- SR2 (L) · branch `sr2-today`, base `main @ 35bf320` · slot A (db `<worktree>/api/prisma/test.db`; e2e ports 4010/5183) · worktree the tracker checkout's `.claude/worktrees/sr2-today` · card `briefs/SR2.md` · status **running**.
+- SR2 (L) · branch `sr2-today` @ `c79f4cf`, base `main @ 35bf320` · slot A (db `<worktree>/api/prisma/test.db`; e2e ports 4010/5183) · worktree the tracker checkout's `.claude/worktrees/sr2-today` · card `briefs/SR2.md` · status **landed** — until `verify` fast-forwards `main` and removes the worktree.
+
+**What verify must decide** (read the cited report parts, not this summary)
+- **Two pre-existing server bugs the lane found and fixed** (report part 5 items 2–3, commits `2c2c49e`, `6943496`): `dayList` shipped at SR0 without `include: { project: true }` (every row's project label silently absent; `Action.project` has no lazy resolver); and `ensureRhythm`'s find-then-create had a live race SR0's test only masked with `.catch(() => null)` — now an atomic `upsert` (the card's own StrictMode trap). Both outside SR2's scope but correct to fix; confirm and note for SR0's close-out.
+- **The lane's own calls** — report part 4: `TodayRow` carries no Settings/Notes/postpone menu (spec §4.1 lists five elements); handle tap-vs-hold via `PointerSensor {delay:150,tolerance:5}`; a refused cross-group drop enforced client-side (never calls `orderDay`); a new date line under "Today" (plates 1/2); a skeleton row during background gathering; orphaned locale keys removed.
+- **The card's *Decided here*** (`briefs/SR2.md`): AC-20/AC-75 ride on `dayList`'s `action { crossedPending reviewSetting }`; `showTodayOptions` retired (`ActionPreview` branch + `TodayActionWidget` gone, clearing the SR1 carry-over); `ensureRhythm` from `ProtectedAppLayout`; drag via `@dnd-kit`.
+- **Card checks the lane couldn't do** (report part 6): "just to know" end-to-end (no mutation sets `reviewSetting` until SR3 — display logic implemented, unverified); the **180 px** reflow (card leaves it to verify); the both-languages/light-scheme hand pass of `CrossOutControl`/`TodayRow` (owed since SR1, still open).
+- **Plan/card disagreement** (report part 5 item 1): `07-build-plan.md` §5 SR2 Tests says e2e covers 180 px; the card's *Proving it here* says leave it to verify. Lane followed the card. Verify reconciles — and the 180 px pass is owed, not dropped.
+- **The `crossing.spec.ts` Actions-list flake** (report part 6): confirmed pre-existing (fails ~3/5 under `--repeat-each=5` with SR2's `root.tsx` change disabled) — SR1's named cold-boot flake, now reproducing more often; looks like two near-simultaneous mutations losing one write, in `crossing.ts`/`ActionsListPage.tsx` (SR1's files), not SR2's. Owed to whoever next touches crossing.
+- Deploy: none — SR2 is not pushed (PD-10); it switches the founder on first load, so it lands only in the MS2 deploy. Overlap with a newer base: none (`main` unmoved at `35bf320`).
 
 **Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout `E:\_root\tracker` on `main`; one lane at a time; `build-phase` launches and lands in one session, `unattended.md` rule 6)
-1. `/build-phase SR2 tracker/modules/05-session-rhythm --land` (this session lands the lane when it returns; a cold session resumes here from `.tmp/SR2.report.md`)
-2. `/verify SR2 tracker/modules/05-session-rhythm`
-3. `/build-phase SR3 tracker/modules/05-session-rhythm`
-4. `/verify SR3 tracker/modules/05-session-rhythm`
-5. `/build-phase SR4 tracker/modules/05-session-rhythm`
-6. `/verify SR4 tracker/modules/05-session-rhythm`
-7. `/build-phase SR5 tracker/modules/05-session-rhythm`
-8. `/verify SR5 tracker/modules/05-session-rhythm`
-9. `/verify --milestone MS1 tracker/modules/05-session-rhythm`
-10. `/build-phase SR6 tracker/modules/05-session-rhythm`
-11. `/verify SR6 tracker/modules/05-session-rhythm`
-12. `/build-phase SR7 tracker/modules/05-session-rhythm`
-13. `/verify SR7 tracker/modules/05-session-rhythm`
-14. `/build-phase SR8 tracker/modules/05-session-rhythm`
-15. `/verify SR8 tracker/modules/05-session-rhythm`
-16. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+1. `/verify SR2 tracker/modules/05-session-rhythm` (also fast-forwards `main`, removes the `sr2-today` worktree and branch)
+2. `/build-phase SR3 tracker/modules/05-session-rhythm`
+3. `/verify SR3 tracker/modules/05-session-rhythm`
+4. `/build-phase SR4 tracker/modules/05-session-rhythm`
+5. `/verify SR4 tracker/modules/05-session-rhythm`
+6. `/build-phase SR5 tracker/modules/05-session-rhythm`
+7. `/verify SR5 tracker/modules/05-session-rhythm`
+8. `/verify --milestone MS1 tracker/modules/05-session-rhythm`
+9. `/build-phase SR6 tracker/modules/05-session-rhythm`
+10. `/verify SR6 tracker/modules/05-session-rhythm`
+11. `/build-phase SR7 tracker/modules/05-session-rhythm`
+12. `/verify SR7 tracker/modules/05-session-rhythm`
+13. `/build-phase SR8 tracker/modules/05-session-rhythm`
+14. `/verify SR8 tracker/modules/05-session-rhythm`
+15. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
 
-**Carry-overs** (as the 8+ verify SR1 block below, unchanged)
+**Carry-overs**
 - **Push order (PD-10):** nothing is pushed in the run; SR1 (`35bf320`) and after wait until MS2 passes. SR2 is not pushed or deployed — it switches the founder on first load (`ensureRhythm`), so it must land only in the MS2 deploy.
-- **SR2's owed items** (open-work rows for SR1→SR2) are folded into the card: AC-20/AC-75 ride on `dayList`'s `action { crossedPending reviewSetting }` (Decided here 1); the `showTodayOptions` path is retired (Decided here 2). The 180 px reflow and a both-languages/light hand pass are left to `verify` (card *Proving it here*).
-- After the build, before `close-out`: `journeys update … --from-note 02` and `eval-plan … --touch-up changes/02-…md`; AC-44's wording through `revise` (PD-7c). `close-out` reads SR0's and SR1's *Flagged for close-out*.
+- After the build, before `close-out`: `journeys update … --from-note 02` and `eval-plan … --touch-up changes/02-…md`; AC-44's wording through `revise` (PD-7c). `close-out` reads SR0's and SR1's *Flagged for close-out*; SR2 adds the two server-bug fixes above for SR0's known-issues.
+- From the 2 spec block: D-64's line about D-5 overstates it (`02-spec.md` §1.1); no decision-log entry written. For `close-out`.
 
-**Questions for the founder** (as the 8+ verify SR1 block below)
-- Read `calls.md` rows 5 to 36 and veto any with a change note or `revise`.
-- Which OST node does the session rhythm sit on; push/merge `docs/root-os` when; phone and calendar app for MS2; the stray worktree `.claude/worktrees/xenodochial-ramanujan-376dc8` (P0-4, P0-6).
+**Questions for the founder**
+- Read `calls.md` rows 5 to 36 and veto any with a change note or `revise`; the plan's PD-1 to PD-20, the lane's report-part-4 decisions, and call 36 (branch without pull) can also be refused on the diff. Owed by: before SR2's `verify`, ideally.
+- Which OST node does the session rhythm sit on (`close-out`); push/merge `docs/root-os` when (founder; the run pushes nothing); phone and calendar app for MS2; the stray worktree `.claude/worktrees/xenodochial-ramanujan-376dc8` (P0-4, P0-6, MS2).
 
 **Owed**
-- Push pending: founder — tracker `53cd2ec:main` (SR0's merge, PD-10's one allowed early push) and nothing else until MS2; root-sot `docs/root-os`.
-- The SR2 lane is running; its land block replaces this one.
+- Push pending: founder — tracker `53cd2ec:main` (SR0's merge, PD-10's one allowed early push) and nothing else until MS2 (SR1 `35bf320` and after); root-sot `docs/root-os`.
+- Nothing uncommitted (after this block's commit).
 
 ## 2026-11-19 · 8+ verify SR1 · docs/root-os @ 2308053 · rishe-eco/tracker main @ 35bf320
 
