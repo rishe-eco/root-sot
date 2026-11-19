@@ -2,6 +2,43 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · 8a+8b build SR5 (launch and land) · docs/root-os @ 37f3030 · rishe-eco/tracker main @ c7d3db8
+
+*Replaces the 8c verify SR4 block below as the top block (its step 1, `build-phase SR5`, is done). Launch and land ran in one session (`lifecycle/unattended.md` rule 6). Nothing pushed.*
+**Drive:** run · /verify SR5 tracker/modules/05-session-rhythm
+
+**What was done**
+- Card `briefs/SR5.md` (825 words of body, over the 700 target and under 1,000); calls rows 54–58 in `calls.md` (root-sot `aa19f4d`).
+- Lane ran in the foreground: one commit `ccc5bef` on `sr5-look-ahead` (author `salmanian.foad2@gmail.com`, Sonnet co-author line present). Report saved as `briefs/SR5.report.md`. Measured: +469 app, +582 tests, 0 moved, 9 min, 139k tokens, against size M. Within size.
+
+**Lanes in flight**
+- SR5 (M) · branch `sr5-look-ahead` from local `main @ c7d3db8` · slot A (`<worktree>/api/prisma/test.db`, no ports used) · worktree `.claude/worktrees/sr5-look-ahead` in the tracker checkout · card `briefs/SR5.md` · status **landed**
+
+**For verify to decide**
+- The card's *Decided here* rows 1–6, and the `todayKey` added to `planItem` and `completeLookAhead` (calls rows 54–58).
+- The lane's ten calls (report part 4). Check these most closely: (1) a stored next date below `todayKey + 2` after a continue reads as the pre-fill, and `completeLookAhead` overwrites it; (4) `fromBefore` is null when not offered and `[]` when offered but empty, and the days include empty ones; (7) `removeItem(true)` sets `PassedArchived` whatever the fate was before, so its undo can't restore an earlier fate.
+- Departures from the plan (report part 5): the gap's "shown in this session" condition can never be false, because a gap belongs to one session.
+- Not checked by the lane: no GraphQL query was run through the server against the new SDL (report part 6). The deploy is unchanged. Local `main` hasn't moved since the base, so nothing overlaps.
+- If decision 6's test holds, verify closes the open-work row "SR0: no test walks a full gather → `orderDay` → re-gather".
+
+**Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout on `main`; one lane at a time)
+1. `/verify SR5 tracker/modules/05-session-rhythm`
+2. `/verify --milestone MS1 tracker/modules/05-session-rhythm` (needs config §6's milestone script fixed first, plan D-18)
+3. `/build-phase SR6 tracker/modules/05-session-rhythm`
+4. `/verify SR6 tracker/modules/05-session-rhythm`
+5. `/build-phase SR7 tracker/modules/05-session-rhythm`
+6. `/verify SR7 tracker/modules/05-session-rhythm`
+7. `/build-phase SR8 tracker/modules/05-session-rhythm`
+8. `/verify SR8 tracker/modules/05-session-rhythm`
+9. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+
+**Carry-overs**
+- The SR4 block below still holds what `close-out` needs and the open founder questions; they stay live there.
+- To propose for `brief-common.md` at the next verify: say that scripted edits across several files use Node, because Python isn't on the Windows build machine (report part 7).
+
+**Owed**
+- Push pending: founder (root-sot `docs/root-os`; tracker local `main`, not before MS2).
+
 ## 2026-11-19 · 8c verify SR4, main-session items · docs/root-os @ a9de089 · rishe-eco/tracker main @ 7d031e8
 
 *Replaces the 8a+8b build SR4 block below (its step 1, `verify SR4`, is done). `verify SR4`'s fork ended "ready to fast-forward"; this session did its main-session items under `unattended.md` rule 7. Nothing pushed.*
