@@ -2,6 +2,23 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · re-review SR0–SR1 · docs/root-os @ 284f56c · rishe-eco/tracker main @ 051afcc
+
+*Adds to the 8+ verify SR2 block below: its next steps and carry-overs stand. The founder asked that SR0 and SR1, built on Sonnet 5 and verified on Opus 4.8 (the headless CLI was too old for the 5.5 models; fixed, drive now runs Opus 5.5 and Sonnet 5.5), be re-checked before SR3 if needed. A read-only review on Opus 5.5 found no blockers and nine should-fix or minor items.*
+**Drive:** run · /build-phase SR3 tracker/modules/05-session-rhythm
+
+**What was done**
+- Review of `rishe-eco/tracker` `eea1c59..35bf320`: D-67, ownership, AC-5 and AC-6 hold (the migration was run on a seeded scratch database: rows and foreign keys intact). Its items are one row in `team/open-work.md` *Owed to later stages* (0.22), needed by SR3. `calls.md` row 41.
+
+**Next steps, in order**
+1. `/build-phase SR3 tracker/modules/05-session-rhythm` (Opus, medium, from the tracker checkout). **Its card takes the nine re-review items first**, from the open-work row "Session rhythm SR0/SR1, from a second review on Opus 5.5": fix each with a test that fails on the old code, before SR3's own work. Item 3 is the likely cause of the flaky `crossing.spec.ts` row.
+2. `/verify SR3 tracker/modules/05-session-rhythm` (Opus, high), which checks the nine items too.
+3. Then as the 8+ verify SR2 block below, from its SR4 step.
+
+**Owed**
+- Nothing uncommitted. Nothing pushed.
+
+
 ## 2026-11-19 · 8+ verify SR2 · docs/root-os @ 284f56c · rishe-eco/tracker main @ 051afcc
 
 *Replaces the 8 build SR2 block below: its next step 1 (`/verify SR2`) is done — the stage is verified and on local `main`. Steps 2–15 carry forward, renumbered. Carry-overs and questions stand, as amended here.*

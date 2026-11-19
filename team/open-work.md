@@ -2,7 +2,7 @@
 
 *The queue. Work that engineering cannot finish because it needs human judgement, a native speaker, or a decision. Each item states its blocker and what it unblocks. Delete items when done — the decision logs are the permanent record.*
 
-**Version 0.21 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.22 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -240,6 +240,7 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 | Tracker | Session rhythm SR2: Today's row at 180 px is cramped — nothing overlaps or scrolls since `verify SR2`, but a title shows about three characters and the time truncates. A layout change (the meta line under the title, a smaller start margin) is a design call | the founder, or SR6's UI pass; by MS2 | `docs/development/SR2.md` in `rishe-eco/tracker` |
 | Tracker | Session rhythm SR2: the Today handle's screen-reader instructions are `@dnd-kit`'s English defaults in both languages, and say "press space or enter to pick up" though no keyboard sensor exists (Enter opens Move up/Move down). Give `DndContext` its own `en`/`fa` instructions | MS1 | `docs/development/SR2.md` in `rishe-eco/tracker` |
 | Tracker | Session rhythm SR1/SR2: `crossing.spec.ts` "Actions list … uncrossing restores both" is flaky — 2 of 5 alone at `verify SR2`, 3 of 5 at SR2's lane with SR2's change disabled, so it predates SR2. Likely two near-simultaneous crossings losing one write (`crossing.ts`/`ActionsListPage.tsx`). Find the cause and fix it | MS1 (its full e2e run fails on it) | `docs/development/SR2.md` in `rishe-eco/tracker` |
+| Tracker | Session rhythm SR0/SR1, from a second review on Opus 5.5 (2026-11-19, the founder's call to re-check the Sonnet 5 / Opus 4.8 stages): (1) a crossing on an earlier day keeps `crossedPending` true but uncross only clears today's record, so on a later day the control is dead (`crossing.ts:95`, `ActionPreview.tsx:85,153`): on a later day clear the open crossing without restoring the date; (2) uncross restores `movedFromKey` even after the item was moved since (`crossing.ts:98`): restore only if it is still on today; (3) `setCrossed`'s `action.update` and `dayRecord.upsert` aren't in one transaction and a concurrent upsert can throw P2002 (`crossing.ts:60-87`), the likely cause of the flaky `crossing.spec.ts` row above: one interactive `$transaction`, P2002 caught; (4) `ActionPreview.tsx:251` has no in-flight guard (double tap); (5) a failed save puts the control back (`ActionPreview.tsx:231-233`) where SR1's trap keeps it crossed with "Not saved.", and Focus's undo ignores a null result (`FocusPage.tsx:63`); (6) `dayList.ts:92` holds a literal NUL byte in `"\u0000any-time"`, so git and ripgrep treat the file as binary: use an escape; (7) `crossedPending` runs one query per row on the actions list (`typeResolvers.ts:42`, `GET_ACTIONS`): batch it; (8) a legacy gathered row (no `gatherKey`) moved by a crossing is regathered on its old day: write its `gatherKey` before the move; (9) `runActionGathering`'s `endDate` is checked by regex only (`mutations.ts:973`): use `isValidDateKey` | SR3 (on its card, before its own work) | `tracker/modules/05-session-rhythm/STATE.md`, the block *re-review SR0–SR1* |
 
 ---
 
@@ -269,6 +270,7 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 
 ## Changelog
 
+- **0.22 · 2026-11-19** — One *Owed* row for Tracker's session rhythm SR3: nine items from a second review of SR0 and SR1 on Opus 5.5, run by the run-to-the-end session.
 - **0.21 · 2026-11-19** — From `verify SR2` (Tracker, session rhythm), run unattended by `bin/drive`: SR1's Today-query row struck (done at SR2) and its 180 px row amended (Today done; the other surfaces by MS1); five *Owed* rows ("just to know" on Today by SR3, a failed order not drawn, the cramped 180 px row, the drag handle's screen-reader instructions, the `crossing.spec.ts` flake) and one ceiling row (a Persian reader on Today's `fa` copy, by MS2). Nothing is pushed in the run (PD-10).
 - **0.20 · 2026-11-19** — From `verify SR1` (Tracker, session rhythm), run unattended by `bin/drive`: two *Owed* rows (add `crossedPending`/`reviewSetting` to `GET_TODAY_ACTIONS` so AC-20/AC-75 hold on Today; drive the control's 180 px reflow and a both-languages hand pass), both for SR2. Nothing is pushed in the run (PD-10).
 - **0.19 · 2026-11-19** — From `verify SR0` (Tracker, session rhythm), run unattended by `bin/drive`: two *Owed* rows (bound the `gatherKey` dedup read; the gather→order→re-gather round-trip test) and one ceiling row (the `add_session_rhythm` migration on a real deployed database, at MS2). Nothing is pushed in the run (PD-10).
