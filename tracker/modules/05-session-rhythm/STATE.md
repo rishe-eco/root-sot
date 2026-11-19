@@ -2,6 +2,34 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-20 · 8a+8b SR9 (launch and land, unattended) · docs/root-os @ c521e80 · rishe-eco/tracker sr9-ms2-fixes @ 6af7c01
+**Drive:** run · /verify SR9 tracker/modules/05-session-rhythm
+*Replaces the "revise 03: SR9 added" block below as the live block (its step 1 ran). Its steps 2–4 are copied here; the MS2 main-session block's question 3 and Owed, and the older blocks' live questions, stay live. Nothing pushed.*
+
+**What was done**
+- Card `briefs/SR9.md` (commit `c521e80`, about 700 words), calls rows 106–109. Lane ran in the foreground on slot A; its connection dropped once at about 50 min and it was resumed with its context. Report saved as `briefs/SR9.report.md`: +125 app, +486 tests, about 64 min, against size M.
+- The lane's result: the four strict specs pass in full (59 tests, with 6 new 180 px cases) plus `layout360` (2); gathering 22, rhythm integration 85, client 123; `tsc` and both i18n checks clean. Commit authors match the repo identity, with Sonnet co-author lines.
+
+**Lanes in flight**
+- SR9 (M) · branch `sr9-ms2-fixes` from local `main @ 7f86a93` · slot A (`<worktree>/api/prisma/test.db`, e2e 4010/5183) · worktree `.claude/worktrees/sr9-ms2-fixes` in the tracker checkout · card `briefs/SR9.md` · **landed**. Local `main` has not moved since the base, so there is no overlap.
+
+**For verify to decide** (report parts 4 and 5)
+- Card *Decided here* 1–4 (calls rows 106–109). The lane read the plan's "legacy rows with no `forDate`" as every row with a null `gatherKey`.
+- Item 5 went past "fix the overflow only": the Focus action row and `ActionPreview`'s row now wrap when narrow, the Focus grid is `grid-cols-1`, and the card padding is `p-3` below 360 px. `ActionPreview` is shared (`ActivitiesPage`, `ProjectForm`), and the lane did not check those between 180 and 360 px.
+- Item 6 adds a second key, `rhythm.dnd.instructionsMenu` (6 keys in all), because the look-ahead's handle doesn't open Move up and Move down. The Persian strings have had no native review.
+- Item 7: the time map's 2 px didn't reproduce. The routine form overflows 9 px in `fa` because of a Radix hidden input; that is reported, not fixed. A candidate fix is `relative` on `InternalPageLayout`'s scroll box.
+- `session.spec.ts` W24 now fills, presses ArrowUp, fills again and presses Enter. Item 9 compares the draft with `pending`.
+- New 180 px findings for the founder's cramped-row call: the project page at 180 px; the Focus title in `fa` clipped by `truncate`.
+- Proposals for `brief-common.md` (report part 7): name route paths and `expectReflow`'s column selector in the card, and say that e2e screenshots land in `client/.tmp/`.
+
+**Next steps, in order** (`verify` Opus high, from the tracker checkout on `main`; one lane at a time)
+1. `/verify SR9 tracker/modules/05-session-rhythm` (its main session: fast-forward local `main`, remove the worktree and branch, delete `ms2/strict-hit-areas`, move the four design rows' *needed by* past MS2, strike the settled rows)
+2. `/verify --milestone MS2 tracker/modules/05-session-rhythm devices: none (unattended run; the by-hand items and the box run of rhythm:gate stay owed to the founder)`
+3. Still owed from change 02, before `close-out`: `journeys update --from-note 02`, `eval-plan --touch-up`.
+
+**Owed**
+- As the MS2 main-session block below: the pushes (push pending: founder), the by-hand pass, consolidation (`/learned --consolidate`, with the founder), and close-out's items.
+
 ## 2026-11-20 · revise 03: SR9 added · docs/root-os @ f33b30b · rishe-eco/tracker main @ 7f86a93
 **Drive:** run · /build-phase SR9 tracker/modules/05-session-rhythm
 *Replaces the "MS2 questions answered by call" block below as the live block (its step 1, `revise`, ran). The MS2 main-session block's question 3 (consolidation) and Owed, and the older blocks' live questions, stay live. Nothing pushed.*
