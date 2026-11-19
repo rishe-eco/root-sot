@@ -2,6 +2,36 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · verify SR7, main-session items · docs/root-os @ 6ad407a · rishe-eco/tracker main @ da6b5e0
+*Replaces the "8a+8b launch and land SR7" block below as the live block (its step 1, `verify SR7`, ran). The MS1-rerun block's founder questions 1–2 and the SR6 block's questions 1–3 stay live. Nothing pushed.*
+**Drive:** run · /build-phase SR8 tracker/modules/05-session-rhythm
+
+**What was done**
+- `verify SR7` (fork, ran at low effort, not high): unit 6 files / 102 passed; `tsc` clean; both i18n checks pass; e2e session, today and capture specs 48 of 49 then the one failure fixed in the test (`e832c3c`); the no-count fence widened to a shorthand `{ count }` (`1915226`); held drag on a look-ahead row checked by hand. Record tracker `docs/development/SR7.md` @ `da6b5e0`; root-sot `1c3b5a1` (open-work: 4 struck, 2 Owed, 1 ceiling, SR2's 180 px row amended), `50fcd9e` (status column 8 at 8/9), `fb4dd8e` (state of the build 0.50), `6ad407a` (capture note).
+- Main session: tracker local `main` fast-forwarded `9bf3e1b` → `da6b5e0`; SR7's worktree and branch removed (row 83). Build plan 0.3, correction only (row 84). The `E2E_REUSE=1` rule for `brief-common.md` left to the founder (row 85).
+
+**Lanes in flight**
+- none. (The stray worktree `claude/xenodochial-ramanujan-376dc8` is P0-6, the founder's.)
+
+**Questions for the founder**
+1. **"Later…" saves on every change of the date field.** One ArrowUp in Edge moves the row to the next date + 1, so a keyboard user can't step to the day they want. Commit on Enter or on leaving the field (no visible change), or add a **Move** button (changes the screen)? Either is a lane before MS2.
+2. **Moves drawn once saved.** As built, a moved row redraws only after the save lands; plate 7 draws it moved at once. Keep it, or draw at once and roll back on failure?
+3. **Crossed rows left out of the look-ahead.** The lane doesn't draw rows already crossed out. Keep?
+4. **`todayKey` on /session** is fixed when the page opens (SR6's pattern), where the card says "at the call". Keep, or read the date at each call (matters only for a session open across midnight)?
+5. **`StaleBuildNotice` mounted in `app/index.tsx`,** outside the card: accepted at verify as a defect fix (AC-72 was never drawn). Refuse on the diff if not wanted.
+6. **The lane's new Persian terms** (report call 15): refuse on the diff if any read wrong.
+7. **A `brief-common.md` rule:** e2e-heavy lanes start the slot's two servers once and run each spec with `E2E_REUSE=1`, stopping them at the end. Saves 25–60 s a run; costs one paragraph in every brief (row 85).
+
+**Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout on `main`; one lane at a time)
+1. `/build-phase SR8 tracker/modules/05-session-rhythm`
+2. `/verify SR8 tracker/modules/05-session-rhythm`
+3. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+
+**Owed**
+- Push pending: founder. Tracker local `main` (`da6b5e0`, 63 ahead of origin; PD-10 holds the first push for MS2) and root-sot `docs/root-os`.
+- MS1's by-hand pass on the founder's devices (calls rows 62, 67, 77).
+- The "Later…" keyboard fix, by MS2 (question 1; open-work).
+
 ## 2026-11-19 · 8a+8b launch and land SR7 · docs/root-os @ 5d37ee1 · rishe-eco/tracker main @ 9bf3e1b
 *Replaces the "verify --milestone MS1 rerun" block below as the live block (its step 1, `build-phase SR7`, ran). That block's founder questions 1–2 and Owed stay live; the SR6 block's questions 1–3 stay live, and its "Carry into SR7's card" items are in the card (question 1, the foot label, was not: calls row 79). Nothing pushed.*
 **Drive:** run · /verify SR7 tracker/modules/05-session-rhythm

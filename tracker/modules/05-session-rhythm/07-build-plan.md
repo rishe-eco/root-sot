@@ -2,7 +2,7 @@
 
 *Module `tracker/modules/05-session-rhythm/` · Track: Module · Phase 7 · `build-plan`. The order the code lands in and the shape it takes, to the level of tables, routes, refusal codes, screens and tests, so each stage's phase card is a transcription and not a design exercise. Inputs: `02-spec.md` 0.3, `03-journeys.md` 0.3, `04-wireframes.html` draft 2, no `04b-design/` (skipped at intake), `05-ux-review.md` 0.2, `06-eval-plan.md` 0.1, `changes/01-…` and `changes/02-…`, `lifecycle/projects/tracker/` (config 0.4, brief-common 0.6, review-checklist 0.4). Update the changelog; don't fork.*
 
-**Version 0.2 · Status: plan · 2026-11-19 · Owner: _root**
+**Version 0.3 · Status: plan · 2026-11-19 · Owner: _root**
 
 **Where this file yields.** On *what* the module does, the spec wins. On what a person experiences, the journeys win. On how it looks, the wireframes (this module has no design pass). On what the code is, the repository.
 
@@ -441,7 +441,7 @@ The day gate is gone: Today is a list in time order with a quiet session line, a
 
 **Screens.** Plates 7, 8.
 - The next date as six chips, today+2 to today+7, the pre-fill selected (W22).
-- One column of days at every width (W23): `TodayRow` without the cross-out control; a "⋯" menu with a day, "Later…", "No date yet" (W24), a time, Move up, Move down (W27) and Remove with undo; the handle; "+ Add to <day>" opening `CaptureSheet` with the day fixed; "Nothing planned."; overlaps (W5); Time Theme bands from `tagColorClasses(…).band` and `themesCoveringTime` (D-14). Moving the date earlier hides days silently (W36).
+- One column of days at every width (W23), read on open, gathered to the next date − 1, then read again: a composed `LookAheadRow` (`TodayRow` untouched), without the cross-out control; a "⋯" menu with a day, "Later…", "No date yet" (W24), a time, Move up, Move down (W27) and Remove with undo; the handle; "+ Add to <day>" opening `CaptureSheet` with the day fixed; "Nothing planned."; overlaps (W5); Time Theme bands from `tagColorClasses(…).band` and `themesCoveringTime`, a band being the row's classes plus the day's theme strip, with no band component (D-14). A move is drawn once it is saved. Moving the date earlier hides days silently (W36).
 - "No date yet" with "Place on…"; "From before" and "From the gap" under the next date, `markShown` on render, "Let them all go" collapsing to "Let them go. Undo" (W37).
 - "These days didn't load." with **Try again** (W28). On `tracker:captured` for a shown day, that day refetches (AC-73).
 - When and where: the prompt; a time; a place that stops at 80 with "That's as long as a place can be." (W38); **Add to my calendar** downloads the `.ics` with a toast (W10); **Finish** returns to Today. A failed next date, when and where or Finish keeps the step (S13).
@@ -730,6 +730,8 @@ None new. Used: `@dnd-kit/core` and `@dnd-kit/sortable` (installed), `vite-plugi
 **Owed by other skills:** `journeys update --from-note 02` and `eval-plan --touch-up` (change 02), before `close-out`; PD-7c's wording fix to AC-44, through `revise` at `close-out`.
 
 ## Changelog
+
+- **0.3 · 2026-11-19** — Correction only, from `verify SR7` (record `docs/development/SR7.md` @ `da6b5e0`), applied unattended (`calls.md` row 84): §5 SR7's screens say the look-ahead reads, gathers to the next date − 1 and reads again; the row is a composed `LookAheadRow`, not `TodayRow`; a band is the row's classes plus the day's theme strip, with no band component; a move is drawn once saved. No scope change.
 
 - **0.2 · 2026-11-19** — Correction only, from `verify SR6` (record `docs/development/SR6.md` @ `4a32e9f`), applied unattended (`calls.md` row 72): §5 SR6's screens say `AppTopBar` stays mounted `barless` for N rather than hidden; its `page.clock` trap adds the token expiry. No scope change.
 - **0.1 · 2026-11-19** — Plan, from spec 0.3, journeys 0.3, wireframes draft 2, UX review 0.2, eval plan 0.1, change requests 01 and 02, and the tracker project files (config 0.4, brief-common 0.6, review-checklist 0.4); code read at `rishe-eco/tracker main @ eea1c59`. Nine stages, SR0 to SR8, two milestones; 22 defects; W1–W39, S13, P1-F15 and the query script settled. Written by Claude (Opus 5.5) following `build-plan` by hand in the founder's unattended run; every founder question answered as a call (`calls.md` rows 15 to 26), none [F].
