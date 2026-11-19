@@ -2,6 +2,19 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · MS1 devices call · docs/root-os @ e16beaf · rishe-eco/tracker main @ 2149e4b
+
+*Adds to the verify SR5 block below. `verify --milestone MS1` stopped before its script: its step 1 needs the founder's devices in the argument (`devices: …`) for the by-hand items. In the unattended run that is a call (`calls.md` row 62): the milestone runs its suites now with `devices: none`, and every by-hand item whose *needed by* names MS1 stays owed to the founder in `team/open-work.md`.*
+**Drive:** run · /verify --milestone MS1 tracker/modules/05-session-rhythm devices: none (unattended run; the by-hand items stay owed to the founder)
+
+**Next steps, in order**
+1. `/verify --milestone MS1 tracker/modules/05-session-rhythm devices: none (unattended run; the by-hand items stay owed to the founder)` (Opus, high, from the tracker checkout).
+2. Then as the verify SR5 block below, from its SR6 step.
+
+**Owed**
+- The by-hand items for MS1: founder, on their devices. Pushes pending: founder.
+
+
 ## 2026-11-19 · 8c verify SR5, main-session items · docs/root-os @ 3cbe0bc · rishe-eco/tracker main @ 2149e4b
 **Drive:** run · /verify --milestone MS1 tracker/modules/05-session-rhythm
 
