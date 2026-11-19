@@ -2,9 +2,9 @@
 
 *Where things are for Tracker work, how its suites run, and which resources each lane gets. Read by `build-phase` (lane resources, the card's paths), `verify` (suites, stage records, the milestone script, the deploy), `design-review` (the design system) and `close-out` (the canon). The rules a lane follows are in `brief-common.md`; what a review checks is in `review-checklist.md`.*
 
-**Version 0.4 · Status: planned; CI and CD live (CD1, P0-4); e2e slots from Reflect's B0 · 2026-10-21 · Owner: founder**
+**Version 0.5 · Status: live (CI and CD, CD1; e2e slots and stage records from Reflect) · 2026-11-19 · Owner: founder**
 
-**Grading.** Facts about the code are **as-built**, read from `rishe-eco/tracker` `main` @ `003db5a` on 2026-10-20: both `package.json` files, `api/vitest.config.ts`, `api/src/test/globalSetup.ts`, `client/playwright.config.ts`, `client/e2e/globalSetup.ts`. Conventions and testing are from the canon (`tracker/canon/02-architecture/04-conventions.md` 0.6, `03-engineering/01-testing.md` 0.3). **Planned:** the stage records, the development README and the lane slots, because Tracker has no lane setup yet (§4). No module has run on the lifecycle here; the first planned is a Fix, B-15 (`README.md` §8, stage 2).
+**Grading.** Facts about the code are **as-built**, read from `rishe-eco/tracker` `main` @ `003db5a` on 2026-10-20: both `package.json` files, `api/vitest.config.ts`, `api/src/test/globalSetup.ts`, `client/playwright.config.ts`, `client/e2e/globalSetup.ts`. Conventions and testing are from the canon (`tracker/canon/02-architecture/04-conventions.md` 0.6, `03-engineering/01-testing.md` 0.3). **Planned:** the review and check scripts (§8), not built until a stage needs them. The stage records, the development README and the e2e lane slots (§4) now exist, from Reflect's B0–B6; Reflect and the B-15 fix have run on the lifecycle here, and session rhythm is in build (§5).
 
 ---
 
@@ -21,8 +21,8 @@
 | Module folder | `root-sot/tracker/modules/NN-slug/` (`README.md` §3). Work from before the method keeps its specs and plans in `tracker/canon/06-specs/` and `tracker/drafts/` |
 | Build plan | `07-build-plan.md` in the module folder; a Fix or Change builds from its change note's Stages |
 | Phase cards, lane reports | `briefs/<stage>.md`, `briefs/<stage>.report.md` in the module folder |
-| Stage records | `docs/development/<stage>.md` in the code repo, **planned**: the first `verify` creates the folder. Builds before the method kept a running log in `notes/` (`notes/noticing-build-log.md`) |
-| Development README | `docs/development/README.md` in the code repo, **planned**, created by the first `verify` with the stage list. Until then the root `README.md` holds the commands |
+| Stage records | `docs/development/<stage>.md` in the code repo. The folder exists (created by Reflect's first `verify`); it holds `B0.md`–`B6.md`, `fix-B-15.md` and the session-rhythm records. Builds before the method kept a running log in `notes/` (`notes/noticing-build-log.md`) |
+| Development README | `docs/development/README.md` in the code repo, a stage list per module; it exists since Reflect. The commands live in the root `README.md` and `CLAUDE.md` |
 | State of the build | `root-sot/tracker/canon/04-roadmap/00-state-of-the-build.md`, written by `verify` |
 | Open-work file | `root-sot/team/open-work.md`, with *From the founder*, *Owed to later stages* and *Past the verification ceiling* tables |
 | Design system | `root-sot/tracker/canon/02-architecture/03-frontend.md` (Tailwind and Radix); Root's brand paths are in `skills/design-review/reference.md` |
@@ -68,28 +68,40 @@ At most two lanes at once, and never two that change `schema.prisma`.
 
 ## 5. Stages
 
-None planned on the lifecycle yet; the first module's plan or change note fills this table.
+Session rhythm (`tracker/modules/05-session-rhythm/07-build-plan.md` §3), the module in build. Earlier modules (Reflect, the labs) keep their stage lists in their own plans and in `docs/development/README.md`; this table tracks the module whose stages a `verify` is running.
 
 | Stage | Size | Depends on | May run beside | Milestone |
 |---|---|---|---|---|
-| — | | | | |
+| SR0 | L | — | — | — |
+| SR1 | M | SR0 | SR4 | — |
+| SR2 | L | SR1 | SR4, SR5 | — |
+| SR3 | M | SR0 | SR4, SR5 | — |
+| SR4 | L | SR0 | SR1, SR2, SR3 | — |
+| SR5 | M | SR4 | SR2, SR3 | MS1 |
+| SR6 | L | SR2, SR4 | SR5 | — |
+| SR7 | L | SR3, SR5, SR6 | SR8 | — |
+| SR8 | S | SR5 | SR7 | MS2 |
+
+The unattended run takes one lane at a time (PD-20), in the order SR0…SR5 (then MS1), SR6, SR7, SR8 (then MS2).
 
 ## 6. Milestones
 
-**Milestone script** (run by `verify --milestone`, in the main checkout, after the milestone's last stage is on `main`). **Planned**; it hasn't run as a script.
+**Milestone script** (run by `verify --milestone`, in the main checkout, after the milestone's last stage is on `main`). The path and the type check were corrected at `verify SR0` (D-18); it still hasn't run as a script. Run it from the main checkout on whichever machine (§1: Linux `~/Desktop/Root/tracker`, Windows `E:\_root\tracker`); on the Linux machine prefix the e2e with `PW_CHANNEL=chrome` (§2).
 
 ```bash
-cd ~/Desktop/Root/tracker && git fetch && git status -sb
+# cd to the main checkout first (config §1).
+git fetch && git status -sb
 out=.tmp/milestone-$(date +%Y%m%d-%H%M).log; mkdir -p .tmp
-{ (cd api && npm test) && (cd client && npm run typecheck && npm test && npm run test:e2e); echo "EXIT $?"; } >"$out" 2>&1
+{ (cd api && npm test) && (cd client && npx tsc --noEmit && npm test && npm run test:e2e); echo "EXIT $?"; } >"$out" 2>&1
 grep -E 'Test Files|Tests +[0-9]|passed|failed|EXIT' "$out" | tail -n 20
 ```
 
-One after another, never in parallel; `.tmp/` is git-ignored, from the commit that added the repo's `CLAUDE.md`. Record the counts in the development README under the milestone, and in the state of the build, with the date and `main @ <hash>`.
+`npx tsc --noEmit` replaces `npm run typecheck`, whose `react-router typegen` step fails on this app (§3). One suite after another, never in parallel; `.tmp/` is git-ignored, from the commit that added the repo's `CLAUDE.md`. Record the counts in the development README under the milestone, and in the state of the build, with the date and `main @ <hash>`.
 
 | Milestone | Stages | By hand |
 |---|---|---|
-| — | set by the first module's plan | open-work rows whose *needed by* names the milestone |
+| MS1 | SR0–SR5 (after SR5) | the full API suite; the API complete, with Today, crossing and capture driven end to end; open-work rows whose *needed by* names MS1 |
+| MS2 | SR6–SR8 (after SR8) | the full API, client and e2e suites; the by-hand list (plan §8); then PD-10's first push, the deploy and the founder's sign-in. The switch date is set by that deploy's first visit |
 
 ## 7. Deploy
 
@@ -121,6 +133,7 @@ Not built yet. The first stage that needs one adds it under `client/tests/review
 
 ## Changelog
 
+- **0.5 · 2026-11-19** — D-18's stale facts fixed at `verify SR0` (run unattended by `bin/drive`, `unattended.md` rule 7; `tracker/modules/05-session-rhythm/calls.md` row 28): §1 the stage records and development README now exist (since Reflect), not "planned"; §5 filled with session rhythm's SR0–SR8 (from its build plan §3); §6 the milestones table filled (MS1 after SR5, MS2 after SR8) and the milestone script's hardcoded Linux path and failing `npm run typecheck` replaced with a checkout-relative `cd` and `npx tsc --noEmit`; the header's Grading note updated to match. An edit applied without the founder; veto it with a change note or `revise`.
 - **0.4 · 2026-10-21** — §1 the Windows checkout; §2 `PW_CHANNEL` replaces the Linux scratch-config recipe, and Windows' reserved port ranges and slow `db push`; §3 and §4 the slots' e2e ports and variables, from Reflect's B0. Approved by the founder after `verify B0`; applied at `verify B1`.
 
 - **0.3 · 2026-10-21** — §2 and §3: one e2e spec runs on the Linux machine from a scratch Chrome config and a scratch database. From `learned --consolidate`, the first (L-44).

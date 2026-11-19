@@ -1,6 +1,56 @@
 # Session rhythm, stage 1 — state
 
-*Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
+*Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
+
+## 2026-11-19 · 8+ verify SR0 · docs/root-os @ d82a4fd · rishe-eco/tracker main @ 53cd2ec
+
+*Replaces the 8 build SR0 block below: its next step 1 (`/verify SR0`) is done — the stage is verified and on local `main`. Steps 2–19 carry forward, renumbered. Carry-overs and questions stand, as amended here.*
+**Drive:** run · /build-phase SR1 tracker/modules/05-session-rhythm
+
+**What was done** (one unattended `verify` session; calls in `calls.md` rows 28–31)
+- `verify SR0`, Opus, run unattended by `bin/drive`. Reviewed the landed lane green: API **231/231** (16 files, 120 SR0 + 111 regression), client **14/14**, `tsc --noEmit` clean in api and client, both i18n checks green; probed the gathering horizon and the date-key validator (edge cases hold). Migration read: columns and tables only, AC-6-safe (a SQLite rebuild-and-copy). **No defect was the reviewer's to fix** — no commits on the branch beyond the stage record.
+- Decided the lane's calls and the card's *Decided here* (all in `docs/development/SR0.md` *Decided*): all accepted; the unbounded `gatherKey` dedup read (report 4.1) accepted with an owed item (call 30); `orderDay`'s single cross-day refusal confirmed (call 31).
+- Brought local `main` to SR0 by a `--no-ff` merge, `53cd2ec` (PD-10's "SR0 merge", call 29); removed the `sr0-schema-day-rules` worktree and branch. **Nothing pushed.**
+- Wrote the stage record and the *Session rhythm* stage list (`docs/development/SR0.md`, `README.md`, on `main`); updated the state of the build (0.41), `status.md` column 8 (`1/9`), `team/open-work.md` (0.19), and applied config 0.4's D-18 fixes (→ 0.5, call 28). Capture note in `lifecycle/learnings/inbox/2026-11-19-verify-SR0.md`.
+
+**Lanes in flight**
+- None. SR0 is verified and on local `main @ 53cd2ec`; its worktree and branch are removed. (The stray `.claude/worktrees/xenodochial-ramanujan-376dc8` is the founder's, P0-4/P0-6, untouched.)
+
+**Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout `E:\_root\tracker` on `main`; one lane at a time; `build-phase` launches and lands in one session, `unattended.md` rule 6)
+1. `/build-phase SR1 tracker/modules/05-session-rhythm`
+2. `/verify SR1 tracker/modules/05-session-rhythm`
+3. `/build-phase SR2 tracker/modules/05-session-rhythm`
+4. `/verify SR2 tracker/modules/05-session-rhythm`
+5. `/build-phase SR3 tracker/modules/05-session-rhythm`
+6. `/verify SR3 tracker/modules/05-session-rhythm`
+7. `/build-phase SR4 tracker/modules/05-session-rhythm`
+8. `/verify SR4 tracker/modules/05-session-rhythm`
+9. `/build-phase SR5 tracker/modules/05-session-rhythm`
+10. `/verify SR5 tracker/modules/05-session-rhythm`
+11. `/verify --milestone MS1 tracker/modules/05-session-rhythm`
+12. `/build-phase SR6 tracker/modules/05-session-rhythm`
+13. `/verify SR6 tracker/modules/05-session-rhythm`
+14. `/build-phase SR7 tracker/modules/05-session-rhythm`
+15. `/verify SR7 tracker/modules/05-session-rhythm`
+16. `/build-phase SR8 tracker/modules/05-session-rhythm`
+17. `/verify SR8 tracker/modules/05-session-rhythm`
+18. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+
+**Carry-overs**
+- **Push order (PD-10, call 22):** nothing is pushed in the run. First SR0's merge commit (`53cd2ec`) alone, then nothing until MS2 passes: an earlier push switches the founder into an unbuilt session (D-9) and breaks AC-72 for open tabs (D-8). Every `verify` lists its push as owed.
+- After the build, before `close-out`: `journeys update tracker/modules/05-session-rhythm --from-note 02` and `eval-plan tracker/modules/05-session-rhythm --touch-up changes/02-req-session-saves-and-eval-measures.md` (change request 02, *Owed by other skills*); and AC-44's wording through `revise` (PD-7c).
+- From the 2 spec block: D-64's line "Until stage 1 is built, D-5 still describes the code" overstates it (D-5 was never enforced in code, `02-spec.md` §1.1); no decision-log entry was written. For `close-out`.
+- SR0 verify's own flags for `close-out` (in `docs/development/SR0.md` *Flagged for close-out*): the data model, GraphQL API and known-issues/debt entries for the module's schema; a migration note in the decision log; and the SR0 card's stale "docs/development created by SR0's verify" line.
+
+**Questions for the founder**
+- Which opportunity-tree node does the session rhythm sit on (`ecosystem/ost.md` §6)? Owed by: `close-out`.
+- Push `docs/root-os` (root-sot is public), and merge it into `main` when? Owed by: the founder; the run pushes nothing.
+- Read `calls.md` rows 5 to 31 and veto any call with a change note or `revise`; the plan's PD-1 to PD-20, the lane's report-part-4 decisions, and the config 0.5 / `--no-ff` merge / dedup-read calls (28–31) can also be refused on the diff. Owed by: before SR1's `verify`, ideally.
+- Your phone and calendar app for MS2's by-hand list, and the stray worktree `.claude/worktrees/xenodochial-ramanujan-376dc8` in the tracker checkout (P0-4, P0-6). Owed by: MS2.
+
+**Owed**
+- Push pending: founder — tracker `main @ 53cd2ec` (SR0's merge; PD-10's first push, then nothing until MS2) and root-sot `docs/root-os`.
+- Nothing uncommitted (after this block's commit).
 
 ## 2026-11-19 · 8 build SR0 (launch and land) · docs/root-os @ f329b92 · rishe-eco/tracker main @ eea1c59
 

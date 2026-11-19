@@ -2,7 +2,7 @@
 
 *The queue. Work that engineering cannot finish because it needs human judgement, a native speaker, or a decision. Each item states its blocker and what it unblocks. Delete items when done — the decision logs are the permanent record.*
 
-**Version 0.18 · Status: living · 2026-10-23 · Owner: _root**
+**Version 0.19 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -231,6 +231,8 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 | Tracker | Reflect B5: the faux offer's hints label and note are `text-xs text-muted-foreground` on `bg-sky-500/10`, 4.31:1 where WCAG 1.4.3 asks 4.5:1. The founder chooses a darker text token inside the offer or a lighter tint | B7's card | `docs/development/B5.md` in `rishe-eco/tracker` |
 | Tracker | ~~Reflect B5: `client/e2e/helpers/freshUser.ts` and `globalSetup.ts` each hold the e2e user's `MODULE_KEYS`. Move them to one file, and give `signUpFreshUser` to every spec that needs its own user~~ Done at B6: `client/e2e/helpers/moduleKeys.ts`, imported by both; B6's walks use `signUpFreshUser` | the next card that adds an e2e user (B6's) | `docs/development/B5.md` in `rishe-eco/tracker` |
 | Tracker | Reflect B6: Past entries' empty line (`Nothing here yet.`) and not-found line (`That entry isn't here.`) are the lane's wording, in both languages; plates 10 and 11 say "wording to come". The founder approves or replaces them | B7's card (its copy pass) | `docs/development/B6.md` in `rishe-eco/tracker` |
+| Tracker | Session rhythm SR0: the `gatherKey` dedup read loads every gathered row of the user's active templates (no `forDate` bound) — correct for any history (that is how a moved row still dedupes, D-2) but unbounded by date, so a long-lived daily interval reads every row it ever made on each Today open. Bound it to the keys a run generates (plus legacy rows). Not a current defect | MS1's milestone run (so the full API suite reflects the bound) | `docs/development/SR0.md` in `rishe-eco/tracker` |
+| Tracker | Session rhythm SR0: no test walks a full gather → `orderDay` → re-gather on a later date proving a template's `sortOrder` reaches a *future* occurrence. SR0 verifies `orderDay` writes the source's `sortOrder` and that `dayList` reads `Action.sortOrder`, but not the round trip | SR5's or MS1's `verify` | `docs/development/SR0.md` in `rishe-eco/tracker` |
 
 ---
 
@@ -253,11 +255,13 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 | Tracker | After B-15's deploy, sign in on the live site, open a goal group's manage page, and check that it shows "Goal group" and not "Ignored" | founder | the deploy after `fix/b-15-goal-group-status` merges | `docs/development/fix-B-15.md` in `rishe-eco/tracker` |
 | root-app | After TK1's deploy, sign in on the live site as a customer and open Support with a ticket in the list. Switch to another tab or app while staff answer that ticket from the desk, then come back to the Support tab: the answer shows with no reload | founder | the deploy after `tk1-ticket-refresh` reaches `main` | `docs/development/TK1.md` in `rishe-eco/root-app` |
 | root-app | After NR1's deploy, sign in on the live desk as sales and open Overview: the "Waiting on Root" tile equals the number of rows in the Needs Root box (both 0 when the box is empty; the tile larger only if the box is at its 20-row limit) | founder | the deploy after `nr1-needs-root-tile` reaches `main` | `docs/development/NR1.md` in `rishe-eco/root-app` |
+| Tracker | Session rhythm SR0: the `add_session_rhythm` migration run on a real deployed database — an existing prod DB running the table-rebuild-and-copy (`Action`/`Interval`/`Routine`) at boot. Confirms AC-6 on real rows rather than fixtures; the deploy backs up first | founder | the MS2 deploy | `docs/development/SR0.md` in `rishe-eco/tracker` |
 
 ---
 
 ## Changelog
 
+- **0.19 · 2026-11-19** — From `verify SR0` (Tracker, session rhythm), run unattended by `bin/drive`: two *Owed* rows (bound the `gatherKey` dedup read; the gather→order→re-gather round-trip test) and one ceiling row (the `add_session_rhythm` migration on a real deployed database, at MS2). Nothing is pushed in the run (PD-10).
 - **0.18 · 2026-10-23** — From `verify B6` (Tracker, Reflect): the whitespace row and the e2e module-key row struck (decided, done). One *Owed* row (the empty and not-found lines' wording, for B7's card). One ceiling row (the sign-in after B6's deploy); B6's screens added to the screen-reader row. B0's Linux row now needed by B7's `verify`.
 - **0.17 · 2026-10-22** — From `verify B5` (Tracker, Reflect): B4's three rows for B5 struck (done). Three *Owed* rows (*Show all* over a story that fits, the faux offer's muted-text contrast, one e2e module-key list). One ceiling row (the sign-in after B5's deploy); B5's screens added to the screen-reader row. B0's Linux row now needed by B6's `verify`.
 - **0.16 · 2026-10-22** — From `verify B4` (Tracker, Reflect): four *Owed* rows (the e2e rerun with the reflow check, the footer's untested Back, a page stuck on an entry closed elsewhere, whitespace as written text). Two ceiling rows (the sign-in after B4's deploy, a real screen reader at MS2). B0's Linux row now needed by B5's `verify`.
