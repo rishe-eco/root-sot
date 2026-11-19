@@ -2,6 +2,33 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · verify --milestone MS1 rerun, main-session items · docs/root-os @ 3665572 · rishe-eco/tracker main @ 9bf3e1b
+*Replaces the "verify SR6, main-session items" block below as the live block (its step 1, MS1's rerun, ran). That block's carry-overs into SR7 and its three founder questions stay live; the MS1 block under it keeps its own. Nothing pushed.*
+**Drive:** run · /build-phase SR7 tracker/modules/05-session-rhythm
+
+**What was done**
+- `verify --milestone MS1` rerun (fork, `devices: none`): suites green at tracker `main @ 4a32e9f`, the config §6 script as written, `EXIT 0`. API 79 files / 1,436 passed; `tsc` clean; client 39 files / 422 passed; e2e 115/115, no flakes. The four 180/360 px reflow tests now pass with SR6's fix. No fix commits. Record: tracker `docs/development/README.md` @ `9bf3e1b`; root-sot `d2d587b` (state of the build 0.49), `3665572` (capture note).
+- Main session: no worktree or branch to remove and no fast-forward (a milestone; local `main` already holds `9bf3e1b`). Config 0.7: §6 no longer says the script never ran (row 76). Next step SR7 (row 77).
+
+**Lanes in flight**
+- none. (The stray worktree `claude/xenodochial-ramanujan-376dc8` is P0-6, the founder's.)
+
+**Questions for the founder**
+1. **MS1's by-hand pass.** On your phone and computer, in English and Persian, run local `main` on a copy of real data: Today (the session line, crossing out and the fold, Move up/down, hold-to-drag), crossing out on the project page, the actions list and Focus, and quick capture (Add, `N`, the sheet, a capture landing on Today). Does it all work? After a yes: `/verify --milestone MS1 tracker/modules/05-session-rhythm devices: phone, computer`, which closes MS1.
+2. **Learnings consolidation.** The inbox holds 30 notes (limit 15) and MS1 is a milestone. Going through the proposed changes is `/learned --consolidate`, with you (row 66).
+3. The SR6 block's three questions below (the look-back's foot label, Persian wording, two `brief-common.md` rules) are still open.
+
+**Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout on `main`; one lane at a time)
+1. `/build-phase SR7 tracker/modules/05-session-rhythm` (carry the SR6 block's "Carry into SR7's card" items)
+2. `/verify SR7 tracker/modules/05-session-rhythm`
+3. `/build-phase SR8 tracker/modules/05-session-rhythm`
+4. `/verify SR8 tracker/modules/05-session-rhythm`
+5. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+
+**Owed**
+- Push pending: founder. Tracker local `main` (`9bf3e1b`, 58 ahead of origin; a push deploys, PD-10 holds the first push for MS2) and root-sot `docs/root-os`.
+- MS1's by-hand pass on the founder's devices (open-work row "Session rhythm MS1 by hand"; calls rows 62, 67). MS1 is not closed until it runs.
+
 ## 2026-11-19 · verify SR6, main-session items · docs/root-os @ 523acc6 · rishe-eco/tracker main @ 4a32e9f
 
 *Replaces the SR6 launch-and-land block (its step 1, `verify SR6`, ran) and the "MS1 stop lifted" block below (its steps ran). The MS1 main-session block under them keeps its carry-overs, questions and Owed. Nothing pushed.*
