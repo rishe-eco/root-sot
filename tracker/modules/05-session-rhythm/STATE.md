@@ -2,6 +2,45 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · 8 build SR3 (launch and land) · docs/root-os @ 1a41e69 · rishe-eco/tracker main @ 051afcc
+
+*Partly completes the re-review SR0–SR1 block below: its step 1 (`/build-phase SR3`) is built and landed, the nine items with it. The 8+ verify SR2 block's steps 2–14 carry forward below. Its carry-overs and questions stand.*
+**Drive:** run · /verify SR3 tracker/modules/05-session-rhythm
+
+**What was done** (one unattended session, launch and land, `unattended.md` rule 6; calls 42–45)
+- Card `briefs/SR3.md` (`1a41e69`, ~900 words with tables, over 700 because it carries the nine re-review items). A foreground Sonnet lane built SR3 on `sr3-capture` (13 commits, tip `693f8d0`). Report `briefs/SR3.report.md`.
+- Measured: +928 app (−136) · +1137 tests · ~45 min · ~380k tokens. All 13 commits authored `salmanian.foad2@gmail.com` with the Sonnet co-author line. `main` hasn't moved, so nothing overlaps. Lane's counts: api 144/144 (11 files), client 86/86 (9 files), `tsc` clean in both, i18n green in both, e2e `capture.spec` 12/12, `today.spec` 11/11, `crossing.spec` ×5 20/20.
+
+**Lanes in flight**
+- SR3 (M, budgeted L) · branch `sr3-capture` @ `693f8d0`, base `main @ 051afcc` · slot A (db `<worktree>/api/prisma/test.db`; e2e 4010/5183) · worktree: the tracker checkout's `.claude/worktrees/sr3-capture` · card `briefs/SR3.md` · status **landed**, until verify fast-forwards `main` and removes the worktree.
+
+**What verify must decide** (read the report's parts, not this summary)
+- **Size, rule 5:** +928 app lines is just past twice the card's ~450. Most of it is `CaptureSheet.tsx` (269 lines). Judge whether it should be smaller.
+- **The nine items** (part 1, part 4 items 1–5): items 4 and 5 share one commit. Item 3 also needed a per-action `withUserLock` (SQLite answered the transaction with `SQLITE_BUSY`). Its test fails only at 40 concurrent calls, and the P2002 path is untested. Item 5 is read as "a failed save stays as the person set it", on all three surfaces.
+- **AC-26's reach** (part 4 item 11, part 5 item 2): the lane also lifted `AddActionWidget`, `ProjectForm`, `ReschedulePopover` (this supersedes Focus Periods AC-18/AC-19; two `FocusPage` tests rewritten) and the start-time-on-today rule.
+- **The lane's other calls:** part 4 items 6–10 (capture refusals and chips, the top bar's contents, the `tracker:captured` listener on Today, `aria-modal` on eight modals). **The card's *Decided here*:** 1–6.
+- **Not checked by the lane:** `IntervalForm`'s review setting in the client; pages sized with `h-screen` under the new 48 px bar; `DateField` in Jalali mode in capture; Persian copy (part 6).
+- **Stale canon** (part 4 end): `02-graphql-api.md`, `03-frontend.md`, Focus Periods spec AC-18/19.
+- **Proposed for `brief-common.md`** (part 5 item 8, part 7): `node -e` mangles backslashes the way heredocs do; edits must keep CRLF; background e2e logs are block-buffered.
+
+**Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout on `main`; one lane at a time)
+1. `/verify SR3 tracker/modules/05-session-rhythm`
+2. `/build-phase SR4 tracker/modules/05-session-rhythm`
+3. `/verify SR4 tracker/modules/05-session-rhythm`
+4. `/build-phase SR5 tracker/modules/05-session-rhythm`
+5. `/verify SR5 tracker/modules/05-session-rhythm`
+6. `/verify --milestone MS1 tracker/modules/05-session-rhythm`
+7. `/build-phase SR6 tracker/modules/05-session-rhythm`
+8. `/verify SR6 tracker/modules/05-session-rhythm`
+9. `/build-phase SR7 tracker/modules/05-session-rhythm`
+10. `/verify SR7 tracker/modules/05-session-rhythm`
+11. `/build-phase SR8 tracker/modules/05-session-rhythm`
+12. `/verify SR8 tracker/modules/05-session-rhythm`
+13. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+
+**Owed**
+- Push pending: founder (as the 8+ verify SR2 block says). Nothing uncommitted after this block's commit.
+
 ## 2026-11-19 · re-review SR0–SR1 · docs/root-os @ 284f56c · rishe-eco/tracker main @ 051afcc
 
 *Adds to the 8+ verify SR2 block below: its next steps and carry-overs stand. The founder asked that SR0 and SR1, built on Sonnet 5 and verified on Opus 4.8 (the headless CLI was too old for the 5.5 models; fixed, drive now runs Opus 5.5 and Sonnet 5.5), be re-checked before SR3 if needed. A read-only review on Opus 5.5 found no blockers and nine should-fix or minor items.*
