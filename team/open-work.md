@@ -2,7 +2,7 @@
 
 *The queue. Work that engineering cannot finish because it needs human judgement, a native speaker, or a decision. Each item states its blocker and what it unblocks. Delete items when done — the decision logs are the permanent record.*
 
-**Version 0.23 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.24 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -246,6 +246,7 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 | Tracker | Session rhythm SR3: on Focus the capture toast, the Undo toast and the new failed-undo line share one fixed slot (`bottom-20`, `z-40`) and stack; the failed-undo line names no item and has no dismiss until a retry succeeds | SR6's UI pass or the founder, by MS2 | `docs/development/SR3.md` in `rishe-eco/tracker` |
 | Tracker | Session rhythm SR3: capture's toast for a picked date more than a week ahead says only "Added to <weekday>" (W10). Keep it, or add the date | founder | `docs/development/SR3.md` in `rishe-eco/tracker` |
 | Tracker | Session rhythm SR3: `IntervalForm`'s review setting has no client or e2e test (the review saved a routine with "Don't ask" by hand and read `dontAsk` back; interval mode not driven). A client test with `useApi` mocked | MS1 | `docs/development/SR3.md` in `rishe-eco/tracker` |
+| Tracker | Session rhythm SR4: a gap day's answer survives a switch from Fill in to Not tracked: the answer and any fate it set (let go, set aside) stay while the day is hidden, so the person no longer sees what they set. Fill in shows it again. Decide whether the gap card offers Not tracked once a gap day is answered (W20's "change"), or accept it | SR6, or the founder | `docs/development/SR4.md` in `rishe-eco/tracker` |
 
 ---
 
@@ -272,11 +273,13 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 | Tracker | Session rhythm SR2: a Persian reader's pass on Today's `fa` copy (`rhythm.today.*`, the today intro, Concepts' day-state section): the informal register throughout — the intro and Concepts mix written forms (`می‌کند`, `می‌شود`) with informal ones (`می‌شه`, `بهش`) in one sentence — and the glossary's words. `verify SR2` fixed one concept error (a crossed item "counts as done") | founder or a Persian reader | MS2's by-hand list | `docs/development/SR2.md` in `rishe-eco/tracker` |
 | Tracker | Session rhythm SR3 by hand: `N` and the capture sheet on a real phone in `fa` over the software keyboard; a real screen reader on the sheet (focus trap, the chips' `aria-pressed`), the review-setting radios and the eight dialogs SR3 marked `aria-modal` (none has a name); the Jalali `DateField` inside capture | founder | MS2's by-hand list | `docs/development/SR3.md` in `rishe-eco/tracker` |
 | Tracker | Session rhythm SR3: a Persian reader's pass on `rhythm.topBar.*`, `rhythm.capture.*`, `rhythm.reviewSetting.*`, `focus.minutesOptional` and the corrected `actions.maxTimeHelp` (informal register, the glossary's words) | founder or a Persian reader | MS2's by-hand list | `docs/development/SR3.md` in `rishe-eco/tracker` |
+| Tracker | Session rhythm SR4: the session writes' P2002 retry and two-process concurrency aren't exercised; the in-process `withUserLock` serialises one API container, and `openForUserId`'s unique key holds across processes. Holds while production runs one API container | engineering | before a second API container | `docs/development/SR4.md` in `rishe-eco/tracker` |
 
 ---
 
 ## Changelog
 
+- **0.24 · 2026-11-19** — From `verify SR4` (Tracker, session rhythm): one *Owed* row (a gap day's answer kept, hidden, after Fill in → Not tracked) and one *Past the ceiling* row (the session writes' P2002 retry and two-process concurrency).
 - **0.23 · 2026-11-19** — From `verify SR3` (Tracker, session rhythm), run unattended by `bin/drive`: three *Owed* rows struck (SR2's "just to know" on Today, the `crossing.spec.ts` flake, the nine re-review items), five added (the calendar's page scroll under the top bar, `amber-600` error contrast, Focus's stacked toasts, the weekday-only toast for a far date, `IntervalForm`'s review-setting test) and two ceiling rows (SR3's by-hand checks, a Persian reader on SR3's strings). Nothing is pushed in the run (PD-10).
 - **0.22 · 2026-11-19** — One *Owed* row for Tracker's session rhythm SR3: nine items from a second review of SR0 and SR1 on Opus 5.5, run by the run-to-the-end session.
 - **0.21 · 2026-11-19** — From `verify SR2` (Tracker, session rhythm), run unattended by `bin/drive`: SR1's Today-query row struck (done at SR2) and its 180 px row amended (Today done; the other surfaces by MS1); five *Owed* rows ("just to know" on Today by SR3, a failed order not drawn, the cramped 180 px row, the drag handle's screen-reader instructions, the `crossing.spec.ts` flake) and one ceiling row (a Persian reader on Today's `fa` copy, by MS2). Nothing is pushed in the run (PD-10).
