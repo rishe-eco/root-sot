@@ -2,6 +2,20 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-20 · MS2 questions answered by call · docs/root-os @ 14391f2 · rishe-eco/tracker main @ 7f86a93
+
+*Adds to the MS2 main-session block below: its questions 1 and 2 are answered here as calls under the founder's rule (`calls.md` rows 99 and 100); its question 3 (consolidation), its Owed and the older blocks' live questions stand. Nothing pushed.*
+**Drive:** run · /revise tracker/modules/05-session-rhythm add one fix stage, SR9, after SR8 for the three controls under 44 px from MS2 (the cross-out control at 42 px, Today's Reorder handle, the look-back row's sixth button in fa), merging ms2/strict-hit-areas once its four specs pass, and carrying the six open-work lane items due at MS2 (calls rows 99-100); the four design-call rows move past MS2 to the founder
+
+**Next steps, in order**
+1. `/revise tracker/modules/05-session-rhythm …` as the Drive line (Opus): writes the change request and SR9 into the plan; it ends with the Drive line `run · /build-phase SR9 tracker/modules/05-session-rhythm`.
+2. `/build-phase SR9 tracker/modules/05-session-rhythm`, then `/verify SR9 tracker/modules/05-session-rhythm`.
+3. `/verify --milestone MS2 tracker/modules/05-session-rhythm devices: none (unattended run; the by-hand items and the box run of rhythm:gate stay owed to the founder)`.
+
+**Owed**
+- As the MS2 block below: the pushes, the by-hand pass, consolidation, close-out's items.
+
+
 ## 2026-11-20 · verify --milestone MS2, main-session items · docs/root-os @ 14391f2 · rishe-eco/tracker main @ 7f86a93
 *Replaces the "verify SR8, main-session items" block below as the live block (its step 1, `verify --milestone MS2`, ran). That block's founder questions 1–2 and Owed items, the SR7-verify block's questions 1–7, the MS1-rerun block's questions 1–2 and the SR6 block's questions 1–3 stay live. Nothing pushed.*
 **Drive:** stop · MS2's suites are green but it isn't closed: three controls under 44 px need a new stage after SR8, the plan's last, and only the founder can add one or choose to push first · resume: the founder answers questions 1–2 below (for "fix first", `/revise tracker/modules/05-session-rhythm` adds the fix stage), then `lifecycle/bin/drive tracker/modules/05-session-rhythm`
