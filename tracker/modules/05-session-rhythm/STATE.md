@@ -2,6 +2,19 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · resume verify SR3 · docs/root-os @ 48bdfd5 · rishe-eco/tracker main @ 051afcc
+
+*Adds to the blocked verify SR3 block below, whose cause is fixed: the run-to-the-end session's `claude` wrapper (outside the repo, after the CLI update to 2.1.318) now sets `MSYS_NO_PATHCONV=1`, so Git Bash no longer rewrites a leading `/verify` as a path; tested with a leading-slash prompt. `lifecycle/bin/drive` itself is unchanged (the founder's file). The landed SR3 block's next steps stand.*
+**Drive:** run · /verify SR3 tracker/modules/05-session-rhythm
+
+**Next steps, in order**
+1. `/verify SR3 tracker/modules/05-session-rhythm` (Opus, high, from the tracker checkout), which also checks the nine re-review items on SR3's card.
+2. Then as the 8+ verify SR2 block below, from its SR4 step.
+
+**Owed**
+- Nothing uncommitted. Nothing pushed.
+
+
 ## 2026-11-19 · verify SR3 — blocked before it started · docs/root-os @ 24a07e0 · rishe-eco/tracker main @ 051afcc
 
 *Adds to the 8 build SR3 block below. Nothing in it changed: SR3 is still landed and unverified, its lane still in flight, and its next steps still stand.*
