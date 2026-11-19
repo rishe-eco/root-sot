@@ -2,6 +2,62 @@
 
 *Newest block first. Written by handoff, and by build-phase when it launches or lands a lane.*
 
+## 2026-11-19 · 8 build SR0 (launch and land) · docs/root-os @ f329b92 · rishe-eco/tracker main @ eea1c59
+
+*Replaces the 7 build-plan block below: its next step 1 (`/build-phase SR0`) is built and landed; steps 2–20 carry forward, renumbered. Its carry-overs and questions stand, as amended here. The 3a personas block is dropped (five kept); it held no live note not already carried.*
+**Drive:** run · /verify SR0 tracker/modules/05-session-rhythm
+
+**What was done** (one unattended session, launch and land together, `unattended.md` rule 6)
+- Reused the card `briefs/SR0.md` (unchanged since `f329b92`; tracker `main` still at `eea1c59`, the hash it was drafted against, so the code check held). A foreground Sonnet lane built SR0 on branch `sr0-schema-day-rules` (4 commits, tip `1113366`), base `main @ eea1c59`. Report saved to `briefs/SR0.report.md`.
+- Measured at land: +563 app · +947 tests · +345 schema/migration · 0 moved · ~56 min · ~363k tokens, against size **L** — in range, not a finding. API 231/231, client 14/14, `tsc --noEmit` clean in api and client, both i18n checks green (targeted only; no full suites, no e2e, per card). All four commits authored as `salmanian.foad2@gmail.com` with the Sonnet co-author line.
+- One call logged: `calls.md` row 27 (branched from local `main` without `git pull`).
+
+**Lanes in flight**
+- SR0 (L) · branch `sr0-schema-day-rules` @ `1113366`, base `main @ eea1c59` · slot A (db `<worktree>/api/prisma/test.db`; e2e ports 4010/5183 unused) · worktree the tracker checkout's `.claude/worktrees/sr0-schema-day-rules` · card `briefs/SR0.md` · status **landed** — until `verify` fast-forwards `main` and removes the worktree.
+
+**What verify must decide** (read the cited report parts, not this summary)
+- The lane's own calls — `briefs/SR0.report.md` part 4. Notably 4.1: the `gatherKey` dedup read was widened to every gathered row for the user's own templates (no `forDate` filter), an unbounded-by-date read that D-17's growth table doesn't cap. Also: `orderDay` returns `Boolean!`; `ensureRhythm` reuses the `RhythmStatus` shape; a third service file `rhythmState.ts`; the new columns and enums are not in the GraphQL SDL (SR1/SR3 expose them when used).
+- The card's *Decided here* (`briefs/SR0.md`): `rhythmStatus` shape, `todayActions` kept beside `dayList`, `endDate: String`, the schema-fence home.
+- Card checks the lane couldn't do — report part 6: the production migration on a real deployed database; a full gather→order→re-gather cycle proving a template's `sortOrder` reaches a *future* occurrence.
+- Departures from the plan/card — report part 5: the migration is SQLite's table-rebuild-and-copy (still AC-6-safe); `orderDay`'s single refusal message is read to cover the cross-day case too (confirm intended); PD-3 needed widening *which* rows are read, not only the key formula.
+- Deploy: none — SR0 is not pushed (PD-10). Overlap with a newer base: none (`main` unmoved at `eea1c59`).
+
+**Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout `E:\_root\tracker` on `main`; one lane at a time; `build-phase` launches and lands in one session, `unattended.md` rule 6)
+1. `/verify SR0 tracker/modules/05-session-rhythm` (also fast-forwards `main`, removes the `sr0-schema-day-rules` worktree, and applies config 0.4's edits, D-18)
+2. `/build-phase SR1 tracker/modules/05-session-rhythm`
+3. `/verify SR1 tracker/modules/05-session-rhythm`
+4. `/build-phase SR2 tracker/modules/05-session-rhythm`
+5. `/verify SR2 tracker/modules/05-session-rhythm`
+6. `/build-phase SR3 tracker/modules/05-session-rhythm`
+7. `/verify SR3 tracker/modules/05-session-rhythm`
+8. `/build-phase SR4 tracker/modules/05-session-rhythm`
+9. `/verify SR4 tracker/modules/05-session-rhythm`
+10. `/build-phase SR5 tracker/modules/05-session-rhythm`
+11. `/verify SR5 tracker/modules/05-session-rhythm`
+12. `/verify --milestone MS1 tracker/modules/05-session-rhythm`
+13. `/build-phase SR6 tracker/modules/05-session-rhythm`
+14. `/verify SR6 tracker/modules/05-session-rhythm`
+15. `/build-phase SR7 tracker/modules/05-session-rhythm`
+16. `/verify SR7 tracker/modules/05-session-rhythm`
+17. `/build-phase SR8 tracker/modules/05-session-rhythm`
+18. `/verify SR8 tracker/modules/05-session-rhythm`
+19. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+
+**Carry-overs**
+- **Push order (PD-10, call 22):** nothing is pushed in the run. First SR0's merge commit alone, then nothing until MS2 passes: an earlier push switches the founder into an unbuilt session (D-9) and breaks AC-72 for open tabs (D-8). Every `verify` lists its push as owed.
+- After the build, before `close-out`: `journeys update tracker/modules/05-session-rhythm --from-note 02` and `eval-plan tracker/modules/05-session-rhythm --touch-up changes/02-req-session-saves-and-eval-measures.md` (change request 02, *Owed by other skills*); and AC-44's wording through `revise` (PD-7c).
+- From the 2 spec block: D-64's line "Until stage 1 is built, D-5 still describes the code" overstates it (D-5 was never enforced in code, `02-spec.md` §1.1); no decision-log entry was written. For `close-out`.
+
+**Questions for the founder**
+- Which opportunity-tree node does the session rhythm sit on (`ecosystem/ost.md` §6)? Owed by: `close-out`.
+- Push `docs/root-os` (root-sot is public), and merge it into `main` when? Owed by: the founder; the run pushes nothing.
+- Read `calls.md` rows 5 to 27 and veto any call with a change note or `revise`; the plan's PD-1 to PD-20 and the lane's report-part-4 decisions can also be refused on the diff. Owed by: before SR0's `verify`, ideally.
+- Your phone and calendar app for MS2's by-hand list, and the stray worktree `.claude/worktrees/xenodochial-ramanujan-376dc8` in the tracker checkout (P0-4, P0-6). Owed by: MS2.
+
+**Owed**
+- Push pending: founder (root-sot `docs/root-os`; nothing in tracker is pushed).
+- Nothing uncommitted.
+
 ## 2026-11-19 · 7 build-plan · docs/root-os @ cc2aa4d · rishe-eco/tracker main @ eea1c59
 
 *Replaces the 5–6 block below: its next step 1 is done, and its step 2 is skipped because config 0.4 needs no settling before the first stage (`07-build-plan.md` §10). Its carry-overs and questions stand, as amended here. The 2 spec block is dropped (five kept); its one live note is copied under Carry-overs.*
@@ -135,37 +191,6 @@
 **Questions for the founder**
 - Which opportunity-tree node does the session rhythm sit on (`ecosystem/ost.md` §6)? Owed by: `close-out`.
 - Push `docs/root-os` (4 commits ahead of its upstream, plus the 25 earlier ones named below; root-sot is public), and merge it into `main` when? Owed by: before `build-plan`.
-
-**Owed**
-- Nothing uncommitted. Nothing pushed.
-
-
-## 2026-11-19 · 3a personas · docs/root-os @ f7397ac · rishe-eco/tracker main @ eea1c59
-
-*Adds to the 2 spec block of the same day (kept below); its next step 1 is done. Its carry-overs and questions stand.*
-**Drive:** stop · design phases are attended · resume: run the next phase below
-
-**What was done**
-- `/personas` (Sonnet) selected one persona: **G, Sitting planner**, a new hypothesis added to `lifecycle/personas.md` 0.3 and recorded in `lifecycle/decision-log.md` L-50 (log 0.47). The founder accepted G and refused H, a core-set team member, so the team-member audience and the Persian terms (`02-spec.md` §2.2 #17) have no persona.
-- `03-journeys.md` now exists with its `## Personas` table (one row); the gate passes phase 3. Commits `f81061d` (registry and journeys file) and `f7397ac` (decision log). Not pushed.
-
-**Next steps, in order**
-1. Skill step, Opus, high effort, root-sot checkout on `docs/root-os`: `/journeys new tracker/modules/05-session-rhythm`
-2. Skill step, Opus, medium effort: `/wireframes tracker/modules/05-session-rhythm`
-3. No design pass (phase 4b skipped, founder, 2026-11-19): the UX review reads the wireframes.
-4. Skill step, Opus, high effort: `/ux-review design tracker/modules/05-session-rhythm`
-5. Skill step, Opus, high effort: `/eval-plan tracker/modules/05-session-rhythm`
-6. Skill step, Opus, high effort: `/build-plan tracker/modules/05-session-rhythm`
-7. Only if `build-plan` finds that `lifecycle/projects/tracker/config.md` 0.4 needs settling: the first build stage runs attended, from the tracker checkout (`E:\_root\tracker`): `/build-phase <first stage>` (Opus, medium effort), then `/verify <first stage> tracker/modules/05-session-rhythm` (Opus, high effort; it runs forked). Otherwise skip to step 8.
-8. Plain work, in a terminal at the root-sot checkout, no model to choose: `lifecycle/bin/drive tracker/modules/05-session-rhythm`. Before it, the founder sets the successor block's Drive line to `run · <the first build step>`, as `build-plan`'s handoff will propose.
-
-**Carry-overs**
-- `journeys` should put the Persian terms in `02-spec.md` §2.2 #17 to the founder, and says in its file that no persona reads Persian.
-- Otherwise as the block below.
-
-**Questions for the founder**
-- Which opportunity-tree node does the session rhythm sit on (`ecosystem/ost.md` §6)? Owed by: `close-out`.
-- Push `docs/root-os` (now 25 commits ahead, root-sot is public), and merge it into `main` when? Owed by: before `build-plan`.
 
 **Owed**
 - Nothing uncommitted. Nothing pushed.
