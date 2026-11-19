@@ -2,6 +2,29 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-20 · verify --milestone MS2, main-session items · docs/root-os @ 14391f2 · rishe-eco/tracker main @ 7f86a93
+*Replaces the "verify SR8, main-session items" block below as the live block (its step 1, `verify --milestone MS2`, ran). That block's founder questions 1–2 and Owed items, the SR7-verify block's questions 1–7, the MS1-rerun block's questions 1–2 and the SR6 block's questions 1–3 stay live. Nothing pushed.*
+**Drive:** stop · MS2's suites are green but it isn't closed: three controls under 44 px need a new stage after SR8, the plan's last, and only the founder can add one or choose to push first · resume: the founder answers questions 1–2 below (for "fix first", `/revise tracker/modules/05-session-rhythm` adds the fix stage), then `lifecycle/bin/drive tracker/modules/05-session-rhythm`
+
+**What was done**
+- `verify --milestone MS2` (fork, below high effort): suites green at tracker `main @ d55d1cf` (API 1,443, client 469, e2e 129/129); a strict hit-area helper failed 5 of 53 on three controls under 44 px. Strict helper on local branch `ms2/strict-hit-areas` @ `92cd028`, unmerged. Record tracker `docs/development/README.md` (MS2) @ `7f86a93`; root-sot `a52e895` (state of the build 0.52), `10e60b7` (open-work 0.31), `14391f2` (capture note).
+- Main session: no fast-forward needed, no worktree to remove, the strict branch kept (row 94). Calls rows 94–98 in `tracker/modules/05-session-rhythm/calls.md`.
+
+**Questions for the founder**
+1. **The three controls under 44 px** (the cross-out control at 42 px, Today's Reorder handle, the look-back row's sixth button in Persian). Fix them in a lane before MS2's push, or push after your by-hand pass and fix them later? Fixing first costs one small stage, added through `revise` since SR8 was the last; pushing first ships three tap targets 1–2 px short. Claude recommends fixing first (row 95). *Owed by:* the next build step.
+2. **Ten open-work rows due at MS2 that no stage took** (six lane items; four design calls: the contrast, the toast stacking, `todayKey` at mount, the cramped 180 px row). Carry the six lane items on the fix stage, move them all past MS2, or close MS2 with them open? (row 96). *Owed by:* the fix stage's `revise`.
+3. **Learnings consolidation** is due at this milestone (33 notes). Run `/learned --consolidate` with you, in a session of its own (row 97). *Owed by:* close-out.
+
+**Next steps, in order** (from the root-sot checkout on `docs/root-os`; the founder first)
+1. Plain work, the founder: answer questions 1–2 above. For "fix first", the next step is the `revise` below; for "push first", skip to the by-hand pass and the push under Owed.
+2. `/revise tracker/modules/05-session-rhythm` (Opus high): add a fix stage for the three controls (and any rows question 2 puts on it), naming `ms2/strict-hit-areas` to merge once its four specs pass.
+3. `/build-phase <the new stage> tracker/modules/05-session-rhythm`, then `/verify <the new stage> tracker/modules/05-session-rhythm`, then `/verify --milestone MS2 tracker/modules/05-session-rhythm devices: none (unattended run; the by-hand items and the box run of rhythm:gate stay owed to the founder)`.
+
+**Owed**
+- Push pending: founder. Tracker local `main` (`7f86a93`, 67 ahead of origin; PD-10: SR0 first, and a push deploys): `git -C /e/_root/tracker push origin 53cd2ec:main`, read the run for `DEPLOYED 53cd2ec`, then `git -C /e/_root/tracker push origin main` and read for `DEPLOYED 7f86a93`; sign in and see "Plan your next days". No stop file changed, no new `.env` lines, one migration (`add_session_rhythm`; the deploy backs up the database first). And root-sot `docs/root-os`.
+- By-hand pass, no devices this run: the `.ics` in real calendars; a Persian reader on the SR2, SR3, SR6 and SR7 strings; a real phone and screen reader in `fa`; `N` on a physical Persian keyboard, reduced motion, the sign-in after the deploy; after the deploy, the `add_session_rhythm` migration on prod and `rhythmGate` on the box.
+- Close-out, from SR8's *Flagged for close-out*: `00-setup-run-deploy.md` and `DEPLOY-VPS.md` gain `rhythm:gate` and its `docker exec` line if they list scripts; `06-eval-plan.md` §3.A says the script is built, and that `neither` means a gap question left unanswered.
+
 ## 2026-11-19 · verify SR8, main-session items · docs/root-os @ c78a411 · rishe-eco/tracker main @ d55d1cf
 **Drive:** run · /verify --milestone MS2 tracker/modules/05-session-rhythm devices: none (unattended run; the by-hand items and the box run of rhythm:gate stay owed to the founder)
 *Replaces the "8a+8b launch and land SR8" block below as the live block (its step 1, `verify SR8`, ran). That block's Owed items, the SR7-verify block's founder questions 1–7, the MS1-rerun block's questions 1–2 and the SR6 block's questions 1–3 stay live. Nothing pushed.*
