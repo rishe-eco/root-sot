@@ -2,6 +2,45 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · 8a+8b build SR4 (launch and land) · docs/root-os @ 43d1c64 · rishe-eco/tracker main @ 7d031e8
+
+*Partly completes the 8c verify SR3 block below (its step 1, `build-phase SR4`). Launch and land in one session (`unattended.md` rule 6).*
+**Drive:** run · /verify SR4 tracker/modules/05-session-rhythm
+
+**What was done**
+- Card `briefs/SR4.md` (851 words of body; over the 700 target, under 1,000), commit `1d63770`; calls rows 46–50 in `calls.md`.
+- Lane ran in the foreground on slot A: one commit `64bba19`, author `salmanian.foad2@gmail.com`, co-author Sonnet 5.5. Report saved as `briefs/SR4.report.md`. Measured: +624 app, +599 tests, 0 moved, ~10 min, ~148k tokens, inside size L. A newer `main` touches none of its files (none exists).
+
+**Lanes in flight**
+- SR4 (L) · branch `sr4-session-api` from local `main @ 7d031e8` · slot A (`<worktree>/api/prisma/test.db`, no ports used) · the tracker checkout's `.claude/worktrees/sr4-session-api` · card `briefs/SR4.md` · **landed**
+
+**For verify to decide**
+- The card's *Decided here* 1–8 (`briefs/SR4.md`), and calls rows 46–50: no cap in the view, `todayKey` added to `answerItem` and `setDontAsk`, PD-13 over SR3's row 4, one new refusal `That follow-up doesn't fit that answer.`, the `dateKey` schema comment corrected.
+- The lane's own calls, report part 4 #1–#12. Check especially: the five mutations other than `startSession` return `Boolean` (SR6's screens refetch); #3, an item answered and then set "don't ask" leaves the view (PD-13 against card decision 7); #5, `answerItem` refuses any action not among the day's computed items; #7, `priorFate` restores only while the fate the answer set still holds.
+- Report part 5 and 6: real cross-process concurrency and the GraphQL wire shape weren't tested; the P2002 retry was never forced.
+- Canon made stale, for `close-out`: `02-graphql-api.md` (new operations), plan §5 SR4's signatures and §6.2's new message.
+- No change to what the deploy runs; no migration.
+
+**Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout on `main`; one lane at a time)
+1. `/verify SR4 tracker/modules/05-session-rhythm`
+2. `/build-phase SR5 tracker/modules/05-session-rhythm`
+3. `/verify SR5 tracker/modules/05-session-rhythm`
+4. `/verify --milestone MS1 tracker/modules/05-session-rhythm`
+5. `/build-phase SR6 tracker/modules/05-session-rhythm`
+6. `/verify SR6 tracker/modules/05-session-rhythm`
+7. `/build-phase SR7 tracker/modules/05-session-rhythm`
+8. `/verify SR7 tracker/modules/05-session-rhythm`
+9. `/build-phase SR8 tracker/modules/05-session-rhythm`
+10. `/verify SR8 tracker/modules/05-session-rhythm`
+11. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+
+**Questions for the founder**
+- Proposed for `lifecycle/projects/tracker/brief-common.md` (next verify decides): a `createTestUser` default that gives each test account its own email; for any session test, choose start days with the gap block in mind (a gap needs a range older than today minus the spacing). Owed by: none.
+- As the block below: the four `brief-common.md` rules `verify SR3` proposed; the SR3 hand-backs in `team/open-work.md`; push `docs/root-os` and the tracker's local `main` (not before MS2, PD-10); the opportunity-tree node.
+
+**Owed**
+- Push pending: founder. Nothing uncommitted.
+
 ## 2026-11-19 · 8c verify SR3, main-session items · docs/root-os @ 25087d6 · rishe-eco/tracker main @ 7d031e8
 
 *Replaces the resume-verify-SR3 block below. `verify SR3`'s fork ended "ready to fast-forward" (three fixes on the branch, stage record `docs/development/SR3.md`, open-work rows, status column 8 at 4/9: commits `11e2219`, `0914bd2`, `25087d6`), but its main session never ran. The run-to-the-end session did its main-session items under `unattended.md` rule 7: local `main` fast-forwarded to `sr3-capture` (`7d031e8`), the lane's worktree and branch removed. Nothing pushed.*
