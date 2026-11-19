@@ -2,6 +2,24 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · verify SR3 — blocked before it started · docs/root-os @ 24a07e0 · rishe-eco/tracker main @ 051afcc
+
+*Adds to the 8 build SR3 block below. Nothing in it changed: SR3 is still landed and unverified, its lane still in flight, and its next steps still stand.*
+**Drive:** stop · the step's prompt reached the session as `C:/Program Files/Git/verify SR3 …` (Git Bash rewrote the leading `/verify` as a path), and `verify` has `disable-model-invocation`, so it can't be run any other way · resume: in `lifecycle/bin/drive`, run the `claude -p` call with `MSYS_NO_PATHCONV=1` (or run `/verify SR3 tracker/modules/05-session-rhythm` by hand), then `lifecycle/bin/drive tracker/modules/05-session-rhythm`
+
+**What was done**
+- Nothing on SR3. The Skill tool refused `verify` (it is founder-invoked only) and said not to do its work any other way. A verify done by hand outside the fork would also skip its fork and its injected context. Not edited: `bin/drive`, because editing a bash script while it runs can corrupt the run that's reading it.
+- One capture note: `lifecycle/learnings/inbox/2026-11-19-drive-msys-pathconv.md`.
+
+**Lanes in flight**
+- SR3 · branch `sr3-capture` @ `693f8d0`, as the block below says. Status **landed**.
+
+**Next steps, in order**
+1. Fix the mangled prompt (above), then `lifecycle/bin/drive tracker/modules/05-session-rhythm`. It runs `/verify SR3 tracker/modules/05-session-rhythm` and then the steps in the block below.
+
+**Owed**
+- Push pending: founder (unchanged).
+
 ## 2026-11-19 · 8 build SR3 (launch and land) · docs/root-os @ 1a41e69 · rishe-eco/tracker main @ 051afcc
 
 *Partly completes the re-review SR0–SR1 block below: its step 1 (`/build-phase SR3`) is built and landed, the nine items with it. The 8+ verify SR2 block's steps 2–14 carry forward below. Its carry-overs and questions stand.*
