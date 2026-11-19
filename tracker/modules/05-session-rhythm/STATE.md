@@ -2,6 +2,36 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · 8a+8b launch and land SR7 · docs/root-os @ 5d37ee1 · rishe-eco/tracker main @ 9bf3e1b
+*Replaces the "verify --milestone MS1 rerun" block below as the live block (its step 1, `build-phase SR7`, ran). That block's founder questions 1–2 and Owed stay live; the SR6 block's questions 1–3 stay live, and its "Carry into SR7's card" items are in the card (question 1, the foot label, was not: calls row 79). Nothing pushed.*
+**Drive:** run · /verify SR7 tracker/modules/05-session-rhythm
+
+**What was done**
+- Card `tracker/modules/05-session-rhythm/briefs/SR7.md` (`2c60cb6`, 908 words, over 700: calls row 82). Lane ran in the foreground (Sonnet, 30.5 min, 385.4k tokens), report saved as `briefs/SR7.report.md` (`5d37ee1`): +1,401 app lines against size L (~700–1,000), under twice. Two commits `7c7e545`, `372d189`, author `salmanian.foad2@gmail.com`, Sonnet co-author line. Base `main` hasn't moved: no overlap.
+- Calls rows 78–82; capture note `lifecycle/learnings/inbox/2026-11-19-build-phase-SR7.md`.
+
+**Lanes in flight**
+- SR7 (L) · branch `sr7-session-look-ahead` from local `main @ 9bf3e1b` · slot A (`<worktree>/api/prisma/test.db`, API 4010, web 5183) · the tracker checkout's `.claude/worktrees/sr7-session-look-ahead` · card `briefs/SR7.md` · status **landed**.
+
+**For verify to decide**
+- The card's *Decided here* 1–6 (gather on open, a fresh view each showing, a failed `orderDay` drawn on Today too, the foot label untouched, e2e seeding, no dependency).
+- The lane's 16 calls (report part 4), above all: two reads on open (read, gather to `nextDateKey − 1`, read again); `LookAheadRow` composed, `TodayRow` untouched; a move applied only once `planItem` lands, though plate 7 draws it already moved; crossed rows not drawn; Remove by undo notice; the Persian terms (call 15).
+- Outside the card: `app/index.tsx` now mounts `StaleBuildNotice`, which was never drawn in the app (report part 5 item 1, AC-72). A real defect found by J5.10's e2e; accept or move to its own Fix.
+- Report part 5 item 6: `SessionPage`'s `todayKey` is fixed at mount (SR6's pattern), against the card's "at the call". Part 6: no held-pointer drag on a look-ahead row, no real-calendar `.ics` import (P0-4, MS2), Jalali "Later…" undriven.
+- Four open-work rows the lane says it closes: "SR2: a failed `orderDay`…", "SR5: …only reads", "SR6: the gap choice can change…", "SR6: … no 180 px reflow run". Canon stale: report part 4 item 16.
+- Proposal for `brief-common.md`: start e2e servers once and use `E2E_REUSE=1` in e2e-heavy lanes (report part 7; capture note).
+- No change to what a deploy runs (no deploy until MS2, PD-10).
+
+**Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout on `main`; one lane at a time)
+1. `/verify SR7 tracker/modules/05-session-rhythm`
+2. `/build-phase SR8 tracker/modules/05-session-rhythm`
+3. `/verify SR8 tracker/modules/05-session-rhythm`
+4. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+
+**Owed**
+- Push pending: founder. Tracker local `main` (`9bf3e1b`, 58 ahead of origin; PD-10 holds the first push for MS2), the lane branch (not pushed, not needed: verify runs on this machine), and root-sot `docs/root-os`.
+- MS1's by-hand pass on the founder's devices (calls rows 62, 67, 77).
+
 ## 2026-11-19 · verify --milestone MS1 rerun, main-session items · docs/root-os @ 3665572 · rishe-eco/tracker main @ 9bf3e1b
 *Replaces the "verify SR6, main-session items" block below as the live block (its step 1, MS1's rerun, ran). That block's carry-overs into SR7 and its three founder questions stay live; the MS1 block under it keeps its own. Nothing pushed.*
 **Drive:** run · /build-phase SR7 tracker/modules/05-session-rhythm
