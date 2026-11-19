@@ -2,6 +2,28 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · 8c verify SR3, main-session items · docs/root-os @ 25087d6 · rishe-eco/tracker main @ 7d031e8
+
+*Replaces the resume-verify-SR3 block below. `verify SR3`'s fork ended "ready to fast-forward" (three fixes on the branch, stage record `docs/development/SR3.md`, open-work rows, status column 8 at 4/9: commits `11e2219`, `0914bd2`, `25087d6`), but its main session never ran. The run-to-the-end session did its main-session items under `unattended.md` rule 7: local `main` fast-forwarded to `sr3-capture` (`7d031e8`), the lane's worktree and branch removed. Nothing pushed.*
+**Drive:** run · /build-phase SR4 tracker/modules/05-session-rhythm
+
+**What was done**
+- The drive wrapper's path setting (`MSYS_NO_PATHCONV`) leaked into step sessions and broke `git -C /e/...` inside them; that is why `verify SR3`'s injected context said the checkout was missing. The wrapper now excludes only arguments that start with `/verify` or `/build-phase` from Git Bash's path conversion (tested: the slash survives, file arguments resolve, `git -C /e/_root/tracker` works inside the session). The injection scripts need no change.
+
+**Next steps, in order**
+1. `/build-phase SR4 tracker/modules/05-session-rhythm` (Opus, medium, from the tracker checkout). Tell SR4's card: an earlier day's crossing that the person uncrosses on a later day is deleted (re-review item 1, built at SR3), so the look-back has nothing to ask about for that day.
+2. `/verify SR4 tracker/modules/05-session-rhythm` (Opus, high).
+3. Then as the 8+ verify SR2 block below, from its SR5 step.
+
+**Questions for the founder**
+- `verify SR3` proposes four rules for `lifecycle/projects/tracker/brief-common.md`: check that a script's quoting and CRLF line endings survived an edit; a slot script that keeps e2e servers up for `E2E_REUSE=1`; assert a lifted JSX conditional's rendered label text; find a toast by its test id as well as its role. Owed by: none (the build doesn't wait).
+- `verify SR3` hands back to a lane or the founder: the calendar's 20 px page scroll under the new top bar; error text in `amber-600` at 3.19:1 (under 4.5:1); three toasts stacking in one slot on Focus; "Added to <weekday>" for a date past a week. All are in `team/open-work.md`.
+- As the blocks below: push `docs/root-os` and the tracker's local `main` (not before MS2, PD-10); the opportunity-tree node.
+
+**Owed**
+- Push pending: founder. Nothing uncommitted.
+
+
 ## 2026-11-19 · resume verify SR3 · docs/root-os @ 48bdfd5 · rishe-eco/tracker main @ 051afcc
 
 *Adds to the blocked verify SR3 block below, whose cause is fixed: the run-to-the-end session's `claude` wrapper (outside the repo, after the CLI update to 2.1.318) now sets `MSYS_NO_PATHCONV=1`, so Git Bash no longer rewrites a leading `/verify` as a path; tested with a leading-slash prompt. `lifecycle/bin/drive` itself is unchanged (the founder's file). The landed SR3 block's next steps stand.*
