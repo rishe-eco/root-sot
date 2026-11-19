@@ -2,7 +2,7 @@
 
 *Module `tracker/modules/05-session-rhythm/` · Track: Module · Phase 7 · `build-plan`. The order the code lands in and the shape it takes, to the level of tables, routes, refusal codes, screens and tests, so each stage's phase card is a transcription and not a design exercise. Inputs: `02-spec.md` 0.3, `03-journeys.md` 0.3, `04-wireframes.html` draft 2, no `04b-design/` (skipped at intake), `05-ux-review.md` 0.2, `06-eval-plan.md` 0.1, `changes/01-…` and `changes/02-…`, `lifecycle/projects/tracker/` (config 0.4, brief-common 0.6, review-checklist 0.4). Update the changelog; don't fork.*
 
-**Version 0.1 · Status: plan · 2026-11-19 · Owner: _root**
+**Version 0.2 · Status: plan · 2026-11-19 · Owner: _root**
 
 **Where this file yields.** On *what* the module does, the spec wins. On what a person experiences, the journeys win. On how it looks, the wireframes (this module has no design pass). On what the code is, the repository.
 
@@ -404,7 +404,7 @@ The day gate is gone: Today is a list in time order with a quiet session line, a
 **API or routes** client route `/session`; SR4's operations.
 
 **Screens.** Plates 5, 6 (and plate 2's Continue).
-- `root.tsx` hides the navigation and `AppTopBar` on `/session`; the capture key stays global (AC-73's top-bar half).
+- `root.tsx` hides the navigation on `/session` and draws no top bar there; `AppTopBar` stays mounted, `barless`, for N, so the capture key stays global (AC-73's top-bar half).
 - `SessionPage` calls `startSession(todayKey)` on mount, then opens at the first unfinished step, with no notice (W21). Header: "← Today", the three step names, completed ones as links until Finish (W25); "Saved as you go", muted (W32). A failed load: "The session didn't load." and **Try again** (W28).
 - Look back: the gap card, dates only, one quiet line, **Not tracked** and **Fill in**, shrinking to a dimmed line with "change" (W20, W35); "Crossed out" by day with chevrons, **Confirm these** with no number (W33); "Not crossed"; four equal answers, two by two on a phone, one row on desktop, none pre-selected (W15); follow-ups inline, with day chips from today to the day before the pre-filled next date; "no longer matters" as a dimmed line with "change" (W16); "Don't ask about this" under every unanswered row, its undo toast for five seconds with the row dimmed (W18, W34); **Skip the rest** always at the foot, replaced by **Look ahead** when all are answered (W17); "Nothing to look back on." with **Continue** (W19).
 - Every save through `useRetryableSave`; a failed step save (Confirm these, Skip the rest, "Don't ask", completing) keeps the step with `NotSavedLine` (S13).
@@ -421,7 +421,7 @@ The day gate is gone: Today is a list in time order with a quiet session line, a
 **Size: L.**
 
 **Traps.**
-- Walk days with `page.clock.setFixedTime` and seed earlier sessions through the API with explicit keys; never the real date.
+- Walk days with `page.clock.setFixedTime` and seed earlier sessions through the API with explicit keys; never the real date. A clock set past the real date also needs a login token that outlasts it: the seven-day token expires against the moved clock.
 - No `beforeunload`: leaving never asks.
 - StrictMode's double `startSession` is safe by SR4's unique key.
 
@@ -731,4 +731,5 @@ None new. Used: `@dnd-kit/core` and `@dnd-kit/sortable` (installed), `vite-plugi
 
 ## Changelog
 
+- **0.2 · 2026-11-19** — Correction only, from `verify SR6` (record `docs/development/SR6.md` @ `4a32e9f`), applied unattended (`calls.md` row 72): §5 SR6's screens say `AppTopBar` stays mounted `barless` for N rather than hidden; its `page.clock` trap adds the token expiry. No scope change.
 - **0.1 · 2026-11-19** — Plan, from spec 0.3, journeys 0.3, wireframes draft 2, UX review 0.2, eval plan 0.1, change requests 01 and 02, and the tracker project files (config 0.4, brief-common 0.6, review-checklist 0.4); code read at `rishe-eco/tracker main @ eea1c59`. Nine stages, SR0 to SR8, two milestones; 22 defects; W1–W39, S13, P1-F15 and the query script settled. Written by Claude (Opus 5.5) following `build-plan` by hand in the founder's unattended run; every founder question answered as a call (`calls.md` rows 15 to 26), none [F].

@@ -2,49 +2,39 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
-## 2026-11-19 · 8a+8b launch and land SR6 · docs/root-os @ eb8f3df · rishe-eco/tracker main @ 5581a1c
+## 2026-11-19 · verify SR6, main-session items · docs/root-os @ 523acc6 · rishe-eco/tracker main @ 4a32e9f
 
-*Replaces the "MS1 stop lifted" block below (its step 1 ran) and adds to the MS1 main-session block under it, whose carry-overs, questions and Owed stand. Launched and landed in one unattended session (`lifecycle/unattended.md` rule 6). Nothing pushed.*
-**Drive:** run · /verify SR6 tracker/modules/05-session-rhythm
+*Replaces the SR6 launch-and-land block (its step 1, `verify SR6`, ran) and the "MS1 stop lifted" block below (its steps ran). The MS1 main-session block under them keeps its carry-overs, questions and Owed. Nothing pushed.*
+**Drive:** run · /verify --milestone MS1 tracker/modules/05-session-rhythm devices: none
 
 **What was done**
-- Card `tracker/modules/05-session-rhythm/briefs/SR6.md` (root-sot `86d7e6d`), about 850 words of body. It is over the 700 target because it settles three open-work rows and one plan mismatch (the capture key lives inside `AppTopBar`), not because the plan section is underspecified.
-- The lane ran in the foreground: 3 commits on `sr6-session-look-back` (`db30e71`, `d85de56`, `8f2b320`), author `salmanian.foad2@gmail.com`, co-author Claude Sonnet 5.5. It measured +944 app, +90 locale lines and +738 test lines, with 0 moved, in 21 min and 230.6k tokens, against size L. Report: `tracker/modules/05-session-rhythm/briefs/SR6.report.md`. The targeted unit tests are green (62 + 17), and so are the e2e specs `session` + `today` (23) and `capture` + `navigation` (15).
-- Calls rows 68–71 in `tracker/modules/05-session-rhythm/calls.md`.
+- `verify SR6` (fork, Opus high): ready to fast-forward. One fix commit (`00e5a4a`: convention 7e, the moved day through `dateUtils`; `SessionLine`'s stale 404 comment). After it, `tsc` clean, client 30/30, both i18n checks, e2e `session.spec` 12/12, no flakes. Record: tracker `docs/development/SR6.md` @ `4a32e9f`; root-sot `801081c` (column 8 at 7/9), `6501338` (open-work: 3 rows struck, 4 owed added), `a0a334a` (state of the build), `523acc6` (capture note).
+- Main session: tracker local `main` fast-forwarded 5581a1c → `4a32e9f`; the lane's worktree and branch `sr6-session-look-back` removed (row 73). Build plan 0.2, correction only (row 72). `brief-common.md` rules not added (row 74). Calls rows 72–75.
 
 **Lanes in flight**
-- SR6 (L) · `sr6-session-look-back` from local `main @ 5581a1c` · slot A (worktree `api/prisma/test.db`, ports 4010/5183) · the tracker checkout's `.claude/worktrees/sr6-session-look-back` · `briefs/SR6.md` · **landed**
+- none. (The stray worktree `claude/xenodochial-ramanujan-376dc8` is P0-6, the founder's.)
 
-**For verify to decide**
-- The card's *Decided here* 1–5 (calls 68, 69) and its `barless` mismatch (call 70).
-- The lane's sixteen calls (report part 4, call 71). Watch for: `TodayRow`'s menu `min-w-28` (it overlaps the SR2 open-work row on Today's row at 180 px); `NotSavedLine`'s `::before` and `className` (Today and Focus use it too); the `fa` terms the spec doesn't fix (its call 13); `session.spec.ts` re-signs its token with the e2e secret for the `page.clock` dates (its call 15); the Look ahead placeholder that SR7 replaces.
-- Report part 5: the plan's trap misses `page.clock` against the seven-day token, and `expectHitAreas` doesn't scroll controls into view. Both are candidate `brief-common.md` or helper rules, for the founder (as rows 52 and 60).
-- Card checks the lane didn't do: none. No API change, so no API suite ran. No deploy change.
-- Overlap with a newer base: none (local `main` is still `5581a1c`).
-- Open-work rows SR6 closes if verify agrees: "MS1: at 180 px…", "SR4: a gap day's answer survives a switch…", "SR5: SR4's `setGapChoice` is accepted after the look-back…".
+**Carry into SR7's card**
+- Re-read "From the gap" when the look-ahead opens (open-work, from verify SR6).
+- A 180 px reflow test on `/session` (open-work, from verify SR6).
+- Question 1 below, if the founder says yes: `allAnswered` in `SessionPage.tsx` counts a pre-filled crossed row as answered.
 
-**Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout; one lane at a time)
-1. `/verify SR6 tracker/modules/05-session-rhythm`
-2. `/verify --milestone MS1 tracker/modules/05-session-rhythm devices: none` (reruns MS1 now that the quick-add fix is in; the by-hand pass stays owed to the founder)
-3. `/build-phase SR7 tracker/modules/05-session-rhythm`
-4. `/verify SR7 tracker/modules/05-session-rhythm`
-5. `/build-phase SR8 tracker/modules/05-session-rhythm`
-6. `/verify SR8 tracker/modules/05-session-rhythm`
-7. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+**Questions for the founder**
+1. **The look-back's foot label.** When crossed items are still pre-filled "happened" and every other item has an answer, the foot still says "Skip the rest", though nothing would be skipped. Plate 5's caption suggests "Look ahead". A yes is a one-line change, placed in SR7's card or a small Change.
+2. **Persian wording.** Refuse on the diff any `fa` term you don't want; the ones the spec didn't fix are in `briefs/SR6.report.md` part 4, call 13. A Persian reader's pass is an open-work row.
+3. **Two `brief-common.md` rules** (row 74): (a) an e2e test that sets `page.clock` past the real date needs a token that outlasts it (a long-lived token option in `freshUser.ts`); (b) `expectHitAreas` scrolls each control into view and counts a hit on a parent as a miss. The helper fixes are on open-work for MS2.
+
+**Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout on `main`; one lane at a time)
+1. `/verify --milestone MS1 tracker/modules/05-session-rhythm devices: none` (reruns MS1 with the quick-add fix in; the by-hand pass stays owed)
+2. `/build-phase SR7 tracker/modules/05-session-rhythm`
+3. `/verify SR7 tracker/modules/05-session-rhythm`
+4. `/build-phase SR8 tracker/modules/05-session-rhythm`
+5. `/verify SR8 tracker/modules/05-session-rhythm`
+6. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
 
 **Owed**
-- Every push (PD-10): push pending, the founder's.
+- Push pending: founder. Tracker `main` (now `4a32e9f`) and root-sot `docs/root-os` (PD-10).
 - MS1's by-hand pass on the founder's devices (calls rows 62, 67).
-
-## 2026-11-19 · MS1 stop lifted · docs/root-os @ 01ec3b9 · rishe-eco/tracker main @ 5581a1c
-
-*Adds to the MS1 main-session block below: its next steps, carry-overs, questions and Owed stand. Its stop is lifted by the run-to-the-end session under the founder's rule (stop only before an irreversible step; `calls.md` row 67): the red e2e is already routed to SR6's card (row 64), and the by-hand pass is deferred to the founder after the build, as owed.*
-**Drive:** run · /build-phase SR6 tracker/modules/05-session-rhythm
-
-**Next steps, in order**
-1. `/build-phase SR6 tracker/modules/05-session-rhythm` (its card takes the open-work row "Session rhythm MS1: at 180 px…", row 64)
-2. Then as the MS1 main-session block below, from its step 2. Its step 3 (MS1's rerun) runs with `devices: none` in this unattended run; the by-hand pass stays owed.
-
 
 ## 2026-11-19 · verify --milestone MS1, main-session items · docs/root-os @ 100a09d · rishe-eco/tracker main @ 5581a1c
 *Replaces the MS1 devices call block below and partly completes the verify SR5 block under it (its step 1, MS1's verify, ran and ended blocked). Nothing pushed.*
