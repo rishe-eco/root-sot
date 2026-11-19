@@ -2,7 +2,7 @@
 
 *The queue. Work that engineering cannot finish because it needs human judgement, a native speaker, or a decision. Each item states its blocker and what it unblocks. Delete items when done — the decision logs are the permanent record.*
 
-**Version 0.29 · Status: living · 2026-11-19 · Owner: _root**
+**Version 0.30 · Status: living · 2026-11-19 · Owner: _root**
 
 ---
 
@@ -287,11 +287,13 @@ If a seventh skill tool is ever specced, its anticipated cost belongs here again
 | Tracker | Session rhythm SR6 by hand: `/session` with a real screen reader and on a real phone, in `en` and `fa`: the step names and `aria-current`, the answers' group and `aria-pressed`, the day chips, "Don't ask" and its toast (`role="status"`; focus leaves the disabled button), each "Not saved." line (`role="alert"`) | founder | MS2 | `docs/development/SR6.md` in `rishe-eco/tracker` |
 | Tracker | Session rhythm SR6: a Persian reader's pass on `rhythm.session.*` (the terms the spec doesn't fix: «نگاه به عقب», «نگاه به جلو», «کی و کجا», «همون لحظه ذخیره می‌شه», «خط‌نخورده‌ها», «اینا رو تأیید کن», «بقیه‌ش رو بذار روی یه روز», «ببرش یه روز جلوتر», «بذارش کنار», «ولش کن», the gap line, the toast), informal register | founder or a Persian reader | MS2 | `docs/development/SR6.md` in `rishe-eco/tracker` |
 | Tracker | Session rhythm SR7 by hand: the look-ahead and When and where with a real screen reader and on a real phone, in `en` and `fa` (the "⋯" panel's expanded state, the identical "Keep on…"/"Place on…" names whose row title is their only context, the drag handle); the `.ics` imported into Outlook, Google and Apple calendars (P0-4), a Persian place included; "Later…" with the Jalali calendar; a Persian reader's pass on `rhythm.session.lookAheadStep.*` and `whenWhere.*` (the lane's terms, report part 4 call 15) | founder or a Persian reader | MS2 | `docs/development/SR7.md` in `rishe-eco/tracker` |
+| Tracker | Session rhythm SR8 on the box: once MS2 has deployed, `sudo docker exec api-api-1 node dist/scripts/rhythmGate.js --email <your email> --from <your switch date>` prints the gate's report from production (read-only). Never run by a lane or an unattended session (eval plan §2, `unattended.md` rule 3). Tested on a fixture only: W1 and the median haven't met real data | founder | MS2's deploy check, then E2 | `docs/development/SR8.md` in `rishe-eco/tracker` |
 
 ---
 
 ## Changelog
 
+- **0.30 · 2026-11-19** — From `verify SR8` (Tracker, session rhythm): one ceiling row (the record query run on the box by the founder after MS2's deploy).
 - **0.29 · 2026-11-19** — From `verify SR7` (Tracker, session rhythm): four rows struck (SR2's failed `orderDay`, SR5's read-only look-ahead, SR6's gap change from the Look back link, SR6's 180 px `/session` reflow); two *Owed* rows (the "Later…" date commits on every change; `todayKey` fixed at mount) and one ceiling row (SR7 by hand, the `.ics` in real calendars, the Persian pass); SR2's 180 px row amended to cover the look-ahead's row.
 - **0.28 · 2026-11-19** — From `verify SR6` (Tracker, session rhythm): three rows struck (MS1's journal row at 180 px, SR4's gap switch, SR5's `setGapChoice` after the look-back); four *Owed* rows (SR7 re-reads "From the gap", a 180 px `/session` reflow test, the hit-area helper's ancestor hit, `NotSavedLine`'s amber contrast) and two ceiling rows (SR6 by hand, the Persian pass on `rhythm.session.*`).
 - **0.27 · 2026-11-19** — MS1's main session (unattended, Tracker, session rhythm): the journal quick-add row now needed by SR6; the five rows not done at MS1 moved to MS2 (`tracker/modules/05-session-rhythm/calls.md` rows 64–65).
