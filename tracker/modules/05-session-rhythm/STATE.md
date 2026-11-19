@@ -2,6 +2,37 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · verify --milestone MS1, main-session items · docs/root-os @ 100a09d · rishe-eco/tracker main @ 5581a1c
+*Replaces the MS1 devices call block below and partly completes the verify SR5 block under it (its step 1, MS1's verify, ran and ended blocked). Nothing pushed.*
+**Drive:** stop · MS1 ended blocked: its e2e is red on the journal quick-add at 180 px, and its by-hand pass is the founder's · resume: the founder reads calls rows 63–66 and the questions below, does or defers the MS1 by-hand pass, then sets this line to `run · /build-phase SR6 tracker/modules/05-session-rhythm` and runs `lifecycle/bin/drive tracker/modules/05-session-rhythm`
+
+**What was done**
+- `verify --milestone MS1` (fork, `devices: none`): API 79 files / 1,436 passed, client `tsc` clean and 404 passed, e2e 99 of 103. One test-infrastructure fix on tracker local `main` (`317b504`, the reflow helper); after it, 2 tests still fail on a real layout defect (the journal quick-add at 180 px). Record: tracker `docs/development/README.md` (MS1) @ `5581a1c`; root-sot `100a09d` (state of the build 0.47, open-work 0.26, capture note `lifecycle/learnings/inbox/2026-11-19-verify-MS1.md`).
+- Main session: no lane worktree or branch to remove (a milestone; the fix is already on local `main`). Config 0.6 (§6 runs `npx prisma generate` first, row 63). Open-work 0.27: the quick-add row needed by SR6 (row 64); five rows moved to MS2 (row 65). `learned --consolidate` left for the founder (row 66).
+
+**Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout on `main`; one lane at a time)
+1. `/build-phase SR6 tracker/modules/05-session-rhythm` (its card names the open-work row "Session rhythm MS1: at 180 px…", row 64)
+2. `/verify SR6 tracker/modules/05-session-rhythm`
+3. `/verify --milestone MS1 tracker/modules/05-session-rhythm devices: <the founder's devices>` (reruns MS1 once the quick-add fix lands)
+4. `/build-phase SR7 tracker/modules/05-session-rhythm`
+5. `/verify SR7 tracker/modules/05-session-rhythm`
+6. `/build-phase SR8 tracker/modules/05-session-rhythm`
+7. `/verify SR8 tracker/modules/05-session-rhythm`
+8. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+
+**Carry-overs**
+- `finishSession` requires `todayKey`; SR7's card must pass it. `setGapChoice` is still accepted after the look-back (for SR6's card). SR7 gathers when the look-ahead opens (`team/open-work.md`).
+- The SR4 block below still holds what `close-out` needs and its open founder questions; the SR5 block's two `brief-common.md` questions stay live there.
+
+**Questions for the founder**
+- Calls rows 63–66 are proposals made without you: the milestone script now runs `npx prisma generate` first; SR6's card takes the quick-add fix; five MS1 items moved to MS2; consolidation waits for you. Veto any with a change note or `revise`. Owed by: `build-phase SR6`.
+- The learnings inbox holds 27 notes, over the 15-note threshold, and MS1 is a milestone. Will you run `learned --consolidate` with Claude, accepting or refusing each change? Owed by: none, but before MS2 is better.
+
+**Owed**
+- MS1 by hand: the founder, on their devices, on local `main` (open-work ceiling row "Session rhythm MS1 by hand"). MS1 closes after it and the quick-add fix.
+- Push pending: founder (root-sot `docs/root-os`; tracker local `main`, now `5581a1c`, not before MS2, PD-10; a push of tracker `main` deploys).
+
+
 ## 2026-11-19 · MS1 devices call · docs/root-os @ e16beaf · rishe-eco/tracker main @ 2149e4b
 
 *Adds to the verify SR5 block below. `verify --milestone MS1` stopped before its script: its step 1 needs the founder's devices in the argument (`devices: …`) for the by-hand items. In the unattended run that is a call (`calls.md` row 62): the milestone runs its suites now with `devices: none`, and every by-hand item whose *needed by* names MS1 stays owed to the founder in `team/open-work.md`.*
