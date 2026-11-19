@@ -2,6 +2,16 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · MS1 stop lifted · docs/root-os @ 01ec3b9 · rishe-eco/tracker main @ 5581a1c
+
+*Adds to the MS1 main-session block below: its next steps, carry-overs, questions and Owed stand. Its stop is lifted by the run-to-the-end session under the founder's rule (stop only before an irreversible step; `calls.md` row 67): the red e2e is already routed to SR6's card (row 64), and the by-hand pass is deferred to the founder after the build, as owed.*
+**Drive:** run · /build-phase SR6 tracker/modules/05-session-rhythm
+
+**Next steps, in order**
+1. `/build-phase SR6 tracker/modules/05-session-rhythm` (its card takes the open-work row "Session rhythm MS1: at 180 px…", row 64)
+2. Then as the MS1 main-session block below, from its step 2. Its step 3 (MS1's rerun) runs with `devices: none` in this unattended run; the by-hand pass stays owed.
+
+
 ## 2026-11-19 · verify --milestone MS1, main-session items · docs/root-os @ 100a09d · rishe-eco/tracker main @ 5581a1c
 *Replaces the MS1 devices call block below and partly completes the verify SR5 block under it (its step 1, MS1's verify, ran and ended blocked). Nothing pushed.*
 **Drive:** stop · MS1 ended blocked: its e2e is red on the journal quick-add at 180 px, and its by-hand pass is the founder's · resume: the founder reads calls rows 63–66 and the questions below, does or defers the MS1 by-hand pass, then sets this line to `run · /build-phase SR6 tracker/modules/05-session-rhythm` and runs `lifecycle/bin/drive tracker/modules/05-session-rhythm`
