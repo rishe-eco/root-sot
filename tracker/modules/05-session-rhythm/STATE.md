@@ -2,6 +2,42 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · 8c verify SR4, main-session items · docs/root-os @ a9de089 · rishe-eco/tracker main @ 7d031e8
+
+*Replaces the 8a+8b build SR4 block below (its step 1, `verify SR4`, is done). `verify SR4`'s fork ended "ready to fast-forward"; this session did its main-session items under `unattended.md` rule 7. Nothing pushed.*
+**Drive:** run · /build-phase SR5 tracker/modules/05-session-rhythm
+
+**What was done**
+- `verify SR4` (fork): one fix `aacacd2` (`answerItem` and `setDontAsk` refuse a `todayKey` before the session's date, PD-8's message), 7 files / 122 tests passed, `tsc` clean. Stage record `docs/development/SR4.md` @ `c7d3db8`; open-work rows, status column 8 at 5/9, state of the build 0.45, capture note `lifecycle/learnings/inbox/2026-11-19-verify-SR4.md` (root-sot `92438c3`..`a9de089`).
+- Tracker local `main` fast-forwarded `7d031e8` → `c7d3db8`. Worktree `.claude/worktrees/sr4-session-api` removed (`--force`, ignored files only) and branch `sr4-session-api` deleted. Calls rows 51–53 in `calls.md`.
+
+**Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout on `main`; one lane at a time)
+1. `/build-phase SR5 tracker/modules/05-session-rhythm`
+2. `/verify SR5 tracker/modules/05-session-rhythm`
+3. `/verify --milestone MS1 tracker/modules/05-session-rhythm` (needs config §6's milestone script fixed first, plan D-18)
+4. `/build-phase SR6 tracker/modules/05-session-rhythm`
+5. `/verify SR6 tracker/modules/05-session-rhythm`
+6. `/build-phase SR7 tracker/modules/05-session-rhythm`
+7. `/verify SR7 tracker/modules/05-session-rhythm`
+8. `/build-phase SR8 tracker/modules/05-session-rhythm`
+9. `/verify SR8 tracker/modules/05-session-rhythm`
+10. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+
+**Carry-overs**
+- For `close-out` (listed in `docs/development/SR4.md` *Flagged for close-out*): `todayKey` on `answerItem` and `setDontAsk` in plan §5 SR4; §6.2 gains `That follow-up doesn't fit that answer.` and widens the PD-8 refusal to those two writes; PD-13's added-items rule says "ask me"; `02-graphql-api.md` gets the new operations.
+- Ceiling row in `team/open-work.md`: the duplicate-key retry and two-process concurrency were never forced.
+
+**Questions for the founder**
+- When someone chooses Fill in for a gap, answers an item on one of those days, then switches to Not tracked, the answer and any fate it set stay but the day is hidden. Should the gap card stop offering Not tracked once a gap day has an answer (SR6's job), or is that fine as it is? Recorded in `team/open-work.md`; the answer goes there. Owed by: `build-phase SR6`.
+- Should every Tracker card carry these three rules in `lifecycle/projects/tracker/brief-common.md`? (1) A write that takes the client's `todayKey` refuses a key before the date the plan already sets as its floor, with a test. (2) Test accounts get their own email by default. (3) Session tests pick start days knowing that a gap needs a range older than today minus the spacing minus one. On a yes, `/revise` adds them. Owed by: none.
+- `verify SR3`'s four proposed `brief-common.md` rules (script quoting and CRLF; a slot script keeping e2e servers up for `E2E_REUSE=1`; assert a lifted JSX conditional's label; find a toast by test id) and its hand-backs in `team/open-work.md`. Owed by: none.
+- Which opportunity-tree node does the session rhythm sit on (`ecosystem/ost.md` §6)? Owed by: `close-out`.
+- May I push `docs/root-os` in root-sot now? It holds no code, and the tracker's `main` waits for MS2 (PD-10).
+
+**Owed**
+- Push pending: founder (root-sot `docs/root-os`; tracker local `main`, not before MS2).
+- Delete `E:/tmp_sr4.json`, a vitest report the verify fork wrote outside both repos; the shell's safety check refused the removal twice, so it is the founder's.
+
 ## 2026-11-19 · 8a+8b build SR4 (launch and land) · docs/root-os @ 43d1c64 · rishe-eco/tracker main @ 7d031e8
 
 *Partly completes the 8c verify SR3 block below (its step 1, `build-phase SR4`). Launch and land in one session (`unattended.md` rule 6).*
