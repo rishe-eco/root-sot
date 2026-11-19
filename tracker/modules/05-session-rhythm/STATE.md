@@ -2,6 +2,29 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · verify SR8, main-session items · docs/root-os @ c78a411 · rishe-eco/tracker main @ d55d1cf
+**Drive:** run · /verify --milestone MS2 tracker/modules/05-session-rhythm devices: none (unattended run; the by-hand items and the box run of rhythm:gate stay owed to the founder)
+*Replaces the "8a+8b launch and land SR8" block below as the live block (its step 1, `verify SR8`, ran). That block's Owed items, the SR7-verify block's founder questions 1–7, the MS1-rerun block's questions 1–2 and the SR6 block's questions 1–3 stay live. Nothing pushed.*
+
+**What was done**
+- `verify SR8` (fork, ran at lower effort than high): result *ready to fast-forward*. One bug fixed: the loader now reads every window session's range (`1d14f8c`, its test failed first); `rhythmGate.integration.test.ts` 6/6, `tsc` and build clean. The lane's eight calls and the card's *Decided here* 1–8 accepted. Record tracker `docs/development/SR8.md` @ `d55d1cf`; root-sot `8980e44` (open-work: one ceiling row, the founder runs `rhythmGate` on the box after MS2 deploys), `d004b85` (status column 8 at 9/9), `5751203` (state of the build 0.51), `c78a411` (capture note: Prisma's `file:` paths resolve from `api/prisma/`).
+- Main session: tracker local `main` fast-forwarded `da6b5e0` → `d55d1cf`; SR8's worktree removed (`--force`, ignored files only) and branch deleted (row 90). Two `brief-common.md`/config proposals left to the founder (rows 91, 92).
+
+**Lanes in flight**
+- none. (The stray worktree `claude/xenodochial-ramanujan-376dc8` is P0-6, the founder's.)
+
+**Questions for the founder**
+1. **Dummy `api/.env` for lanes.** Should `brief-common.md` tell every Tracker lane that runs the API outside the tests to create `api/.env` with dummy values and never copy main's? Main's may hold a real key; SR8's card and the current brief disagree. Costs one line in every brief (row 91).
+2. **Where the slot databases really are.** Prisma reads `file:` paths from `api/prisma/`, so `file:./prisma/test.db` is `api/prisma/prisma/test.db`. Correct `config.md` §4 and `brief-common.md` to say so? A correction of fact; it stops lanes cleaning up the wrong file (row 92).
+
+**Next steps, in order** (`verify` Opus high, from the tracker checkout on `main`)
+1. `/verify --milestone MS2 tracker/modules/05-session-rhythm devices: none (unattended run; the by-hand items and the box run of rhythm:gate stay owed to the founder)`
+
+**Owed**
+- Push pending: founder. Tracker local `main` (`d55d1cf`, 66 ahead of origin; PD-10 holds the first push for MS2) and root-sot `docs/root-os`.
+- MS1's and MS2's by-hand passes on the founder's devices; `rhythmGate` on the box after MS2 deploys (open-work ceiling row).
+- Close-out, from SR8's *Flagged for close-out*: `00-setup-run-deploy.md` and `DEPLOY-VPS.md` gain `rhythm:gate` and its `docker exec` line if they list scripts; `06-eval-plan.md` §3.A says the script is built, and that `neither` means a gap question left unanswered.
+
 ## 2026-11-19 · 8a+8b launch and land SR8 · docs/root-os @ 3e1a3d3 · rishe-eco/tracker main @ da6b5e0
 *Replaces the "verify SR7, main-session items" block's step 1 (`build-phase SR8`, ran). That block's founder questions 1–7 and its Owed items stay live, as do the MS1-rerun block's questions 1–2 and the SR6 block's questions 1–3. Nothing pushed.*
 **Drive:** run · /verify SR8 tracker/modules/05-session-rhythm
