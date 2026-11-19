@@ -2,6 +2,49 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · 8a launch SR2 · docs/root-os @ 64513d3 · rishe-eco/tracker main @ 35bf320
+
+*Adds to the 8+ verify SR1 block below: starts its next step 1 (`/build-phase SR2`). In an unattended run the lane runs in the foreground and is landed in this same session, which then replaces this block with the land block (`unattended.md` rule 6). This block exists so a cold session can recover if this one is interrupted mid-lane.*
+**Drive:** run · /build-phase SR2 tracker/modules/05-session-rhythm --land
+
+**What was done** (this launch; call in `calls.md` row 36)
+- Reused the committed card `briefs/SR2.md` (1034 words, committed at `64513d3`; drafted at `main @ 35bf320`, where `main` still sits, so its code check held). Spot-checked its load-bearing claims against the unmoved tree: `@dnd-kit` installed; `GET_TODAY_ACTIONS` still read by `client/app/components/tools/ToolsPage.tsx` (keep it, mismatch 1); `overlaps`/`timeToMinutes` in `api/src/services/todayPreDayAfterDay.ts` (keep them, mismatch 2); `ensureRhythm` on the server. All held — card reused unchanged.
+- Made the `sr2-today` worktree from local `main @ 35bf320` (slot A; branched without `git pull`, call 36). Slot A's ports 4010/5183 confirmed free (no Windows excluded range covers them). Launched a foreground Sonnet lane in it.
+
+**Lanes in flight**
+- SR2 (L) · branch `sr2-today`, base `main @ 35bf320` · slot A (db `<worktree>/api/prisma/test.db`; e2e ports 4010/5183) · worktree the tracker checkout's `.claude/worktrees/sr2-today` · card `briefs/SR2.md` · status **running**.
+
+**Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout `E:\_root\tracker` on `main`; one lane at a time; `build-phase` launches and lands in one session, `unattended.md` rule 6)
+1. `/build-phase SR2 tracker/modules/05-session-rhythm --land` (this session lands the lane when it returns; a cold session resumes here from `.tmp/SR2.report.md`)
+2. `/verify SR2 tracker/modules/05-session-rhythm`
+3. `/build-phase SR3 tracker/modules/05-session-rhythm`
+4. `/verify SR3 tracker/modules/05-session-rhythm`
+5. `/build-phase SR4 tracker/modules/05-session-rhythm`
+6. `/verify SR4 tracker/modules/05-session-rhythm`
+7. `/build-phase SR5 tracker/modules/05-session-rhythm`
+8. `/verify SR5 tracker/modules/05-session-rhythm`
+9. `/verify --milestone MS1 tracker/modules/05-session-rhythm`
+10. `/build-phase SR6 tracker/modules/05-session-rhythm`
+11. `/verify SR6 tracker/modules/05-session-rhythm`
+12. `/build-phase SR7 tracker/modules/05-session-rhythm`
+13. `/verify SR7 tracker/modules/05-session-rhythm`
+14. `/build-phase SR8 tracker/modules/05-session-rhythm`
+15. `/verify SR8 tracker/modules/05-session-rhythm`
+16. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+
+**Carry-overs** (as the 8+ verify SR1 block below, unchanged)
+- **Push order (PD-10):** nothing is pushed in the run; SR1 (`35bf320`) and after wait until MS2 passes. SR2 is not pushed or deployed — it switches the founder on first load (`ensureRhythm`), so it must land only in the MS2 deploy.
+- **SR2's owed items** (open-work rows for SR1→SR2) are folded into the card: AC-20/AC-75 ride on `dayList`'s `action { crossedPending reviewSetting }` (Decided here 1); the `showTodayOptions` path is retired (Decided here 2). The 180 px reflow and a both-languages/light hand pass are left to `verify` (card *Proving it here*).
+- After the build, before `close-out`: `journeys update … --from-note 02` and `eval-plan … --touch-up changes/02-…md`; AC-44's wording through `revise` (PD-7c). `close-out` reads SR0's and SR1's *Flagged for close-out*.
+
+**Questions for the founder** (as the 8+ verify SR1 block below)
+- Read `calls.md` rows 5 to 36 and veto any with a change note or `revise`.
+- Which OST node does the session rhythm sit on; push/merge `docs/root-os` when; phone and calendar app for MS2; the stray worktree `.claude/worktrees/xenodochial-ramanujan-376dc8` (P0-4, P0-6).
+
+**Owed**
+- Push pending: founder — tracker `53cd2ec:main` (SR0's merge, PD-10's one allowed early push) and nothing else until MS2; root-sot `docs/root-os`.
+- The SR2 lane is running; its land block replaces this one.
+
 ## 2026-11-19 · 8+ verify SR1 · docs/root-os @ 2308053 · rishe-eco/tracker main @ 35bf320
 
 *Replaces the 8 build SR1 block below: its next step 1 (`/verify SR1`) is done — the stage is verified and on local `main`. Steps 2–17 carry forward, renumbered. Carry-overs and questions stand, as amended here.*
