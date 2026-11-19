@@ -2,6 +2,38 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-19 · 8c verify SR5, main-session items · docs/root-os @ 3cbe0bc · rishe-eco/tracker main @ 2149e4b
+**Drive:** run · /verify --milestone MS1 tracker/modules/05-session-rhythm
+
+*Replaces the 8a+8b build SR5 block below (its step 1, `verify SR5`, is done). `verify SR5`'s fork ended "ready to fast-forward"; this session did its main-session items under `unattended.md` rule 7. Nothing pushed.*
+
+**What was done**
+- `verify SR5` (fork): one fix `da923c4`: `finishSession` takes `todayKey`, refuses a day before the session's own, and writes the next date the view shows (AC-40, J4.11). 9 files / 156 tests passed, `tsc` clean, no flakes. Stage record `docs/development/SR5.md` @ `2149e4b`; open-work rows (SR0's re-gather row struck, two added), state of the build 0.46, status column 8 at 6/9, capture note `lifecycle/learnings/inbox/2026-11-19-verify-SR5.md` (root-sot `dd72990`..`3cbe0bc`).
+- Tracker local `main` fast-forwarded `c7d3db8` → `2149e4b`. Worktree `.claude/worktrees/sr5-look-ahead` removed (no `--force` needed) and branch `sr5-look-ahead` deleted. Calls rows 59–61 in `calls.md`.
+- D-18 (the milestone script) was already fixed by config 0.5 at `verify SR0`, so MS1 can run (row 61).
+
+**Next steps, in order** (each `build-phase` Opus medium, each `verify` Opus high, from the tracker checkout on `main`; one lane at a time)
+1. `/verify --milestone MS1 tracker/modules/05-session-rhythm`
+2. `/build-phase SR6 tracker/modules/05-session-rhythm`
+3. `/verify SR6 tracker/modules/05-session-rhythm`
+4. `/build-phase SR7 tracker/modules/05-session-rhythm`
+5. `/verify SR7 tracker/modules/05-session-rhythm`
+6. `/build-phase SR8 tracker/modules/05-session-rhythm`
+7. `/verify SR8 tracker/modules/05-session-rhythm`
+8. `/verify --milestone MS2 tracker/modules/05-session-rhythm`
+
+**Carry-overs**
+- `finishSession` now requires `todayKey`; no client calls it yet. SR7's card must pass it.
+- New open-work rows: SR7 gathers when the look-ahead opens; `setGapChoice` is still accepted after the look-back (for SR6's card).
+- The SR4 block below still holds what `close-out` needs and its open founder questions; they stay live there.
+
+**Questions for the founder**
+- Should the Tracker lane brief say that scripted edits on the Windows machine use Node, because Python isn't installed, and must keep the file's line endings? Both the SR5 lane and its review lost time to it, and this session lost two minutes to a stray `python` call. It costs one line in `brief-common.md`. On a yes, add it under the environment heading with a version bump and changelog line. Owed by: none.
+- Should every card in a resumable session flow pass `todayKey` to every write that uses today's date, Finish included? A missing one caused a bug in SR4 and again in SR5. It costs one sentence in `brief-common.md` and a few test cases per stage. On a yes, add it the same way. Owed by: none (SR6 and SR7 would benefit).
+
+**Owed**
+- Push pending: founder (root-sot `docs/root-os`; tracker local `main`, not before MS2, PD-10).
+
 ## 2026-11-19 · 8a+8b build SR5 (launch and land) · docs/root-os @ 37f3030 · rishe-eco/tracker main @ c7d3db8
 
 *Replaces the 8c verify SR4 block below as the top block (its step 1, `build-phase SR5`, is done). Launch and land ran in one session (`lifecycle/unattended.md` rule 6). Nothing pushed.*
