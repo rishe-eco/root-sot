@@ -18,7 +18,7 @@
 | [Tracker · Reflect](../tracker/modules/02-reflect/) | Module | done | done | done | STALE | done | | | done | 7/8 | | |
 | [Capacity check](../tracker/modules/03-capacity-check/) | Module | done | done | | | | | | | | | |
 | [Galaxy](../tracker/modules/04-galaxy/) | Module | done | | | | | | | | | | |
-| [Session rhythm](../tracker/modules/05-session-rhythm/) | Module | done | | done | done | done | done | done | done | 2/9 | | |
+| [Session rhythm](../tracker/modules/05-session-rhythm/) | Module | done | | done | done | done | done | done | done | 3/9 | | |
 
 ## Backfill, 2026-10-20
 
