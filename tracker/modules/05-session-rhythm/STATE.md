@@ -14,7 +14,7 @@
 - none. (The stray worktree `claude/xenodochial-ramanujan-376dc8` is P0-6, the founder's.)
 
 **Questions for the founder**
-1. **PD-10, first half.** The suites are green at MS2. May SR0's merge commit go to `main` alone? It deploys the reload handler and changes nothing you can see. From `E:\_root	racker`: `git push origin 53cd2ec:main`; the deploy run should end `DEPLOYED 53cd2ec...`, and its URL goes in the development README under MS2.
+1. **PD-10, first half.** The suites are green at MS2. May SR0's merge commit go to `main` alone? It deploys the reload handler and changes nothing you can see. From `E:\_root\tracker`: `git push origin 53cd2ec:main`; the deploy run should end `DEPLOYED 53cd2ec...`, and its URL goes in the development README under MS2.
 2. **PD-10, second half.** SR1–SR9 switch your account on first load. The plan holds this push until the by-hand list is done. Do the list first on local `main` with a copy of real data (the plan's order), or push now and do it live? Pushing runs the `add_session_rhythm` migration on production; the deploy backs up the database first. Then `git push origin main`, sign in on https://tracker.m-root.com and check for "Plan your next days" (that visit sets the switch date), then on the box: `sudo docker exec api-api-1 node dist/scripts/rhythmGate.js --email <your email> --from <your switch date>`.
 3. **root-sot push.** May `docs/root-os` go up (through this block's commit)? `git -C E:/_root/root-sot push origin docs/root-os`.
 
