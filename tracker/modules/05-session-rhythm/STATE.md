@@ -2,6 +2,32 @@
 
 *Newest block first. Written by handoff, by build-phase when it launches or lands a lane, and by verify (its main-session half) in an unattended run.*
 
+## 2026-11-20 · verify --milestone MS2 (rerun), main-session items (unattended) · docs/root-os @ 867d930 · rishe-eco/tracker main @ 0056c96
+**Drive:** stop · every build stage is verified and MS2's suites are green, but MS2 closes only on the founder's by-hand pass and PD-10's pushes, which an unattended run may not do · resume: do the by-hand list (build plan §8) on local `main` with a copy of real data, answer questions 1–3 below and push, then run `/learned --consolidate` with the founder; after that `lifecycle/bin/drive tracker/modules/05-session-rhythm` can take `journeys update --from-note 02` and `eval-plan --touch-up`
+*Replaces the "verify SR9, main-session items" block below as the live block (its step 1 ran). Its questions 1–2, the MS2 main-session block's question 3 and Owed, and the older blocks' live questions, stay live. Nothing pushed.*
+
+**What was done**
+- `verify --milestone MS2` rerun (fork, Opus high) on tracker local `main @ 72acbdd`: milestone script EXIT 0 in about 15 min. API 1,445 passed; client `tsc` clean, 486 passed; e2e 139/139, none skipped, no flakes. SR6's full hit-area rerun is settled. Record: tracker `docs/development/README.md` @ `0056c96`; root-sot `2874791` (open-work 0.34), `451c5e7` (state of the build 0.54), `867d930` (capture note).
+- Main session: nothing to fast-forward or remove (row 117). Config 0.8: the milestone log name carries the milestone id (row 116). Calls rows 116–117.
+
+**Lanes in flight**
+- none. (The stray worktree `claude/xenodochial-ramanujan-376dc8` is P0-6, the founder's.)
+
+**Questions for the founder**
+1. **PD-10, first half.** The suites are green at MS2. May SR0's merge commit go to `main` alone? It deploys the reload handler and changes nothing you can see. From `E:\_root	racker`: `git push origin 53cd2ec:main`; the deploy run should end `DEPLOYED 53cd2ec...`, and its URL goes in the development README under MS2.
+2. **PD-10, second half.** SR1–SR9 switch your account on first load. The plan holds this push until the by-hand list is done. Do the list first on local `main` with a copy of real data (the plan's order), or push now and do it live? Pushing runs the `add_session_rhythm` migration on production; the deploy backs up the database first. Then `git push origin main`, sign in on https://tracker.m-root.com and check for "Plan your next days" (that visit sets the switch date), then on the box: `sudo docker exec api-api-1 node dist/scripts/rhythmGate.js --email <your email> --from <your switch date>`.
+3. **root-sot push.** May `docs/root-os` go up (through this block's commit)? `git -C E:/_root/root-sot push origin docs/root-os`.
+
+**Next steps, in order** (the founder first; none can run unattended)
+1. The founder's MS2 by-hand pass (open-work rows naming MS2: `.ics` in real calendars, Persian-reader passes, real phone and screen reader in `fa`, N on a physical Persian keyboard, reduced motion, `rhythm.dnd.*` by screen reader), then questions 1 and 2.
+2. `/learned --consolidate` with the founder (the inbox holds 38 notes; `README.md` §5 rule 7).
+3. Still owed from change 02, before `close-out`: `journeys update --from-note 02`, `eval-plan --touch-up`.
+
+**Owed**
+- Push pending: founder — tracker `53cd2ec:main` (PD-10 first half), tracker local `main` @ `0056c96` (second half), root-sot `docs/root-os`.
+- After the push: the `add_session_rhythm` migration on the real database, the sign-in and its switch line, `rhythmGate` on the box.
+- As the MS2 main-session block below: consolidation, close-out's items; the SR9 block's questions 1–2.
+
 ## 2026-11-20 · verify SR9, main-session items (unattended) · docs/root-os @ ce98ab7 · rishe-eco/tracker main @ 72acbdd
 **Drive:** run · /verify --milestone MS2 tracker/modules/05-session-rhythm devices: none (unattended run; the by-hand items and the box run of rhythm:gate stay owed to the founder)
 *Replaces the "8a+8b SR9" block below as the live block (its step 1, `verify SR9`, ran). The MS2 main-session block's question 3 and Owed, and the older blocks' live questions, stay live. Nothing pushed.*

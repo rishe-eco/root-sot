@@ -2,7 +2,7 @@
 
 *Where things are for Tracker work, how its suites run, and which resources each lane gets. Read by `build-phase` (lane resources, the card's paths), `verify` (suites, stage records, the milestone script, the deploy), `design-review` (the design system) and `close-out` (the canon). The rules a lane follows are in `brief-common.md`; what a review checks is in `review-checklist.md`.*
 
-**Version 0.7 · Status: live (CI and CD, CD1; e2e slots and stage records from Reflect) · 2026-11-19 · Owner: founder**
+**Version 0.8 · Status: live (CI and CD, CD1; e2e slots and stage records from Reflect) · 2026-11-20 · Owner: founder**
 
 **Grading.** Facts about the code are **as-built**, read from `rishe-eco/tracker` `main` @ `003db5a` on 2026-10-20: both `package.json` files, `api/vitest.config.ts`, `api/src/test/globalSetup.ts`, `client/playwright.config.ts`, `client/e2e/globalSetup.ts`. Conventions and testing are from the canon (`tracker/canon/02-architecture/04-conventions.md` 0.6, `03-engineering/01-testing.md` 0.3). **Planned:** the review and check scripts (§8), not built until a stage needs them. The stage records, the development README and the e2e lane slots (§4) now exist, from Reflect's B0–B6; Reflect and the B-15 fix have run on the lifecycle here, and session rhythm is in build (§5).
 
@@ -91,7 +91,8 @@ The unattended run takes one lane at a time (PD-20), in the order SR0…SR5 (the
 ```bash
 # cd to the main checkout first (config §1).
 git fetch && git status -sb
-out=.tmp/milestone-$(date +%Y%m%d-%H%M).log; mkdir -p .tmp
+M=MS2   # the milestone id; the log name carries it
+out=.tmp/milestone-${M:?set M to the milestone id}-$(date +%Y%m%d-%H%M).log; mkdir -p .tmp
 { (cd api && npx prisma generate) && (cd api && npm test) && (cd client && npx tsc --noEmit && npm test && npm run test:e2e); echo "EXIT $?"; } >"$out" 2>&1
 grep -E 'Test Files|Tests +[0-9]|passed|failed|EXIT' "$out" | tail -n 20
 ```
@@ -133,6 +134,7 @@ Not built yet. The first stage that needs one adds it under `client/tests/review
 
 ## Changelog
 
+- **0.8 · 2026-11-20** — §6 the milestone script sets `M` and its log name carries the milestone id (`.tmp/milestone-<M>-<stamp>.log`); earlier runs added it by hand, and the MS2 rerun, running the script as written, did not. Applied unattended at the MS2 rerun's main session (`tracker/modules/05-session-rhythm/calls.md` row 116). An edit applied without the founder; veto it with a change note or `revise`.
 - **0.7 · 2026-11-19** — §6 drops "it still hasn't run as a script": the MS1 rerun ran the milestone script as written and it ended `EXIT 0`. Applied unattended at the MS1 rerun's main session (`tracker/modules/05-session-rhythm/calls.md` row 76). An edit applied without the founder; veto it with a change note or `revise`.
 - **0.6 · 2026-11-19** — §6 the milestone script runs `npx prisma generate` in `api/` before the API suite, as CI does; `verify --milestone MS1` found the main checkout's client stale and every integration file failing. Applied unattended at MS1's main session (`tracker/modules/05-session-rhythm/calls.md` row 63). An edit applied without the founder; veto it with a change note or `revise`.
 - **0.5 · 2026-11-19** — D-18's stale facts fixed at `verify SR0` (run unattended by `bin/drive`, `unattended.md` rule 7; `tracker/modules/05-session-rhythm/calls.md` row 28): §1 the stage records and development README now exist (since Reflect), not "planned"; §5 filled with session rhythm's SR0–SR8 (from its build plan §3); §6 the milestones table filled (MS1 after SR5, MS2 after SR8) and the milestone script's hardcoded Linux path and failing `npm run typecheck` replaced with a checkout-relative `cd` and `npx tsc --noEmit`; the header's Grading note updated to match. An edit applied without the founder; veto it with a change note or `revise`.
